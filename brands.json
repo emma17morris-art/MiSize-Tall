@@ -1,14 +1,821 @@
 [
   {
+    "id": "primark",
+    "name": "Primark",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
     "id": "george",
     "name": "George (ASDA)",
-    "notes": "True-to-size; Tall ~34\" inseam; dresses slightly generous at waist.",
-    "lengths_cm": { "short": 74, "regular": 79, "long": 84, "tall": 86 }
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
   },
   {
     "id": "ff",
     "name": "F&F (Tesco)",
-    "notes": "Tops run slightly long; Tall commonly 34\" inseam.",
-    "lengths_cm": { "short": 73, "regular": 78, "long": 83, "tall": 86 }
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "tu",
+    "name": "Tu (Sainsbury\u2019s)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "matalan",
+    "name": "Matalan",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "peacocks",
+    "name": "Peacocks",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "primark-home",
+    "name": "Primark Homewear (Apparel Lines)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "newlook",
+    "name": "New Look",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "river-island",
+    "name": "River Island",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "topshop",
+    "name": "Topshop (via ASOS)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "topman",
+    "name": "Topman (via ASOS)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "dorothy-perkins",
+    "name": "Dorothy Perkins",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "oasis",
+    "name": "Oasis",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "warehouse",
+    "name": "Warehouse",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "monsoon",
+    "name": "Monsoon",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "phase-eight",
+    "name": "Phase Eight",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "hobs",
+    "name": "Hobbs",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "whistles",
+    "name": "Whistles",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "reiss",
+    "name": "Reiss",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "allsaints",
+    "name": "AllSaints",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "fatface",
+    "name": "FatFace",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "joules",
+    "name": "Joules",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "boden",
+    "name": "Boden",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "white-stuff",
+    "name": "White Stuff",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "jack-wills",
+    "name": "Jack Wills",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "superdry",
+    "name": "Superdry",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "next",
+    "name": "Next",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "marks-spencer",
+    "name": "Marks & Spencer",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "m-s-autograph",
+    "name": "M&S Autograph",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "m-s-per-una",
+    "name": "M&S Per Una",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "zara-uk",
+    "name": "ZARA (UK)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "hm-uk",
+    "name": "H&M (UK)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "uniqlo-uk",
+    "name": "UNIQLO (UK)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "boohoo",
+    "name": "Boohoo",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "boohooMAN",
+    "name": "boohooMAN",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "missguided",
+    "name": "Missguided",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "plt",
+    "name": "PrettyLittleThing",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "asos",
+    "name": "ASOS",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "asos-design",
+    "name": "ASOS DESIGN",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "jd-williams",
+    "name": "JD Williams",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "very",
+    "name": "Very",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "littlewoods",
+    "name": "Littlewoods",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "house-of-fraser",
+    "name": "House of Fraser (Own Labels)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "debenhams",
+    "name": "Debenhams (Own Labels)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "john-lewis",
+    "name": "John Lewis (Own Labels)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "tu-mens",
+    "name": "Tu Menswear (Sainsbury\u2019s)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "george-mens",
+    "name": "George Menswear (ASDA)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "burton",
+    "name": "Burton",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "evans",
+    "name": "Evans",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "new-look-mens",
+    "name": "New Look Men",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "nike-uk",
+    "name": "Nike (UK)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "adidas-uk",
+    "name": "adidas (UK)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "puma-uk",
+    "name": "PUMA (UK)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "reebok-uk",
+    "name": "Reebok (UK)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "fila-uk",
+    "name": "FILA (UK)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "converse-uk",
+    "name": "Converse (UK)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "clarks",
+    "name": "Clarks",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "office",
+    "name": "OFFICE (Own Labels)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "schuh",
+    "name": "schuh (Own Labels)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "dune-london",
+    "name": "Dune London",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "kurt-geiger",
+    "name": "Kurt Geiger",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "jojo-maman",
+    "name": "JoJo Maman B\u00e9b\u00e9",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
+  },
+  {
+    "id": "mothercare",
+    "name": "Mothercare (legacy sizing)",
+    "country": "UK",
+    "notes": "Placeholder brand entry. Replace notes & length map after verification.",
+    "lengths_cm": {
+      "short": 73,
+      "regular": 78,
+      "long": 83,
+      "tall": 86
+    },
+    "needsVerification": true
   }
 ]
