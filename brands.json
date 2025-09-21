@@ -10,11 +10,5 @@
     "name": "F&F (Tesco)",
     "notes": "Tops run slightly long; Tall commonly 34\" inseam.",
     "lengths_cm": { "short": 73, "regular": 78, "long": 83, "tall": 86 }
-  },
-  {
-    "id": "primark",
-    "name": "Primark",
-    "notes": "Can vary by line; consider sizing up for fitted items.",
-    "lengths_cm": { "short": 72, "regular": 77, "long": 82, "tall": 86 }
   }
 ]
