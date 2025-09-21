@@ -123,20 +123,189 @@
     <div class="footer">siZed prototype • v0.1 • No accounts, no tracking. Data lives in your browser only.</div>
   </div>
   <script>
-    function $(id){ return document.getElementById(id); }
-    function go(id){
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      (document.getElementById(id) || document.getElementById('home')).classList.add('active');
-      document.getElementById('title').textContent = 'siZed — ' + id;
-    }
-  <script>
+  // --- tiny helpers ---
+  function $(id){ return document.getElementById(id); }
+  function num(v){ const n = parseFloat(v); return isNaN(n) ? null : n; }
+
+  // --- global data (now loaded from JSON files) ---
   let BRANDS = [];
   let CHARTS = [];
   const CATEGORIES = ['Women • Dresses','Women • Jeans','Shoes (UK)'];
-      async function loadData() {
-    // fetch brands.json and charts.json from the same folder as index.html
-    const b = await fetch('brands.json');  BRANDS = await b.json();
-    const c = await fetch('charts.json');  CHARTS = await c.json();
+
+  // --- navigation (switch screens) ---
+  function go(id){
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    (document.getElementById(id) || document.getElementById('home')).classList.add('active');
+    document.getElementById('title').textContent = 'siZed — ' + id;
+    if(id === 'brandNotes') renderBrandNotes();
+    if(id === 'history') renderHistory();
   }
-</body>
-</html>
+
+  // --- load JSON files that sit next to index.html ---
+  async function loadData(){
+    try{
+      const b = await fetch('brands.json');  BRANDS = await b.json();
+      const c = await fetch('charts.json');  CHARTS = await c.json();
+    }catch(e){
+      console.error('Failed to load JSON:', e);
+      alert('Could not load brands.json / charts.json — make sure both files are in the repo root.');
+    }
+  }
+
+  // --- measurement storage (saved in the browser) ---
+  function getMeasurements(){ try { return JSON.parse(localStorage.getItem('measurements')||'{}'); } catch(e){ return {}; } }
+  function saveMeasurements(){
+    const m = {
+      name: $('m_name')?.value || 'Me',
+      sex: $('m_sex')?.value || 'female',
+      height: num($('m_height')?.value), shoulder: num($('m_shoulder')?.value),
+      bust: num($('m_bust')?.value), waist: num($('m_waist')?.value), hip: num($('m_hip')?.value),
+      inseam: num($('m_inseam')?.value), torso: num($('m_torso')?.value),
+      footlen: num($('m_footlen')?.value), band: num($('m_band')?.value),
+      cup: ($('m_cup')?.value||'').toUpperCase()
+    };
+    localStorage.setItem('measurements', JSON.stringify(m));
+    const msg = $('saveMsg'); if(msg){ msg.style.display='block'; setTimeout(()=> msg.style.display='none', 2000); }
+  }
+  function loadMeasurements(){
+    const m = getMeasurements(); if(!m || !Object.keys(m).length) return;
+    if($('m_name')) $('m_name').value = m.name ?? ''; 
+    if($('m_sex'))  $('m_sex').value  = m.sex  ?? 'female';
+    if($('m_height'))   $('m_height').value   = m.height   ?? '';
+    if($('m_shoulder')) $('m_shoulder').value = m.shoulder ?? '';
+    if($('m_bust'))     $('m_bust').value     = m.bust     ?? '';
+    if($('m_waist'))    $('m_waist').value    = m.waist    ?? '';
+    if($('m_hip'))      $('m_hip').value      = m.hip      ?? '';
+    if($('m_inseam'))   $('m_inseam').value   = m.inseam   ?? '';
+    if($('m_torso'))    $('m_torso').value    = m.torso    ?? '';
+    if($('m_footlen'))  $('m_footlen').value  = m.footlen  ?? '';
+    if($('m_band'))     $('m_band').value     = m.band     ?? '';
+    if($('m_cup'))      $('m_cup').value      = m.cup      ?? '';
+  }
+
+  // --- fill dropdowns from loaded BRANDS/CATEGORIES ---
+  function initSelectors(){
+    const b = $('sf_brand'); if(b){ b.innerHTML = '';
+      BRANDS.forEach(br => { const opt = document.createElement('option'); opt.value = br.id; opt.textContent = br.name; b.appendChild(opt); });
+    }
+    const c = $('sf_category'); if(c){ c.innerHTML = '';
+      CATEGORIES.forEach(cat => { const opt = document.createElement('option'); opt.value = cat; opt.textContent = cat; c.appendChild(opt); });
+    }
+    const ib = $('in_brand'); if(ib){ ib.innerHTML = '';
+      BRANDS.forEach(br => { const o = document.createElement('option'); o.value = br.id; o.textContent = br.name; ib.appendChild(o); });
+    }
+  }
+
+  // --- Size Finder using CHARTS (from charts.json) ---
+  function computeSize(){
+    const brandId = $('sf_brand').value, cat = $('sf_category').value, fit = $('sf_fit').value;
+    const meas = getMeasurements();
+    const brand = BRANDS.find(b => b.id === brandId);
+
+    // rows for this brand/category
+    const table = CHARTS
+      .filter(r => r.brandId === brandId && r.category === cat)
+      .map(r => ({ size:r.size, bust:r.bust??null, waist:r.waist??null, hip:r.hip??null, footLen:r.footLen??null }));
+
+    if(!brand || table.length===0){ showResult('—','Low','No data for this brand/category yet.', []); return; }
+
+    let dims=[]; 
+    if(cat.includes('Dresses')) dims=['bust','waist','hip'];
+    if(cat.includes('Jeans'))   dims=['waist','hip'];
+    if(cat.includes('Shoes'))   dims=['footLen'];
+
+    const wants={}; dims.forEach(d=> wants[d]=meas[d==='footLen'?'footlen':d]);
+    const used = dims.filter(d=> wants[d]!=null);
+    if(!used.length){ showResult('—','Low','Please add measurements for this category.', []); return; }
+
+    const scored = table.map(r=>({
+      size:r.size,
+      score: used.reduce((s,d)=> s + Math.abs((r[d]||0) - wants[d]), 0)
+    })).sort((a,b)=> a.score - b.score);
+
+    let pick = scored[0]; if(!pick){ showResult('—','Low','No matching sizes found.', []); return; }
+    if(scored[1]){ const diff=scored[1].score-scored[0].score; if(fit==='relaxed' && diff<2) pick=scored[1]; }
+
+    const avg = pick.score/used.length; 
+    let conf='Medium'; if(avg<1.2 && used.length>=2) conf='High'; if(avg>3.0) conf='Low';
+
+    const notes=[]; 
+    if(fit==='snug') notes.push('Snug fit chosen. If unsure, consider one size up.');
+    if(fit==='relaxed') notes.push('Relaxed fit chosen. For closer fit, go down.');
+    if(cat.includes('Jeans') && meas.inseam && brand?.lengths_cm){
+      const len = mapInseamToLengthFromBrand(brand.lengths_cm, meas.inseam);
+      notes.push(`Suggested length: <span class="badge">${len.toUpperCase()}</span>.`);
+    }
+    if(brand?.notes) notes.push(`Brand note: ${brand.notes}`);
+
+    showResult(pick.size, conf, null, notes);
+  }
+
+  function showResult(size, conf, message, notes){
+    const box = $('sf_result'); if(!box) return;
+    box.style.display='block';
+    $('sf_size').innerHTML = size==='—' ? 'No result' : `Your best size: <span class="badge">${size}</span>`;
+    $('sf_confidence').innerHTML = `Confidence: <span class="${conf==='High'?'success':conf==='Low'?'danger':'warning'} badge">${conf}</span>`;
+    $('sf_notes').innerHTML = message ? message : notes.map(n=>`<div>• ${n}</div>`).join('');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window._lastResult = { when:new Date().toISOString(), brand:$('sf_brand').value, category:$('sf_category').value, size:size, conf:conf };
+  }
+
+  // --- Brand Notes from brands.json ---
+  function renderBrandNotes(){
+    const wrap = $('brandList'); if(!wrap) return; wrap.innerHTML='';
+    BRANDS.forEach(b=>{
+      const div=document.createElement('div'); div.className='item';
+      const left=document.createElement('div'); left.innerHTML=`<div><strong>${b.name}</strong></div><div class="note">${b.notes||''}</div>`;
+      const L=b.lengths_cm||{};
+      const right=document.createElement('div'); right.innerHTML=
+        `<span class="pill">Short ~${L.short??'–'}cm</span>
+         <span class="pill">Regular ~${L.regular??'–'}cm</span>
+         <span class="pill">Long ~${L.long??'–'}cm</span>
+         <span class="pill">Tall ~${L.tall??'–'}cm</span>`;
+      div.appendChild(left); div.appendChild(right); wrap.appendChild(div);
+    });
+  }
+
+  // --- converters (these are the same as before) ---
+  function convertClothing(){
+    const from=$('cw_from').value, to=$('cw_to').value, val=$('cw_val').value.trim();
+    const map=[{UK:'8',EU:'36',US:'4'},{UK:'10',EU:'38',US:'6'},{UK:'12',EU:'40',US:'8'},{UK:'14',EU:'42',US:'10'},{UK:'16',EU:'44',US:'12'},{UK:'18',EU:'46',US:'14'}];
+    const row = map.find(r=> r[from]===val); $('cw_out').textContent = row ? row[to] : '—';
+  }
+  function convertShoes(){
+    const from=$('sh_from').value, to=$('sh_to').value, val=$('sh_val').value.trim();
+    const map=[{UK:'4',EU:'37',US:'6.5'},{UK:'5',EU:'38',US:'7.5'},{UK:'6',EU:'39',US:'8.5'},{UK:'7',EU:'40',US:'9.5'}];
+    const row = map.find(r=> r[from]===val); $('sh_out').textContent = row ? row[to] : '—';
+  }
+  function convertBra(){
+    const band=parseFloat($('br_band').value); const cup=($('br_cup').value||'').toUpperCase(); if(!band||!cup){$('br_out').textContent=''; return;}
+    let inches=band/2.54; let bandUK=Math.round(inches/2)*2; bandUK=Math.min(Math.max(bandUK,28),42);
+    const sister=[bandUK-2, bandUK+2].filter(x=>x>=28 && x<=42).join('/'); $('br_out').textContent=`UK ~ ${bandUK}${cup} (sisters: ${sister}${cup})`;
+  }
+
+  function mapInseamToLengthFromBrand(lengths, cm){
+    const entries = Object.entries(lengths || {}); if(!entries.length) return 'regular';
+    const sorted = entries.map(([k,v])=>({k, d: Math.abs(v - cm)})).sort((a,b)=> a.d - b.d);
+    return sorted[0].k;
+  }
+  function inseamHelper(){
+    const brandId=$('in_brand').value; const brand=BRANDS.find(b=>b.id===brandId); const cm=parseFloat($('in_cm').value);
+    if(!brand || !cm){ $('in_out').textContent=''; return; } const label=mapInseamToLengthFromBrand(brand.lengths_cm, cm); $('in_out').textContent = `${label.toUpperCase()} for ${brand.name}`;
+  }
+
+  // --- history (kept simple) ---
+  function getHistory(){ try { return JSON.parse(localStorage.getItem('history')||'[]'); } catch(e){ return []; } }
+  function saveHistory(){ if(!window._lastResult) return; const h=getHistory(); h.unshift(window._lastResult); localStorage.setItem('history', JSON.stringify(h.slice(0,20))); alert('Saved to history.'); }
+  function renderHistory(){
+    const wrap=$('histList'); if(!wrap) return; wrap.innerHTML=''; const h=getHistory(); if(!h.length){ wrap.innerHTML='<div class="note">No lookups yet.</div>'; return;}
+    h.forEach(item=>{ const div=document.createElement('div'); div.className='item'; div.innerHTML=`<div><div><strong>${item.brand}</strong> • ${item.category}</div><div class="note">${new Date(item.when).toLocaleString()} • Recommended size: <span class="badge">${item.size}</span> • ${item.conf} confidence</div></div><div class="pill">Saved</div>`; wrap.appendChild(div); });
+  }
+
+  // --- boot the app: load JSON, then fill selectors, then restore measurements ---
+  (async () => {
+    await loadData();
+    initSelectors();
+    loadMeasurements();
+  })();
+</script>
