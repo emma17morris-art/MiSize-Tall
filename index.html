@@ -7,19 +7,40 @@
   <style>
     /* ===== Splash: one logo, fade-in, then single metallic shine ===== */
     .splash-logo { height: clamp(220px, 30vw, 380px); display:block; opacity:0; animation:fadeIn 2s forwards; }
-    .logo-wrap { position: relative; display:inline-block; line-height:0; }
-    .logo-wrap .shine {
-      position:absolute; inset:0; pointer-events:none;
-      /* mask to logo shape */
-      -webkit-mask-image:url('MiSize.png'); -webkit-mask-repeat:no-repeat; -webkit-mask-position:center; -webkit-mask-size:contain;
-      mask-image:url('MiSize.png'); mask-repeat:no-repeat; mask-position:center; mask-size:contain;
-      /* metallic beam */
-      background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.85) 50%, rgba(255,255,255,0) 100%);
-      transform: translateX(-120%); 
-      animation: silverShine 2.5s ease-in-out 2s forwards; /* start after fade-in, run once */
-    }
-    @keyframes fadeIn { from{opacity:0; transform:scale(.9);} to{opacity:1; transform:scale(1);} }
-    @keyframes silverShine { 0%{ transform:translateX(-120%) skewX(-15deg);} 100%{ transform:translateX(120%) skewX(-15deg);} }
+    .logo-wrap {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+
+.logo-wrap .shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* mask to logo shape */
+  -webkit-mask-image: url('MiSize.png');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  mask-image: url('MiSize.png');
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  /* metallic beam */
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.85) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  transform: translateX(-200%) skewX(-15deg);
+  animation: silverShine 2.5s ease-in-out 2s forwards;
+}
+
+@keyframes silverShine {
+  0%   { transform: translateX(-200%) skewX(-15deg); }
+  100% { transform: translateX(200%)  skewX(-15deg); }
+}
 
     /* ===== Theme ===== */
     :root{
