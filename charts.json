@@ -1,0 +1,16 @@
+[
+  /* Women • Dresses (use bust/waist/hip in cm) */
+  { "brandId": "george",  "category": "Women • Dresses", "size": "10", "bust": 88, "waist": 70, "hip": 94 },
+  { "brandId": "george",  "category": "Women • Dresses", "size": "12", "bust": 92, "waist": 74, "hip": 98 },
+  { "brandId": "ff",      "category": "Women • Dresses", "size": "12", "bust": 90, "waist": 72, "hip": 96 },
+  { "brandId": "primark", "category": "Women • Dresses", "size": "14", "bust": 94, "waist": 78, "hip": 100 },
+
+  /* Women • Jeans (use waist/hip in cm) */
+  { "brandId": "george",  "category": "Women • Jeans",   "size": "14", "waist": 78, "hip": 102 },
+  { "brandId": "ff",      "category": "Women • Jeans",   "size": "16", "waist": 80, "hip": 104 },
+  { "brandId": "primark", "category": "Women • Jeans",   "size": "18", "waist": 86, "hip": 108 },
+
+  /* Shoes (UK) (use footLen in mm) */
+  { "brandId": "george",  "category": "Shoes (UK)",      "size": "5",  "footLen": 240 },
+  { "brandId": "ff",      "category": "Shoes (UK)",      "size": "6",  "footLen": 247 }
+]
