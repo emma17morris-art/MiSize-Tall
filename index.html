@@ -3,32 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MiSize — Clickable Prototype (MVP)</title>
-
+  <title>MiSize — Prototype</title>
   <style>
-    /* ===== Splash: logo + metallic silver shine ===== */
-    .splash-logo{ height: clamp(220px, 30vw, 380px); display:block; }
-    .logo-wrap{ position: relative; display: inline-block; line-height: 0; }
-    .logo-wrap::after{
-      content:""; position:absolute; inset:0; pointer-events:none;
+    /* ===== Splash: one logo, fade-in, then single metallic shine ===== */
+    .splash-logo { height: clamp(220px, 30vw, 380px); display:block; opacity:0; animation:fadeIn 2s forwards; }
+    .logo-wrap { position: relative; display:inline-block; line-height:0; }
+    .logo-wrap .shine {
+      position:absolute; inset:0; pointer-events:none;
+      /* mask to logo shape */
       -webkit-mask-image:url('MiSize.png'); -webkit-mask-repeat:no-repeat; -webkit-mask-position:center; -webkit-mask-size:contain;
       mask-image:url('MiSize.png'); mask-repeat:no-repeat; mask-position:center; mask-size:contain;
-      background: linear-gradient(120deg,
-        rgba(170,170,170,0.00) 0%,
-        rgba(190,190,190,0.08) 38%,
-        rgba(255,255,255,0.85) 47%,
-        rgba(225,225,225,0.92) 50%,
-        rgba(255,255,255,0.85) 53%,
-        rgba(190,190,190,0.08) 62%,
-        rgba(170,170,170,0.00) 100%);
-      mix-blend-mode: screen; opacity:.95; transform: translateX(-120%);
-      animation: silverShine 3.2s linear infinite;
+      /* metallic beam */
+      background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.85) 50%, rgba(255,255,255,0) 100%);
+      transform: translateX(-120%); 
+      animation: silverShine 2.5s ease-in-out 2s forwards; /* start after fade-in, run once */
     }
-    @keyframes silverShine{ 0%{transform:translateX(-120%) skewX(-18deg);} 100%{transform:translateX(120%) skewX(-18deg);} }
-    .fade-in{animation:fadeIn 2s forwards;} .fade-out{animation:fadeOut 1s forwards;}
-    @keyframes fadeIn{from{opacity:0;transform:scale(.9);} to{opacity:1;transform:scale(1);} }
-    @keyframes fadeOut{from{opacity:1;transform:scale(1);} to{opacity:0;transform:scale(1.05);} }
-<!-- ===== Splash (just one logo, fade in + metallic shine) ===== --
+    @keyframes fadeIn { from{opacity:0; transform:scale(.9);} to{opacity:1; transform:scale(1);} }
+    @keyframes silverShine { 0%{ transform:translateX(-120%) skewX(-15deg);} 100%{ transform:translateX(120%) skewX(-15deg);} }
+
     /* ===== Theme ===== */
     :root{
       --brand:#4f7cff; --brand-text:#fff; --bg:#0b0d12; --card:#0f131a;
@@ -41,47 +33,49 @@
     button{ cursor:pointer; border:0; padding:12px 16px; border-radius:12px; font-weight:600; }
     input,select{ width:100%; padding:12px; border-radius:10px; border:1px solid #2a2f3a; background:#0f131a; color:#eef1f5; }
     label{ font-size:14px; opacity:.9; }
+
     .container{ max-width:980px; margin:0 auto; padding:20px; }
     .screen{ display:none; animation:fade .2s ease-in; } .screen.active{ display:block; }
     @keyframes fade{ from{opacity:0;} to{opacity:1;} }
+
     .row{ display:grid; grid-template-columns:1fr; gap:14px; }
     @media (min-width:720px){ .row.two{ grid-template-columns:1fr 1fr; } .row.three{ grid-template-columns:repeat(3,1fr);} }
+
     .card{ background:linear-gradient(180deg,#111520,#0d1119); border:1px solid var(--border); border-radius:16px; padding:16px; }
     .toolbar{ display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; align-items:center; }
     .cta{ background:var(--brand); color:var(--brand-text); }
     .ghost{ background:#182034; color:#eef1f5; }
-    .muted{ opacity:.8; }
     .pill{ display:inline-block; padding:6px 10px; border-radius:999px; background:#172034; border:1px solid #223049; font-size:12px; }
     .big{ font-size:28px; font-weight:800; margin:0; }
     .subtitle{ margin-top:6px; opacity:.8; }
     .note{ font-size:13px; opacity:.85; }
     .success{ color:#8ee0b2; } .warning{ color:#ffd27a; } .danger{ color:#ff9a9a; }
-    .badge{ font-weight:800; } .spaced{ margin-top:12px; } .divider{ height:1px; background:#1b2230; margin:14px 0; }
+    .badge{ font-weight:800; } .divider{ height:1px; background:#1b2230; margin:14px 0; }
 
-    /* App bar */
     .appbar{ position:sticky; top:0; z-index:10; background:rgba(12,14,18,.8); backdrop-filter:blur(8px); padding:12px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; }
     .appbar.hidden{ display:none; }
     .appbar h1{ font-size:18px; margin:0; font-weight:800; letter-spacing:.3px; }
 
-    /* My sizes tweaks */
-    #ms_list .item .note{ opacity:.85; font-size:13px; }
-    #ms_list .badge{ font-weight:800; }
+    /* My sizes list */
+    #ms_list .item{ padding:12px; border-radius:12px; background:#0f131a; border:1px solid #202939; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    #ms_list .note{ opacity:.85; }
   </style>
 </head>
 <body>
 
-  <!-- App bar (hidden during splash, shown after) -->
+  <!-- App bar -->
   <div class="appbar hidden">
     <button class="ghost" onclick="go('home')">◀</button>
     <h1 id="title">MiSize — Prototype</h1>
-    <span class="pill" style="margin-left:auto;">Demo • Offline • No data sent</span>
+    <span class="pill" style="margin-left:auto;">Demo • Offline</span>
   </div>
 
   <div class="container">
-    <!-- ===== Splash ===== -->
+    <!-- ===== Splash (one logo) ===== -->
     <section id="splash" class="screen active" style="display:flex;align-items:center;justify-content:center;height:100vh;background:#0b0d12;">
       <div class="logo-wrap">
         <img src="MiSize.png" alt="MiSize logo" class="splash-logo">
+        <div class="shine"></div>
       </div>
     </section>
 
@@ -91,42 +85,9 @@
         <h2 class="big">Welcome to MiSize by Ems.</h2>
         <p class="subtitle">One-tap brand sizing for second-hand finds and high street buys.</p>
         <div class="toolbar">
-          <button class="cta" onclick="go('onboarding')">Get started</button>
+          <button class="cta" onclick="go('measurements')">Get started</button>
           <button class="ghost" onclick="go('sizeFinder')">Skip to Size Finder</button>
-        </div>
-      </div>
-
-      <div class="row two spaced">
-        <div class="card">
-          <h3>Measurement profiles</h3>
-          <p class="muted">Store yours (and family) once. We’ll map to each brand’s chart.</p>
-          <button class="ghost" onclick="go('measurements')">Add measurements</button>
-        </div>
-
-        <div class="card">
-          <h3>My sizes (all brands)</h3>
-          <p class="muted">See your recommended size in every brand for selected categories.</p>
-          <div class="toolbar">
-            <button class="cta" onclick="go('mySizes')">Open My sizes</button>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>Converters</h3>
-          <p class="muted">UK ⇄ EU ⇄ US for clothes, shoes, and bras.</p>
-          <button class="ghost" onclick="go('converters')">Open converters</button>
-        </div>
-
-        <div class="card">
-          <h3>Brand notes</h3>
-          <p class="muted">Tall? Petite? Curvy? See how each brand defines lengths & fit.</p>
-          <button class="ghost" onclick="go('brandNotes')">Browse brands</button>
-        </div>
-
-        <div class="card">
-          <h3>History</h3>
-          <p class="muted">Your recent size lookups at a glance.</p>
-          <button class="ghost" onclick="go('history')">View history</button>
+          <button class="ghost" onclick="go('mySizes')">My sizes (all brands)</button>
         </div>
       </div>
     </section>
@@ -166,29 +127,12 @@
       </div>
     </section>
 
-    <!-- ===== Onboarding ===== -->
-    <section id="onboarding" class="screen">
-      <div class="card">
-        <h3>What brings you here?</h3>
-        <div class="nav">
-          <div class="pill"><input type="checkbox"> Second-hand bargains</div>
-          <div class="pill"><input type="checkbox"> Recent weight change</div>
-          <div class="pill"><input type="checkbox"> Non-standard proportions</div>
-          <div class="pill"><input type="checkbox"> Kids’ clothes</div>
-        </div>
-        <div class="toolbar">
-          <button class="cta" onclick="go('measurements')">Next: Measurements</button>
-        </div>
-      </div>
-    </section>
-
     <!-- ===== Measurements (profiles + unit toggle) ===== -->
     <section id="measurements" class="screen">
       <div class="card">
         <h3>Profiles & measurements</h3>
-        <p class="note">Choose your preferred unit. Numbers are stored internally in <b>cm</b> (for chart matching), but your profile remembers the unit you like to see.</p>
+        <p class="note">Numbers are stored internally in <b>cm</b> (for chart matching), but each profile remembers your preferred unit.</p>
 
-        <!-- Profile picker -->
         <div class="row two">
           <div>
             <label>Active profile</label>
@@ -203,16 +147,11 @@
 
         <div class="divider"></div>
 
-        <!-- Measurement form -->
         <div class="row two">
           <div><label>Profile name</label><input id="m_name" placeholder="e.g., Emma" /></div>
           <div>
             <label>Sex</label>
-            <select id="m_sex">
-              <option value="female">Female</option>
-              <option value="male">Male</option>
-              <option value="child">Child</option>
-            </select>
+            <select id="m_sex"><option value="female">Female</option><option value="male">Male</option><option value="child">Child</option></select>
           </div>
         </div>
 
@@ -237,6 +176,35 @@
       </div>
     </section>
 
+    <!-- ===== My sizes (all brands) ===== -->
+    <section id="mySizes" class="screen">
+      <div class="card">
+        <h3>My sizes across brands</h3>
+        <div class="row two">
+          <div>
+            <label>Categories</label>
+            <select id="ms_category" multiple size="4" style="height:100px;"></select>
+            <p class="note">Tap to select one or more categories.</p>
+          </div>
+          <div>
+            <label>Fit preference</label>
+            <select id="ms_fit"><option value="standard">Standard</option><option value="snug">Snug</option><option value="relaxed">Relaxed</option></select>
+            <div style="margin-top:8px;"><button class="cta" onclick="computeAllSizes()">Compute all</button></div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="toolbar">
+          <button class="ghost" onclick="copyMySizes()">Copy</button>
+          <button class="ghost" onclick="exportMySizesCSV()">Export CSV</button>
+          <span class="pill" id="ms_count">—</span>
+        </div>
+
+        <div class="list" id="ms_list"></div>
+      </div>
+    </section>
+
     <!-- ===== Brand Notes ===== -->
     <section id="brandNotes" class="screen">
       <div class="card">
@@ -253,42 +221,7 @@
       </div>
     </section>
 
-    <!-- ===== My sizes (all brands) ===== -->
-    <section id="mySizes" class="screen">
-      <div class="card">
-        <h3>My sizes across brands</h3>
-        <div class="row two">
-          <div>
-            <label>Categories</label>
-            <select id="ms_category" multiple size="4" style="height:100px;"></select>
-            <p class="note">Tip: tap to select. (Manual selection – pick one or more.)</p>
-          </div>
-          <div>
-            <label>Fit preference</label>
-            <select id="ms_fit">
-              <option value="standard">Standard</option>
-              <option value="snug">Snug</option>
-              <option value="relaxed">Relaxed</option>
-            </select>
-            <div style="margin-top:8px;">
-              <button class="cta" onclick="computeAllSizes()">Compute all</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="toolbar">
-          <button class="ghost" onclick="copyMySizes()">Copy</button>
-          <button class="ghost" onclick="exportMySizesCSV()">Export CSV</button>
-          <span class="pill" id="ms_count">—</span>
-        </div>
-
-        <div class="list" id="ms_list"></div>
-      </div>
-    </section>
-
-    <!-- ===== Converters ===== -->
+    <!-- ===== Converters (simple) ===== -->
     <section id="converters" class="screen">
       <div class="card">
         <h3>Clothes (UK ⇄ EU ⇄ US)</h3>
@@ -321,21 +254,17 @@
       </div>
     </section>
 
-    <div class="footer">MiSize prototype • v0.1 • No accounts, no tracking. Data lives in your browser only.</div>
+    <div class="card" style="margin-top:16px; text-align:center; opacity:.7;">MiSize prototype • v0.1 • Data stays in your browser.</div>
   </div>
 
-  <!-- ===== Splash logic ===== -->
+  <!-- ===== Splash logic: hide after 4s ===== -->
   <script>
     window.addEventListener('load', () => {
       const splash = document.getElementById('splash');
       const home   = document.getElementById('home');
-      const logo   = document.querySelector('.splash-logo');
-
-      logo.classList.add('fade-in');
-      setTimeout(() => { logo.classList.add('fade-out'); }, 2500);
       setTimeout(() => {
         splash.style.display = 'none';
-        document.querySelector('.appbar')?.classList.remove('hidden');
+        document.querySelector('.appbar').classList.remove('hidden');
         home.classList.add('active');
       }, 4000);
     });
@@ -343,227 +272,155 @@
 
   <!-- ===== App logic ===== -->
   <script>
-    // helpers
+    // -------- helpers --------
     function $(id){ return document.getElementById(id); }
-    function num(v){ const n = parseFloat(v); return isNaN(n) ? null : n; }
-    function in2cm(v){ const n = parseFloat(v); return isNaN(n) ? null : n * 2.54; }
-    function cm2in(v){ const n = parseFloat(v); return isNaN(n) ? '' : (n / 2.54).toFixed(1); }
+    function in2cm(v){ const n=parseFloat(v); return isNaN(n)?null:n*2.54; }
+    function cm2in(v){ const n=parseFloat(v); return isNaN(n)?'':(n/2.54).toFixed(1); }
 
-    // data
-    let BRANDS = [], CHARTS = [];
-    const CATEGORIES = ['Women • Dresses','Women • Jeans','Shoes (UK)'];
+    // -------- data holders --------
+    let BRANDS=[], CHARTS=[];
+    const CATEGORIES=['Women • Dresses','Women • Jeans','Shoes (UK)'];
 
-    // navigation
+    // -------- navigation --------
     function go(id){
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      (document.getElementById(id) || document.getElementById('home')).classList.add('active');
-      const t = document.getElementById('title'); if(t) t.textContent = 'MiSize — ' + id;
+      document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+      (document.getElementById(id)||document.getElementById('home')).classList.add('active');
+      const t=$('title'); const appTitle=document.getElementById('title'); if(appTitle) appTitle.textContent='MiSize — '+id;
       if(id==='brandNotes') renderBrandNotes();
       if(id==='history') renderHistory();
       if(id==='mySizes') initMySizesSelectors();
     }
 
-    // load JSON
+    // -------- load JSON --------
     async function loadData(){
       try{
         BRANDS = await (await fetch('brands.json')).json();
         CHARTS = await (await fetch('charts.json')).json();
+        initSelectors();
       }catch(e){
-        console.error('Failed to load JSON:', e);
+        console.error(e);
         alert('Could not load brands.json / charts.json — make sure both files are in the repo root.');
       }
     }
 
-    /* ========= MULTI-PROFILE STORAGE ========= */
-    const LS_PROFILES = 'profiles';
-    const LS_ACTIVE   = 'activeProfileId';
-    function uid(){ return 'p_' + Math.random().toString(36).slice(2,8); }
-    function readProfiles(){ try{ return JSON.parse(localStorage.getItem(LS_PROFILES) || '[]'); } catch(e){ return []; } }
+    // -------- profiles (multi) + unit per profile --------
+    const LS_PROFILES='profiles', LS_ACTIVE='activeProfileId';
+    function uid(){ return 'p_'+Math.random().toString(36).slice(2,8); }
+    function readProfiles(){ try{ return JSON.parse(localStorage.getItem(LS_PROFILES)||'[]'); }catch(e){ return []; } }
     function writeProfiles(list){ localStorage.setItem(LS_PROFILES, JSON.stringify(list)); }
-    function getActiveId(){ return localStorage.getItem(LS_ACTIVE) || null; }
+    function getActiveId(){ return localStorage.getItem(LS_ACTIVE)||null; }
     function setActiveId(id){ localStorage.setItem(LS_ACTIVE, id); }
 
+    let currentUnit='cm'; // what the form shows
+
     function migrateLegacyIfAny(){
-      const old = (()=>{ try{ return JSON.parse(localStorage.getItem('measurements')||'null'); }catch(e){ return null; } })();
-      const profs = readProfiles();
+      const old=(()=>{ try{ return JSON.parse(localStorage.getItem('measurements')||'null'); }catch(e){ return null; } })();
+      const profs=readProfiles();
       if(!profs.length && old){
-        const id = uid();
-        const imported = { id, unit:'cm', name: old.name || 'Me', ...old, updatedAt: new Date().toISOString() };
-        writeProfiles([imported]);
-        setActiveId(id);
-        localStorage.removeItem('measurements');
+        const id=uid();
+        const imported={ id, unit:'cm', name: old.name||'Me', ...old, updatedAt:new Date().toISOString() };
+        writeProfiles([imported]); setActiveId(id); localStorage.removeItem('measurements');
       }
     }
 
     function renderProfileSelect(){
-      let profs = readProfiles();
-      const sel = $('prof_select'); if(!sel) return;
-      sel.innerHTML = '';
+      let profs=readProfiles(); const sel=$('prof_select'); if(!sel) return;
+      sel.innerHTML='';
       if(!profs.length){
-        const id = uid();
-        const first = {
-          id, name:'Me', sex:'female', unit:'cm',
-          height:null, shoulder:null, bust:null, waist:null, hip:null,
-          inseam:null, torso:null, footlen:null, band:null, cup:'',
+        const id=uid();
+        const first={ id, name:'Me', sex:'female', unit:'cm',
+          height:null, shoulder:null, bust:null, waist:null, hip:null, inseam:null, torso:null, footlen:null, band:null, cup:'',
           updatedAt:new Date().toISOString()
         };
-        writeProfiles([first]); setActiveId(id);
-        profs = readProfiles();
+        writeProfiles([first]); setActiveId(id); profs=readProfiles();
       }
-      const active = getActiveId() || (profs[0] && profs[0].id);
-      if(!getActiveId() && active) setActiveId(active);
-
-      readProfiles().forEach(p=>{
-        const opt = document.createElement('option');
-        opt.value = p.id; opt.textContent = p.name;
-        if(p.id===active) opt.selected = true;
-        sel.appendChild(opt);
-      });
+      const active=getActiveId()||profs[0]?.id; if(!getActiveId()&&active) setActiveId(active);
+      readProfiles().forEach(p=>{ const o=document.createElement('option'); o.value=p.id; o.textContent=p.name; if(p.id===active) o.selected=true; sel.appendChild(o); });
       fillFormFromProfile(active);
     }
 
     function onSelectProfile(id){ setActiveId(id); fillFormFromProfile(id); }
-
     function newProfile(){
-      const name = prompt('Name for new profile?', 'New profile'); if(!name) return;
-      const id = uid();
-      const base = {
-        id, name, sex:'female', unit:'cm',
-        height:null, shoulder:null, bust:null, waist:null, hip:null,
-        inseam:null, torso:null, footlen:null, band:null, cup:'',
-        updatedAt: new Date().toISOString()
+      const name=prompt('Name for new profile?','New profile'); if(!name) return;
+      const id=uid();
+      const base={ id,name,sex:'female',unit:'cm',
+        height:null, shoulder:null, bust:null, waist:null, hip:null, inseam:null, torso:null, footlen:null, band:null, cup:'',
+        updatedAt:new Date().toISOString()
       };
-      const profs = readProfiles(); profs.push(base); writeProfiles(profs); setActiveId(id);
-      renderProfileSelect();
+      const profs=readProfiles(); profs.push(base); writeProfiles(profs); setActiveId(id); renderProfileSelect();
     }
-
     function renameProfile(){
-      const active = getActiveId(); if(!active) return;
-      const profs = readProfiles();
-      const p = profs.find(x=>x.id===active); if(!p) return;
-      const name = prompt('Rename profile to:', p.name); if(!name) return;
-      p.name = name; p.updatedAt = new Date().toISOString();
-      writeProfiles(profs); renderProfileSelect();
+      const active=getActiveId(); if(!active) return; const profs=readProfiles();
+      const p=profs.find(x=>x.id===active); if(!p) return; const name=prompt('Rename to:', p.name); if(!name) return;
+      p.name=name; p.updatedAt=new Date().toISOString(); writeProfiles(profs); renderProfileSelect();
     }
-
     function deleteProfile(){
-      const active = getActiveId(); if(!active) return;
-      const profs = readProfiles();
+      const active=getActiveId(); if(!active) return; const profs=readProfiles();
       if(profs.length<=1){ alert('Keep at least one profile.'); return; }
-      const p = profs.find(x=>x.id===active);
+      const p=profs.find(x=>x.id===active);
       if(!confirm(`Delete profile "${p?.name||'this'}"?`)) return;
-      const next = profs.find(x=>x.id!==active)?.id;
-      writeProfiles(profs.filter(x=>x.id!==active));
-      setActiveId(next); renderProfileSelect();
+      const next=profs.find(x=>x.id!==active)?.id;
+      writeProfiles(profs.filter(x=>x.id!==active)); setActiveId(next); renderProfileSelect();
     }
-
-    /* ===== Units per profile ===== */
-    let currentUnit = 'cm'; // what the form is currently showing
 
     function setUnitLabels(u){
-      const ids = ['lbl_height_unit','lbl_shoulder_unit','lbl_bust_unit','lbl_waist_unit','lbl_hip_unit','lbl_inseam_unit','lbl_torso_unit','lbl_footlen_unit','lbl_band_unit','unitLabel'];
-      ids.forEach(x=>{ const el=$(x); if(el) el.textContent = u; });
+      ['lbl_height_unit','lbl_shoulder_unit','lbl_bust_unit','lbl_waist_unit','lbl_hip_unit','lbl_inseam_unit','lbl_torso_unit','lbl_footlen_unit','lbl_band_unit','unitLabel']
+        .forEach(id=>{ const el=$(id); if(el) el.textContent=u; });
     }
 
     function convertFormUnits(toUnit){
-      const factor = 2.54;
-      const ids = ['m_height','m_shoulder','m_bust','m_waist','m_hip','m_inseam','m_torso','m_footlen','m_band'];
-      ids.forEach(id=>{
-        const el=$(id); if(!el || el.value==='') return;
-        let v = parseFloat(el.value); if(isNaN(v)) return;
-        if(currentUnit==='cm' && toUnit==='in') el.value = (v / factor).toFixed(1);
-        if(currentUnit==='in' && toUnit==='cm') el.value = (v * factor).toFixed(1);
+      const factor=2.54;
+      ['m_height','m_shoulder','m_bust','m_waist','m_hip','m_inseam','m_torso','m_footlen','m_band'].forEach(id=>{
+        const el=$(id); if(!el||el.value==='') return;
+        let v=parseFloat(el.value); if(isNaN(v)) return;
+        if(currentUnit==='cm' && toUnit==='in') el.value=(v/factor).toFixed(1);
+        if(currentUnit==='in' && toUnit==='cm') el.value=(v*factor).toFixed(1);
       });
     }
 
     function toggleUnits(){
-      const newUnit = currentUnit==='cm' ? 'in' : 'cm';
-      convertFormUnits(newUnit);
-      currentUnit = newUnit;
-      setUnitLabels(newUnit);
-
-      // persist display unit in active profile
-      const active=getActiveId(); if(!active) return;
-      const profs=readProfiles(); const p=profs.find(x=>x.id===active); if(!p) return;
+      const newUnit=currentUnit==='cm'?'in':'cm';
+      convertFormUnits(newUnit); currentUnit=newUnit; setUnitLabels(newUnit);
+      const active=getActiveId(); if(!active) return; const profs=readProfiles(); const p=profs.find(x=>x.id===active); if(!p) return;
       p.unit=newUnit; writeProfiles(profs);
     }
 
     function fillFormFromProfile(id){
-      const profs = readProfiles();
-      const p = profs.find(x=>x.id===id) || profs[0]; if(!p) return;
-
-      currentUnit = (p.unit==='in') ? 'in' : 'cm';
-      setUnitLabels(currentUnit);
-
-      if($('m_name')) $('m_name').value = p.name ?? '';
-      if($('m_sex'))  $('m_sex').value  = p.sex  ?? 'female';
-
-      const put = (id, cmVal)=>{
-        const el=$(id); if(!el) return;
-        if(cmVal==null){ el.value=''; return; }
-        el.value = (currentUnit==='in') ? cm2in(cmVal) : cmVal;
-      };
-      put('m_height',  p.height);
-      put('m_shoulder',p.shoulder);
-      put('m_bust',    p.bust);
-      put('m_waist',   p.waist);
-      put('m_hip',     p.hip);
-      put('m_inseam',  p.inseam);
-      put('m_torso',   p.torso);
-      put('m_footlen', p.footlen);
-      put('m_band',    p.band);
-      if($('m_cup')) $('m_cup').value = p.cup ?? '';
+      const profs=readProfiles(); const p=profs.find(x=>x.id===id)||profs[0]; if(!p) return;
+      currentUnit=(p.unit==='in')?'in':'cm'; setUnitLabels(currentUnit);
+      if($('m_name')) $('m_name').value=p.name??''; if($('m_sex')) $('m_sex').value=p.sex??'female';
+      const put=(fid,val)=>{ const el=$(fid); if(!el) return; if(val==null){ el.value=''; return; } el.value=(currentUnit==='in')?cm2in(val):val; };
+      put('m_height',p.height); put('m_shoulder',p.shoulder); put('m_bust',p.bust); put('m_waist',p.waist); put('m_hip',p.hip);
+      put('m_inseam',p.inseam); put('m_torso',p.torso); put('m_footlen',p.footlen); put('m_band',p.band);
+      if($('m_cup')) $('m_cup').value=p.cup??'';
     }
 
     function readFormToObject(){
-      // store numbers as CM internally; remember display unit for the profile
-      const read = id => {
-        const v = $(id)?.value;
-        if(v==null || v==='') return null;
-        const n = parseFloat(v); if(isNaN(n)) return null;
-        return (currentUnit==='in') ? n * 2.54 : n; // convert to cm if needed
-      };
-      return {
-        name: $('m_name')?.value || 'Me',
-        sex:  $('m_sex')?.value || 'female',
-        unit: currentUnit,
-        height:  read('m_height'),
-        shoulder:read('m_shoulder'),
-        bust:    read('m_bust'),
-        waist:   read('m_waist'),
-        hip:     read('m_hip'),
-        inseam:  read('m_inseam'),
-        torso:   read('m_torso'),
-        footlen: read('m_footlen'),
-        band:    read('m_band'),
-        cup:     ($('m_cup')?.value||'').toUpperCase()
+      const read=(fid)=>{ const v=$(fid)?.value; if(v==null||v==='') return null; const n=parseFloat(v); if(isNaN(n)) return null; return (currentUnit==='in')?n*2.54:n; };
+      return { name:$('m_name')?.value||'Me', sex:$('m_sex')?.value||'female', unit:currentUnit,
+        height:read('m_height'), shoulder:read('m_shoulder'), bust:read('m_bust'), waist:read('m_waist'), hip:read('m_hip'),
+        inseam:read('m_inseam'), torso:read('m_torso'), footlen:read('m_footlen'), band:read('m_band'), cup:($('m_cup')?.value||'').toUpperCase()
       };
     }
 
     function saveCurrentProfile(){
-      const id = getActiveId(); if(!id) return;
-      const profs = readProfiles();
-      const idx = profs.findIndex(x=>x.id===id);
-      const updated = { ...profs[idx], ...readFormToObject(), id, updatedAt: new Date().toISOString() };
-      profs[idx] = updated; writeProfiles(profs);
-
-      const msg = $('saveMsg'); if(msg){ msg.style.display='inline-block'; setTimeout(()=> msg.style.display='none', 1600); }
+      const id=getActiveId(); if(!id) return; const profs=readProfiles(); const idx=profs.findIndex(x=>x.id===id);
+      const updated={ ...profs[idx], ...readFormToObject(), id, updatedAt:new Date().toISOString() }; profs[idx]=updated; writeProfiles(profs);
+      const msg=$('saveMsg'); if(msg){ msg.style.display='inline-block'; setTimeout(()=> msg.style.display='none', 1600); }
       renderProfileSelect();
     }
 
-    /* === Adapters === */
-    function getMeasurements(){ const id=getActiveId(); const profs=readProfiles(); return profs.find(x=>x.id===id) || profs[0] || {}; }
-    function getMeasurementsCm(){ return getMeasurements(); } // already cm in storage
-    function saveMeasurements(){ saveCurrentProfile(); }
+    function getMeasurements(){ const id=getActiveId(); const profs=readProfiles(); return profs.find(x=>x.id===id)||profs[0]||{}; }
+    function getMeasurementsCm(){ return getMeasurements(); }
     function loadMeasurements(){ migrateLegacyIfAny(); renderProfileSelect(); }
 
-    // selectors
+    // -------- selectors for finder --------
     function initSelectors(){
       const b=$('sf_brand'); if(b){ b.innerHTML=''; BRANDS.forEach(br=>{ const o=document.createElement('option'); o.value=br.id; o.textContent=br.name; b.appendChild(o); }); }
       const c=$('sf_category'); if(c){ c.innerHTML=''; CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; c.appendChild(o); }); }
     }
 
-    // size finder (charts in cm; meas already cm)
+    // -------- size finder --------
     function computeSize(){
       const brandId=$('sf_brand').value, cat=$('sf_category').value, fit=$('sf_fit').value;
       const meas=getMeasurementsCm(); const brand=BRANDS.find(b=>b.id===brandId);
@@ -579,8 +436,8 @@
       const used=dims.filter(d=> wants[d]!=null);
       if(!used.length){ showResult('—','Low','Please add measurements for this category.',[]); return; }
 
-      const scored = table.map(r=>({ size:r.size, score:used.reduce((s,d)=>s+Math.abs((r[d]||0)-wants[d]),0) }))
-                          .sort((a,b)=>a.score-b.score);
+      const scored=table.map(r=>({ size:r.size, score:used.reduce((s,d)=> s+Math.abs((r[d]||0)-wants[d]),0) }))
+                        .sort((a,b)=>a.score-b.score);
       let pick=scored[0]; if(!pick){ showResult('—','Low','No matching sizes found.',[]); return; }
       if(scored[1]){ const diff=scored[1].score-scored[0].score; if(fit==='relaxed' && diff<2) pick=scored[1]; }
 
@@ -588,8 +445,7 @@
       const notes=[]; if(fit==='snug') notes.push('Snug fit chosen. If unsure, consider one size up.');
       if(fit==='relaxed') notes.push('Relaxed fit chosen. For closer fit, go down.');
       if(cat.includes('Jeans') && meas.inseam && brand?.lengths_cm){
-        const len=mapInseamToLengthFromBrand(brand.lengths_cm, meas.inseam);
-        notes.push(`Suggested length: <span class="badge">${len.toUpperCase()}</span>.`);
+        const len=mapInseamToLengthFromBrand(brand.lengths_cm, meas.inseam); notes.push(`Suggested length: ${len.toUpperCase()}`);
       }
       if(brand?.notes) notes.push(`Brand note: ${brand.notes}`);
       showResult(pick.size, conf, null, notes);
@@ -597,18 +453,18 @@
 
     function showResult(size,conf,message,notes){
       const box=$('sf_result'); if(!box) return; box.style.display='block';
-      $('sf_size').innerHTML = size==='—' ? 'No result' : `Your best size: <span class="badge">${size}</span>`;
-      $('sf_confidence').innerHTML = `Confidence: <span class="${conf==='High'?'success':conf==='Low'?'danger':'warning'} badge">${conf}</span>`;
-      $('sf_notes').innerHTML = message ? message : notes.map(n=>`<div>• ${n}</div>`).join('');
+      $('sf_size').innerHTML=size==='—' ? 'No result' : `Your best size: <span class="badge">${size}</span>`;
+      $('sf_confidence').innerHTML=`Confidence: <span class="${conf==='High'?'success':conf==='Low'?'danger':'warning'} badge">${conf}</span>`;
+      $('sf_notes').innerHTML= message ? message : (notes||[]).map(n=>`<div>• ${n}</div>`).join('');
       window.scrollTo({top:0, behavior:'smooth'});
-      window._lastResult = { when:new Date().toISOString(), brand:$('sf_brand').value, category:$('sf_category').value, size:size, conf:conf };
+      window._lastResult={ when:new Date().toISOString(), brand:$('sf_brand').value, category:$('sf_category').value, size:size, conf:conf };
     }
 
-    // brand notes
+    // -------- brand notes --------
     function renderBrandNotes(){
       const wrap=$('brandList'); if(!wrap) return; wrap.innerHTML='';
       BRANDS.forEach(b=>{
-        const div=document.createElement('div'); div.className='list item';
+        const div=document.createElement('div'); div.className='item'; div.style.cssText='padding:12px;border-radius:12px;background:#0f131a;border:1px solid #202939;display:flex;justify-content:space-between;gap:10px;';
         const left=document.createElement('div'); left.innerHTML=`<div><strong>${b.name}</strong></div><div class="note">${b.notes||''}</div>`;
         const L=b.lengths_cm||{};
         const right=document.createElement('div'); right.innerHTML=
@@ -616,12 +472,26 @@
            <span class="pill">Regular ~${L.regular??'–'}cm</span>
            <span class="pill">Long ~${L.long??'–'}cm</span>
            <span class="pill">Tall ~${L.tall??'–'}cm</span>`;
-        div.style.display='flex'; div.style.justifyContent='space-between'; div.style.gap='10px';
         div.appendChild(left); div.appendChild(right); wrap.appendChild(div);
       });
     }
 
-    // converters (simple)
+    // -------- history --------
+    function getHistory(){ try{ return JSON.parse(localStorage.getItem('history')||'[]'); }catch(e){ return []; } }
+    function saveHistory(){ if(!window._lastResult) return; const h=getHistory(); h.unshift(window._lastResult); localStorage.setItem('history', JSON.stringify(h.slice(0,20))); alert('Saved to history.'); }
+    function renderHistory(){
+      const wrap=$('histList'); if(!wrap) return; wrap.innerHTML='';
+      const h=getHistory(); if(!h.length){ wrap.innerHTML='<div class="note">No lookups yet.</div>'; return; }
+      h.forEach(item=>{
+        const div=document.createElement('div'); div.className='item'; div.style.cssText='padding:12px;border-radius:12px;background:#0f131a;border:1px solid #202939;display:flex;justify-content:space-between;';
+        div.innerHTML=`<div><div><strong>${item.brand}</strong> • ${item.category}</div>
+                       <div class="note">${new Date(item.when).toLocaleString()} • Recommended: <span class="badge">${item.size}</span> • ${item.conf} confidence</div></div>
+                       <div class="pill">Saved</div>`;
+        wrap.appendChild(div);
+      });
+    }
+
+    // -------- converters --------
     function convertClothing(){
       const from=$('cw_from').value, to=$('cw_to').value, val=$('cw_val').value.trim();
       const map=[{UK:'8',EU:'36',US:'4'},{UK:'10',EU:'38',US:'6'},{UK:'12',EU:'40',US:'8'},{UK:'14',EU:'42',US:'10'},{UK:'16',EU:'44',US:'12'},{UK:'18',EU:'46',US:'14'}];
@@ -639,116 +509,65 @@
       const sister=[bandUK-2,bandUK+2].filter(x=>x>=28 && x<=42).join('/'); $('br_out').textContent=`UK ~ ${bandUK}${cup} (sisters: ${sister}${cup})`;
     }
 
-    // inseam helpers
+    // -------- inseam helper --------
     function mapInseamToLengthFromBrand(lengths, cm){
       const entries=Object.entries(lengths||{}); if(!entries.length) return 'regular';
       const sorted=entries.map(([k,v])=>({k,d:Math.abs(v-cm)})).sort((a,b)=>a.d-b.d);
       return sorted[0].k;
     }
 
-    // history
-    function getHistory(){ try{ return JSON.parse(localStorage.getItem('history')||'[]'); }catch(e){ return []; } }
-    function saveHistory(){ if(!window._lastResult) return; const h=getHistory(); h.unshift(window._lastResult); localStorage.setItem('history', JSON.stringify(h.slice(0,20))); alert('Saved to history.'); }
-    function renderHistory(){
-      const wrap=$('histList'); if(!wrap) return; wrap.innerHTML='';
-      const h=getHistory(); if(!h.length){ wrap.innerHTML='<div class="note">No lookups yet.</div>'; return; }
-      h.forEach(item=>{
-        const div=document.createElement('div'); div.className='list item';
-        div.innerHTML=`<div><div><strong>${item.brand}</strong> • ${item.category}</div>
-          <div class="note">${new Date(item.when).toLocaleString()} • Recommended size:
-          <span class="badge">${item.size}</span> • ${item.conf} confidence</div></div><div class="pill">Saved</div>`;
-        wrap.appendChild(div);
-      });
-    }
-
-    /* ---------- My sizes (all brands) ---------- */
+    // -------- My sizes (all brands) --------
     function scoreFor(brandId, cat, meas, fit){
-      const brand = BRANDS.find(b=>b.id===brandId);
-      const rows = CHARTS.filter(r=> r.brandId===brandId && r.category===cat);
+      const brand=BRANDS.find(b=>b.id===brandId);
+      const rows=CHARTS.filter(r=>r.brandId===brandId && r.category===cat);
       if(!brand || rows.length===0) return null;
 
-      let dims=[]; 
-      if(cat.includes('Dresses')) dims=['bust','waist','hip'];
-      if(cat.includes('Jeans'))   dims=['waist','hip'];
-      if(cat.includes('Shoes'))   dims=['footLen'];
+      let dims=[]; if(cat.includes('Dresses')) dims=['bust','waist','hip'];
+                   if(cat.includes('Jeans'))   dims=['waist','hip'];
+                   if(cat.includes('Shoes'))   dims=['footLen'];
 
       const wants={}; dims.forEach(d=> wants[d]=meas[d==='footLen'?'footlen':d]);
-      const used = dims.filter(d=> wants[d]!=null);
-      if(!used.length) return {size:'—', conf:'Low', notes:['Add measurements for this category.']};
+      const used=dims.filter(d=> wants[d]!=null); if(!used.length) return {size:'—',conf:'Low',notes:['Add measurements for this category.']};
 
-      const table = rows.map(r=>({ size:r.size, bust:r.bust??null, waist:r.waist??null, hip:r.hip??null, footLen:r.footLen??null }));
-      const scored = table.map(r=>({ size:r.size, score:used.reduce((s,d)=> s + Math.abs((r[d]||0) - wants[d]), 0) }))
-                          .sort((a,b)=> a.score - b.score);
+      const table=rows.map(r=>({ size:r.size,bust:r.bust??null,waist:r.waist??null,hip:r.hip??null,footLen:r.footLen??null }));
+      const scored=table.map(r=>({ size:r.size, score:used.reduce((s,d)=> s+Math.abs((r[d]||0)-wants[d]),0) }))
+                        .sort((a,b)=>a.score-b.score);
 
-      let pick = scored[0]; if(!pick) return {size:'—', conf:'Low', notes:['No matching sizes found.']};
-      if(scored[1]){ const diff = scored[1].score - scored[0].score; if(fit==='relaxed' && diff<2) pick = scored[1]; }
+      let pick=scored[0]; if(!pick) return {size:'—',conf:'Low',notes:['No matching sizes found.']};
+      if(scored[1]){ const diff=scored[1].score-scored[0].score; if(fit==='relaxed'&&diff<2) pick=scored[1]; }
 
-      const avg = pick.score / used.length;
-      let conf='Medium'; if(avg<1.2 && used.length>=2) conf='High'; if(avg>3.0) conf='Low';
-
-      const notes=[];
-      if(fit==='snug') notes.push('Snug fit chosen.');
-      if(fit==='relaxed') notes.push('Relaxed fit chosen.');
-      if(cat.includes('Jeans') && meas.inseam && brand?.lengths_cm){
-        const len = mapInseamToLengthFromBrand(brand.lengths_cm, meas.inseam);
-        notes.push(`Suggested length: ${len.toUpperCase()}`);
-      }
+      const avg=pick.score/used.length; let conf='Medium'; if(avg<1.2&&used.length>=2) conf='High'; if(avg>3.0) conf='Low';
+      const notes=[]; if(fit==='snug') notes.push('Snug fit chosen.'); if(fit==='relaxed') notes.push('Relaxed fit chosen.');
+      if(cat.includes('Jeans') && meas.inseam && brand?.lengths_cm){ const len=mapInseamToLengthFromBrand(brand.lengths_cm, meas.inseam); notes.push(`Suggested length: ${len.toUpperCase()}`); }
       if(brand?.notes) notes.push(`Brand note: ${brand.notes}`);
-      return { size: pick.size, conf, notes };
+      return { size:pick.size, conf, notes };
     }
 
     function initMySizesSelectors(){
-      const sel = $('ms_category'); if(!sel) return;
-      sel.innerHTML = '';
-      CATEGORIES.forEach(cat=>{
-        const o = document.createElement('option');
-        o.value = cat; o.textContent = cat; sel.appendChild(o);
-      });
-      if(sel.options.length) sel.options[0].selected = true;
+      const sel=$('ms_category'); if(!sel) return; sel.innerHTML='';
+      CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; sel.appendChild(o); });
+      if(sel.options.length) sel.options[0].selected=true;
     }
 
     function computeAllSizes(){
-      const sel = $('ms_category');
-      const fit = $('ms_fit').value;
-      const meas = getMeasurementsCm();
+      const sel=$('ms_category'); const fit=$('ms_fit').value; const meas=getMeasurementsCm();
+      const cats=Array.from(sel.selectedOptions).map(o=>o.value); const results=[];
+      cats.forEach(cat=>{ BRANDS.forEach(b=>{ const res=scoreFor(b.id,cat,meas,fit); if(!res) return; results.push({brandId:b.id,brandName:b.name,category:cat,size:res.size,conf:res.conf,notes:res.notes||[]}); }); });
 
-      const cats = Array.from(sel.selectedOptions).map(o=>o.value);
-      const results = [];
-
-      cats.forEach(cat=>{
-        BRANDS.forEach(b=>{
-          const res = scoreFor(b.id, cat, meas, fit);
-          if(!res) return;
-          results.push({ brandId:b.id, brandName:b.name, category:cat, size:res.size, conf:res.conf, notes:res.notes||[] });
-        });
-      });
-
-      const rank = { High:0, Medium:1, Low:2 };
-      results.sort((a,b)=>{
-        if(a.category!==b.category) return a.category.localeCompare(b.category);
-        const rc = (rank[a.conf]??9) - (rank[b.conf]??9);
-        if(rc!==0) return rc;
-        return a.brandName.localeCompare(b.brandName);
-      });
-
+      const rank={High:0,Medium:1,Low:2};
+      results.sort((a,b)=> a.category.localeCompare(b.category) || (rank[a.conf]??9)-(rank[b.conf]??9) || a.brandName.localeCompare(b.brandName));
       renderMySizes(results);
     }
 
     function renderMySizes(list){
-      const wrap = $('ms_list'); if(!wrap) return; wrap.innerHTML='';
-      $('ms_count').textContent = `${list.length} results`;
-
-      if(!list.length){
-        wrap.innerHTML = '<div class="note">No results — add measurements or select a category.</div>';
-        return;
-      }
-
+      const wrap=$('ms_list'); if(!wrap) return; wrap.innerHTML='';
+      $('ms_count').textContent=`${list.length} results`;
+      if(!list.length){ wrap.innerHTML='<div class="note">No results — add measurements or select a category.</div>'; return; }
       list.forEach(row=>{
-        const item = document.createElement('div');
-        item.className = 'item';
-        const confClass = row.conf==='High' ? 'success' : row.conf==='Low' ? 'danger' : 'warning';
-        const notesHtml = row.notes.map(n=>`<div>• ${n}</div>`).join('');
-        item.innerHTML = `
+        const item=document.createElement('div'); item.className='item';
+        const confClass = row.conf==='High'?'success':row.conf==='Low'?'danger':'warning';
+        const notesHtml=(row.notes||[]).map(n=>`<div>• ${n}</div>`).join('');
+        item.innerHTML=`
           <div>
             <div><strong>${row.brandName}</strong> • <span class="note">${row.category}</span></div>
             <div class="note">${notesHtml}</div>
@@ -759,43 +578,26 @@
           </div>`;
         wrap.appendChild(item);
       });
-
-      window._lastMySizes = list;
+      window._lastMySizes=list;
     }
 
     function copyMySizes(){
-      const list = window._lastMySizes || [];
-      if(!list.length){ alert('Nothing to copy yet.'); return; }
-      const lines = list.map(r=>`${r.category} — ${r.brandName}: ${r.size} (${r.conf})`);
-      const text = lines.join('\n');
-      navigator.clipboard?.writeText(text).then(
-        ()=> alert('Copied sizes!'),
-        ()=> alert('Copy failed.')
-      );
+      const list=window._lastMySizes||[]; if(!list.length){ alert('Nothing to copy yet.'); return; }
+      const text=list.map(r=>`${r.category} — ${r.brandName}: ${r.size} (${r.conf})`).join('\n');
+      navigator.clipboard?.writeText(text).then(()=>alert('Copied sizes!'),()=>alert('Copy failed.'));
     }
-
     function exportMySizesCSV(){
-      const list = window._lastMySizes || [];
-      if(!list.length){ alert('Nothing to export yet.'); return; }
-      const header = ['Category','Brand','Size','Confidence','Notes'];
-      const rows = list.map(r=>[
-        `"${r.category}"`,
-        `"${r.brandName}"`,
-        `"${r.size}"`,
-        `"${r.conf}"`,
-        `"${(r.notes||[]).join('; ').replace(/"/g,'""')}"`
-      ]);
-      const csv = [header.join(','), ...rows.map(r=>r.join(','))].join('\n');
-      const blob = new Blob([csv], {type:'text/csv'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href=url; a.download='my-sizes.csv';
-      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+      const list=window._lastMySizes||[]; if(!list.length){ alert('Nothing to export yet.'); return; }
+      const header=['Category','Brand','Size','Confidence','Notes'];
+      const rows=list.map(r=>[`"${r.category}"` ,`"${r.brandName}"`,`"${r.size}"`,`"${r.conf}"`,`"${(r.notes||[]).join('; ').replace(/"/g,'""')}"`]);
+      const csv=[header.join(','),...rows.map(r=>r.join(','))].join('\n');
+      const blob=new Blob([csv],{type:'text/csv'}); const url=URL.createObjectURL(blob);
+      const a=document.createElement('a'); a.href=url; a.download='my-sizes.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
     }
 
-    // boot
+    // -------- init on load --------
     (async () => {
       await loadData();
-      initSelectors();
       loadMeasurements();
     })();
   </script>
