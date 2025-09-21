@@ -117,7 +117,20 @@
   </div>
 </section>
   <div class="container">
+<section id="splash" class="screen active" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#0b0d12;">
+  <img src="MiSize.png" alt="MiSize logo" style="height:150px;border-radius:12px;">
+  <h1 style="margin-top:20px;color:white;">MiSize</h1>
+</section>
 
+<script>
+  // auto-hide splash after 2.5 seconds and go to home
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('splash').style.display = 'none';
+      document.getElementById('home').classList.add('active');
+    }, 2500);
+  });
+</script>
     <section id="home" class="screen active">
       <div class="card">
         <h2 class="big">Welcome to MiSize by Ems.</h2>
