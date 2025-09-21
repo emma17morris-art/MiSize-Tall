@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>siZed — Clickable Prototype (MVP)</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: #0b0d12; color: #eef1f5;}
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: 0; padding: 12px 16px; border-radius: 12px; font-weight: 600; }
+    input, select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #2a2f3a; background: #0f131a; color: #eef1f5; }
+    label { font-size: 14px; opacity: .9; }
+    .appbar { position: sticky; top: 0; z-index: 10; background: rgba(12,14,18,.8); backdrop-filter: blur(8px); padding: 12px 16px; border-bottom: 1px solid #1b2230; display: flex; align-items: center; gap: 12px;}
+    .appbar h1 { font-size: 18px; margin: 0; font-weight: 800; letter-spacing: .3px;}
+    .container { max-width: 980px; margin: 0 auto; padding: 20px; }
+    .screen { display: none; animation: fade .2s ease-in; }
+    .screen.active { display: block; }
+    @keyframes fade { from {opacity: 0;} to {opacity: 1;} }
+    .row { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 720px) { .row.two { grid-template-columns: 1fr 1fr; } .row.three { grid-template-columns: repeat(3, 1fr); } }
+    .card { background: linear-gradient(180deg, #111520, #0d1119); border: 1px solid #1b2230; border-radius: 16px; padding: 16px; }
+    .cta { background: #4f7cff; }
+    .ghost { background: #182034; }
+    .muted { opacity: .8; }
+    .pill { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #172034; border: 1px solid #223049; font-size: 12px; }
+    .list { display: grid; gap: 10px; }
+    .list .item { padding: 12px; border-radius: 12px; background: #0f131a; border: 1px solid #202939; display: flex; align-items: center; justify-content: space-between; }
+    .footer { padding: 30px; text-align: center; opacity: .6; font-size: 13px; }
+    .nav { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip { padding: 8px 12px; border: 1px solid #223049; background: #131826; border-radius: 999px; }
+    .big { font-size: 28px; font-weight: 800; margin: 0; }
+    .subtitle { margin-top: 6px; opacity: .8; }
+    .toolbar { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;}
+    .note { font-size: 13px; opacity: .85; }
+    .success { color: #8ee0b2; }
+    .warning { color: #ffd27a; }
+    .danger { color: #ff9a9a; }
+    .badge { font-weight: 800; }
+    .spaced { margin-top: 12px; }
+    .divider { height: 1px; background: #1b2230; margin: 14px 0; }
+  </style>
+</head>
+<body>
+  <div class="appbar">
+    <button class="ghost" onclick="go('home')">◀</button>
+    <h1 id="title">siZed — Prototype</h1>
+    <span class="pill" style="margin-left:auto;">Demo • Offline • No data sent</span>
+  </div>
+  <div class="container">
+
+    <section id="home" class="screen active">
+      <div class="card">
+        <h2 class="big">Know your size, first time.</h2>
+        <p class="subtitle">One-tap brand sizing for second-hand finds and high street buys.</p>
+        <div class="toolbar">
+          <button class="cta" onclick="go('onboarding')">Get started</button>
+          <button class="ghost" onclick="go('sizeFinder')">Skip to Size Finder</button>
+        </div>
+      </div>
+      <div class="row two spaced">
+        <div class="card">
+          <h3>Measurement profiles</h3>
+          <p class="muted">Store yours (and family) once. We’ll map to each brand’s chart.</p>
+          <button class="ghost" onclick="go('measurements')">Add measurements</button>
+        </div>
+        <div class="card">
+          <h3>Converters</h3>
+          <p class="muted">UK ⇄ EU ⇄ US for clothes, shoes, and bras.</p>
+          <button class="ghost" onclick="go('converters')">Open converters</button>
+        </div>
+      </div>
+      <div class="row two spaced">
+        <div class="card">
+          <h3>Brand notes</h3>
+          <p class="muted">Tall? Petite? Curvy? See how each brand defines lengths & fit.</p>
+          <button class="ghost" onclick="go('brandNotes')">Browse brands</button>
+        </div>
+        <div class="card">
+          <h3>History</h3>
+          <p class="muted">Your recent size lookups at a glance.</p>
+          <button class="ghost" onclick="go('history')">View history</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="onboarding" class="screen">
+      <div class="card">
+        <h3>What brings you here?</h3>
+        <div class="nav">
+          <div class="chip"><input type="checkbox"> Second-hand bargains</div>
+          <div class="chip"><input type="checkbox"> Recent weight change</div>
+          <div class="chip"><input type="checkbox"> Non-standard proportions</div>
+          <div class="chip"><input type="checkbox"> Kids’ clothes</div>
+        </div>
+        <div class="toolbar">
+          <button class="cta" onclick="go('measurements')">Next: Measurements</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="measurements" class="screen">
+      <div class="card">
+        <h3>Your measurements</h3>
+        <p class="note">Tip: you can leave some blank; we’ll use what we have.</p>
+        <div class="row two">
+          <div>
+            <label>Profile name</label>
+            <input id="m_name" placeholder="e.g., Emma" />
+          </div>
+          <div>
+            <label>Sex</label>
+            <select id="m_sex">
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+              <option value="child">Child</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">siZed prototype • v0.1 • No accounts, no tracking. Data lives in your browser only.</div>
+  </div>
+  <script>
+    function $(id){ return document.getElementById(id); }
+    function go(id){
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      (document.getElementById(id) || document.getElementById('home')).classList.add('active');
+      document.getElementById('title').textContent = 'siZed — ' + id;
+    }
+  </script>
+</body>
+</html>
