@@ -7,10 +7,34 @@
 
   <style>
     /* ===== Splash animations ===== */
-    .splash-logo{
-  height: clamp(180px, 28vw, 360px);  /* min 180px, usually 28% of viewport width, max 360px */
-  opacity: 0;
+    .splash-logo {
+  height: 260px;              /* make it bigger */
+  opacity: 0;                 /* fade-in still controls this */
   transform: scale(0.9);
+  position: relative;         /* allows shine overlay */
+  overflow: hidden;           /* keeps shine inside image bounds */
+}
+
+.splash-logo::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.05) 0%,
+    rgba(255,255,255,0.6) 50%,
+    rgba(255,255,255,0.05) 100%
+  );
+  transform: skewX(-20deg);
+  animation: shine 3s linear infinite; /* constant shine */
+}
+
+@keyframes shine {
+  0%   { left: -75%; }
+  100% { left: 125%; }
 }
     .fade-in{  animation:fadeIn 2s forwards; }
     .fade-out{ animation:fadeOut 1s forwards; }
