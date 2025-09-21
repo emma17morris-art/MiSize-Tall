@@ -8,10 +8,10 @@
   <style>
     /* ===== Splash animations ===== */
     .splash-logo{
-      height:180px;            /* change size here */
-      opacity:0;
-      transform:scale(0.9);
-    }
+  height: clamp(180px, 28vw, 360px);  /* min 180px, usually 28% of viewport width, max 360px */
+  opacity: 0;
+  transform: scale(0.9);
+}
     .fade-in{  animation:fadeIn 2s forwards; }
     .fade-out{ animation:fadeOut 1s forwards; }
     @keyframes fadeIn{  from{opacity:0; transform:scale(0.9);} to{opacity:1; transform:scale(1);} }
