@@ -73,7 +73,7 @@
 <body>
   <div class="appbar">
     <button class="ghost" onclick="go('home')">◀</button>
-    <h1 id="title">siZed — Prototype</h1>
+    <h1 id="title">MiSize — Prototype</h1>
     <span class="pill" style="margin-left:auto;">Demo • Offline • No data sent</span>
   </div>
   <section id="sizeFinder" class="screen">
@@ -188,7 +188,7 @@
       </div>
     </section>
 
-    <div class="footer">siZed prototype • v0.1 • No accounts, no tracking. Data lives in your browser only.</div>
+    <div class="footer">MiSize prototype • v0.1 • No accounts, no tracking. Data lives in your browser only.</div>
   </div>
   <script>
   // --- tiny helpers ---
@@ -204,7 +204,7 @@
   function go(id){
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     (document.getElementById(id) || document.getElementById('home')).classList.add('active');
-    document.getElementById('title').textContent = 'siZed — ' + id;
+    document.getElementById('title').textContent = 'MiSize — ' + id;
     if(id === 'brandNotes') renderBrandNotes();
     if(id === 'history') renderHistory();
   }
