@@ -141,13 +141,33 @@
 </section>
 
 <script>
-  // Hide splash after 2.5 seconds and show Home
+  <!-- Splash Screen -->
+<section id="splash" class="screen active" style="display:flex;align-items:center;justify-content:center;height:100vh;background:#0b0d12;">
+  <img src="MiSize.png" alt="MiSize logo" class="splash-logo">
+</section>
+
+<script>
+  // Hide splash after fade-out, then show Home
   window.addEventListener('load', () => {
+    const splash = document.getElementById('splash');
+    const home = document.getElementById('home');
+    const logo = document.querySelector('.splash-logo');
+
+    // Start fade in
+    logo.classList.add('fade-in');
+
+    // After fade in + pause, fade out
     setTimeout(() => {
-      document.getElementById('splash').style.display = 'none';
-      document.getElementById('home').classList.add('active');
-    }, 2500); // change 2500 to 4000 for 4 seconds etc
+      logo.classList.add('fade-out');
+    }, 2500); // wait 2.5s before fading out
+
+    // After fade out, hide splash + show home
+    setTimeout(() => {
+      splash.style.display = 'none';
+      home.classList.add('active');
+    }, 4000); // total ~4s (2s fade in + 1.5s pause + 0.5s fade out)
   });
+</script>
 </script>
     <section id="home" class="screen active">
       <div class="card">
