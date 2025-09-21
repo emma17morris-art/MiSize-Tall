@@ -1,46 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MiSize — Prototype</title>
   <style>
-    /* ===== Splash: one logo, fade-in, then single metallic shine ===== */
-    .splash-logo { height: clamp(220px, 30vw, 380px); display:block; opacity:0; animation:fadeIn 2s forwards; }
-    .logo-wrap {
-  position: relative;
-  display: inline-block;
-  line-height: 0;
-}
-
-.logo-wrap .shine {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  /* mask to logo shape */
-  -webkit-mask-image: url('MiSize.png');
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  -webkit-mask-size: contain;
-  mask-image: url('MiSize.png');
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: contain;
-  /* metallic beam */
-  background: linear-gradient(
-    120deg,
-    rgba(255,255,255,0) 0%,
-    rgba(255,255,255,0.85) 50%,
-    rgba(255,255,255,0) 100%
-  );
-  transform: translateX(-200%) skewX(-15deg);
-  animation: silverShine 2.5s ease-in-out 2s forwards;
-}
-
-@keyframes silverShine {
-  0%   { transform: translateX(-200%) skewX(-15deg); }
-  100% { transform: translateX(200%)  skewX(-15deg); }
-}
+    /* ===== Splash: logo flies across, no centered logo ===== */
+    #splash {
+      display:flex;
+      align-items:center;
+      justify-content:flex-start; /* start at left */
+      height:100vh;
+      background:#0b0d12;
+      overflow:hidden;
+    }
+    .flying-logo {
+      height: clamp(140px, 28vw, 260px);
+      opacity: 0;
+      transform: translateX(-120%) scale(0.6);
+      animation: flyAcross 3s ease-in-out forwards;
+    }
+    @keyframes flyAcross {
+      0%   { opacity:0; transform: translateX(-120%) scale(0.6); }
+      20%  { opacity:1; transform: translateX(0%)     scale(1.0); }
+      80%  { opacity:1; transform: translateX(100vw)  scale(1.2); }
+      100% { opacity:0; transform: translateX(130vw)  scale(1.25); }
+    }
 
     /* ===== Theme ===== */
     :root{
@@ -72,19 +57,16 @@
     .note{ font-size:13px; opacity:.85; }
     .success{ color:#8ee0b2; } .warning{ color:#ffd27a; } .danger{ color:#ff9a9a; }
     .badge{ font-weight:800; } .divider{ height:1px; background:#1b2230; margin:14px 0; }
+    .list .item{ padding:12px; border-radius:12px; background:#0f131a; border:1px solid #202939; display:flex; align-items:center; justify-content:space-between; gap:10px; }
 
     .appbar{ position:sticky; top:0; z-index:10; background:rgba(12,14,18,.8); backdrop-filter:blur(8px); padding:12px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; }
     .appbar.hidden{ display:none; }
     .appbar h1{ font-size:18px; margin:0; font-weight:800; letter-spacing:.3px; }
-
-    /* My sizes list */
-    #ms_list .item{ padding:12px; border-radius:12px; background:#0f131a; border:1px solid #202939; display:flex; align-items:center; justify-content:space-between; gap:10px; }
-    #ms_list .note{ opacity:.85; }
   </style>
 </head>
 <body>
 
-  <!-- App bar -->
+  <!-- App bar (hidden during splash) -->
   <div class="appbar hidden">
     <button class="ghost" onclick="go('home')">◀</button>
     <h1 id="title">MiSize — Prototype</h1>
@@ -92,12 +74,9 @@
   </div>
 
   <div class="container">
-    <!-- ===== Splash (one logo) ===== -->
-    <section id="splash" class="screen active" style="display:flex;align-items:center;justify-content:center;height:100vh;background:#0b0d12;">
-      <div class="logo-wrap">
-        <img src="MiSize.png" alt="MiSize logo" class="splash-logo">
-        <div class="shine"></div>
-      </div>
+    <!-- ===== Splash (logo flying across) ===== -->
+    <section id="splash" class="screen active">
+      <img src="MiSize.png" alt="MiSize logo" class="flying-logo">
     </section>
 
     <!-- ===== Home ===== -->
@@ -106,7 +85,7 @@
         <h2 class="big">Welcome to MiSize by Ems.</h2>
         <p class="subtitle">One-tap brand sizing for second-hand finds and high street buys.</p>
         <div class="toolbar">
-          <button class="cta" onclick="go('measurements')">Get started</button>
+          <button class="cta"   onclick="go('measurements')">Get started</button>
           <button class="ghost" onclick="go('sizeFinder')">Skip to Size Finder</button>
           <button class="ghost" onclick="go('mySizes')">My sizes (all brands)</button>
         </div>
@@ -130,7 +109,7 @@
           </div>
         </div>
         <div class="toolbar">
-          <button class="cta" onclick="computeSize()">Get my size</button>
+          <button class="cta"   onclick="computeSize()">Get my size</button>
           <button class="ghost" onclick="go('measurements')">Edit measurements</button>
         </div>
       </div>
@@ -152,7 +131,7 @@
     <section id="measurements" class="screen">
       <div class="card">
         <h3>Profiles & measurements</h3>
-        <p class="note">Numbers are stored internally in <b>cm</b> (for chart matching), but each profile remembers your preferred unit.</p>
+        <p class="note">Stored internally in <b>cm</b> to match charts; each profile remembers your preferred unit.</p>
 
         <div class="row two">
           <div>
@@ -169,7 +148,7 @@
         <div class="divider"></div>
 
         <div class="row two">
-          <div><label>Profile name</label><input id="m_name" placeholder="e.g., Emma" /></div>
+          <div><label>Profile name</label><input id="m_name" placeholder="e.g., Emma"/></div>
           <div>
             <label>Sex</label>
             <select id="m_sex"><option value="female">Female</option><option value="male">Male</option><option value="child">Child</option></select>
@@ -177,20 +156,20 @@
         </div>
 
         <div class="row three">
-          <div><label>Height (<span id="lbl_height_unit">cm</span>)</label><input id="m_height" inputmode="decimal" /></div>
-          <div><label>Shoulder (<span id="lbl_shoulder_unit">cm</span>)</label><input id="m_shoulder" inputmode="decimal" /></div>
-          <div><label>Bust/Chest (<span id="lbl_bust_unit">cm</span>)</label><input id="m_bust" inputmode="decimal" /></div>
-          <div><label>Waist (<span id="lbl_waist_unit">cm</span>)</label><input id="m_waist" inputmode="decimal" /></div>
-          <div><label>Hip (<span id="lbl_hip_unit">cm</span>)</label><input id="m_hip" inputmode="decimal" /></div>
-          <div><label>Inseam (<span id="lbl_inseam_unit">cm</span>)</label><input id="m_inseam" inputmode="decimal" /></div>
-          <div><label>Torso (<span id="lbl_torso_unit">cm</span>)</label><input id="m_torso" inputmode="decimal" /></div>
-          <div><label>Foot length (<span id="lbl_footlen_unit">cm</span>)</label><input id="m_footlen" inputmode="decimal" /></div>
-          <div><label>Bra band (<span id="lbl_band_unit">cm</span>)</label><input id="m_band" inputmode="decimal" /></div>
-          <div><label>Cup (A–H)</label><input id="m_cup" maxlength="3" /></div>
+          <div><label>Height (<span id="lbl_height_unit">cm</span>)</label><input id="m_height"  inputmode="decimal"/></div>
+          <div><label>Shoulder (<span id="lbl_shoulder_unit">cm</span>)</label><input id="m_shoulder" inputmode="decimal"/></div>
+          <div><label>Bust/Chest (<span id="lbl_bust_unit">cm</span>)</label><input id="m_bust" inputmode="decimal"/></div>
+          <div><label>Waist (<span id="lbl_waist_unit">cm</span>)</label><input id="m_waist" inputmode="decimal"/></div>
+          <div><label>Hip (<span id="lbl_hip_unit">cm</span>)</label><input id="m_hip" inputmode="decimal"/></div>
+          <div><label>Inseam (<span id="lbl_inseam_unit">cm</span>)</label><input id="m_inseam" inputmode="decimal"/></div>
+          <div><label>Torso (<span id="lbl_torso_unit">cm</span>)</label><input id="m_torso" inputmode="decimal"/></div>
+          <div><label>Foot length (<span id="lbl_footlen_unit">cm</span>)</label><input id="m_footlen" inputmode="decimal"/></div>
+          <div><label>Bra band (<span id="lbl_band_unit">cm</span>)</label><input id="m_band" inputmode="decimal"/></div>
+          <div><label>Cup (A–H)</label><input id="m_cup" maxlength="3"/></div>
         </div>
 
         <div class="toolbar">
-          <button class="cta" onclick="saveCurrentProfile()">Save profile</button>
+          <button class="cta"   onclick="saveCurrentProfile()">Save profile</button>
           <button class="ghost" onclick="toggleUnits()">Units: <span id="unitLabel">cm</span></button>
           <span id="saveMsg" class="pill" style="display:none;">Saved ✓</span>
         </div>
@@ -242,52 +221,17 @@
       </div>
     </section>
 
-    <!-- ===== Converters (simple) ===== -->
-    <section id="converters" class="screen">
-      <div class="card">
-        <h3>Clothes (UK ⇄ EU ⇄ US)</h3>
-        <div class="row three">
-          <div><label>From</label><select id="cw_from"><option>UK</option><option>EU</option><option>US</option></select></div>
-          <div><label>To</label><select id="cw_to"><option>UK</option><option>EU</option><option>US</option></select></div>
-          <div><label>Value</label><input id="cw_val" placeholder="e.g., 10"></div>
-        </div>
-        <div class="toolbar"><button class="ghost" onclick="convertClothing()">Convert</button><span class="pill" id="cw_out">—</span></div>
-      </div>
-
-      <div class="card">
-        <h3>Shoes</h3>
-        <div class="row three">
-          <div><label>From</label><select id="sh_from"><option>UK</option><option>EU</option><option>US</option></select></div>
-          <div><label>To</label><select id="sh_to"><option>UK</option><option>EU</option><option>US</option></select></div>
-          <div><label>Value</label><input id="sh_val" placeholder="e.g., 5"></div>
-        </div>
-        <div class="toolbar"><button class="ghost" onclick="convertShoes()">Convert</button><span class="pill" id="sh_out">—</span></div>
-      </div>
-
-      <div class="card">
-        <h3>Bra helper</h3>
-        <div class="row three">
-          <div><label>Band (cm)</label><input id="br_band" placeholder="e.g., 75"></div>
-          <div><label>Cup</label><input id="br_cup" placeholder="e.g., C"></div>
-          <div style="display:flex;align-items:flex-end;"><button class="ghost" onclick="convertBra()">Estimate</button></div>
-        </div>
-        <div class="toolbar"><span class="pill" id="br_out">—</span></div>
-      </div>
-    </section>
-
     <div class="card" style="margin-top:16px; text-align:center; opacity:.7;">MiSize prototype • v0.1 • Data stays in your browser.</div>
   </div>
 
-  <!-- ===== Splash logic: hide after 4s ===== -->
+  <!-- ===== Splash: hide after animation ===== -->
   <script>
     window.addEventListener('load', () => {
-      const splash = document.getElementById('splash');
-      const home   = document.getElementById('home');
       setTimeout(() => {
-        splash.style.display = 'none';
+        document.getElementById('splash').style.display = 'none';
         document.querySelector('.appbar').classList.remove('hidden');
-        home.classList.add('active');
-      }, 4000);
+        document.getElementById('home').classList.add('active');
+      }, 3200); // match flyAcross total duration
     });
   </script>
 
@@ -297,6 +241,7 @@
     function $(id){ return document.getElementById(id); }
     function in2cm(v){ const n=parseFloat(v); return isNaN(n)?null:n*2.54; }
     function cm2in(v){ const n=parseFloat(v); return isNaN(n)?'':(n/2.54).toFixed(1); }
+    function cmToInches(cm){ if(!cm || isNaN(cm)) return '–'; return (cm/2.54).toFixed(1) + '"'; }
 
     // -------- data holders --------
     let BRANDS=[], CHARTS=[];
@@ -306,7 +251,7 @@
     function go(id){
       document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
       (document.getElementById(id)||document.getElementById('home')).classList.add('active');
-      const t=$('title'); const appTitle=document.getElementById('title'); if(appTitle) appTitle.textContent='MiSize — '+id;
+      const t = document.getElementById('title'); if(t) t.textContent='MiSize — '+id;
       if(id==='brandNotes') renderBrandNotes();
       if(id==='history') renderHistory();
       if(id==='mySizes') initMySizesSelectors();
@@ -439,6 +384,8 @@
     function initSelectors(){
       const b=$('sf_brand'); if(b){ b.innerHTML=''; BRANDS.forEach(br=>{ const o=document.createElement('option'); o.value=br.id; o.textContent=br.name; b.appendChild(o); }); }
       const c=$('sf_category'); if(c){ c.innerHTML=''; CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; c.appendChild(o); }); }
+
+      const mc=$('ms_category'); if(mc){ mc.innerHTML=''; CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; mc.appendChild(o); }); if(mc.options.length) mc.options[0].selected=true; }
     }
 
     // -------- size finder --------
@@ -463,36 +410,46 @@
       if(scored[1]){ const diff=scored[1].score-scored[0].score; if(fit==='relaxed' && diff<2) pick=scored[1]; }
 
       const avg=pick.score/used.length; let conf='Medium'; if(avg<1.2 && used.length>=2) conf='High'; if(avg>3.0) conf='Low';
-      const notes=[]; if(fit==='snug') notes.push('Snug fit chosen. If unsure, consider one size up.');
+
+      const notes=[];
+      if(fit==='snug') notes.push('Snug fit chosen. If unsure, consider one size up.');
       if(fit==='relaxed') notes.push('Relaxed fit chosen. For closer fit, go down.');
       if(cat.includes('Jeans') && meas.inseam && brand?.lengths_cm){
-        const len=mapInseamToLengthFromBrand(brand.lengths_cm, meas.inseam); notes.push(`Suggested length: ${len.toUpperCase()}`);
+        const len=mapInseamToLengthFromBrand(brand.lengths_cm, meas.inseam);
+        if(len && brand.lengths_cm[len]){
+          const cmVal=brand.lengths_cm[len];
+          notes.push(`Suggested length: ${len.toUpperCase()} ~ ${cmVal}cm (${cmToInches(cmVal)})`);
+        }else{
+          notes.push(`Suggested length: ${len?.toUpperCase?.()||'—'}`);
+        }
       }
       if(brand?.notes) notes.push(`Brand note: ${brand.notes}`);
+
       showResult(pick.size, conf, null, notes);
     }
 
     function showResult(size,conf,message,notes){
       const box=$('sf_result'); if(!box) return; box.style.display='block';
-      $('sf_size').innerHTML=size==='—' ? 'No result' : `Your best size: <span class="badge">${size}</span>`;
-      $('sf_confidence').innerHTML=`Confidence: <span class="${conf==='High'?'success':conf==='Low'?'danger':'warning'} badge">${conf}</span>`;
-      $('sf_notes').innerHTML= message ? message : (notes||[]).map(n=>`<div>• ${n}</div>`).join('');
+      $('sf_size').innerHTML = size==='—' ? 'No result' : `Your best size: <span class="badge">${size}</span>`;
+      $('sf_confidence').innerHTML = `Confidence: <span class="${conf==='High'?'success':conf==='Low'?'danger':'warning'} badge">${conf}</span>`;
+      $('sf_notes').innerHTML = message ? message : (notes||[]).map(n=>`<div>• ${n}</div>`).join('');
       window.scrollTo({top:0, behavior:'smooth'});
-      window._lastResult={ when:new Date().toISOString(), brand:$('sf_brand').value, category:$('sf_category').value, size:size, conf:conf };
+      window._lastResult = { when:new Date().toISOString(), brand:$('sf_brand').value, category:$('sf_category').value, size:size, conf:conf };
     }
 
-    // -------- brand notes --------
+    // -------- brand notes (now shows cm + inches) --------
     function renderBrandNotes(){
       const wrap=$('brandList'); if(!wrap) return; wrap.innerHTML='';
       BRANDS.forEach(b=>{
-        const div=document.createElement('div'); div.className='item'; div.style.cssText='padding:12px;border-radius:12px;background:#0f131a;border:1px solid #202939;display:flex;justify-content:space-between;gap:10px;';
+        const div=document.createElement('div'); div.className='item';
         const left=document.createElement('div'); left.innerHTML=`<div><strong>${b.name}</strong></div><div class="note">${b.notes||''}</div>`;
         const L=b.lengths_cm||{};
-        const right=document.createElement('div'); right.innerHTML=
-          `<span class="pill">Short ~${L.short??'–'}cm</span>
-           <span class="pill">Regular ~${L.regular??'–'}cm</span>
-           <span class="pill">Long ~${L.long??'–'}cm</span>
-           <span class="pill">Tall ~${L.tall??'–'}cm</span>`;
+        const right=document.createElement('div'); right.innerHTML = `
+          <span class="pill">Short ~${L.short??'–'}cm (${cmToInches(L.short)})</span>
+          <span class="pill">Regular ~${L.regular??'–'}cm (${cmToInches(L.regular)})</span>
+          <span class="pill">Long ~${L.long??'–'}cm (${cmToInches(L.long)})</span>
+          <span class="pill">Tall ~${L.tall??'–'}cm (${cmToInches(L.tall)})</span>
+        `;
         div.appendChild(left); div.appendChild(right); wrap.appendChild(div);
       });
     }
@@ -504,7 +461,7 @@
       const wrap=$('histList'); if(!wrap) return; wrap.innerHTML='';
       const h=getHistory(); if(!h.length){ wrap.innerHTML='<div class="note">No lookups yet.</div>'; return; }
       h.forEach(item=>{
-        const div=document.createElement('div'); div.className='item'; div.style.cssText='padding:12px;border-radius:12px;background:#0f131a;border:1px solid #202939;display:flex;justify-content:space-between;';
+        const div=document.createElement('div'); div.className='item';
         div.innerHTML=`<div><div><strong>${item.brand}</strong> • ${item.category}</div>
                        <div class="note">${new Date(item.when).toLocaleString()} • Recommended: <span class="badge">${item.size}</span> • ${item.conf} confidence</div></div>
                        <div class="pill">Saved</div>`;
@@ -512,7 +469,7 @@
       });
     }
 
-    // -------- converters --------
+    // -------- converters (simple) --------
     function convertClothing(){
       const from=$('cw_from').value, to=$('cw_to').value, val=$('cw_val').value.trim();
       const map=[{UK:'8',EU:'36',US:'4'},{UK:'10',EU:'38',US:'6'},{UK:'12',EU:'40',US:'8'},{UK:'14',EU:'42',US:'10'},{UK:'16',EU:'44',US:'12'},{UK:'18',EU:'46',US:'14'}];
@@ -559,7 +516,13 @@
 
       const avg=pick.score/used.length; let conf='Medium'; if(avg<1.2&&used.length>=2) conf='High'; if(avg>3.0) conf='Low';
       const notes=[]; if(fit==='snug') notes.push('Snug fit chosen.'); if(fit==='relaxed') notes.push('Relaxed fit chosen.');
-      if(cat.includes('Jeans') && meas.inseam && brand?.lengths_cm){ const len=mapInseamToLengthFromBrand(brand.lengths_cm, meas.inseam); notes.push(`Suggested length: ${len.toUpperCase()}`); }
+      if(cat.includes('Jeans') && meas.inseam && brand?.lengths_cm){
+        const len=mapInseamToLengthFromBrand(brand.lengths_cm, meas.inseam);
+        if(len && brand.lengths_cm[len]){
+          const cmVal=brand.lengths_cm[len];
+          notes.push(`Suggested length: ${len.toUpperCase()} ~ ${cmVal}cm (${cmToInches(cmVal)})`);
+        }
+      }
       if(brand?.notes) notes.push(`Brand note: ${brand.notes}`);
       return { size:pick.size, conf, notes };
     }
