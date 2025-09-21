@@ -210,22 +210,60 @@
     </section>
 
     <!-- ===== Measurements (minimal) ===== -->
-    <section id="measurements" class="screen">
-      <div class="card">
-        <h3>Your measurements</h3>
-        <p class="note">Tip: you can leave some blank; we’ll use what we have.</p>
-        <div class="row two">
-          <div><label>Profile name</label><input id="m_name" placeholder="e.g., Emma" /></div>
-          <div>
-            <label>Sex</label>
-            <select id="m_sex">
-              <option value="female">Female</option><option value="male">Male</option><option value="child">Child</option>
-            </select>
-          </div>
-        </div>
-        <div class="toolbar"><button class="ghost" onclick="saveMeasurements()">Save</button></div>
+ <section id="measurements" class="screen">
+  <div class="card">
+    <h3>Profiles & measurements</h3>
+
+    <!-- Profile picker -->
+    <div class="row two">
+      <div>
+        <label>Active profile</label>
+        <select id="prof_select" onchange="onSelectProfile(this.value)"></select>
       </div>
-    </section>
+      <div style="display:flex; align-items:flex-end; gap:8px;">
+        <button class="ghost" onclick="newProfile()">New</button>
+        <button class="ghost" onclick="renameProfile()">Rename</button>
+        <button class="ghost" onclick="deleteProfile()">Delete</button>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Measurement form -->
+    <div class="row two">
+      <div>
+        <label>Profile name</label>
+        <input id="m_name" placeholder="e.g., Emma" />
+      </div>
+      <div>
+        <label>Sex</label>
+        <select id="m_sex">
+          <option value="female">Female</option>
+          <option value="male">Male</option>
+          <option value="child">Child</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row three">
+      <div><label>Height (cm)</label><input id="m_height" inputmode="decimal" /></div>
+      <div><label>Shoulder (cm)</label><input id="m_shoulder" inputmode="decimal" /></div>
+      <div><label>Bust/Chest (cm)</label><input id="m_bust" inputmode="decimal" /></div>
+      <div><label>Waist (cm)</label><input id="m_waist" inputmode="decimal" /></div>
+      <div><label>Hip (cm)</label><input id="m_hip" inputmode="decimal" /></div>
+      <div><label>Inseam (cm)</label><input id="m_inseam" inputmode="decimal" /></div>
+      <div><label>Torso (cm)</label><input id="m_torso" inputmode="decimal" /></div>
+      <div><label>Foot length (cm)</label><input id="m_footlen" inputmode="decimal" /></div>
+      <div><label>Bra band (cm)</label><input id="m_band" inputmode="decimal" /></div>
+      <div><label>Cup (A–H)</label><input id="m_cup" maxlength="3" /></div>
+    </div>
+
+    <div class="toolbar">
+      <button class="cta" onclick="saveCurrentProfile()">Save profile</button>
+      <span id="saveMsg" class="pill" style="display:none;">Saved ✓</span>
+    </div>
+  </div>
+</section>
 
     <!-- ===== Brand Notes ===== -->
     <section id="brandNotes" class="screen">
@@ -332,35 +370,159 @@
     }
 
     // measurement storage
-    function getMeasurements(){ try{ return JSON.parse(localStorage.getItem('measurements')||'{}'); }catch(e){ return {}; } }
-    function saveMeasurements(){
-      const m = {
-        name:$('m_name')?.value || 'Me',
-        sex:$('m_sex')?.value || 'female',
-        height:num($('m_height')?.value), shoulder:num($('m_shoulder')?.value),
-        bust:num($('m_bust')?.value), waist:num($('m_waist')?.value), hip:num($('m_hip')?.value),
-        inseam:num($('m_inseam')?.value), torso:num($('m_torso')?.value),
-        footlen:num($('m_footlen')?.value), band:num($('m_band')?.value),
-        cup:($('m_cup')?.value||'').toUpperCase()
-      };
-      localStorage.setItem('measurements', JSON.stringify(m));
-      alert('Saved.');
-    }
-    function loadMeasurements(){
-      const m = getMeasurements(); if(!m || !Object.keys(m).length) return;
-      if($('m_name')) $('m_name').value = m.name ?? '';
-      if($('m_sex'))  $('m_sex').value  = m.sex  ?? 'female';
-      if($('m_height'))   $('m_height').value   = m.height   ?? '';
-      if($('m_shoulder')) $('m_shoulder').value = m.shoulder ?? '';
-      if($('m_bust'))     $('m_bust').value     = m.bust     ?? '';
-      if($('m_waist'))    $('m_waist').value    = m.waist    ?? '';
-      if($('m_hip'))      $('m_hip').value      = m.hip      ?? '';
-      if($('m_inseam'))   $('m_inseam').value   = m.inseam   ?? '';
-      if($('m_torso'))    $('m_torso').value    = m.torso    ?? '';
-      if($('m_footlen'))  $('m_footlen').value  = m.footlen  ?? '';
-      if($('m_band'))     $('m_band').value     = m.band     ?? '';
-      if($('m_cup'))      $('m_cup').value      = m.cup      ?? '';
-    }
+/* ========= MULTI-PROFILE STORAGE =========
+Structure in localStorage:
+  profiles: [{ id, name, sex, ...measurements, updatedAt }]
+  activeProfileId: "p_xxx"
+========================================== */
+
+const LS_PROFILES = 'profiles';
+const LS_ACTIVE   = 'activeProfileId';
+
+function uid(){ return 'p_' + Math.random().toString(36).slice(2,8); }
+function numVal(v){ const n = parseFloat(v); return isNaN(n) ? null : n; }
+
+function readProfiles(){
+  try{ return JSON.parse(localStorage.getItem(LS_PROFILES) || '[]'); }
+  catch(e){ return []; }
+}
+function writeProfiles(list){ localStorage.setItem(LS_PROFILES, JSON.stringify(list)); }
+function getActiveId(){ return localStorage.getItem(LS_ACTIVE) || null; }
+function setActiveId(id){ localStorage.setItem(LS_ACTIVE, id); }
+
+function migrateLegacyIfAny(){
+  // If old single "measurements" exists and no profiles, import it as a first profile
+  const old = (()=>{ try{ return JSON.parse(localStorage.getItem('measurements')||'null'); }catch(e){ return null; } })();
+  const profs = readProfiles();
+  if(!profs.length && old){
+    const id = uid();
+    const imported = { id, name: old.name || 'Me', ...old, updatedAt: new Date().toISOString() };
+    writeProfiles([imported]);
+    setActiveId(id);
+    localStorage.removeItem('measurements');
+  }
+}
+
+/* ----- UI binding ----- */
+
+function renderProfileSelect(){
+  const profs = readProfiles();
+  const sel = $('prof_select'); if(!sel) return;
+  sel.innerHTML = '';
+  if(!profs.length){
+    const id = uid();
+    const first = { id, name:'Me', sex:'female', updatedAt:new Date().toISOString() };
+    writeProfiles([first]); setActiveId(id);
+  }
+  const active = getActiveId() || (profs[0] && profs[0].id);
+  if(!getActiveId() && active) setActiveId(active);
+
+  readProfiles().forEach(p=>{
+    const opt = document.createElement('option');
+    opt.value = p.id;
+    opt.textContent = p.name;
+    if(p.id===active) opt.selected = true;
+    sel.appendChild(opt);
+  });
+  fillFormFromProfile(active);
+}
+
+function onSelectProfile(id){
+  setActiveId(id);
+  fillFormFromProfile(id);
+}
+
+function newProfile(){
+  const name = prompt('Name for new profile?', 'New profile');
+  if(!name) return;
+  const profs = readProfiles();
+  const id = uid();
+  const base = {
+    id, name,
+    sex: 'female',
+    height:null, shoulder:null, bust:null, waist:null, hip:null,
+    inseam:null, torso:null, footlen:null, band:null, cup:'',
+    updatedAt: new Date().toISOString()
+  };
+  profs.push(base); writeProfiles(profs); setActiveId(id);
+  renderProfileSelect();
+}
+
+function renameProfile(){
+  const active = getActiveId(); if(!active) return;
+  const profs = readProfiles();
+  const p = profs.find(x=>x.id===active); if(!p) return;
+  const name = prompt('Rename profile to:', p.name);
+  if(!name) return;
+  p.name = name; p.updatedAt = new Date().toISOString();
+  writeProfiles(profs);
+  renderProfileSelect();
+}
+
+function deleteProfile(){
+  const active = getActiveId(); if(!active) return;
+  const profs = readProfiles();
+  if(profs.length<=1){ alert('Keep at least one profile.'); return; }
+  const p = profs.find(x=>x.id===active);
+  if(!confirm(`Delete profile "${p?.name||'this'}"?`)) return;
+  const next = profs.find(x=>x.id!==active)?.id;
+  writeProfiles(profs.filter(x=>x.id!==active));
+  setActiveId(next);
+  renderProfileSelect();
+}
+
+function readFormToObject(){
+  return {
+    name: $('m_name')?.value || 'Me',
+    sex:  $('m_sex')?.value || 'female',
+    height:  numVal($('m_height')?.value),
+    shoulder:numVal($('m_shoulder')?.value),
+    bust:    numVal($('m_bust')?.value),
+    waist:   numVal($('m_waist')?.value),
+    hip:     numVal($('m_hip')?.value),
+    inseam:  numVal($('m_inseam')?.value),
+    torso:   numVal($('m_torso')?.value),
+    footlen: numVal($('m_footlen')?.value),
+    band:    numVal($('m_band')?.value),
+    cup:     ($('m_cup')?.value||'').toUpperCase()
+  };
+}
+
+function fillFormFromProfile(id){
+  const profs = readProfiles();
+  const p = profs.find(x=>x.id===id) || profs[0]; if(!p) return;
+  if($('m_name'))     $('m_name').value = p.name ?? '';
+  if($('m_sex'))      $('m_sex').value  = p.sex  ?? 'female';
+  if($('m_height'))   $('m_height').value   = p.height   ?? '';
+  if($('m_shoulder')) $('m_shoulder').value = p.shoulder ?? '';
+  if($('m_bust'))     $('m_bust').value     = p.bust     ?? '';
+  if($('m_waist'))    $('m_waist').value    = p.waist    ?? '';
+  if($('m_hip'))      $('m_hip').value      = p.hip      ?? '';
+  if($('m_inseam'))   $('m_inseam').value   = p.inseam   ?? '';
+  if($('m_torso'))    $('m_torso').value    = p.torso    ?? '';
+  if($('m_footlen'))  $('m_footlen').value  = p.footlen  ?? '';
+  if($('m_band'))     $('m_band').value     = p.band     ?? '';
+  if($('m_cup'))      $('m_cup').value      = p.cup      ?? '';
+}
+
+function saveCurrentProfile(){
+  const id = getActiveId(); if(!id) return;
+  const profs = readProfiles();
+  const idx = profs.findIndex(x=>x.id===id);
+  const updated = { ...profs[idx], ...readFormToObject(), id, updatedAt: new Date().toISOString() };
+  profs[idx] = updated; writeProfiles(profs);
+
+  const msg = $('saveMsg'); if(msg){ msg.style.display='inline-block'; setTimeout(()=> msg.style.display='none', 1600); }
+  renderProfileSelect(); // refresh name if it changed
+}
+
+/* === Adapter functions (keep the rest of the app working) === */
+function getMeasurements(){
+  const id = getActiveId(); const profs = readProfiles();
+  return profs.find(x=>x.id===id) || profs[0] || {};
+}
+function saveMeasurements(){ saveCurrentProfile(); }
+function loadMeasurements(){ migrateLegacyIfAny(); renderProfileSelect(); }
 
     // selectors
     function initSelectors(){
