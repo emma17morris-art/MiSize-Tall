@@ -54,7 +54,7 @@
       100% { transform: translateX(120%)  skewX(-18deg); }
     }
 
-    /* Fade in/out for the actual image element (under the shine) */
+    /* Fade in/out */
     .fade-in{  animation:fadeIn 2s forwards; }
     .fade-out{ animation:fadeOut 1s forwards; }
     @keyframes fadeIn{  from{opacity:0; transform:scale(0.9);} to{opacity:1; transform:scale(1);} }
@@ -86,7 +86,7 @@
 
     /* ===== Components ===== */
     .card{ background:linear-gradient(180deg,#111520,#0d1119); border:1px solid #1b2230; border-radius:16px; padding:16px; }
-    .toolbar{ display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+    .toolbar{ display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; align-items:center; }
     .cta{ background:var(--brand); color:var(--brand-text); }
     .ghost{ background:#182034; color:#eef1f5; }
     .muted{ opacity:.8; }
@@ -209,11 +209,21 @@
       </div>
     </section>
 
-    <!-- ===== Measurements (inches input, stored as cm) ===== -->
+    <!-- ===== Measurements (unit toggle cm ⇄ in) ===== -->
     <section id="measurements" class="screen">
       <div class="card">
-        <h3>Profiles & measurements (inches)</h3>
-        <p class="note">Enter values in <strong>inches</strong>. We store internally in cm so the brand charts work consistently.</p>
+        <h3>Profiles & measurements</h3>
+        <p class="note">Choose your unit. Values are stored in <strong>cm</strong> internally so brand charts work consistently.</p>
+
+        <!-- Unit toggle -->
+        <div class="toolbar">
+          <label for="unitToggle">Units:</label>
+          <select id="unitToggle" onchange="switchUnits(this.value)">
+            <option value="cm">cm</option>
+            <option value="in">inches</option>
+          </select>
+          <span class="pill" id="unitInfo"></span>
+        </div>
 
         <!-- Profile picker -->
         <div class="row two">
@@ -247,15 +257,15 @@
         </div>
 
         <div class="row three">
-          <div><label>Height (in)</label><input id="m_height" inputmode="decimal" /></div>
-          <div><label>Shoulder (in)</label><input id="m_shoulder" inputmode="decimal" /></div>
-          <div><label>Bust/Chest (in)</label><input id="m_bust" inputmode="decimal" /></div>
-          <div><label>Waist (in)</label><input id="m_waist" inputmode="decimal" /></div>
-          <div><label>Hip (in)</label><input id="m_hip" inputmode="decimal" /></div>
-          <div><label>Inseam (in)</label><input id="m_inseam" inputmode="decimal" /></div>
-          <div><label>Torso (in)</label><input id="m_torso" inputmode="decimal" /></div>
-          <div><label>Foot length (in)</label><input id="m_footlen" inputmode="decimal" /></div>
-          <div><label>Bra band (in)</label><input id="m_band" inputmode="decimal" /></div>
+          <div><label id="lbl_height">Height (cm)</label><input id="m_height" inputmode="decimal" /></div>
+          <div><label id="lbl_shoulder">Shoulder (cm)</label><input id="m_shoulder" inputmode="decimal" /></div>
+          <div><label id="lbl_bust">Bust/Chest (cm)</label><input id="m_bust" inputmode="decimal" /></div>
+          <div><label id="lbl_waist">Waist (cm)</label><input id="m_waist" inputmode="decimal" /></div>
+          <div><label id="lbl_hip">Hip (cm)</label><input id="m_hip" inputmode="decimal" /></div>
+          <div><label id="lbl_inseam">Inseam (cm)</label><input id="m_inseam" inputmode="decimal" /></div>
+          <div><label id="lbl_torso">Torso (cm)</label><input id="m_torso" inputmode="decimal" /></div>
+          <div><label id="lbl_footlen">Foot length (cm)</label><input id="m_footlen" inputmode="decimal" /></div>
+          <div><label id="lbl_band">Bra band (cm)</label><input id="m_band" inputmode="decimal" /></div>
           <div><label>Cup (A–H)</label><input id="m_cup" maxlength="3" /></div>
         </div>
 
@@ -353,6 +363,58 @@
     // data
     let BRANDS = [], CHARTS = [];
     const CATEGORIES = ['Women • Dresses','Women • Jeans','Shoes (UK)'];
+
+    // ===== Units (persisted) =====
+    const LS_UNIT = 'unitPref';   // 'cm' | 'in'
+    let currentUnit = 'cm';
+
+    function initUnits(){
+      currentUnit = localStorage.getItem(LS_UNIT) || 'cm';
+      const sel = $('unitToggle');
+      if(sel){ sel.value = currentUnit; }
+      updateUnitLabels();
+      updateUnitInfo();
+    }
+
+    function updateUnitLabels(){
+      const map = {
+        lbl_height: 'Height',
+        lbl_shoulder: 'Shoulder',
+        lbl_bust: 'Bust/Chest',
+        lbl_waist: 'Waist',
+        lbl_hip: 'Hip',
+        lbl_inseam: 'Inseam',
+        lbl_torso: 'Torso',
+        lbl_footlen: 'Foot length',
+        lbl_band: 'Bra band'
+      };
+      Object.entries(map).forEach(([id, base])=>{
+        const el = $(id); if(el) el.textContent = `${base} (${currentUnit})`;
+      });
+    }
+    function updateUnitInfo(){
+      const el = $('unitInfo'); if(!el) return;
+      el.textContent = currentUnit === 'in' ? 'Showing inches (stored in cm)' : 'Showing centimeters';
+    }
+
+    function switchUnits(unit){
+      if(!unit || unit === currentUnit) return;
+
+      // Convert visible form values between units (doesn't change stored profiles)
+      const ids = ["m_height","m_shoulder","m_bust","m_waist","m_hip","m_inseam","m_torso","m_footlen","m_band"];
+      ids.forEach(id=>{
+        const el = $(id); if(!el) return;
+        const val = parseFloat(el.value);
+        if(isNaN(val)) return;
+        if(unit === 'in' && currentUnit === 'cm') el.value = (val/2.54).toFixed(1);
+        if(unit === 'cm' && currentUnit === 'in') el.value = (val*2.54).toFixed(1);
+      });
+
+      currentUnit = unit;
+      localStorage.setItem(LS_UNIT, currentUnit);
+      updateUnitLabels();
+      updateUnitInfo();
+    }
 
     // navigation
     function go(id){
@@ -472,41 +534,52 @@
       renderProfileSelect();
     }
 
-    // Read form (inches) -> store (cm)
+    // Read form -> store (always cm)
     function readFormToObject(){
+      // convert based on currentUnit
+      const read = (id)=> {
+        const v = $(id)?.value;
+        if(v==null || v==='') return null;
+        return currentUnit==='in' ? in2cm(v) : numVal(v);
+      };
       return {
         name: $('m_name')?.value || 'Me',
         sex:  $('m_sex')?.value || 'female',
-        height:  in2cm($('m_height')?.value),
-        shoulder:in2cm($('m_shoulder')?.value),
-        bust:    in2cm($('m_bust')?.value),
-        waist:   in2cm($('m_waist')?.value),
-        hip:     in2cm($('m_hip')?.value),
-        inseam:  in2cm($('m_inseam')?.value),
-        torso:   in2cm($('m_torso')?.value),
-        footlen: in2cm($('m_footlen')?.value),
-        band:    in2cm($('m_band')?.value),
+        height:  read('m_height'),
+        shoulder:read('m_shoulder'),
+        bust:    read('m_bust'),
+        waist:   read('m_waist'),
+        hip:     read('m_hip'),
+        inseam:  read('m_inseam'),
+        torso:   read('m_torso'),
+        footlen: read('m_footlen'),
+        band:    read('m_band'),
         cup:     ($('m_cup')?.value||'').toUpperCase()
       };
     }
 
-    // Fill form (stored cm) -> display inches
+    // Fill form (stored cm) -> display in selected unit
     function fillFormFromProfile(id){
       const profs = readProfiles();
       const p = profs.find(x=>x.id===id) || profs[0]; if(!p) return;
       if($('m_name'))     $('m_name').value = p.name ?? '';
       if($('m_sex'))      $('m_sex').value  = p.sex  ?? 'female';
 
-      if($('m_height'))   $('m_height').value   = cm2in(p.height);
-      if($('m_shoulder')) $('m_shoulder').value = cm2in(p.shoulder);
-      if($('m_bust'))     $('m_bust').value     = cm2in(p.bust);
-      if($('m_waist'))    $('m_waist').value    = cm2in(p.waist);
-      if($('m_hip'))      $('m_hip').value      = cm2in(p.hip);
-      if($('m_inseam'))   $('m_inseam').value   = cm2in(p.inseam);
-      if($('m_torso'))    $('m_torso').value    = cm2in(p.torso);
-      if($('m_footlen'))  $('m_footlen').value  = cm2in(p.footlen);
-      if($('m_band'))     $('m_band').value     = cm2in(p.band);
-      if($('m_cup'))      $('m_cup').value      = p.cup ?? '';
+      const put = (id, cmVal)=>{
+        const el = $(id); if(!el) return;
+        el.value = (currentUnit==='in') ? cm2in(cmVal) : (cmVal ?? '');
+      };
+
+      put('m_height',  p.height);
+      put('m_shoulder',p.shoulder);
+      put('m_bust',    p.bust);
+      put('m_waist',   p.waist);
+      put('m_hip',     p.hip);
+      put('m_inseam',  p.inseam);
+      put('m_torso',   p.torso);
+      put('m_footlen', p.footlen);
+      put('m_band',    p.band);
+      if($('m_cup')) $('m_cup').value = p.cup ?? '';
     }
 
     function saveCurrentProfile(){
@@ -535,7 +608,7 @@
       const ib=$('in_brand'); if(ib){ ib.innerHTML=''; BRANDS.forEach(br=>{ const o=document.createElement('option'); o.value=br.id; o.textContent=br.name; ib.appendChild(o); }); }
     }
 
-    // size finder
+    // size finder (charts are in cm; we already store in cm)
     function computeSize(){
       const brandId=$('sf_brand').value, cat=$('sf_category').value, fit=$('sf_fit').value;
       const meas=getMeasurements(); const brand=BRANDS.find(b=>b.id===brandId);
@@ -636,8 +709,9 @@
     // boot
     (async () => {
       await loadData();
+      initUnits();          // set unit BEFORE filling the form
       initSelectors();
-      loadMeasurements();
+      loadMeasurements();   // renders profile select + fills form using currentUnit
     })();
   </script>
 </body>
