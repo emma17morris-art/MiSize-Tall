@@ -129,6 +129,14 @@
       (document.getElementById(id) || document.getElementById('home')).classList.add('active');
       document.getElementById('title').textContent = 'siZed — ' + id;
     }
-  </script>
+  <script>
+  let BRANDS = [];
+  let CHARTS = [];
+  const CATEGORIES = ['Women • Dresses','Women • Jeans','Shoes (UK)'];
+      async function loadData() {
+    // fetch brands.json and charts.json from the same folder as index.html
+    const b = await fetch('brands.json');  BRANDS = await b.json();
+    const c = await fetch('charts.json');  CHARTS = await c.json();
+  }
 </body>
 </html>
