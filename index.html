@@ -6,36 +6,55 @@
   <title>MiSize — Clickable Prototype (MVP)</title>
 
   <style>
-    /* ===== Splash animations ===== */
-    .splash-logo {
-  height: 260px;              /* make it bigger */
-  opacity: 0;                 /* fade-in still controls this */
-  transform: scale(0.9);
-  position: relative;         /* allows shine overlay */
-  overflow: hidden;           /* keeps shine inside image bounds */
-}
+    /* ===== Splash: logo + metallic silver shine ===== */
+    .splash-logo{
+      height: clamp(220px, 30vw, 380px); /* responsive big logo */
+      display:block;
+    }
+    .logo-wrap{
+      position: relative;
+      display: inline-block;
+      line-height: 0;            /* no extra gap around img */
+    }
+    .logo-wrap::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
 
-.splash-logo::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -75%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(
-    120deg,
-    rgba(255,255,255,0.05) 0%,
-    rgba(255,255,255,0.6) 50%,
-    rgba(255,255,255,0.05) 100%
-  );
-  transform: skewX(-20deg);
-  animation: shine 3s linear infinite; /* constant shine */
-}
+      /* Mask overlay to the LOGO SHAPE so the shine follows it */
+      -webkit-mask-image: url('MiSize.png');
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      -webkit-mask-size: contain;
+      mask-image: url('MiSize.png');
+      mask-repeat: no-repeat;
+      mask-position: center;
+      mask-size: contain;
 
-@keyframes shine {
-  0%   { left: -75%; }
-  100% { left: 125%; }
-}
+      /* Metallic silver gradient sweep */
+      background: linear-gradient(
+        120deg,
+        rgba(170,170,170,0.00) 0%,
+        rgba(190,190,190,0.08) 38%,
+        rgba(255,255,255,0.85) 47%,
+        rgba(225,225,225,0.92) 50%,
+        rgba(255,255,255,0.85) 53%,
+        rgba(190,190,190,0.08) 62%,
+        rgba(170,170,170,0.00) 100%
+      );
+      mix-blend-mode: screen;    /* glassy highlight on dark bg */
+      opacity: 0.95;
+
+      transform: translateX(-120%);
+      animation: silverShine 3.2s linear infinite; /* constant sweep */
+    }
+    @keyframes silverShine{
+      0%   { transform: translateX(-120%) skewX(-18deg); }
+      100% { transform: translateX(120%)  skewX(-18deg); }
+    }
+
+    /* Fade in/out for the actual image element (under the shine) */
     .fade-in{  animation:fadeIn 2s forwards; }
     .fade-out{ animation:fadeOut 1s forwards; }
     @keyframes fadeIn{  from{opacity:0; transform:scale(0.9);} to{opacity:1; transform:scale(1);} }
@@ -94,9 +113,11 @@
   </div>
 
   <div class="container">
-    <!-- ===== Splash (blank + big logo) ===== -->
+    <!-- ===== Splash (blank + big logo with SILVER shine) ===== -->
     <section id="splash" class="screen active" style="display:flex;align-items:center;justify-content:center;height:100vh;background:#0b0d12;">
-      <img src="MiSize.png" alt="MiSize logo" class="splash-logo">
+      <div class="logo-wrap">
+        <img src="MiSize.png" alt="MiSize logo" class="splash-logo">
+      </div>
     </section>
 
     <!-- ===== Home (not active at start) ===== -->
@@ -222,7 +243,7 @@
       </div>
     </section>
 
-    <!-- ===== Converters (simple placeholders) ===== -->
+    <!-- ===== Converters ===== -->
     <section id="converters" class="screen">
       <div class="card">
         <h3>Clothes (UK ⇄ EU ⇄ US)</h3>
@@ -265,13 +286,13 @@
       const home   = document.getElementById('home');
       const logo   = document.querySelector('.splash-logo');
 
-      // show logo
+      // fade in the image
       logo.classList.add('fade-in');
 
-      // fade out later
+      // then fade out later
       setTimeout(() => { logo.classList.add('fade-out'); }, 2500);
 
-      // reveal app & home
+      // reveal app
       setTimeout(() => {
         splash.style.display = 'none';
         document.querySelector('.appbar')?.classList.remove('hidden');
