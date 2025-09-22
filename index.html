@@ -653,28 +653,30 @@ window.addEventListener('load', initMsFitPills);
   function resetFormFields(){
     ['m_height','m_shoulder','m_bust','m_waist','m_hip','m_inseam','m_torso','m_footlen','m_band','m_cup'].forEach(id=>{ const el=$(id); if(el) el.value=''; });
   }
+/* ---------- Navigation ---------- */
+const NAV_STACK=[]; 
+let CURRENT_SCREEN='home';
 
-  /* ---------- Navigation ---------- */
-  const NAV_STACK=[]; let CURRENT_SCREEN='home';
-  function switchTab(id){
-    if(id!==CURRENT_SCREEN) NAV_STACK.push(CURRENT_SCREEN);
-    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    ($(id)||$('home')).classList.add('active');
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    const t=$('tab_'+id); if(t) t.classList.add('active');
-    CURRENT_SCREEN=id; updateBackButton();
-    if (id==='uk_brandnotes') renderBrandNotes();
+function switchTab(id){
+  if(id!==CURRENT_SCREEN) NAV_STACK.push(CURRENT_SCREEN);
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  ($(id)||$('home')).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  const t=$('tab_'+id); if(t) t.classList.add('active');
+  CURRENT_SCREEN=id; 
+  updateBackButton();
+  if (id==='uk_brandnotes') renderBrandNotes();
+}
 
-    // Extra: when opening MiStats, always default to Current tab
-const _origSwitchTab = switchTab;
-switchTab = function(id){
+// ✅ place this AFTER the function, not inside it
+const _origSwitchTab = window.switchTab;
+window.switchTab = function(id){
   _origSwitchTab(id);
   if(id==='mistats'){
-    setMiTab('current');   // make Current visible
+    setMiTab('current');   // force Current subtab
     refreshAll();          // refresh values
   }
 };
-  
   }
   function openUK(id){
     NAV_STACK.push('uk');
