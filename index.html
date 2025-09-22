@@ -549,14 +549,24 @@
     function getHistory(){ try{ return JSON.parse(localStorage.getItem('history')||'[]'); }catch(e){ return []; } }
     function saveHistory(){ if(!window._lastResult) return; const h=getHistory(); h.unshift(window._lastResult); localStorage.setItem('history', JSON.stringify(h.slice(0,20))); alert('Saved to history.'); }
     function renderHistory(){
-      function convertClothing(){
-  const from = document.getElementById('cw_from').value;
-  const to   = document.getElementById('cw_to').value;
-  const val  = parseFloat(document.getElementById('cw_val').value);
-  const out  = document.getElementById('cw_out');
-  if (isNaN(val)) { out.textContent = 'Enter a number'; return; }
-  // simple demo mapping: treat sizes as roughly equivalent
-  out.textContent = `${val} ${from} ≈ ${val} ${to}`;
+  const wrap = $('histList'); 
+  if (!wrap) return; 
+  wrap.innerHTML = '';
+
+  const h = getHistory(); 
+  if (!h.length){ 
+    wrap.innerHTML = '<div class="note">No lookups yet.</div>'; 
+    return; 
+  }
+
+  h.forEach(item=>{
+    const div=document.createElement('div'); 
+    div.className='card';
+    div.innerHTML=`<div><div><strong>${item.brand}</strong> • ${item.category}</div>
+      <div class="note">${new Date(item.when).toLocaleString()} • Recommended size: 
+      <span class="pill">${item.size}</span> • ${item.conf} confidence</div></div>`;
+    wrap.appendChild(div);
+  });
 }
 
 function convertShoes(){
