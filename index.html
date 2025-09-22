@@ -321,7 +321,7 @@
   const toDisplay = (cm) => (cm==null ? '' : (UNIT_MODE==='cm' ? cm : (cm/CM_PER_IN)).toFixed(2));
   const fromDisplay = (val) => { const n=parseFloat(val); if(isNaN(n)) return null; return UNIT_MODE==='cm' ? n : +(n*CM_PER_IN).toFixed(2); };
 
-    <script>
+    
 // ---- Fit pills: init + click handling (minimal change) ----
 function initMsFitPills(){
   const sel = document.getElementById('ms_fit');
@@ -352,7 +352,7 @@ document.addEventListener('click', (e)=>{
 });
 // call once on load (after DOM + your My Sizes section exist)
 window.addEventListener('load', initMsFitPills);
-</script>
+
   
   /* ---------- Body type (GLOBAL) ---------- */
   let SELECTED_BODYTYPE = 'standard'; // 'standard' | 'petite' | 'tall' | 'plus'
