@@ -78,7 +78,6 @@
   .bottom-tabs .tab.active{ color:var(--brand); }
   #tab_home.active{ color:#8A2BE2; }
 
-    
   /* ===== FLOATING BACK BUTTON ===== */
   .backbtn{
     position:fixed; top:14px; left:14px; z-index:50; background:#182034; color:#eef1f5; border:1px solid #223049;
@@ -169,27 +168,28 @@
     display:flex; justify-content:space-between; gap:10px; align-items:flex-start;
   }
   .hi-when{ color:#aab3c5; font-size:12px; }
-    
-/* ===== Body profile pill panel ===== */
-.pt-pills{ display:flex; gap:8px; flex-wrap:wrap; }
-.pt-pill{
-  border:1px solid rgba(255,255,255,.12);
-  background:#151a3a;
-  color:#c9d3ea;
-  font-weight:700;
-  font-size:12px;
-  padding:8px 12px;
-  border-radius:999px;
-  cursor:pointer;
-}
-.pt-pill.active{
-  background:#1d4ed8;
-  color:#fff;
-  border-color:#1d4ed8;
-}
-</style>
+
+  /* ===== Body profile pill panel (shared) ===== */
+  .pt-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .pt-pill{
+    border:1px solid rgba(255,255,255,.12);
+    background:#151a3a;
+    color:#c9d3ea;
+    font-weight:700;
+    font-size:12px;
+    padding:8px 12px;
+    border-radius:999px;
+    cursor:pointer;
+  }
+  .pt-pill.active{
+    background:#1d4ed8;
+    color:#fff;
+    border-color:#1d4ed8;
+  }
+  </style>
 </head>
 <body>
+
   <!-- ========== FLOATING BACK BUTTON ========== -->
   <button class="backbtn" id="backbtn" onclick="goBack()" aria-label="Back">◀ Back</button>
 
@@ -254,7 +254,7 @@
           </select>
         </div>
 
-        <!-- Body profile pills (replaces the old select) -->
+        <!-- Body profile pills -->
         <div class="sf-field">
           <label class="sf-label">Body profile</label>
           <input id="sf_bodytype" type="hidden" value="standard">
@@ -279,95 +279,95 @@
   </section>
 
   <!-- ===== UK › MY SIZES ===== -->
- <section id="uk_mysizes" class="screen">
-  <div class="panel-hero">
-    <h3 class="title">My Sizes (all brands)</h3>
-    <p class="sub">Select categories and a fit, then compute across all brands.</p>
-  </div>
-
-  <!-- Body-type pills -->
-  <div class="panel" style="margin-bottom:16px;">
-    <div class="pt-pills" data-role="bodytype">
-      <button class="pt-pill active" data-val="standard">Standard</button>
-      <button class="pt-pill" data-val="petite">Petite</button>
-      <button class="pt-pill" data-val="tall">Tall</button>
-      <button class="pt-pill" data-val="curvy">Curvy</button>
-      <button class="pt-pill" data-val="plus">Plus-size</button>
+  <section id="uk_mysizes" class="screen">
+    <div class="panel-hero">
+      <h3 class="title">My Sizes (all brands)</h3>
+      <p class="sub">Select categories and a fit, then compute across all brands.</p>
     </div>
-  </div>
 
-  <div class="panel">
-    <div class="ms-filters">
-      <div class="ms-field">
-        <label class="ms-label">Categories</label>
-        <select id="ms_category" class="ms-select" multiple size="4" style="height:110px;"></select>
-        <p class="note" style="margin:6px 0 0;">Tip: Cmd/Ctrl-click to multi-select.</p>
+    <!-- Body-type pills -->
+    <div class="panel" style="margin-bottom:16px;">
+      <div class="pt-pills" data-role="bodytype">
+        <button class="pt-pill active" data-val="standard">Standard</button>
+        <button class="pt-pill" data-val="petite">Petite</button>
+        <button class="pt-pill" data-val="tall">Tall</button>
+        <button class="pt-pill" data-val="curvy">Curvy</button>
+        <button class="pt-pill" data-val="plus">Plus-size</button>
       </div>
-      <div class="ms-field">
-        <label class="ms-label">Fit preference</label>
-        <select id="ms_fit" class="ms-select">
-          <option value="standard">Standard</option>
-          <option value="snug">Snug</option>
-          <option value="relaxed">Relaxed</option>
-        </select>
-        <div class="ms-actions">
-          <button class="sf-primary" onclick="computeAllSizes()">Compute all</button>
-          <button class="ms-secondary" onclick="exportMySizesCSV()">Export CSV</button>
-          <button class="ms-secondary" onclick="copyMySizes()">Copy</button>
-          <span class="badge" id="ms_count">—</span>
+    </div>
+
+    <div class="panel">
+      <div class="ms-filters">
+        <div class="ms-field">
+          <label class="ms-label">Categories</label>
+          <select id="ms_category" class="ms-select" multiple size="4" style="height:110px;"></select>
+          <p class="note" style="margin:6px 0 0;">Tip: Cmd/Ctrl-click to multi-select.</p>
+        </div>
+        <div class="ms-field">
+          <label class="ms-label">Fit preference</label>
+          <select id="ms_fit" class="ms-select">
+            <option value="standard">Standard</option>
+            <option value="snug">Snug</option>
+            <option value="relaxed">Relaxed</option>
+          </select>
+          <div class="ms-actions">
+            <button class="sf-primary" onclick="computeAllSizes()">Compute all</button>
+            <button class="ms-secondary" onclick="exportMySizesCSV()">Export CSV</button>
+            <button class="ms-secondary" onclick="copyMySizes()">Copy</button>
+            <span class="badge" id="ms_count">—</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div id="ms_list" class="panel-list"></div>
-  </div>
-</section>
+      <div id="ms_list" class="panel-list"></div>
+    </div>
+  </section>
 
   <!-- ===== UK › BRAND NOTES ===== -->
   <section id="uk_brandnotes" class="screen">
-  <div class="panel-hero">
-    <h3 class="title">Brand Notes</h3>
-    <p class="sub">General guidance by brand. Adjusted for your body profile if relevant.</p>
-  </div>
-
-  <!-- Body-type pills -->
-  <div class="panel" style="margin-bottom:16px;">
-    <div class="pt-pills" data-role="bodytype">
-      <button class="pt-pill active" data-val="standard">Standard</button>
-      <button class="pt-pill" data-val="petite">Petite</button>
-      <button class="pt-pill" data-val="tall">Tall</button>
-      <button class="pt-pill" data-val="curvy">Curvy</button>
-      <button class="pt-pill" data-val="plus">Plus-size</button>
+    <div class="panel-hero">
+      <h3 class="title">Brand Notes</h3>
+      <p class="sub">General guidance by brand. Adjusted for your body profile if relevant.</p>
     </div>
-  </div>
 
-  <div class="panel">
-    <div id="brandList" class="panel-list"></div>
-  </div>
-</section>
+    <!-- Body-type pills -->
+    <div class="panel" style="margin-bottom:16px;">
+      <div class="pt-pills" data-role="bodytype">
+        <button class="pt-pill active" data-val="standard">Standard</button>
+        <button class="pt-pill" data-val="petite">Petite</button>
+        <button class="pt-pill" data-val="tall">Tall</button>
+        <button class="pt-pill" data-val="curvy">Curvy</button>
+        <button class="pt-pill" data-val="plus">Plus-size</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div id="brandList" class="panel-list"></div>
+    </div>
+  </section>
 
   <!-- ===== UK › HISTORY ===== -->
-<section id="uk_history" class="screen">
-  <div class="panel-hero">
-    <h3 class="title">History</h3>
-    <p class="sub">Your last lookups and recommended sizes.</p>
-  </div>
-
-  <!-- Body-type pills -->
-  <div class="panel" style="margin-bottom:16px;">
-    <div class="pt-pills" data-role="bodytype">
-      <button class="pt-pill active" data-val="standard">Standard</button>
-      <button class="pt-pill" data-val="petite">Petite</button>
-      <button class="pt-pill" data-val="tall">Tall</button>
-      <button class="pt-pill" data-val="curvy">Curvy</button>
-      <button class="pt-pill" data-val="plus">Plus-size</button>
+  <section id="uk_history" class="screen">
+    <div class="panel-hero">
+      <h3 class="title">History</h3>
+      <p class="sub">Your last lookups and recommended sizes.</p>
     </div>
-  </div>
 
-  <div class="panel">
-    <div id="histList" class="panel-list"></div>
-  </div>
-</section>
+    <!-- Body-type pills -->
+    <div class="panel" style="margin-bottom:16px;">
+      <div class="pt-pills" data-role="bodytype">
+        <button class="pt-pill active" data-val="standard">Standard</button>
+        <button class="pt-pill" data-val="petite">Petite</button>
+        <button class="pt-pill" data-val="tall">Tall</button>
+        <button class="pt-pill" data-val="curvy">Curvy</button>
+        <button class="pt-pill" data-val="plus">Plus-size</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div id="histList" class="panel-list"></div>
+    </div>
+  </section>
 
   <!-- ===== UK › CONVERTERS ===== -->
   <section id="uk_converters" class="screen">
@@ -798,49 +798,39 @@
       }, 2600);
     });
 
- // ===== Body profile selection (shared across screens) =====
-let SELECTED_BODYTYPE = 'standard';
+    // ===== Body profile selection (shared across screens) =====
+    let SELECTED_BODYTYPE = 'standard';
 
-function setBodyType(val){
-  SELECTED_BODYTYPE = val;
+    function setBodyType(val){
+      SELECTED_BODYTYPE = val;
+      // Sync hidden input for Size Finder
+      const sfSelect = document.getElementById('sf_bodytype');
+      if (sfSelect) sfSelect.value = val;
 
-  // Sync the Size Finder dropdown if present
-  const sfSelect = document.getElementById('sf_bodytype');
-  if (sfSelect) sfSelect.value = val;
+      // Toggle active pill across all groups
+      document.querySelectorAll('.pt-pills').forEach(group=>{
+        group.querySelectorAll('.pt-pill').forEach(p=>{
+          p.classList.toggle('active', p.dataset.val === val);
+        });
+      });
 
-  // Toggle active pill across all groups
-  document.querySelectorAll('.pt-pills').forEach(group=>{
-    group.querySelectorAll('.pt-pill').forEach(p=>{
-      p.classList.toggle('active', p.dataset.val === val);
+      // Optional: re-render sections that can reflect body profile
+      if (CURRENT_SCREEN === 'uk_mysizes' && window._lastMySizes) {
+        renderMySizes(window._lastMySizes.map(r=>{
+          const notes = (r.notes || []).slice();
+          const tag = `Profile: ${SELECTED_BODYTYPE}`;
+          if (!notes.includes(tag)) notes.push(tag);
+          return {...r, notes};
+        }));
+      }
+    }
+
+    // Delegate clicks for any .pt-pill anywhere
+    document.addEventListener('click', (e) => {
+      const pill = e.target.closest('.pt-pill');
+      if (!pill) return;
+      setBodyType(pill.dataset.val);
     });
-  });
-
-  // Optional: re-render sections that can reflect body profile
-  if (CURRENT_SCREEN === 'uk_mysizes' && window._lastMySizes) {
-    // Re-tag results with a small body-type badge (visual feedback)
-    renderMySizes(window._lastMySizes.map(r=>{
-      const notes = (r.notes || []).slice();
-      const tag = `Profile: ${SELECTED_BODYTYPE}`;
-      if (!notes.includes(tag)) notes.push(tag);
-      return {...r, notes};
-    }));
-  }
-}
-
-// Delegate clicks for any .pt-pill anywhere
-document.addEventListener('click', (e) => {
-  const pill = e.target.closest('.pt-pill');
-  if (!pill) return;
-  setBodyType(pill.dataset.val);
-});
-
-// Also sync if user changes the SF dropdown directly
-const bodySelObserver = new MutationObserver(()=>{});
-document.addEventListener('change', (e)=>{
-  if (e.target && e.target.id === 'sf_bodytype') {
-    setBodyType(e.target.value);
-  }
-});
   </script>
 
 </body>
