@@ -6,7 +6,7 @@
   <title>MiSize Prototype</title>
 
   <!-- ========== STYLES ========== -->
-  <style>
+<style>
 /* ===== SPLASH (simple, large centered logo) ===== */
 #splash { display:none; padding:0; }
 #splash.active { display:block; }
@@ -14,25 +14,25 @@
 .splash-stage{
   position:relative; height:100vh; width:100%;
   display:flex; align-items:center; justify-content:center;
-  background:#0b0d12; overflow:hidden;
+  background:#0b0d12; /* splash background */
+  overflow:hidden;
 }
 
 /* Single visual logo (no <img>, no animation) */
 .flash-logo-wrap{
-  position:relative; line-height:0;
-  width: min(75vw, 560px);     /* nice and large */
+  line-height:0;
+  width: min(75vw, 560px);  /* large */
   aspect-ratio: 1 / 1;
   background: center / contain no-repeat url('MiSize.png');
-  margin: 0 auto;              /* horizontally center */
+  margin: 0 auto;           /* centered */
   transform: none;
   animation: none;
   opacity: 1;
   z-index: 1;
 }
 
-/* Hide the old shine layer if the div is still present */
+/* Hide the old shine layer completely (even if present in HTML) */
 .flash-logo-shine{ display:none !important; }
-</style>
 
 /* ===== THEME / LAYOUT ===== */
 :root {
@@ -44,17 +44,22 @@
 }
 *{ box-sizing:border-box; }
 body{ margin:0; font-family:var(--font); background:var(--bg); color:var(--text); }
-.screen {
+
+.screen{
   display:none;
   padding:20px 20px 90px;
-  background:#2b1055;   /* purple background */
-  min-height:100vh;     /* always full screen */
+  background:#2b1055;        /* purple app background */
+  min-height:100vh;          /* full screen */
   box-sizing:border-box;
 }
 .screen.active{ display:block; }
+
 .card{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:18px; }
 .row{ display:grid; grid-template-columns:1fr; gap:12px; }
-@media (min-width:760px){ .row.two{ grid-template-columns:1fr 1fr; } .row.three{ grid-template-columns: repeat(3,1fr); } }
+@media (min-width:760px){
+  .row.two{ grid-template-columns:1fr 1fr; }
+  .row.three{ grid-template-columns: repeat(3,1fr); }
+}
 label{ font-size:14px; color:var(--muted); }
 select, input{ width:100%; padding:12px; border-radius:10px; border:1px solid #243048; background:#0f131a; color:#eef1f5; }
 .toolbar{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:10px; }
@@ -66,33 +71,28 @@ select, input{ width:100%; padding:12px; border-radius:10px; border:1px solid #2
 .divider{ height:1px; background:var(--border); margin:14px 0; }
 .success{ color:#8ee0b2; } .warning{ color:#ffd27a; } .danger{ color:#ff9a9a; }
 
-/* ===== HOME REGION TILES ===== */
-
-/* Home tiles: full height, 1 column, 4 rows */
-.tiles {
-  display: grid;
-  grid-template-columns: 1fr;        /* 1 column */
-  grid-template-rows: repeat(4, 1fr);/* 4 equal rows */
-  gap: 16px;
-  height: calc(100vh - 150px);       /* fill screen below header */
-  margin-top: 20px;
+/* ===== HOME REGION TILES (1x4 full height) ===== */
+.tiles{
+  display:grid;
+  grid-template-columns:1fr;          /* 1 column */
+  grid-template-rows: repeat(4,1fr);  /* 4 equal rows */
+  gap:16px;
+  height:calc(100vh - 150px);         /* fill below header */
+  margin-top:20px;
+}
+.tiles button{
+  font-size:28px; font-weight:800;
+  border-radius:14px; border:0; color:#fff; cursor:pointer;
+  width:100%; height:100%;
+  background:#1d4ed8;                 /* blue tiles */
 }
 
-/* Each tile fills its row */
-.tiles button {
-  font-size: 28px;
-  font-weight: 800;
-  border-radius: 14px;
-  border: 0;
-  color: #fff;
-  cursor: pointer;
-  width: 100%;
-  height: 100%;
-  background: #1d4ed8;  /* blue */
-}
 /* ===== UK HUB BUTTONS ===== */
 .hub{ display:grid; grid-template-columns:1fr; gap:12px; }
-.hub .bigbtn{ width:100%; text-align:left; padding:16px; border-radius:12px; border:1px solid var(--border); background:#0f131a; color:#fff; font-weight:700; cursor:pointer; }
+.hub .bigbtn{
+  width:100%; text-align:left; padding:16px; border-radius:12px;
+  border:1px solid var(--border); background:#0f131a; color:#fff; font-weight:700; cursor:pointer;
+}
 
 /* ===== BOTTOM BAR TABS ===== */
 .bottom-tabs{
@@ -105,22 +105,16 @@ select, input{ width:100%; padding:12px; border-radius:10px; border:1px solid #2
   font-weight:700; cursor:pointer;
 }
 .bottom-tabs .tab.active{ color:var(--brand); }
-#tab_home.active { color: #8A2BE2; }  /* purple */
-    #home { background: #2b1055; } /* deep purple */
+#tab_home.active{ color:#8A2BE2; } /* explicit purple for Home tab */
+
 /* ===== FLOATING BACK BUTTON ===== */
 .backbtn{
-  position: fixed; top: 14px; left: 14px;
-  z-index: 50;
-  background:#182034; color:#eef1f5;
-  border:1px solid #223049;
-  padding:10px 14px;
-  border-radius:12px;
-  font-weight:700;
-  cursor:pointer;
-  display:none;
+  position:fixed; top:14px; left:14px; z-index:50;
+  background:#182034; color:#eef1f5; border:1px solid #223049;
+  padding:10px 14px; border-radius:12px; font-weight:700; cursor:pointer; display:none;
 }
 .backbtn:active{ transform: translateY(1px); }
-  </style>
+</style>
 </head>
 <body>
 
