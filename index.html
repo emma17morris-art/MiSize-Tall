@@ -1016,6 +1016,9 @@ function currentMeasurements(){
     if (!window.BRANDS || window.BRANDS.length === 0) resetDataToDefaults();
     initSelectors();
     loadMeasurements();
+    renderUnitPills();
+renderProfilePills();
+loadActiveProfileIntoForm();
     updateBackButton();
   })();
 
