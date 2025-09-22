@@ -18,30 +18,28 @@
     }
     .flash-logo-wrap{
       position:relative; line-height:0;
-      transform: translateX(-120%);                            /* start off-screen left */
-      animation: flashFly 1.8s cubic-bezier(.22,.61,.36,1) .6s forwards; /* fly across */
+      transform: translateX(-120%);
+      animation: flashFly 1.8s cubic-bezier(.22,.61,.36,1) .6s forwards;
     }
     .flash-logo{
       height: clamp(220px, 30vw, 380px);
-      opacity:0;                                               /* fade in place while off-screen */
+      opacity:0;
       transform: scale(.9);
       animation:
         flashFadeIn 0.6s ease-out forwards,
-        flashFadeOut .4s linear 2.2s forwards;                 /* fade out at the end */
+        flashFadeOut .4s linear 2.2s forwards;
     }
     .flash-logo-wrap::after{
       content:"";
       position:absolute; inset:0; pointer-events:none;
-      /* mask overlay to the LOGO shape so the shine follows it */
       -webkit-mask-image:url('MiSize.png'); -webkit-mask-repeat:no-repeat; -webkit-mask-position:center; -webkit-mask-size:contain;
       mask-image:url('MiSize.png'); mask-repeat:no-repeat; mask-position:center; mask-size:contain;
-      /* shiny beam */
       background: linear-gradient(120deg,
         rgba(255,255,255,0) 0%,
         rgba(255,255,255,.85) 50%,
         rgba(255,255,255,0) 100%);
       transform: translateX(-200%) skewX(-15deg);
-      animation: silverSweep 1.2s ease-in-out 1.0s forwards;  /* single pass */
+      animation: silverSweep 1.2s ease-in-out 1.0s forwards;
     }
     @keyframes flashFadeIn{ from{opacity:0; transform:scale(.9);} to{opacity:1; transform:scale(1);} }
     @keyframes flashFly   { from{transform:translateX(-120%);} to{transform:translateX(120%);} }
@@ -58,7 +56,7 @@
     }
     *{ box-sizing:border-box; }
     body{ margin:0; font-family:var(--font); background:var(--bg); color:var(--text); }
-    .screen{ display:none; padding:20px 20px 90px; } /* bottom padding for tab bar */
+    .screen{ display:none; padding:20px 20px 90px; }
     .screen.active{ display:block; }
     .card{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:18px; }
     .row{ display:grid; grid-template-columns:1fr; gap:12px; }
@@ -105,7 +103,7 @@
       border-radius:12px;
       font-weight:700;
       cursor:pointer;
-      display:none; /* show on sub-screens only */
+      display:none;
     }
     .backbtn:active{ transform: translateY(1px); }
   </style>
@@ -138,7 +136,7 @@
     </div>
   </section>
 
-  <!-- ===== UK (HUB — no profile here) ===== -->
+  <!-- ===== UK (HUB) ===== -->
   <section id="uk" class="screen">
     <h2 class="big">UK</h2>
     <p class="note">Pick a tool below. Back button will appear on the next screen.</p>
@@ -191,7 +189,7 @@
     </div>
   </section>
 
-  <!-- ===== UK › MY SIZES (across brands) ===== -->
+  <!-- ===== UK › MY SIZES ===== -->
   <section id="uk_mysizes" class="screen">
     <div class="card">
       <h3>My sizes across brands</h3>
@@ -272,11 +270,11 @@
   </section>
 
   <!-- ===== Profile (placeholder) ===== -->
-<section id="profile" class="screen">
-  <h2 class="big">Profile</h2>
-  <p class="note">Your profile/settings will live here. (Placeholder for now.)</p>
-</section>
-  
+  <section id="profile" class="screen">
+    <h2 class="big">Profile</h2>
+    <p class="note">Your profile/settings will live here. (Placeholder for now.)</p>
+  </section>
+
   <!-- ===== EU/US/CA placeholders ===== -->
   <section id="eu" class="screen"><h2 class="big">EU</h2><p class="note">Coming later.</p></section>
   <section id="us" class="screen"><h2 class="big">US</h2><p class="note">Coming later.</p></section>
@@ -286,15 +284,13 @@
   <section id="mistats" class="screen"><h2 class="big">MiStats</h2><p class="note">Reserved for weight/measure trends.</p></section>
   <section id="settings" class="screen"><h2 class="big">Settings</h2><p class="note">Preferences go here later.</p></section>
 
-
-  
   <!-- ========== BOTTOM BAR TABS ========== -->
- <div class="bottom-tabs">
-  <button id="tab_home" class="tab active" onclick="switchTab('home')">Home</button>
-  <button id="tab_profile" class="tab" onclick="switchTab('profile')">Profile</button>
-  <button id="tab_mistats" class="tab" onclick="switchTab('mistats')">MiStats</button>
-  <button id="tab_settings" class="tab" onclick="switchTab('settings')">Settings</button>
-</div>
+  <div class="bottom-tabs">
+    <button id="tab_home" class="tab active" onclick="switchTab('home')">Home</button>
+    <button id="tab_profile" class="tab" onclick="switchTab('profile')">Profile</button>
+    <button id="tab_mistats" class="tab" onclick="switchTab('mistats')">MiStats</button>
+    <button id="tab_settings" class="tab" onclick="switchTab('settings')">Settings</button>
+  </div>
 
   <!-- ========== SCRIPTS ========== -->
   <script>
@@ -320,16 +316,16 @@
 
     // Open a UK sub-screen from the UK hub
     function openUK(id){
-  NAV_STACK.push('uk');
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  $(id).classList.add('active');
-  CURRENT_SCREEN = id;
+      NAV_STACK.push('uk');
+      document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+      $(id).classList.add('active');
+      CURRENT_SCREEN = id;
 
-  // ensure My Sizes dropdown fills when you open it
-  if (id === 'uk_mysizes') initMySizesSelectors();
+      // ensure My Sizes dropdown fills when you open it
+      if (id === 'uk_mysizes') initMySizesSelectors();
 
-  updateBackButton();
-}
+      updateBackButton();
+    }
 
     function goBack(){
       const prev = NAV_STACK.pop() || 'home';
@@ -345,14 +341,10 @@
     }
 
     function updateBackButton(){
-  const btn = document.getElementById('backbtn');
-  // Hide on Splash, Home, UK hub, and Profile
-  if (['splash','home','uk','profile'].includes(CURRENT_SCREEN)) {
-    btn.style.display = 'none';
-  } else {
-    btn.style.display = 'inline-block';
-  }
-}
+      const btn = document.getElementById('backbtn');
+      const topLevels = ['splash','home','uk','profile','mistats','settings','eu','us','ca'];
+      btn.style.display = topLevels.includes(CURRENT_SCREEN) ? 'none' : 'inline-block';
+    }
 
     /* ===== Demo Data (replace with your JSON later) ===== */
     let BRANDS = [
@@ -388,7 +380,7 @@
     function computeSize(){
       const brandId=$('sf_brand').value, cat=$('sf_category').value, fit=$('sf_fit').value, body=$('sf_bodytype').value;
 
-      // DEMO: swap with your saved profile measurements later (all in cm)
+      // DEMO: swap with saved profile measurements later (cm)
       const meas = { bust:88, waist:70, hip:94, inseam:76, footlen:24.6 };
 
       const brand=BRANDS.find(b=>b.id===brandId);
@@ -477,7 +469,6 @@
     }
 
     function computeAllSizes(){
-      // DEMO: same example measurements as size finder
       const meas={ bust:88, waist:70, hip:94, inseam:76, footlen:24.6 };
       const sel=$('ms_category'); const fit=$('ms_fit').value;
       const cats=Array.from(sel.selectedOptions).map(o=>o.value); const results=[];
@@ -548,52 +539,44 @@
 
     function getHistory(){ try{ return JSON.parse(localStorage.getItem('history')||'[]'); }catch(e){ return []; } }
     function saveHistory(){ if(!window._lastResult) return; const h=getHistory(); h.unshift(window._lastResult); localStorage.setItem('history', JSON.stringify(h.slice(0,20))); alert('Saved to history.'); }
+
     function renderHistory(){
-  const wrap = $('histList'); 
-  if (!wrap) return; 
-  wrap.innerHTML = '';
-
-  const h = getHistory(); 
-  if (!h.length){ 
-    wrap.innerHTML = '<div class="note">No lookups yet.</div>'; 
-    return; 
-  }
-
-  h.forEach(item=>{
-    const div=document.createElement('div'); 
-    div.className='card';
-    div.innerHTML=`<div><div><strong>${item.brand}</strong> • ${item.category}</div>
-      <div class="note">${new Date(item.when).toLocaleString()} • Recommended size: 
-      <span class="pill">${item.size}</span> • ${item.conf} confidence</div></div>`;
-    wrap.appendChild(div);
-  });
-}
-
-function convertShoes(){
-  const from = document.getElementById('sh_from').value;
-  const to   = document.getElementById('sh_to').value;
-  const val  = parseFloat(document.getElementById('sh_val').value);
-  const out  = document.getElementById('sh_out');
-  if (isNaN(val)) { out.textContent = 'Enter a number'; return; }
-  // demo: rough UK/US/EU mapping (placeholder)
-  out.textContent = `${val} ${from} ≈ ${val} ${to}`;
-}
-
-function convertBra(){
-  const bandCm = parseFloat(document.getElementById('br_band').value);
-  const cup    = (document.getElementById('br_cup').value || '').toUpperCase();
-  const out    = document.getElementById('br_out');
-  if (isNaN(bandCm) || !cup) { out.textContent = 'Add band & cup'; return; }
-  // demo: simple placeholder result
-  out.textContent = `~UK ${Math.round(bandCm/2.54)}${cup}`;
-}
-      const wrap=$('histList'); if(!wrap) return; wrap.innerHTML=''; const h=getHistory(); if(!h.length){ wrap.innerHTML='<div class="note">No lookups yet.</div>'; return; }
+      const wrap=$('histList'); if(!wrap) return; wrap.innerHTML='';
+      const h=getHistory();
+      if(!h.length){ wrap.innerHTML='<div class="note">No lookups yet.</div>'; return; }
       h.forEach(item=>{
         const div=document.createElement('div'); div.className='card';
         div.innerHTML=`<div><div><strong>${item.brand}</strong> • ${item.category}</div>
           <div class="note">${new Date(item.when).toLocaleString()} • Recommended size: <span class="pill">${item.size}</span> • ${item.conf} confidence</div></div>`;
         wrap.appendChild(div);
       });
+    }
+
+    /* ===== Converters (demo stubs) ===== */
+    function convertClothing(){
+      const from = document.getElementById('cw_from').value;
+      const to   = document.getElementById('cw_to').value;
+      const val  = parseFloat(document.getElementById('cw_val').value);
+      const out  = document.getElementById('cw_out');
+      if (isNaN(val)) { out.textContent = 'Enter a number'; return; }
+      out.textContent = `${val} ${from} ≈ ${val} ${to}`;
+    }
+
+    function convertShoes(){
+      const from = document.getElementById('sh_from').value;
+      const to   = document.getElementById('sh_to').value;
+      const val  = parseFloat(document.getElementById('sh_val').value);
+      const out  = document.getElementById('sh_out');
+      if (isNaN(val)) { out.textContent = 'Enter a number'; return; }
+      out.textContent = `${val} ${from} ≈ ${val} ${to}`;
+    }
+
+    function convertBra(){
+      const bandCm = parseFloat(document.getElementById('br_band').value);
+      const cup    = (document.getElementById('br_cup').value || '').toUpperCase();
+      const out    = document.getElementById('br_out');
+      if (isNaN(bandCm) || !cup) { out.textContent = 'Add band & cup'; return; }
+      out.textContent = `~UK ${Math.round(bandCm/2.54)}${cup}`;
     }
 
     /* ===== Initial UI setup (Home visible after Splash) ===== */
@@ -604,13 +587,11 @@ function convertBra(){
 
     // ===== Splash flow: show splash first, then go Home =====
     window.addEventListener('load', () => {
-      // Only show splash at very start
       document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
       document.getElementById('splash').classList.add('active');
       CURRENT_SCREEN = 'splash';
       updateBackButton();
 
-      // after animations (~2.6s), switch to Home
       setTimeout(() => {
         document.getElementById('splash').classList.remove('active');
         document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
