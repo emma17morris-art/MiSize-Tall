@@ -174,6 +174,52 @@
   .sf-badge  { display:inline-block; padding: 6px 10px; border-radius: 999px;
                border: 1px solid rgba(255,255,255,.12); background:#1a1d3f; color:#c9d3ea; font-size:12px; }
   .sf-note { color:#c9d3ea; font-size:14px; margin-top:8px; }
+    
+    /* ===== SHARED PANEL STYLE (reusing sf look) ===== */
+.panel-hero{
+  background: linear-gradient(180deg, #2b1055 0%, #231048 100%);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px; padding: 22px 18px; margin-bottom: 16px;
+}
+.panel-hero .title{ margin:0 0 6px; font-size:26px; font-weight:900; }
+.panel-hero .sub{ margin:0; color:#c9b7ff; font-size:14px; }
+
+.panel{ border-radius:16px; border:1px solid rgba(255,255,255,.08); background:#121433; padding:16px; }
+.panel-list{ display:flex; flex-direction:column; gap:12px; }
+
+/* ===== My Sizes ===== */
+.ms-filters{
+  display:grid; grid-template-columns:1fr; gap:12px; margin-bottom:12px;
+}
+@media (min-width:760px){ .ms-filters{ grid-template-columns:1fr 1fr; } }
+.ms-field{ background:#151535; border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:10px; }
+.ms-label{ display:block; font-size:12px; color:#a7b1ff; margin-bottom:6px; letter-spacing:.2px; text-transform:uppercase; }
+.ms-select{ width:100%; padding:12px; border-radius:10px; border:1px solid #2a2f57; background:#0f1330; color:#eef1f5; font-weight:600; appearance:none; -webkit-appearance:none; }
+.ms-actions{ display:flex; gap:10px; margin-top:6px; }
+.ms-secondary{ background:transparent; color:#cfe0ff; border:1px solid rgba(255,255,255,.12); padding:12px 14px; border-radius:14px; font-weight:700; cursor:pointer; }
+.ms-item{
+  display:flex; justify-content:space-between; align-items:flex-start; gap:10px;
+  border:1px solid rgba(255,255,255,.08); background:#1a1d3f; border-radius:14px; padding:12px;
+}
+.ms-item .meta{ color:#c9d3ea; font-size:13px; }
+.ms-size{ display:inline-block; padding:6px 12px; border-radius:999px; background:#1d4ed8; color:#fff; font-weight:800; }
+.badge{ display:inline-block; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:#151a3a; color:#c9d3ea; font-size:12px; }
+.badge.success{ color:#8ee0b2; } .badge.warning{ color:#ffd27a; } .badge.danger{ color:#ff9a9a; }
+
+/* ===== Brand Notes ===== */
+.bn-item{
+  display:flex; justify-content:space-between; gap:10px; align-items:flex-start;
+  border:1px solid rgba(255,255,255,.08); background:#1a1d3f; border-radius:14px; padding:12px;
+}
+.bn-name{ font-weight:800; }
+.bn-pills{ display:flex; gap:6px; flex-wrap:wrap; }
+
+/* ===== History ===== */
+.hi-item{
+  border:1px solid rgba(255,255,255,.08); background:#1a1d3f; border-radius:14px; padding:12px;
+  display:flex; justify-content:space-between; gap:10px; align-items:flex-start;
+}
+.hi-when{ color:#aab3c5; font-size:12px; }
   </style>
 </head>
 <body>
@@ -264,35 +310,39 @@
   </section>
 
   <!-- ===== UK › MY SIZES ===== -->
-  <section id="uk_mysizes" class="screen">
-    <div class="card">
-      <h3>My sizes across brands</h3>
-      <div class="row two">
-        <div>
-          <label>Categories</label>
-          <select id="ms_category" multiple size="4" style="height:110px;"></select>
-          <p class="note">Tap to select one or more categories.</p>
-        </div>
-        <div>
-          <label>Fit preference</label>
-          <select id="ms_fit">
-            <option value="standard">Standard</option>
-            <option value="snug">Snug</option>
-            <option value="relaxed">Relaxed</option>
-          </select>
-          <div style="margin-top:8px;">
-            <button class="cta" onclick="computeAllSizes()">Compute all</button>
-          </div>
-        </div>
+ <!-- ===== UK › MY SIZES ===== -->
+<section id="uk_mysizes" class="screen">
+  <div class="panel-hero">
+    <h3 class="title">My Sizes (all brands)</h3>
+    <p class="sub">Select categories and a fit, then compute across all brands.</p>
+  </div>
+
+  <div class="panel">
+    <div class="ms-filters">
+      <div class="ms-field">
+        <label class="ms-label">Categories</label>
+        <select id="ms_category" class="ms-select" multiple size="4" style="height:110px;"></select>
+        <p class="note" style="margin:6px 0 0;">Tip: Cmd/Ctrl-click to multi-select.</p>
       </div>
-      <div class="toolbar">
-        <button class="ghost" onclick="copyMySizes()">Copy</button>
-        <button class="ghost" onclick="exportMySizesCSV()">Export CSV</button>
-        <span class="pill" id="ms_count">—</span>
+      <div class="ms-field">
+        <label class="ms-label">Fit preference</label>
+        <select id="ms_fit" class="ms-select">
+          <option value="standard">Standard</option>
+          <option value="snug">Snug</option>
+          <option value="relaxed">Relaxed</option>
+        </select>
+        <div class="ms-actions">
+          <button class="sf-primary" onclick="computeAllSizes()">Compute all</button>
+          <button class="ms-secondary" onclick="exportMySizesCSV()">Export CSV</button>
+          <button class="ms-secondary" onclick="copyMySizes()">Copy</button>
+          <span class="badge" id="ms_count">—</span>
+        </div>
       </div>
     </div>
-    <div id="ms_list" class="card"></div>
-  </section>
+
+    <div id="ms_list" class="panel-list"></div>
+  </div>
+</section>
 
   <!-- ===== UK › BRAND NOTES ===== -->
   <section id="uk_brandnotes" class="screen">
