@@ -7,7 +7,7 @@
 
   <!-- ========== STYLES ========== -->
   <style>
-/* ===== SPLASH (single logo with metallic sweep + fly-across) ===== */
+/* ===== SPLASH (simple, large centered logo) ===== */
 #splash { display:none; padding:0; }
 #splash.active { display:block; }
 
@@ -17,43 +17,22 @@
   background:#0b0d12; overflow:hidden;
 }
 
-/* Single visual logo (no <img>) */
+/* Single visual logo (no <img>, no animation) */
 .flash-logo-wrap{
   position:relative; line-height:0;
-  width: clamp(220px, 30vw, 380px);
+  width: min(75vw, 560px);     /* nice and large */
   aspect-ratio: 1 / 1;
   background: center / contain no-repeat url('MiSize.png');
-  transform: translateX(-120%);
-  animation:
-    flashFly 1.8s cubic-bezier(.22,.61,.36,1) .6s forwards,
-    fadeInOnly 0.6s ease-out forwards,
-    flashFadeOut .4s linear 2.2s forwards;
-  will-change: transform, opacity;
-  z-index:1;
+  margin: 0 auto;              /* horizontally center */
+  transform: none;
+  animation: none;
+  opacity: 1;
+  z-index: 1;
 }
 
-/* Metallic sweep clipped to the logo shape */
-    .flash-logo-shine { display:none; }
-.flash-logo-shine{
-  position:absolute; inset:0; pointer-events:none;
-  z-index:2;
-  -webkit-mask-image:url('MiSize.png'); -webkit-mask-repeat:no-repeat; -webkit-mask-position:center; -webkit-mask-size:contain;
-  mask-image:url('MiSize.png'); mask-repeat:no-repeat; mask-position:center; mask-size:contain;
-  background: linear-gradient(120deg,
-    rgba(255,255,255,0) 0%,
-    rgba(255,255,255,.85) 50%,
-    rgba(255,255,255,0) 100%);
-  transform: translateX(-200%) skewX(-15deg);
-  animation: silverSweep 1.2s ease-in-out 1.0s forwards;
-  opacity:.9;
-  will-change: transform;
-}
-
-/* animations */
-@keyframes fadeInOnly { from{opacity:0;} to{opacity:1;} }
-@keyframes flashFly   { from{transform:translateX(-120%);} to{transform:translateX(120%);} }
-@keyframes flashFadeOut{ from{opacity:1;} to{opacity:0;} }
-@keyframes silverSweep{ from{transform:translateX(-200%) skewX(-15deg);} to{transform:translateX(200%) skewX(-15deg);} }
+/* Hide the old shine layer if the div is still present */
+.flash-logo-shine{ display:none !important; }
+</style>
 
 /* ===== THEME / LAYOUT ===== */
 :root {
