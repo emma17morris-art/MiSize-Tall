@@ -303,7 +303,136 @@
   <section id="eu" class="screen" aria-label="EU"><h2 class="big">EU</h2><p class="note">Coming later.</p></section>
   <section id="us" class="screen" aria-label="US"><h2 class="big">US</h2><p class="note">Coming later.</p></section>
   <section id="ca" class="screen" aria-label="CA"><h2 class="big">CA</h2><p class="note">Coming later.</p></section>
-  <section id="mistats" class="screen" aria-label="MiStats"><h2 class="big">MiStats</h2><p class="note">Reserved for trends.</p></section>
+  <section id="mistats" class="screen" aria-label="MiStats">
+  <h2 class="big">MiStats</h2>
+  <p class="note">Personal weight tracker linked to your active profile.</p>
+
+  <!-- mini tab bar -->
+  <div class="toolbar" role="tablist" aria-label="MiStats views" id="mi_tabs">
+    <button class="pill mi-tab active" data-view="current">Current</button>
+    <button class="pill mi-tab" data-view="graph">Graph</button>
+    <button class="pill mi-tab" data-view="history">History</button>
+    <button class="pill mi-tab" data-view="settings">Settings</button>
+  </div>
+
+  <!-- CURRENT -->
+  <div id="mi_view_current" class="mi-view card">
+    <div style="display:grid;grid-template-columns:1fr;gap:12px;">
+      <div>
+        <div class="big" id="mi_current_title">—</div>
+        <div class="note" id="mi_current_meta">—</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+        <div class="card">
+          <div class="note">Start</div>
+          <div class="big" id="mi_start">—</div>
+          <div class="note" id="mi_start_bmi">BMI —</div>
+        </div>
+        <div class="card">
+          <div class="note">Current</div>
+          <div class="big" id="mi_current">—</div>
+          <div class="note" id="mi_current_bmi">BMI —</div>
+        </div>
+        <div class="card">
+          <div class="note">Target</div>
+          <div class="big" id="mi_target">—</div>
+          <div class="note" id="mi_target_bmi">BMI —</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="note">Progress</div>
+        <div class="mi-bar"><div id="mi_prog_bar"></div></div>
+        <div class="note" id="mi_prog_text">—</div>
+      </div>
+
+      <div class="row two">
+        <div class="card">
+          <div class="note">Avg daily change</div>
+          <div class="big" id="mi_avg_day">—</div>
+        </div>
+        <div class="card">
+          <div class="note">Avg weekly change</div>
+          <div class="big" id="mi_avg_week">—</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row three">
+          <div>
+            <label for="mi_weight_in">Enter weight</label>
+            <input id="mi_weight_in" inputmode="decimal" placeholder="e.g., 80">
+          </div>
+          <div>
+            <label for="mi_date_in">Date</label>
+            <input id="mi_date_in" type="date">
+          </div>
+          <div style="display:flex;align-items:flex-end;">
+            <button class="pill" id="mi_add_btn">Save entry</button>
+          </div>
+        </div>
+        <p class="note" id="mi_hint_units">Units: —</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRAPH -->
+  <div id="mi_view_graph" class="mi-view card" style="display:none;">
+    <div class="toolbar">
+      <span class="pill">Zoom</span>
+      <input id="mi_zoom" type="range" min="0" max="100" value="0" style="accent-color:#1d4ed8;width:180px;">
+      <span class="pill" id="mi_zoom_label">All time</span>
+    </div>
+    <canvas id="mi_canvas" width="1200" height="420" style="width:100%;height:320px;border-radius:12px;background:#0f131a;border:1px solid var(--border);"></canvas>
+    <p class="note" id="mi_graph_note">—</p>
+  </div>
+
+  <!-- HISTORY -->
+  <div id="mi_view_history" class="mi-view card" style="display:none;">
+    <div id="mi_hist_list"></div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div id="mi_view_settings" class="mi-view card" style="display:none;">
+    <div class="row two">
+      <div>
+        <label>Weight unit</label>
+        <div class="pill-row">
+          <button class="pill mi-unit-w" data-u="kg">Kilos</button>
+          <button class="pill mi-unit-w" data-u="lb">Pounds</button>
+          <button class="pill mi-unit-w" data-u="st">Stones</button>
+        </div>
+      </div>
+      <div>
+        <label>Height unit (for BMI)</label>
+        <div class="pill-row">
+          <button class="pill mi-unit-h" data-u="cm">Centimeters</button>
+          <button class="pill mi-unit-h" data-u="m">Meters</button>
+          <button class="pill mi-unit-h" data-u="ftin">Feet+Inches</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row two" style="margin-top:10px;">
+      <div>
+        <label for="mi_height">Your height</label>
+        <input id="mi_height" placeholder="e.g., 168 (cm)">
+        <p class="note" id="mi_height_hint">Stored in cm internally.</p>
+      </div>
+      <div>
+        <label for="mi_target_in">Target weight</label>
+        <input id="mi_target_in" placeholder="e.g., 70">
+        <p class="note">Leave empty to disable target.</p>
+      </div>
+    </div>
+
+    <div class="toolbar" style="margin-top:10px;">
+      <button class="pill" id="mi_save_settings">Save settings</button>
+      <button class="pill" id="mi_reset_profile">Reset this profile</button>
+    </div>
+  </div>
+</section>
   <section id="settings" class="screen" aria-label="Settings"><h2 class="big">Settings</h2><p class="note">Preferences go here later.</p></section>
 
   <div class="bottom-tabs" role="tablist" aria-label="Main tabs">
