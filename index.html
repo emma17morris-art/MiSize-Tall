@@ -1026,6 +1026,28 @@
     }
 
     // tabs & unit toggles
+
+    function setMiTab(view){
+  document.querySelectorAll('#mi_tabs .mi-tab').forEach(b=>{
+    b.classList.toggle('active', b.dataset.view===view);
+  });
+  document.querySelectorAll('#mistats .mi-view').forEach(v=> v.style.display='none');
+  $('#mi_view_'+view).style.display='block';
+  if(view==='graph') miDrawGraph();
+  if(view==='history') miRenderHistory();
+}
+window.setMiTab = setMiTab;
+
+// zoom
+$('#mi_zoom')?.addEventListener('input', miDrawGraph);
+
+// refresh
+function refreshAll(){
+  renderCurrent(); renderSettings();
+  if(CURRENT_SCREEN==='mistats'){ miDrawGraph(); miRenderHistory(); }
+}
+window.refreshAll = refreshAll; // keep this name so your existing switchTab hook still works
+    
     function setMiTab(view){
       document.querySelectorAll('#mi_tabs .mi-tab').forEach(b=>{
         b.classList.toggle('active', b.dataset.view===view);
