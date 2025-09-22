@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MiSize — Prototype</title>
   <style>
-    /* ===== Splash: logo flies across ===== */
+    /* ===== Splash: single logo flies across then hides ===== */
     #splash{display:flex;align-items:center;justify-content:flex-start;height:100vh;background:#0b0d12;overflow:hidden;}
     .flying-logo{height:clamp(140px,28vw,260px);opacity:0;transform:translateX(-120%) scale(0.6);animation:flyAcross 3.2s ease-in-out forwards;}
     @keyframes flyAcross{
@@ -29,7 +29,7 @@
     input,select{ width:100%; padding:12px; border-radius:10px; border:1px solid #2a2f3a; background:#0f131a; color:#eef1f5; }
     label{ font-size:14px; opacity:.9; }
 
-    .container{ max-width:980px; margin:0 auto; padding:20px; padding-bottom:96px; } /* padding-bottom for bottom nav */
+    .container{ max-width:980px; margin:0 auto; padding:20px; padding-bottom:96px; } /* space for bottom tab bar */
     .screen{ display:none; animation:fade .2s ease-in; } .screen.active{ display:block; }
     @keyframes fade{ from{opacity:0;} to{opacity:1;} }
     .row{ display:grid; grid-template-columns:1fr; gap:14px; }
@@ -66,9 +66,7 @@
     .tab .txt{ font-size:12px; }
 
     /* ===== Region Tiles (Home) ===== */
-    .region-grid{
-      display:grid; grid-template-columns:1fr; gap:12px; margin-top:12px;
-    }
+    .region-grid{ display:grid; grid-template-columns:1fr; gap:12px; margin-top:12px; }
     @media(min-width:680px){ .region-grid{ grid-template-columns:1fr 1fr; } }
     .region-tile{
       display:flex; align-items:center; justify-content:center; height:120px;
@@ -96,28 +94,28 @@
     <section id="home" class="screen">
       <div class="card">
         <h2 class="big">Welcome to MiSize by Ems.</h2>
-        <p class="subtitle">Pick your region below. You can change it any time in Settings.</p>
+        <p class="subtitle">Pick your region below. For now, only <b>UK</b> is active — the others will be added later.</p>
 
-        <!-- Four large tiles: UK, EU, US, CA -->
         <div class="region-grid">
-          <button class="region-tile" id="tile_UK" onclick="setRegion('UK')">UK</button>
-          <button class="region-tile" id="tile_EU" onclick="setRegion('EU')">EU</button>
-          <button class="region-tile" id="tile_US" onclick="setRegion('US')">US</button>
-          <button class="region-tile" id="tile_CA" onclick="setRegion('CA')">CA</button>
+          <button class="region-tile" id="tile_UK" onclick="pickRegion('UK')">UK</button>
+          <button class="region-tile" id="tile_EU" onclick="pickRegion('EU')">EU</button>
+          <button class="region-tile" id="tile_US" onclick="pickRegion('US')">US</button>
+          <button class="region-tile" id="tile_CA" onclick="pickRegion('CA')">CA</button>
         </div>
 
         <div class="toolbar">
-          <button class="cta" onclick="go('measurements')">Set up profile</button>
+          <button class="cta"   onclick="switchTab('measurements')">Set up profile</button>
           <button class="ghost" onclick="go('sizeFinder')">Go to Size Finder</button>
           <span id="regionLabel" class="pill">Region: UK</span>
         </div>
       </div>
     </section>
 
-    <!-- ===== Size Finder ===== -->
+    <!-- ===== Size Finder (UK data) ===== -->
     <section id="sizeFinder" class="screen">
       <div class="card">
         <h3>Size Finder</h3>
+        <p class="note">Using <b>UK</b> data.</p>
         <div class="row three">
           <div><label>Brand</label><select id="sf_brand"></select></div>
           <div><label>Category</label><select id="sf_category"></select></div>
@@ -132,7 +130,7 @@
         </div>
         <div class="toolbar">
           <button class="cta"   onclick="computeSize()">Get my size</button>
-          <button class="ghost" onclick="go('measurements')">Edit measurements</button>
+          <button class="ghost" onclick="switchTab('measurements')">Edit measurements</button>
         </div>
       </div>
 
@@ -198,32 +196,11 @@
       </div>
     </section>
 
-    <!-- ===== Stats (My sizes across brands) ===== -->
-    <section id="mySizes" class="screen">
+    <!-- ===== Stats (EMPTY placeholder for future weight section) ===== -->
+    <section id="stats" class="screen">
       <div class="card">
-        <h3>My sizes across brands</h3>
-        <div class="row two">
-          <div>
-            <label>Categories</label>
-            <select id="ms_category" multiple size="4" style="height:100px;"></select>
-            <p class="note">Tap to select one or more categories.</p>
-          </div>
-          <div>
-            <label>Fit preference</label>
-            <select id="ms_fit"><option value="standard">Standard</option><option value="snug">Snug</option><option value="relaxed">Relaxed</option></select>
-            <div style="margin-top:8px;"><button class="cta" onclick="computeAllSizes()">Compute all</button></div>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="toolbar">
-          <button class="ghost" onclick="copyMySizes()">Copy</button>
-          <button class="ghost" onclick="exportMySizesCSV()">Export CSV</button>
-          <span class="pill" id="ms_count">—</span>
-        </div>
-
-        <div class="list" id="ms_list"></div>
+        <h3>Stats</h3>
+        <p class="note">This section is reserved for weight & progress tracking. We’ll build it later. 💪</p>
       </div>
     </section>
 
@@ -234,10 +211,10 @@
         <div class="row two">
           <div>
             <label>Preferred region</label>
-            <select id="settings_region" onchange="setRegion(this.value)">
+            <select id="settings_region" onchange="pickRegion(this.value)">
               <option>UK</option><option>EU</option><option>US</option><option>CA</option>
             </select>
-            <p class="note">Used for converters and defaults in the app.</p>
+            <p class="note">For now, only UK is available. Picking EU/US/CA will show a “coming soon” message and keep UK data.</p>
           </div>
           <div>
             <label>Default units for new profiles</label>
@@ -261,14 +238,14 @@
       </div>
     </section>
 
-    <div class="card" style="margin-top:16px; text-align:center; opacity:.7;">MiSize prototype • v0.2 • Data stays in your browser.</div>
+    <div class="card" style="margin-top:16px; text-align:center; opacity:.7;">MiSize prototype • v0.3 • UK region active.</div>
   </div>
 
   <!-- ===== Bottom Tab Bar ===== -->
   <nav class="tabbar">
     <button class="tab active" id="tab_home" onclick="switchTab('home')"><span class="ico">🏠</span><span class="txt">Home</span></button>
     <button class="tab" id="tab_measurements" onclick="switchTab('measurements')"><span class="ico">👤</span><span class="txt">Profile</span></button>
-    <button class="tab" id="tab_mySizes" onclick="switchTab('mySizes')"><span class="ico">📊</span><span class="txt">Stats</span></button>
+    <button class="tab" id="tab_stats" onclick="switchTab('stats')"><span class="ico">📊</span><span class="txt">Stats</span></button>
     <button class="tab" id="tab_settings" onclick="switchTab('settings')"><span class="ico">⚙️</span><span class="txt">Settings</span></button>
   </nav>
 
@@ -279,7 +256,7 @@
         document.getElementById('splash').style.display = 'none';
         document.querySelector('.appbar').classList.remove('hidden');
         document.getElementById('home').classList.add('active');
-        highlightRegionTiles();
+        applyRegionUI();
       }, 3300);
     });
   </script>
@@ -295,24 +272,32 @@
     let BRANDS=[], CHARTS=[];
     const CATEGORIES=['Women • Dresses','Women • Jeans','Shoes (UK)'];
 
-    /* ---------- region prefs ---------- */
+    /* ---------- region prefs (UK only for now) ---------- */
     const LS_REGION='region';
     const LS_DEFAULT_UNITS='defaultUnits';
+
     function getRegion(){ return localStorage.getItem(LS_REGION) || 'UK'; }
-    function setRegion(code){
-      localStorage.setItem(LS_REGION, code);
-      const lbl=$('regionLabel'); if(lbl) lbl.textContent='Region: ' + code;
-      const sel=$('settings_region'); if(sel) sel.value=code;
-      highlightRegionTiles();
+
+    function pickRegion(code){
+      if(code !== 'UK'){
+        alert(code + ' is coming soon. Using UK data for now.');
+        localStorage.setItem(LS_REGION, 'UK');
+      }else{
+        localStorage.setItem(LS_REGION, 'UK');
+      }
+      applyRegionUI();
     }
-    function highlightRegionTiles(){
-      const r=getRegion();
+
+    function applyRegionUI(){
+      const r=getRegion(); // will always be 'UK' after pickRegion
+      // highlight tiles & labels
       ['UK','EU','US','CA'].forEach(code=>{
-        const el=$('tile_'+code); if(el) el.classList.toggle('active', r===code);
+        const el=$('tile_'+code); if(el) el.classList.toggle('active', code==='UK');
       });
-      const lbl=$('regionLabel'); if(lbl) lbl.textContent='Region: ' + r;
-      const sel=$('settings_region'); if(sel) sel.value=r;
+      const lbl=$('regionLabel'); if(lbl) lbl.textContent='Region: UK';
+      const sel=$('settings_region'); if(sel) sel.value='UK';
     }
+
     function setDefaultUnits(u){
       localStorage.setItem(LS_DEFAULT_UNITS, (u==='in'?'in':'cm'));
       const sel=$('settings_units'); if(sel) sel.value=getDefaultUnits();
@@ -329,15 +314,14 @@
       document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
       (document.getElementById(id)||document.getElementById('home')).classList.add('active');
       const t = document.getElementById('title'); if(t) t.textContent='MiSize — '+id;
-      if(id==='settings'){ renderBrandNotes(); renderHistory(); $('settings_region').value=getRegion(); $('settings_units').value=getDefaultUnits(); }
-      if(id==='mySizes'){ initMySizesSelectors(); }
+      if(id==='settings'){ renderBrandNotes(); renderHistory(); $('settings_region').value='UK'; $('settings_units').value=getDefaultUnits(); }
     }
 
     /* ---------- load JSON ---------- */
     async function loadData(){
       try{
-        BRANDS = await (await fetch('brands.json')).json();
-        CHARTS = await (await fetch('charts.json')).json();
+        BRANDS = await (await fetch('brands.json')).json();   // UK brands list
+        CHARTS = await (await fetch('charts.json')).json();   // UK charts
         initSelectors();
       }catch(e){
         console.error(e);
@@ -454,10 +438,9 @@
     function initSelectors(){
       const b=$('sf_brand'); if(b){ b.innerHTML=''; BRANDS.forEach(br=>{ const o=document.createElement('option'); o.value=br.id; o.textContent=br.name; b.appendChild(o); }); }
       const c=$('sf_category'); if(c){ c.innerHTML=''; CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; c.appendChild(o); }); }
-      const mc=$('ms_category'); if(mc){ mc.innerHTML=''; CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; mc.appendChild(o); }); if(mc.options.length) mc.options[0].selected=true; }
     }
 
-    /* ---------- size finder ---------- */
+    /* ---------- size finder (UK data) ---------- */
     function computeSize(){
       const brandId=$('sf_brand').value, cat=$('sf_category').value, fit=$('sf_fit').value;
       const meas=getMeasurementsCm(); const brand=BRANDS.find(b=>b.id===brandId);
@@ -535,7 +518,7 @@
       });
     }
 
-    /* ---------- converters (kept simple) ---------- */
+    /* ---------- converters (simple) ---------- */
     function convertClothing(){
       const from=$('cw_from')?.value, to=$('cw_to')?.value, val=$('cw_val')?.value.trim();
       const map=[{UK:'8',EU:'36',US:'4'},{UK:'10',EU:'38',US:'6'},{UK:'12',EU:'40',US:'8'},{UK:'14',EU:'42',US:'10'},{UK:'16',EU:'44',US:'12'},{UK:'18',EU:'46',US:'14'}];
@@ -560,92 +543,13 @@
       return sorted[0].k;
     }
 
-    /* ---------- My sizes (Stats) ---------- */
-    function scoreFor(brandId, cat, meas, fit){
-      const brand=BRANDS.find(b=>b.id===brandId);
-      const rows=CHARTS.filter(r=>r.brandId===brandId && r.category===cat);
-      if(!brand || rows.length===0) return null;
-
-      let dims=[]; if(cat.includes('Dresses')) dims=['bust','waist','hip'];
-                   if(cat.includes('Jeans'))   dims=['waist','hip'];
-                   if(cat.includes('Shoes'))   dims=['footLen'];
-
-      const wants={}; dims.forEach(d=> wants[d]=meas[d==='footLen'?'footlen':d]);
-      const used=dims.filter(d=> wants[d]!=null); if(!used.length) return {size:'—',conf:'Low',notes:['Add measurements for this category.']};
-
-      const table=rows.map(r=>({ size:r.size,bust:r.bust??null,waist:r.waist??null,hip:r.hip??null,footLen:r.footLen??null }));
-      const scored=table.map(r=>({ size:r.size, score:used.reduce((s,d)=> s+Math.abs((r[d]||0)-wants[d]),0) }))
-                        .sort((a,b)=>a.score-b.score);
-
-      let pick=scored[0]; if(!pick) return {size:'—',conf:'Low',notes:['No matching sizes found.']};
-      if(scored[1]){ const diff=scored[1].score-scored[0].score; if(fit==='relaxed'&&diff<2) pick=scored[1]; }
-
-      const avg=pick.score/used.length; let conf='Medium'; if(avg<1.2&&used.length>=2) conf='High'; if(avg>3.0) conf='Low';
-      const notes=[]; if(fit==='snug') notes.push('Snug fit chosen.'); if(fit==='relaxed') notes.push('Relaxed fit chosen.');
-      if(cat.includes('Jeans') && meas.inseam && brand?.lengths_cm){
-        const len=mapInseamToLengthFromBrand(brand.lengths_cm, meas.inseam);
-        if(len && brand.lengths_cm[len]){
-          const cmVal=brand.lengths_cm[len];
-          notes.push(`Suggested length: ${len.toUpperCase()} ~ ${cmVal}cm (${cmToInches(cmVal)})`);
-        }
-      }
-      if(brand?.notes) notes.push(`Brand note: ${brand.notes}`);
-      return { size:pick.size, conf, notes };
-    }
-    function initMySizesSelectors(){
-      const sel=$('ms_category'); if(!sel) return; sel.innerHTML='';
-      CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; sel.appendChild(o); });
-      if(sel.options.length) sel.options[0].selected=true;
-    }
-    function computeAllSizes(){
-      const sel=$('ms_category'); const fit=$('ms_fit').value; const meas=getMeasurementsCm();
-      const cats=Array.from(sel.selectedOptions).map(o=>o.value); const results=[];
-      cats.forEach(cat=>{ BRANDS.forEach(b=>{ const res=scoreFor(b.id,cat,meas,fit); if(!res) return; results.push({brandId:b.id,brandName:b.name,category:cat,size:res.size,conf:res.conf,notes:res.notes||[]}); }); });
-      const rank={High:0,Medium:1,Low:2};
-      results.sort((a,b)=> a.category.localeCompare(b.category) || (rank[a.conf]??9)-(rank[b.conf]??9) || a.brandName.localeCompare(b.brandName));
-      renderMySizes(results);
-    }
-    function renderMySizes(list){
-      const wrap=$('ms_list'); if(!wrap) return; wrap.innerHTML='';
-      $('ms_count').textContent=`${list.length} results`;
-      if(!list.length){ wrap.innerHTML='<div class="note">No results — add measurements or select a category.</div>'; return; }
-      list.forEach(row=>{
-        const item=document.createElement('div'); item.className='item';
-        const confClass = row.conf==='High'?'success':row.conf==='Low'?'danger':'warning';
-        const notesHtml=(row.notes||[]).map(n=>`<div>• ${n}</div>`).join('');
-        item.innerHTML=`
-          <div>
-            <div><strong>${row.brandName}</strong> • <span class="note">${row.category}</span></div>
-            <div class="note">${notesHtml}</div>
-          </div>
-          <div style="text-align:right;">
-            <div class="badge">Size: ${row.size}</div>
-            <div class="note ${confClass}">Confidence: ${row.conf}</div>
-          </div>`;
-        wrap.appendChild(item);
-      });
-      window._lastMySizes=list;
-    }
-    function copyMySizes(){
-      const list=window._lastMySizes||[]; if(!list.length){ alert('Nothing to copy yet.'); return; }
-      const text=list.map(r=>`${r.category} — ${r.brandName}: ${r.size} (${r.conf})`).join('\n');
-      navigator.clipboard?.writeText(text).then(()=>alert('Copied sizes!'),()=>alert('Copy failed.'));
-    }
-    function exportMySizesCSV(){
-      const list=window._lastMySizes||[]; if(!list.length){ alert('Nothing to export yet.'); return; }
-      const header=['Category','Brand','Size','Confidence','Notes'];
-      const rows=list.map(r=>[`"${r.category}"` ,`"${r.brandName}"`,`"${r.size}"`,`"${r.conf}"`,`"${(r.notes||[]).join('; ').replace(/"/g,'""')}"`]);
-      const csv=[header.join(','),...rows.map(r=>r.join(','))].join('\n');
-      const blob=new Blob([csv],{type:'text/csv'}); const url=URL.createObjectURL(blob);
-      const a=document.createElement('a'); a.href=url; a.download='my-sizes.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-    }
-
     /* ---------- init ---------- */
     (async () => {
       await loadData();
       loadMeasurements();
-      setRegion(getRegion());                   // apply saved region
+      applyRegionUI();                   // force UK visuals
       $('settings_units').value=getDefaultUnits();
+      // Default visible tab after splash is Home (handled in splash script)
     })();
   </script>
 </body>
