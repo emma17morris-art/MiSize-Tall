@@ -657,10 +657,14 @@ function importData(json){
 
     /* ===== Initial UI setup ===== */
     (function start(){
-      loadAppData(); 
-      initSelectors();
-      updateBackButton();
-    })();
+  loadAppData();
+  // safeguard: if no brands loaded, reset to defaults
+  if (!window.BRANDS || window.BRANDS.length === 0) {
+    resetDataToDefaults();
+  }
+  initSelectors();
+  updateBackButton();
+})();
 
     // ===== Splash flow: show splash first, then go Home =====
     window.addEventListener('load', () => {
