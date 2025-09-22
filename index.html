@@ -363,26 +363,85 @@ select, input{ width:100%; padding:12px; border-radius:10px; border:1px solid #2
       btn.style.display = topLevels.includes(CURRENT_SCREEN) ? 'none' : 'inline-block';
     }
 
-    /* ===== Demo Data ===== */
-    let BRANDS = [
-      {id:'primark', name:'Primark', notes:'Runs true to size.', lengths_cm:{short:72, regular:76, long:80, tall:84}},
-      {id:'george',  name:'George (ASDA)', notes:'Waist generous.', lengths_cm:{short:71, regular:75, long:79, tall:83}}
-    ];
-    let CHARTS = [
-      {brandId:'primark', category:'Women • Dresses', size:'8',  bust:84, waist:66, hip:90},
-      {brandId:'primark', category:'Women • Dresses', size:'10', bust:88, waist:70, hip:94},
-      {brandId:'george',  category:'Women • Dresses', size:'8',  bust:85, waist:67, hip:91},
-      {brandId:'george',  category:'Women • Dresses', size:'10', bust:89, waist:71, hip:95},
-      {brandId:'primark', category:'Women • Jeans',   size:'8',  waist:66, hip:90},
-      {brandId:'primark', category:'Women • Jeans',   size:'10', waist:70, hip:94},
-      {brandId:'george',  category:'Women • Jeans',   size:'8',  waist:67, hip:91},
-      {brandId:'george',  category:'Women • Jeans',   size:'10', waist:71, hip:95},
-      {brandId:'primark', category:'Shoes (UK)', size:'5', footLen:24.1},
-      {brandId:'primark', category:'Shoes (UK)', size:'6', footLen:24.8},
-      {brandId:'george',  category:'Shoes (UK)', size:'5', footLen:24.0},
-      {brandId:'george',  category:'Shoes (UK)', size:'6', footLen:24.7}
-    ];
-    const CATEGORIES = ['Women • Dresses','Women • Jeans','Shoes (UK)'];
+/* ===== Data (persistent) ===== */
+const DEFAULT_BRANDS = [
+  { id:'primark', name:'Primark', notes:'Runs true to size.', lengths_cm:{short:72, regular:76, long:80, tall:84} },
+  { id:'george',  name:'George (ASDA)', notes:'Waist generous.', lengths_cm:{short:71, regular:75, long:79, tall:83} },
+  // add more brands here:
+  { id:'next',    name:'Next', notes:'Jeans come up slightly long.', lengths_cm:{short:70, regular:74, long:78, tall:82} },
+  { id:'m_s',     name:'M&S',  notes:'Consistent across seasons.',    lengths_cm:{short:71, regular:75, long:79, tall:83} }
+];
+
+const DEFAULT_CHARTS = [
+  // Women • Dresses
+  {brandId:'primark', category:'Women • Dresses', size:'8',  bust:84, waist:66, hip:90},
+  {brandId:'primark', category:'Women • Dresses', size:'10', bust:88, waist:70, hip:94},
+  {brandId:'george',  category:'Women • Dresses', size:'8',  bust:85, waist:67, hip:91},
+  {brandId:'george',  category:'Women • Dresses', size:'10', bust:89, waist:71, hip:95},
+  {brandId:'next',    category:'Women • Dresses', size:'8',  bust:84, waist:66, hip:90},
+  {brandId:'next',    category:'Women • Dresses', size:'10', bust:88, waist:70, hip:94},
+  {brandId:'m_s',     category:'Women • Dresses', size:'8',  bust:85, waist:67, hip:91},
+  {brandId:'m_s',     category:'Women • Dresses', size:'10', bust:89, waist:71, hip:95},
+
+  // Women • Jeans
+  {brandId:'primark', category:'Women • Jeans',   size:'8',  waist:66, hip:90},
+  {brandId:'primark', category:'Women • Jeans',   size:'10', waist:70, hip:94},
+  {brandId:'george',  category:'Women • Jeans',   size:'8',  waist:67, hip:91},
+  {brandId:'george',  category:'Women • Jeans',   size:'10', waist:71, hip:95},
+  {brandId:'next',    category:'Women • Jeans',   size:'8',  waist:66, hip:90},
+  {brandId:'next',    category:'Women • Jeans',   size:'10', waist:70, hip:94},
+  {brandId:'m_s',     category:'Women • Jeans',   size:'8',  waist:67, hip:91},
+  {brandId:'m_s',     category:'Women • Jeans',   size:'10', waist:71, hip:95},
+
+  // Shoes (UK)
+  {brandId:'primark', category:'Shoes (UK)', size:'5', footLen:24.1},
+  {brandId:'primark', category:'Shoes (UK)', size:'6', footLen:24.8},
+  {brandId:'george',  category:'Shoes (UK)', size:'5', footLen:24.0},
+  {brandId:'george',  category:'Shoes (UK)', size:'6', footLen:24.7},
+  {brandId:'next',    category:'Shoes (UK)', size:'5', footLen:24.1},
+  {brandId:'next',    category:'Shoes (UK)', size:'6', footLen:24.8},
+  {brandId:'m_s',     category:'Shoes (UK)', size:'5', footLen:24.0},
+  {brandId:'m_s',     category:'Shoes (UK)', size:'6', footLen:24.7}
+];
+
+const DEFAULT_CATEGORIES = ['Women • Dresses','Women • Jeans','Shoes (UK)'];
+
+function loadAppData(){
+  try{
+    const saved = JSON.parse(localStorage.getItem('mSizeData') || '{}');
+    window.BRANDS     = Array.isArray(saved.BRANDS) ? saved.BRANDS : DEFAULT_BRANDS.slice();
+    window.CHARTS     = Array.isArray(saved.CHARTS) ? saved.CHARTS : DEFAULT_CHARTS.slice();
+    window.CATEGORIES = Array.isArray(saved.CATEGORIES) ? saved.CATEGORIES : DEFAULT_CATEGORIES.slice();
+  }catch(e){
+    window.BRANDS = DEFAULT_BRANDS.slice();
+    window.CHARTS = DEFAULT_CHARTS.slice();
+    window.CATEGORIES = DEFAULT_CATEGORIES.slice();
+  }
+}
+
+function saveAppData(){
+  localStorage.setItem('mSizeData', JSON.stringify({BRANDS, CHARTS, CATEGORIES}));
+}
+
+function resetDataToDefaults(){
+  window.BRANDS = DEFAULT_BRANDS.slice();
+  window.CHARTS = DEFAULT_CHARTS.slice();
+  window.CATEGORIES = DEFAULT_CATEGORIES.slice();
+  saveAppData();
+  initSelectors(); // refresh UI
+}
+
+/* Optional: quick import/export helpers (use from DevTools console)
+   exportData();  importData(<jsonString>);
+*/
+function exportData(){ return JSON.stringify({BRANDS, CHARTS, CATEGORIES}, null, 2); }
+function importData(json){
+  const obj = JSON.parse(json);
+  if(obj.BRANDS && obj.CHARTS && obj.CATEGORIES){
+    window.BRANDS = obj.BRANDS; window.CHARTS = obj.CHARTS; window.CATEGORIES = obj.CATEGORIES;
+    saveAppData(); initSelectors();
+  }
+}
 
     /* ===== Init dropdowns & sections ===== */
     function initSelectors(){
