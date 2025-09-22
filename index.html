@@ -7,6 +7,54 @@
 
   <!-- ========== STYLES ========== -->
   <style>
+    /* ===== SPLASH (single logo with metallic sweep and fly-across) ===== */
+#splash { display:none; padding:0; }
+#splash.active { display:block; }
+
+.splash-stage{
+  position:relative; height:100vh; width:100%;
+  display:flex; align-items:center; justify-content:center;
+  background:#0b0d12; overflow:hidden;
+}
+
+/* the logo image itself */
+.flash-logo{
+  height: clamp(220px, 30vw, 380px);
+  opacity:0;
+  transform: translateX(-120%) scale(.9);
+  animation:
+    flashFadeIn 0.6s ease-out forwards,
+    flashFly 1.8s cubic-bezier(.22,.61,.36,1) .6s forwards,
+    flashFadeOut .4s linear 2.2s forwards;
+}
+
+/* metallic sweep masked to the logo shape */
+.flash-logo-wrap{
+  position:relative; line-height:0;
+  /* start off-screen left so the wrapper moves with the img */
+  transform: translateX(-120%);
+  animation: flashFly 1.8s cubic-bezier(.22,.61,.36,1) .6s forwards;
+}
+.flash-logo-wrap::after{
+  content:"";
+  position:absolute; inset:0; pointer-events:none;
+  /* mask to logo shape */
+  -webkit-mask-image:url('MiSize.png'); -webkit-mask-repeat:no-repeat; -webkit-mask-position:center; -webkit-mask-size:contain;
+  mask-image:url('MiSize.png'); mask-repeat:no-repeat; mask-position:center; mask-size:contain;
+  /* shiny beam */
+  background: linear-gradient(120deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,.85) 50%,
+    rgba(255,255,255,0) 100%);
+  transform: translateX(-200%) skewX(-15deg);
+  animation: silverSweep 1.2s ease-in-out 1.0s forwards;
+}
+
+/* keyframes */
+@keyframes flashFadeIn{ from{opacity:0; transform:translateX(-120%) scale(.9);} to{opacity:1; transform:translateX(-120%) scale(1);} }
+@keyframes flashFly   { from{transform:translateX(-120%);} to{transform:translateX(120%);} }
+@keyframes flashFadeOut{ from{opacity:1;} to{opacity:0;} }
+@keyframes silverSweep{ from{transform:translateX(-200%) skewX(-15deg);} to{transform:translateX(200%) skewX(-15deg);} }
     /* ===== THEME ===== */
     :root {
       --brand:#4f7cff; --brand-text:#fff;
@@ -73,11 +121,25 @@
 
   <!-- ========== FLOATING BACK BUTTON (always in DOM) ========== -->
   <button class="backbtn" id="backbtn" onclick="goBack()" aria-label="Back">◀ Back</button>
-
+function updateBackButton(){
+  const btn = document.getElementById('backbtn');
+  if (['home','uk','splash'].includes(CURRENT_SCREEN)) {
+    btn.style.display = 'none';
+  } else {
+    btn.style.display = 'inline-block';
+  }
+}
   <!-- ========== SCREENS ========== -->
-
+<!-- ===== SPLASH (shows first) ===== -->
+<section id="splash" class="screen active">
+  <div class="splash-stage">
+    <div class="flash-logo-wrap">
+      <img src="MiSize.png" alt="MiSize logo" class="flash-logo">
+    </div>
+  </div>
+</section>
   <!-- ===== HOME ===== -->
-  <section id="home" class="screen active">
+  <section id="home" class="screen">
     <h1 class="big">Welcome to MiSize</h1>
     <p>Select your region:</p>
     <div class="tiles">
@@ -290,7 +352,8 @@
     }
 
     function goBack(){
-      const prev = NAV_STACK.pop() || (CURRENT_SCREEN!=='uk' ? 'uk' : 'home');
+      const NAV_STACK = [];
+let CURRENT_SCREEN = 'splash';
       document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
       (document.getElementById(prev) || $('home')).classList.add('active');
 
@@ -519,6 +582,29 @@
       // start on Home, back button hidden
       updateBackButton();
     })();
+    // ===== Splash flow: show splash first, then go Home =====
+window.addEventListener('load', () => {
+  // ensure only splash is visible at start
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('splash').classList.add('active');
+  CURRENT_SCREEN = 'splash';
+  updateBackButton();
+
+  // after animations (~2.6s), switch to Home
+  setTimeout(() => {
+    document.getElementById('splash').classList.remove('active');
+    // don't push to history; directly activate Home tab
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    document.getElementById('home').classList.add('active');
+
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    const t = document.getElementById('tab_home'); if (t) t.classList.add('active');
+
+    CURRENT_SCREEN = 'home';
+    updateBackButton();
+  }, 2600); // matches the CSS timings above
+});
+  
   </script>
 
 </body>
