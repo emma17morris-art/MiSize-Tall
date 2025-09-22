@@ -339,7 +339,7 @@
         onclick="window.setMiTab && setMiTab('history')">History</button>
 <button class="pill mi-tab" data-view="settings"
         onclick="window.setMiTab && setMiTab('settings')">Settings</button>
-      
+      </div>
 
     <!-- CURRENT -->
     <div id="mi_view_current" class="mi-view card active">
@@ -921,7 +921,7 @@
   /* ---------- History ---------- */
   function getHistory(){ try{ return JSON.parse(localStorage.getItem('history')||'[]'); }catch(e){ return []; } }
   function saveHistory(){ if(!window._lastResult) return; const h=getHistory(); h.unshift(window._lastResult); localStorage.setItem('history', JSON.stringify(h.slice(0,20))); alert('Saved to history.'); }
-  function renderHistory(){
+  function mirenderHistory(){
     const wrap=$('histList'); if(!wrap) return; wrap.innerHTML='';
     const h=getHistory();
     if(!h.length){ wrap.innerHTML='<div class="note">No lookups yet.</div>'; return; }
@@ -1032,8 +1032,8 @@
       });
       document.querySelectorAll('#mistats .mi-view').forEach(v=> v.style.display='none');
       $('#mi_view_'+view).style.display='block';
-      if(view==='graph') drawGraph();
-      if(view==='history') renderHistory();
+      if(view==='graph') midrawGraph();
+      if(view==='history') mirenderHistory();
     }
     window.setMiTab = setMiTab; // expose for switchTab
 
@@ -1073,7 +1073,7 @@
     });
 
     // zoom
-    $('#mi_zoom')?.addEventListener('input', drawGraph);
+    $('#mi_zoom')?.addEventListener('input', midrawGraph);
 
     // calculations
     function calcStats(){
