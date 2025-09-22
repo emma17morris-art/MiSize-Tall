@@ -88,24 +88,27 @@ select, input{ width:100%; padding:12px; border-radius:10px; border:1px solid #2
 }
 
 /* ===== UK HUB BUTTONS ===== */
-/* UK Hub: make each button fill the page */
+/* UK Hub: full-page stacked tiles */
 .hub {
   display: grid;
-  grid-template-rows: repeat(5, 1fr); /* 5 buttons = 5 rows */
+  grid-template-rows: repeat(5, 1fr); /* 5 rows = 5 tiles */
   grid-template-columns: 1fr;
   gap: 16px;
   height: calc(100vh - 150px); /* fill screen below header */
+  margin-top: 20px;
 }
 
 .hub .bigbtn {
   width: 100%;
-  height: 100%;           /* fill its grid row */
-  font-size: 24px;        /* bigger text */
+  height: 100%;
+  font-size: 26px;
   font-weight: 800;
-  text-align: center;     /* center text */
+  display: flex;
+  align-items: center;   /* vertical center */
+  justify-content: center; /* horizontal center */
   border-radius: 14px;
   border: 0;
-  background: #1d4ed8;    /* blue */
+  background: #1d4ed8;   /* blue */
   color: #fff;
   cursor: pointer;
 }
