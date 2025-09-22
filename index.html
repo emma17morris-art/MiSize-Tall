@@ -34,6 +34,35 @@
 /* Hide the old shine layer completely (even if present in HTML) */
 .flash-logo-shine{ display:none !important; }
 
+  <!-- ========== STYLES ========== -->
+<style>
+/* ===== SPLASH (simple, large centered logo) ===== */
+#splash { display:none; padding:0; }
+#splash.active { display:block; }
+
+.splash-stage{
+  position:relative; height:100vh; width:100%;
+  display:flex; align-items:center; justify-content:center;
+  background:#2b1055; /* deep purple instead of dark */
+  overflow:hidden;
+}
+
+/* Single visual logo (no <img>, no animation) */
+.flash-logo-wrap{
+  line-height:0;
+  width: min(75vw, 560px);  /* large */
+  aspect-ratio: 1 / 1;
+  background: center / contain no-repeat url('MiSize.png');
+  margin: 0 auto;           /* centered */
+  transform: none;
+  animation: none;
+  opacity: 1;
+  z-index: 1;
+}
+
+/* Hide the old shine layer completely (even if present in HTML) */
+.flash-logo-shine{ display:none !important; }
+
 /* ===== THEME / LAYOUT ===== */
 :root {
   --brand:#8A2BE2; --brand-text:#fff;
@@ -214,129 +243,6 @@ select, input{ width:100%; padding:12px; border-radius:10px; border:1px solid #2
       </div>
     </div>
   </section>
-/* ===== SIZE FINDER — APP STYLE ===== */
-.sf-hero {
-  background: linear-gradient(180deg, #2b1055 0%, #231048 100%);
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 18px;
-  padding: 22px 18px;
-  margin-bottom: 16px;
-}
-.sf-hero .sf-title {
-  margin: 0 0 6px;
-  font-size: 26px;
-  font-weight: 900;
-}
-.sf-hero .sf-sub {
-  margin: 0;
-  color: #c9b7ff;
-  font-size: 14px;
-}
-
-/* Field group */
-.sf-fields {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-}
-@media (min-width: 760px) {
-  .sf-fields { grid-template-columns: repeat(2, 1fr); }
-}
-@media (min-width: 1100px) {
-  .sf-fields { grid-template-columns: repeat(4, 1fr); }
-}
-
-.sf-field {
-  background: #151535;
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 14px;
-  padding: 10px;
-}
-.sf-label {
-  display:block;
-  font-size: 12px;
-  color: #a7b1ff;
-  margin-bottom: 6px;
-  letter-spacing:.2px;
-  text-transform: uppercase;
-}
-.sf-select, .sf-input {
-  width: 100%;
-  padding: 12px 12px;
-  border-radius: 10px;
-  border: 1px solid #2a2f57;
-  background: #0f1330;
-  color: #eef1f5;
-  font-weight: 600;
-}
-
-/* Primary action */
-.sf-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 12px;
-}
-.sf-primary {
-  flex: 1;
-  background: #1d4ed8;        /* blue */
-  color: #fff;
-  border: 0;
-  padding: 14px 16px;
-  border-radius: 14px;
-  font-weight: 900;
-  font-size: 16px;
-  cursor: pointer;
-}
-.sf-secondary {
-  background: transparent;
-  color: #cfe0ff;
-  border: 1px solid rgba(255,255,255,.12);
-  padding: 14px 16px;
-  border-radius: 14px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-/* Result panel */
-.sf-result {
-  margin-top: 16px;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,.08);
-  background: #121433;
-  padding: 16px;
-}
-.sf-result .sf-size {
-  display:inline-block;
-  font-size: 28px;
-  font-weight: 900;
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: #1d4ed8;
-  color: #fff;
-}
-.sf-badges {
-  display:flex;
-  gap:8px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
-.sf-badge {
-  display:inline-block;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.12);
-  background:#1a1d3f;
-  color:#c9d3ea;
-  font-size:12px;
-}
-.sf-note {
-  color:#c9d3ea;
-  font-size:14px;
-  margin-top:8px;
-}
-
-/* Make selects look consistent on iOS/Android */
-.sf-select, .sf-input { appearance: none; -webkit-appearance: none; }
   <!-- ===== UK › MY SIZES ===== -->
   <section id="uk_mysizes" class="screen">
     <div class="card">
