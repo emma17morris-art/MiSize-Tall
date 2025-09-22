@@ -87,8 +87,24 @@ select, input{ width:100%; padding:12px; border-radius:10px; border:1px solid #2
 .success{ color:#8ee0b2; } .warning{ color:#ffd27a; } .danger{ color:#ff9a9a; }
 
 /* ===== HOME REGION TILES ===== */
-.tiles{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
-.tiles button{ font-size:22px; font-weight:800; padding:44px 0; border-radius:14px; border:0; color:#fff; cursor:pointer; }
+.tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* 2 columns */
+  grid-template-rows: 1fr 1fr;      /* 2 rows */
+  gap: 0;                           /* no gaps between */
+  height: calc(100vh - 150px);      /* take up almost full screen (minus header/footer) */
+}
+
+.tiles button {
+  font-size: 24px;
+  font-weight: 800;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;   /* no rounded corners so they fit flush */
+  border: 1px solid #0b0d12; /* thin border between tiles */
+  color: #fff;
+  cursor: pointer;
+}
 .uk, .eu, .us, .ca {
   background:#3b5bdb;  /* nice blue */
 }
