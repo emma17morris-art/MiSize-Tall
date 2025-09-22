@@ -64,7 +64,13 @@
 }
 *{ box-sizing:border-box; }
 body{ margin:0; font-family:var(--font); background:var(--bg); color:var(--text); }
-.screen{ display:none; padding:20px 20px 90px; }
+.screen {
+  display:none;
+  padding:20px 20px 90px;
+  background:#2b1055;   /* purple background */
+  min-height:100vh;     /* always full screen */
+  box-sizing:border-box;
+}
 .screen.active{ display:block; }
 .card{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:18px; }
 .row{ display:grid; grid-template-columns:1fr; gap:12px; }
