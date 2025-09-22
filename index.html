@@ -888,6 +888,7 @@ const meas = currentMeasurements();
       loadAppData();
       if (!window.BRANDS || window.BRANDS.length === 0) resetDataToDefaults();
       initSelectors();
+      loadMeasurements();
       updateBackButton();
     })();
 
