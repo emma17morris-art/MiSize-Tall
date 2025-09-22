@@ -43,43 +43,31 @@
   .divider{height:1px;background:var(--border);margin:14px 0;}
   .success{color:#8ee0b2}.warning{color:#ffd27a}.danger{color:#ff9a9a}
 
-    /* MiStats helpers */
-.mi-bar{height:12px;background:#172034;border:1px solid #223049;border-radius:999px;overflow:hidden}
-.mi-bar>div{height:100%;width:0;background:#1d4ed8;transition:width .3s}
-.mi-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
-.mi-row:last-child{border-bottom:0}
-.mi-row .delta.up{color:#ff9a9a}.mi-row .delta.down{color:#8ee0b2}
-.mi-tab.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
+  /* --- MiStats styles --- */
+  .mi-bar{height:12px;background:#172034;border:1px solid #223049;border-radius:999px;overflow:hidden}
+  .mi-bar>div{height:100%;width:0;background:#1d4ed8;transition:width .3s}
+  .mi-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+  .mi-row:last-child{border-bottom:0}
+  .mi-row .delta.up{color:#ff9a9a}.mi-row .delta.down{color:#8ee0b2}
+  .mi-tab.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
+  .mi-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}
+  .mi-tab{cursor:pointer}
+  .mi-view{display:none}
+  .mi-view.active{display:block}
+  .mi-tiles{display:grid;grid-template-columns:1fr;gap:12px}
+  .mi-tile{background:#0f131a;border:1px solid var(--border);border-radius:12px;padding:12px}
+  .mi-l{font-size:12px;color:var(--muted);letter-spacing:.3px}
+  .mi-v{font-size:28px;font-weight:900;line-height:1.1}
+  .mi-sub{font-size:12px;opacity:.85;margin-top:2px}
+  .mi-bar{height:10px;border-radius:8px;background:#172034;border:1px solid #223049;overflow:hidden}
+  .mi-bar > b{display:block;height:100%;width:0;background:#1d4ed8}
+  .mi-list .row{display:flex;align-items:center;justify-content:space-between}
+  .mi-kv{display:flex;gap:8px;align-items:baseline}
+  .mi-kv .k{color:var(--muted);font-size:12px}
+  .mi-kv .v{font-weight:700}
+  .mi-canvas{width:100%;height:280px;display:block}
+  @media(min-width:760px){.mi-tiles{grid-template-columns:repeat(3,1fr)}}
 
- /* --- MiStats subtabs + views --- */
-.mi-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}
-.mi-tab{cursor:pointer}
-.mi-tab.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
-.mi-view{display:none}
-.mi-view.active{display:block}
-
-/* tiles & numbers (MiSize vibe) */
-.mi-tiles{display:grid;grid-template-columns:1fr;gap:12px}
-.mi-tile{background:#0f131a;border:1px solid var(--border);border-radius:12px;padding:12px}
-.mi-l{font-size:12px;color:var(--muted);letter-spacing:.3px}
-.mi-v{font-size:28px;font-weight:900;line-height:1.1}
-.mi-sub{font-size:12px;opacity:.85;margin-top:2px}
-
-/* progress bars */
-.mi-bar{height:10px;border-radius:8px;background:#172034;border:1px solid #223049;overflow:hidden}
-.mi-bar > b{display:block;height:100%;width:0;background:#1d4ed8}
-
-/* list */
-.mi-list .row{display:flex;align-items:center;justify-content:space-between}
-.mi-kv{display:flex;gap:8px;align-items:baseline}
-.mi-kv .k{color:var(--muted);font-size:12px}
-.mi-kv .v{font-weight:700}
-
-/* chart canvas */
-.mi-canvas{width:100%;height:280px;display:block}
-@media(min-width:760px){.mi-tiles{grid-template-columns:repeat(3,1fr)}}
-    
-    
   /* Splash */
   #splash{display:none;padding:0;}
   #splash.active{display:block;}
@@ -186,50 +174,46 @@
   </section>
 
   <!-- UK › My Sizes -->
-  <!-- UK › My Sizes -->
-<section id="uk_mysizes" class="screen" aria-label="UK My Sizes">
-  <div class="card">
-    <h3 class="big">My Sizes (filtered by body type)</h3>
-    <p class="note">Only brands that support your selected body type are included.</p>
+  <section id="uk_mysizes" class="screen" aria-label="UK My Sizes">
+    <div class="card">
+      <h3 class="big">My Sizes (filtered by body type)</h3>
+      <p class="note">Only brands that support your selected body type are included.</p>
 
-    <div class="row two">
-      <div>
-        <label class="ms-label" for="ms_category">Categories</label>
-        <select id="ms_category" class="ms-select" multiple size="4" style="height:120px;"></select>
-        <p class="note" style="margin:6px 0 0;">Cmd/Ctrl-click to multi-select.</p>
-      </div>
-
-      <div>
-        <label class="ms-label">Fit preference</label>
-
-        <!-- NEW: fit pills -->
-        <div id="ms_fit_pills" class="pt-pills" role="tablist" aria-label="Fit">
-          <button type="button" class="pt-pill ms-fit-pill" data-fit="standard">Standard</button>
-          <button type="button" class="pt-pill ms-fit-pill" data-fit="snug">Snug</button>
-          <button type="button" class="pt-pill ms-fit-pill" data-fit="relaxed">Relaxed</button>
-          <button type="button" class="pt-pill ms-fit-pill" data-fit="all">All</button>
+      <div class="row two">
+        <div>
+          <label class="ms-label" for="ms_category">Categories</label>
+          <select id="ms_category" class="ms-select" multiple size="4" style="height:120px;"></select>
+          <p class="note" style="margin:6px 0 0;">Cmd/Ctrl-click to multi-select.</p>
         </div>
 
-        <!-- Keep your original select (hidden) so existing JS keeps working -->
-        <select id="ms_fit" class="ms-select" style="display:none;">
-          <option value="standard" selected>Standard</option>
-          <option value="snug">Snug</option>
-          <option value="relaxed">Relaxed</option>
-          <option value="all">All</option>
-        </select>
+        <div>
+          <label class="ms-label">Fit preference</label>
+          <div id="ms_fit_pills" class="pt-pills" role="tablist" aria-label="Fit">
+            <button type="button" class="pt-pill ms-fit-pill" data-fit="standard">Standard</button>
+            <button type="button" class="pt-pill ms-fit-pill" data-fit="snug">Snug</button>
+            <button type="button" class="pt-pill ms-fit-pill" data-fit="relaxed">Relaxed</button>
+            <button type="button" class="pt-pill ms-fit-pill" data-fit="all">All</button>
+          </div>
 
-        <div class="toolbar" style="margin-top:8px;">
-          <button class="pill" onclick="computeAllSizes()">Compute all</button>
-          <button class="pill" onclick="exportMySizesCSV()">Export CSV</button>
-          <button class="pill" onclick="copyMySizes()">Copy</button>
-          <span class="pill" id="ms_count">—</span>
+          <select id="ms_fit" class="ms-select" style="display:none;">
+            <option value="standard" selected>Standard</option>
+            <option value="snug">Snug</option>
+            <option value="relaxed">Relaxed</option>
+            <option value="all">All</option>
+          </select>
+
+          <div class="toolbar" style="margin-top:8px;">
+            <button class="pill" onclick="computeAllSizes()">Compute all</button>
+            <button class="pill" onclick="exportMySizesCSV()">Export CSV</button>
+            <button class="pill" onclick="copyMySizes()">Copy</button>
+            <span class="pill" id="ms_count">—</span>
+          </div>
         </div>
       </div>
+
+      <div id="ms_list" class="panel-list"></div>
     </div>
-
-    <div id="ms_list" class="panel-list"></div>
-  </div>
-</section>
+  </section>
 
   <!-- UK › Brand Notes -->
   <section id="uk_brandnotes" class="screen" aria-label="UK Brand Notes">
@@ -340,136 +324,138 @@
   <section id="eu" class="screen" aria-label="EU"><h2 class="big">EU</h2><p class="note">Coming later.</p></section>
   <section id="us" class="screen" aria-label="US"><h2 class="big">US</h2><p class="note">Coming later.</p></section>
   <section id="ca" class="screen" aria-label="CA"><h2 class="big">CA</h2><p class="note">Coming later.</p></section>
+
+  <!-- MiStats -->
   <section id="mistats" class="screen" aria-label="MiStats">
-  <h2 class="big">MiStats</h2>
-  <p class="note">Personal weight tracker linked to your active profile.</p>
+    <h2 class="big">MiStats</h2>
+    <p class="note">Personal weight tracker linked to your active profile.</p>
 
-  <!-- mini tab bar -->
-  <div class="toolbar" role="tablist" aria-label="MiStats views" id="mi_tabs">
-    <button class="pill mi-tab active" data-view="current">Current</button>
-    <button class="pill mi-tab" data-view="graph">Graph</button>
-    <button class="pill mi-tab" data-view="history">History</button>
-    <button class="pill mi-tab" data-view="settings">Settings</button>
-  </div>
+    <div class="toolbar" role="tablist" aria-label="MiStats views" id="mi_tabs">
+      <button class="pill mi-tab active" data-view="current">Current</button>
+      <button class="pill mi-tab" data-view="graph">Graph</button>
+      <button class="pill mi-tab" data-view="history">History</button>
+      <button class="pill mi-tab" data-view="settings">Settings</button>
+    </div>
 
-  <!-- CURRENT -->
-  <div id="mi_view_current" class="mi-view card">
-    <div style="display:grid;grid-template-columns:1fr;gap:12px;">
-      <div>
-        <div class="big" id="mi_current_title">—</div>
-        <div class="note" id="mi_current_meta">—</div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
-        <div class="card">
-          <div class="note">Start</div>
-          <div class="big" id="mi_start">—</div>
-          <div class="note" id="mi_start_bmi">BMI —</div>
+    <!-- CURRENT -->
+    <div id="mi_view_current" class="mi-view card">
+      <div style="display:grid;grid-template-columns:1fr;gap:12px;">
+        <div>
+          <div class="big" id="mi_current_title">—</div>
+          <div class="note" id="mi_current_meta">—</div>
         </div>
-        <div class="card">
-          <div class="note">Current</div>
-          <div class="big" id="mi_current">—</div>
-          <div class="note" id="mi_current_bmi">BMI —</div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+          <div class="card">
+            <div class="note">Start</div>
+            <div class="big" id="mi_start">—</div>
+            <div class="note" id="mi_start_bmi">BMI —</div>
+          </div>
+          <div class="card">
+            <div class="note">Current</div>
+            <div class="big" id="mi_current">—</div>
+            <div class="note" id="mi_current_bmi">BMI —</div>
+          </div>
+          <div class="card">
+            <div class="note">Target</div>
+            <div class="big" id="mi_target">—</div>
+            <div class="note" id="mi_target_bmi">BMI —</div>
+          </div>
         </div>
+
         <div class="card">
-          <div class="note">Target</div>
-          <div class="big" id="mi_target">—</div>
-          <div class="note" id="mi_target_bmi">BMI —</div>
+          <div class="note">Progress</div>
+          <div class="mi-bar"><div id="mi_prog_bar"></div></div>
+          <div class="note" id="mi_prog_text">—</div>
+        </div>
+
+        <div class="row two">
+          <div class="card">
+            <div class="note">Avg daily change</div>
+            <div class="big" id="mi_avg_day">—</div>
+          </div>
+          <div class="card">
+            <div class="note">Avg weekly change</div>
+            <div class="big" id="mi_avg_week">—</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row three">
+            <div>
+              <label for="mi_weight_in">Enter weight</label>
+              <input id="mi_weight_in" inputmode="decimal" placeholder="e.g., 80">
+            </div>
+            <div>
+              <label for="mi_date_in">Date</label>
+              <input id="mi_date_in" type="date">
+            </div>
+            <div style="display:flex;align-items:flex-end;">
+              <button class="pill" id="mi_add_btn">Save entry</button>
+            </div>
+          </div>
+          <p class="note" id="mi_hint_units">Units: —</p>
         </div>
       </div>
+    </div>
 
-      <div class="card">
-        <div class="note">Progress</div>
-        <div class="mi-bar"><div id="mi_prog_bar"></div></div>
-        <div class="note" id="mi_prog_text">—</div>
+    <!-- GRAPH -->
+    <div id="mi_view_graph" class="mi-view card" style="display:none;">
+      <div class="toolbar">
+        <span class="pill">Zoom</span>
+        <input id="mi_zoom" type="range" min="0" max="100" value="0" style="accent-color:#1d4ed8;width:180px;">
+        <span class="pill" id="mi_zoom_label">All time</span>
       </div>
+      <canvas id="mi_canvas" width="1200" height="420" style="width:100%;height:320px;border-radius:12px;background:#0f131a;border:1px solid var(--border);"></canvas>
+      <p class="note" id="mi_graph_note">—</p>
+    </div>
 
+    <!-- HISTORY -->
+    <div id="mi_view_history" class="mi-view card" style="display:none;">
+      <div id="mi_hist_list"></div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="mi_view_settings" class="mi-view card" style="display:none;">
       <div class="row two">
-        <div class="card">
-          <div class="note">Avg daily change</div>
-          <div class="big" id="mi_avg_day">—</div>
-        </div>
-        <div class="card">
-          <div class="note">Avg weekly change</div>
-          <div class="big" id="mi_avg_week">—</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="row three">
-          <div>
-            <label for="mi_weight_in">Enter weight</label>
-            <input id="mi_weight_in" inputmode="decimal" placeholder="e.g., 80">
-          </div>
-          <div>
-            <label for="mi_date_in">Date</label>
-            <input id="mi_date_in" type="date">
-          </div>
-          <div style="display:flex;align-items:flex-end;">
-            <button class="pill" id="mi_add_btn">Save entry</button>
+        <div>
+          <label>Weight unit</label>
+          <div class="pill-row">
+            <button class="pill mi-unit-w" data-u="kg">Kilos</button>
+            <button class="pill mi-unit-w" data-u="lb">Pounds</button>
+            <button class="pill mi-unit-w" data-u="st">Stones</button>
           </div>
         </div>
-        <p class="note" id="mi_hint_units">Units: —</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- GRAPH -->
-  <div id="mi_view_graph" class="mi-view card" style="display:none;">
-    <div class="toolbar">
-      <span class="pill">Zoom</span>
-      <input id="mi_zoom" type="range" min="0" max="100" value="0" style="accent-color:#1d4ed8;width:180px;">
-      <span class="pill" id="mi_zoom_label">All time</span>
-    </div>
-    <canvas id="mi_canvas" width="1200" height="420" style="width:100%;height:320px;border-radius:12px;background:#0f131a;border:1px solid var(--border);"></canvas>
-    <p class="note" id="mi_graph_note">—</p>
-  </div>
-
-  <!-- HISTORY -->
-  <div id="mi_view_history" class="mi-view card" style="display:none;">
-    <div id="mi_hist_list"></div>
-  </div>
-
-  <!-- SETTINGS -->
-  <div id="mi_view_settings" class="mi-view card" style="display:none;">
-    <div class="row two">
-      <div>
-        <label>Weight unit</label>
-        <div class="pill-row">
-          <button class="pill mi-unit-w" data-u="kg">Kilos</button>
-          <button class="pill mi-unit-w" data-u="lb">Pounds</button>
-          <button class="pill mi-unit-w" data-u="st">Stones</button>
+        <div>
+          <label>Height unit (for BMI)</label>
+          <div class="pill-row">
+            <button class="pill mi-unit-h" data-u="cm">Centimeters</button>
+            <button class="pill mi-unit-h" data-u="m">Meters</button>
+            <button class="pill mi-unit-h" data-u="ftin">Feet+Inches</button>
+          </div>
         </div>
       </div>
-      <div>
-        <label>Height unit (for BMI)</label>
-        <div class="pill-row">
-          <button class="pill mi-unit-h" data-u="cm">Centimeters</button>
-          <button class="pill mi-unit-h" data-u="m">Meters</button>
-          <button class="pill mi-unit-h" data-u="ftin">Feet+Inches</button>
+
+      <div class="row two" style="margin-top:10px;">
+        <div>
+          <label for="mi_height">Your height</label>
+          <input id="mi_height" placeholder="e.g., 168 (cm)">
+          <p class="note" id="mi_height_hint">Stored in cm internally.</p>
+        </div>
+        <div>
+          <label for="mi_target_in">Target weight</label>
+          <input id="mi_target_in" placeholder="e.g., 70">
+          <p class="note">Leave empty to disable target.</p>
         </div>
       </div>
-    </div>
 
-    <div class="row two" style="margin-top:10px;">
-      <div>
-        <label for="mi_height">Your height</label>
-        <input id="mi_height" placeholder="e.g., 168 (cm)">
-        <p class="note" id="mi_height_hint">Stored in cm internally.</p>
-      </div>
-      <div>
-        <label for="mi_target_in">Target weight</label>
-        <input id="mi_target_in" placeholder="e.g., 70">
-        <p class="note">Leave empty to disable target.</p>
+      <div class="toolbar" style="margin-top:10px;">
+        <button class="pill" id="mi_save_settings">Save settings</button>
+        <button class="pill" id="mi_reset_profile">Reset this profile</button>
       </div>
     </div>
+  </section>
 
-    <div class="toolbar" style="margin-top:10px;">
-      <button class="pill" id="mi_save_settings">Save settings</button>
-      <button class="pill" id="mi_reset_profile">Reset this profile</button>
-    </div>
-  </div>
-</section>
   <section id="settings" class="screen" aria-label="Settings"><h2 class="big">Settings</h2><p class="note">Preferences go here later.</p></section>
 
   <div class="bottom-tabs" role="tablist" aria-label="Main tabs">
@@ -487,41 +473,30 @@
   const toDisplay = (cm) => (cm==null ? '' : (UNIT_MODE==='cm' ? cm : (cm/CM_PER_IN)).toFixed(2));
   const fromDisplay = (val) => { const n=parseFloat(val); if(isNaN(n)) return null; return UNIT_MODE==='cm' ? n : +(n*CM_PER_IN).toFixed(2); };
 
-    
-// ---- Fit pills: init + click handling (minimal change) ----
-function initMsFitPills(){
-  const sel = document.getElementById('ms_fit');
-  const pillsWrap = document.getElementById('ms_fit_pills');
-  if(!sel || !pillsWrap) return;
-  const current = sel.value || 'standard';
-  pillsWrap.querySelectorAll('.ms-fit-pill').forEach(btn=>{
-    btn.classList.toggle('active', btn.dataset.fit === current);
+  // Fit pills (My Sizes)
+  function initMsFitPills(){
+    const sel = document.getElementById('ms_fit');
+    const pillsWrap = document.getElementById('ms_fit_pills');
+    if(!sel || !pillsWrap) return;
+    const current = sel.value || 'standard';
+    pillsWrap.querySelectorAll('.ms-fit-pill').forEach(btn=>{
+      btn.classList.toggle('active', btn.dataset.fit === current);
+    });
+  }
+  document.addEventListener('click', (e)=>{
+    const btn = e.target.closest('.ms-fit-pill');
+    if(!btn) return;
+    const sel = document.getElementById('ms_fit');
+    const wrap = document.getElementById('ms_fit_pills');
+    if(!sel || !wrap) return;
+    sel.value = btn.dataset.fit;
+    wrap.querySelectorAll('.ms-fit-pill').forEach(b=> b.classList.toggle('active', b === btn));
+    if (typeof computeAllSizes === 'function') computeAllSizes();
   });
-}
-document.addEventListener('click', (e)=>{
-  const btn = e.target.closest('.ms-fit-pill');
-  if(!btn) return;
-  const sel = document.getElementById('ms_fit');
-  const wrap = document.getElementById('ms_fit_pills');
-  if(!sel || !wrap) return;
+  window.addEventListener('load', initMsFitPills);
 
-  // sync pill -> hidden select
-  sel.value = btn.dataset.fit;
-
-  // visual active state
-  wrap.querySelectorAll('.ms-fit-pill').forEach(b=>{
-    b.classList.toggle('active', b === btn);
-  });
-
-  // recompute instantly (optional; remove if you prefer manual)
-  if (typeof computeAllSizes === 'function') computeAllSizes();
-});
-// call once on load (after DOM + your My Sizes section exist)
-window.addEventListener('load', initMsFitPills);
-
-  
   /* ---------- Body type (GLOBAL) ---------- */
-  let SELECTED_BODYTYPE = 'standard'; // 'standard' | 'petite' | 'tall' | 'plus'
+  let SELECTED_BODYTYPE = 'standard';
   function renderBodyTypePillsTop(){
     const wrap = $('bodyTypePillsTop'); if(!wrap) return;
     wrap.querySelectorAll('.pt-pill').forEach(p=>{
@@ -531,10 +506,8 @@ window.addEventListener('load', initMsFitPills);
   function setBodyType(val){
     SELECTED_BODYTYPE = val;
     renderBodyTypePillsTop();
-    // If we're in sizefinder or mysizes, recompute immediately
     if (CURRENT_SCREEN === 'uk_sizefinder') {
       updateSupportNote();
-      // only recompute if a brand is selected
       if ($('sf_brand')?.value) computeSize();
     } else if (CURRENT_SCREEN === 'uk_mysizes') {
       computeAllSizes();
@@ -589,13 +562,11 @@ window.addEventListener('load', initMsFitPills);
     const top = $('profilePillsTop'); if(top){ top.innerHTML=''; top.appendChild(frag.cloneNode(true)); }
   }
   document.addEventListener('click',(e)=>{
-    // Unit pills
     const u=e.target.closest('.unit-pill'); if(u){
       UNIT_MODE=u.dataset.unit; renderUnitPills(); loadActiveProfileIntoForm();
       document.querySelectorAll('.unit-badge').forEach(b=> b.textContent = UNIT_MODE);
       return;
     }
-    // Profile pills
     const addBtn=e.target.closest('.profile-pill.add');
     if(addBtn){
       const name=prompt('Profile name?','New profile');
@@ -608,9 +579,9 @@ window.addEventListener('load', initMsFitPills);
     const pill=e.target.closest('.profile-pill');
     if(pill && !pill.classList.contains('add')){
       setActiveProfileId(pill.dataset.id); renderProfilePills(); loadActiveProfileIntoForm();
-      // If on a computation screen, refresh results with same body type
       if (CURRENT_SCREEN==='uk_sizefinder') computeSize();
       if (CURRENT_SCREEN==='uk_mysizes') computeAllSizes();
+      if (CURRENT_SCREEN==='mistats' && typeof refreshAll==='function') refreshAll();
     }
   });
 
@@ -653,31 +624,28 @@ window.addEventListener('load', initMsFitPills);
   function resetFormFields(){
     ['m_height','m_shoulder','m_bust','m_waist','m_hip','m_inseam','m_torso','m_footlen','m_band','m_cup'].forEach(id=>{ const el=$(id); if(el) el.value=''; });
   }
-/* ---------- Navigation ---------- */
-const NAV_STACK=[]; 
-let CURRENT_SCREEN='home';
 
-function switchTab(id){
-  if(id!==CURRENT_SCREEN) NAV_STACK.push(CURRENT_SCREEN);
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  ($(id)||$('home')).classList.add('active');
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  const t=$('tab_'+id); if(t) t.classList.add('active');
-  CURRENT_SCREEN=id; 
-  updateBackButton();
-  if (id==='uk_brandnotes') renderBrandNotes();
-}
+  /* ---------- Navigation (fixed) ---------- */
+  const NAV_STACK=[]; 
+  let CURRENT_SCREEN='home';
 
-// ✅ place this AFTER the function, not inside it
-const _origSwitchTab = window.switchTab;
-window.switchTab = function(id){
-  _origSwitchTab(id);
-  if(id==='mistats'){
-    setMiTab('current');   // force Current subtab
-    refreshAll();          // refresh values
+  function switchTab(id){
+    if(id!==CURRENT_SCREEN) NAV_STACK.push(CURRENT_SCREEN);
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    ($(id)||$('home')).classList.add('active');
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    const t=$('tab_'+id); if(t) t.classList.add('active');
+    CURRENT_SCREEN=id; 
+    updateBackButton();
+    if (id==='uk_brandnotes') renderBrandNotes();
+
+    // MiStats: make sure it opens on "Current" and refreshes
+    if (id==='mistats'){
+      if (typeof setMiTab==='function') setMiTab('current');
+      if (typeof refreshAll==='function') refreshAll();
+    }
   }
-};
-  }
+
   function openUK(id){
     NAV_STACK.push('uk');
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -701,8 +669,6 @@ window.switchTab = function(id){
   }
 
   /* ---------- Brand data (with body-type support flags) ---------- */
-  // supports: which body types the brand explicitly covers
-  // (sample assumptions; tweak as you like)
   const DEFAULT_BRANDS=[
     {id:'primark', name:'Primark', notes:'Runs true to size.',
       supports:{standard:true, petite:true, tall:false, plus:true},
@@ -797,7 +763,7 @@ window.switchTab = function(id){
              height:p.height, shoulder:p.shoulder, torso:p.torso, band:p.band, cup:p.cup };
   }
 
-  /* ---------- Size Finder (FILTER by body type) ---------- */
+  /* ---------- Size Finder ---------- */
   function computeSize(){
     const meas=currentMeasurements();
     const brandId=$('sf_brand').value, cat=$('sf_category').value, fit=$('sf_fit').value;
@@ -849,11 +815,11 @@ window.switchTab = function(id){
     return sorted[0].k;
   }
 
-  /* ---------- My Sizes (FILTER by body type) ---------- */
+  /* ---------- My Sizes ---------- */
   function scoreFor(brandId, cat, meas, fit){
     const brand=BRANDS.find(b=>b.id===brandId);
     if(!brand) return null;
-    if(brand.supports && !brand.supports[SELECTED_BODYTYPE]) return null; // <- filter here
+    if(brand.supports && !brand.supports[SELECTED_BODYTYPE]) return null;
     const rows=CHARTS.filter(r=>r.brandId===brandId && r.category===cat);
     if(rows.length===0) return null;
     let dims=[]; if(cat.includes('Dresses')) dims=['bust','waist','hip']; if(cat.includes('Jeans')) dims=['waist','hip']; if(cat.includes('Shoes')) dims=['footLen'];
@@ -873,7 +839,7 @@ window.switchTab = function(id){
     const sel=$('ms_category'); if(!sel) return; sel.innerHTML='';
     CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; sel.appendChild(o); });
     if(sel.options.length) sel.options[0].selected=true;
-    computeAllSizes(); // auto on open
+    computeAllSizes();
   }
   function computeAllSizes(){
     const meas=currentMeasurements(); const sel=$('ms_category'); const fit=$('ms_fit').value;
@@ -922,7 +888,7 @@ window.switchTab = function(id){
     const a=document.createElement('a'); a.href=url; a.download='my-sizes.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
   }
 
-  /* ---------- Brand Notes (FILTER by body type) ---------- */
+  /* ---------- Brand Notes ---------- */
   function renderBrandNotes(){
     const wrap=$('brandList'); if(!wrap) return; wrap.innerHTML='';
     const filtered = BRANDS.filter(b=> !b.supports || b.supports[SELECTED_BODYTYPE]);
@@ -1008,264 +974,244 @@ window.switchTab = function(id){
     },800);
   });
 
-    
-// ===================== MiStats (drop-in) =====================
-(function(){
-  const STORE_KEY = 'mistats_v1';
+  // ===================== MiStats (drop-in) =====================
+  (function(){
+    const STORE_KEY = 'mistats_v1';
 
-  // ---------- unit helpers ----------
-  const kgFrom = (val, unit) => {
-    const n = parseFloat(val); if (isNaN(n)) return null;
-    if (unit==='kg') return n;
-    if (unit==='lb') return n * 0.45359237;
-    if (unit==='st') return n * 6.35029318;
-    return n;
-  };
-  const toUnit = (kg, unit) => {
-    if (kg==null) return '';
-    if (unit==='kg') return kg.toFixed(1);
-    if (unit==='lb') return (kg/0.45359237).toFixed(1);
-    if (unit==='st') return (kg/6.35029318).toFixed(2);
-    return kg.toFixed(1);
-  };
-  const cmFromHeightInput = (val, unit) => {
-    if (unit==='ftin'){
-      // allow "5'6" or "5 6" or 5.6 (treat . as inches)
-      const m = String(val).trim().match(/(\d+)[^\d]+(\d+)/);
-      if (m){ const ft=+m[1], inch=+m[2]; return Math.round((ft*12+inch)*2.54); }
-      const n=parseFloat(val); if(!isNaN(n)) return Math.round(n*12*2.54);
-      return null;
-    }
-    const n = parseFloat(val); if (isNaN(n)) return null;
-    if (unit==='m') return Math.round(n*100);
-    return Math.round(n); // cm
-  };
-  const bmi = (kg, cm) => (kg>0 && cm>0) ? +(kg/((cm/100)**2)).toFixed(1) : null;
-
-  // ---------- store ----------
-  function loadStore(){
-    try{ return JSON.parse(localStorage.getItem(STORE_KEY)||'{}'); }catch(e){ return {}; }
-  }
-  function saveStore(s){ localStorage.setItem(STORE_KEY, JSON.stringify(s)); }
-
-  function activeId(){ return getProfilesAndActive().activeId; }
-  function ensureProfileBucket(){
-    const id = activeId(); const s = loadStore();
-    if(!s[id]) s[id] = { unitW:'kg', unitH:'cm', heightCm:null, targetKg:null, entries:[] };
-    return s;
-  }
-  function getBucket(){
-    const s=ensureProfileBucket(); return { s, b: s[activeId()] };
-  }
-
-  // ---------- UI wiring ----------
-  function setMiTab(view){
-    document.querySelectorAll('#mi_tabs .mi-tab').forEach(b=>{
-      b.classList.toggle('active', b.dataset.view===view);
-    });
-    document.querySelectorAll('#mistats .mi-view').forEach(v=> v.style.display='none');
-    $('#mi_view_'+view).style.display='block';
-    if(view==='graph') drawGraph();
-    if(view==='history') renderHistory();
-  }
-  document.addEventListener('click', (e)=>{
-    const t=e.target.closest('.mi-tab'); if(t){ setMiTab(t.dataset.view); }
-    const uw=e.target.closest('.mi-unit-w'); if(uw){ const {s,b}=getBucket(); b.unitW=uw.dataset.u; saveStore(s); refreshAll(); }
-    const uh=e.target.closest('.mi-unit-h'); if(uh){ const {s,b}=getBucket(); b.unitH=uh.dataset.u; saveStore(s); refreshAll(); }
-  });
-
-  // save entry
-  function onAddEntry(){
-    const {s,b}=getBucket();
-    const unit=b.unitW||'kg';
-    const kg = kgFrom($('#mi_weight_in').value, unit);
-    const d = $('#mi_date_in').value || new Date().toISOString().slice(0,10);
-    if(kg==null){ alert('Enter a valid weight'); return; }
-    b.entries.push({d, kg:+kg.toFixed(2)});
-    b.entries.sort((a,b)=> a.d.localeCompare(b.d));
-    saveStore(s);
-    $('#mi_weight_in').value=''; $('#mi_date_in').value='';
-    refreshAll(); setMiTab('history');
-  }
-  $('#mi_add_btn')?.addEventListener('click', onAddEntry);
-
-  // settings
-  $('#mi_save_settings')?.addEventListener('click', ()=>{
-    const {s,b}=getBucket();
-    const h = cmFromHeightInput($('#mi_height').value, b.unitH||'cm');
-    if(h) b.heightCm=h;
-    const tgtRaw = $('#mi_target_in').value.trim();
-    b.targetKg = tgtRaw ? kgFrom(tgtRaw, b.unitW||'kg') : null;
-    saveStore(s); refreshAll(); setMiTab('current');
-  });
-  $('#mi_reset_profile')?.addEventListener('click', ()=>{
-    if(!confirm('Reset MiStats for this profile?')) return;
-    const s=loadStore(); delete s[activeId()]; saveStore(s); refreshAll();
-  });
-
-  // zoom
-  $('#mi_zoom')?.addEventListener('input', drawGraph);
-
-  // ---------- calculations ----------
-  function calcStats(){
-    const {b}=getBucket(); const E=b.entries;
-    const heightCm = b.heightCm ?? getProfilesAndActive().profiles.find(p=>p.id===activeId())?.height ?? null;
-
-    if(E.length===0) return { empty:true, unitW:b.unitW, heightCm, targetKg:b.targetKg };
-    const start=E[0], curr=E[E.length-1], target=b.targetKg ?? null;
-
-    // averages
-    let avgDay=null, avgWeek=null;
-    if(E.length>=2){
-      const first=new Date(E[0].d), last=new Date(curr.d);
-      const days=Math.max(1, (last-first)/86400000);
-      avgDay= +((curr.kg-start.kg)/days).toFixed(2);
-      avgWeek= +(avgDay*7).toFixed(2);
-    }
-
-    // progress for bar (start -> target or start -> min seen)
-    const goal = target ?? Math.min(...E.map(x=>x.kg));
-    const span = Math.abs(start.kg - goal) || 1;
-    const done = Math.min(100, Math.max(0, ((start.kg - curr.kg)/span)*100 ));
-
-    return {
-      unitW:b.unitW, heightCm, targetKg:target,
-      start, curr, avgDay, avgWeek, progress:done
+    // unit helpers
+    const kgFrom = (val, unit) => {
+      const n = parseFloat(val); if (isNaN(n)) return null;
+      if (unit==='kg') return n;
+      if (unit==='lb') return n * 0.45359237;
+      if (unit==='st') return n * 6.35029318;
+      return n;
     };
-  }
+    const toUnit = (kg, unit) => {
+      if (kg==null) return '';
+      if (unit==='kg') return kg.toFixed(1);
+      if (unit==='lb') return (kg/0.45359237).toFixed(1);
+      if (unit==='st') return (kg/6.35029318).toFixed(2);
+      return kg.toFixed(1);
+    };
+    const cmFromHeightInput = (val, unit) => {
+      if (unit==='ftin'){
+        const m = String(val).trim().match(/(\d+)[^\d]+(\d+)/);
+        if (m){ const ft=+m[1], inch=+m[2]; return Math.round((ft*12+inch)*2.54); }
+        const n=parseFloat(val); if(!isNaN(n)) return Math.round(n*12*2.54);
+        return null;
+      }
+      const n = parseFloat(val); if (isNaN(n)) return null;
+      if (unit==='m') return Math.round(n*100);
+      return Math.round(n); // cm
+    };
+    const bmi = (kg, cm) => (kg>0 && cm>0) ? +(kg/((cm/100)**2)).toFixed(1) : null;
 
-  // ---------- renderers ----------
-  function renderCurrent(){
-    const {unitW}=getBucket().b; const S=calcStats();
-    const unitLabel = unitW==='kg'?'kg':(unitW==='lb'?'lb':'st');
-    $('#mi_hint_units').textContent = `Units: ${unitLabel}`;
-
-    const title = (S.empty? 'No entries yet' : `${toUnit(S.curr.kg, unitW)} ${unitLabel}`);
-    $('#mi_current_title').textContent = title;
-    $('#mi_current_meta').textContent = S.empty ? 'Add your first weight below.' : new Date(S.curr.d).toLocaleDateString();
-
-    $('#mi_start').textContent = S.empty ? '—' : `${toUnit(S.start.kg, unitW)} ${unitLabel}`;
-    $('#mi_current').textContent = S.empty ? '—' : `${toUnit(S.curr.kg, unitW)} ${unitLabel}`;
-    $('#mi_target').textContent = (S.targetKg==null) ? '—' : `${toUnit(S.targetKg, unitW)} ${unitLabel}`;
-
-    const bmiStart = bmi(S.start?.kg, S.heightCm);
-    const bmiCurr  = bmi(S.curr?.kg,  S.heightCm);
-    const bmiTgt   = bmi(S.targetKg,  S.heightCm);
-    $('#mi_start_bmi').textContent = (bmiStart? `BMI ${bmiStart}`:'BMI —');
-    $('#mi_current_bmi').textContent= (bmiCurr? `BMI ${bmiCurr}`:'BMI —');
-    $('#mi_target_bmi').textContent = (bmiTgt? `BMI ${bmiTgt}`:'BMI —');
-
-    // progress bar/text
-    $('#mi_prog_bar').style.width = (S.empty? '0%' : `${S.progress.toFixed(0)}%`);
-    const lost = S.empty? 0 : (S.start.kg - S.curr.kg);
-    const remain = (S.targetKg!=null) ? (S.curr.kg - S.targetKg) : null;
-    $('#mi_prog_text').textContent = S.empty
-      ? '—'
-      : `Lost ${toUnit(lost, unitW)} ${unitLabel}${remain!=null?` • Remaining ${toUnit(remain, unitW)} ${unitLabel}`:''}`;
-
-    $('#mi_avg_day').textContent  = (S.avgDay==null)?'—':`${toUnit(S.avgDay, unitW)} ${unitLabel}`;
-    $('#mi_avg_week').textContent = (S.avgWeek==null)?'—':`${toUnit(S.avgWeek, unitW)} ${unitLabel}`;
-  }
-
-  function renderHistory(){
-    const wrap = $('#mi_hist_list'); wrap.innerHTML='';
-    const {b}=getBucket(); const U=b.unitW||'kg';
-    if(b.entries.length===0){ wrap.innerHTML='<div class="note">No entries yet.</div>'; return; }
-    let prev=null;
-    b.entries.slice().reverse().forEach(it=>{
-      const delta = (prev? (prev.kg-it.kg): null); // positive when down
-      const row=document.createElement('div'); row.className='mi-row';
-      row.innerHTML = `
-        <div><strong>${toUnit(it.kg,U)} ${U}</strong><div class="note">${new Date(it.d).toLocaleString()}</div></div>
-        <div class="delta ${delta==null?'':(delta>0?'down':'up')}">${delta==null?'':( (delta>0?'-':'+')+toUnit(Math.abs(delta),U)+' '+U )}</div>
-      `;
-      wrap.appendChild(row);
-      prev=it;
-    });
-  }
-
-  function drawGraph(){
-    const {b}=getBucket(); const E=b.entries; const U=b.unitW||'kg';
-    const c=$('#mi_canvas'); const ctx=c.getContext('2d');
-    ctx.clearRect(0,0,c.width,c.height);
-
-    if(E.length<1){ $('#mi_graph_note').textContent='Add weights to see the chart.'; return; }
-
-    // zoom handling: value=0 -> all; 100 -> last 10 points
-    const z = +($('#mi_zoom').value||0);
-    $('#mi_zoom_label').textContent = z===0 ? 'All time' : `Zoom ${z}%`;
-    const keep = Math.max(5, Math.round(E.length - (E.length-10)*(z/100)));
-    const data = E.slice(-keep);
-
-    // bounds
-    const minW = Math.min(...data.map(x=>x.kg));
-    const maxW = Math.max(...data.map(x=>x.kg));
-    const pad  = Math.max(1, (maxW-minW)*0.1);
-    const y0   = minW-pad, y1=maxW+pad;
-
-    const left=50, right=20, top=20, bottom=35;
-    const W=c.width-left-right, H=c.height-top-bottom;
-
-    // axes
-    ctx.strokeStyle = '#223049'; ctx.lineWidth=1;
-    ctx.beginPath(); ctx.moveTo(left, top); ctx.lineTo(left, top+H); ctx.lineTo(left+W, top+H); ctx.stroke();
-
-    // y labels (4 ticks)
-    ctx.fillStyle='#aab3c5'; ctx.font='12px '+getComputedStyle(document.body).fontFamily;
-    for(let i=0;i<=4;i++){
-      const yv = y0 + (i*(y1-y0))/4;
-      const py = top+H - ( (yv-y0)/(y1-y0) )*H;
-      ctx.fillText(toUnit(yv,U), 6, py+4);
-      ctx.strokeStyle='#1b2230'; ctx.beginPath(); ctx.moveTo(left,py); ctx.lineTo(left+W,py); ctx.stroke();
+    // store
+    function loadStore(){
+      try{ return JSON.parse(localStorage.getItem(STORE_KEY)||'{}'); }catch(e){ return {}; }
+    }
+    function saveStore(s){ localStorage.setItem(STORE_KEY, JSON.stringify(s)); }
+    function activeId(){ return getProfilesAndActive().activeId; }
+    function ensureProfileBucket(){
+      const id = activeId(); const s = loadStore();
+      if(!s[id]) s[id] = { unitW:'kg', unitH:'cm', heightCm:null, targetKg:null, entries:[] };
+      return s;
+    }
+    function getBucket(){
+      const s=ensureProfileBucket(); return { s, b: s[activeId()] };
     }
 
-    // line
-    ctx.strokeStyle='#5da8ff'; ctx.lineWidth=2; ctx.beginPath();
-    data.forEach((pt,i)=>{
-      const px = left + (i/(data.length-1))*W;
-      const py = top+H - ( (pt.kg-y0)/(y1-y0) )*H;
-      if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
-      // point
-      ctx.fillStyle='#5da8ff'; ctx.beginPath(); ctx.arc(px,py,3,0,Math.PI*2); ctx.fill();
+    // tabs & unit toggles
+    function setMiTab(view){
+      document.querySelectorAll('#mi_tabs .mi-tab').forEach(b=>{
+        b.classList.toggle('active', b.dataset.view===view);
+      });
+      document.querySelectorAll('#mistats .mi-view').forEach(v=> v.style.display='none');
+      $('#mi_view_'+view).style.display='block';
+      if(view==='graph') drawGraph();
+      if(view==='history') renderHistory();
+    }
+    window.setMiTab = setMiTab; // expose for switchTab
+
+    document.addEventListener('click', (e)=>{
+      const t=e.target.closest('.mi-tab'); if(t){ setMiTab(t.dataset.view); }
+      const uw=e.target.closest('.mi-unit-w'); if(uw){ const {s,b}=getBucket(); b.unitW=uw.dataset.u; saveStore(s); refreshAll(); }
+      const uh=e.target.closest('.mi-unit-h'); if(uh){ const {s,b}=getBucket(); b.unitH=uh.dataset.u; saveStore(s); refreshAll(); }
     });
-    ctx.stroke();
 
-    $('#mi_graph_note').textContent = `${data.length} points • unit: ${U}`;
-  }
+    // add entry
+    function onAddEntry(){
+      const {s,b}=getBucket();
+      const unit=b.unitW||'kg';
+      const kg = kgFrom($('#mi_weight_in').value, unit);
+      const d = $('#mi_date_in').value || new Date().toISOString().slice(0,10);
+      if(kg==null){ alert('Enter a valid weight'); return; }
+      b.entries.push({d, kg:+kg.toFixed(2)});
+      b.entries.sort((a,b)=> a.d.localeCompare(b.d));
+      saveStore(s);
+      $('#mi_weight_in').value=''; $('#mi_date_in').value='';
+      refreshAll(); setMiTab('history');
+    }
+    $('#mi_add_btn')?.addEventListener('click', onAddEntry);
 
-  function renderSettings(){
-    const {b}=getBucket();
-    // toggles
-    document.querySelectorAll('.mi-unit-w').forEach(x=> x.classList.toggle('active', x.dataset.u===b.unitW));
-    document.querySelectorAll('.mi-unit-h').forEach(x=> x.classList.toggle('active', x.dataset.u===b.unitH));
-    // height input placeholder formatting
-    $('#mi_height').value = b.heightCm ? (b.unitH==='m' ? (b.heightCm/100).toFixed(2) : (b.unitH==='ftin' ? '' : b.heightCm)) : '';
-    $('#mi_height_hint').textContent = b.unitH==='ftin' ? 'Enter like 5\'6 or 5 6' : 'Stored in cm internally.';
-    $('#mi_target_in').value = b.targetKg!=null ? toUnit(b.targetKg, b.unitW) : '';
-  }
+    // settings
+    $('#mi_save_settings')?.addEventListener('click', ()=>{
+      const {s,b}=getBucket();
+      const h = cmFromHeightInput($('#mi_height').value, b.unitH||'cm');
+      if(h) b.heightCm=h;
+      const tgtRaw = $('#mi_target_in').value.trim();
+      b.targetKg = tgtRaw ? kgFrom(tgtRaw, b.unitW||'kg') : null;
+      saveStore(s); refreshAll(); setMiTab('current');
+    });
+    $('#mi_reset_profile')?.addEventListener('click', ()=>{
+      if(!confirm('Reset MiStats for this profile?')) return;
+      const s=loadStore(); delete s[activeId()]; saveStore(s); refreshAll();
+    });
 
-  function refreshAll(){
-    renderCurrent(); renderSettings();
-    if(CURRENT_SCREEN==='mistats'){ drawGraph(); renderHistory(); }
-  }
+    // zoom
+    $('#mi_zoom')?.addEventListener('input', drawGraph);
 
-  // hook into navigation so MiStats refreshes on open or profile/unit change
-  const _origSwitchTab = window.switchTab;
-  window.switchTab = function(id){ _origSwitchTab(id); if(id==='mistats') refreshAll(); };
+    // calculations
+    function calcStats(){
+      const {b}=getBucket(); const E=b.entries;
+      const heightCm = b.heightCm ?? getProfilesAndActive().profiles.find(p=>p.id===activeId())?.height ?? null;
 
-  // also refresh when active profile changes via your pill UI
-  const _origRenderProfilePills = window.renderProfilePills;
-  window.renderProfilePills = function(){ _origRenderProfilePills(); refreshAll(); };
+      if(E.length===0) return { empty:true, unitW:b.unitW, heightCm, targetKg:b.targetKg };
+      const start=E[0], curr=E[E.length-1], target=b.targetKg ?? null;
 
-  // init
-  setTimeout(()=>{ // allow DOM to exist
-    // default date field to today
-    const di = $('#mi_date_in'); if(di) di.value = new Date().toISOString().slice(0,10);
-    refreshAll();
-  },0);
+      let avgDay=null, avgWeek=null;
+      if(E.length>=2){
+        const first=new Date(E[0].d), last=new Date(curr.d);
+        const days=Math.max(1, (last-first)/86400000);
+        avgDay= +((curr.kg-start.kg)/days).toFixed(2);
+        avgWeek= +(avgDay*7).toFixed(2);
+      }
 
-})();
+      const goal = target ?? Math.min(...E.map(x=>x.kg));
+      const span = Math.abs(start.kg - goal) || 1;
+      const done = Math.min(100, Math.max(0, ((start.kg - curr.kg)/span)*100 ));
 
+      return { unitW:b.unitW, heightCm, targetKg:target, start, curr, avgDay, avgWeek, progress:done };
+    }
+
+    // renderers
+    function renderCurrent(){
+      const {unitW}=getBucket().b; const S=calcStats();
+      const unitLabel = unitW==='kg'?'kg':(unitW==='lb'?'lb':'st');
+      $('#mi_hint_units').textContent = `Units: ${unitLabel}`;
+
+      const title = (S.empty? 'No entries yet' : `${toUnit(S.curr.kg, unitW)} ${unitLabel}`);
+      $('#mi_current_title').textContent = title;
+      $('#mi_current_meta').textContent = S.empty ? 'Add your first weight below.' : new Date(S.curr.d).toLocaleDateString();
+
+      $('#mi_start').textContent = S.empty ? '—' : `${toUnit(S.start.kg, unitW)} ${unitLabel}`;
+      $('#mi_current').textContent = S.empty ? '—' : `${toUnit(S.curr.kg, unitW)} ${unitLabel}`;
+      $('#mi_target').textContent = (S.targetKg==null) ? '—' : `${toUnit(S.targetKg, unitW)} ${unitLabel}`;
+
+      const bmiStart = bmi(S.start?.kg, S.heightCm);
+      const bmiCurr  = bmi(S.curr?.kg,  S.heightCm);
+      const bmiTgt   = bmi(S.targetKg,  S.heightCm);
+      $('#mi_start_bmi').textContent = (bmiStart? `BMI ${bmiStart}`:'BMI —');
+      $('#mi_current_bmi').textContent= (bmiCurr? `BMI ${bmiCurr}`:'BMI —');
+      $('#mi_target_bmi').textContent = (bmiTgt? `BMI ${bmiTgt}`:'BMI —');
+
+      $('#mi_prog_bar').style.width = (S.empty? '0%' : `${S.progress.toFixed(0)}%`);
+      const lost = S.empty? 0 : (S.start.kg - S.curr.kg);
+      const remain = (S.targetKg!=null) ? (S.curr.kg - S.targetKg) : null;
+      $('#mi_prog_text').textContent = S.empty
+        ? '—'
+        : `Lost ${toUnit(lost, unitW)} ${unitLabel}${remain!=null?` • Remaining ${toUnit(remain, unitW)} ${unitLabel}`:''}`;
+
+      $('#mi_avg_day').textContent  = (S.avgDay==null)?'—':`${toUnit(S.avgDay, unitW)} ${unitLabel}`;
+      $('#mi_avg_week').textContent = (S.avgWeek==null)?'—':`${toUnit(S.avgWeek, unitW)} ${unitLabel}`;
+    }
+
+    function renderHistory(){
+      const wrap = $('#mi_hist_list'); wrap.innerHTML='';
+      const {b}=getBucket(); const U=b.unitW||'kg';
+      if(b.entries.length===0){ wrap.innerHTML='<div class="note">No entries yet.</div>'; return; }
+      let prev=null;
+      b.entries.slice().reverse().forEach(it=>{
+        const delta = (prev? (prev.kg-it.kg): null);
+        const row=document.createElement('div'); row.className='mi-row';
+        row.innerHTML = `
+          <div><strong>${toUnit(it.kg,U)} ${U}</strong><div class="note">${new Date(it.d).toLocaleString()}</div></div>
+          <div class="delta ${delta==null?'':(delta>0?'down':'up')}">${delta==null?'':( (delta>0?'-':'+')+toUnit(Math.abs(delta),U)+' '+U )}</div>
+        `;
+        wrap.appendChild(row);
+        prev=it;
+      });
+    }
+
+    function drawGraph(){
+      const {b}=getBucket(); const E=b.entries; const U=b.unitW||'kg';
+      const c=$('#mi_canvas'); const ctx=c.getContext('2d');
+      ctx.clearRect(0,0,c.width,c.height);
+
+      if(E.length<1){ $('#mi_graph_note').textContent='Add weights to see the chart.'; return; }
+
+      const z = +($('#mi_zoom').value||0);
+      $('#mi_zoom_label').textContent = z===0 ? 'All time' : `Zoom ${z}%`;
+      const keep = Math.max(5, Math.round(E.length - (E.length-10)*(z/100)));
+      const data = E.slice(-keep);
+
+      const minW = Math.min(...data.map(x=>x.kg));
+      const maxW = Math.max(...data.map(x=>x.kg));
+      const pad  = Math.max(1, (maxW-minW)*0.1);
+      const y0   = minW-pad, y1=maxW+pad;
+
+      const left=50, right=20, top=20, bottom=35;
+      const W=c.width-left-right, H=c.height-top-bottom;
+
+      ctx.strokeStyle = '#223049'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(left, top); ctx.lineTo(left, top+H); ctx.lineTo(left+W, top+H); ctx.stroke();
+
+      ctx.fillStyle='#aab3c5'; ctx.font='12px '+getComputedStyle(document.body).fontFamily;
+      for(let i=0;i<=4;i++){
+        const yv = y0 + (i*(y1-y0))/4;
+        const py = top+H - ( (yv-y0)/(y1-y0) )*H;
+        ctx.fillText(toUnit(yv,U), 6, py+4);
+        ctx.strokeStyle='#1b2230'; ctx.beginPath(); ctx.moveTo(left,py); ctx.lineTo(left+W,py); ctx.stroke();
+      }
+
+      ctx.strokeStyle='#5da8ff'; ctx.lineWidth=2; ctx.beginPath();
+      data.forEach((pt,i)=>{
+        const px = left + (i/(data.length-1))*W;
+        const py = top+H - ( (pt.kg-y0)/(y1-y0) )*H;
+        if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+        ctx.fillStyle='#5da8ff'; ctx.beginPath(); ctx.arc(px,py,3,0,Math.PI*2); ctx.fill();
+      });
+      ctx.stroke();
+
+      $('#mi_graph_note').textContent = `${data.length} points • unit: ${U}`;
+    }
+
+    function renderSettings(){
+      const {b}=getBucket();
+      document.querySelectorAll('.mi-unit-w').forEach(x=> x.classList.toggle('active', x.dataset.u===b.unitW));
+      document.querySelectorAll('.mi-unit-h').forEach(x=> x.classList.toggle('active', x.dataset.u===b.unitH));
+      $('#mi_height').value = b.heightCm ? (b.unitH==='m' ? (b.heightCm/100).toFixed(2) : (b.unitH==='ftin' ? '' : b.heightCm)) : '';
+      $('#mi_height_hint').textContent = b.unitH==='ftin' ? 'Enter like 5\'6 or 5 6' : 'Stored in cm internally.';
+      $('#mi_target_in').value = b.targetKg!=null ? toUnit(b.targetKg, b.unitW) : '';
+    }
+
+    function refreshAll(){
+      renderCurrent(); renderSettings();
+      if(CURRENT_SCREEN==='mistats'){ drawGraph(); renderHistory(); }
+    }
+    window.refreshAll = refreshAll; // expose for switchTab
+
+    // also refresh when active profile pills rerender
+    const _origRenderProfilePills = window.renderProfilePills;
+    window.renderProfilePills = function(){ _origRenderProfilePills(); refreshAll(); };
+
+    // init
+    setTimeout(()=>{
+      const di = $('#mi_date_in'); if(di) di.value = new Date().toISOString().slice(0,10);
+      refreshAll();
+    },0);
+
+  })();
   </script>
 </body>
 </html>
