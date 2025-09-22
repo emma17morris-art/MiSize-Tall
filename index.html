@@ -35,7 +35,7 @@
 .flash-logo-shine{ display:none !important; }
 
   <!-- ========== STYLES ========== -->
-<style>
+
 /* ===== SPLASH (simple, large centered logo) ===== */
 #splash { display:none; padding:0; }
 #splash.active { display:block; }
@@ -206,39 +206,7 @@ select, input{ width:100%; padding:12px; border-radius:10px; border:1px solid #2
 
   <!-- ===== UK › SIZE FINDER ===== -->
 
-  function showResult(size, conf, message, notes){
-  const box = $('sf_result');
-  box.style.display = 'block';
-
-  const confClass = conf === 'High' ? 'success' : (conf === 'Low' ? 'danger' : 'warning');
-
-  const noteBadges = (notes || []).map(n => `<span class="sf-badge">${n}</span>`).join('');
-
-  box.innerHTML = `
-    <div>
-      ${size === '—'
-        ? `<div class="sf-note">No result for this selection.</div>`
-        : `<span class="sf-size">${size}</span>`}
-      ${message ? `<p class="sf-note" style="margin-top:8px;">${message}</p>` : ''}
-
-      <div class="sf-badges" style="margin-top:10px;">
-        <span class="sf-badge">Confidence: <span class="${confClass}">${conf}</span></span>
-        ${noteBadges}
-      </div>
-    </div>
-  `;
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-
-  // keep history payload consistent
-  window._lastResult = {
-    when: new Date().toISOString(),
-    brand: $('sf_brand').value,
-    category: $('sf_category').value,
-    size: size,
-    conf: conf
-  };
-}
+  
   
   <!-- ===== UK › MY SIZES ===== -->
   <section id="uk_mysizes" class="screen">
@@ -561,6 +529,39 @@ function importData(json){
       const sorted=entries.map(([k,v])=>({k, d:Math.abs(v-cm)})).sort((a,b)=>a.d-b.d);
       return sorted[0].k;
     }
+    function showResult(size, conf, message, notes){
+  const box = $('sf_result');
+  box.style.display = 'block';
+
+  const confClass = conf === 'High' ? 'success' : (conf === 'Low' ? 'danger' : 'warning');
+
+  const noteBadges = (notes || []).map(n => `<span class="sf-badge">${n}</span>`).join('');
+
+  box.innerHTML = `
+    <div>
+      ${size === '—'
+        ? `<div class="sf-note">No result for this selection.</div>`
+        : `<span class="sf-size">${size}</span>`}
+      ${message ? `<p class="sf-note" style="margin-top:8px;">${message}</p>` : ''}
+
+      <div class="sf-badges" style="margin-top:10px;">
+        <span class="sf-badge">Confidence: <span class="${confClass}">${conf}</span></span>
+        ${noteBadges}
+      </div>
+    </div>
+  `;
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // keep history payload consistent
+  window._lastResult = {
+    when: new Date().toISOString(),
+    brand: $('sf_brand').value,
+    category: $('sf_category').value,
+    size: size,
+    conf: conf
+  };
+}
 
     /* ===== My Sizes (across brands) ===== */
     function scoreFor(brandId, cat, meas, fit){
