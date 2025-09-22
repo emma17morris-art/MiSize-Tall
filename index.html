@@ -149,50 +149,47 @@
   </section>
 
   <!-- UK › My Sizes -->
-  <!-- UK › My Sizes -->
-<section id="uk_mysizes" class="screen" aria-label="UK My Sizes">
-  <div class="card">
-    <h3 class="big">My Sizes (filtered by body type)</h3>
-    <p class="note">Only brands that support your selected body type are included.</p>
+  <section id="uk_mysizes" class="screen" aria-label="UK My Sizes">
+    <div class="card">
+      <h3 class="big">My Sizes (filtered by body type)</h3>
+      <p class="note">Only brands that support your selected body type are included.</p>
 
-    <div class="row two">
-      <div>
-        <label class="ms-label" for="ms_category">Categories</label>
-        <select id="ms_category" class="ms-select" multiple size="4" style="height:120px;"></select>
-        <p class="note" style="margin:6px 0 0;">Cmd/Ctrl-click to multi-select.</p>
-      </div>
-
-      <div>
-        <label class="ms-label">Fit preference</label>
-
-        <!-- NEW: fit pills -->
-        <div id="ms_fit_pills" class="pt-pills" role="tablist" aria-label="Fit">
-          <button type="button" class="pt-pill ms-fit-pill" data-fit="standard">Standard</button>
-          <button type="button" class="pt-pill ms-fit-pill" data-fit="snug">Snug</button>
-          <button type="button" class="pt-pill ms-fit-pill" data-fit="relaxed">Relaxed</button>
-          <button type="button" class="pt-pill ms-fit-pill" data-fit="all">All</button>
+      <div class="row two">
+        <div>
+          <label class="ms-label" for="ms_category">Categories</label>
+          <select id="ms_category" class="ms-select" multiple size="4" style="height:120px;"></select>
+          <p class="note" style="margin:6px 0 0;">Cmd/Ctrl-click to multi-select.</p>
         </div>
 
-        <!-- Keep your original select (hidden) so existing JS keeps working -->
-        <select id="ms_fit" class="ms-select" style="display:none;">
-          <option value="standard" selected>Standard</option>
-          <option value="snug">Snug</option>
-          <option value="relaxed">Relaxed</option>
-          <option value="all">All</option>
-        </select>
+        <div>
+          <label class="ms-label">Fit preference</label>
 
-        <div class="toolbar" style="margin-top:8px;">
-          <button class="pill" onclick="computeAllSizes()">Compute all</button>
-          <button class="pill" onclick="exportMySizesCSV()">Export CSV</button>
-          <button class="pill" onclick="copyMySizes()">Copy</button>
-          <span class="pill" id="ms_count">—</span>
+          <div id="ms_fit_pills" class="pt-pills" role="tablist" aria-label="Fit">
+            <button type="button" class="pt-pill ms-fit-pill" data-fit="standard">Standard</button>
+            <button type="button" class="pt-pill ms-fit-pill" data-fit="snug">Snug</button>
+            <button type="button" class="pt-pill ms-fit-pill" data-fit="relaxed">Relaxed</button>
+            <button type="button" class="pt-pill ms-fit-pill" data-fit="all">All</button>
+          </div>
+
+          <select id="ms_fit" class="ms-select" style="display:none;">
+            <option value="standard" selected>Standard</option>
+            <option value="snug">Snug</option>
+            <option value="relaxed">Relaxed</option>
+            <option value="all">All</option>
+          </select>
+
+          <div class="toolbar" style="margin-top:8px;">
+            <button class="pill" onclick="computeAllSizes()">Compute all</button>
+            <button class="pill" onclick="exportMySizesCSV()">Export CSV</button>
+            <button class="pill" onclick="copyMySizes()">Copy</button>
+            <span class="pill" id="ms_count">—</span>
+          </div>
         </div>
       </div>
+
+      <div id="ms_list" class="panel-list"></div>
     </div>
-
-    <div id="ms_list" class="panel-list"></div>
-  </div>
-</section>
+  </section>
 
   <!-- UK › Brand Notes -->
   <section id="uk_brandnotes" class="screen" aria-label="UK Brand Notes">
@@ -321,39 +318,28 @@
   const toDisplay = (cm) => (cm==null ? '' : (UNIT_MODE==='cm' ? cm : (cm/CM_PER_IN)).toFixed(2));
   const fromDisplay = (val) => { const n=parseFloat(val); if(isNaN(n)) return null; return UNIT_MODE==='cm' ? n : +(n*CM_PER_IN).toFixed(2); };
 
-    
-// ---- Fit pills: init + click handling (minimal change) ----
-function initMsFitPills(){
-  const sel = document.getElementById('ms_fit');
-  const pillsWrap = document.getElementById('ms_fit_pills');
-  if(!sel || !pillsWrap) return;
-  const current = sel.value || 'standard';
-  pillsWrap.querySelectorAll('.ms-fit-pill').forEach(btn=>{
-    btn.classList.toggle('active', btn.dataset.fit === current);
+  // ---- Fit pills: init + click handling ----
+  function initMsFitPills(){
+    const sel = document.getElementById('ms_fit');
+    const pillsWrap = document.getElementById('ms_fit_pills');
+    if(!sel || !pillsWrap) return;
+    const current = sel.value || 'standard';
+    pillsWrap.querySelectorAll('.ms-fit-pill').forEach(btn=>{
+      btn.classList.toggle('active', btn.dataset.fit === current);
+    });
+  }
+  document.addEventListener('click', (e)=>{
+    const btn = e.target.closest('.ms-fit-pill');
+    if(!btn) return;
+    const sel = document.getElementById('ms_fit');
+    const wrap = document.getElementById('ms_fit_pills');
+    if(!sel || !wrap) return;
+    sel.value = btn.dataset.fit;
+    wrap.querySelectorAll('.ms-fit-pill').forEach(b=>{ b.classList.toggle('active', b === btn); });
+    if (typeof computeAllSizes === 'function') computeAllSizes();
   });
-}
-document.addEventListener('click', (e)=>{
-  const btn = e.target.closest('.ms-fit-pill');
-  if(!btn) return;
-  const sel = document.getElementById('ms_fit');
-  const wrap = document.getElementById('ms_fit_pills');
-  if(!sel || !wrap) return;
+  window.addEventListener('load', initMsFitPills);
 
-  // sync pill -> hidden select
-  sel.value = btn.dataset.fit;
-
-  // visual active state
-  wrap.querySelectorAll('.ms-fit-pill').forEach(b=>{
-    b.classList.toggle('active', b === btn);
-  });
-
-  // recompute instantly (optional; remove if you prefer manual)
-  if (typeof computeAllSizes === 'function') computeAllSizes();
-});
-// call once on load (after DOM + your My Sizes section exist)
-window.addEventListener('load', initMsFitPills);
-
-  
   /* ---------- Body type (GLOBAL) ---------- */
   let SELECTED_BODYTYPE = 'standard'; // 'standard' | 'petite' | 'tall' | 'plus'
   function renderBodyTypePillsTop(){
@@ -365,10 +351,8 @@ window.addEventListener('load', initMsFitPills);
   function setBodyType(val){
     SELECTED_BODYTYPE = val;
     renderBodyTypePillsTop();
-    // If we're in sizefinder or mysizes, recompute immediately
     if (CURRENT_SCREEN === 'uk_sizefinder') {
       updateSupportNote();
-      // only recompute if a brand is selected
       if ($('sf_brand')?.value) computeSize();
     } else if (CURRENT_SCREEN === 'uk_mysizes') {
       computeAllSizes();
@@ -376,8 +360,10 @@ window.addEventListener('load', initMsFitPills);
       renderBrandNotes();
     }
   }
+  // *** FIX A: scope click to the TOP body-type pills only
   document.addEventListener('click', (e) => {
-    const pill = e.target.closest('.pt-pill'); if (!pill) return;
+    const pill = e.target.closest('#bodyTypePillsTop .pt-pill');
+    if (!pill) return;
     setBodyType(pill.dataset.val);
   });
 
@@ -423,13 +409,11 @@ window.addEventListener('load', initMsFitPills);
     const top = $('profilePillsTop'); if(top){ top.innerHTML=''; top.appendChild(frag.cloneNode(true)); }
   }
   document.addEventListener('click',(e)=>{
-    // Unit pills
     const u=e.target.closest('.unit-pill'); if(u){
       UNIT_MODE=u.dataset.unit; renderUnitPills(); loadActiveProfileIntoForm();
       document.querySelectorAll('.unit-badge').forEach(b=> b.textContent = UNIT_MODE);
       return;
     }
-    // Profile pills
     const addBtn=e.target.closest('.profile-pill.add');
     if(addBtn){
       const name=prompt('Profile name?','New profile');
@@ -442,7 +426,6 @@ window.addEventListener('load', initMsFitPills);
     const pill=e.target.closest('.profile-pill');
     if(pill && !pill.classList.contains('add')){
       setActiveProfileId(pill.dataset.id); renderProfilePills(); loadActiveProfileIntoForm();
-      // If on a computation screen, refresh results with same body type
       if (CURRENT_SCREEN==='uk_sizefinder') computeSize();
       if (CURRENT_SCREEN==='uk_mysizes') computeAllSizes();
     }
@@ -522,8 +505,6 @@ window.addEventListener('load', initMsFitPills);
   }
 
   /* ---------- Brand data (with body-type support flags) ---------- */
-  // supports: which body types the brand explicitly covers
-  // (sample assumptions; tweak as you like)
   const DEFAULT_BRANDS=[
     {id:'primark', name:'Primark', notes:'Runs true to size.',
       supports:{standard:true, petite:true, tall:false, plus:true},
@@ -674,7 +655,7 @@ window.addEventListener('load', initMsFitPills);
   function scoreFor(brandId, cat, meas, fit){
     const brand=BRANDS.find(b=>b.id===brandId);
     if(!brand) return null;
-    if(brand.supports && !brand.supports[SELECTED_BODYTYPE]) return null; // <- filter here
+    if(brand.supports && !brand.supports[SELECTED_BODYTYPE]) return null;
     const rows=CHARTS.filter(r=>r.brandId===brandId && r.category===cat);
     if(rows.length===0) return null;
     let dims=[]; if(cat.includes('Dresses')) dims=['bust','waist','hip']; if(cat.includes('Jeans')) dims=['waist','hip']; if(cat.includes('Shoes')) dims=['footLen'];
@@ -694,14 +675,24 @@ window.addEventListener('load', initMsFitPills);
     const sel=$('ms_category'); if(!sel) return; sel.innerHTML='';
     CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; sel.appendChild(o); });
     if(sel.options.length) sel.options[0].selected=true;
-    computeAllSizes(); // auto on open
+    computeAllSizes();
   }
+  // *** FIX C: support "All" fit to show multiple fits
   function computeAllSizes(){
     const meas=currentMeasurements(); const sel=$('ms_category'); const fit=$('ms_fit').value;
-    const cats=Array.from(sel.selectedOptions).map(o=>o.value); const results=[];
+    const cats=Array.from(sel.selectedOptions).map(o=>o.value);
+    const results=[];
+    const fits = (fit === 'all') ? ['snug','standard','relaxed'] : [fit];
+
     cats.forEach(cat=>{
       BRANDS.forEach(b=>{
-        const res=scoreFor(b.id,cat,meas,fit); if(res) results.push({brandId:b.id,brandName:b.name,category:cat,size:res.size,conf:res.conf,notes:res.notes||[]});
+        fits.forEach(f=>{
+          const res=scoreFor(b.id,cat,meas,f);
+          if(res){
+            const notes = (fit==='all') ? [...(res.notes||[]), `Fit: ${f}`] : (res.notes||[]);
+            results.push({brandId:b.id,brandName:b.name,category:cat,size:res.size,conf:res.conf,notes});
+          }
+        });
       });
     });
     const rank={High:0,Medium:1,Low:2};
@@ -744,19 +735,22 @@ window.addEventListener('load', initMsFitPills);
   }
 
   /* ---------- Brand Notes (FILTER by body type) ---------- */
+  // *** FIX B: guard when supports is missing
   function renderBrandNotes(){
     const wrap=$('brandList'); if(!wrap) return; wrap.innerHTML='';
     const filtered = BRANDS.filter(b=> !b.supports || b.supports[SELECTED_BODYTYPE]);
     if(!filtered.length){ wrap.innerHTML='<div class="note">No brands for this body type in demo data. Switch body type.</div>'; return; }
     filtered.forEach(b=>{
       const L=b.lengths_cm||{};
+      const sup = b.supports || { standard: true };
+      const supportedList = Object.keys(sup).filter(k=>sup[k]).map(labelBody);
       const div=document.createElement('div'); div.className='card';
       div.innerHTML=`
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
           <div>
             <div style="font-weight:800;">${b.name}</div>
             <div class="note">${b.notes||''}</div>
-            <div class="note" style="margin-top:6px;">Supports: ${Object.keys(b.supports||{standard:true}).filter(k=>b.supports[k]).map(labelBody).join(', ')}</div>
+            <div class="note" style="margin-top:6px;">Supports: ${supportedList.join(', ')}</div>
           </div>
           <div class="pill-row">
             <span class="pill">Short ~${L.short??'–'}cm</span>
@@ -828,6 +822,6 @@ window.addEventListener('load', initMsFitPills);
       CURRENT_SCREEN='home'; updateBackButton();
     },800);
   });
-  </script>
+  
 </body>
 </html>
