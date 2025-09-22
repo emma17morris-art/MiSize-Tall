@@ -87,28 +87,29 @@ select, input{ width:100%; padding:12px; border-radius:10px; border:1px solid #2
 .success{ color:#8ee0b2; } .warning{ color:#ffd27a; } .danger{ color:#ff9a9a; }
 
 /* ===== HOME REGION TILES ===== */
+
+/* Home tiles: full height, 1 column, 4 rows */
 .tiles {
   display: grid;
-  grid-template-columns: 1fr 1fr;   /* 2 columns */
-  grid-template-rows: 1fr 1fr;      /* 2 rows */
-  gap: 0;                           /* no gaps between */
-  height: calc(100vh - 150px);      /* take up almost full screen (minus header/footer) */
+  grid-template-columns: 1fr;        /* 1 column */
+  grid-template-rows: repeat(4, 1fr);/* 4 equal rows */
+  gap: 16px;
+  height: calc(100vh - 150px);       /* fill screen below header */
+  margin-top: 20px;
 }
 
+/* Each tile fills its row */
 .tiles button {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 800;
-  width: 100%;
-  height: 100%;
-  border-radius: 0;   /* no rounded corners so they fit flush */
-  border: 1px solid #0b0d12; /* thin border between tiles */
+  border-radius: 14px;
+  border: 0;
   color: #fff;
   cursor: pointer;
+  width: 100%;
+  height: 100%;
+  background: #1d4ed8;  /* blue */
 }
-.uk, .eu, .us, .ca {
-  background:#3b5bdb;  /* nice blue */
-}
-
 /* ===== UK HUB BUTTONS ===== */
 .hub{ display:grid; grid-template-columns:1fr; gap:12px; }
 .hub .bigbtn{ width:100%; text-align:left; padding:16px; border-radius:12px; border:1px solid var(--border); background:#0f131a; color:#fff; font-weight:700; cursor:pointer; }
