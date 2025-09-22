@@ -393,20 +393,64 @@
   <!-- ===== Profile / Other placeholders ===== -->
   
   <!-- ===== Profile ===== -->
+<!-- ===== Profile ===== -->
 <section id="profile" class="screen">
   <div class="panel-hero">
     <h3 class="title">Profile</h3>
-    <p class="sub">Save your body measurements (cm). These are used by Size Finder & My Sizes.</p>
+    <p class="sub">Save your body measurements (cm). These power Size Finder & My Sizes.</p>
   </div>
 
   <!-- Measurements -->
   <div class="panel">
-    ...
+    <div class="row two">
+      <div>
+        <label class="ms-label">Profile name</label>
+        <input id="m_name" placeholder="e.g., Emma">
+      </div>
+      <div>
+        <label class="ms-label">Sex</label>
+        <select id="m_sex" class="ms-select">
+          <option value="female">Female</option>
+          <option value="male">Male</option>
+          <option value="child">Child</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="divider" style="margin:14px 0;"></div>
+
+    <div class="row two">
+      <div><label class="ms-label">Height (cm)</label><input id="m_height" inputmode="decimal" placeholder="e.g., 168"></div>
+      <div><label class="ms-label">Shoulder (cm)</label><input id="m_shoulder" inputmode="decimal" placeholder="e.g., 40"></div>
+      <div><label class="ms-label">Bust (cm)</label><input id="m_bust" inputmode="decimal" placeholder="e.g., 88"></div>
+      <div><label class="ms-label">Waist (cm)</label><input id="m_waist" inputmode="decimal" placeholder="e.g., 70"></div>
+      <div><label class="ms-label">Hip (cm)</label><input id="m_hip" inputmode="decimal" placeholder="e.g., 94"></div>
+      <div><label class="ms-label">Inseam (cm)</label><input id="m_inseam" inputmode="decimal" placeholder="e.g., 76"></div>
+      <div><label class="ms-label">Torso (cm)</label><input id="m_torso" inputmode="decimal" placeholder="optional"></div>
+      <div><label class="ms-label">Foot length (cm)</label><input id="m_footlen" inputmode="decimal" placeholder="e.g., 24.6"></div>
+      <div><label class="ms-label">Bra band (cm)</label><input id="m_band" inputmode="decimal" placeholder="e.g., 75"></div>
+      <div><label class="ms-label">Bra cup</label><input id="m_cup" placeholder="e.g., C"></div>
+    </div>
+
+    <div class="toolbar" style="margin-top:12px;">
+      <button class="sf-primary" onclick="saveMeasurements()">Save measurements</button>
+      <button class="ms-secondary" onclick="resetMeasurements()">Reset</button>
+    </div>
   </div>
 
   <!-- Quick converter: Inch ⇄ Centimetre -->
   <div class="panel" style="margin-top:16px;">
-    ...
+    <h4 style="margin:0 0 10px;">Quick converter • Inch ⇄ Centimetre</h4>
+    <div class="row three">
+      <div><label class="ms-label">Inches</label><input id="ic_in" inputmode="decimal" placeholder="e.g., 29.5"></div>
+      <div><label class="ms-label">Centimetres</label><input id="ic_cm" inputmode="decimal" placeholder="e.g., 75"></div>
+      <div style="display:flex;align-items:flex-end;gap:8px;">
+        <button class="ghost" onclick="convertInchCm('in2cm')">In → cm</button>
+        <button class="ghost" onclick="convertInchCm('cm2in')">cm → In</button>
+        <button class="ghost" onclick="swapInchCm()">Swap</button>
+      </div>
+    </div>
+    <p class="note" style="margin-top:8px;">Conversion uses 1 in = 2.54 cm.</p>
   </div>
 </section>
 
@@ -431,7 +475,65 @@
   <script>
     /* ===== Helpers ===== */
     function $(id){ return document.getElementById(id); }
+// ===== Profile storage + helpers (single profile) =====
+function num(v){ const n=parseFloat(v); return isNaN(n) ? null : n; }
 
+function getMeasurements(){
+  try{ return JSON.parse(localStorage.getItem('measurements')||'{}'); }
+  catch(e){ return {}; }
+}
+
+function saveMeasurements(){
+  const m = {
+    name: document.getElementById('m_name')?.value || 'Me',
+    sex:  document.getElementById('m_sex')?.value || 'female',
+    height:   num(document.getElementById('m_height')?.value),
+    shoulder: num(document.getElementById('m_shoulder')?.value),
+    bust:     num(document.getElementById('m_bust')?.value),
+    waist:    num(document.getElementById('m_waist')?.value),
+    hip:      num(document.getElementById('m_hip')?.value),
+    inseam:   num(document.getElementById('m_inseam')?.value),
+    torso:    num(document.getElementById('m_torso')?.value),
+    footlen:  num(document.getElementById('m_footlen')?.value),
+    band:     num(document.getElementById('m_band')?.value),
+    cup:     (document.getElementById('m_cup')?.value || '').toUpperCase()
+  };
+  localStorage.setItem('measurements', JSON.stringify(m));
+  alert('Saved.');
+}
+
+function loadMeasurements(){
+  const m = getMeasurements(); if(!m || !Object.keys(m).length) return;
+  const set = (id,val)=>{ const el=document.getElementById(id); if(el!=null) el.value = (val ?? ''); };
+  set('m_name', m.name); set('m_sex', m.sex);
+  set('m_height', m.height); set('m_shoulder', m.shoulder);
+  set('m_bust', m.bust); set('m_waist', m.waist); set('m_hip', m.hip);
+  set('m_inseam', m.inseam); set('m_torso', m.torso); set('m_footlen', m.footlen);
+  set('m_band', m.band); set('m_cup', m.cup);
+}
+
+function resetMeasurements(){
+  ['m_height','m_shoulder','m_bust','m_waist','m_hip','m_inseam','m_torso','m_footlen','m_band','m_cup']
+    .forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+}
+
+// Use saved measurements (fallback demo if none yet)
+function currentMeasurements(){
+  const m = getMeasurements();
+  return (m && Object.keys(m).length) ? m : { bust:88, waist:70, hip:94, inseam:76, footlen:24.6 };
+}
+
+// ===== Inch ⇄ Centimetre mini-converter =====
+function convertInchCm(dir){
+  const inEl=document.getElementById('ic_in'), cmEl=document.getElementById('ic_cm');
+  const inch=num(inEl.value), cm=num(cmEl.value);
+  if(dir==='in2cm'){ cmEl.value = inch==null ? '' : (inch*2.54).toFixed(2); }
+  if(dir==='cm2in'){ inEl.value = cm==null ? '' : (cm/2.54).toFixed(2); }
+}
+function swapInchCm(){
+  const inEl=document.getElementById('ic_in'), cmEl=document.getElementById('ic_cm');
+  const t=inEl.value; inEl.value=cmEl.value; cmEl.value=t;
+}
     /* ===== Navigation & Back Button ===== */
     const NAV_STACK = [];
     let CURRENT_SCREEN = 'home';
@@ -576,11 +678,9 @@
 
     /* ===== Size Finder ===== */
     function computeSize(){
-      const brandId=$('sf_brand').value, cat=$('sf_category').value, fit=$('sf_fit').value, body=$('sf_bodytype').value;
-
-      // Demo measurements (cm)
-      const meas = { bust:88, waist:70, hip:94, inseam:76, footlen:24.6 };
-
+      // USE this:
+const meas = currentMeasurements();
+      const brandId=$('sf_brand').value, cat=$('sf_category').value, fit=$('sf_fit').value, body=$('sf_bodytype').
       const brand=BRANDS.find(b=>b.id===brandId);
       const table=CHARTS.filter(r=>r.brandId===brandId && r.category===cat)
                         .map(r=>({size:r.size,bust:r.bust??null,waist:r.waist??null,hip:r.hip??null,footLen:r.footLen??null}));
