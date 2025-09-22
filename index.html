@@ -24,7 +24,6 @@
     }
     *{ box-sizing:border-box; }
     body{ margin:0; font-family:var(--font); background:var(--bg); color:var(--text); }
-    a{ color:inherit; text-decoration:none; }
     button{ cursor:pointer; border:0; padding:12px 16px; border-radius:12px; font-weight:600; }
     input,select{ width:100%; padding:12px; border-radius:10px; border:1px solid #2a2f3a; background:#0f131a; color:#eef1f5; }
     label{ font-size:14px; opacity:.9; }
@@ -32,20 +31,11 @@
     .container{ max-width:980px; margin:0 auto; padding:20px; padding-bottom:96px; } /* space for bottom tab bar */
     .screen{ display:none; animation:fade .2s ease-in; } .screen.active{ display:block; }
     @keyframes fade{ from{opacity:0;} to{opacity:1;} }
-    .row{ display:grid; grid-template-columns:1fr; gap:14px; }
-    @media (min-width:720px){ .row.two{ grid-template-columns:1fr 1fr; } .row.three{ grid-template-columns:repeat(3,1fr);} }
 
     .card{ background:linear-gradient(180deg,#111520,#0d1119); border:1px solid var(--border); border-radius:16px; padding:16px; }
-    .toolbar{ display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; align-items:center; }
-    .cta{ background:var(--brand); color:var(--brand-text); }
-    .ghost{ background:#182034; color:#eef1f5; }
-    .pill{ display:inline-block; padding:6px 10px; border-radius:999px; background:#172034; border:1px solid #223049; font-size:12px; }
-    .big{ font-size:28px; font-weight:800; margin:0; }
-    .subtitle{ margin-top:6px; opacity:.8; }
     .note{ font-size:13px; opacity:.85; }
-    .success{ color:#8ee0b2; } .warning{ color:#ffd27a; } .danger{ color:#ff9a9a; }
-    .badge{ font-weight:800; } .divider{ height:1px; background:#1b2230; margin:14px 0; }
-    .list .item{ padding:12px; border-radius:12px; background:#0f131a; border:1px solid #202939; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .pill{ display:inline-block; padding:6px 10px; border-radius:999px; background:#172034; border:1px solid #223049; font-size:12px; }
+    .divider{ height:1px; background:#1b2230; margin:14px 0; }
 
     .appbar{ position:sticky; top:0; z-index:10; background:rgba(12,14,18,.8); backdrop-filter:blur(8px); padding:12px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; }
     .appbar.hidden{ display:none; }
@@ -66,7 +56,7 @@
     .tab .txt{ font-size:12px; }
 
     /* ===== Region Tiles (Home) ===== */
-    .region-grid{ display:grid; grid-template-columns:1fr; gap:12px; margin-top:12px; }
+    .region-grid{ display:grid; grid-template-columns:1fr; gap:12px; margin-top:8px; }
     @media(min-width:680px){ .region-grid{ grid-template-columns:1fr 1fr; } }
     .region-tile{
       display:flex; align-items:center; justify-content:center; height:120px;
@@ -74,6 +64,13 @@
       font-size:28px; font-weight:900; letter-spacing:.5px;
     }
     .region-tile.active{ outline:2px solid var(--nav-active); box-shadow:0 0 0 4px rgba(79,124,255,.15) inset; }
+
+    /* small utility */
+    .row{ display:grid; grid-template-columns:1fr; gap:14px; }
+    @media (min-width:720px){ .row.two{ grid-template-columns:1fr 1fr; } .row.three{ grid-template-columns:repeat(3,1fr);} }
+    .list .item{ padding:12px; border-radius:12px; background:#0f131a; border:1px solid #202939; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .success{ color:#8ee0b2; } .warning{ color:#ffd27a; } .danger{ color:#ff9a9a; }
+    .badge{ font-weight:800; }
   </style>
 </head>
 <body>
@@ -90,24 +87,20 @@
       <img src="MiSize.png" alt="MiSize logo" class="flying-logo">
     </section>
 
-    <!-- ===== Home ===== -->
+    <!-- ===== Home (ONLY the region tiles) ===== -->
     <section id="home" class="screen">
       <div class="card">
-        <h2 class="big">Welcome to MiSize by Ems.</h2>
-        <p class="subtitle">Pick your region below. For now, only <b>UK</b> is active — the others will be added later.</p>
+        <h3>Select your region</h3>
+        <p class="note">For now, only <b>UK</b> is active. Tap UK to start. (EU/US/CA coming soon)</p>
 
         <div class="region-grid">
-          <button class="region-tile" id="tile_UK" onclick="pickRegion('UK')">UK</button>
-          <button class="region-tile" id="tile_EU" onclick="pickRegion('EU')">EU</button>
-          <button class="region-tile" id="tile_US" onclick="pickRegion('US')">US</button>
-          <button class="region-tile" id="tile_CA" onclick="pickRegion('CA')">CA</button>
+          <button class="region-tile" id="tile_UK" onclick="pickRegion('UK', true)">UK</button>
+          <button class="region-tile" id="tile_EU" onclick="pickRegion('EU', true)">EU</button>
+          <button class="region-tile" id="tile_US" onclick="pickRegion('US', true)">US</button>
+          <button class="region-tile" id="tile_CA" onclick="pickRegion('CA', true)">CA</button>
         </div>
 
-        <div class="toolbar">
-          <button class="cta"   onclick="switchTab('measurements')">Set up profile</button>
-          <button class="ghost" onclick="go('sizeFinder')">Go to Size Finder</button>
-          <span id="regionLabel" class="pill">Region: UK</span>
-        </div>
+        <div style="margin-top:10px;"><span id="regionLabel" class="pill">Region: UK</span></div>
       </div>
     </section>
 
@@ -128,26 +121,24 @@
             </select>
           </div>
         </div>
-        <div class="toolbar">
-          <button class="cta"   onclick="computeSize()">Get my size</button>
-          <button class="ghost" onclick="switchTab('measurements')">Edit measurements</button>
+        <div class="row">
+          <button class="cta" onclick="computeSize()">Get my size</button>
         </div>
       </div>
 
       <div id="sf_result" class="card" style="display:none;">
         <h3>Result</h3>
-        <p class="big" id="sf_size"></p>
-        <p class="subtitle" id="sf_confidence"></p>
+        <p class="badge" id="sf_size"></p>
+        <p class="note" id="sf_confidence"></p>
         <div class="divider"></div>
         <div id="sf_notes" class="note"></div>
-        <div class="toolbar">
+        <div class="row">
           <button class="ghost" onclick="saveHistory()">Save to history</button>
-          <button class="ghost" onclick="go('brandNotes')">See brand notes</button>
         </div>
       </div>
     </section>
 
-    <!-- ===== Profile (Measurements with unit toggle) ===== -->
+    <!-- ===== Profile (Measurements w/ unit toggle) ===== -->
     <section id="measurements" class="screen">
       <div class="card">
         <h3>Profiles & measurements</h3>
@@ -188,7 +179,7 @@
           <div><label>Cup (A–H)</label><input id="m_cup" maxlength="3"/></div>
         </div>
 
-        <div class="toolbar">
+        <div class="row">
           <button class="cta"   onclick="saveCurrentProfile()">Save profile</button>
           <button class="ghost" onclick="toggleUnits()">Units: <span id="unitLabel">cm</span></button>
           <span id="saveMsg" class="pill" style="display:none;">Saved ✓</span>
@@ -196,25 +187,25 @@
       </div>
     </section>
 
-    <!-- ===== Stats (EMPTY placeholder for future weight section) ===== -->
+    <!-- ===== MiStats (EMPTY placeholder) ===== -->
     <section id="stats" class="screen">
       <div class="card">
-        <h3>Stats</h3>
+        <h3>MiStats</h3>
         <p class="note">This section is reserved for weight & progress tracking. We’ll build it later. 💪</p>
       </div>
     </section>
 
-    <!-- ===== Settings ===== -->
+    <!-- ===== Settings (brand notes + history) ===== -->
     <section id="settings" class="screen">
       <div class="card">
         <h3>Settings</h3>
         <div class="row two">
           <div>
             <label>Preferred region</label>
-            <select id="settings_region" onchange="pickRegion(this.value)">
+            <select id="settings_region" onchange="pickRegion(this.value,false)">
               <option>UK</option><option>EU</option><option>US</option><option>CA</option>
             </select>
-            <p class="note">For now, only UK is available. Picking EU/US/CA will show a “coming soon” message and keep UK data.</p>
+            <p class="note">Only UK is available right now.</p>
           </div>
           <div>
             <label>Default units for new profiles</label>
@@ -222,7 +213,6 @@
               <option value="cm">cm</option>
               <option value="in">inches</option>
             </select>
-            <p class="note">Existing profiles keep their own unit.</p>
           </div>
         </div>
       </div>
@@ -238,14 +228,14 @@
       </div>
     </section>
 
-    <div class="card" style="margin-top:16px; text-align:center; opacity:.7;">MiSize prototype • v0.3 • UK region active.</div>
+    <div class="card" style="margin-top:16px; text-align:center; opacity:.7;">MiSize prototype • v0.4 • UK region active.</div>
   </div>
 
   <!-- ===== Bottom Tab Bar ===== -->
   <nav class="tabbar">
     <button class="tab active" id="tab_home" onclick="switchTab('home')"><span class="ico">🏠</span><span class="txt">Home</span></button>
     <button class="tab" id="tab_measurements" onclick="switchTab('measurements')"><span class="ico">👤</span><span class="txt">Profile</span></button>
-    <button class="tab" id="tab_stats" onclick="switchTab('stats')"><span class="ico">📊</span><span class="txt">Stats</span></button>
+    <button class="tab" id="tab_stats" onclick="switchTab('stats')"><span class="ico">📊</span><span class="txt">MiStats</span></button>
     <button class="tab" id="tab_settings" onclick="switchTab('settings')"><span class="ico">⚙️</span><span class="txt">Settings</span></button>
   </nav>
 
@@ -278,19 +268,22 @@
 
     function getRegion(){ return localStorage.getItem(LS_REGION) || 'UK'; }
 
-    function pickRegion(code){
+    // pickRegion(code, goToUKInfoIfActive)
+    function pickRegion(code, goToInfo){
       if(code !== 'UK'){
         alert(code + ' is coming soon. Using UK data for now.');
         localStorage.setItem(LS_REGION, 'UK');
       }else{
         localStorage.setItem(LS_REGION, 'UK');
+        if(goToInfo){ // from Home tiles: go straight to Size Finder
+          switchTab('sizeFinder');
+        }
       }
       applyRegionUI();
     }
 
     function applyRegionUI(){
-      const r=getRegion(); // will always be 'UK' after pickRegion
-      // highlight tiles & labels
+      // highlight tiles & labels as UK
       ['UK','EU','US','CA'].forEach(code=>{
         const el=$('tile_'+code); if(el) el.classList.toggle('active', code==='UK');
       });
@@ -313,7 +306,8 @@
     function go(id){
       document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
       (document.getElementById(id)||document.getElementById('home')).classList.add('active');
-      const t = document.getElementById('title'); if(t) t.textContent='MiSize — '+id;
+      const titles = { home:'Home', measurements:'Profile', stats:'MiStats', settings:'Settings', sizeFinder:'Size Finder' };
+      const t = document.getElementById('title'); if(t) t.textContent='MiSize — '+(titles[id]||id);
       if(id==='settings'){ renderBrandNotes(); renderHistory(); $('settings_region').value='UK'; $('settings_units').value=getDefaultUnits(); }
     }
 
@@ -518,7 +512,7 @@
       });
     }
 
-    /* ---------- converters (simple) ---------- */
+    /* ---------- converters (kept simple placeholders) ---------- */
     function convertClothing(){
       const from=$('cw_from')?.value, to=$('cw_to')?.value, val=$('cw_val')?.value.trim();
       const map=[{UK:'8',EU:'36',US:'4'},{UK:'10',EU:'38',US:'6'},{UK:'12',EU:'40',US:'8'},{UK:'14',EU:'42',US:'10'},{UK:'16',EU:'44',US:'12'},{UK:'18',EU:'46',US:'14'}];
@@ -548,8 +542,7 @@
       await loadData();
       loadMeasurements();
       applyRegionUI();                   // force UK visuals
-      $('settings_units').value=getDefaultUnits();
-      // Default visible tab after splash is Home (handled in splash script)
+      const su=$('settings_units'); if(su) su.value=getDefaultUnits();
     })();
   </script>
 </body>
