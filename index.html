@@ -57,7 +57,6 @@
       cursor:pointer;
       display:none; /* hidden on home + UK */
     }
-    .backbtn:active { transform: translateY(1px); }
 
     /* ===== CARDS (content blocks) ===== */
     .card {
@@ -91,29 +90,76 @@
   <!-- ===== UK ===== -->
   <section id="uk" class="screen">
     <h2>UK Tools</h2>
+
+    <!-- PROFILE -->
     <div class="card">
-      <h3>Profile</h3>
-      <p>➡ All your measurement/profile code goes here</p>
+      <h3>Profiles & Measurements</h3>
+      <p>➡ Your measurement/profile UI goes here (fields, save button, unit toggle)</p>
     </div>
+
+    <!-- SIZE FINDER -->
     <div class="card">
       <h3>Size Finder</h3>
-      <p>➡ All your size finder code goes here</p>
+      <div class="row three">
+        <div><label>Brand</label><select id="sf_brand"></select></div>
+        <div><label>Category</label><select id="sf_category"></select></div>
+        <div>
+          <label>Fit preference</label>
+          <select id="sf_fit">
+            <option value="standard">Standard</option>
+            <option value="snug">Snug</option>
+            <option value="relaxed">Relaxed</option>
+          </select>
+        </div>
+        <div>
+          <label>Body Type</label>
+          <select id="sf_bodytype">
+            <option value="standard">Standard</option>
+            <option value="petite">Petite</option>
+            <option value="tall">Tall</option>
+            <option value="curvy">Curvy</option>
+          </select>
+        </div>
+      </div>
+      <div class="toolbar">
+        <button class="cta" onclick="computeSize()">Get my size</button>
+        <button class="ghost" onclick="go('measurements')">Edit measurements</button>
+      </div>
+      <div id="sf_result" class="card" style="display:none;">
+        <h3>Result</h3>
+        <p class="big" id="sf_size"></p>
+        <p class="subtitle" id="sf_confidence"></p>
+        <div class="divider"></div>
+        <div id="sf_notes" class="note"></div>
+        <div class="toolbar">
+          <button class="ghost" onclick="saveHistory()">Save to history</button>
+          <button class="ghost" onclick="go('brandNotes')">See brand notes</button>
+        </div>
+      </div>
     </div>
+
+    <!-- MY SIZES -->
     <div class="card">
-      <h3>My Sizes</h3>
-      <p>➡ All your "sizes across brands" code goes here</p>
+      <h3>My Sizes Across Brands</h3>
+      <div id="ms_list" class="list"></div>
     </div>
+
+    <!-- BRAND NOTES -->
     <div class="card">
       <h3>Brand Notes</h3>
-      <p>➡ All your brand notes code goes here</p>
+      <div id="brandList" class="list"></div>
     </div>
+
+    <!-- HISTORY -->
     <div class="card">
       <h3>History</h3>
-      <p>➡ All your history code goes here</p>
+      <div id="histList" class="list"></div>
     </div>
+
+    <!-- CONVERTERS -->
     <div class="card">
       <h3>Converters</h3>
-      <p>➡ All your converters code goes here</p>
+      <p>➡ Clothing, Shoes, Bra converters code here</p>
     </div>
   </section>
 
@@ -185,6 +231,14 @@
       } else {
         btn.style.display='inline-block';
       }
+    }
+
+    /* ===== Example: computeSize function stub ===== */
+    function computeSize(){
+      document.getElementById("sf_result").style.display = "block";
+      document.getElementById("sf_size").innerText = "Size M";
+      document.getElementById("sf_confidence").innerText = "Confidence: High";
+      document.getElementById("sf_notes").innerText = "Example notes here.";
     }
   </script>
 
