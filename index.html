@@ -205,44 +205,39 @@ select, input{ width:100%; padding:12px; border-radius:10px; border:1px solid #2
   </section>
 
   <!-- ===== UK › SIZE FINDER ===== -->
-  <section id="uk_sizefinder" class="screen">
-    <div class="card">
-      <h3>Size Finder</h3>
-      <div class="row three">
-        <div><label>Brand</label><select id="sf_brand"></select></div>
-        <div><label>Category</label><select id="sf_category"></select></div>
-        <div><label>Fit preference</label>
-          <select id="sf_fit">
-            <option value="standard">Standard</option>
-            <option value="snug">Snug</option>
-            <option value="relaxed">Relaxed</option>
-          </select>
-        </div>
-        <div><label>Body type</label>
-          <select id="sf_bodytype">
-            <option value="standard">Standard</option>
-            <option value="petite">Petite</option>
-            <option value="tall">Tall</option>
-            <option value="curvy">Curvy</option>
-          </select>
-        </div>
-      </div>
-      <div class="toolbar">
-        <button class="cta" onclick="computeSize()">Get my size</button>
-      </div>
-    </div>
+ function showResult(size, conf, message, notes){
+  const box = $('sf_result');
+  box.style.display = 'block';
 
-    <div id="sf_result" class="card" style="display:none;">
-      <h3>Result</h3>
-      <p class="big" id="sf_size"></p>
-      <p class="note" id="sf_confidence"></p>
-      <div class="divider"></div>
-      <div id="sf_notes" class="note"></div>
-      <div class="toolbar">
-        <button class="ghost" onclick="saveHistory()">Save to history</button>
+  const confClass = conf === 'High' ? 'success' : (conf === 'Low' ? 'danger' : 'warning');
+
+  const noteBadges = (notes || []).map(n => `<span class="sf-badge">${n}</span>`).join('');
+
+  box.innerHTML = `
+    <div>
+      ${size === '—'
+        ? `<div class="sf-note">No result for this selection.</div>`
+        : `<span class="sf-size">${size}</span>`}
+      ${message ? `<p class="sf-note" style="margin-top:8px;">${message}</p>` : ''}
+
+      <div class="sf-badges" style="margin-top:10px;">
+        <span class="sf-badge">Confidence: <span class="${confClass}">${conf}</span></span>
+        ${noteBadges}
       </div>
     </div>
-  </section>
+  `;
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // keep history payload consistent
+  window._lastResult = {
+    when: new Date().toISOString(),
+    brand: $('sf_brand').value,
+    category: $('sf_category').value,
+    size: size,
+    conf: conf
+  };
+}
   <!-- ===== UK › MY SIZES ===== -->
   <section id="uk_mysizes" class="screen">
     <div class="card">
