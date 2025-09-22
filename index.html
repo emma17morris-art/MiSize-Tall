@@ -701,28 +701,41 @@
     }
 
     function renderMySizes(list){
-      const wrap=$('ms_list'); if(!wrap) return; wrap.innerHTML='';
-      $('ms_count').textContent=`${list.length} results`;
-      if(!list.length){ wrap.innerHTML='<div class="note">No results — add measurements or select a category.</div>'; return; }
-      list.forEach(row=>{
-        const confClass = row.conf==='High'?'success':row.conf==='Low'?'danger':'warning';
-        const notesHtml=(row.notes||[]).map(n=>`<div>• ${n}</div>`).join('');
-        const div=document.createElement('div'); div.className='card';
-        div.innerHTML=`
-          <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;">
-            <div>
-              <div><strong>${row.brandName}</strong> • <span class="note">${row.category}</span></div>
-              <div class="note">${notesHtml}</div>
-            </div>
-            <div style="text-align:right;">
-              <div class="pill">Size: ${row.size}</div>
-              <div class="note ${confClass}">Confidence: ${row.conf}</div>
-            </div>
-          </div>`;
-        wrap.appendChild(div);
-      });
-      window._lastMySizes=list;
-    }
+  const wrap = $('ms_list'); if(!wrap) return; 
+  wrap.innerHTML = '';
+
+  // update the counter badge
+  const counter = $('ms_count');
+  if (counter) counter.textContent = `${list.length} results`;
+
+  if(!list.length){
+    wrap.innerHTML = '<div class="sf-note">No results — add measurements or select a category.</div>';
+    return;
+  }
+
+  list.forEach(row=>{
+    const confClass = row.conf==='High' ? 'success' : row.conf==='Low' ? 'danger' : 'warning';
+    const notesHtml = (row.notes||[]).map(n=>`<span class="badge">${n}</span>`).join(' ');
+
+    const div = document.createElement('div');
+    div.className = 'ms-item';
+    div.innerHTML = `
+      <div>
+        <div><strong>${row.brandName}</strong> • <span class="meta">${row.category}</span></div>
+        <div class="meta" style="margin-top:6px;">${notesHtml || ''}</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="ms-size">Size: ${row.size}</div>
+        <div class="meta" style="margin-top:6px;">
+          <span class="badge ${confClass}">Confidence: ${row.conf}</span>
+        </div>
+      </div>
+    `;
+    wrap.appendChild(div);
+  });
+
+  window._lastMySizes = list;
+}
 
     function copyMySizes(){
       const list=window._lastMySizes||[]; if(!list.length){ alert('Nothing to copy yet.'); return; }
