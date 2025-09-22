@@ -352,81 +352,29 @@
   </section>
 
   <!-- ===== Profile ===== -->
-<section id="profile" class="screen" aria-label="Profile">
-  <div class="panel-hero">
-    <h3 class="title">Profile</h3>
-    <p class="sub">Manage multiple body profiles. Switch units with the pills. Data is saved in cm internally.</p>
-  </div>
+/* Profile pills (profiles list) */
+.profile-pills {
+  display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;
+}
+.profile-pill {
+  padding:8px 14px; border-radius:999px; border:1px solid #223049;
+  background:#182034; color:#eef1f5; font-weight:700; cursor:pointer;
+}
+.profile-pill.active { background:#1d4ed8; border-color:#1d4ed8; color:#fff; }
+.profile-pill.add { background:#151a3a; color:#8a9bff; }
 
-  <!-- Profile selector pills -->
-  <div class="panel" style="margin-bottom:16px;">
-    <div class="profile-pills" id="profilePills" role="tablist" aria-label="Profiles">
-      <!-- populated by JS -->
-    </div>
-  </div>
+/* Unit pills (cm/inches toggle) */
+.unit-pills {
+  display:flex; gap:8px; margin-bottom:16px;
+}
+.unit-pill {
+  padding:6px 12px; border-radius:999px; border:1px solid #223049;
+  background:#151a3a; color:#c9d3ea; font-weight:600; cursor:pointer;
+}
+.unit-pill.active { background:#1d4ed8; border-color:#1d4ed8; color:#fff; }
 
-  <!-- Measurements -->
-  <div class="panel">
-    <div class="unit-row">
-      <div><strong>Measurements</strong></div>
-      <div id="unitPills" class="profile-pills" role="tablist" aria-label="Units">
-        <!-- populated by JS (cm / inches) -->
-      </div>
-    </div>
-
-    <div class="row two">
-      <div>
-        <label class="ms-label" for="m_name">Profile name</label>
-        <input id="m_name" placeholder="e.g., Emma">
-      </div>
-      <div>
-        <label class="ms-label" for="m_sex">Sex</label>
-        <select id="m_sex" class="ms-select">
-          <option value="female">Female</option>
-          <option value="male">Male</option>
-          <option value="child">Child</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="divider" style="margin:14px 0;"></div>
-
-    <div class="row two">
-      <div><label class="ms-label" for="m_height">Height <span class="unit-badge" data-unit="height">cm</span></label><input id="m_height" inputmode="decimal" placeholder="e.g., 168"></div>
-      <div><label class="ms-label" for="m_shoulder">Shoulder <span class="unit-badge" data-unit="shoulder">cm</span></label><input id="m_shoulder" inputmode="decimal" placeholder="e.g., 40"></div>
-      <div><label class="ms-label" for="m_bust">Bust <span class="unit-badge" data-unit="bust">cm</span></label><input id="m_bust" inputmode="decimal" placeholder="e.g., 88"></div>
-      <div><label class="ms-label" for="m_waist">Waist <span class="unit-badge" data-unit="waist">cm</span></label><input id="m_waist" inputmode="decimal" placeholder="e.g., 70"></div>
-      <div><label class="ms-label" for="m_hip">Hip <span class="unit-badge" data-unit="hip">cm</span></label><input id="m_hip" inputmode="decimal" placeholder="e.g., 94"></div>
-      <div><label class="ms-label" for="m_inseam">Inseam <span class="unit-badge" data-unit="inseam">cm</span></label><input id="m_inseam" inputmode="decimal" placeholder="e.g., 76"></div>
-      <div><label class="ms-label" for="m_torso">Torso <span class="unit-badge" data-unit="torso">cm</span></label><input id="m_torso" inputmode="decimal" placeholder="optional"></div>
-      <div><label class="ms-label" for="m_footlen">Foot length <span class="unit-badge" data-unit="footlen">cm</span></label><input id="m_footlen" inputmode="decimal" placeholder="e.g., 24.6"></div>
-      <div><label class="ms-label" for="m_band">Bra band <span class="unit-badge" data-unit="band">cm</span></label><input id="m_band" inputmode="decimal" placeholder="e.g., 75"></div>
-      <div><label class="ms-label" for="m_cup">Bra cup</label><input id="m_cup" placeholder="e.g., C"></div>
-    </div>
-
-    <div class="toolbar" style="margin-top:12px;">
-      <button class="sf-primary" onclick="saveActiveProfile()">Save profile</button>
-      <button class="ms-secondary" onclick="resetFormFields()">Reset fields</button>
-      <button class="ms-secondary" onclick="deleteActiveProfile()">Delete profile</button>
-    </div>
-  </div>
-</section>
-  
-  <!-- Placeholders -->
-  <section id="eu" class="screen" aria-label="EU"><h2 class="big">EU</h2><p class="note">Coming later.</p></section>
-  <section id="us" class="screen" aria-label="US"><h2 class="big">US</h2><p class="note">Coming later.</p></section>
-  <section id="ca" class="screen" aria-label="CA"><h2 class="big">CA</h2><p class="note">Coming later.</p></section>
-  <section id="mistats" class="screen" aria-label="MiStats"><h2 class="big">MiStats</h2><p class="note">Reserved for weight/measure trends.</p></section>
-  <section id="settings" class="screen" aria-label="Settings"><h2 class="big">Settings</h2><p class="note">Preferences go here later.</p></section>
-  <!-- [SECTION END: Screens] -->
-
-  <!-- Bottom Tabs -->
-  <div class="bottom-tabs" role="tablist" aria-label="Main tabs">
-    <button id="tab_home" class="tab active" onclick="switchTab('home')" role="tab" aria-selected="true">Home</button>
-    <button id="tab_profile" class="tab" onclick="switchTab('profile')" role="tab">Profile</button>
-    <button id="tab_mistats" class="tab" onclick="switchTab('mistats')" role="tab">MiStats</button>
-    <button id="tab_settings" class="tab" onclick="switchTab('settings')" role="tab">Settings</button>
-  </div>
+/* Inline unit labels */
+.unit-badge { font-weight:600; font-size:12px; color:#c9d3ea; }
   <!-- [SECTION END: BODY] -->
 
   <!-- =========================================================
