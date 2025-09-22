@@ -439,54 +439,199 @@
   function num(v){ const n=parseFloat(v); return isNaN(n) ? null : n; }
   // [SECTION END: JS • Helpers]
 
-  // [SECTION START: JS • Profile storage & conversions (inch/cm)]
-  function getMeasurements(){
-    try{ return JSON.parse(localStorage.getItem('measurements')||'{}'); }
-    catch(e){ return {}; }
+  // ---------- Units helpers (display only) ----------
+let UNIT_MODE = 'cm'; // 'cm' | 'in'
+const CM_PER_IN = 2.54;
+const toDisplay = (cm) => (cm==null ? '' : (UNIT_MODE==='cm' ? cm : (cm/CM_PER_IN)).toFixed(2));
+const fromDisplay = (val) => {
+  const n = parseFloat(val);
+  if (isNaN(n)) return null;
+  return UNIT_MODE==='cm' ? n : +(n * CM_PER_IN).toFixed(2);
+};
+function renderUnitPills(){
+  const wrap = document.getElementById('unitPills'); if(!wrap) return;
+  wrap.innerHTML = `
+    <button class="unit-pill ${UNIT_MODE==='cm'?'active':''}" data-unit="cm">cm</button>
+    <button class="unit-pill ${UNIT_MODE==='in'?'active':''}" data-unit="in">inches</button>
+  `;
+}
+document.addEventListener('click', (e)=>{
+  const u = e.target.closest('.unit-pill'); if(!u) return;
+  UNIT_MODE = u.dataset.unit;
+  renderUnitPills();
+  // re-fill form in new units
+  loadActiveProfileIntoForm();
+  // update unit badges
+  document.querySelectorAll('.unit-badge').forEach(b=> b.textContent = UNIT_MODE);
+});
+
+// ---------- Profiles store ----------
+const PROFILES_KEY = 'profiles';
+const ACTIVE_PROFILE_KEY = 'activeProfileId';
+
+function newProfileTemplate(name='Profile', sex='female'){
+  return {
+    id: 'p_' + Math.random().toString(36).slice(2,9),
+    name, sex,
+    // stored in CM
+    height:null, shoulder:null, bust:88, waist:70, hip:94, inseam:76,
+    torso:null, footlen:24.6, band:null, cup:''
+  };
+}
+
+function loadProfiles(){
+  try{
+    const arr = JSON.parse(localStorage.getItem(PROFILES_KEY)||'[]');
+    if(Array.isArray(arr) && arr.length) return arr;
+  }catch(e){}
+  // seed with one default profile
+  const seed = [ newProfileTemplate('Emma') ];
+  localStorage.setItem(PROFILES_KEY, JSON.stringify(seed));
+  return seed;
+}
+
+function saveProfiles(list){
+  localStorage.setItem(PROFILES_KEY, JSON.stringify(list));
+}
+
+function getActiveProfileId(){
+  return localStorage.getItem(ACTIVE_PROFILE_KEY);
+}
+function setActiveProfileId(id){
+  localStorage.setItem(ACTIVE_PROFILE_KEY, id);
+}
+
+function getProfilesAndActive(){
+  const profiles = loadProfiles();
+  let activeId = getActiveProfileId();
+  if(!activeId || !profiles.find(p=>p.id===activeId)){
+    activeId = profiles[0]?.id;
+    if(activeId) setActiveProfileId(activeId);
   }
-  function saveMeasurements(){
-    const m = {
-      name: $('m_name')?.value || 'Me',
-      sex:  $('m_sex')?.value || 'female',
-      height:   num($('m_height')?.value),
-      shoulder: num($('m_shoulder')?.value),
-      bust:     num($('m_bust')?.value),
-      waist:    num($('m_waist')?.value),
-      hip:      num($('m_hip')?.value),
-      inseam:   num($('m_inseam')?.value),
-      torso:    num($('m_torso')?.value),
-      footlen:  num($('m_footlen')?.value),
-      band:     num($('m_band')?.value),
-      cup:     ($('m_cup')?.value || '').toUpperCase()
-    };
-    localStorage.setItem('measurements', JSON.stringify(m));
-    alert('Saved.');
+  return {profiles, activeId};
+}
+
+function renderProfilePills(){
+  const {profiles, activeId} = getProfilesAndActive();
+  const wrap = document.getElementById('profilePills'); if(!wrap) return;
+  wrap.innerHTML = '';
+  profiles.forEach(p=>{
+    const btn = document.createElement('button');
+    btn.className = 'profile-pill' + (p.id===activeId ? ' active' : '');
+    btn.dataset.id = p.id;
+    btn.textContent = p.name;
+    wrap.appendChild(btn);
+  });
+  const add = document.createElement('button');
+  add.className = 'profile-pill add';
+  add.textContent = '+ Add profile';
+  add.dataset.action = 'add-profile';
+  wrap.appendChild(add);
+}
+
+document.addEventListener('click',(e)=>{
+  const addBtn = e.target.closest('.profile-pill.add');
+  if(addBtn){
+    const name = prompt('Profile name?','New profile');
+    if(name){
+      const {profiles} = getProfilesAndActive();
+      const p = newProfileTemplate(name);
+      profiles.push(p);
+      saveProfiles(profiles);
+      setActiveProfileId(p.id);
+      renderProfilePills();
+      loadActiveProfileIntoForm();
+    }
+    return;
   }
-  function loadMeasurements(){
-    const m = getMeasurements(); if(!m || !Object.keys(m).length) return;
-    const set = (id,val)=>{ const el=$(id); if(el!=null) el.value = (val ?? ''); };
-    set('m_name', m.name); set('m_sex', m.sex);
-    set('m_height', m.height); set('m_shoulder', m.shoulder);
-    set('m_bust', m.bust); set('m_waist', m.waist); set('m_hip', m.hip);
-    set('m_inseam', m.inseam); set('m_torso', m.torso); set('m_footlen', m.footlen);
-    set('m_band', m.band); set('m_cup', m.cup);
+  const pill = e.target.closest('.profile-pill');
+  if(pill && !pill.classList.contains('add')){
+    setActiveProfileId(pill.dataset.id);
+    renderProfilePills();
+    loadActiveProfileIntoForm();
   }
-  function resetMeasurements(){
-    ['m_height','m_shoulder','m_bust','m_waist','m_hip','m_inseam','m_torso','m_footlen','m_band','m_cup']
-      .forEach(id=>{ const el=$(id); if(el) el.value=''; });
+});
+
+// ---------- Form bind (CM internal, display depends on UNIT_MODE) ----------
+function loadActiveProfileIntoForm(){
+  const {profiles, activeId} = getProfilesAndActive();
+  const p = profiles.find(x=>x.id===activeId); if(!p) return;
+  const set = (id,val)=>{ const el=document.getElementById(id); if(el) el.value = val ?? ''; };
+
+  set('m_name', p.name);
+  set('m_sex', p.sex);
+  set('m_height', toDisplay(p.height));
+  set('m_shoulder', toDisplay(p.shoulder));
+  set('m_bust', toDisplay(p.bust));
+  set('m_waist', toDisplay(p.waist));
+  set('m_hip', toDisplay(p.hip));
+  set('m_inseam', toDisplay(p.inseam));
+  set('m_torso', toDisplay(p.torso));
+  set('m_footlen', toDisplay(p.footlen));
+  set('m_band', toDisplay(p.band));
+  set('m_cup', p.cup || '');
+}
+
+function collectFormAsCM(){
+  // read visible values, convert to CM if needed
+  const gv = (id)=> fromDisplay(document.getElementById(id)?.value);
+  return {
+    name: document.getElementById('m_name')?.value || 'Profile',
+    sex:  document.getElementById('m_sex')?.value || 'female',
+    height: gv('m_height'),
+    shoulder: gv('m_shoulder'),
+    bust: gv('m_bust'),
+    waist: gv('m_waist'),
+    hip: gv('m_hip'),
+    inseam: gv('m_inseam'),
+    torso: gv('m_torso'),
+    footlen: gv('m_footlen'),
+    band: gv('m_band'),
+    cup: (document.getElementById('m_cup')?.value || '').toUpperCase()
+  };
+}
+
+function saveActiveProfile(){
+  const {profiles, activeId} = getProfilesAndActive();
+  const idx = profiles.findIndex(p=>p.id===activeId); if(idx<0) return;
+  const updated = collectFormAsCM();
+  profiles[idx] = { ...profiles[idx], ...updated };
+  saveProfiles(profiles);
+  renderProfilePills(); // name might have changed
+  alert('Profile saved.');
+}
+
+function deleteActiveProfile(){
+  const {profiles, activeId} = getProfilesAndActive();
+  if(!confirm('Delete this profile? This cannot be undone.')) return;
+  const left = profiles.filter(p=>p.id!==activeId);
+  if(!left.length){
+    // keep one empty profile so app still works
+    const seed = [ newProfileTemplate('Profile') ];
+    saveProfiles(seed); setActiveProfileId(seed[0].id);
+  }else{
+    saveProfiles(left); setActiveProfileId(left[0].id);
   }
-  function currentMeasurements(){
-    const m = getMeasurements();
-    return (m && Object.keys(m).length) ? m : { bust:88, waist:70, hip:94, inseam:76, footlen:24.6 };
-  }
-  function convertInchCm(dir){
-    const inEl=$('ic_in'), cmEl=$('ic_cm');
-    const inch=num(inEl.value), cm=num(cmEl.value);
-    if(dir==='in2cm'){ cmEl.value = inch==null ? '' : (inch*2.54).toFixed(2); }
-    if(dir==='cm2in'){ inEl.value = cm==null ? '' : (cm/2.54).toFixed(2); }
-  }
-  function swapInchCm(){ const a=$('ic_in'), b=$('ic_cm'); const t=a.value; a.value=b.value; b.value=t; }
-  // [SECTION END: JS • Profile storage & conversions (inch/cm)]
+  renderProfilePills();
+  loadActiveProfileIntoForm();
+}
+
+function resetFormFields(){
+  ['m_height','m_shoulder','m_bust','m_waist','m_hip','m_inseam','m_torso','m_footlen','m_band','m_cup']
+    .forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+}
+
+// ---------- App integration (used by Size Finder / My Sizes) ----------
+function currentMeasurements(){
+  // returns the active profile measurements in CM (expected by your engines)
+  const {profiles, activeId} = getProfilesAndActive();
+  const p = profiles.find(x=>x.id===activeId);
+  if(!p) return { bust:88, waist:70, hip:94, inseam:76, footlen:24.6 };
+  return {
+    bust:p.bust, waist:p.waist, hip:p.hip, inseam:p.inseam, footlen:p.footlen,
+    height:p.height, shoulder:p.shoulder, torso:p.torso, band:p.band, cup:p.cup
+  };
+}
 
   // [SECTION START: JS • Navigation (tabs, back, open sections)]
   const NAV_STACK = [];
