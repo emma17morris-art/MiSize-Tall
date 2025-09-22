@@ -7,45 +7,48 @@
 
   <!-- ========== STYLES ========== -->
   <style>
-    /* ===== SPLASH (single logo with metallic sweep + fly-across) ===== */
-    #splash { display:none; padding:0; }
-    #splash.active { display:block; }
 
-    .splash-stage{
-      position:relative; height:100vh; width:100%;
-      display:flex; align-items:center; justify-content:center;
-      background:#0b0d12; overflow:hidden;
-    }
-    .flash-logo-wrap{
-      position:relative; line-height:0;
-      transform: translateX(-120%);
-      animation: flashFly 1.8s cubic-bezier(.22,.61,.36,1) .6s forwards;
-    }
-    .flash-logo{
-      height: clamp(220px, 30vw, 380px);
-      opacity:0;
-      transform: scale(.9);
-      animation:
-        flashFadeIn 0.6s ease-out forwards,
-        flashFadeOut .4s linear 2.2s forwards;
-    }
-    .flash-logo-wrap::after{
-      content:"";
-      position:absolute; inset:0; pointer-events:none;
-      -webkit-mask-image:url('MiSize.png'); -webkit-mask-repeat:no-repeat; -webkit-mask-position:center; -webkit-mask-size:contain;
-      mask-image:url('MiSize.png'); mask-repeat:no-repeat; mask-position:center; mask-size:contain;
-      background: linear-gradient(120deg,
-        rgba(255,255,255,0) 0%,
-        rgba(255,255,255,.85) 50%,
-        rgba(255,255,255,0) 100%);
-      transform: translateX(-200%) skewX(-15deg);
-      animation: silverSweep 1.2s ease-in-out 1.0s forwards;
-    }
-    @keyframes flashFadeIn{ from{opacity:0; transform:scale(.9);} to{opacity:1; transform:scale(1);} }
-    @keyframes flashFly   { from{transform:translateX(-120%);} to{transform:translateX(120%);} }
-    @keyframes flashFadeOut{ from{opacity:1;} to{opacity:0;} }
-    @keyframes silverSweep{ from{transform:translateX(-200%) skewX(-15deg);} to{transform:translateX(200%) skewX(-15deg);} }
+/* ===== SPLASH (single logo with metallic sweep + fly-across) ===== */
+#splash { display:none; padding:0; }
+#splash.active { display:block; }
 
+.splash-stage{
+  position:relative; height:100vh; width:100%;
+  display:flex; align-items:center; justify-content:center;
+  background:#0b0d12; overflow:hidden;
+}
+
+/* Single visual logo (no <img>) */
+.flash-logo-wrap{
+  position:relative; line-height:0;
+  width: clamp(220px, 30vw, 380px);
+  aspect-ratio: 1 / 1;                   /* adjust if your PNG isn’t square */
+  background: center / contain no-repeat url('MiSize.png');
+  transform: translateX(-120%);
+  animation: flashFly 1.8s cubic-bezier(.22,.61,.36,1) .6s forwards,
+             flashFadeIn 0.6s ease-out forwards,
+             flashFadeOut .4s linear 2.2s forwards;
+}
+
+/* The metallic sweep, clipped to the same logo shape */
+.flash-logo-shine{
+  content:"";
+  position:absolute; inset:0; pointer-events:none;
+  -webkit-mask-image:url('MiSize.png'); -webkit-mask-repeat:no-repeat; -webkit-mask-position:center; -webkit-mask-size:contain;
+  mask-image:url('MiSize.png'); mask-repeat:no-repeat; mask-position:center; mask-size:contain;
+  background: linear-gradient(120deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,.85) 50%,
+    rgba(255,255,255,0) 100%);
+  transform: translateX(-200%) skewX(-15deg);
+  animation: silverSweep 1.2s ease-in-out 1.0s forwards;
+  opacity:.9; /* reduce if still too strong */
+}
+
+@keyframes flashFadeIn{ from{opacity:0; transform:translateX(-120%) scale(.9);} to{opacity:1; transform:translateX(-120%) scale(1);} }
+@keyframes flashFly   { from{transform:translateX(-120%);} to{transform:translateX(120%);} }
+@keyframes flashFadeOut{ from{opacity:1;} to{opacity:0;} }
+@keyframes silverSweep{ from{transform:translateX(-200%) skewX(-15deg);} to{transform:translateX(200%) skewX(-15deg);} }
     /* ===== THEME / LAYOUT ===== */
     :root {
       --brand:#4f7cff; --brand-text:#fff;
