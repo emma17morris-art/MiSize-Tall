@@ -5,26 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MiSize — Prototype</title>
   <style>
-    /* ===== Splash: logo flies across, no centered logo ===== */
-    #splash {
-      display:flex;
-      align-items:center;
-      justify-content:flex-start; /* start at left */
-      height:100vh;
-      background:#0b0d12;
-      overflow:hidden;
-    }
-    .flying-logo {
-      height: clamp(140px, 28vw, 260px);
-      opacity: 0;
-      transform: translateX(-120%) scale(0.6);
-      animation: flyAcross 3s ease-in-out forwards;
-    }
-    @keyframes flyAcross {
-      0%   { opacity:0; transform: translateX(-120%) scale(0.6); }
-      20%  { opacity:1; transform: translateX(0%)     scale(1.0); }
-      80%  { opacity:1; transform: translateX(100vw)  scale(1.2); }
-      100% { opacity:0; transform: translateX(130vw)  scale(1.25); }
+    /* ===== Splash: logo flies across ===== */
+    #splash{display:flex;align-items:center;justify-content:flex-start;height:100vh;background:#0b0d12;overflow:hidden;}
+    .flying-logo{height:clamp(140px,28vw,260px);opacity:0;transform:translateX(-120%) scale(0.6);animation:flyAcross 3.2s ease-in-out forwards;}
+    @keyframes flyAcross{
+      0%{opacity:0;transform:translateX(-120%) scale(0.6);}
+      20%{opacity:1;transform:translateX(0%) scale(1.0);}
+      80%{opacity:1;transform:translateX(100vw) scale(1.2);}
+      100%{opacity:0;transform:translateX(130vw) scale(1.25);}
     }
 
     /* ===== Theme ===== */
@@ -32,6 +20,7 @@
       --brand:#4f7cff; --brand-text:#fff; --bg:#0b0d12; --card:#0f131a;
       --border:#1b2230; --text:#eef1f5; --muted:#aab3c5; --radius:14px;
       --font: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      --nav-bg:#0f131a; --nav-border:#1b2230; --nav-active:#4f7cff;
     }
     *{ box-sizing:border-box; }
     body{ margin:0; font-family:var(--font); background:var(--bg); color:var(--text); }
@@ -40,10 +29,9 @@
     input,select{ width:100%; padding:12px; border-radius:10px; border:1px solid #2a2f3a; background:#0f131a; color:#eef1f5; }
     label{ font-size:14px; opacity:.9; }
 
-    .container{ max-width:980px; margin:0 auto; padding:20px; }
+    .container{ max-width:980px; margin:0 auto; padding:20px; padding-bottom:96px; } /* padding-bottom for bottom nav */
     .screen{ display:none; animation:fade .2s ease-in; } .screen.active{ display:block; }
     @keyframes fade{ from{opacity:0;} to{opacity:1;} }
-
     .row{ display:grid; grid-template-columns:1fr; gap:14px; }
     @media (min-width:720px){ .row.two{ grid-template-columns:1fr 1fr; } .row.three{ grid-template-columns:repeat(3,1fr);} }
 
@@ -62,19 +50,44 @@
     .appbar{ position:sticky; top:0; z-index:10; background:rgba(12,14,18,.8); backdrop-filter:blur(8px); padding:12px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; }
     .appbar.hidden{ display:none; }
     .appbar h1{ font-size:18px; margin:0; font-weight:800; letter-spacing:.3px; }
+
+    /* ===== Bottom Tab Bar ===== */
+    .tabbar{
+      position:fixed; bottom:0; left:0; right:0; z-index:20;
+      background:var(--nav-bg); border-top:1px solid var(--nav-border);
+      display:flex; justify-content:space-around; align-items:center; padding:8px 8px 12px;
+    }
+    .tab{
+      display:flex; flex-direction:column; align-items:center; gap:4px;
+      padding:8px 10px; border-radius:10px; min-width:72px; color:#c9d1e3;
+    }
+    .tab.active{ color:#fff; background:#182034; border:1px solid var(--nav-border); }
+    .tab .ico{ font-size:18px; line-height:1; }
+    .tab .txt{ font-size:12px; }
+
+    /* ===== Region Tiles (Home) ===== */
+    .region-grid{
+      display:grid; grid-template-columns:1fr; gap:12px; margin-top:12px;
+    }
+    @media(min-width:680px){ .region-grid{ grid-template-columns:1fr 1fr; } }
+    .region-tile{
+      display:flex; align-items:center; justify-content:center; height:120px;
+      border-radius:16px; border:1px solid var(--border); background:#0f131a;
+      font-size:28px; font-weight:900; letter-spacing:.5px;
+    }
+    .region-tile.active{ outline:2px solid var(--nav-active); box-shadow:0 0 0 4px rgba(79,124,255,.15) inset; }
   </style>
 </head>
 <body>
 
   <!-- App bar (hidden during splash) -->
   <div class="appbar hidden">
-    <button class="ghost" onclick="go('home')">◀</button>
-    <h1 id="title">MiSize — Prototype</h1>
+    <h1 id="title">MiSize — Home</h1>
     <span class="pill" style="margin-left:auto;">Demo • Offline</span>
   </div>
 
   <div class="container">
-    <!-- ===== Splash (logo flying across) ===== -->
+    <!-- ===== Splash ===== -->
     <section id="splash" class="screen active">
       <img src="MiSize.png" alt="MiSize logo" class="flying-logo">
     </section>
@@ -82,12 +95,21 @@
     <!-- ===== Home ===== -->
     <section id="home" class="screen">
       <div class="card">
-        <h2 class="big">Welcome to MiSize.</h2>
-        <p class="subtitle">One-tap brand sizing for second-hand finds and high street buys.</p>
+        <h2 class="big">Welcome to MiSize by Ems.</h2>
+        <p class="subtitle">Pick your region below. You can change it any time in Settings.</p>
+
+        <!-- Four large tiles: UK, EU, US, CA -->
+        <div class="region-grid">
+          <button class="region-tile" id="tile_UK" onclick="setRegion('UK')">UK</button>
+          <button class="region-tile" id="tile_EU" onclick="setRegion('EU')">EU</button>
+          <button class="region-tile" id="tile_US" onclick="setRegion('US')">US</button>
+          <button class="region-tile" id="tile_CA" onclick="setRegion('CA')">CA</button>
+        </div>
+
         <div class="toolbar">
-          <button class="cta"   onclick="go('measurements')">Get started</button>
-          <button class="ghost" onclick="go('sizeFinder')">Skip to Size Finder</button>
-          <button class="ghost" onclick="go('mySizes')">My sizes (all brands)</button>
+          <button class="cta" onclick="go('measurements')">Set up profile</button>
+          <button class="ghost" onclick="go('sizeFinder')">Go to Size Finder</button>
+          <span id="regionLabel" class="pill">Region: UK</span>
         </div>
       </div>
     </section>
@@ -127,11 +149,11 @@
       </div>
     </section>
 
-    <!-- ===== Measurements (profiles + unit toggle) ===== -->
+    <!-- ===== Profile (Measurements with unit toggle) ===== -->
     <section id="measurements" class="screen">
       <div class="card">
         <h3>Profiles & measurements</h3>
-        <p class="note">Stored internally in <b>cm</b> to match charts; each profile remembers your preferred unit.</p>
+        <p class="note">Values are stored internally in <b>cm</b>; each profile remembers your preferred unit.</p>
 
         <div class="row two">
           <div>
@@ -176,7 +198,7 @@
       </div>
     </section>
 
-    <!-- ===== My sizes (all brands) ===== -->
+    <!-- ===== Stats (My sizes across brands) ===== -->
     <section id="mySizes" class="screen">
       <div class="card">
         <h3>My sizes across brands</h3>
@@ -205,59 +227,113 @@
       </div>
     </section>
 
-    <!-- ===== Brand Notes ===== -->
-    <section id="brandNotes" class="screen">
+    <!-- ===== Settings ===== -->
+    <section id="settings" class="screen">
+      <div class="card">
+        <h3>Settings</h3>
+        <div class="row two">
+          <div>
+            <label>Preferred region</label>
+            <select id="settings_region" onchange="setRegion(this.value)">
+              <option>UK</option><option>EU</option><option>US</option><option>CA</option>
+            </select>
+            <p class="note">Used for converters and defaults in the app.</p>
+          </div>
+          <div>
+            <label>Default units for new profiles</label>
+            <select id="settings_units" onchange="setDefaultUnits(this.value)">
+              <option value="cm">cm</option>
+              <option value="in">inches</option>
+            </select>
+            <p class="note">Existing profiles keep their own unit.</p>
+          </div>
+        </div>
+      </div>
+
       <div class="card">
         <h3>Brand Notes</h3>
         <div id="brandList" class="list"></div>
       </div>
-    </section>
 
-    <!-- ===== History ===== -->
-    <section id="history" class="screen">
       <div class="card">
         <h3>History</h3>
         <div id="histList" class="list"></div>
       </div>
     </section>
 
-    <div class="card" style="margin-top:16px; text-align:center; opacity:.7;">MiSize prototype • v0.1 • Data stays in your browser.</div>
+    <div class="card" style="margin-top:16px; text-align:center; opacity:.7;">MiSize prototype • v0.2 • Data stays in your browser.</div>
   </div>
 
-  <!-- ===== Splash: hide after animation ===== -->
+  <!-- ===== Bottom Tab Bar ===== -->
+  <nav class="tabbar">
+    <button class="tab active" id="tab_home" onclick="switchTab('home')"><span class="ico">🏠</span><span class="txt">Home</span></button>
+    <button class="tab" id="tab_measurements" onclick="switchTab('measurements')"><span class="ico">👤</span><span class="txt">Profile</span></button>
+    <button class="tab" id="tab_mySizes" onclick="switchTab('mySizes')"><span class="ico">📊</span><span class="txt">Stats</span></button>
+    <button class="tab" id="tab_settings" onclick="switchTab('settings')"><span class="ico">⚙️</span><span class="txt">Settings</span></button>
+  </nav>
+
+  <!-- ===== Splash → Home ===== -->
   <script>
     window.addEventListener('load', () => {
       setTimeout(() => {
         document.getElementById('splash').style.display = 'none';
         document.querySelector('.appbar').classList.remove('hidden');
         document.getElementById('home').classList.add('active');
-      }, 3200); // match flyAcross total duration
+        highlightRegionTiles();
+      }, 3300);
     });
   </script>
 
   <!-- ===== App logic ===== -->
   <script>
-    // -------- helpers --------
+    /* ---------- helpers ---------- */
     function $(id){ return document.getElementById(id); }
-    function in2cm(v){ const n=parseFloat(v); return isNaN(n)?null:n*2.54; }
     function cm2in(v){ const n=parseFloat(v); return isNaN(n)?'':(n/2.54).toFixed(1); }
     function cmToInches(cm){ if(!cm || isNaN(cm)) return '–'; return (cm/2.54).toFixed(1) + '"'; }
 
-    // -------- data holders --------
+    /* ---------- global data ---------- */
     let BRANDS=[], CHARTS=[];
     const CATEGORIES=['Women • Dresses','Women • Jeans','Shoes (UK)'];
 
-    // -------- navigation --------
+    /* ---------- region prefs ---------- */
+    const LS_REGION='region';
+    const LS_DEFAULT_UNITS='defaultUnits';
+    function getRegion(){ return localStorage.getItem(LS_REGION) || 'UK'; }
+    function setRegion(code){
+      localStorage.setItem(LS_REGION, code);
+      const lbl=$('regionLabel'); if(lbl) lbl.textContent='Region: ' + code;
+      const sel=$('settings_region'); if(sel) sel.value=code;
+      highlightRegionTiles();
+    }
+    function highlightRegionTiles(){
+      const r=getRegion();
+      ['UK','EU','US','CA'].forEach(code=>{
+        const el=$('tile_'+code); if(el) el.classList.toggle('active', r===code);
+      });
+      const lbl=$('regionLabel'); if(lbl) lbl.textContent='Region: ' + r;
+      const sel=$('settings_region'); if(sel) sel.value=r;
+    }
+    function setDefaultUnits(u){
+      localStorage.setItem(LS_DEFAULT_UNITS, (u==='in'?'in':'cm'));
+      const sel=$('settings_units'); if(sel) sel.value=getDefaultUnits();
+    }
+    function getDefaultUnits(){ return localStorage.getItem(LS_DEFAULT_UNITS) || 'cm'; }
+
+    /* ---------- navigation + bottom tabs ---------- */
+    function switchTab(id){
+      go(id);
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      const tab=$('tab_'+id); if(tab) tab.classList.add('active');
+    }
     function go(id){
       document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
       (document.getElementById(id)||document.getElementById('home')).classList.add('active');
       const t = document.getElementById('title'); if(t) t.textContent='MiSize — '+id;
-      if(id==='brandNotes') renderBrandNotes();
-      if(id==='history') renderHistory();
-      if(id==='mySizes') initMySizesSelectors();
+      if(id==='settings'){ renderBrandNotes(); renderHistory(); $('settings_region').value=getRegion(); $('settings_units').value=getDefaultUnits(); }
+      if(id==='mySizes'){ initMySizesSelectors(); }
     }
 
-    // -------- load JSON --------
+    /* ---------- load JSON ---------- */
     async function loadData(){
       try{
         BRANDS = await (await fetch('brands.json')).json();
@@ -269,7 +345,7 @@
       }
     }
 
-    // -------- profiles (multi) + unit per profile --------
+    /* ---------- profiles with unit per profile ---------- */
     const LS_PROFILES='profiles', LS_ACTIVE='activeProfileId';
     function uid(){ return 'p_'+Math.random().toString(36).slice(2,8); }
     function readProfiles(){ try{ return JSON.parse(localStorage.getItem(LS_PROFILES)||'[]'); }catch(e){ return []; } }
@@ -277,7 +353,7 @@
     function getActiveId(){ return localStorage.getItem(LS_ACTIVE)||null; }
     function setActiveId(id){ localStorage.setItem(LS_ACTIVE, id); }
 
-    let currentUnit='cm'; // what the form shows
+    let currentUnit='cm';
 
     function migrateLegacyIfAny(){
       const old=(()=>{ try{ return JSON.parse(localStorage.getItem('measurements')||'null'); }catch(e){ return null; } })();
@@ -294,7 +370,7 @@
       sel.innerHTML='';
       if(!profs.length){
         const id=uid();
-        const first={ id, name:'Me', sex:'female', unit:'cm',
+        const first={ id, name:'Me', sex:'female', unit:getDefaultUnits(),
           height:null, shoulder:null, bust:null, waist:null, hip:null, inseam:null, torso:null, footlen:null, band:null, cup:'',
           updatedAt:new Date().toISOString()
         };
@@ -309,7 +385,7 @@
     function newProfile(){
       const name=prompt('Name for new profile?','New profile'); if(!name) return;
       const id=uid();
-      const base={ id,name,sex:'female',unit:'cm',
+      const base={ id,name,sex:'female',unit:getDefaultUnits(),
         height:null, shoulder:null, bust:null, waist:null, hip:null, inseam:null, torso:null, footlen:null, band:null, cup:'',
         updatedAt:new Date().toISOString()
       };
@@ -333,7 +409,6 @@
       ['lbl_height_unit','lbl_shoulder_unit','lbl_bust_unit','lbl_waist_unit','lbl_hip_unit','lbl_inseam_unit','lbl_torso_unit','lbl_footlen_unit','lbl_band_unit','unitLabel']
         .forEach(id=>{ const el=$(id); if(el) el.textContent=u; });
     }
-
     function convertFormUnits(toUnit){
       const factor=2.54;
       ['m_height','m_shoulder','m_bust','m_waist','m_hip','m_inseam','m_torso','m_footlen','m_band'].forEach(id=>{
@@ -343,14 +418,12 @@
         if(currentUnit==='in' && toUnit==='cm') el.value=(v*factor).toFixed(1);
       });
     }
-
     function toggleUnits(){
       const newUnit=currentUnit==='cm'?'in':'cm';
       convertFormUnits(newUnit); currentUnit=newUnit; setUnitLabels(newUnit);
       const active=getActiveId(); if(!active) return; const profs=readProfiles(); const p=profs.find(x=>x.id===active); if(!p) return;
       p.unit=newUnit; writeProfiles(profs);
     }
-
     function fillFormFromProfile(id){
       const profs=readProfiles(); const p=profs.find(x=>x.id===id)||profs[0]; if(!p) return;
       currentUnit=(p.unit==='in')?'in':'cm'; setUnitLabels(currentUnit);
@@ -360,7 +433,6 @@
       put('m_inseam',p.inseam); put('m_torso',p.torso); put('m_footlen',p.footlen); put('m_band',p.band);
       if($('m_cup')) $('m_cup').value=p.cup??'';
     }
-
     function readFormToObject(){
       const read=(fid)=>{ const v=$(fid)?.value; if(v==null||v==='') return null; const n=parseFloat(v); if(isNaN(n)) return null; return (currentUnit==='in')?n*2.54:n; };
       return { name:$('m_name')?.value||'Me', sex:$('m_sex')?.value||'female', unit:currentUnit,
@@ -368,27 +440,24 @@
         inseam:read('m_inseam'), torso:read('m_torso'), footlen:read('m_footlen'), band:read('m_band'), cup:($('m_cup')?.value||'').toUpperCase()
       };
     }
-
     function saveCurrentProfile(){
       const id=getActiveId(); if(!id) return; const profs=readProfiles(); const idx=profs.findIndex(x=>x.id===id);
       const updated={ ...profs[idx], ...readFormToObject(), id, updatedAt:new Date().toISOString() }; profs[idx]=updated; writeProfiles(profs);
       const msg=$('saveMsg'); if(msg){ msg.style.display='inline-block'; setTimeout(()=> msg.style.display='none', 1600); }
       renderProfileSelect();
     }
-
     function getMeasurements(){ const id=getActiveId(); const profs=readProfiles(); return profs.find(x=>x.id===id)||profs[0]||{}; }
     function getMeasurementsCm(){ return getMeasurements(); }
     function loadMeasurements(){ migrateLegacyIfAny(); renderProfileSelect(); }
 
-    // -------- selectors for finder --------
+    /* ---------- selectors ---------- */
     function initSelectors(){
       const b=$('sf_brand'); if(b){ b.innerHTML=''; BRANDS.forEach(br=>{ const o=document.createElement('option'); o.value=br.id; o.textContent=br.name; b.appendChild(o); }); }
       const c=$('sf_category'); if(c){ c.innerHTML=''; CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; c.appendChild(o); }); }
-
       const mc=$('ms_category'); if(mc){ mc.innerHTML=''; CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; mc.appendChild(o); }); if(mc.options.length) mc.options[0].selected=true; }
     }
 
-    // -------- size finder --------
+    /* ---------- size finder ---------- */
     function computeSize(){
       const brandId=$('sf_brand').value, cat=$('sf_category').value, fit=$('sf_fit').value;
       const meas=getMeasurementsCm(); const brand=BRANDS.find(b=>b.id===brandId);
@@ -427,7 +496,6 @@
 
       showResult(pick.size, conf, null, notes);
     }
-
     function showResult(size,conf,message,notes){
       const box=$('sf_result'); if(!box) return; box.style.display='block';
       $('sf_size').innerHTML = size==='—' ? 'No result' : `Your best size: <span class="badge">${size}</span>`;
@@ -437,7 +505,7 @@
       window._lastResult = { when:new Date().toISOString(), brand:$('sf_brand').value, category:$('sf_category').value, size:size, conf:conf };
     }
 
-    // -------- brand notes (now shows cm + inches) --------
+    /* ---------- brand notes & history ---------- */
     function renderBrandNotes(){
       const wrap=$('brandList'); if(!wrap) return; wrap.innerHTML='';
       BRANDS.forEach(b=>{
@@ -453,8 +521,6 @@
         div.appendChild(left); div.appendChild(right); wrap.appendChild(div);
       });
     }
-
-    // -------- history --------
     function getHistory(){ try{ return JSON.parse(localStorage.getItem('history')||'[]'); }catch(e){ return []; } }
     function saveHistory(){ if(!window._lastResult) return; const h=getHistory(); h.unshift(window._lastResult); localStorage.setItem('history', JSON.stringify(h.slice(0,20))); alert('Saved to history.'); }
     function renderHistory(){
@@ -469,32 +535,32 @@
       });
     }
 
-    // -------- converters (simple) --------
+    /* ---------- converters (kept simple) ---------- */
     function convertClothing(){
-      const from=$('cw_from').value, to=$('cw_to').value, val=$('cw_val').value.trim();
+      const from=$('cw_from')?.value, to=$('cw_to')?.value, val=$('cw_val')?.value.trim();
       const map=[{UK:'8',EU:'36',US:'4'},{UK:'10',EU:'38',US:'6'},{UK:'12',EU:'40',US:'8'},{UK:'14',EU:'42',US:'10'},{UK:'16',EU:'44',US:'12'},{UK:'18',EU:'46',US:'14'}];
-      const row=map.find(r=>r[from]===val); $('cw_out').textContent=row?row[to]:'—';
+      const row=map.find(r=>r[from]===val); const out=$('cw_out'); if(out) out.textContent=row?row[to]:'—';
     }
     function convertShoes(){
-      const from=$('sh_from').value, to=$('sh_to').value, val=$('sh_val').value.trim();
+      const from=$('sh_from')?.value, to=$('sh_to')?.value, val=$('sh_val')?.value.trim();
       const map=[{UK:'4',EU:'37',US:'6.5'},{UK:'5',EU:'38',US:'7.5'},{UK:'6',EU:'39',US:'8.5'},{UK:'7',EU:'40',US:'9.5'}];
-      const row=map.find(r=>r[from]===val); $('sh_out').textContent=row?row[to]:'—';
+      const row=map.find(r=>r[from]===val); const out=$('sh_out'); if(out) out.textContent=row?row[to]:'—';
     }
     function convertBra(){
-      const band=parseFloat($('br_band').value); const cup=($('br_cup').value||'').toUpperCase();
-      if(!band||!cup){ $('br_out').textContent=''; return; }
+      const band=parseFloat($('br_band')?.value); const cup=($('br_cup')?.value||'').toUpperCase();
+      if(!band||!cup){ const out=$('br_out'); if(out) out.textContent=''; return; }
       let inches=band/2.54; let bandUK=Math.round(inches/2)*2; bandUK=Math.min(Math.max(bandUK,28),42);
-      const sister=[bandUK-2,bandUK+2].filter(x=>x>=28 && x<=42).join('/'); $('br_out').textContent=`UK ~ ${bandUK}${cup} (sisters: ${sister}${cup})`;
+      const sister=[bandUK-2,bandUK+2].filter(x=>x>=28 && x<=42).join('/'); const out=$('br_out'); if(out) out.textContent=`UK ~ ${bandUK}${cup} (sisters: ${sister}${cup})`;
     }
 
-    // -------- inseam helper --------
+    /* ---------- inseam helper ---------- */
     function mapInseamToLengthFromBrand(lengths, cm){
       const entries=Object.entries(lengths||{}); if(!entries.length) return 'regular';
       const sorted=entries.map(([k,v])=>({k,d:Math.abs(v-cm)})).sort((a,b)=>a.d-b.d);
       return sorted[0].k;
     }
 
-    // -------- My sizes (all brands) --------
+    /* ---------- My sizes (Stats) ---------- */
     function scoreFor(brandId, cat, meas, fit){
       const brand=BRANDS.find(b=>b.id===brandId);
       const rows=CHARTS.filter(r=>r.brandId===brandId && r.category===cat);
@@ -526,23 +592,19 @@
       if(brand?.notes) notes.push(`Brand note: ${brand.notes}`);
       return { size:pick.size, conf, notes };
     }
-
     function initMySizesSelectors(){
       const sel=$('ms_category'); if(!sel) return; sel.innerHTML='';
       CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; sel.appendChild(o); });
       if(sel.options.length) sel.options[0].selected=true;
     }
-
     function computeAllSizes(){
       const sel=$('ms_category'); const fit=$('ms_fit').value; const meas=getMeasurementsCm();
       const cats=Array.from(sel.selectedOptions).map(o=>o.value); const results=[];
       cats.forEach(cat=>{ BRANDS.forEach(b=>{ const res=scoreFor(b.id,cat,meas,fit); if(!res) return; results.push({brandId:b.id,brandName:b.name,category:cat,size:res.size,conf:res.conf,notes:res.notes||[]}); }); });
-
       const rank={High:0,Medium:1,Low:2};
       results.sort((a,b)=> a.category.localeCompare(b.category) || (rank[a.conf]??9)-(rank[b.conf]??9) || a.brandName.localeCompare(b.brandName));
       renderMySizes(results);
     }
-
     function renderMySizes(list){
       const wrap=$('ms_list'); if(!wrap) return; wrap.innerHTML='';
       $('ms_count').textContent=`${list.length} results`;
@@ -564,7 +626,6 @@
       });
       window._lastMySizes=list;
     }
-
     function copyMySizes(){
       const list=window._lastMySizes||[]; if(!list.length){ alert('Nothing to copy yet.'); return; }
       const text=list.map(r=>`${r.category} — ${r.brandName}: ${r.size} (${r.conf})`).join('\n');
@@ -579,10 +640,12 @@
       const a=document.createElement('a'); a.href=url; a.download='my-sizes.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
     }
 
-    // -------- init on load --------
+    /* ---------- init ---------- */
     (async () => {
       await loadData();
       loadMeasurements();
+      setRegion(getRegion());                   // apply saved region
+      $('settings_units').value=getDefaultUnits();
     })();
   </script>
 </body>
