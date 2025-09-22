@@ -585,7 +585,6 @@
       const notes=[];
       if(body==='petite') notes.push('Petite: consider shorter length options.');
       if(body==='tall')   notes.push('Tall: check brand length guide; “Tall/Long” may be best.');
-      if(body==='curvy')  notes.push('Curvy: prioritize hip/waist when in between.');
       if(body==='plus')   notes.push('Plus-size: look for curve/plus collections in this brand.');
       if(cat.includes('Jeans') && meas.inseam && brand?.lengths_cm){
         const len = mapInseamToLengthFromBrand(brand.lengths_cm, meas.inseam);
