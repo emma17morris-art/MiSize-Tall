@@ -333,14 +333,14 @@
     }
 
     function updateBackButton(){
-      const btn = $('backbtn');
-      // Hide on Splash, Home, and UK hub. Show everywhere else.
-      if (['splash','home','uk'].includes(CURRENT_SCREEN)) {
-        btn.style.display = 'none';
-      } else {
-        btn.style.display = 'inline-block';
-      }
-    }
+  const btn = document.getElementById('backbtn');
+  // Hide on Splash, Home, UK hub, and Profile
+  if (['splash','home','uk','profile'].includes(CURRENT_SCREEN)) {
+    btn.style.display = 'none';
+  } else {
+    btn.style.display = 'inline-block';
+  }
+}
 
     /* ===== Demo Data (replace with your JSON later) ===== */
     let BRANDS = [
