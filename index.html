@@ -320,12 +320,16 @@
 
     // Open a UK sub-screen from the UK hub
     function openUK(id){
-      NAV_STACK.push('uk');
-      document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-      $(id).classList.add('active');
-      CURRENT_SCREEN = id;
-      updateBackButton();
-    }
+  NAV_STACK.push('uk');
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $(id).classList.add('active');
+  CURRENT_SCREEN = id;
+
+  // ensure My Sizes dropdown fills when you open it
+  if (id === 'uk_mysizes') initMySizesSelectors();
+
+  updateBackButton();
+}
 
     function goBack(){
       const prev = NAV_STACK.pop() || 'home';
