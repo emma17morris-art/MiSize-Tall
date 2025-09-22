@@ -9,10 +9,8 @@
 
   <!-- =========================================================
        [SECTION START: CSS / STYLES]
-       Everything visual (layout, colours, components)
        ========================================================= -->
   <style>
-  /* [SECTION START: CSS • Base/Splash/Theme/Layout] */
   :root{
     --brand:#8A2BE2;--brand-text:#fff;
     --bg:#0b0d12;--card:#111520;
@@ -21,6 +19,31 @@
   }
   *{box-sizing:border-box;}
   body{margin:0;font-family:var(--font);background:var(--bg);color:var(--text);}
+
+  /* ----- Top Bar (global profile + unit pills) ----- */
+  .topbar{
+    position:sticky; top:0; z-index:100;
+    backdrop-filter:saturate(120%) blur(8px);
+    background:rgba(15,19,26,.75); border-bottom:1px solid var(--border);
+    padding:10px 12px;
+  }
+  .topbar-inner{
+    display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+    max-width:1200px; margin:0 auto;
+  }
+  .topbar h1{
+    font-size:16px; margin:0 8px 0 0; font-weight:800; letter-spacing:.2px; color:#cfe0ff;
+  }
+  .pill-row{display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
+  .profile-pill, .unit-pill{
+    border:1px solid rgba(255,255,255,.12);
+    background:#151a3a; color:#c9d3ea; font-weight:700; font-size:12px;
+    padding:8px 12px; border-radius:999px; cursor:pointer; white-space:nowrap;
+  }
+  .profile-pill.active, .unit-pill.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8;}
+  .profile-pill.add{background:transparent;border-style:dashed;opacity:.9;}
+
+  /* ----- Screens & layout ----- */
   .screen{display:none;padding:20px 20px 90px;background:#2b1055;min-height:100vh;}
   .screen.active{display:block;}
   .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:18px;}
@@ -34,44 +57,26 @@
   .note{font-size:13px;opacity:.85;}
   .divider{height:1px;background:var(--border);margin:14px 0;}
   .success{color:#8ee0b2}.warning{color:#ffd27a}.danger{color:#ff9a9a}
+
   /* Splash */
   #splash{display:none;padding:0;}
   #splash.active{display:block;}
-  .splash-stage{
-    position:relative;height:100vh;width:100%;
-    display:flex;align-items:center;justify-content:center;
-    background:#2b1055;overflow:hidden;
-  }
-  .flash-logo-wrap{
-    line-height:0;width:min(75vw,560px);aspect-ratio:1/1;
-    background:center/contain no-repeat url('MiSize.png');
-    margin:0 auto;opacity:1;z-index:1;
-  }
-  /* [SECTION END: CSS • Base/Splash/Theme/Layout] */
+  .splash-stage{position:relative;height:100vh;width:100%;display:flex;align-items:center;justify-content:center;background:#2b1055;overflow:hidden;}
+  .flash-logo-wrap{line-height:0;width:min(75vw,560px);aspect-ratio:1/1;background:center/contain no-repeat url('MiSize.png');margin:0 auto;opacity:1;z-index:1;}
 
-  /* [SECTION START: CSS • Home/Hub/Tabs/Back Button] */
-  .tiles{display:grid;grid-template-columns:1fr;grid-template-rows:repeat(4,1fr);gap:16px;height:calc(100vh - 150px);margin-top:20px;}
-  .tiles button{
-    font-size:28px;font-weight:800;border-radius:14px;border:0;color:#fff;cursor:pointer;
-    width:100%;height:100%;background:#1d4ed8;
-  }
-  .hub{display:grid;grid-template-rows:repeat(5,1fr);grid-template-columns:1fr;gap:16px;height:calc(100vh - 150px);margin-top:20px;}
-  .hub .bigbtn{
-    width:100%;height:100%;font-size:26px;font-weight:800;display:flex;align-items:center;justify-content:center;
-    border-radius:14px;border:0;background:#1d4ed8;color:#fff;cursor:pointer;
-  }
+  /* Home/Hub/Tabs/Back */
+  .tiles{display:grid;grid-template-columns:1fr;grid-template-rows:repeat(4,1fr);gap:16px;height:calc(100vh - 210px);margin-top:20px;}
+  .tiles button{font-size:28px;font-weight:800;border-radius:14px;border:0;color:#fff;cursor:pointer;width:100%;height:100%;background:#1d4ed8;}
+  .hub{display:grid;grid-template-rows:repeat(5,1fr);grid-template-columns:1fr;gap:16px;height:calc(100vh - 210px);margin-top:20px;}
+  .hub .bigbtn{width:100%;height:100%;font-size:26px;font-weight:800;display:flex;align-items:center;justify-content:center;border-radius:14px;border:0;background:#1d4ed8;color:#fff;cursor:pointer;}
   .bottom-tabs{position:fixed;left:0;right:0;bottom:0;background:#0f131a;border-top:1px solid var(--border);display:flex;z-index:30;}
   .bottom-tabs .tab{flex:1;padding:12px 8px;border:0;background:transparent;color:#cfd7ea;font-weight:700;cursor:pointer;}
   .bottom-tabs .tab.active{color:var(--brand);}
   #tab_home.active{color:#8A2BE2;}
-  .backbtn{
-    position:fixed;top:14px;left:14px;z-index:50;background:#182034;color:#eef1f5;border:1px solid #223049;
-    padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer;display:none;
-  }
+  .backbtn{position:fixed;top:60px;left:14px;z-index:50;background:#182034;color:#eef1f5;border:1px solid #223049;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer;display:none;}
   .backbtn:active{transform:translateY(1px);}
-  /* [SECTION END: CSS • Home/Hub/Tabs/Back Button] */
 
-  /* [SECTION START: CSS • Size Finder & Panels] */
+  /* Size Finder & Panels */
   .sf-hero{background:linear-gradient(180deg,#2b1055 0%,#231048 100%);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:22px 18px;margin-bottom:16px;}
   .sf-hero .sf-title{margin:0 0 6px;font-size:26px;font-weight:900;}
   .sf-hero .sf-sub{margin:0;color:#c9b7ff;font-size:14px;}
@@ -88,10 +93,7 @@
   .sf-result .sf-size{display:inline-block;font-size:28px;font-weight:900;padding:8px 14px;border-radius:999px;background:#1d4ed8;color:#fff;}
   .sf-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
   .sf-badge{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:#1a1d3f;color:#c9d3ea;font-size:12px;}
-  .sf-note{color:#c9d3ea;font-size:14px;margin-top:8px;}
   .panel-hero{background:linear-gradient(180deg,#2b1055 0%,#231048 100%);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:22px 18px;margin-bottom:16px;}
-  .panel-hero .title{margin:0 0 6px;font-size:26px;font-weight:900;}
-  .panel-hero .sub{margin:0;color:#c9b7ff;font-size:14px;}
   .panel{border-radius:16px;border:1px solid rgba(255,255,255,.08);background:#121433;padding:16px;}
   .panel-list{display:flex;flex-direction:column;gap:12px;}
   .ms-filters{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:12px;}
@@ -100,37 +102,19 @@
   .ms-label{display:block;font-size:12px;color:#a7b1ff;margin-bottom:6px;letter-spacing:.2px;text-transform:uppercase;}
   .ms-select{width:100%;padding:12px;border-radius:10px;border:1px solid #2a2f57;background:#0f1330;color:#eef1f5;font-weight:600;appearance:none;-webkit-appearance:none;}
   .ms-actions{display:flex;gap:10px;margin-top:6px;}
-  .ms-secondary{background:transparent;color:#cfe0ff;border:1px solid rgba(255,255,255,.12);padding:12px 14px;border-radius:14px;font-weight:700;cursor:pointer;}
   .ms-item{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;border:1px solid rgba(255,255,255,.08);background:#1a1d3f;border-radius:14px;padding:12px;}
   .ms-item .meta{color:#c9d3ea;font-size:13px;}
   .ms-size{display:inline-block;padding:6px 12px;border-radius:999px;background:#1d4ed8;color:#fff;font-weight:800;}
   .badge{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:#151a3a;color:#c9d3ea;font-size:12px;}
   .badge.success{color:#8ee0b2}.badge.warning{color:#ffd27a}.badge.danger{color:#ff9a9a}
-  .bn-item{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;border:1px solid rgba(255,255,255,.08);background:#1a1d3f;border-radius:14px;padding:12px;}
-  .bn-name{font-weight:800;}
-  .bn-pills{display:flex;gap:6px;flex-wrap:wrap;}
-  .hi-item{border:1px solid rgba(255,255,255,.08);background:#1a1d3f;border-radius:14px;padding:12px;display:flex;justify-content:space-between;gap:10px;align-items:flex-start;}
-  .hi-when{color:#aab3c5;font-size:12px;}
+
+  /* Body-type pills */
   .pt-pills{display:flex;gap:8px;flex-wrap:wrap;}
   .pt-pill{border:1px solid rgba(255,255,255,.12);background:#151a3a;color:#c9d3ea;font-weight:700;font-size:12px;padding:8px 12px;border-radius:999px;cursor:pointer;}
   .pt-pill.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8;}
-  /* [SECTION END: CSS • Size Finder & Panels] */
 
-  /* [SECTION START: CSS • Profile hub pills + unit toggle] */
-  .profile-pills { display:flex; gap:8px; overflow:auto; padding:8px 0; }
-  .profile-pill, .unit-pill {
-    border:1px solid rgba(255,255,255,.12);
-    background:#151a3a; color:#c9d3ea; font-weight:700; font-size:12px;
-    padding:8px 12px; border-radius:999px; cursor:pointer; white-space:nowrap;
-  }
-  .profile-pill.active, .unit-pill.active { background:#1d4ed8; color:#fff; border-color:#1d4ed8; }
-  .profile-pill.add { background:transparent; border-style:dashed; opacity:.9; }
-  .unit-row { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px; }
-  .unit-badge {
-    display:inline-block; margin-left:6px; padding:2px 8px; border-radius:999px;
-    background:#1a1d3f; color:#c9d3ea; font-size:11px; border:1px solid rgba(255,255,255,.12);
-  }
-  /* [SECTION END: CSS • Profile hub pills + unit toggle] */
+  /* Back button spacing (under sticky topbar) */
+  .spacer-top{height:8px;}
   </style>
   <!-- =========================================================
        [SECTION END: CSS / STYLES]
@@ -139,13 +123,22 @@
 </head>
 
 <body>
-  <!-- [SECTION START: BODY] -->
+  <!-- ===== Global Top Bar (ALWAYS VISIBLE) ===== -->
+  <div class="topbar" role="navigation" aria-label="Global profile & unit controls">
+    <div class="topbar-inner">
+      <h1>MiSize</h1>
+      <div class="pill-row" aria-label="Profiles" id="profilePillsTop"><!-- JS --></div>
+      <div style="flex:1;"></div>
+      <div class="pill-row" aria-label="Units" id="unitPillsTop"><!-- JS --></div>
+    </div>
+  </div>
 
-  <!-- [SECTION START: Back Button] -->
+  <div class="spacer-top"></div>
+
+  <!-- Back Button -->
   <button class="backbtn" id="backbtn" onclick="goBack()" aria-label="Back">◀ Back</button>
-  <!-- [SECTION END: Back Button] -->
 
-  <!-- [SECTION START: Screens] -->
+  <!-- ===== Screens ===== -->
   <!-- Splash -->
   <section id="splash" class="screen active" aria-label="Splash">
     <div class="splash-stage">
@@ -186,15 +179,15 @@
       <div class="sf-fields">
         <div class="sf-field">
           <label class="sf-label" for="sf_brand">Brand</label>
-          <select id="sf_brand" class="sf-select" aria-label="Brand"></select>
+          <select id="sf_brand" class="sf-select"></select>
         </div>
         <div class="sf-field">
           <label class="sf-label" for="sf_category">Category</label>
-          <select id="sf_category" class="sf-select" aria-label="Category"></select>
+          <select id="sf_category" class="sf-select"></select>
         </div>
         <div class="sf-field">
           <label class="sf-label" for="sf_fit">Fit preference</label>
-          <select id="sf_fit" class="sf-select" aria-label="Fit preference">
+          <select id="sf_fit" class="sf-select">
             <option value="standard">Standard</option>
             <option value="snug">Snug</option>
             <option value="relaxed">Relaxed</option>
@@ -237,20 +230,20 @@
       <div class="ms-filters">
         <div class="ms-field">
           <label class="ms-label" for="ms_category">Categories</label>
-          <select id="ms_category" class="ms-select" multiple size="4" style="height:110px;" aria-label="Categories"></select>
+          <select id="ms_category" class="ms-select" multiple size="4" style="height:110px;"></select>
           <p class="note" style="margin:6px 0 0;">Tip: Cmd/Ctrl-click to multi-select.</p>
         </div>
         <div class="ms-field">
           <label class="ms-label" for="ms_fit">Fit preference</label>
-          <select id="ms_fit" class="ms-select" aria-label="Fit preference">
+          <select id="ms_fit" class="ms-select">
             <option value="standard">Standard</option>
             <option value="snug">Snug</option>
             <option value="relaxed">Relaxed</option>
           </select>
           <div class="ms-actions">
             <button class="sf-primary" onclick="computeAllSizes()">Compute all</button>
-            <button class="ms-secondary" onclick="exportMySizesCSV()">Export CSV</button>
-            <button class="ms-secondary" onclick="copyMySizes()">Copy</button>
+            <button class="pill" onclick="exportMySizesCSV()">Export CSV</button>
+            <button class="pill" onclick="copyMySizes()">Copy</button>
             <span class="badge" id="ms_count">—</span>
           </div>
         </div>
@@ -264,14 +257,6 @@
     <div class="panel-hero">
       <h3 class="title">Brand Notes</h3>
       <p class="sub">General guidance by brand. Adjusted for your body profile if relevant.</p>
-    </div>
-    <div class="panel" style="margin-bottom:16px;">
-      <div class="pt-pills" data-role="bodytype">
-        <button class="pt-pill active" data-val="standard">Standard</button>
-        <button class="pt-pill" data-val="petite">Petite</button>
-        <button class="pt-pill" data-val="tall">Tall</button>
-        <button class="pt-pill" data-val="plus">Plus-size</button>
-      </div>
     </div>
     <div class="panel">
       <div id="brandList" class="panel-list"></div>
@@ -331,30 +316,19 @@
     </div>
   </section>
 
-  <!-- ===== Profile ===== -->
-  <!-- [SECTION START: HTML • Profile] -->
+  <!-- Profile -->
   <section id="profile" class="screen" aria-label="Profile">
     <div class="panel-hero">
       <h3 class="title">Profile</h3>
-      <p class="sub">Manage multiple body profiles. Switch units with the pills. Data is saved in cm internally.</p>
+      <p class="sub">Manage multiple body profiles. Switch units with the top pills. Data is saved in cm internally.</p>
     </div>
 
-    <!-- Profile selector pills -->
+    <!-- (also mirrored inside the Profile panel for convenience) -->
     <div class="panel" style="margin-bottom:16px;">
-      <div class="profile-pills" id="profilePills" role="tablist" aria-label="Profiles">
-        <!-- populated by JS -->
-      </div>
+      <div class="pill-row" id="profilePills" role="tablist" aria-label="Profiles (local mirror)"><!-- JS --></div>
     </div>
 
-    <!-- Measurements -->
     <div class="panel">
-      <div class="unit-row">
-        <div><strong>Measurements</strong></div>
-        <div id="unitPills" class="profile-pills" role="tablist" aria-label="Units">
-          <!-- populated by JS (cm / inches) -->
-        </div>
-      </div>
-
       <div class="row two">
         <div>
           <label class="ms-label" for="m_name">Profile name</label>
@@ -387,12 +361,11 @@
 
       <div class="toolbar" style="margin-top:12px;">
         <button class="sf-primary" onclick="saveActiveProfile()">Save profile</button>
-        <button class="ms-secondary" onclick="resetFormFields()">Reset fields</button>
-        <button class="ms-secondary" onclick="deleteActiveProfile()">Delete profile</button>
+        <button class="pill" onclick="resetFormFields()">Reset fields</button>
+        <button class="pill" onclick="deleteActiveProfile()">Delete profile</button>
       </div>
     </div>
   </section>
-  <!-- [SECTION END: HTML • Profile] -->
 
   <!-- EU / US / CA / MiStats / Settings placeholders -->
   <section id="eu" class="screen" aria-label="EU"><h2 class="big">EU</h2><p class="note">Coming later.</p></section>
@@ -400,7 +373,6 @@
   <section id="ca" class="screen" aria-label="CA"><h2 class="big">CA</h2><p class="note">Coming later.</p></section>
   <section id="mistats" class="screen" aria-label="MiStats"><h2 class="big">MiStats</h2><p class="note">Reserved for weight/measure trends.</p></section>
   <section id="settings" class="screen" aria-label="Settings"><h2 class="big">Settings</h2><p class="note">Preferences go here later.</p></section>
-  <!-- [SECTION END: Screens] -->
 
   <!-- Bottom Tabs -->
   <div class="bottom-tabs" role="tablist" aria-label="Main tabs">
@@ -409,263 +381,197 @@
     <button id="tab_mistats" class="tab" onclick="switchTab('mistats')" role="tab">MiStats</button>
     <button id="tab_settings" class="tab" onclick="switchTab('settings')" role="tab">Settings</button>
   </div>
-
-  <!-- [SECTION END: BODY] -->
 </body>
 
 <!-- =========================================================
      [SECTION START: SCRIPTS / JAVASCRIPT]
-     App logic (navigation, data, calculators, rendering)
      ========================================================= -->
 <script>
-/* [SECTION START: JS • Helpers] */
+/* ---------- Helpers ---------- */
 function $(id){ return document.getElementById(id); }
-/* [SECTION END: JS • Helpers] */
-
-/* [SECTION START: JS • Units helpers (display only)] */
 let UNIT_MODE = 'cm'; // 'cm' | 'in'
 const CM_PER_IN = 2.54;
 const toDisplay = (cm) => (cm==null ? '' : (UNIT_MODE==='cm' ? cm : (cm/CM_PER_IN)).toFixed(2));
-const fromDisplay = (val) => {
-  const n = parseFloat(val);
-  if (isNaN(n)) return null;
-  return UNIT_MODE==='cm' ? n : +(n * CM_PER_IN).toFixed(2);
-};
-function renderUnitPills(){
-  const wrap = $('unitPills'); if(!wrap) return;
-  wrap.innerHTML = `
-    <button class="unit-pill ${UNIT_MODE==='cm'?'active':''}" data-unit="cm">cm</button>
-    <button class="unit-pill ${UNIT_MODE==='in'?'active':''}" data-unit="in">inches</button>
-  `;
-}
-document.addEventListener('click', (e)=>{
-  const u = e.target.closest('.unit-pill'); if(!u) return;
-  UNIT_MODE = u.dataset.unit;
-  renderUnitPills();
-  loadActiveProfileIntoForm();
-  document.querySelectorAll('.unit-badge').forEach(b=> b.textContent = UNIT_MODE);
-});
-/* [SECTION END: JS • Units helpers (display only)] */
+const fromDisplay = (val) => { const n=parseFloat(val); if(isNaN(n)) return null; return UNIT_MODE==='cm' ? n : +(n*CM_PER_IN).toFixed(2); };
 
-/* [SECTION START: JS • Profiles store] */
-const PROFILES_KEY = 'profiles';
-const ACTIVE_PROFILE_KEY = 'activeProfileId';
-
+/* ---------- Profiles store ---------- */
+const PROFILES_KEY='profiles', ACTIVE_PROFILE_KEY='activeProfileId';
 function newProfileTemplate(name='Profile', sex='female'){
-  return {
-    id: 'p_' + Math.random().toString(36).slice(2,9),
-    name, sex,
-    // stored in CM
+  return { id:'p_'+Math.random().toString(36).slice(2,9), name, sex,
     height:null, shoulder:null, bust:88, waist:70, hip:94, inseam:76,
-    torso:null, footlen:24.6, band:null, cup:''
-  };
+    torso:null, footlen:24.6, band:null, cup:'' };
 }
 function loadProfiles(){
-  try{
-    const arr = JSON.parse(localStorage.getItem(PROFILES_KEY)||'[]');
-    if(Array.isArray(arr) && arr.length) return arr;
-  }catch(e){}
-  const seed = [ newProfileTemplate('Emma') ];
-  localStorage.setItem(PROFILES_KEY, JSON.stringify(seed));
-  return seed;
+  try{ const arr=JSON.parse(localStorage.getItem(PROFILES_KEY)||'[]'); if(Array.isArray(arr)&&arr.length) return arr; }catch(e){}
+  const seed=[newProfileTemplate('Emma')]; localStorage.setItem(PROFILES_KEY, JSON.stringify(seed)); return seed;
 }
 function saveProfiles(list){ localStorage.setItem(PROFILES_KEY, JSON.stringify(list)); }
 function getActiveProfileId(){ return localStorage.getItem(ACTIVE_PROFILE_KEY); }
 function setActiveProfileId(id){ localStorage.setItem(ACTIVE_PROFILE_KEY, id); }
 function getProfilesAndActive(){
-  const profiles = loadProfiles();
-  let activeId = getActiveProfileId();
-  if(!activeId || !profiles.find(p=>p.id===activeId)){
-    activeId = profiles[0]?.id;
-    if(activeId) setActiveProfileId(activeId);
-  }
+  const profiles=loadProfiles(); let activeId=getActiveProfileId();
+  if(!activeId || !profiles.find(p=>p.id===activeId)){ activeId=profiles[0]?.id; if(activeId) setActiveProfileId(activeId); }
   return {profiles, activeId};
+}
+
+/* ---------- Renderers (GLOBAL + local mirrors) ---------- */
+function renderUnitPills(){
+  const html = `
+    <button class="unit-pill ${UNIT_MODE==='cm'?'active':''}" data-unit="cm">cm</button>
+    <button class="unit-pill ${UNIT_MODE==='in'?'active':''}" data-unit="in">inches</button>
+  `;
+  const top = $('unitPillsTop'); if(top) top.innerHTML = html;
 }
 function renderProfilePills(){
   const {profiles, activeId} = getProfilesAndActive();
-  const wrap = $('profilePills'); if(!wrap) return;
-  wrap.innerHTML = '';
-  profiles.forEach(p=>{
-    const btn = document.createElement('button');
-    btn.className = 'profile-pill' + (p.id===activeId ? ' active' : '');
-    btn.dataset.id = p.id;
-    btn.textContent = p.name;
-    wrap.appendChild(btn);
-  });
-  const add = document.createElement('button');
-  add.className = 'profile-pill add';
-  add.textContent = '+ Add profile';
-  add.dataset.action = 'add-profile';
-  wrap.appendChild(add);
+  const make = () => {
+    const frag = document.createDocumentFragment();
+    profiles.forEach(p=>{
+      const b=document.createElement('button');
+      b.className='profile-pill'+(p.id===activeId?' active':'');
+      b.dataset.id=p.id; b.textContent=p.name; frag.appendChild(b);
+    });
+    const add=document.createElement('button');
+    add.className='profile-pill add'; add.dataset.action='add-profile'; add.textContent='+ Add profile';
+    frag.appendChild(add); return frag;
+  };
+  const top = $('profilePillsTop'); if(top){ top.innerHTML=''; top.appendChild(make()); }
+  const local = $('profilePills'); if(local){ local.innerHTML=''; local.appendChild(make()); }
 }
 document.addEventListener('click',(e)=>{
-  const addBtn = e.target.closest('.profile-pill.add');
-  if(addBtn){
-    const name = prompt('Profile name?','New profile');
-    if(name){
-      const {profiles} = getProfilesAndActive();
-      const p = newProfileTemplate(name);
-      profiles.push(p);
-      saveProfiles(profiles);
-      setActiveProfileId(p.id);
-      renderProfilePills();
-      loadActiveProfileIntoForm();
-    }
-    return;
+  // Unit pills (global)
+  const u=e.target.closest('.unit-pill'); if(u){
+    UNIT_MODE=u.dataset.unit; renderUnitPills(); loadActiveProfileIntoForm();
+    document.querySelectorAll('.unit-badge').forEach(b=> b.textContent = UNIT_MODE); return;
   }
-  const pill = e.target.closest('.profile-pill');
+  // Profile pills (both bars)
+  const addBtn=e.target.closest('.profile-pill.add');
+  if(addBtn){
+    const name=prompt('Profile name?','New profile');
+    if(name){
+      const {profiles}=getProfilesAndActive(); const p=newProfileTemplate(name);
+      profiles.push(p); saveProfiles(profiles); setActiveProfileId(p.id);
+      renderProfilePills(); loadActiveProfileIntoForm();
+    } return;
+  }
+  const pill=e.target.closest('.profile-pill');
   if(pill && !pill.classList.contains('add')){
-    setActiveProfileId(pill.dataset.id);
-    renderProfilePills();
-    loadActiveProfileIntoForm();
+    setActiveProfileId(pill.dataset.id); renderProfilePills(); loadActiveProfileIntoForm();
   }
 });
-/* [SECTION END: JS • Profiles store] */
 
-/* [SECTION START: JS • Form bind (CM internal, display depends on UNIT_MODE)] */
+/* ---------- Form binding ---------- */
 function loadActiveProfileIntoForm(){
   const {profiles, activeId} = getProfilesAndActive();
   const p = profiles.find(x=>x.id===activeId); if(!p) return;
-  const set = (id,val)=>{ const el=$(id); if(el) el.value = val ?? ''; };
-
-  set('m_name', p.name);
-  set('m_sex', p.sex);
-  set('m_height', toDisplay(p.height));
-  set('m_shoulder', toDisplay(p.shoulder));
-  set('m_bust', toDisplay(p.bust));
-  set('m_waist', toDisplay(p.waist));
-  set('m_hip', toDisplay(p.hip));
-  set('m_inseam', toDisplay(p.inseam));
-  set('m_torso', toDisplay(p.torso));
-  set('m_footlen', toDisplay(p.footlen));
-  set('m_band', toDisplay(p.band));
-  set('m_cup', p.cup || '');
+  const set=(id,val)=>{ const el=$(id); if(el) el.value = val ?? ''; };
+  set('m_name', p.name); set('m_sex', p.sex);
+  set('m_height', toDisplay(p.height)); set('m_shoulder', toDisplay(p.shoulder));
+  set('m_bust', toDisplay(p.bust)); set('m_waist', toDisplay(p.waist));
+  set('m_hip', toDisplay(p.hip)); set('m_inseam', toDisplay(p.inseam));
+  set('m_torso', toDisplay(p.torso)); set('m_footlen', toDisplay(p.footlen));
+  set('m_band', toDisplay(p.band)); set('m_cup', p.cup || '');
 }
 function collectFormAsCM(){
-  const gv = (id)=> fromDisplay($(id)?.value);
+  const gv=id=> fromDisplay($(id)?.value);
   return {
-    name: $('m_name')?.value || 'Profile',
-    sex:  $('m_sex')?.value || 'female',
-    height: gv('m_height'),
-    shoulder: gv('m_shoulder'),
-    bust: gv('m_bust'),
-    waist: gv('m_waist'),
-    hip: gv('m_hip'),
-    inseam: gv('m_inseam'),
-    torso: gv('m_torso'),
-    footlen: gv('m_footlen'),
-    band: gv('m_band'),
-    cup: ($('m_cup')?.value || '').toUpperCase()
+    name:$('m_name')?.value||'Profile', sex:$('m_sex')?.value||'female',
+    height:gv('m_height'), shoulder:gv('m_shoulder'), bust:gv('m_bust'),
+    waist:gv('m_waist'), hip:gv('m_hip'), inseam:gv('m_inseam'),
+    torso:gv('m_torso'), footlen:gv('m_footlen'), band:gv('m_band'),
+    cup:($('m_cup')?.value||'').toUpperCase()
   };
 }
 function saveActiveProfile(){
-  const {profiles, activeId} = getProfilesAndActive();
-  const idx = profiles.findIndex(p=>p.id===activeId); if(idx<0) return;
-  const updated = collectFormAsCM();
-  profiles[idx] = { ...profiles[idx], ...updated };
-  saveProfiles(profiles);
-  renderProfilePills(); // name might have changed
-  alert('Profile saved.');
+  const {profiles, activeId}=getProfilesAndActive();
+  const idx=profiles.findIndex(p=>p.id===activeId); if(idx<0) return;
+  const updated=collectFormAsCM(); profiles[idx]={...profiles[idx], ...updated};
+  saveProfiles(profiles); renderProfilePills(); alert('Profile saved.');
 }
 function deleteActiveProfile(){
-  const {profiles, activeId} = getProfilesAndActive();
+  const {profiles, activeId}=getProfilesAndActive();
   if(!confirm('Delete this profile? This cannot be undone.')) return;
-  const left = profiles.filter(p=>p.id!==activeId);
-  if(!left.length){
-    const seed = [ newProfileTemplate('Profile') ];
-    saveProfiles(seed); setActiveProfileId(seed[0].id);
-  }else{
-    saveProfiles(left); setActiveProfileId(left[0].id);
-  }
-  renderProfilePills();
-  loadActiveProfileIntoForm();
+  const left=profiles.filter(p=>p.id!==activeId);
+  if(!left.length){ const seed=[newProfileTemplate('Profile')]; saveProfiles(seed); setActiveProfileId(seed[0].id); }
+  else{ saveProfiles(left); setActiveProfileId(left[0].id); }
+  renderProfilePills(); loadActiveProfileIntoForm();
 }
 function resetFormFields(){
-  ['m_height','m_shoulder','m_bust','m_waist','m_hip','m_inseam','m_torso','m_footlen','m_band','m_cup']
-    .forEach(id=>{ const el=$(id); if(el) el.value=''; });
+  ['m_height','m_shoulder','m_bust','m_waist','m_hip','m_inseam','m_torso','m_footlen','m_band','m_cup'].forEach(id=>{ const el=$(id); if(el) el.value=''; });
 }
-/* [SECTION END: JS • Form bind (CM internal, display depends on UNIT_MODE)] */
 
-/* [SECTION START: JS • App integration (measurements in CM)] */
+/* ---------- App integration ---------- */
 function currentMeasurements(){
-  const {profiles, activeId} = getProfilesAndActive();
-  const p = profiles.find(x=>x.id===activeId);
+  const {profiles, activeId}=getProfilesAndActive();
+  const p=profiles.find(x=>x.id===activeId);
   if(!p) return { bust:88, waist:70, hip:94, inseam:76, footlen:24.6 };
-  return {
-    bust:p.bust, waist:p.waist, hip:p.hip, inseam:p.inseam, footlen:p.footlen,
-    height:p.height, shoulder:p.shoulder, torso:p.torso, band:p.band, cup:p.cup
-  };
+  return { bust:p.bust, waist:p.waist, hip:p.hip, inseam:p.inseam, footlen:p.footlen,
+           height:p.height, shoulder:p.shoulder, torso:p.torso, band:p.band, cup:p.cup };
 }
-/* [SECTION END: JS • App integration (measurements in CM)] */
 
-/* [SECTION START: JS • Navigation (tabs, back, open sections)] */
-const NAV_STACK = [];
-let CURRENT_SCREEN = 'home';
+/* ---------- Navigation ---------- */
+const NAV_STACK=[]; let CURRENT_SCREEN='home';
 function switchTab(id){
-  if (id !== CURRENT_SCREEN) NAV_STACK.push(CURRENT_SCREEN);
+  if(id!==CURRENT_SCREEN) NAV_STACK.push(CURRENT_SCREEN);
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  ($(id) || $('home')).classList.add('active');
+  ($(id)||$('home')).classList.add('active');
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  const t = $('tab_'+id); if (t) t.classList.add('active');
-  CURRENT_SCREEN = id; updateBackButton();
+  const t=$('tab_'+id); if(t) t.classList.add('active');
+  CURRENT_SCREEN=id; updateBackButton();
 }
 function openUK(id){
   NAV_STACK.push('uk');
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  $(id).classList.add('active');
-  CURRENT_SCREEN = id;
-  if (id === 'uk_mysizes') initMySizesSelectors();
-  updateBackButton();
+  $(id).classList.add('active'); CURRENT_SCREEN=id; updateBackButton();
+  if(id==='uk_mysizes') initMySizesSelectors();
 }
 function goBack(){
-  const prev = NAV_STACK.pop() || 'home';
+  const prev= NAV_STACK.pop() || 'home';
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  ($(prev) || $('home')).classList.add('active');
+  ($(prev)||$('home')).classList.add('active');
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  const tb = $('tab_'+prev); if (tb) tb.classList.add('active');
-  CURRENT_SCREEN = prev; updateBackButton();
+  const tb=$('tab_'+prev); if(tb) tb.classList.add('active');
+  CURRENT_SCREEN=prev; updateBackButton();
 }
 function updateBackButton(){
-  const btn = $('backbtn');
-  const topLevels = ['splash','home','uk','profile','mistats','settings','eu','us','ca'];
-  btn.style.display = topLevels.includes(CURRENT_SCREEN) ? 'none' : 'inline-block';
+  const btn=$('backbtn');
+  const topLevels=['splash','home','uk','profile','mistats','settings','eu','us','ca'];
+  btn.style.display= topLevels.includes(CURRENT_SCREEN) ? 'none' : 'inline-block';
 }
-/* [SECTION END: JS • Navigation (tabs, back, open sections)] */
 
-/* [SECTION START: JS • Data bootstrapping (brands/charts/categories)] */
-const DEFAULT_BRANDS = [
-  { id:'primark', name:'Primark', notes:'Runs true to size.', lengths_cm:{short:72, regular:76, long:80, tall:84} },
-  { id:'george',  name:'George (ASDA)', notes:'Waist generous.', lengths_cm:{short:71, regular:75, long:79, tall:83} },
-  { id:'next',    name:'Next', notes:'Jeans come up slightly long.', lengths_cm:{short:70, regular:74, long:78, tall:82} },
-  { id:'m_s',     name:'M&S',  notes:'Consistent across seasons.', lengths_cm:{short:71, regular:75, long:79, tall:83} },
-  { id:'zara',    name:'Zara', notes:'Sizes run small.', lengths_cm:{short:70, regular:74, long:78, tall:82} },
-  { id:'hm',      name:'H&M',  notes:'Tops generous, bottoms small.', lengths_cm:{short:72, regular:76, long:80, tall:84} },
-  { id:'river',   name:'River Island', notes:'Trendy fits, skinny jeans.', lengths_cm:{short:71, regular:75, long:79, tall:83} },
-  { id:'newlook', name:'New Look', notes:'True to size but short inseams.', lengths_cm:{short:70, regular:74, long:78, tall:82} },
-  { id:'asos',    name:'ASOS', notes:'Wide range, sizing varies.', lengths_cm:{short:72, regular:76, long:80, tall:84} },
-  { id:'topshop', name:'Topshop', notes:'Slim cut, runs small.', lengths_cm:{short:71, regular:75, long:79, tall:83} },
-  { id:'boohoo',  name:'Boohoo', notes:'Trend-led, fits vary.', lengths_cm:{short:72, regular:76, long:80, tall:84} },
-  { id:'missguided', name:'Missguided', notes:'Runs snug, size up.', lengths_cm:{short:72, regular:76, long:80, tall:84} },
-  { id:'plt',     name:'PrettyLittleThing', notes:'Slim cut.', lengths_cm:{short:72, regular:76, long:80, tall:84} },
-  { id:'monsoon', name:'Monsoon', notes:'Occasionwear true to size.', lengths_cm:{short:71, regular:75, long:79, tall:83} },
-  { id:'dorothy', name:'Dorothy Perkins', notes:'Classic fits.', lengths_cm:{short:71, regular:75, long:79, tall:83} },
-  { id:'warehouse', name:'Warehouse', notes:'Contemporary fit.', lengths_cm:{short:71, regular:75, long:79, tall:83} },
-  { id:'whistles', name:'Whistles', notes:'Premium, consistent sizing.', lengths_cm:{short:71, regular:75, long:79, tall:83} },
-  { id:'reiss',   name:'Reiss', notes:'Slim, tailored fit.', lengths_cm:{short:71, regular:75, long:79, tall:83} },
-  { id:'gap',     name:'GAP', notes:'US sizing, generous.', lengths_cm:{short:72, regular:76, long:80, tall:84} },
-  { id:'uniqlo',  name:'Uniqlo', notes:'Minimalist, runs neat.', lengths_cm:{short:70, regular:74, long:78, tall:82} },
-  { id:'superdry', name:'Superdry', notes:'Small fit, size up.', lengths_cm:{short:71, regular:75, long:79, tall:83} },
-  { id:'jackwills', name:'Jack Wills', notes:'Slim casual fit.', lengths_cm:{short:71, regular:75, long:79, tall:83} },
-  { id:'fatface', name:'FatFace', notes:'Relaxed, true to size.', lengths_cm:{short:71, regular:75, long:79, tall:83} },
-  { id:'joules',  name:'Joules', notes:'Country casuals, true fit.', lengths_cm:{short:71, regular:75, long:79, tall:83} },
-  { id:'oasis',   name:'Oasis', notes:'Feminine cut, neat sizing.', lengths_cm:{short:70, regular:74, long:78, tall:82} },
-  { id:'cos',     name:'COS', notes:'Oversized silhouettes.', lengths_cm:{short:72, regular:76, long:80, tall:84} },
-  { id:'arabella', name:'Arabella', notes:'Boutique brand, tailored.', lengths_cm:{short:70, regular:74, long:78, tall:82} },
-  { id:'frenchconnection', name:'French Connection', notes:'Runs small, tailored.', lengths_cm:{short:70, regular:74, long:78, tall:82} },
-  { id:'allsaints', name:'AllSaints', notes:'Slim, edgy fit.', lengths_cm:{short:70, regular:74, long:78, tall:82} },
-  { id:'tedbaker', name:'Ted Baker', notes:'Numbered sizing, true to fit.', lengths_cm:{short:70, regular:74, long:78, tall:82} }
-];
-const DEFAULT_CHARTS = [
+/* ---------- Data bootstrapping ---------- */
+const DEFAULT_BRANDS=[{id:'primark',name:'Primark',notes:'Runs true to size.',lengths_cm:{short:72,regular:76,long:80,tall:84}},
+{id:'george',name:'George (ASDA)',notes:'Waist generous.',lengths_cm:{short:71,regular:75,long:79,tall:83}},
+{id:'next',name:'Next',notes:'Jeans come up slightly long.',lengths_cm:{short:70,regular:74,long:78,tall:82}},
+{id:'m_s',name:'M&S',notes:'Consistent across seasons.',lengths_cm:{short:71,regular:75,long:79,tall:83}},
+{id:'zara',name:'Zara',notes:'Sizes run small.',lengths_cm:{short:70,regular:74,long:78,tall:82}},
+{id:'hm',name:'H&M',notes:'Tops generous, bottoms small.',lengths_cm:{short:72,regular:76,long:80,tall:84}},
+{id:'river',name:'River Island',notes:'Trendy fits, skinny jeans.',lengths_cm:{short:71,regular:75,long:79,tall:83}},
+{id:'newlook',name:'New Look',notes:'True to size but short inseams.',lengths_cm:{short:70,regular:74,long:78,tall:82}},
+{id:'asos',name:'ASOS',notes:'Wide range, sizing varies.',lengths_cm:{short:72,regular:76,long:80,tall:84}},
+{id:'topshop',name:'Topshop',notes:'Slim cut, runs small.',lengths_cm:{short:71,regular:75,long:79,tall:83}},
+{id:'boohoo',name:'Boohoo',notes:'Trend-led, fits vary.',lengths_cm:{short:72,regular:76,long:80,tall:84}},
+{id:'missguided',name:'Missguided',notes:'Runs snug, size up.',lengths_cm:{short:72,regular:76,long:80,tall:84}},
+{id:'plt',name:'PrettyLittleThing',notes:'Slim cut.',lengths_cm:{short:72,regular:76,long:80,tall:84}},
+{id:'monsoon',name:'Monsoon',notes:'Occasionwear true to size.',lengths_cm:{short:71,regular:75,long:79,tall:83}},
+{id:'dorothy',name:'Dorothy Perkins',notes:'Classic fits.',lengths_cm:{short:71,regular:75,long:79,tall:83}},
+{id:'warehouse',name:'Warehouse',notes:'Contemporary fit.',lengths_cm:{short:71,regular:75,long:79,tall:83}},
+{id:'whistles',name:'Whistles',notes:'Premium, consistent sizing.',lengths_cm:{short:71,regular:75,long:79,tall:83}},
+{id:'reiss',name:'Reiss',notes:'Slim, tailored fit.',lengths_cm:{short:71,regular:75,long:79,tall:83}},
+{id:'gap',name:'GAP',notes:'US sizing, generous.',lengths_cm:{short:72,regular:76,long:80,tall:84}},
+{id:'uniqlo',name:'Uniqlo',notes:'Minimalist, runs neat.',lengths_cm:{short:70,regular:74,long:78,tall:82}},
+{id:'superdry',name:'Superdry',notes:'Small fit, size up.',lengths_cm:{short:71,regular:75,long:79,tall:83}},
+{id:'jackwills',name:'Jack Wills',notes:'Slim casual fit.',lengths_cm:{short:71,regular:75,long:79,tall:83}},
+{id:'fatface',name:'FatFace',notes:'Relaxed, true to size.',lengths_cm:{short:71,regular:75,long:79,tall:83}},
+{id:'joules',name:'Joules',notes:'Country casuals, true fit.',lengths_cm:{short:71,regular:75,long:79,tall:83}},
+{id:'oasis',name:'Oasis',notes:'Feminine cut, neat sizing.',lengths_cm:{short:70,regular:74,long:78,tall:82}},
+{id:'cos',name:'COS',notes:'Oversized silhouettes.',lengths_cm:{short:72,regular:76,long:80,tall:84}},
+{id:'arabella',name:'Arabella',notes:'Boutique brand, tailored.',lengths_cm:{short:70,regular:74,long:78,tall:82}},
+{id:'frenchconnection',name:'French Connection',notes:'Runs small, tailored.',lengths_cm:{short:70,regular:74,long:78,tall:82}},
+{id:'allsaints',name:'AllSaints',notes:'Slim, edgy fit.',lengths_cm:{short:70,regular:74,long:78,tall:82}},
+{id:'tedbaker',name:'Ted Baker',notes:'Numbered sizing, true to fit.',lengths_cm:{short:70,regular:74,long:78,tall:82}}];
+
+const DEFAULT_CHARTS=[
   {brandId:'primark', category:'Women • Dresses', size:'8',  bust:84, waist:66, hip:90},
   {brandId:'primark', category:'Women • Dresses', size:'10', bust:88, waist:70, hip:94},
   {brandId:'george',  category:'Women • Dresses', size:'8',  bust:85, waist:67, hip:91},
@@ -691,135 +597,84 @@ const DEFAULT_CHARTS = [
   {brandId:'m_s',     category:'Shoes (UK)', size:'5', footLen:24.0},
   {brandId:'m_s',     category:'Shoes (UK)', size:'6', footLen:24.7}
 ];
-const DEFAULT_CATEGORIES = ['Women • Dresses','Women • Jeans','Shoes (UK)'];
-
+const DEFAULT_CATEGORIES=['Women • Dresses','Women • Jeans','Shoes (UK)'];
 function loadAppData(){
   try{
-    const saved = JSON.parse(localStorage.getItem('mSizeData') || '{}');
-    window.BRANDS     = Array.isArray(saved.BRANDS) ? saved.BRANDS : DEFAULT_BRANDS.slice();
-    window.CHARTS     = Array.isArray(saved.CHARTS) ? saved.CHARTS : DEFAULT_CHARTS.slice();
-    window.CATEGORIES = Array.isArray(saved.CATEGORIES) ? saved.CATEGORIES : DEFAULT_CATEGORIES.slice();
-  }catch(e){
-    window.BRANDS = DEFAULT_BRANDS.slice();
-    window.CHARTS = DEFAULT_CHARTS.slice();
-    window.CATEGORIES = DEFAULT_CATEGORIES.slice();
-  }
+    const saved=JSON.parse(localStorage.getItem('mSizeData')||'{}');
+    window.BRANDS=Array.isArray(saved.BRANDS)?saved.BRANDS:DEFAULT_BRANDS.slice();
+    window.CHARTS=Array.isArray(saved.CHARTS)?saved.CHARTS:DEFAULT_CHARTS.slice();
+    window.CATEGORIES=Array.isArray(saved.CATEGORIES)?saved.CATEGORIES:DEFAULT_CATEGORIES.slice();
+  }catch(e){ window.BRANDS=DEFAULT_BRANDS.slice(); window.CHARTS=DEFAULT_CHARTS.slice(); window.CATEGORIES=DEFAULT_CATEGORIES.slice(); }
 }
-function saveAppData(){ localStorage.setItem('mSizeData', JSON.stringify({BRANDS, CHARTS, CATEGORIES})); }
-function resetDataToDefaults(){
-  window.BRANDS = DEFAULT_BRANDS.slice();
-  window.CHARTS = DEFAULT_CHARTS.slice();
-  window.CATEGORIES = DEFAULT_CATEGORIES.slice();
-  saveAppData(); initSelectors();
-}
-function exportData(){ return JSON.stringify({BRANDS, CHARTS, CATEGORIES}, null, 2); }
-function importData(json){
-  const obj=JSON.parse(json);
-  if(obj.BRANDS && obj.CHARTS && obj.CATEGORIES){
-    window.BRANDS=obj.BRANDS; window.CHARTS=obj.CHARTS; window.CATEGORIES=obj.CATEGORIES;
-    saveAppData(); initSelectors();
-  }
-}
-/* [SECTION END: JS • Data bootstrapping (brands/charts/categories)] */
 
-/* [SECTION START: JS • Init selectors & rendering hooks] */
+/* ---------- Init selectors & rendering ---------- */
 function initSelectors(){
   const b=$('sf_brand'); if(b){ b.innerHTML=''; BRANDS.forEach(br=>{ const o=document.createElement('option'); o.value=br.id; o.textContent=br.name; b.appendChild(o); }); }
   const c=$('sf_category'); if(c){ c.innerHTML=''; CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; c.appendChild(o); }); }
   const ms=$('ms_category'); if(ms){ ms.innerHTML=''; CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; ms.appendChild(o); }); if(ms.options.length) ms.options[0].selected=true; }
-  const bt=$('sf_bodytype'); if(bt) bt.value = SELECTED_BODYTYPE;
-  renderBrandNotes();
-  renderHistory();
+  renderBrandNotes(); renderHistory();
 }
-/* [SECTION END: JS • Init selectors & rendering hooks] */
 
-/* [SECTION START: JS • Size Finder logic] */
+/* ---------- Size Finder ---------- */
 function computeSize(){
-  const meas = currentMeasurements();
-  const brandId=$('sf_brand').value,
-        cat=$('sf_category').value,
-        fit=$('sf_fit').value,
-        body=$('sf_bodytype').value;
-
+  const meas=currentMeasurements();
+  const brandId=$('sf_brand').value, cat=$('sf_category').value, fit=$('sf_fit').value, body=$('sf_bodytype').value;
   const brand=BRANDS.find(b=>b.id===brandId);
   const table=CHARTS.filter(r=>r.brandId===brandId && r.category===cat)
-                    .map(r=>({size:r.size,bust:r.bust??null,waist:r.waist??null,hip:r.hip??null,footLen:r.footLen??null}));
-
-  if(!brand || table.length===0){ showResult('—','Low','No data for this brand/category yet.',[]); return; }
-
-  let dims=[]; if(cat.includes('Dresses')) dims=['bust','waist','hip'];
-               if(cat.includes('Jeans'))   dims=['waist','hip'];
-               if(cat.includes('Shoes'))   dims=['footLen'];
-
+    .map(r=>({size:r.size,bust:r.bust??null,waist:r.waist??null,hip:r.hip??null,footLen:r.footLen??null}));
+  if(!brand||!table.length){ showResult('—','Low','No data for this brand/category yet.',[]); return; }
+  let dims=[]; if(cat.includes('Dresses')) dims=['bust','waist','hip']; if(cat.includes('Jeans')) dims=['waist','hip']; if(cat.includes('Shoes')) dims=['footLen'];
   const wants={}; dims.forEach(d=> wants[d]=meas[d==='footLen'?'footlen':d]);
-  const used=dims.filter(d=> wants[d]!=null);
-  if(!used.length){ showResult('—','Low','Please add measurements for this category.',[]); return; }
-
-  const scored=table.map(r=>({ size:r.size, score:used.reduce((s,d)=>s+Math.abs((r[d]||0)-wants[d]),0)}))
-                    .sort((a,b)=>a.score-b.score);
-
+  const used=dims.filter(d=> wants[d]!=null); if(!used.length){ showResult('—','Low','Please add measurements for this category.',[]); return; }
+  const scored=table.map(r=>({ size:r.size, score:used.reduce((s,d)=>s+Math.abs((r[d]||0)-wants[d]),0)})).sort((a,b)=>a.score-b.score);
   let pick=scored[0]; if(!pick){ showResult('—','Low','No matching sizes found.',[]); return; }
-  if(scored[1]){ const diff=scored[1].score-scored[0].score; if(fit==='relaxed' && diff<2) pick=scored[1]; }
-
+  if(scored[1]){ const diff=scored[1].score-scored[0].score; if(fit==='relaxed'&&diff<2) pick=scored[1]; }
   const avg=pick.score/used.length; let conf='Medium'; if(avg<1.2 && used.length>=2) conf='High'; if(avg>3.0) conf='Low';
-
-  const notes=[];
-  if(body==='petite') notes.push('Petite: consider shorter length options.');
-  if(body==='tall')   notes.push('Tall: check brand length guide; “Tall/Long” may be best.');
-  if(body==='plus')   notes.push('Plus-size: look for curve/plus collections in this brand.');
+  const notes=[]; if(body==='petite') notes.push('Petite: consider shorter length options.');
+  if(body==='tall') notes.push('Tall: check brand length guide; “Tall/Long” may be best.');
+  if(body==='plus') notes.push('Plus-size: look for curve/plus collections in this brand.');
   if(cat.includes('Jeans') && meas.inseam && brand?.lengths_cm){
     const len = mapInseamToLengthFromBrand(brand.lengths_cm, meas.inseam);
-    const inches = (brand.lengths_cm[len]/2.54).toFixed(1);
+    const inches=(brand.lengths_cm[len]/2.54).toFixed(1);
     notes.push(`Suggested length: ${len.toUpperCase()} (~${inches}" for this label).`);
   }
   if(brand?.notes) notes.push(`Brand note: ${brand.notes}`);
-
   showResult(pick.size, conf, null, notes);
 }
 function showResult(size, conf, message, notes){
-  const box = $('sf_result');
-  box.style.display = 'block';
-  const confClass = conf === 'High' ? 'success' : (conf === 'Low' ? 'danger' : 'warning');
-  const noteBadges = (notes || []).map(n => `<span class="sf-badge">${n}</span>`).join('');
-  box.innerHTML = `
+  const box=$('sf_result'); box.style.display='block';
+  const confClass= conf==='High'?'success':(conf==='Low'?'danger':'warning');
+  const noteBadges=(notes||[]).map(n=>`<span class="sf-badge">${n}</span>`).join('');
+  box.innerHTML=`
     <div>
-      ${size === '—' ? `<div class="sf-note">No result for this selection.</div>` : `<span class="sf-size">${size}</span>`}
-      ${message ? `<p class="sf-note" style="margin-top:8px;">${message}</p>` : ''}
+      ${size==='—'?`<div class="sf-note">No result for this selection.</div>`:`<span class="sf-size">${size}</span>`}
+      ${message?`<p class="sf-note" style="margin-top:8px;">${message}</p>`:''}
       <div class="sf-badges" style="margin-top:10px;">
         <span class="sf-badge">Confidence: <span class="${confClass}">${conf}</span></span>
         ${noteBadges}
       </div>
     </div>`;
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  window._lastResult = { when:new Date().toISOString(), brand:$('sf_brand').value, category:$('sf_category').value, size:size, conf:conf };
+  window._lastResult={ when:new Date().toISOString(), brand:$('sf_brand').value, category:$('sf_category').value, size:size, conf:conf };
 }
 function mapInseamToLengthFromBrand(lengths, cm){
   const entries=Object.entries(lengths||{}); if(!entries.length) return 'regular';
   const sorted=entries.map(([k,v])=>({k, d:Math.abs(v-cm)})).sort((a,b)=>a.d-b.d);
   return sorted[0].k;
 }
-/* [SECTION END: JS • Size Finder logic] */
 
-/* [SECTION START: JS • My Sizes (across brands)] */
+/* ---------- My Sizes ---------- */
 function scoreFor(brandId, cat, meas, fit){
   const brand=BRANDS.find(b=>b.id===brandId);
   const rows=CHARTS.filter(r=>r.brandId===brandId && r.category===cat);
-  if(!brand || rows.length===0) return null;
-
-  let dims=[]; if(cat.includes('Dresses')) dims=['bust','waist','hip'];
-               if(cat.includes('Jeans'))   dims=['waist','hip'];
-               if(cat.includes('Shoes'))   dims=['footLen'];
-
+  if(!brand||rows.length===0) return null;
+  let dims=[]; if(cat.includes('Dresses')) dims=['bust','waist','hip']; if(cat.includes('Jeans')) dims=['waist','hip']; if(cat.includes('Shoes')) dims=['footLen'];
   const wants={}; dims.forEach(d=> wants[d]=meas[d==='footLen'?'footlen':d]);
   const used=dims.filter(d=> wants[d]!=null); if(!used.length) return {size:'—',conf:'Low',notes:['Add measurements for this category.']};
-
-  const table=rows.map(r=>({ size:r.size,bust:r.bust??null,waist:r.waist??null,hip:r.hip??null,footLen:r.footLen??null }));
-  const scored=table.map(r=>({ size:r.size, score:used.reduce((s,d)=> s+Math.abs((r[d]||0)-wants[d]),0) }))
-                    .sort((a,b)=>a.score-b.score);
-
+  const table=rows.map(r=>({size:r.size,bust:r.bust??null,waist:r.waist??null,hip:r.hip??null,footLen:r.footLen??null}));
+  const scored=table.map(r=>({size:r.size, score:used.reduce((s,d)=>s+Math.abs((r[d]||0)-wants[d]),0)})).sort((a,b)=>a.score-b.score);
   let pick=scored[0]; if(!pick) return {size:'—',conf:'Low',notes:['No matching sizes found.']};
   if(scored[1]){ const diff=scored[1].score-scored[0].score; if(fit==='relaxed'&&diff<2) pick=scored[1]; }
-
   const avg=pick.score/used.length; let conf='Medium'; if(avg<1.2&&used.length>=2) conf='High'; if(avg>3.0) conf='Low';
   const notes=[]; if(fit==='snug') notes.push('Snug fit chosen.'); if(fit==='relaxed') notes.push('Relaxed fit chosen.');
   if(cat.includes('Jeans') && brand?.lengths_cm){ notes.push('Check length options.'); }
@@ -831,38 +686,29 @@ function initMySizesSelectors(){
   if(sel.options.length) sel.options[0].selected=true;
 }
 function computeAllSizes(){
-  const meas = currentMeasurements();
-  const sel=$('ms_category'); const fit=$('ms_fit').value;
+  const meas=currentMeasurements(); const sel=$('ms_category'); const fit=$('ms_fit').value;
   const cats=Array.from(sel.selectedOptions).map(o=>o.value); const results=[];
-  cats.forEach(cat=>{
-    BRANDS.forEach(b=>{
-      const res=scoreFor(b.id,cat,meas,fit); if(!res) return;
-      results.push({brandId:b.id,brandName:b.name,category:cat,size:res.size,conf:res.conf,notes:res.notes||[]});
-    });
-  });
+  cats.forEach(cat=>{ BRANDS.forEach(b=>{ const res=scoreFor(b.id,cat,meas,fit); if(res) results.push({brandId:b.id,brandName:b.name,category:cat,size:res.size,conf:res.conf,notes:res.notes||[]}); }); });
   const rank={High:0,Medium:1,Low:2};
   results.sort((a,b)=> a.category.localeCompare(b.category) || (rank[a.conf]??9)-(rank[b.conf]??9) || a.brandName.localeCompare(b.brandName));
   renderMySizes(results);
 }
 function renderMySizes(list){
-  const wrap=$('ms_list'); if(!wrap) return; 
-  wrap.innerHTML='';
+  const wrap=$('ms_list'); if(!wrap) return; wrap.innerHTML='';
   const counter=$('ms_count'); if(counter) counter.textContent=`${list.length} results`;
   if(!list.length){ wrap.innerHTML='<div class="sf-note">No results — add measurements or select a category.</div>'; return; }
   list.forEach(row=>{
-    const confClass = row.conf==='High'?'success':row.conf==='Low'?'danger':'warning';
+    const confClass=row.conf==='High'?'success':row.conf==='Low'?'danger':'warning';
     const notesHtml=(row.notes||[]).map(n=>`<span class="badge">${n}</span>`).join(' ');
     const div=document.createElement('div'); div.className='ms-item';
     div.innerHTML=`
       <div>
         <div><strong>${row.brandName}</strong> • <span class="meta">${row.category}</span></div>
-        <div class="meta" style="margin-top:6px;">${notesHtml || ''}</div>
+        <div class="meta" style="margin-top:6px;">${notesHtml||''}</div>
       </div>
       <div style="text-align:right;">
         <div class="ms-size">Size: ${row.size}</div>
-        <div class="meta" style="margin-top:6px;">
-          <span class="badge ${confClass}">Confidence: ${row.conf}</span>
-        </div>
+        <div class="meta" style="margin-top:6px;"><span class="badge ${confClass}">Confidence: ${row.conf}</span></div>
       </div>`;
     wrap.appendChild(div);
   });
@@ -881,20 +727,19 @@ function exportMySizesCSV(){
   const blob=new Blob([csv],{type:'text/csv'}); const url=URL.createObjectURL(blob);
   const a=document.createElement('a'); a.href=url; a.download='my-sizes.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
 }
-/* [SECTION END: JS • My Sizes (across brands)] */
 
-/* [SECTION START: JS • Brand Notes & History] */
+/* ---------- Brand Notes & History ---------- */
 function renderBrandNotes(){
   const wrap=$('brandList'); if(!wrap) return; wrap.innerHTML='';
   BRANDS.forEach(b=>{
     const L=b.lengths_cm||{};
-    const div=document.createElement('div'); div.className='bn-item';
+    const div=document.createElement('div'); div.className='ms-item';
     div.innerHTML=`
       <div>
-        <div class="bn-name">${b.name}</div>
+        <div class="bn-name" style="font-weight:800;">${b.name}</div>
         <div class="note">${b.notes||''}</div>
       </div>
-      <div class="bn-pills">
+      <div class="pill-row">
         <span class="badge">Short ~${L.short??'–'}cm</span>
         <span class="badge">Regular ~${L.regular??'–'}cm</span>
         <span class="badge">Long ~${L.long??'–'}cm</span>
@@ -910,123 +755,67 @@ function renderHistory(){
   const h=getHistory();
   if(!h.length){ wrap.innerHTML='<div class="sf-note">No lookups yet.</div>'; return; }
   h.forEach(item=>{
-    const div=document.createElement('div'); div.className='hi-item';
+    const div=document.createElement('div'); div.className='ms-item';
     div.innerHTML=`
       <div>
         <div><strong>${item.brand}</strong> • ${item.category}</div>
-        <div class="hi-when">${new Date(item.when).toLocaleString()}</div>
+        <div class="note" style="margin-top:6px;">${new Date(item.when).toLocaleString()}</div>
       </div>
-      <div style="text-align:right;">
-        <div class="ms-size">${item.size}</div>
-        <div class="note" style="margin-top:6px;">Confidence: ${item.conf}</div>
-      </div>`;
+      <div class="ms-size">${item.size}</div>`;
     wrap.appendChild(div);
   });
 }
-/* [SECTION END: JS • Brand Notes & History] */
 
-/* [SECTION START: JS • Converters (clothes/shoes/bra)] */
-const CLOTHES_TABLE = [
-  {UK:4,  EU:32, US:0},{UK:6,  EU:34, US:2},{UK:8,  EU:36, US:4},{UK:10, EU:38, US:6},
-  {UK:12, EU:40, US:8},{UK:14, EU:42, US:10},{UK:16, EU:44, US:12},{UK:18, EU:46, US:14},
-  {UK:20, EU:48, US:16},{UK:22, EU:50, US:18},{UK:24, EU:52, US:20}
-];
+/* ---------- Converters ---------- */
+const CLOTHES_TABLE=[{UK:4,EU:32,US:0},{UK:6,EU:34,US:2},{UK:8,EU:36,US:4},{UK:10,EU:38,US:6},
+{UK:12,EU:40,US:8},{UK:14,EU:42,US:10},{UK:16,EU:44,US:12},{UK:18,EU:46,US:14},
+{UK:20,EU:48,US:16},{UK:22,EU:50,US:18},{UK:24,EU:52,US:20}];
 function nearestRowBy(from,val){
-  return CLOTHES_TABLE.reduce((best,row)=>{
-    const d = Math.abs((row[from]??Infinity) - val);
-    return d < best.d ? {row,d} : best;
-  },{row:null,d:Infinity}).row;
+  return CLOTHES_TABLE.reduce((best,row)=>{ const d=Math.abs((row[from]??Infinity)-val); return d<best.d?{row,d}:{row:best.row,d:best.d}; },{row:null,d:Infinity}).row;
 }
 function convertClothing(){
-  const from=$('cw_from').value, to=$('cw_to').value, raw=parseFloat($('cw_val').value);
-  const out=$('cw_out');
+  const from=$('cw_from').value, to=$('cw_to').value, raw=parseFloat($('cw_val').value), out=$('cw_out');
   if(isNaN(raw)){ out.textContent='Enter a number'; return; }
   if(from===to){ out.textContent=`${raw} ${from} ≈ ${raw} ${to}`; return; }
-  const row = nearestRowBy(from, raw);
-  if(!row || row[from]==null || row[to]==null){ out.textContent='No map'; return; }
-  out.textContent = `${raw} ${from} ≈ ${row[to]} ${to}`;
+  const row=nearestRowBy(from,raw); if(!row||row[from]==null||row[to]==null){ out.textContent='No map'; return; }
+  out.textContent=`${raw} ${from} ≈ ${row[to]} ${to}`;
 }
-const SHOES_TABLE = [
-  {UK:3, EU:36, US:5.5},
-  {UK:4, EU:37, US:6.5},
-  {UK:5, EU:38, US:7.5},
-  {UK:6, EU:39, US:8.5},
-  {UK:7, EU:40, US:9.5},
-  {UK:8, EU:41, US:10.5}
-];
+const SHOES_TABLE=[{UK:3,EU:36,US:5.5},{UK:4,EU:37,US:6.5},{UK:5,EU:38,US:7.5},{UK:6,EU:39,US:8.5},{UK:7,EU:40,US:9.5},{UK:8,EU:41,US:10.5}];
 function nearestShoeBy(from,val){
-  return SHOES_TABLE.reduce((best,row)=>{
-    const d = Math.abs((row[from]??Infinity) - val);
-    return d < best.d ? {row,d} : best;
-  },{row:null,d:Infinity}).row;
+  return SHOES_TABLE.reduce((best,row)=>{ const d=Math.abs((row[from]??Infinity)-val); return d<best.d?{row,d}:{row:best.row,d:best.d}; },{row:null,d:Infinity}).row;
 }
 function convertShoes(){
-  const from=$('sh_from').value, to=$('sh_to').value, raw=parseFloat($('sh_val').value);
-  const out=$('sh_out');
+  const from=$('sh_from').value, to=$('sh_to').value, raw=parseFloat($('sh_val').value), out=$('sh_out');
   if(isNaN(raw)){ out.textContent='Enter a number'; return; }
   if(from===to){ out.textContent=`${raw} ${from} ≈ ${raw} ${to}`; return; }
-  const row = nearestShoeBy(from, raw);
-  if(!row || row[from]==null || row[to]==null){ out.textContent='No map'; return; }
-  out.textContent = `${raw} ${from} ≈ ${row[to]} ${to}`;
+  const row=nearestShoeBy(from,raw); if(!row||row[from]==null||row[to]==null){ out.textContent='No map'; return; }
+  out.textContent=`${raw} ${from} ≈ ${row[to]} ${to}`;
 }
 function convertBra(){
-  const bandCm=parseFloat($('br_band').value); const cup=($('br_cup').value||'').toUpperCase();
-  const out=$('br_out'); if(isNaN(bandCm)||!cup){ out.textContent='Add band & cup'; return; }
+  const bandCm=parseFloat($('br_band').value); const cup=($('br_cup').value||'').toUpperCase(); const out=$('br_out');
+  if(isNaN(bandCm)||!cup){ out.textContent='Add band & cup'; return; }
   out.textContent=`~UK ${Math.round(bandCm/2.54)}${cup}`;
 }
-/* [SECTION END: JS • Converters (clothes/shoes/bra)] */
 
-/* [SECTION START: JS • App bootstrap & body-profile pills] */
+/* ---------- Bootstrap ---------- */
 (function start(){
-  loadAppData();
-  if (!window.BRANDS || window.BRANDS.length === 0) resetDataToDefaults();
-  initSelectors();
-  renderUnitPills();
-  renderProfilePills();
-  loadActiveProfileIntoForm();
-  updateBackButton();
+  loadAppData(); renderUnitPills(); renderProfilePills(); initSelectors(); loadActiveProfileIntoForm(); updateBackButton();
 })();
-window.addEventListener('load', () => {
+window.addEventListener('load',()=>{
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  $('splash').classList.add('active');
-  CURRENT_SCREEN = 'splash'; updateBackButton();
-  setTimeout(() => {
+  $('splash').classList.add('active'); CURRENT_SCREEN='splash'; updateBackButton();
+  setTimeout(()=>{
     $('splash').classList.remove('active');
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     $('home').classList.add('active');
     document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
     $('tab_home')?.classList.add('active');
     CURRENT_SCREEN='home'; updateBackButton();
-  }, 1200);
+  },1000);
 });
-let SELECTED_BODYTYPE = 'standard';
-function setBodyType(val){
-  SELECTED_BODYTYPE = val;
-  const sfSelect = $('sf_bodytype'); if (sfSelect) sfSelect.value = val;
-  document.querySelectorAll('.pt-pills').forEach(group=>{
-    group.querySelectorAll('.pt-pill').forEach(p=>{
-      p.classList.toggle('active', p.dataset.val === val);
-    });
-  });
-  if (CURRENT_SCREEN === 'uk_mysizes' && window._lastMySizes) {
-    renderMySizes(window._lastMySizes.map(r=>{
-      const notes = (r.notes || []).slice();
-      const tag = `Profile: ${SELECTED_BODYTYPE}`;
-      if (!notes.includes(tag)) notes.push(tag);
-      return {...r, notes};
-    }));
-  }
-}
-document.addEventListener('click', (e) => {
-  const pill = e.target.closest('.pt-pill');
-  if (!pill) return;
-  setBodyType(pill.dataset.val);
-});
-/* [SECTION END: JS • App bootstrap & body-profile pills] */
 </script>
 <!-- =========================================================
      [SECTION END: SCRIPTS / JAVASCRIPT]
      ========================================================= -->
-
 </html>
 <!-- [SECTION END: HTML DOCUMENT] -->
