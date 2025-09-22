@@ -149,34 +149,50 @@
   </section>
 
   <!-- UK › My Sizes -->
-  <section id="uk_mysizes" class="screen" aria-label="UK My Sizes">
-    <div class="card">
-      <h3 class="big">My Sizes (filtered by body type)</h3>
-      <p class="note">Only brands that support your selected body type are included.</p>
-      <div class="row two">
-        <div>
-          <label class="ms-label" for="ms_category">Categories</label>
-          <select id="ms_category" class="ms-select" multiple size="4" style="height:120px;"></select>
-          <p class="note" style="margin:6px 0 0;">Cmd/Ctrl-click to multi-select.</p>
+  <!-- UK › My Sizes -->
+<section id="uk_mysizes" class="screen" aria-label="UK My Sizes">
+  <div class="card">
+    <h3 class="big">My Sizes (filtered by body type)</h3>
+    <p class="note">Only brands that support your selected body type are included.</p>
+
+    <div class="row two">
+      <div>
+        <label class="ms-label" for="ms_category">Categories</label>
+        <select id="ms_category" class="ms-select" multiple size="4" style="height:120px;"></select>
+        <p class="note" style="margin:6px 0 0;">Cmd/Ctrl-click to multi-select.</p>
+      </div>
+
+      <div>
+        <label class="ms-label">Fit preference</label>
+
+        <!-- NEW: fit pills -->
+        <div id="ms_fit_pills" class="pt-pills" role="tablist" aria-label="Fit">
+          <button type="button" class="pt-pill ms-fit-pill" data-fit="standard">Standard</button>
+          <button type="button" class="pt-pill ms-fit-pill" data-fit="snug">Snug</button>
+          <button type="button" class="pt-pill ms-fit-pill" data-fit="relaxed">Relaxed</button>
+          <button type="button" class="pt-pill ms-fit-pill" data-fit="all">All</button>
         </div>
-        <div>
-          <label class="ms-label" for="ms_fit">Fit preference</label>
-          <select id="ms_fit" class="ms-select">
-            <option value="standard">Standard</option>
-            <option value="snug">Snug</option>
-            <option value="relaxed">Relaxed</option>
-          </select>
-          <div class="toolbar" style="margin-top:8px;">
-            <button class="pill" onclick="computeAllSizes()">Compute all</button>
-            <button class="pill" onclick="exportMySizesCSV()">Export CSV</button>
-            <button class="pill" onclick="copyMySizes()">Copy</button>
-            <span class="pill" id="ms_count">—</span>
-          </div>
+
+        <!-- Keep your original select (hidden) so existing JS keeps working -->
+        <select id="ms_fit" class="ms-select" style="display:none;">
+          <option value="standard" selected>Standard</option>
+          <option value="snug">Snug</option>
+          <option value="relaxed">Relaxed</option>
+          <option value="all">All</option>
+        </select>
+
+        <div class="toolbar" style="margin-top:8px;">
+          <button class="pill" onclick="computeAllSizes()">Compute all</button>
+          <button class="pill" onclick="exportMySizesCSV()">Export CSV</button>
+          <button class="pill" onclick="copyMySizes()">Copy</button>
+          <span class="pill" id="ms_count">—</span>
         </div>
       </div>
-      <div id="ms_list" class="panel-list"></div>
     </div>
-  </section>
+
+    <div id="ms_list" class="panel-list"></div>
+  </div>
+</section>
 
   <!-- UK › Brand Notes -->
   <section id="uk_brandnotes" class="screen" aria-label="UK Brand Notes">
@@ -305,6 +321,39 @@
   const toDisplay = (cm) => (cm==null ? '' : (UNIT_MODE==='cm' ? cm : (cm/CM_PER_IN)).toFixed(2));
   const fromDisplay = (val) => { const n=parseFloat(val); if(isNaN(n)) return null; return UNIT_MODE==='cm' ? n : +(n*CM_PER_IN).toFixed(2); };
 
+    <script>
+// ---- Fit pills: init + click handling (minimal change) ----
+function initMsFitPills(){
+  const sel = document.getElementById('ms_fit');
+  const pillsWrap = document.getElementById('ms_fit_pills');
+  if(!sel || !pillsWrap) return;
+  const current = sel.value || 'standard';
+  pillsWrap.querySelectorAll('.ms-fit-pill').forEach(btn=>{
+    btn.classList.toggle('active', btn.dataset.fit === current);
+  });
+}
+document.addEventListener('click', (e)=>{
+  const btn = e.target.closest('.ms-fit-pill');
+  if(!btn) return;
+  const sel = document.getElementById('ms_fit');
+  const wrap = document.getElementById('ms_fit_pills');
+  if(!sel || !wrap) return;
+
+  // sync pill -> hidden select
+  sel.value = btn.dataset.fit;
+
+  // visual active state
+  wrap.querySelectorAll('.ms-fit-pill').forEach(b=>{
+    b.classList.toggle('active', b === btn);
+  });
+
+  // recompute instantly (optional; remove if you prefer manual)
+  if (typeof computeAllSizes === 'function') computeAllSizes();
+});
+// call once on load (after DOM + your My Sizes section exist)
+window.addEventListener('load', initMsFitPills);
+</script>
+  
   /* ---------- Body type (GLOBAL) ---------- */
   let SELECTED_BODYTYPE = 'standard'; // 'standard' | 'petite' | 'tall' | 'plus'
   function renderBodyTypePillsTop(){
