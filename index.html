@@ -7,55 +7,48 @@
 
   <!-- ========== STYLES ========== -->
   <style>
-    /* ===== SPLASH (single logo with metallic sweep and fly-across) ===== */
-#splash { display:none; padding:0; }
-#splash.active { display:block; }
+    /* ===== SPLASH (single logo with metallic sweep + fly-across) ===== */
+    #splash { display:none; padding:0; }
+    #splash.active { display:block; }
 
-.splash-stage{
-  position:relative; height:100vh; width:100%;
-  display:flex; align-items:center; justify-content:center;
-  background:#0b0d12; overflow:hidden;
-}
+    .splash-stage{
+      position:relative; height:100vh; width:100%;
+      display:flex; align-items:center; justify-content:center;
+      background:#0b0d12; overflow:hidden;
+    }
+    .flash-logo-wrap{
+      position:relative; line-height:0;
+      transform: translateX(-120%);                            /* start off-screen left */
+      animation: flashFly 1.8s cubic-bezier(.22,.61,.36,1) .6s forwards; /* fly across */
+    }
+    .flash-logo{
+      height: clamp(220px, 30vw, 380px);
+      opacity:0;                                               /* fade in place while off-screen */
+      transform: scale(.9);
+      animation:
+        flashFadeIn 0.6s ease-out forwards,
+        flashFadeOut .4s linear 2.2s forwards;                 /* fade out at the end */
+    }
+    .flash-logo-wrap::after{
+      content:"";
+      position:absolute; inset:0; pointer-events:none;
+      /* mask overlay to the LOGO shape so the shine follows it */
+      -webkit-mask-image:url('MiSize.png'); -webkit-mask-repeat:no-repeat; -webkit-mask-position:center; -webkit-mask-size:contain;
+      mask-image:url('MiSize.png'); mask-repeat:no-repeat; mask-position:center; mask-size:contain;
+      /* shiny beam */
+      background: linear-gradient(120deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,.85) 50%,
+        rgba(255,255,255,0) 100%);
+      transform: translateX(-200%) skewX(-15deg);
+      animation: silverSweep 1.2s ease-in-out 1.0s forwards;  /* single pass */
+    }
+    @keyframes flashFadeIn{ from{opacity:0; transform:scale(.9);} to{opacity:1; transform:scale(1);} }
+    @keyframes flashFly   { from{transform:translateX(-120%);} to{transform:translateX(120%);} }
+    @keyframes flashFadeOut{ from{opacity:1;} to{opacity:0;} }
+    @keyframes silverSweep{ from{transform:translateX(-200%) skewX(-15deg);} to{transform:translateX(200%) skewX(-15deg);} }
 
-/* the logo image itself */
-.flash-logo{
-  height: clamp(220px, 30vw, 380px);
-  opacity:0;
-  transform: translateX(-120%) scale(.9);
-  animation:
-    flashFadeIn 0.6s ease-out forwards,
-    flashFly 1.8s cubic-bezier(.22,.61,.36,1) .6s forwards,
-    flashFadeOut .4s linear 2.2s forwards;
-}
-
-/* metallic sweep masked to the logo shape */
-.flash-logo-wrap{
-  position:relative; line-height:0;
-  /* start off-screen left so the wrapper moves with the img */
-  transform: translateX(-120%);
-  animation: flashFly 1.8s cubic-bezier(.22,.61,.36,1) .6s forwards;
-}
-.flash-logo-wrap::after{
-  content:"";
-  position:absolute; inset:0; pointer-events:none;
-  /* mask to logo shape */
-  -webkit-mask-image:url('MiSize.png'); -webkit-mask-repeat:no-repeat; -webkit-mask-position:center; -webkit-mask-size:contain;
-  mask-image:url('MiSize.png'); mask-repeat:no-repeat; mask-position:center; mask-size:contain;
-  /* shiny beam */
-  background: linear-gradient(120deg,
-    rgba(255,255,255,0) 0%,
-    rgba(255,255,255,.85) 50%,
-    rgba(255,255,255,0) 100%);
-  transform: translateX(-200%) skewX(-15deg);
-  animation: silverSweep 1.2s ease-in-out 1.0s forwards;
-}
-
-/* keyframes */
-@keyframes flashFadeIn{ from{opacity:0; transform:translateX(-120%) scale(.9);} to{opacity:1; transform:translateX(-120%) scale(1);} }
-@keyframes flashFly   { from{transform:translateX(-120%);} to{transform:translateX(120%);} }
-@keyframes flashFadeOut{ from{opacity:1;} to{opacity:0;} }
-@keyframes silverSweep{ from{transform:translateX(-200%) skewX(-15deg);} to{transform:translateX(200%) skewX(-15deg);} }
-    /* ===== THEME ===== */
+    /* ===== THEME / LAYOUT ===== */
     :root {
       --brand:#4f7cff; --brand-text:#fff;
       --bg:#0b0d12; --card:#111520;
@@ -71,12 +64,12 @@
     .row{ display:grid; grid-template-columns:1fr; gap:12px; }
     @media (min-width:760px){ .row.two{ grid-template-columns:1fr 1fr; } .row.three{ grid-template-columns: repeat(3,1fr); } }
     label{ font-size:14px; color:var(--muted); }
-    input, select{ width:100%; padding:12px; border-radius:10px; border:1px solid #243048; background:#0f131a; color:#eef1f5; }
+    select, input{ width:100%; padding:12px; border-radius:10px; border:1px solid #243048; background:#0f131a; color:#eef1f5; }
     .toolbar{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:10px; }
     .cta{ background:var(--brand); color:var(--brand-text); border:0; padding:12px 16px; border-radius:12px; font-weight:700; cursor:pointer; }
     .ghost{ background:#182034; color:#eef1f5; border:1px solid #223049; padding:12px 16px; border-radius:12px; font-weight:600; cursor:pointer; }
     .pill{ display:inline-block; padding:6px 10px; border-radius:999px; background:#172034; border:1px solid #223049; font-size:12px; color:#c9d3ea; }
-    .big{ font-size:28px; font-weight:800; margin:0; }
+    .big{ font-size:28px; font-weight:800; margin:0 0 6px; }
     .note{ font-size:13px; opacity:.85; }
     .divider{ height:1px; background:var(--border); margin:14px 0; }
     .success{ color:#8ee0b2; } .warning{ color:#ffd27a; } .danger{ color:#ff9a9a; }
@@ -112,32 +105,27 @@
       border-radius:12px;
       font-weight:700;
       cursor:pointer;
-      display:none; /* will show on sub-screens */
+      display:none; /* show on sub-screens only */
     }
     .backbtn:active{ transform: translateY(1px); }
   </style>
 </head>
 <body>
 
-  <!-- ========== FLOATING BACK BUTTON (always in DOM) ========== -->
+  <!-- ========== FLOATING BACK BUTTON ========== -->
   <button class="backbtn" id="backbtn" onclick="goBack()" aria-label="Back">◀ Back</button>
-function updateBackButton(){
-  const btn = document.getElementById('backbtn');
-  if (['home','uk','splash'].includes(CURRENT_SCREEN)) {
-    btn.style.display = 'none';
-  } else {
-    btn.style.display = 'inline-block';
-  }
-}
+
   <!-- ========== SCREENS ========== -->
-<!-- ===== SPLASH (shows first) ===== -->
-<section id="splash" class="screen active">
-  <div class="splash-stage">
-    <div class="flash-logo-wrap">
-      <img src="MiSize.png" alt="MiSize logo" class="flash-logo">
+
+  <!-- ===== SPLASH ===== -->
+  <section id="splash" class="screen active">
+    <div class="splash-stage">
+      <div class="flash-logo-wrap">
+        <img src="MiSize.png" alt="MiSize logo" class="flash-logo">
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+
   <!-- ===== HOME ===== -->
   <section id="home" class="screen">
     <h1 class="big">Welcome to MiSize</h1>
@@ -283,35 +271,14 @@ function updateBackButton(){
     </div>
   </section>
 
-  <!-- ===== EU (placeholder) ===== -->
-  <section id="eu" class="screen">
-    <h2 class="big">EU</h2>
-    <p class="note">Coming later.</p>
-  </section>
+  <!-- ===== EU/US/CA placeholders ===== -->
+  <section id="eu" class="screen"><h2 class="big">EU</h2><p class="note">Coming later.</p></section>
+  <section id="us" class="screen"><h2 class="big">US</h2><p class="note">Coming later.</p></section>
+  <section id="ca" class="screen"><h2 class="big">CA</h2><p class="note">Coming later.</p></section>
 
-  <!-- ===== US (placeholder) ===== -->
-  <section id="us" class="screen">
-    <h2 class="big">US</h2>
-    <p class="note">Coming later.</p>
-  </section>
-
-  <!-- ===== CA (placeholder) ===== -->
-  <section id="ca" class="screen">
-    <h2 class="big">CA</h2>
-    <p class="note">Coming later.</p>
-  </section>
-
-  <!-- ===== MiStats (placeholder) ===== -->
-  <section id="mistats" class="screen">
-    <h2 class="big">MiStats</h2>
-    <p class="note">Reserved for weight/measure trends.</p>
-  </section>
-
-  <!-- ===== Settings (placeholder) ===== -->
-  <section id="settings" class="screen">
-    <h2 class="big">Settings</h2>
-    <p class="note">Preferences go here later.</p>
-  </section>
+  <!-- ===== MiStats / Settings placeholders ===== -->
+  <section id="mistats" class="screen"><h2 class="big">MiStats</h2><p class="note">Reserved for weight/measure trends.</p></section>
+  <section id="settings" class="screen"><h2 class="big">Settings</h2><p class="note">Preferences go here later.</p></section>
 
   <!-- ========== BOTTOM BAR TABS ========== -->
   <div class="bottom-tabs">
@@ -323,22 +290,23 @@ function updateBackButton(){
 
   <!-- ========== SCRIPTS ========== -->
   <script>
-    /* ===== Shortcuts ===== */
+    /* ===== Helpers ===== */
     function $(id){ return document.getElementById(id); }
 
     /* ===== Navigation & Back Button ===== */
     const NAV_STACK = [];
-    let CURRENT_SCREEN = 'home';
+    let CURRENT_SCREEN = 'home'; // set to splash on window load below
 
     function switchTab(id){
       if (id !== CURRENT_SCREEN) NAV_STACK.push(CURRENT_SCREEN);
+
       document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
       (document.getElementById(id) || $('home')).classList.add('active');
 
       document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-      const t=$('tab_'+id); if(t) t.classList.add('active');
+      const t = $('tab_'+id); if (t) t.classList.add('active');
 
-      CURRENT_SCREEN=id;
+      CURRENT_SCREEN = id;
       updateBackButton();
     }
 
@@ -347,34 +315,34 @@ function updateBackButton(){
       NAV_STACK.push('uk');
       document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
       $(id).classList.add('active');
-      CURRENT_SCREEN=id;
+      CURRENT_SCREEN = id;
       updateBackButton();
     }
 
     function goBack(){
-      const NAV_STACK = [];
-let CURRENT_SCREEN = 'splash';
+      const prev = NAV_STACK.pop() || 'home';
+
       document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
       (document.getElementById(prev) || $('home')).classList.add('active');
 
       document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-      const tb=$('tab_'+prev); if(tb) tb.classList.add('active');
+      const tb = $('tab_'+prev); if (tb) tb.classList.add('active');
 
-      CURRENT_SCREEN=prev;
+      CURRENT_SCREEN = prev;
       updateBackButton();
     }
 
     function updateBackButton(){
-      const btn=$('backbtn');
-      // Back is hidden on Home and UK hub; shown everywhere else
-      if (CURRENT_SCREEN==='home' || CURRENT_SCREEN==='uk') {
-        btn.style.display='none';
+      const btn = $('backbtn');
+      // Hide on Splash, Home, and UK hub. Show everywhere else.
+      if (['splash','home','uk'].includes(CURRENT_SCREEN)) {
+        btn.style.display = 'none';
       } else {
-        btn.style.display='inline-block';
+        btn.style.display = 'inline-block';
       }
     }
 
-    /* ===== Data placeholders (replace with your JSON) ===== */
+    /* ===== Demo Data (replace with your JSON later) ===== */
     let BRANDS = [
       {id:'primark', name:'Primark', notes:'Runs true to size.', lengths_cm:{short:72, regular:76, long:80, tall:84}},
       {id:'george',  name:'George (ASDA)', notes:'Waist generous.', lengths_cm:{short:71, regular:75, long:79, tall:83}}
@@ -395,18 +363,20 @@ let CURRENT_SCREEN = 'splash';
     ];
     const CATEGORIES = ['Women • Dresses','Women • Jeans','Shoes (UK)'];
 
-    /* ===== Size Finder Logic (uses fake data above) ===== */
+    /* ===== Init dropdowns & sections ===== */
     function initSelectors(){
       const b=$('sf_brand'); if(b){ b.innerHTML=''; BRANDS.forEach(br=>{ const o=document.createElement('option'); o.value=br.id; o.textContent=br.name; b.appendChild(o); }); }
       const c=$('sf_category'); if(c){ c.innerHTML=''; CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; c.appendChild(o); }); }
       const ms=$('ms_category'); if(ms){ ms.innerHTML=''; CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; ms.appendChild(o); }); if(ms.options.length) ms.options[0].selected=true; }
-      renderBrandNotes(); renderHistory(); // initial fills
+      renderBrandNotes();
+      renderHistory();
     }
 
+    /* ===== Size Finder (using demo measurements) ===== */
     function computeSize(){
       const brandId=$('sf_brand').value, cat=$('sf_category').value, fit=$('sf_fit').value, body=$('sf_bodytype').value;
 
-      // DEMO: fake measurements
+      // DEMO: swap with your saved profile measurements later (all in cm)
       const meas = { bust:88, waist:70, hip:94, inseam:76, footlen:24.6 };
 
       const brand=BRANDS.find(b=>b.id===brandId);
@@ -495,7 +465,7 @@ let CURRENT_SCREEN = 'splash';
     }
 
     function computeAllSizes(){
-      // DEMO: use same fake measurements as size finder demo
+      // DEMO: same example measurements as size finder
       const meas={ bust:88, waist:70, hip:94, inseam:76, footlen:24.6 };
       const sel=$('ms_category'); const fit=$('ms_fit').value;
       const cats=Array.from(sel.selectedOptions).map(o=>o.value); const results=[];
@@ -576,35 +546,33 @@ let CURRENT_SCREEN = 'splash';
       });
     }
 
-    /* ===== Init ===== */
+    /* ===== Initial UI setup (Home visible after Splash) ===== */
     (function start(){
       initSelectors();
-      // start on Home, back button hidden
       updateBackButton();
     })();
+
     // ===== Splash flow: show splash first, then go Home =====
-window.addEventListener('load', () => {
-  // ensure only splash is visible at start
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById('splash').classList.add('active');
-  CURRENT_SCREEN = 'splash';
-  updateBackButton();
+    window.addEventListener('load', () => {
+      // Only show splash at very start
+      document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+      document.getElementById('splash').classList.add('active');
+      CURRENT_SCREEN = 'splash';
+      updateBackButton();
 
-  // after animations (~2.6s), switch to Home
-  setTimeout(() => {
-    document.getElementById('splash').classList.remove('active');
-    // don't push to history; directly activate Home tab
-    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    document.getElementById('home').classList.add('active');
+      // after animations (~2.6s), switch to Home
+      setTimeout(() => {
+        document.getElementById('splash').classList.remove('active');
+        document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+        document.getElementById('home').classList.add('active');
 
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    const t = document.getElementById('tab_home'); if (t) t.classList.add('active');
+        document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+        const t = document.getElementById('tab_home'); if (t) t.classList.add('active');
 
-    CURRENT_SCREEN = 'home';
-    updateBackButton();
-  }, 2600); // matches the CSS timings above
-});
-  
+        CURRENT_SCREEN = 'home';
+        updateBackButton();
+      }, 2600);
+    });
   </script>
 
 </body>
