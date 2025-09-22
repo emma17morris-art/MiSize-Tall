@@ -10,28 +10,16 @@
   /* ===== SPLASH (simple, large centered logo) ===== */
   #splash { display:none; padding:0; }
   #splash.active { display:block; }
-
   .splash-stage{
     position:relative; height:100vh; width:100%;
     display:flex; align-items:center; justify-content:center;
-    background:#2b1055; /* deep purple instead of dark */
-    overflow:hidden;
+    background:#2b1055; overflow:hidden;
   }
-
-  /* Single visual logo (no <img>, no animation) */
   .flash-logo-wrap{
-    line-height:0;
-    width: min(75vw, 560px);  /* large */
-    aspect-ratio: 1 / 1;
-    background: center / contain no-repeat url('MiSize.png');
-    margin: 0 auto;           /* centered */
-    transform: none;
-    animation: none;
-    opacity: 1;
-    z-index: 1;
+    line-height:0; width:min(75vw,560px); aspect-ratio:1/1;
+    background:center/contain no-repeat url('MiSize.png');
+    margin:0 auto; opacity:1; z-index:1;
   }
-
-  /* Hide the old shine layer completely (even if present in HTML) */
   .flash-logo-shine{ display:none !important; }
 
   /* ===== THEME / LAYOUT ===== */
@@ -46,11 +34,7 @@
   body{ margin:0; font-family:var(--font); background:var(--bg); color:var(--text); }
 
   .screen{
-    display:none;
-    padding:20px 20px 90px;
-    background:#2b1055;        /* purple app background */
-    min-height:100vh;          /* full screen */
-    box-sizing:border-box;
+    display:none; padding:20px 20px 90px; background:#2b1055; min-height:100vh;
   }
   .screen.active{ display:block; }
 
@@ -71,74 +55,41 @@
   .divider{ height:1px; background:var(--border); margin:14px 0; }
   .success{ color:#8ee0b2; } .warning{ color:#ffd27a; } .danger{ color:#ff9a9a; }
 
-  /* ===== HOME REGION TILES (1x4 full height) ===== */
+  /* ===== HOME REGION TILES ===== */
   .tiles{
-    display:grid;
-    grid-template-columns:1fr;
-    grid-template-rows: repeat(4,1fr);
-    gap:16px;
-    height:calc(100vh - 150px);
-    margin-top:20px;
+    display:grid; grid-template-columns:1fr; grid-template-rows:repeat(4,1fr);
+    gap:16px; height:calc(100vh - 150px); margin-top:20px;
   }
   .tiles button{
-    font-size:28px; font-weight:800;
-    border-radius:14px; border:0; color:#fff; cursor:pointer;
-    width:100%; height:100%;
-    background:#1d4ed8; /* blue tiles */
+    font-size:28px; font-weight:800; border-radius:14px; border:0; color:#fff; cursor:pointer;
+    width:100%; height:100%; background:#1d4ed8;
   }
 
   /* ===== UK HUB BUTTONS ===== */
-  .hub {
-    display: grid;
-    grid-template-rows: repeat(5, 1fr);
-    grid-template-columns: 1fr;
-    gap: 16px;
-    height: calc(100vh - 150px);
-    margin-top: 20px;
-  }
-  .hub .bigbtn {
-    width: 100%;
-    height: 100%;
-    font-size: 26px;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 14px;
-    border: 0;
-    background: #1d4ed8;
-    color: #fff;
-    cursor: pointer;
+  .hub { display:grid; grid-template-rows:repeat(5,1fr); grid-template-columns:1fr; gap:16px; height:calc(100vh - 150px); margin-top:20px;}
+  .hub .bigbtn{
+    width:100%; height:100%; font-size:26px; font-weight:800; display:flex; align-items:center; justify-content:center;
+    border-radius:14px; border:0; background:#1d4ed8; color:#fff; cursor:pointer;
   }
 
-  /* ===== BOTTOM BAR TABS ===== */
-  .bottom-tabs{
-    position:fixed; left:0; right:0; bottom:0;
-    background:#0f131a; border-top:1px solid var(--border);
-    display:flex; z-index:30;
-  }
-  .bottom-tabs .tab{
-    flex:1; padding:12px 8px; border:0; background:transparent; color:#cfd7ea;
-    font-weight:700; cursor:pointer;
-  }
+  /* ===== BOTTOM BAR ===== */
+  .bottom-tabs{ position:fixed; left:0; right:0; bottom:0; background:#0f131a; border-top:1px solid var(--border); display:flex; z-index:30;}
+  .bottom-tabs .tab{ flex:1; padding:12px 8px; border:0; background:transparent; color:#cfd7ea; font-weight:700; cursor:pointer; }
   .bottom-tabs .tab.active{ color:var(--brand); }
   #tab_home.active{ color:#8A2BE2; }
 
   /* ===== FLOATING BACK BUTTON ===== */
   .backbtn{
-    position:fixed; top:14px; left:14px; z-index:50;
-    background:#182034; color:#eef1f5; border:1px solid #223049;
+    position:fixed; top:14px; left:14px; z-index:50; background:#182034; color:#eef1f5; border:1px solid #223049;
     padding:10px 14px; border-radius:12px; font-weight:700; cursor:pointer; display:none;
   }
-  .backbtn:active{ transform: translateY(1px); }
+  .backbtn:active{ transform:translateY(1px); }
 
   /* ===== SIZE FINDER — APP STYLE ===== */
   .sf-hero {
     background: linear-gradient(180deg, #2b1055 0%, #231048 100%);
     border: 1px solid rgba(255,255,255,.08);
-    border-radius: 18px;
-    padding: 22px 18px;
-    margin-bottom: 16px;
+    border-radius: 18px; padding: 22px 18px; margin-bottom: 16px;
   }
   .sf-hero .sf-title { margin: 0 0 6px; font-size: 26px; font-weight: 900; }
   .sf-hero .sf-sub   { margin: 0; color: #c9b7ff; font-size: 14px; }
@@ -174,65 +125,58 @@
   .sf-badge  { display:inline-block; padding: 6px 10px; border-radius: 999px;
                border: 1px solid rgba(255,255,255,.12); background:#1a1d3f; color:#c9d3ea; font-size:12px; }
   .sf-note { color:#c9d3ea; font-size:14px; margin-top:8px; }
-    
-    /* ===== SHARED PANEL STYLE (reusing sf look) ===== */
-.panel-hero{
-  background: linear-gradient(180deg, #2b1055 0%, #231048 100%);
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 18px; padding: 22px 18px; margin-bottom: 16px;
-}
-.panel-hero .title{ margin:0 0 6px; font-size:26px; font-weight:900; }
-.panel-hero .sub{ margin:0; color:#c9b7ff; font-size:14px; }
 
-.panel{ border-radius:16px; border:1px solid rgba(255,255,255,.08); background:#121433; padding:16px; }
-.panel-list{ display:flex; flex-direction:column; gap:12px; }
+  /* ===== SHARED PANEL STYLE (reused by My Sizes / Notes / History) ===== */
+  .panel-hero{
+    background: linear-gradient(180deg, #2b1055 0%, #231048 100%);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 18px; padding: 22px 18px; margin-bottom: 16px;
+  }
+  .panel-hero .title{ margin:0 0 6px; font-size:26px; font-weight:900; }
+  .panel-hero .sub{ margin:0; color:#c9b7ff; font-size:14px; }
+  .panel{ border-radius:16px; border:1px solid rgba(255,255,255,.08); background:#121433; padding:16px; }
+  .panel-list{ display:flex; flex-direction:column; gap:12px; }
 
-/* ===== My Sizes ===== */
-.ms-filters{
-  display:grid; grid-template-columns:1fr; gap:12px; margin-bottom:12px;
-}
-@media (min-width:760px){ .ms-filters{ grid-template-columns:1fr 1fr; } }
-.ms-field{ background:#151535; border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:10px; }
-.ms-label{ display:block; font-size:12px; color:#a7b1ff; margin-bottom:6px; letter-spacing:.2px; text-transform:uppercase; }
-.ms-select{ width:100%; padding:12px; border-radius:10px; border:1px solid #2a2f57; background:#0f1330; color:#eef1f5; font-weight:600; appearance:none; -webkit-appearance:none; }
-.ms-actions{ display:flex; gap:10px; margin-top:6px; }
-.ms-secondary{ background:transparent; color:#cfe0ff; border:1px solid rgba(255,255,255,.12); padding:12px 14px; border-radius:14px; font-weight:700; cursor:pointer; }
-.ms-item{
-  display:flex; justify-content:space-between; align-items:flex-start; gap:10px;
-  border:1px solid rgba(255,255,255,.08); background:#1a1d3f; border-radius:14px; padding:12px;
-}
-.ms-item .meta{ color:#c9d3ea; font-size:13px; }
-.ms-size{ display:inline-block; padding:6px 12px; border-radius:999px; background:#1d4ed8; color:#fff; font-weight:800; }
-.badge{ display:inline-block; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:#151a3a; color:#c9d3ea; font-size:12px; }
-.badge.success{ color:#8ee0b2; } .badge.warning{ color:#ffd27a; } .badge.danger{ color:#ff9a9a; }
+  /* ===== My Sizes ===== */
+  .ms-filters{ display:grid; grid-template-columns:1fr; gap:12px; margin-bottom:12px; }
+  @media (min-width:760px){ .ms-filters{ grid-template-columns:1fr 1fr; } }
+  .ms-field{ background:#151535; border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:10px; }
+  .ms-label{ display:block; font-size:12px; color:#a7b1ff; margin-bottom:6px; letter-spacing:.2px; text-transform:uppercase; }
+  .ms-select{ width:100%; padding:12px; border-radius:10px; border:1px solid #2a2f57; background:#0f1330; color:#eef1f5; font-weight:600; appearance:none; -webkit-appearance:none; }
+  .ms-actions{ display:flex; gap:10px; margin-top:6px; }
+  .ms-secondary{ background:transparent; color:#cfe0ff; border:1px solid rgba(255,255,255,.12); padding:12px 14px; border-radius:14px; font-weight:700; cursor:pointer; }
+  .ms-item{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:10px;
+    border:1px solid rgba(255,255,255,.08); background:#1a1d3f; border-radius:14px; padding:12px;
+  }
+  .ms-item .meta{ color:#c9d3ea; font-size:13px; }
+  .ms-size{ display:inline-block; padding:6px 12px; border-radius:999px; background:#1d4ed8; color:#fff; font-weight:800; }
+  .badge{ display:inline-block; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:#151a3a; color:#c9d3ea; font-size:12px; }
+  .badge.success{ color:#8ee0b2; } .badge.warning{ color:#ffd27a; } .badge.danger{ color:#ff9a9a; }
 
-/* ===== Brand Notes ===== */
-.bn-item{
-  display:flex; justify-content:space-between; gap:10px; align-items:flex-start;
-  border:1px solid rgba(255,255,255,.08); background:#1a1d3f; border-radius:14px; padding:12px;
-}
-.bn-name{ font-weight:800; }
-.bn-pills{ display:flex; gap:6px; flex-wrap:wrap; }
+  /* ===== Brand Notes ===== */
+  .bn-item{
+    display:flex; justify-content:space-between; gap:10px; align-items:flex-start;
+    border:1px solid rgba(255,255,255,.08); background:#1a1d3f; border-radius:14px; padding:12px;
+  }
+  .bn-name{ font-weight:800; }
+  .bn-pills{ display:flex; gap:6px; flex-wrap:wrap; }
 
-/* ===== History ===== */
-.hi-item{
-  border:1px solid rgba(255,255,255,.08); background:#1a1d3f; border-radius:14px; padding:12px;
-  display:flex; justify-content:space-between; gap:10px; align-items:flex-start;
-}
-.hi-when{ color:#aab3c5; font-size:12px; }
-/* ===== Body profile pill panel ===== */
-.pt-pills{ display:flex; gap:8px; flex-wrap:wrap; }
-.pt-pill{
-  border:1px solid rgba(255,255,255,.12);
-  background:#151a3a;
-  color:#c9d3ea;
-  font-weight:700;
-  font-size:12px;
-  padding:8px 12px;
-  border-radius:999px;
-  cursor:pointer;
-}
-.pt-pill.active{ background:#1d4ed8; color:#fff; border-color:#1d4ed8; 
+  /* ===== History ===== */
+  .hi-item{
+    border:1px solid rgba(255,255,255,.08); background:#1a1d3f; border-radius:14px; padding:12px;
+    display:flex; justify-content:space-between; gap:10px; align-items:flex-start;
+  }
+  .hi-when{ color:#aab3c5; font-size:12px; }
+
+  /* ===== Body profile pill panel ===== */
+  .pt-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .pt-pill{
+    border:1px solid rgba(255,255,255,.12);
+    background:#151a3a; color:#c9d3ea; font-weight:700; font-size:12px;
+    padding:8px 12px; border-radius:999px; cursor:pointer;
+  }
+  .pt-pill.active{ background:#1d4ed8; color:#fff; border-color:#1d4ed8; }
   </style>
 </head>
 <body>
@@ -275,7 +219,7 @@
     </div>
   </section>
 
-  <!-- ===== UK › SIZE FINDER (new sf- markup) ===== -->
+  <!-- ===== UK › SIZE FINDER ===== -->
   <section id="uk_sizefinder" class="screen">
     <div class="sf-hero">
       <h3 class="sf-title">Size Finder</h3>
@@ -301,15 +245,19 @@
           </select>
         </div>
 
-       <div class="sf-field">
-  <label class="sf-label">Body type</label>
-  <select id="sf_bodytype" class="sf-select">
-    <option value="standard">Standard</option>
-    <option value="petite">Petite</option>
-    <option value="tall">Tall</option>
-    <option value="curvy">Curvy</option>
-  </select>
-</div>
+        <!-- Body profile pills (replaces the old select) -->
+        <div class="sf-field">
+          <label class="sf-label">Body profile</label>
+          <input id="sf_bodytype" type="hidden" value="standard">
+          <div class="pt-pills">
+            <button type="button" class="pt-pill active" data-val="standard">Standard</button>
+            <button type="button" class="pt-pill" data-val="petite">Petite</button>
+            <button type="button" class="pt-pill" data-val="tall">Tall</button>
+            <button type="button" class="pt-pill" data-val="curvy">Curvy</button>
+            <button type="button" class="pt-pill" data-val="plus">Plus-size</button>
+          </div>
+        </div>
+      </div>
 
       <div class="sf-actions">
         <button class="sf-primary" onclick="computeSize()">Get my size</button>
@@ -322,53 +270,58 @@
   </section>
 
   <!-- ===== UK › MY SIZES ===== -->
- <!-- ===== UK › MY SIZES ===== -->
-<section id="uk_mysizes" class="screen">
-  <div class="panel-hero">
-    <h3 class="title">My Sizes (all brands)</h3>
-    <p class="sub">Select categories and a fit, then compute across all brands.</p>
-  </div>
-
-  <div class="panel">
-    <div class="ms-filters">
-      <div class="ms-field">
-        <label class="ms-label">Categories</label>
-        <select id="ms_category" class="ms-select" multiple size="4" style="height:110px;"></select>
-        <p class="note" style="margin:6px 0 0;">Tip: Cmd/Ctrl-click to multi-select.</p>
-      </div>
-      <div class="ms-field">
-        <label class="ms-label">Fit preference</label>
-        <select id="ms_fit" class="ms-select">
-          <option value="standard">Standard</option>
-          <option value="snug">Snug</option>
-          <option value="relaxed">Relaxed</option>
-        </select>
-        <div class="ms-actions">
-          <button class="sf-primary" onclick="computeAllSizes()">Compute all</button>
-          <button class="ms-secondary" onclick="exportMySizesCSV()">Export CSV</button>
-          <button class="ms-secondary" onclick="copyMySizes()">Copy</button>
-          <span class="badge" id="ms_count">—</span>
-        </div>
-      </div>
+  <section id="uk_mysizes" class="screen">
+    <div class="panel-hero">
+      <h3 class="title">My Sizes (all brands)</h3>
+      <p class="sub">Select categories and a fit, then compute across all brands.</p>
     </div>
 
-    <div id="ms_list" class="panel-list"></div>
-  </div>
-</section>
+    <div class="panel">
+      <div class="ms-filters">
+        <div class="ms-field">
+          <label class="ms-label">Categories</label>
+          <select id="ms_category" class="ms-select" multiple size="4" style="height:110px;"></select>
+          <p class="note" style="margin:6px 0 0;">Tip: Cmd/Ctrl-click to multi-select.</p>
+        </div>
+        <div class="ms-field">
+          <label class="ms-label">Fit preference</label>
+          <select id="ms_fit" class="ms-select">
+            <option value="standard">Standard</option>
+            <option value="snug">Snug</option>
+            <option value="relaxed">Relaxed</option>
+          </select>
+          <div class="ms-actions">
+            <button class="sf-primary" onclick="computeAllSizes()">Compute all</button>
+            <button class="ms-secondary" onclick="exportMySizesCSV()">Export CSV</button>
+            <button class="ms-secondary" onclick="copyMySizes()">Copy</button>
+            <span class="badge" id="ms_count">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="ms_list" class="panel-list"></div>
+    </div>
+  </section>
 
   <!-- ===== UK › BRAND NOTES ===== -->
   <section id="uk_brandnotes" class="screen">
-    <div class="card">
-      <h3>Brand Notes</h3>
-      <div id="brandList" class="list"></div>
+    <div class="panel-hero">
+      <h3 class="title">Brand Notes</h3>
+      <p class="sub">Quick brand quirks + jean length hints.</p>
+    </div>
+    <div class="panel">
+      <div id="brandList" class="panel-list"></div>
     </div>
   </section>
 
   <!-- ===== UK › HISTORY ===== -->
   <section id="uk_history" class="screen">
-    <div class="card">
-      <h3>History</h3>
-      <div id="histList" class="list"></div>
+    <div class="panel-hero">
+      <h3 class="title">History</h3>
+      <p class="sub">Recent size lookups you saved.</p>
+    </div>
+    <div class="panel">
+      <div id="histList" class="panel-list"></div>
     </div>
   </section>
 
@@ -405,18 +358,11 @@
     </div>
   </section>
 
-  <!-- ===== Profile (placeholder) ===== -->
-  <section id="profile" class="screen">
-    <h2 class="big">Profile</h2>
-    <p class="note">Your profile/settings will live here. (Placeholder for now.)</p>
-  </section>
-
-  <!-- ===== EU/US/CA placeholders ===== -->
+  <!-- ===== Profile / Other placeholders ===== -->
+  <section id="profile" class="screen"><h2 class="big">Profile</h2><p class="note">Your profile/settings will live here. (Placeholder for now.)</p></section>
   <section id="eu" class="screen"><h2 class="big">EU</h2><p class="note">Coming later.</p></section>
   <section id="us" class="screen"><h2 class="big">US</h2><p class="note">Coming later.</p></section>
   <section id="ca" class="screen"><h2 class="big">CA</h2><p class="note">Coming later.</p></section>
-
-  <!-- ===== MiStats / Settings placeholders ===== -->
   <section id="mistats" class="screen"><h2 class="big">MiStats</h2><p class="note">Reserved for weight/measure trends.</p></section>
   <section id="settings" class="screen"><h2 class="big">Settings</h2><p class="note">Preferences go here later.</p></section>
 
@@ -435,7 +381,7 @@
 
     /* ===== Navigation & Back Button ===== */
     const NAV_STACK = [];
-    let CURRENT_SCREEN = 'home'; // set to splash on window load below
+    let CURRENT_SCREEN = 'home';
 
     function switchTab(id){
       if (id !== CURRENT_SCREEN) NAV_STACK.push(CURRENT_SCREEN);
@@ -443,11 +389,9 @@
       (document.getElementById(id) || $('home')).classList.add('active');
       document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
       const t = $('tab_'+id); if (t) t.classList.add('active');
-      CURRENT_SCREEN = id;
-      updateBackButton();
+      CURRENT_SCREEN = id; updateBackButton();
     }
 
-    // Open a UK sub-screen from the UK hub
     function openUK(id){
       NAV_STACK.push('uk');
       document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -463,12 +407,11 @@
       (document.getElementById(prev) || $('home')).classList.add('active');
       document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
       const tb = $('tab_'+prev); if (tb) tb.classList.add('active');
-      CURRENT_SCREEN = prev;
-      updateBackButton();
+      CURRENT_SCREEN = prev; updateBackButton();
     }
 
     function updateBackButton(){
-      const btn = document.getElementById('backbtn');
+      const btn = $('backbtn');
       const topLevels = ['splash','home','uk','profile','mistats','settings','eu','us','ca'];
       btn.style.display = topLevels.includes(CURRENT_SCREEN) ? 'none' : 'inline-block';
     }
@@ -553,24 +496,18 @@
         window.CATEGORIES = DEFAULT_CATEGORIES.slice();
       }
     }
-
-    function saveAppData(){
-      localStorage.setItem('mSizeData', JSON.stringify({BRANDS, CHARTS, CATEGORIES}));
-    }
-
+    function saveAppData(){ localStorage.setItem('mSizeData', JSON.stringify({BRANDS, CHARTS, CATEGORIES})); }
     function resetDataToDefaults(){
       window.BRANDS = DEFAULT_BRANDS.slice();
       window.CHARTS = DEFAULT_CHARTS.slice();
       window.CATEGORIES = DEFAULT_CATEGORIES.slice();
-      saveAppData();
-      initSelectors(); // refresh UI
+      saveAppData(); initSelectors();
     }
-
     function exportData(){ return JSON.stringify({BRANDS, CHARTS, CATEGORIES}, null, 2); }
     function importData(json){
-      const obj = JSON.parse(json);
+      const obj=JSON.parse(json);
       if(obj.BRANDS && obj.CHARTS && obj.CATEGORIES){
-        window.BRANDS = obj.BRANDS; window.CHARTS = obj.CHARTS; window.CATEGORIES = obj.CATEGORIES;
+        window.BRANDS=obj.BRANDS; window.CHARTS=obj.CHARTS; window.CATEGORIES=obj.CATEGORIES;
         saveAppData(); initSelectors();
       }
     }
@@ -595,9 +532,7 @@
       const table=CHARTS.filter(r=>r.brandId===brandId && r.category===cat)
                         .map(r=>({size:r.size,bust:r.bust??null,waist:r.waist??null,hip:r.hip??null,footLen:r.footLen??null}));
 
-      if(!brand || table.length===0){
-        showResult('—','Low','No data for this brand/category yet.',[]); return;
-      }
+      if(!brand || table.length===0){ showResult('—','Low','No data for this brand/category yet.',[]); return; }
 
       let dims=[]; if(cat.includes('Dresses')) dims=['bust','waist','hip'];
                    if(cat.includes('Jeans'))   dims=['waist','hip'];
@@ -619,6 +554,7 @@
       if(body==='petite') notes.push('Petite: consider shorter length options.');
       if(body==='tall')   notes.push('Tall: check brand length guide; “Tall/Long” may be best.');
       if(body==='curvy')  notes.push('Curvy: prioritize hip/waist when in between.');
+      if(body==='plus')   notes.push('Plus-size: look for curve/plus collections in this brand.');
       if(cat.includes('Jeans') && meas.inseam && brand?.lengths_cm){
         const len = mapInseamToLengthFromBrand(brand.lengths_cm, meas.inseam);
         const inches = (brand.lengths_cm[len]/2.54).toFixed(1);
@@ -629,38 +565,23 @@
       showResult(pick.size, conf, null, notes);
     }
 
-    // NEW: styled result renderer
+    // Styled result renderer
     function showResult(size, conf, message, notes){
       const box = $('sf_result');
       box.style.display = 'block';
-
       const confClass = conf === 'High' ? 'success' : (conf === 'Low' ? 'danger' : 'warning');
       const noteBadges = (notes || []).map(n => `<span class="sf-badge">${n}</span>`).join('');
-
       box.innerHTML = `
         <div>
-          ${size === '—'
-            ? `<div class="sf-note">No result for this selection.</div>`
-            : `<span class="sf-size">${size}</span>`}
+          ${size === '—' ? `<div class="sf-note">No result for this selection.</div>` : `<span class="sf-size">${size}</span>`}
           ${message ? `<p class="sf-note" style="margin-top:8px;">${message}</p>` : ''}
-
           <div class="sf-badges" style="margin-top:10px;">
             <span class="sf-badge">Confidence: <span class="${confClass}">${conf}</span></span>
             ${noteBadges}
           </div>
-        </div>
-      `;
-
+        </div>`;
       window.scrollTo({ top: 0, behavior: 'smooth' });
-
-      // keep history payload consistent
-      window._lastResult = {
-        when: new Date().toISOString(),
-        brand: $('sf_brand').value,
-        category: $('sf_category').value,
-        size: size,
-        conf: conf
-      };
+      window._lastResult = { when:new Date().toISOString(), brand:$('sf_brand').value, category:$('sf_category').value, size:size, conf:conf };
     }
 
     function mapInseamToLengthFromBrand(lengths, cm){
@@ -713,41 +634,29 @@
     }
 
     function renderMySizes(list){
-  const wrap = $('ms_list'); if(!wrap) return; 
-  wrap.innerHTML = '';
-
-  // update the counter badge
-  const counter = $('ms_count');
-  if (counter) counter.textContent = `${list.length} results`;
-
-  if(!list.length){
-    wrap.innerHTML = '<div class="sf-note">No results — add measurements or select a category.</div>';
-    return;
-  }
-
-  list.forEach(row=>{
-    const confClass = row.conf==='High' ? 'success' : row.conf==='Low' ? 'danger' : 'warning';
-    const notesHtml = (row.notes||[]).map(n=>`<span class="badge">${n}</span>`).join(' ');
-
-    const div = document.createElement('div');
-    div.className = 'ms-item';
-    div.innerHTML = `
-      <div>
-        <div><strong>${row.brandName}</strong> • <span class="meta">${row.category}</span></div>
-        <div class="meta" style="margin-top:6px;">${notesHtml || ''}</div>
-      </div>
-      <div style="text-align:right;">
-        <div class="ms-size">Size: ${row.size}</div>
-        <div class="meta" style="margin-top:6px;">
-          <span class="badge ${confClass}">Confidence: ${row.conf}</span>
-        </div>
-      </div>
-    `;
-    wrap.appendChild(div);
-  });
-
-  window._lastMySizes = list;
-}
+      const wrap=$('ms_list'); if(!wrap) return; 
+      wrap.innerHTML='';
+      const counter=$('ms_count'); if(counter) counter.textContent=`${list.length} results`;
+      if(!list.length){ wrap.innerHTML='<div class="sf-note">No results — add measurements or select a category.</div>'; return; }
+      list.forEach(row=>{
+        const confClass = row.conf==='High'?'success':row.conf==='Low'?'danger':'warning';
+        const notesHtml=(row.notes||[]).map(n=>`<span class="badge">${n}</span>`).join(' ');
+        const div=document.createElement('div'); div.className='ms-item';
+        div.innerHTML=`
+          <div>
+            <div><strong>${row.brandName}</strong> • <span class="meta">${row.category}</span></div>
+            <div class="meta" style="margin-top:6px;">${notesHtml || ''}</div>
+          </div>
+          <div style="text-align:right;">
+            <div class="ms-size">Size: ${row.size}</div>
+            <div class="meta" style="margin-top:6px;">
+              <span class="badge ${confClass}">Confidence: ${row.conf}</span>
+            </div>
+          </div>`;
+        wrap.appendChild(div);
+      });
+      window._lastMySizes=list;
+    }
 
     function copyMySizes(){
       const list=window._lastMySizes||[]; if(!list.length){ alert('Nothing to copy yet.'); return; }
@@ -757,27 +666,28 @@
     function exportMySizesCSV(){
       const list=window._lastMySizes||[]; if(!list.length){ alert('Nothing to export yet.'); return; }
       const header=['Category','Brand','Size','Confidence','Notes'];
-      const rows=list.map(r=>[`"${r.category}"` ,`"${r.brandName}"`,`"${r.size}"`,`"${r.conf}"`,`"${(r.notes||[]).join('; ').replace(/"/g,'""')}"`]);
+      const rows=list.map(r=>[`"${r.category}"`,`"${r.brandName}"`,`"${r.size}"`,`"${r.conf}"`,`"${(r.notes||[]).join('; ').replace(/"/g,'""')}"`]);
       const csv=[header.join(','),...rows.map(r=>r.join(','))].join('\n');
       const blob=new Blob([csv],{type:'text/csv'}); const url=URL.createObjectURL(blob);
       const a=document.createElement('a'); a.href=url; a.download='my-sizes.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
     }
 
-    /* ===== Brand notes + History ===== */
+    /* ===== Brand notes + History (styled) ===== */
     function renderBrandNotes(){
       const wrap=$('brandList'); if(!wrap) return; wrap.innerHTML='';
       BRANDS.forEach(b=>{
         const L=b.lengths_cm||{};
-        const div=document.createElement('div'); div.className='card';
+        const div=document.createElement('div'); div.className='bn-item';
         div.innerHTML=`
-          <div style="display:flex;justify-content:space-between;gap:10px;">
-            <div><div><strong>${b.name}</strong></div><div class="note">${b.notes||''}</div></div>
-            <div style="text-align:right;">
-              <span class="pill">Short ~${L.short??'–'}cm</span>
-              <span class="pill">Regular ~${L.regular??'–'}cm</span>
-              <span class="pill">Long ~${L.long??'–'}cm</span>
-              <span class="pill">Tall ~${L.tall??'–'}cm</span>
-            </div>
+          <div>
+            <div class="bn-name">${b.name}</div>
+            <div class="note">${b.notes||''}</div>
+          </div>
+          <div class="bn-pills">
+            <span class="badge">Short ~${L.short??'–'}cm</span>
+            <span class="badge">Regular ~${L.regular??'–'}cm</span>
+            <span class="badge">Long ~${L.long??'–'}cm</span>
+            <span class="badge">Tall ~${L.tall??'–'}cm</span>
           </div>`;
         wrap.appendChild(div);
       });
@@ -785,50 +695,46 @@
 
     function getHistory(){ try{ return JSON.parse(localStorage.getItem('history')||'[]'); }catch(e){ return []; } }
     function saveHistory(){ if(!window._lastResult) return; const h=getHistory(); h.unshift(window._lastResult); localStorage.setItem('history', JSON.stringify(h.slice(0,20))); alert('Saved to history.'); }
-
     function renderHistory(){
       const wrap=$('histList'); if(!wrap) return; wrap.innerHTML='';
       const h=getHistory();
-      if(!h.length){ wrap.innerHTML='<div class="note">No lookups yet.</div>'; return; }
+      if(!h.length){ wrap.innerHTML='<div class="sf-note">No lookups yet.</div>'; return; }
       h.forEach(item=>{
-        const div=document.createElement('div'); div.className='card';
-        div.innerHTML=`<div><div><strong>${item.brand}</strong> • ${item.category}</div>
-          <div class="note">${new Date(item.when).toLocaleString()} • Recommended size: <span class="pill">${item.size}</span> • ${item.conf} confidence</div></div>`;
+        const div=document.createElement('div'); div.className='hi-item';
+        div.innerHTML=`
+          <div>
+            <div><strong>${item.brand}</strong> • ${item.category}</div>
+            <div class="hi-when">${new Date(item.when).toLocaleString()}</div>
+          </div>
+          <div style="text-align:right;">
+            <div class="ms-size">${item.size}</div>
+            <div class="note" style="margin-top:6px;">Confidence: ${item.conf}</div>
+          </div>`;
         wrap.appendChild(div);
       });
     }
 
     /* ===== Converters (demo stubs) ===== */
     function convertClothing(){
-      const from = document.getElementById('cw_from').value;
-      const to   = document.getElementById('cw_to').value;
-      const val  = parseFloat(document.getElementById('cw_val').value);
-      const out  = document.getElementById('cw_out');
-      if (isNaN(val)) { out.textContent = 'Enter a number'; return; }
-      out.textContent = `${val} ${from} ≈ ${val} ${to}`;
+      const from=$('cw_from').value, to=$('cw_to').value, val=parseFloat($('cw_val').value);
+      const out=$('cw_out'); if(isNaN(val)){ out.textContent='Enter a number'; return; }
+      out.textContent=`${val} ${from} ≈ ${val} ${to}`;
     }
-
     function convertShoes(){
-      const from = document.getElementById('sh_from').value;
-      const to   = document.getElementById('sh_to').value;
-      const val  = parseFloat(document.getElementById('sh_val').value);
-      const out  = document.getElementById('sh_out');
-      if (isNaN(val)) { out.textContent = 'Enter a number'; return; }
-      out.textContent = `${val} ${from} ≈ ${val} ${to}`;
+      const from=$('sh_from').value, to=$('sh_to').value, val=parseFloat($('sh_val').value);
+      const out=$('sh_out'); if(isNaN(val)){ out.textContent='Enter a number'; return; }
+      out.textContent=`${val} ${from} ≈ ${val} ${to}`;
     }
-
     function convertBra(){
-      const bandCm = parseFloat(document.getElementById('br_band').value);
-      const cup    = (document.getElementById('br_cup').value || '').toUpperCase();
-      const out    = document.getElementById('br_out');
-      if (isNaN(bandCm) || !cup) { out.textContent = 'Add band & cup'; return; }
-      out.textContent = `~UK ${Math.round(bandCm/2.54)}${cup}`;
+      const bandCm=parseFloat($('br_band').value); const cup=($('br_cup').value||'').toUpperCase();
+      const out=$('br_out'); if(isNaN(bandCm)||!cup){ out.textContent='Add band & cup'; return; }
+      out.textContent=`~UK ${Math.round(bandCm/2.54)}${cup}`;
     }
 
     /* ===== Initial UI setup ===== */
     (function start(){
       loadAppData();
-      if (!window.BRANDS || window.BRANDS.length === 0) { resetDataToDefaults(); }
+      if (!window.BRANDS || window.BRANDS.length === 0) resetDataToDefaults();
       initSelectors();
       updateBackButton();
     })();
@@ -836,34 +742,27 @@
     // ===== Splash flow =====
     window.addEventListener('load', () => {
       document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-      document.getElementById('splash').classList.add('active');
-      CURRENT_SCREEN = 'splash';
-      updateBackButton();
-
+      $('splash').classList.add('active');
+      CURRENT_SCREEN = 'splash'; updateBackButton();
       setTimeout(() => {
-        document.getElementById('splash').classList.remove('active');
+        $('splash').classList.remove('active');
         document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-        document.getElementById('home').classList.add('active');
-
+        $('home').classList.add('active');
         document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-        const t = document.getElementById('tab_home'); if (t) t.classList.add('active');
-
-        CURRENT_SCREEN = 'home';
-        updateBackButton();
+        $('tab_home')?.classList.add('active');
+        CURRENT_SCREEN='home'; updateBackButton();
       }, 2600);
     });
-    
+
     // ===== Body profile pill handler =====
-document.addEventListener('click', (e) => {
-  const pill = e.target.closest('.pt-pill');
-  if (!pill) return;
-  const group = pill.parentElement;
-  group.querySelectorAll('.pt-pill').forEach(p => p.classList.remove('active'));
-  pill.classList.add('active');
-  $('sf_bodytype').value = pill.dataset.val;
-  
-  function $(id){ return document.getElementById(id); }
-});
+    document.addEventListener('click', (e) => {
+      const pill = e.target.closest('.pt-pill');
+      if (!pill) return;
+      const group = pill.parentElement;
+      group.querySelectorAll('.pt-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      $('sf_bodytype').value = pill.dataset.val; // updates the hidden input
+    });
   </script>
 
 </body>
