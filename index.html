@@ -118,6 +118,40 @@
   .pt-pill{border:1px solid rgba(255,255,255,.12);background:#151a3a;color:#c9d3ea;font-weight:700;font-size:12px;padding:8px 12px;border-radius:999px;cursor:pointer;}
   .pt-pill.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8;}
   /* [SECTION END: CSS • Size Finder & Panels] */
+/* [SECTION START: CSS • Profile hub pills + unit toggle] */
+.profile-pills {
+  display:flex; gap:8px; overflow:auto; padding:8px 0;
+}
+.profile-pill, .unit-pill {
+  border:1px solid rgba(255,255,255,.12);
+  background:#151a3a;
+  color:#c9d3ea;
+  font-weight:700;
+  font-size:12px;
+  padding:8px 12px;
+  border-radius:999px;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.profile-pill.active,
+.unit-pill.active {
+  background:#1d4ed8;
+  color:#fff;
+  border-color:#1d4ed8;
+}
+.profile-pill.add {
+  background:transparent;
+  border-style:dashed;
+  opacity:.9;
+}
+.unit-row { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px; }
+.unit-badge {
+  display:inline-block; margin-left:6px;
+  padding:2px 8px; border-radius:999px;
+  background:#1a1d3f; color:#c9d3ea; font-size:11px; border:1px solid rgba(255,255,255,.12);
+}
+/* [SECTION END: CSS • Profile hub pills + unit toggle] */
+    
   </style>
   <!-- =========================================================
        [SECTION END: CSS / STYLES]
@@ -317,61 +351,67 @@
     </div>
   </section>
 
-  <!-- Profile -->
-  <section id="profile" class="screen" aria-label="Profile">
-    <div class="panel-hero">
-      <h3 class="title">Profile</h3>
-      <p class="sub">Save your body measurements (cm). These power Size Finder & My Sizes.</p>
+  <!-- ===== Profile ===== -->
+<section id="profile" class="screen" aria-label="Profile">
+  <div class="panel-hero">
+    <h3 class="title">Profile</h3>
+    <p class="sub">Manage multiple body profiles. Switch units with the pills. Data is saved in cm internally.</p>
+  </div>
+
+  <!-- Profile selector pills -->
+  <div class="panel" style="margin-bottom:16px;">
+    <div class="profile-pills" id="profilePills" role="tablist" aria-label="Profiles">
+      <!-- populated by JS -->
     </div>
-    <div class="panel">
-      <div class="row two">
-        <div>
-          <label class="ms-label" for="m_name">Profile name</label>
-          <input id="m_name" placeholder="e.g., Emma">
-        </div>
-        <div>
-          <label class="ms-label" for="m_sex">Sex</label>
-          <select id="m_sex" class="ms-select">
-            <option value="female">Female</option>
-            <option value="male">Male</option>
-            <option value="child">Child</option>
-          </select>
-        </div>
-      </div>
-      <div class="divider" style="margin:14px 0;"></div>
-      <div class="row two">
-        <div><label class="ms-label" for="m_height">Height (cm)</label><input id="m_height" inputmode="decimal" placeholder="e.g., 168"></div>
-        <div><label class="ms-label" for="m_shoulder">Shoulder (cm)</label><input id="m_shoulder" inputmode="decimal" placeholder="e.g., 40"></div>
-        <div><label class="ms-label" for="m_bust">Bust (cm)</label><input id="m_bust" inputmode="decimal" placeholder="e.g., 88"></div>
-        <div><label class="ms-label" for="m_waist">Waist (cm)</label><input id="m_waist" inputmode="decimal" placeholder="e.g., 70"></div>
-        <div><label class="ms-label" for="m_hip">Hip (cm)</label><input id="m_hip" inputmode="decimal" placeholder="e.g., 94"></div>
-        <div><label class="ms-label" for="m_inseam">Inseam (cm)</label><input id="m_inseam" inputmode="decimal" placeholder="e.g., 76"></div>
-        <div><label class="ms-label" for="m_torso">Torso (cm)</label><input id="m_torso" inputmode="decimal" placeholder="optional"></div>
-        <div><label class="ms-label" for="m_footlen">Foot length (cm)</label><input id="m_footlen" inputmode="decimal" placeholder="e.g., 24.6"></div>
-        <div><label class="ms-label" for="m_band">Bra band (cm)</label><input id="m_band" inputmode="decimal" placeholder="e.g., 75"></div>
-        <div><label class="ms-label" for="m_cup">Bra cup</label><input id="m_cup" placeholder="e.g., C"></div>
-      </div>
-      <div class="toolbar" style="margin-top:12px;">
-        <button class="sf-primary" onclick="saveMeasurements()">Save measurements</button>
-        <button class="ms-secondary" onclick="resetMeasurements()">Reset</button>
+  </div>
+
+  <!-- Measurements -->
+  <div class="panel">
+    <div class="unit-row">
+      <div><strong>Measurements</strong></div>
+      <div id="unitPills" class="profile-pills" role="tablist" aria-label="Units">
+        <!-- populated by JS (cm / inches) -->
       </div>
     </div>
 
-    <div class="panel" style="margin-top:16px;">
-      <h4 style="margin:0 0 10px;">Quick converter • Inch ⇄ Centimetre</h4>
-      <div class="row three">
-        <div><label class="ms-label" for="ic_in">Inches</label><input id="ic_in" inputmode="decimal" placeholder="e.g., 29.5"></div>
-        <div><label class="ms-label" for="ic_cm">Centimetres</label><input id="ic_cm" inputmode="decimal" placeholder="e.g., 75"></div>
-        <div style="display:flex;align-items:flex-end;gap:8px;">
-          <button class="ghost" onclick="convertInchCm('in2cm')">In → cm</button>
-          <button class="ghost" onclick="convertInchCm('cm2in')">cm → In</button>
-          <button class="ghost" onclick="swapInchCm()">Swap</button>
-        </div>
+    <div class="row two">
+      <div>
+        <label class="ms-label" for="m_name">Profile name</label>
+        <input id="m_name" placeholder="e.g., Emma">
       </div>
-      <p class="note">Conversion uses 1 in = 2.54 cm.</p>
+      <div>
+        <label class="ms-label" for="m_sex">Sex</label>
+        <select id="m_sex" class="ms-select">
+          <option value="female">Female</option>
+          <option value="male">Male</option>
+          <option value="child">Child</option>
+        </select>
+      </div>
     </div>
-  </section>
 
+    <div class="divider" style="margin:14px 0;"></div>
+
+    <div class="row two">
+      <div><label class="ms-label" for="m_height">Height <span class="unit-badge" data-unit="height">cm</span></label><input id="m_height" inputmode="decimal" placeholder="e.g., 168"></div>
+      <div><label class="ms-label" for="m_shoulder">Shoulder <span class="unit-badge" data-unit="shoulder">cm</span></label><input id="m_shoulder" inputmode="decimal" placeholder="e.g., 40"></div>
+      <div><label class="ms-label" for="m_bust">Bust <span class="unit-badge" data-unit="bust">cm</span></label><input id="m_bust" inputmode="decimal" placeholder="e.g., 88"></div>
+      <div><label class="ms-label" for="m_waist">Waist <span class="unit-badge" data-unit="waist">cm</span></label><input id="m_waist" inputmode="decimal" placeholder="e.g., 70"></div>
+      <div><label class="ms-label" for="m_hip">Hip <span class="unit-badge" data-unit="hip">cm</span></label><input id="m_hip" inputmode="decimal" placeholder="e.g., 94"></div>
+      <div><label class="ms-label" for="m_inseam">Inseam <span class="unit-badge" data-unit="inseam">cm</span></label><input id="m_inseam" inputmode="decimal" placeholder="e.g., 76"></div>
+      <div><label class="ms-label" for="m_torso">Torso <span class="unit-badge" data-unit="torso">cm</span></label><input id="m_torso" inputmode="decimal" placeholder="optional"></div>
+      <div><label class="ms-label" for="m_footlen">Foot length <span class="unit-badge" data-unit="footlen">cm</span></label><input id="m_footlen" inputmode="decimal" placeholder="e.g., 24.6"></div>
+      <div><label class="ms-label" for="m_band">Bra band <span class="unit-badge" data-unit="band">cm</span></label><input id="m_band" inputmode="decimal" placeholder="e.g., 75"></div>
+      <div><label class="ms-label" for="m_cup">Bra cup</label><input id="m_cup" placeholder="e.g., C"></div>
+    </div>
+
+    <div class="toolbar" style="margin-top:12px;">
+      <button class="sf-primary" onclick="saveActiveProfile()">Save profile</button>
+      <button class="ms-secondary" onclick="resetFormFields()">Reset fields</button>
+      <button class="ms-secondary" onclick="deleteActiveProfile()">Delete profile</button>
+    </div>
+  </div>
+</section>
+  
   <!-- Placeholders -->
   <section id="eu" class="screen" aria-label="EU"><h2 class="big">EU</h2><p class="note">Coming later.</p></section>
   <section id="us" class="screen" aria-label="US"><h2 class="big">US</h2><p class="note">Coming later.</p></section>
