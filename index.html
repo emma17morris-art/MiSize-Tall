@@ -549,6 +549,34 @@
     function getHistory(){ try{ return JSON.parse(localStorage.getItem('history')||'[]'); }catch(e){ return []; } }
     function saveHistory(){ if(!window._lastResult) return; const h=getHistory(); h.unshift(window._lastResult); localStorage.setItem('history', JSON.stringify(h.slice(0,20))); alert('Saved to history.'); }
     function renderHistory(){
+      function convertClothing(){
+  const from = document.getElementById('cw_from').value;
+  const to   = document.getElementById('cw_to').value;
+  const val  = parseFloat(document.getElementById('cw_val').value);
+  const out  = document.getElementById('cw_out');
+  if (isNaN(val)) { out.textContent = 'Enter a number'; return; }
+  // simple demo mapping: treat sizes as roughly equivalent
+  out.textContent = `${val} ${from} ≈ ${val} ${to}`;
+}
+
+function convertShoes(){
+  const from = document.getElementById('sh_from').value;
+  const to   = document.getElementById('sh_to').value;
+  const val  = parseFloat(document.getElementById('sh_val').value);
+  const out  = document.getElementById('sh_out');
+  if (isNaN(val)) { out.textContent = 'Enter a number'; return; }
+  // demo: rough UK/US/EU mapping (placeholder)
+  out.textContent = `${val} ${from} ≈ ${val} ${to}`;
+}
+
+function convertBra(){
+  const bandCm = parseFloat(document.getElementById('br_band').value);
+  const cup    = (document.getElementById('br_cup').value || '').toUpperCase();
+  const out    = document.getElementById('br_out');
+  if (isNaN(bandCm) || !cup) { out.textContent = 'Add band & cup'; return; }
+  // demo: simple placeholder result
+  out.textContent = `~UK ${Math.round(bandCm/2.54)}${cup}`;
+}
       const wrap=$('histList'); if(!wrap) return; wrap.innerHTML=''; const h=getHistory(); if(!h.length){ wrap.innerHTML='<div class="note">No lookups yet.</div>'; return; }
       h.forEach(item=>{
         const div=document.createElement('div'); div.className='card';
