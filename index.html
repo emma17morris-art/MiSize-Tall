@@ -852,6 +852,18 @@
         updateBackButton();
       }, 2600);
     });
+    
+    // ===== Body profile pill handler =====
+document.addEventListener('click', (e) => {
+  const pill = e.target.closest('.pt-pill');
+  if (!pill) return;
+  const group = pill.parentElement;
+  group.querySelectorAll('.pt-pill').forEach(p => p.classList.remove('active'));
+  pill.classList.add('active');
+  $('sf_bodytype').value = pill.dataset.val;
+  
+  function $(id){ return document.getElementById(id); }
+});
   </script>
 
 </body>
