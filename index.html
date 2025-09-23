@@ -27,7 +27,17 @@
   }
   .profile-pill.active, .unit-pill.active, .pt-pill.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8;}
   .profile-pill.add{background:transparent;border-style:dashed;opacity:.9;}
+/* Top Bar – make smaller */
+.topbar{padding:6px 10px;}
+.topbar h1{font-size:14px;}
 
+/* Profile screen: compact fields */
+#profile select,
+#profile input{
+  padding:10px;
+  font-size:14px;
+  border-radius:10px;
+}
   /* Screens & layout */
   .screen{display:none;padding:20px 20px 90px;background:#2b1055;min-height:100vh;}
   .screen.active{display:block;}
@@ -504,6 +514,8 @@
     <button id="tab_hub" class="tab" onclick="switchTab('uk')" role="tab">Hub</button>
   </div>
 
+  <button id="tab_hub" class="tab" onclick="hubBack()" role="tab">Hub</button>
+  
   <script>
   /* ---------- Helpers & Units ---------- */
   function $(id){ return document.getElementById(id); }
@@ -694,7 +706,20 @@
       if (typeof refreshAll==='function') refreshAll();
     }
   }
-
+function hubBack(){
+  // if you’re inside a UK tool (uk_*), go back to UK hub
+  if (CURRENT_SCREEN && CURRENT_SCREEN.startsWith('uk_')) {
+    switchTab('uk');
+    return;
+  }
+  // if you’re in any other non-root screen, go to Home hub
+  if (!['home','uk','eu','us','ca','profile','mistats','settings','splash'].includes(CURRENT_SCREEN)) {
+    switchTab('home');
+    return;
+  }
+  // already on a root hub — default to Home
+  switchTab('home');
+}
   function openUK(id){
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     $(id).classList.add('active'); CURRENT_SCREEN=id;
@@ -988,19 +1013,19 @@
     initSelectors(); loadActiveProfileIntoForm(); renderUnitBadges();
   })();
 
-  // Splash → Home (auto)
-  window.addEventListener('load',()=>{
+// Splash → UK hub (auto)
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $('splash').classList.add('active'); CURRENT_SCREEN='splash';
+  setTimeout(()=>{
+    $('splash').classList.remove('active');
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    $('splash').classList.add('active'); CURRENT_SCREEN='splash';
-    setTimeout(()=>{
-      $('splash').classList.remove('active');
-      document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-      $('home').classList.add('active');
-      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-      $('tab_home')?.classList.add('active');
-      CURRENT_SCREEN='home';
-    },800);
-  });
+    $('uk').classList.add('active');           // go straight to Hub
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    $('tab_hub')?.classList.add('active');     // highlight Hub tab
+    CURRENT_SCREEN='uk';
+  }, 800);
+});
 
   // ===================== MiStats (drop-in, extended) =====================
   (function(){
