@@ -27,7 +27,17 @@
   }
   .profile-pill.active, .unit-pill.active, .pt-pill.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8;}
   .profile-pill.add{background:transparent;border-style:dashed;opacity:.9;}
+/* Top Bar – make smaller */
+.topbar{padding:6px 10px;}
+.topbar h1{font-size:14px;}
 
+/* Profile screen: compact fields */
+#profile select,
+#profile input{
+  padding:10px;
+  font-size:14px;
+  border-radius:10px;
+}
   /* Screens & layout */
   .screen{display:none;padding:20px 20px 90px;background:#2b1055;min-height:100vh;}
   .screen.active{display:block;}
@@ -42,6 +52,33 @@
   .note{font-size:13px;opacity:.85;}
   .divider{height:1px;background:var(--border);margin:14px 0;}
   .success{color:#8ee0b2}.warning{color:#ffd27a}.danger{color:#ff9a9a}
+
+  /* --- MiStats styles --- */
+  .mi-bar{height:12px;background:#172034;border:1px solid #223049;border-radius:999px;overflow:hidden}
+  .mi-bar>div{height:100%;width:0;background:#1d4ed8;transition:width .3s}
+  .mi-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+  .mi-row:last-child{border-bottom:0}
+  .mi-row .delta.up{color:#ff9a9a}.mi-row .delta.down{color:#8ee0b2}
+  .mi-tab.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
+  .mi-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}
+  .mi-tab{cursor:pointer}
+  .mi-view{display:none}
+  .mi-view.active{display:block}
+  .mi-tiles{display:grid;grid-template-columns:1fr;gap:12px}
+  .mi-tile{background:#0f131a;border:1px solid #223049;border-radius:12px;padding:12px}
+  .mi-l{font-size:12px;color:var(--muted);letter-spacing:.3px}
+  .mi-v{font-size:28px;font-weight:900;line-height:1.1}
+  .mi-sub{font-size:12px;opacity:.85;margin-top:2px}
+  .mi-bar{height:10px;border-radius:8px;background:#172034;border:1px solid #223049;overflow:hidden}
+  .mi-bar > b{display:block;height:100%;width:0;background:#1d4ed8}
+  .mi-list .row{display:flex;align-items:center;justify-content:space-between}
+  .mi-kv{display:flex;gap:8px;align-items:baseline}
+  .mi-kv .k{color:var(--muted);font-size:12px}
+  .mi-kv .v{font-weight:700}
+  .mi-canvas{width:100%;height:280px;display:block}
+  .mi-legend{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+  .mi-legend .pill input{margin-right:6px}
+  @media(min-width:760px){.mi-tiles{grid-template-columns:repeat(3,1fr)}}
 
   /* Splash */
   #splash{display:none;padding:0;}
@@ -58,7 +95,7 @@
   .bottom-tabs .tab{flex:1;padding:12px 8px;border:0;background:transparent;color:#cfd7ea;font-weight:700;cursor:pointer;}
   .bottom-tabs .tab.active{color:var(--brand);}
   #tab_home.active{color:#8A2BE2;}
-  .backbtn{position:fixed;top:60px;left:14px;z-index:50;background:#182034;color:#eef1f5;border:1px solid #223049;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer;display:none;}
+  .backbtn{display:none !important;} /* removed back button as requested */
   .pt-pills{display:flex;gap:8px;flex-wrap:wrap;}
 
   .spacer-top{height:8px;}
@@ -69,7 +106,51 @@
   <div class="topbar" role="navigation" aria-label="Global controls">
     <div class="topbar-inner">
       <h1>MiSize</h1>
-      <div class="pill-row" aria-label="Profiles" id="profilePillsTop"></div>
+      <section id="settings" class="screen" aria-label="Settings">
+  <h2 class="big">Settings</h2>
+  <p class="note">Preferences go here later.</p>
+
+  <div class="card">
+    <div class="row two">
+      <div>
+        <div class="big">Profiles</div>
+        <p class="note">Switch or add profiles here.</p>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:flex-end;">
+        <button class="pill" onclick="switchTab('profile')">Open Profile editor</button>
+      </div>
+    </div>
+    <div id="profilePillsSettings" class="pill-row" style="margin-top:10px;"></div>
+  </div>
+/* smaller top bar everywhere */
+.topbar{padding:6px 10px;}
+.topbar h1{font-size:14px;}
+
+/* Profile screen: compact controls + 3 per row on wider screens */
+#profile select, #profile input{ padding:10px; font-size:14px; border-radius:10px; }
+@media (min-width:760px){
+  #profile .row.two{ grid-template-columns: repeat(3,1fr); }
+}
+  <!-- weight unit conversion (see section 5 below) -->
+  <div id="global_weight_units_card" class="card"></div>
+</section>
+      function renderProfilePills(){
+  const {profiles, activeId} = getProfilesAndActive();
+  const frag = document.createDocumentFragment();
+  profiles.forEach(p=>{
+    const b=document.createElement('button');
+    b.className='profile-pill'+(p.id===activeId?' active':'');
+    b.dataset.id=p.id; b.textContent=p.name; frag.appendChild(b);
+  });
+  const add=document.createElement('button');
+  add.className='profile-pill add'; add.dataset.action='add-profile'; add.textContent='+ Add profile';
+  frag.appendChild(add);
+
+  // NEW: settings location
+  const settings = document.getElementById('profilePillsSettings');
+  if(settings){ settings.innerHTML=''; settings.appendChild(frag.cloneNode(true)); }
+  // (If you also want them on Profile screen header, you can append there too)
+}
       <div class="pill-row" style="margin-left:8px;" aria-label="Body type" id="bodyTypePillsTop">
         <button type="button" class="pt-pill active" data-val="standard">Standard</button>
         <button type="button" class="pt-pill" data-val="petite">Petite</button>
@@ -82,8 +163,6 @@
   </div>
 
   <div class="spacer-top"></div>
-
-  <button class="backbtn" id="backbtn" onclick="goBack()" aria-label="Back">â Back</button>
 
   <!-- Splash -->
   <section id="splash" class="screen active" aria-label="Splash">
@@ -107,7 +186,7 @@
   <!-- UK Hub -->
   <section id="uk" class="screen" aria-label="UK hub">
     <h2 class="big">UK</h2>
-    <p class="note">Pick a tool below. Back button will appear on the next screen.</p>
+    <p class="note">Pick a tool below.</p>
     <div class="hub" role="group" aria-label="UK tools">
       <button class="bigbtn" onclick="openUK('uk_sizefinder')">Size Finder</button>
       <button class="bigbtn" onclick="openUK('uk_mysizes')">My Sizes (all brands)</button>
@@ -117,7 +196,7 @@
     </div>
   </section>
 
-  <!-- UK âº Size Finder -->
+  <!-- UK › Size Finder -->
   <section id="uk_sizefinder" class="screen" aria-label="UK Size Finder">
     <div class="card">
       <h3 class="big">Size Finder</h3>
@@ -148,53 +227,49 @@
     </div>
   </section>
 
-  <!-- UK âº My Sizes -->
-  <!-- UK âº My Sizes -->
-<section id="uk_mysizes" class="screen" aria-label="UK My Sizes">
-  <div class="card">
-    <h3 class="big">My Sizes (filtered by body type)</h3>
-    <p class="note">Only brands that support your selected body type are included.</p>
+  <!-- UK › My Sizes -->
+  <section id="uk_mysizes" class="screen" aria-label="UK My Sizes">
+    <div class="card">
+      <h3 class="big">My Sizes (filtered by body type)</h3>
+      <p class="note">Only brands that support your selected body type are included.</p>
 
-    <div class="row two">
-      <div>
-        <label class="ms-label" for="ms_category">Categories</label>
-        <select id="ms_category" class="ms-select" multiple size="4" style="height:120px;"></select>
-        <p class="note" style="margin:6px 0 0;">Cmd/Ctrl-click to multi-select.</p>
-      </div>
-
-      <div>
-        <label class="ms-label">Fit preference</label>
-
-        <!-- NEW: fit pills -->
-        <div id="ms_fit_pills" class="pt-pills" role="tablist" aria-label="Fit">
-          <button type="button" class="pt-pill ms-fit-pill" data-fit="standard">Standard</button>
-          <button type="button" class="pt-pill ms-fit-pill" data-fit="snug">Snug</button>
-          <button type="button" class="pt-pill ms-fit-pill" data-fit="relaxed">Relaxed</button>
-          <button type="button" class="pt-pill ms-fit-pill" data-fit="all">All</button>
+      <div class="row two">
+        <div>
+          <label class="ms-label" for="ms_category">Categories</label>
+          <select id="ms_category" class="ms-select" multiple size="4" style="height:120px;"></select>
+          <p class="note" style="margin:6px 0 0;">Cmd/Ctrl-click to multi-select.</p>
         </div>
 
-        <!-- Keep your original select (hidden) so existing JS keeps working -->
-        <select id="ms_fit" class="ms-select" style="display:none;">
-          <option value="standard" selected>Standard</option>
-          <option value="snug">Snug</option>
-          <option value="relaxed">Relaxed</option>
-          <option value="all">All</option>
-        </select>
+        <div>
+          <label class="ms-label">Fit preference</label>
+          <div id="ms_fit_pills" class="pt-pills" role="tablist" aria-label="Fit">
+            <button type="button" class="pt-pill ms-fit-pill" data-fit="standard">Standard</button>
+            <button type="button" class="pt-pill ms-fit-pill" data-fit="snug">Snug</button>
+            <button type="button" class="pt-pill ms-fit-pill" data-fit="relaxed">Relaxed</button>
+            <button type="button" class="pt-pill ms-fit-pill" data-fit="all">All</button>
+          </div>
 
-        <div class="toolbar" style="margin-top:8px;">
-          <button class="pill" onclick="computeAllSizes()">Compute all</button>
-          <button class="pill" onclick="exportMySizesCSV()">Export CSV</button>
-          <button class="pill" onclick="copyMySizes()">Copy</button>
-          <span class="pill" id="ms_count">â</span>
+          <select id="ms_fit" class="ms-select" style="display:none;">
+            <option value="standard" selected>Standard</option>
+            <option value="snug">Snug</option>
+            <option value="relaxed">Relaxed</option>
+            <option value="all">All</option>
+          </select>
+
+          <div class="toolbar" style="margin-top:8px;">
+            <button class="pill" onclick="computeAllSizes()">Compute all</button>
+            <button class="pill" onclick="exportMySizesCSV()">Export CSV</button>
+            <button class="pill" onclick="copyMySizes()">Copy</button>
+            <span class="pill" id="ms_count">—</span>
+          </div>
         </div>
       </div>
+
+      <div id="ms_list" class="panel-list"></div>
     </div>
+  </section>
 
-    <div id="ms_list" class="panel-list"></div>
-  </div>
-</section>
-
-  <!-- UK âº Brand Notes -->
+  <!-- UK › Brand Notes -->
   <section id="uk_brandnotes" class="screen" aria-label="UK Brand Notes">
     <div class="card">
       <h3 class="big">Brand Notes</h3>
@@ -203,7 +278,7 @@
     </div>
   </section>
 
-  <!-- UK âº History -->
+  <!-- UK › History -->
   <section id="uk_history" class="screen" aria-label="UK History">
     <div class="card">
       <h3 class="big">History</h3>
@@ -211,10 +286,10 @@
     </div>
   </section>
 
-  <!-- UK âº Converters -->
+  <!-- UK › Converters -->
   <section id="uk_converters" class="screen" aria-label="UK Converters">
     <div class="card">
-      <h3>Clothes (UK â EU â US)</h3>
+      <h3>Clothes (UK ⇄ EU ⇄ US)</h3>
       <div class="row three">
         <div><label for="cw_from">From</label><select id="cw_from"><option>UK</option><option>EU</option><option>US</option></select></div>
         <div><label for="cw_to">To</label><select id="cw_to"><option>UK</option><option>EU</option><option>US</option></select></div>
@@ -222,9 +297,9 @@
       </div>
       <div class="toolbar">
         <button class="pill" onclick="convertClothing()">Convert</button>
-        <span class="pill" id="cw_out">â</span>
+        <span class="pill" id="cw_out">—</span>
       </div>
-      <p class="note">Approximate mappings for womenâs sizes.</p>
+      <p class="note">Approximate mappings for women’s sizes.</p>
     </div>
 
     <div class="card">
@@ -236,9 +311,9 @@
       </div>
       <div class="toolbar">
         <button class="pill" onclick="convertShoes()">Convert</button>
-        <span class="pill" id="sh_out">â</span>
+        <span class="pill" id="sh_out">—</span>
       </div>
-      <p class="note">Approximate womenâs shoe size mapping.</p>
+      <p class="note">Approximate women’s shoe size mapping.</p>
     </div>
 
     <div class="card">
@@ -248,8 +323,8 @@
         <div><label for="br_cup">Cup</label><input id="br_cup" placeholder="e.g., C"></div>
         <div style="display:flex;align-items:flex-end;"><button class="pill" onclick="convertBra()">Estimate</button></div>
       </div>
-      <div class="toolbar"><span class="pill" id="br_out">â</span></div>
-      <p class="note">Very rough: UK band â round(cm Ã· 2.54).</p>
+      <div class="toolbar"><span class="pill" id="br_out">—</span></div>
+      <p class="note">Very rough: UK band ≈ round(cm ÷ 2.54).</p>
     </div>
   </section>
 
@@ -278,12 +353,21 @@
 
       <div class="divider"></div>
 
+      <!-- measurements -->
       <div class="row two">
         <div><label class="ms-label" for="m_height">Height <span class="unit-badge">cm</span></label><input id="m_height" inputmode="decimal" placeholder="e.g., 168"></div>
         <div><label class="ms-label" for="m_shoulder">Shoulder <span class="unit-badge">cm</span></label><input id="m_shoulder" inputmode="decimal" placeholder="e.g., 40"></div>
         <div><label class="ms-label" for="m_bust">Bust <span class="unit-badge">cm</span></label><input id="m_bust" inputmode="decimal" placeholder="e.g., 88"></div>
+        <div><label class="ms-label" for="m_underbust">Underbust <span class="unit-badge">cm</span></label><input id="m_underbust" inputmode="decimal" placeholder="optional"></div>
         <div><label class="ms-label" for="m_waist">Waist <span class="unit-badge">cm</span></label><input id="m_waist" inputmode="decimal" placeholder="e.g., 70"></div>
         <div><label class="ms-label" for="m_hip">Hip <span class="unit-badge">cm</span></label><input id="m_hip" inputmode="decimal" placeholder="e.g., 94"></div>
+        <div><label class="ms-label" for="m_thigh">Thigh <span class="unit-badge">cm</span></label><input id="m_thigh" inputmode="decimal" placeholder="optional"></div>
+        <div><label class="ms-label" for="m_calf">Calf <span class="unit-badge">cm</span></label><input id="m_calf" inputmode="decimal" placeholder="optional"></div>
+        <div><label class="ms-label" for="m_ankle">Ankle <span class="unit-badge">cm</span></label><input id="m_ankle" inputmode="decimal" placeholder="optional"></div>
+        <div><label class="ms-label" for="m_upperarm">Upper arm <span class="unit-badge">cm</span></label><input id="m_upperarm" inputmode="decimal" placeholder="optional"></div>
+        <div><label class="ms-label" for="m_forearm">Forearm <span class="unit-badge">cm</span></label><input id="m_forearm" inputmode="decimal" placeholder="optional"></div>
+        <div><label class="ms-label" for="m_wrist">Wrist <span class="unit-badge">cm</span></label><input id="m_wrist" inputmode="decimal" placeholder="optional"></div>
+        <div><label class="ms-label" for="m_neck">Neck <span class="unit-badge">cm</span></label><input id="m_neck" inputmode="decimal" placeholder="optional"></div>
         <div><label class="ms-label" for="m_inseam">Inseam <span class="unit-badge">cm</span></label><input id="m_inseam" inputmode="decimal" placeholder="e.g., 76"></div>
         <div><label class="ms-label" for="m_torso">Torso <span class="unit-badge">cm</span></label><input id="m_torso" inputmode="decimal" placeholder="optional"></div>
         <div><label class="ms-label" for="m_footlen">Foot length <span class="unit-badge">cm</span></label><input id="m_footlen" inputmode="decimal" placeholder="e.g., 24.6"></div>
@@ -291,10 +375,24 @@
         <div><label class="ms-label" for="m_cup">Bra cup</label><input id="m_cup" placeholder="e.g., C"></div>
       </div>
 
-      <div class="toolbar" style="margin-top:12px;">
+      <!-- quick weight + log -->
+      <div class="divider"></div>
+      <div class="row two">
+        <div>
+          <label class="ms-label" for="m_weight_now">Current weight</label>
+          <input id="m_weight_now" inputmode="decimal" placeholder="e.g., 80">
+          <p class="note">Uses MiStats weight unit.</p>
+        </div>
+        <div>
+          <label class="ms-label" for="m_log_date">Date</label>
+          <input id="m_log_date" type="date">
+        </div>
+      </div>
+      <div class="toolbar">
         <button class="pill" onclick="saveActiveProfile()">Save profile</button>
         <button class="pill" onclick="resetFormFields()">Reset fields</button>
         <button class="pill" onclick="deleteActiveProfile()">Delete profile</button>
+        <button class="pill" onclick="logToMiStats()">Log weight + measurements → MiStats</button>
       </div>
     </div>
   </section>
@@ -303,7 +401,152 @@
   <section id="eu" class="screen" aria-label="EU"><h2 class="big">EU</h2><p class="note">Coming later.</p></section>
   <section id="us" class="screen" aria-label="US"><h2 class="big">US</h2><p class="note">Coming later.</p></section>
   <section id="ca" class="screen" aria-label="CA"><h2 class="big">CA</h2><p class="note">Coming later.</p></section>
-  <section id="mistats" class="screen" aria-label="MiStats"><h2 class="big">MiStats</h2><p class="note">Reserved for trends.</p></section>
+
+  <!-- MiStats -->
+  <section id="mistats" class="screen" aria-label="MiStats">
+    <h2 class="big">MiStats</h2>
+    <p class="note">Personal weight & measurements tracker linked to your active profile.</p>
+
+    <div class="toolbar" role="tablist" aria-label="MiStats views" id="mi_tabs">
+      <button class="pill mi-tab active" data-view="current"  onclick="window.setMiTab && setMiTab('current')">Current</button>
+      <button class="pill mi-tab" data-view="graph"    onclick="window.setMiTab && setMiTab('graph')">Graph</button>
+      <button class="pill mi-tab" data-view="history"  onclick="window.setMiTab && setMiTab('history')">History</button>
+      <button class="pill mi-tab" data-view="settings" onclick="window.setMiTab && setMiTab('settings')">Settings</button>
+    </div>
+
+    <!-- CURRENT -->
+    <div id="mi_view_current" class="mi-view card active">
+      <div style="display:grid;grid-template-columns:1fr;gap:12px;">
+        <div>
+          <div class="big" id="mi_current_title">—</div>
+          <div class="note" id="mi_current_meta">—</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+          <div class="card">
+            <div class="note">Start</div>
+            <div class="big" id="mi_start">—</div>
+            <div class="note" id="mi_start_bmi">BMI —</div>
+          </div>
+          <div class="card">
+            <div class="note">Current</div>
+            <div class="big" id="mi_current">—</div>
+            <div class="note" id="mi_current_bmi">BMI —</div>
+          </div>
+          <div class="card">
+            <div class="note">Target</div>
+            <div class="big" id="mi_target">—</div>
+            <div class="note" id="mi_target_bmi">BMI —</div>
+          </div>
+        </div>
+
+        <!-- NEW: area losses -->
+        <div class="card">
+          <div class="note">Area losses since start (cm)</div>
+          <div class="mi-tiles" id="mi_area_tiles"></div>
+          <div class="note" id="mi_area_total">—</div>
+        </div>
+
+        <div class="card">
+          <div class="note">Progress</div>
+          <div class="mi-bar"><div id="mi_prog_bar"></div></div>
+          <div class="note" id="mi_prog_text">—</div>
+        </div>
+
+        <div class="row two">
+          <div class="card">
+            <div class="note">Avg daily change</div>
+            <div class="big" id="mi_avg_day">—</div>
+          </div>
+          <div class="card">
+            <div class="note">Avg weekly change</div>
+            <div class="big" id="mi_avg_week">—</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row three">
+            <div>
+              <label for="mi_weight_in">Enter weight</label>
+              <input id="mi_weight_in" inputmode="decimal" placeholder="e.g., 80">
+            </div>
+            <div>
+              <label for="mi_date_in">Date</label>
+              <input id="mi_date_in" type="date">
+            </div>
+            <div style="display:flex;align-items:flex-end;">
+              <button class="pill" id="mi_add_btn">Save entry</button>
+            </div>
+          </div>
+          <p class="note" id="mi_hint_units">Units: —</p>
+
+          <!-- NEW: inline body part capture -->
+          <div class="divider"></div>
+          <div class="note">Optional: log measurements with this weight</div>
+          <div class="row two" id="mi_parts_inputs"></div>
+          <div class="toolbar"><button class="pill" id="mi_add_with_parts_btn">Save weight + measurements</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRAPH -->
+    <div id="mi_view_graph" class="mi-view card" style="display:none;">
+      <div class="toolbar">
+        <span class="pill">Zoom</span>
+        <input id="mi_zoom" type="range" min="0" max="100" value="0" style="accent-color:#1d4ed8;width:180px;">
+        <span class="pill" id="mi_zoom_label">All time</span>
+      </div>
+      <div class="mi-legend" id="mi_series_legend"></div>
+      <canvas id="mi_canvas" width="1200" height="420" style="width:100%;height:320px;border-radius:12px;background:#0f131a;border:1px solid var(--border);"></canvas>
+      <p class="note" id="mi_graph_note">—</p>
+    </div>
+
+    <!-- HISTORY -->
+    <div id="mi_view_history" class="mi-view card" style="display:none;">
+      <div id="mi_hist_list"></div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="mi_view_settings" class="mi-view card" style="display:none;">
+      <div class="row two">
+        <div>
+          <label>Weight unit</label>
+          <div class="pill-row">
+            <button class="pill mi-unit-w" data-u="kg">Kilos</button>
+            <button class="pill mi-unit-w" data-u="lb">Pounds</button>
+            <button class="pill mi-unit-w" data-u="st">Stones</button>
+          </div>
+        </div>
+        <div>
+          <label>Height unit (for BMI)</label>
+          <div class="pill-row">
+            <button class="pill mi-unit-h" data-u="cm">Centimeters</button>
+            <button class="pill mi-unit-h" data-u="m">Meters</button>
+            <button class="pill mi-unit-h" data-u="ftin">Feet+Inches</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row two" style="margin-top:10px;">
+        <div>
+          <label for="mi_height">Your height</label>
+          <input id="mi_height" placeholder="e.g., 168 (cm)">
+          <p class="note" id="mi_height_hint">Stored in cm internally.</p>
+        </div>
+        <div>
+          <label for="mi_target_in">Target weight</label>
+          <input id="mi_target_in" placeholder="e.g., 70">
+          <p class="note">Leave empty to disable target.</p>
+        </div>
+      </div>
+
+      <div class="toolbar" style="margin-top:10px;">
+        <button class="pill" id="mi_save_settings">Save settings</button>
+        <button class="pill" id="mi_reset_profile">Reset this profile</button>
+      </div>
+    </div>
+  </section>
+
   <section id="settings" class="screen" aria-label="Settings"><h2 class="big">Settings</h2><p class="note">Preferences go here later.</p></section>
 
   <div class="bottom-tabs" role="tablist" aria-label="Main tabs">
@@ -311,8 +554,18 @@
     <button id="tab_profile" class="tab" onclick="switchTab('profile')" role="tab">Profile</button>
     <button id="tab_mistats" class="tab" onclick="switchTab('mistats')" role="tab">MiStats</button>
     <button id="tab_settings" class="tab" onclick="switchTab('settings')" role="tab">Settings</button>
+    <!-- NEW: Hub tab next to Settings -->
+    <button id="tab_hub" class="tab" onclick="switchTab('uk')" role="tab">Hub</button>
   </div>
 
+  <button id="tab_hub" class="tab" onclick="hubBack()" role="tab">Hub</button>
+  <section id="settings" class="screen" aria-label="Settings">
+  <h2 class="big">Settings</h2>
+  <p class="note">Preferences go here later.</p>
+
+  <!-- 👇 Add this container -->
+  <div id="global_weight_units_card" class="card"></div>
+</section>
   <script>
   /* ---------- Helpers & Units ---------- */
   function $(id){ return document.getElementById(id); }
@@ -321,41 +574,30 @@
   const toDisplay = (cm) => (cm==null ? '' : (UNIT_MODE==='cm' ? cm : (cm/CM_PER_IN)).toFixed(2));
   const fromDisplay = (val) => { const n=parseFloat(val); if(isNaN(n)) return null; return UNIT_MODE==='cm' ? n : +(n*CM_PER_IN).toFixed(2); };
 
-    
-// ---- Fit pills: init + click handling (minimal change) ----
-function initMsFitPills(){
-  const sel = document.getElementById('ms_fit');
-  const pillsWrap = document.getElementById('ms_fit_pills');
-  if(!sel || !pillsWrap) return;
-  const current = sel.value || 'standard';
-  pillsWrap.querySelectorAll('.ms-fit-pill').forEach(btn=>{
-    btn.classList.toggle('active', btn.dataset.fit === current);
+  // Fit pills (My Sizes)
+  function initMsFitPills(){
+    const sel = document.getElementById('ms_fit');
+    const pillsWrap = document.getElementById('ms_fit_pills');
+    if(!sel || !pillsWrap) return;
+    const current = sel.value || 'standard';
+    pillsWrap.querySelectorAll('.ms-fit-pill').forEach(btn=>{
+      btn.classList.toggle('active', btn.dataset.fit === current);
+    });
+  }
+  document.addEventListener('click', (e)=>{
+    const btn = e.target.closest('.ms-fit-pill');
+    if(!btn) return;
+    const sel = document.getElementById('ms_fit');
+    const wrap = document.getElementById('ms_fit_pills');
+    if(!sel || !wrap) return;
+    sel.value = btn.dataset.fit;
+    wrap.querySelectorAll('.ms-fit-pill').forEach(b=> b.classList.toggle('active', b === btn));
+    if (typeof computeAllSizes === 'function') computeAllSizes();
   });
-}
-document.addEventListener('click', (e)=>{
-  const btn = e.target.closest('.ms-fit-pill');
-  if(!btn) return;
-  const sel = document.getElementById('ms_fit');
-  const wrap = document.getElementById('ms_fit_pills');
-  if(!sel || !wrap) return;
+  window.addEventListener('load', initMsFitPills);
 
-  // sync pill -> hidden select
-  sel.value = btn.dataset.fit;
-
-  // visual active state
-  wrap.querySelectorAll('.ms-fit-pill').forEach(b=>{
-    b.classList.toggle('active', b === btn);
-  });
-
-  // recompute instantly (optional; remove if you prefer manual)
-  if (typeof computeAllSizes === 'function') computeAllSizes();
-});
-// call once on load (after DOM + your My Sizes section exist)
-window.addEventListener('load', initMsFitPills);
-
-  
   /* ---------- Body type (GLOBAL) ---------- */
-  let SELECTED_BODYTYPE = 'standard'; // 'standard' | 'petite' | 'tall' | 'plus'
+  let SELECTED_BODYTYPE = 'standard';
   function renderBodyTypePillsTop(){
     const wrap = $('bodyTypePillsTop'); if(!wrap) return;
     wrap.querySelectorAll('.pt-pill').forEach(p=>{
@@ -365,10 +607,8 @@ window.addEventListener('load', initMsFitPills);
   function setBodyType(val){
     SELECTED_BODYTYPE = val;
     renderBodyTypePillsTop();
-    // If we're in sizefinder or mysizes, recompute immediately
     if (CURRENT_SCREEN === 'uk_sizefinder') {
       updateSupportNote();
-      // only recompute if a brand is selected
       if ($('sf_brand')?.value) computeSize();
     } else if (CURRENT_SCREEN === 'uk_mysizes') {
       computeAllSizes();
@@ -386,7 +626,9 @@ window.addEventListener('load', initMsFitPills);
   function newProfileTemplate(name='Profile', sex='female'){
     return { id:'p_'+Math.random().toString(36).slice(2,9), name, sex,
       height:null, shoulder:null, bust:88, waist:70, hip:94, inseam:76,
-      torso:null, footlen:24.6, band:null, cup:'' };
+      torso:null, footlen:24.6, band:null, cup:'',
+      underbust:null, thigh:null, calf:null, ankle:null,
+      upperarm:null, forearm:null, wrist:null, neck:null };
   }
   function loadProfiles(){
     try{ const arr=JSON.parse(localStorage.getItem(PROFILES_KEY)||'[]'); if(Array.isArray(arr)&&arr.length) return arr; }catch(e){}
@@ -400,7 +642,19 @@ window.addEventListener('load', initMsFitPills);
     if(!activeId || !profiles.find(p=>p.id===activeId)){ activeId=profiles[0]?.id; if(activeId) setActiveProfileId(activeId); }
     return {profiles, activeId};
   }
+function saveActiveProfile(){
+  const {profiles, activeId}=getProfilesAndActive();
+  const idx=profiles.findIndex(p=>p.id===activeId); if(idx<0) return;
+  const updated=collectFormAsCM(); profiles[idx]={...profiles[idx], ...updated};
+  saveProfiles(profiles); renderProfilePills();
 
+  // NEW: snapshot to MiStats
+  try{
+    const date = ($('m_log_date')?.value) || new Date().toISOString().slice(0,10);
+    if (window.mistatsSnapshotProfile) mistatsSnapshotProfile(date, profiles[idx]);
+  }catch(_){}
+  alert('Profile saved.');
+}
   /* ---------- Global/Local pills render ---------- */
   function renderUnitPills(){
     const html = `
@@ -423,13 +677,11 @@ window.addEventListener('load', initMsFitPills);
     const top = $('profilePillsTop'); if(top){ top.innerHTML=''; top.appendChild(frag.cloneNode(true)); }
   }
   document.addEventListener('click',(e)=>{
-    // Unit pills
     const u=e.target.closest('.unit-pill'); if(u){
       UNIT_MODE=u.dataset.unit; renderUnitPills(); loadActiveProfileIntoForm();
       document.querySelectorAll('.unit-badge').forEach(b=> b.textContent = UNIT_MODE);
       return;
     }
-    // Profile pills
     const addBtn=e.target.closest('.profile-pill.add');
     if(addBtn){
       const name=prompt('Profile name?','New profile');
@@ -442,9 +694,9 @@ window.addEventListener('load', initMsFitPills);
     const pill=e.target.closest('.profile-pill');
     if(pill && !pill.classList.contains('add')){
       setActiveProfileId(pill.dataset.id); renderProfilePills(); loadActiveProfileIntoForm();
-      // If on a computation screen, refresh results with same body type
       if (CURRENT_SCREEN==='uk_sizefinder') computeSize();
       if (CURRENT_SCREEN==='uk_mysizes') computeAllSizes();
+      if (CURRENT_SCREEN==='mistats' && typeof refreshAll==='function') refreshAll();
     }
   });
 
@@ -455,19 +707,28 @@ window.addEventListener('load', initMsFitPills);
     const set=(id,val)=>{ const el=$(id); if(el) el.value = val ?? ''; };
     set('m_name', p.name); set('m_sex', p.sex);
     set('m_height', toDisplay(p.height)); set('m_shoulder', toDisplay(p.shoulder));
-    set('m_bust', toDisplay(p.bust)); set('m_waist', toDisplay(p.waist));
-    set('m_hip', toDisplay(p.hip)); set('m_inseam', toDisplay(p.inseam));
-    set('m_torso', toDisplay(p.torso)); set('m_footlen', toDisplay(p.footlen));
+    set('m_bust', toDisplay(p.bust)); set('m_underbust', toDisplay(p.underbust));
+    set('m_waist', toDisplay(p.waist)); set('m_hip', toDisplay(p.hip));
+    set('m_thigh', toDisplay(p.thigh)); set('m_calf', toDisplay(p.calf));
+    set('m_ankle', toDisplay(p.ankle)); set('m_upperarm', toDisplay(p.upperarm));
+    set('m_forearm', toDisplay(p.forearm)); set('m_wrist', toDisplay(p.wrist));
+    set('m_neck', toDisplay(p.neck));
+    set('m_inseam', toDisplay(p.inseam)); set('m_torso', toDisplay(p.torso));
+    set('m_footlen', toDisplay(p.footlen));
     set('m_band', toDisplay(p.band)); set('m_cup', p.cup || '');
+    // set date default
+    const d=$('m_log_date'); if(d && !d.value) d.value=new Date().toISOString().slice(0,10);
   }
   function collectFormAsCM(){
     const gv=id=> fromDisplay($(id)?.value);
     return {
       name:$('m_name')?.value||'Profile', sex:$('m_sex')?.value||'female',
       height:gv('m_height'), shoulder:gv('m_shoulder'), bust:gv('m_bust'),
-      waist:gv('m_waist'), hip:gv('m_hip'), inseam:gv('m_inseam'),
-      torso:gv('m_torso'), footlen:gv('m_footlen'), band:gv('m_band'),
-      cup:($('m_cup')?.value||'').toUpperCase()
+      underbust:gv('m_underbust'), waist:gv('m_waist'), hip:gv('m_hip'),
+      thigh:gv('m_thigh'), calf:gv('m_calf'), ankle:gv('m_ankle'),
+      upperarm:gv('m_upperarm'), forearm:gv('m_forearm'), wrist:gv('m_wrist'), neck:gv('m_neck'),
+      inseam:gv('m_inseam'), torso:gv('m_torso'), footlen:gv('m_footlen'),
+      band:gv('m_band'), cup:($('m_cup')?.value||'').toUpperCase()
     };
   }
   function saveActiveProfile(){
@@ -485,45 +746,52 @@ window.addEventListener('load', initMsFitPills);
     renderProfilePills(); loadActiveProfileIntoForm();
   }
   function resetFormFields(){
-    ['m_height','m_shoulder','m_bust','m_waist','m_hip','m_inseam','m_torso','m_footlen','m_band','m_cup'].forEach(id=>{ const el=$(id); if(el) el.value=''; });
+    ['m_height','m_shoulder','m_bust','m_underbust','m_waist','m_hip','m_thigh','m_calf','m_ankle','m_upperarm','m_forearm','m_wrist','m_neck','m_inseam','m_torso','m_footlen','m_band','m_cup','m_weight_now'].forEach(id=>{ const el=$(id); if(el) el.value=''; });
   }
 
-  /* ---------- Navigation ---------- */
-  const NAV_STACK=[]; let CURRENT_SCREEN='home';
+  /* ---------- Navigation (fixed) ---------- */
+  const NAV_STACK=[]; 
+  let CURRENT_SCREEN='home';
+
   function switchTab(id){
-    if(id!==CURRENT_SCREEN) NAV_STACK.push(CURRENT_SCREEN);
+    // no back button stack changes required anymore
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     ($(id)||$('home')).classList.add('active');
     document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
     const t=$('tab_'+id); if(t) t.classList.add('active');
-    CURRENT_SCREEN=id; updateBackButton();
+    CURRENT_SCREEN=id; 
     if (id==='uk_brandnotes') renderBrandNotes();
+
+    // MiStats: make sure it opens on "Current" and refreshes
+    if (id==='mistats'){
+      if (typeof setMiTab==='function') setMiTab('current');
+      if (typeof refreshAll==='function') refreshAll();
+    }
   }
+function hubBack(){
+  // if you’re inside a UK tool (uk_*), go back to UK hub
+  if (CURRENT_SCREEN && CURRENT_SCREEN.startsWith('uk_')) {
+    switchTab('uk');
+    return;
+  }
+  // if you’re in any other non-root screen, go to Home hub
+  if (!['home','uk','eu','us','ca','profile','mistats','settings','splash'].includes(CURRENT_SCREEN)) {
+    switchTab('home');
+    return;
+  }
+  // already on a root hub — default to Home
+  switchTab('home');
+}
   function openUK(id){
-    NAV_STACK.push('uk');
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    $(id).classList.add('active'); CURRENT_SCREEN=id; updateBackButton();
+    $(id).classList.add('active'); CURRENT_SCREEN=id;
     if(id==='uk_mysizes') initMySizesSelectors();
     if(id==='uk_sizefinder') updateSupportNote();
     if(id==='uk_brandnotes') renderBrandNotes();
-  }
-  function goBack(){
-    const prev= NAV_STACK.pop() || 'home';
-    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    ($(prev)||$('home')).classList.add('active');
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    const tb=$('tab_'+prev); if(tb) tb.classList.add('active');
-    CURRENT_SCREEN=prev; updateBackButton();
-  }
-  function updateBackButton(){
-    const btn=$('backbtn');
-    const topLevels=['splash','home','uk','profile','mistats','settings','eu','us','ca'];
-    btn.style.display= topLevels.includes(CURRENT_SCREEN) ? 'none' : 'inline-block';
+    if(id==='uk_history') renderUkHistory();
   }
 
   /* ---------- Brand data (with body-type support flags) ---------- */
-  // supports: which body types the brand explicitly covers
-  // (sample assumptions; tweak as you like)
   const DEFAULT_BRANDS=[
     {id:'primark', name:'Primark', notes:'Runs true to size.',
       supports:{standard:true, petite:true, tall:false, plus:true},
@@ -557,23 +825,23 @@ window.addEventListener('load', initMsFitPills);
       lengths_cm:{short:70,regular:74,long:78,tall:82}}
   ];
   const DEFAULT_CHARTS=[
-    {brandId:'primark', category:'Women â¢ Dresses', size:'8',  bust:84, waist:66, hip:90},
-    {brandId:'primark', category:'Women â¢ Dresses', size:'10', bust:88, waist:70, hip:94},
-    {brandId:'george',  category:'Women â¢ Dresses', size:'8',  bust:85, waist:67, hip:91},
-    {brandId:'george',  category:'Women â¢ Dresses', size:'10', bust:89, waist:71, hip:95},
-    {brandId:'next',    category:'Women â¢ Dresses', size:'8',  bust:84, waist:66, hip:90},
-    {brandId:'next',    category:'Women â¢ Dresses', size:'10', bust:88, waist:70, hip:94},
-    {brandId:'m_s',     category:'Women â¢ Dresses', size:'8',  bust:85, waist:67, hip:91},
-    {brandId:'m_s',     category:'Women â¢ Dresses', size:'10', bust:89, waist:71, hip:95},
+    {brandId:'primark', category:'Women • Dresses', size:'8',  bust:84, waist:66, hip:90},
+    {brandId:'primark', category:'Women • Dresses', size:'10', bust:88, waist:70, hip:94},
+    {brandId:'george',  category:'Women • Dresses', size:'8',  bust:85, waist:67, hip:91},
+    {brandId:'george',  category:'Women • Dresses', size:'10', bust:89, waist:71, hip:95},
+    {brandId:'next',    category:'Women • Dresses', size:'8',  bust:84, waist:66, hip:90},
+    {brandId:'next',    category:'Women • Dresses', size:'10', bust:88, waist:70, hip:94},
+    {brandId:'m_s',     category:'Women • Dresses', size:'8',  bust:85, waist:67, hip:91},
+    {brandId:'m_s',     category:'Women • Dresses', size:'10', bust:89, waist:71, hip:95},
 
-    {brandId:'primark', category:'Women â¢ Jeans',   size:'8',  waist:66, hip:90},
-    {brandId:'primark', category:'Women â¢ Jeans',   size:'10', waist:70, hip:94},
-    {brandId:'george',  category:'Women â¢ Jeans',   size:'8',  waist:67, hip:91},
-    {brandId:'george',  category:'Women â¢ Jeans',   size:'10', waist:71, hip:95},
-    {brandId:'next',    category:'Women â¢ Jeans',   size:'8',  waist:66, hip:90},
-    {brandId:'next',    category:'Women â¢ Jeans',   size:'10', waist:70, hip:94},
-    {brandId:'m_s',     category:'Women â¢ Jeans',   size:'8',  waist:67, hip:91},
-    {brandId:'m_s',     category:'Women â¢ Jeans',   size:'10', waist:71, hip:95},
+    {brandId:'primark', category:'Women • Jeans',   size:'8',  waist:66, hip:90},
+    {brandId:'primark', category:'Women • Jeans',   size:'10', waist:70, hip:94},
+    {brandId:'george',  category:'Women • Jeans',   size:'8',  waist:67, hip:91},
+    {brandId:'george',  category:'Women • Jeans',   size:'10', waist:71, hip:95},
+    {brandId:'next',    category:'Women • Jeans',   size:'8',  waist:66, hip:90},
+    {brandId:'next',    category:'Women • Jeans',   size:'10', waist:70, hip:94},
+    {brandId:'m_s',     category:'Women • Jeans',   size:'8',  waist:67, hip:91},
+    {brandId:'m_s',     category:'Women • Jeans',   size:'10', waist:71, hip:95},
 
     {brandId:'primark', category:'Shoes (UK)', size:'5', footLen:24.1},
     {brandId:'primark', category:'Shoes (UK)', size:'6', footLen:24.8},
@@ -584,7 +852,7 @@ window.addEventListener('load', initMsFitPills);
     {brandId:'m_s',     category:'Shoes (UK)', size:'5', footLen:24.0},
     {brandId:'m_s',     category:'Shoes (UK)', size:'6', footLen:24.7}
   ];
-  const DEFAULT_CATEGORIES=['Women â¢ Dresses','Women â¢ Jeans','Shoes (UK)'];
+  const DEFAULT_CATEGORIES=['Women • Dresses','Women • Jeans','Shoes (UK)'];
   function loadAppData(){
     window.BRANDS = DEFAULT_BRANDS.slice();
     window.CHARTS = DEFAULT_CHARTS.slice();
@@ -596,7 +864,7 @@ window.addEventListener('load', initMsFitPills);
     const b=$('sf_brand'); if(b){ b.innerHTML=''; BRANDS.forEach(br=>{ const o=document.createElement('option'); o.value=br.id; o.textContent=br.name; b.appendChild(o); }); b.addEventListener('change', updateSupportNote); }
     const c=$('sf_category'); if(c){ c.innerHTML=''; CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; c.appendChild(o); }); }
     const ms=$('ms_category'); if(ms){ ms.innerHTML=''; CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; ms.appendChild(o); }); if(ms.options.length) ms.options[0].selected=true; }
-    renderBrandNotes(); renderHistory();
+    renderBrandNotes(); renderUkHistory();
     updateSupportNote();
   }
   function updateSupportNote(){
@@ -605,11 +873,11 @@ window.addEventListener('load', initMsFitPills);
     const brand = BRANDS.find(b=>b.id===brandId);
     if(!brand){ note.textContent=''; return; }
     const ok = !brand.supports || brand.supports[SELECTED_BODYTYPE];
-    note.textContent = ok ? `â ${brand.name} supports ${labelBody(SELECTED_BODYTYPE)}.` : `â ${brand.name} does not offer a dedicated ${labelBody(SELECTED_BODYTYPE)} range.`;
+    note.textContent = ok ? `✓ ${brand.name} supports ${labelBody(SELECTED_BODYTYPE)}.` : `✕ ${brand.name} does not offer a dedicated ${labelBody(SELECTED_BODYTYPE)} range.`;
   }
   function labelBody(k){ return k==='plus'?'plus-size':k; }
 
-  /* ---------- Measurements ---------- */
+  /* ---------- Measurements (for sizing) ---------- */
   function currentMeasurements(){
     const {profiles, activeId}=getProfilesAndActive();
     const p=profiles.find(x=>x.id===activeId);
@@ -618,30 +886,31 @@ window.addEventListener('load', initMsFitPills);
              height:p.height, shoulder:p.shoulder, torso:p.torso, band:p.band, cup:p.cup };
   }
 
-  /* ---------- Size Finder (FILTER by body type) ---------- */
+  /* ---------- Size Finder ---------- */
   function computeSize(){
     const meas=currentMeasurements();
     const brandId=$('sf_brand').value, cat=$('sf_category').value, fit=$('sf_fit').value;
     const brand=BRANDS.find(b=>b.id===brandId);
-    if(!brand){ showResult('â','Low','Pick a brand.',[]); return; }
+    if(!brand){ showResult('—','Low','Pick a brand.',[]); return; }
     if(brand.supports && !brand.supports[SELECTED_BODYTYPE]){
-      showResult('â','Low',`This brand doesnât have a ${labelBody(SELECTED_BODYTYPE)} range. Choose another brand or switch body type.`,[]);
+      showResult('—','Low',`This brand doesn’t have a ${labelBody(SELECTED_BODYTYPE)} range. Choose another brand or switch body type.`,[]);
       return;
     }
     const table=CHARTS.filter(r=>r.brandId===brandId && r.category===cat)
       .map(r=>({size:r.size,bust:r.bust??null,waist:r.waist??null,hip:r.hip??null,footLen:r.footLen??null}));
-    if(!table.length){ showResult('â','Low','No data for this brand/category yet.',[]); return; }
+    if(!table.length){ showResult('—','Low','No data for this brand/category yet.',[]); return; }
     let dims=[]; if(cat.includes('Dresses')) dims=['bust','waist','hip']; if(cat.includes('Jeans')) dims=['waist','hip']; if(cat.includes('Shoes')) dims=['footLen'];
     const wants={}; dims.forEach(d=> wants[d]=meas[d==='footLen'?'footlen':d]);
-    const used=dims.filter(d=> wants[d]!=null); if(!used.length){ showResult('â','Low','Please add measurements for this category.',[]); return; }
+    const used=dims.filter(d=> wants[d]!=null); if(!used.length){ showResult('—','Low','Please add measurements for this category.',[]); return; }
     const scored=table.map(r=>({ size:r.size, score:used.reduce((s,d)=>s+Math.abs((r[d]||0)-wants[d]),0)})).sort((a,b)=>a.score-b.score);
-    let pick=scored[0]; if(!pick){ showResult('â','Low','No matching sizes found.',[]); return; }
+    let pick=scored[0]; if(!pick){ showResult('—','Low','No matching sizes found.',[]); return; }
     if(scored[1]){ const diff=scored[1].score-scored[0].score; if(fit==='relaxed'&&diff<2) pick=scored[1]; }
     const avg=pick.score/used.length; let conf='Medium'; if(avg<1.2 && used.length>=2) conf='High'; if(avg>3.0) conf='Low';
     const notes=[];
     if(cat.includes('Jeans') && meas.inseam && brand?.lengths_cm){
       const len = mapInseamToLengthFromBrand(brand.lengths_cm, meas.inseam);
       const inches=(brand.lengths_cm[len]/2.54).toFixed(1);
+      // keep internal; do not expose all brand lengths in Brand Notes list
       notes.push(`Suggested length: ${len.toUpperCase()} (~${inches}" for this label).`);
     }
     if(brand?.notes) notes.push(`Brand note: ${brand.notes}`);
@@ -654,7 +923,7 @@ window.addEventListener('load', initMsFitPills);
     const noteBadges=(notes||[]).map(n=>`<span class="pill">${n}</span>`).join(' ');
     box.innerHTML=`
       <div>
-        ${size==='â'?`<div class="note">No result for this selection.</div>`:`<span class="pill" style="font-weight:900;font-size:20px;background:#1d4ed8;color:#fff;">Size ${size}</span>`}
+        ${size==='—'?`<div class="note">No result for this selection.</div>`:`<span class="pill" style="font-weight:900;font-size:20px;background:#1d4ed8;color:#fff;">Size ${size}</span>`}
         ${message?`<p class="note" style="margin-top:8px;">${message}</p>`:''}
         <div class="toolbar" style="margin-top:10px;">
           <span class="pill">Confidence: <span class="${confClass}">${conf}</span></span>
@@ -670,19 +939,19 @@ window.addEventListener('load', initMsFitPills);
     return sorted[0].k;
   }
 
-  /* ---------- My Sizes (FILTER by body type) ---------- */
+  /* ---------- My Sizes ---------- */
   function scoreFor(brandId, cat, meas, fit){
     const brand=BRANDS.find(b=>b.id===brandId);
     if(!brand) return null;
-    if(brand.supports && !brand.supports[SELECTED_BODYTYPE]) return null; // <- filter here
+    if(brand.supports && !brand.supports[SELECTED_BODYTYPE]) return null;
     const rows=CHARTS.filter(r=>r.brandId===brandId && r.category===cat);
     if(rows.length===0) return null;
     let dims=[]; if(cat.includes('Dresses')) dims=['bust','waist','hip']; if(cat.includes('Jeans')) dims=['waist','hip']; if(cat.includes('Shoes')) dims=['footLen'];
     const wants={}; dims.forEach(d=> wants[d]=meas[d==='footLen'?'footlen':d]);
-    const used=dims.filter(d=> wants[d]!=null); if(!used.length) return {size:'â',conf:'Low',notes:['Add measurements for this category.']};
+    const used=dims.filter(d=> wants[d]!=null); if(!used.length) return {size:'—',conf:'Low',notes:['Add measurements for this category.']};
     const table=rows.map(r=>({size:r.size,bust:r.bust??null,waist:r.waist??null,hip:r.hip??null,footLen:r.footLen??null}));
     const scored=table.map(r=>({size:r.size, score:used.reduce((s,d)=>s+Math.abs((r[d]||0)-wants[d]),0)})).sort((a,b)=>a.score-b.score);
-    let pick=scored[0]; if(!pick) return {size:'â',conf:'Low',notes:['No matching sizes found.']};
+    let pick=scored[0]; if(!pick) return {size:'—',conf:'Low',notes:['No matching sizes found.']};
     if(scored[1]){ const diff=scored[1].score-scored[0].score; if(fit==='relaxed'&&diff<2) pick=scored[1]; }
     const avg=pick.score/used.length; let conf='Medium'; if(avg<1.2&&used.length>=2) conf='High'; if(avg>3.0) conf='Low';
     const notes=[`Profile: ${labelBody(SELECTED_BODYTYPE)}`];
@@ -694,7 +963,7 @@ window.addEventListener('load', initMsFitPills);
     const sel=$('ms_category'); if(!sel) return; sel.innerHTML='';
     CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; sel.appendChild(o); });
     if(sel.options.length) sel.options[0].selected=true;
-    computeAllSizes(); // auto on open
+    computeAllSizes();
   }
   function computeAllSizes(){
     const meas=currentMeasurements(); const sel=$('ms_category'); const fit=$('ms_fit').value;
@@ -711,14 +980,14 @@ window.addEventListener('load', initMsFitPills);
   function renderMySizes(list){
     const wrap=$('ms_list'); if(!wrap) return; wrap.innerHTML='';
     const counter=$('ms_count'); if(counter) counter.textContent=`${list.length} results`;
-    if(!list.length){ wrap.innerHTML='<div class="note">No results â try a different body type or add measurements.</div>'; return; }
+    if(!list.length){ wrap.innerHTML='<div class="note">No results — try a different body type or add measurements.</div>'; return; }
     list.forEach(row=>{
       const confClass=row.conf==='High'?'success':row.conf==='Low'?'danger':'warning';
       const notesHtml=(row.notes||[]).map(n=>`<span class="pill">${n}</span>`).join(' ');
       const div=document.createElement('div'); div.className='card';
       div.innerHTML=`
         <div>
-          <div><strong>${row.brandName}</strong> â¢ <span class="note">${row.category}</span></div>
+          <div><strong>${row.brandName}</strong> • <span class="note">${row.category}</span></div>
           <div class="note" style="margin-top:6px;">${notesHtml||''}</div>
         </div>
         <div style="text-align:right;margin-top:8px;">
@@ -731,7 +1000,7 @@ window.addEventListener('load', initMsFitPills);
   }
   function copyMySizes(){
     const list=window._lastMySizes||[]; if(!list.length){ alert('Nothing to copy yet.'); return; }
-    const text=list.map(r=>`${r.category} â ${r.brandName}: ${r.size} (${r.conf})`).join('\n');
+    const text=list.map(r=>`${r.category} — ${r.brandName}: ${r.size} (${r.conf})`).join('\n');
     navigator.clipboard?.writeText(text).then(()=>alert('Copied sizes!'),()=>alert('Copy failed.'));
   }
   function exportMySizesCSV(){
@@ -743,27 +1012,18 @@ window.addEventListener('load', initMsFitPills);
     const a=document.createElement('a'); a.href=url; a.download='my-sizes.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
   }
 
-  /* ---------- Brand Notes (FILTER by body type) ---------- */
+  /* ---------- Brand Notes (no public measurements) ---------- */
   function renderBrandNotes(){
     const wrap=$('brandList'); if(!wrap) return; wrap.innerHTML='';
     const filtered = BRANDS.filter(b=> !b.supports || b.supports[SELECTED_BODYTYPE]);
     if(!filtered.length){ wrap.innerHTML='<div class="note">No brands for this body type in demo data. Switch body type.</div>'; return; }
     filtered.forEach(b=>{
-      const L=b.lengths_cm||{};
       const div=document.createElement('div'); div.className='card';
       div.innerHTML=`
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
-          <div>
-            <div style="font-weight:800;">${b.name}</div>
-            <div class="note">${b.notes||''}</div>
-            <div class="note" style="margin-top:6px;">Supports: ${Object.keys(b.supports||{standard:true}).filter(k=>b.supports[k]).map(labelBody).join(', ')}</div>
-          </div>
-          <div class="pill-row">
-            <span class="pill">Short ~${L.short??'â'}cm</span>
-            <span class="pill">Reg ~${L.regular??'â'}cm</span>
-            <span class="pill">Long ~${L.long??'â'}cm</span>
-            <span class="pill">Tall ~${L.tall??'â'}cm</span>
-          </div>
+        <div>
+          <div style="font-weight:800;">${b.name}</div>
+          <div class="note">${b.notes||''}</div>
+          <div class="note" style="margin-top:6px;">Supports: ${Object.keys(b.supports||{standard:true}).filter(k=>b.supports[k]).map(labelBody).join(', ')}</div>
         </div>`;
       wrap.appendChild(div);
     });
@@ -772,7 +1032,7 @@ window.addEventListener('load', initMsFitPills);
   /* ---------- History ---------- */
   function getHistory(){ try{ return JSON.parse(localStorage.getItem('history')||'[]'); }catch(e){ return []; } }
   function saveHistory(){ if(!window._lastResult) return; const h=getHistory(); h.unshift(window._lastResult); localStorage.setItem('history', JSON.stringify(h.slice(0,20))); alert('Saved to history.'); }
-  function renderHistory(){
+  function renderUkHistory(){
     const wrap=$('histList'); if(!wrap) return; wrap.innerHTML='';
     const h=getHistory();
     if(!h.length){ wrap.innerHTML='<div class="note">No lookups yet.</div>'; return; }
@@ -780,8 +1040,8 @@ window.addEventListener('load', initMsFitPills);
       const div=document.createElement('div'); div.className='card';
       div.innerHTML=`
         <div>
-          <div><strong>${item.brand}</strong> â¢ ${item.category}</div>
-          <div class="note">${new Date(item.when).toLocaleString()} â¢ Body: ${labelBody(item.body||'standard')}</div>
+          <div><strong>${item.brand}</strong> • ${item.category}</div>
+          <div class="note">${new Date(item.when).toLocaleString()} • Body: ${labelBody(item.body||'standard')}</div>
         </div>
         <div style="text-align:right;margin-top:8px;">
           <span class="pill" style="background:#1d4ed8;color:#fff;">${item.size}</span>
@@ -795,13 +1055,13 @@ window.addEventListener('load', initMsFitPills);
   const CLOTHES_TABLE=[{UK:4,EU:32,US:0},{UK:6,EU:34,US:2},{UK:8,EU:36,US:4},{UK:10,EU:38,US:6},{UK:12,EU:40,US:8},{UK:14,EU:42,US:10},{UK:16,EU:44,US:12},{UK:18,EU:46,US:14},{UK:20,EU:48,US:16},{UK:22,EU:50,US:18},{UK:24,EU:52,US:20}];
   function nearestRowBy(from,val){ return CLOTHES_TABLE.reduce((best,row)=>{ const d=Math.abs((row[from]??Infinity)-val); return d<best.d?{row,d}:{row:best.row,d:best.d}; },{row:null,d:Infinity}).row; }
   function convertClothing(){ const from=$('cw_from').value, to=$('cw_to').value, raw=parseFloat($('cw_val').value), out=$('cw_out');
-    if(isNaN(raw)){ out.textContent='Enter a number'; return; } if(from===to){ out.textContent=`${raw} ${from} â ${raw} ${to}`; return; }
-    const row=nearestRowBy(from,raw); if(!row||row[from]==null||row[to]==null){ out.textContent='No map'; return; } out.textContent=`${raw} ${from} â ${row[to]} ${to}`; }
+    if(isNaN(raw)){ out.textContent='Enter a number'; return; } if(from===to){ out.textContent=`${raw} ${from} ≈ ${raw} ${to}`; return; }
+    const row=nearestRowBy(from,raw); if(!row||row[from]==null||row[to]==null){ out.textContent='No map'; return; } out.textContent=`${raw} ${from} ≈ ${row[to]} ${to}`; }
   const SHOES_TABLE=[{UK:3,EU:36,US:5.5},{UK:4,EU:37,US:6.5},{UK:5,EU:38,US:7.5},{UK:6,EU:39,US:8.5},{UK:7,EU:40,US:9.5},{UK:8,EU:41,US:10.5}];
   function nearestShoeBy(from,val){ return SHOES_TABLE.reduce((best,row)=>{ const d=Math.abs((row[from]??Infinity)-val); return d<best.d?{row,d}:{row:best.row,d:best.d}; },{row:null,d:Infinity}).row; }
   function convertShoes(){ const from=$('sh_from').value, to=$('sh_to').value, raw=parseFloat($('sh_val').value), out=$('sh_out');
-    if(isNaN(raw)){ out.textContent='Enter a number'; return; } if(from===to){ out.textContent=`${raw} ${from} â ${raw} ${to}`; return; }
-    const row=nearestShoeBy(from,raw); if(!row||row[from]==null||row[to]==null){ out.textContent='No map'; return; } out.textContent=`${raw} ${from} â ${row[to]} ${to}`; }
+    if(isNaN(raw)){ out.textContent='Enter a number'; return; } if(from===to){ out.textContent=`${raw} ${from} ≈ ${raw} ${to}`; return; }
+    const row=nearestShoeBy(from,raw); if(!row||row[from]==null||row[to]==null){ out.textContent='No map'; return; } out.textContent=`${raw} ${from} ≈ ${row[to]} ${to}`; }
   function convertBra(){ const bandCm=parseFloat($('br_band').value); const cup=($('br_cup').value||'').toUpperCase(); const out=$('br_out');
     if(isNaN(bandCm)||!cup){ out.textContent='Add band & cup'; return; } out.textContent=`~UK ${Math.round(bandCm/2.54)}${cup}`; }
 
@@ -812,22 +1072,520 @@ window.addEventListener('load', initMsFitPills);
   (function start(){
     loadAppData();
     renderUnitPills(); renderProfilePills(); renderBodyTypePillsTop();
-    initSelectors(); loadActiveProfileIntoForm(); renderUnitBadges(); updateBackButton();
-    $('sf_brand')?.addEventListener('change', updateSupportOnBrandChange);
+    initSelectors(); loadActiveProfileIntoForm(); renderUnitBadges();
   })();
 
-  window.addEventListener('load',()=>{
+// Splash → UK hub (auto)
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $('splash').classList.add('active'); CURRENT_SCREEN='splash';
+  setTimeout(()=>{
+    $('splash').classList.remove('active');
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    $('splash').classList.add('active'); CURRENT_SCREEN='splash'; updateBackButton();
-    setTimeout(()=>{
-      $('splash').classList.remove('active');
-      document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-      $('home').classList.add('active');
-      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-      $('tab_home')?.classList.add('active');
-      CURRENT_SCREEN='home'; updateBackButton();
-    },800);
+    $('uk').classList.add('active');           // go straight to Hub
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    $('tab_hub')?.classList.add('active');     // highlight Hub tab
+    CURRENT_SCREEN='uk';
+  }, 800);
+});
+
+  // ===================== MiStats (drop-in, extended) =====================
+  (function(){
+    const STORE_KEY = 'mistats_v2'; // bumped for new structure
+
+    // body part keys to track
+    const PART_KEYS = ['bust','underbust','waist','hip','thigh','calf','ankle','upperarm','forearm','wrist','neck'];
+
+    // unit helpers
+    const kgFrom = (val, unit) => {
+      const n = parseFloat(val); if (isNaN(n)) return null;
+      if (unit==='kg') return n;
+      if (unit==='lb') return n * 0.45359237;
+      if (unit==='st') return n * 6.35029318;
+      return n;
+    };
+    const toUnit = (kg, unit) => {
+      if (kg==null) return '';
+      if (unit==='kg') return kg.toFixed(1);
+      if (unit==='lb') return (kg/0.45359237).toFixed(1);
+      if (unit==='st') return (kg/6.35029318).toFixed(2);
+      return kg.toFixed(1);
+    };
+    const cmFromHeightInput = (val, unit) => {
+      if (unit==='ftin'){
+        const m = String(val).trim().match(/(\d+)[^\d]+(\d+)/);
+        if (m){ const ft=+m[1], inch=+m[2]; return Math.round((ft*12+inch)*2.54); }
+        const n=parseFloat(val); if(!isNaN(n)) return Math.round(n*12*2.54);
+        return null;
+      }
+      const n = parseFloat(val); if (isNaN(n)) return null;
+      if (unit==='m') return Math.round(n*100);
+      return Math.round(n); // cm
+    };
+    const bmi = (kg, cm) => (kg>0 && cm>0) ? +(kg/((cm/100)**2)).toFixed(1) : null;
+
+    // store
+    function loadStore(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY)||'{}'); }catch(e){ return {}; } }
+    function saveStore(s){ localStorage.setItem(STORE_KEY, JSON.stringify(s)); }
+    function activeId(){ return getProfilesAndActive().activeId; }
+    function ensureProfileBucket(){
+      const id = activeId(); const s = loadStore();
+      if(!s[id]) s[id] = { unitW:'kg', unitH:'cm', heightCm:null, targetKg:null, entries:[], measures:[] };
+      return s;
+    }
+    function getBucket(){ const s=ensureProfileBucket(); return { s, b: s[activeId()] }; }
+
+    // Tabs
+    function setMiTab(view){
+      document.querySelectorAll('#mi_tabs .mi-tab').forEach(b=>{
+        b.classList.toggle('active', b.dataset.view===view);
+      });
+      document.querySelectorAll('#mistats .mi-view').forEach(v=> v.style.display='none');
+      $('#mi_view_'+view).style.display='block';
+      if(view==='graph') miDrawGraph();
+      if(view==='history') miRenderHistory();
+    }
+    window.setMiTab = setMiTab;
+
+    // Add entry (weight only)
+    function onAddEntry(){
+      const {s,b}=getBucket();
+      const unit=b.unitW||'kg';
+      const kg = kgFrom($('#mi_weight_in').value, unit);
+      const d = $('#mi_date_in').value || new Date().toISOString().slice(0,10);
+      if(kg==null){ alert('Enter a valid weight'); return; }
+      b.entries.push({d, kg:+kg.toFixed(2)});
+      b.entries.sort((a,b)=> a.d.localeCompare(b.d));
+      saveStore(s);
+      $('#mi_weight_in').value=''; $('#mi_date_in').value='';
+      refreshAll(); setMiTab('history');
+    }
+    $('#mi_add_btn')?.addEventListener('click', onAddEntry);
+
+    // Add entry (weight + parts)
+    function onAddWithParts(){
+      const {s,b}=getBucket();
+      const unit=b.unitW||'kg';
+      const kgVal = $('#mi_weight_in').value;
+      if(!kgVal){ onAddEntry(); return; }
+      const kg = kgFrom(kgVal, unit);
+      const d = $('#mi_date_in').value || new Date().toISOString().slice(0,10);
+      if(kg==null){ alert('Enter a valid weight'); return; }
+      // collect parts from inline inputs
+      const parts={};
+      PART_KEYS.forEach(k=>{
+        const el = document.querySelector(`[data-mi-part="${k}"]`);
+        const n = el ? parseFloat(el.value) : NaN;
+        if(!isNaN(n)) parts[k]=n;
+      });
+      b.entries.push({d, kg:+kg.toFixed(2)});
+      if(Object.keys(parts).length){ b.measures.push({d, parts}); }
+      b.entries.sort((a,b)=> a.d.localeCompare(b.d));
+      b.measures.sort((a,b)=> a.d.localeCompare(b.d));
+      saveStore(s);
+      // clear only the inline part fields
+      PART_KEYS.forEach(k=>{ const el=document.querySelector(`[data-mi-part="${k}"]`); if(el) el.value=''; });
+      $('#mi_weight_in').value=''; $('#mi_date_in').value='';
+      refreshAll(); setMiTab('history');
+    }
+    $('#mi_add_with_parts_btn')?.addEventListener('click', onAddWithParts);
+
+    // Link from Profile quick logger
+    window.logToMiStats = function(){
+      const {s,b}=getBucket();
+      const unit=b.unitW||'kg';
+      const d = $('m_log_date')?.value || new Date().toISOString().slice(0,10);
+      const kgVal = $('m_weight_now')?.value || '';
+      const kg = kgVal ? kgFrom(kgVal, unit) : null;
+      if(kg!=null){ b.entries.push({d, kg:+kg.toFixed(2)}); }
+      // pull measurements from profile
+      const prof = collectFormAsCM();
+      const parts = {};
+      PART_KEYS.forEach(k=>{
+        const v = prof[k];
+        if(typeof v==='number' && !isNaN(v)) parts[k]= +(UNIT_MODE==='cm' ? v : (v)); // stored conceptually as cm from collectFormAsCM
+      });
+      if(Object.keys(parts).length){ b.measures.push({d, parts}); }
+      b.entries.sort((a,b)=> a.d.localeCompare(b.d));
+      b.measures.sort((a,b)=> a.d.localeCompare(b.d));
+      saveStore(s);
+      alert('Logged to MiStats.');
+      switchTab('mistats'); setMiTab('current'); refreshAll();
+    };
+
+    // Settings
+    $('#mi_save_settings')?.addEventListener('click', ()=>{
+      const {s,b}=getBucket();
+      const h = cmFromHeightInput($('#mi_height').value, b.unitH||'cm');
+      if(h) b.heightCm=h;
+      const tgtRaw = $('#mi_target_in').value.trim();
+      b.targetKg = tgtRaw ? kgFrom(tgtRaw, b.unitW||'kg') : null;
+      saveStore(s); refreshAll(); setMiTab('current');
+    });
+    $('#mi_reset_profile')?.addEventListener('click', ()=>{
+      if(!confirm('Reset MiStats for this profile?')) return;
+      const s=loadStore(); delete s[activeId()]; saveStore(s); refreshAll();
+    });
+
+    // clicks to change units
+    document.addEventListener('click', (e)=>{
+      const t=e.target.closest('.mi-tab'); if(t){ setMiTab(t.dataset.view); }
+      const uw=e.target.closest('.mi-unit-w'); if(uw){ const {s,b}=getBucket(); b.unitW=uw.dataset.u; saveStore(s); refreshAll(); }
+      const uh=e.target.closest('.mi-unit-h'); if(uh){ const {s,b}=getBucket(); b.unitH=uh.dataset.u; saveStore(s); refreshAll(); }
+      const lg=e.target.closest('[data-series]'); if(lg){ lg.classList.toggle('active'); miDrawGraph(); }
+    });
+
+    // Build inline part inputs in Current view
+    function buildInlinePartInputs(){
+      const wrap = $('#mi_parts_inputs'); if(!wrap) return;
+      wrap.innerHTML='';
+      PART_KEYS.forEach(k=>{
+        const id = `mi_part_${k}`;
+        const div=document.createElement('div');
+        div.innerHTML = `
+          <label for="${id}">${k.charAt(0).toUpperCase()+k.slice(1)} <span class="unit-badge">cm</span></label>
+          <input id="${id}" data-mi-part="${k}" inputmode="decimal" placeholder="optional">
+        `;
+        wrap.appendChild(div);
+      });
+    }
+
+    // Build legend toggles for graph
+    const SERIES_STATE = { weight:true };
+    PART_KEYS.forEach(k=> SERIES_STATE[k]=false);
+
+    function buildSeriesLegend(){
+      const wrap=$('mi_series_legend'); if(!wrap) return;
+      wrap.innerHTML='';
+      const mk=(key,label)=> {
+        const span=document.createElement('label');
+        span.className='pill'+(SERIES_STATE[key]?' active':'');
+        span.setAttribute('data-series', key);
+        span.innerHTML = `<input type="checkbox" ${SERIES_STATE[key]?'checked':''} onclick="return false;"> ${label}`;
+        wrap.appendChild(span);
+      };
+      mk('weight','Weight');
+      PART_KEYS.forEach(k=> mk(k, k));
+    }
+
+    // Zoom
+    $('#mi_zoom')?.addEventListener('input', miDrawGraph);
+
+    // Calcs
+    function calcStats(){
+      const {b}=getBucket(); const E=b.entries;
+      const heightCm = b.heightCm ?? getProfilesAndActive().profiles.find(p=>p.id===activeId())?.height ?? null;
+
+      if(E.length===0) return { empty:true, unitW:b.unitW, heightCm, targetKg:b.targetKg, measures: b.measures };
+      const start=E[0], curr=E[E.length-1], target=b.targetKg ?? null;
+
+      let avgDay=null, avgWeek=null;
+      if(E.length>=2){
+        const first=new Date(E[0].d), last=new Date(curr.d);
+        const days=Math.max(1, (last-first)/86400000);
+        avgDay= +((curr.kg-start.kg)/days).toFixed(2);
+        avgWeek= +(avgDay*7).toFixed(2);
+      }
+
+      const goal = target ?? Math.min(...E.map(x=>x.kg));
+      const span = Math.abs(start.kg - goal) || 1;
+      const done = Math.min(100, Math.max(0, ((start.kg - curr.kg)/span)*100 ));
+
+      return { unitW:b.unitW, heightCm, targetKg:target, start, curr, avgDay, avgWeek, progress:done, measures:b.measures };
+    }
+
+    // helper: get first and latest parts to compute losses
+    function computeAreaLosses(measures){
+      if(!measures || measures.length===0) return {losses:{}, total:0};
+      // find earliest snapshot with that part and latest snapshot with that part
+      const firstByPart={}, lastByPart={};
+      measures.forEach(m=>{
+        PART_KEYS.forEach(k=>{
+          const v=m.parts?.[k];
+          if(v==null) return;
+          if(!(k in firstByPart)) firstByPart[k]=v;
+          lastByPart[k]=v;
+        });
+      });
+      const losses={}, totals=[];
+      Object.keys(firstByPart).forEach(k=>{
+        const start = firstByPart[k], curr = lastByPart[k]??start;
+        const delta = +(start - curr).toFixed(1); // cm lost (can be negative)
+        losses[k]=delta;
+        totals.push(delta);
+      });
+      const total = +(totals.reduce((a,b)=>a+(isFinite(b)?b:0),0).toFixed(1));
+      return {losses, total};
+    }
+
+    // Renderers
+    function renderCurrent(){
+      buildInlinePartInputs();
+      buildSeriesLegend();
+
+      const {unitW}=getBucket().b; const S=calcStats();
+      const unitLabel = unitW==='kg'?'kg':(unitW==='lb'?'lb':'st');
+      $('#mi_hint_units').textContent = `Units: ${unitLabel}`;
+
+      const title = (S.empty? 'No entries yet' : `${toUnit(S.curr.kg, unitW)} ${unitLabel}`);
+      $('#mi_current_title').textContent = title;
+      $('#mi_current_meta').textContent = S.empty ? 'Add your first weight below.' : new Date(S.curr.d).toLocaleDateString();
+
+      $('#mi_start').textContent = S.empty ? '—' : `${toUnit(S.start.kg, unitW)} ${unitLabel}`;
+      $('#mi_current').textContent = S.empty ? '—' : `${toUnit(S.curr.kg, unitW)} ${unitLabel}`;
+      $('#mi_target').textContent = (S.targetKg==null) ? '—' : `${toUnit(S.targetKg, unitW)} ${unitLabel}`;
+
+      const bmiStart = bmi(S.start?.kg, S.heightCm);
+      const bmiCurr  = bmi(S.curr?.kg,  S.heightCm);
+      const bmiTgt   = bmi(S.targetKg,  S.heightCm);
+      $('#mi_start_bmi').textContent = (bmiStart? `BMI ${bmiStart}`:'BMI —');
+      $('#mi_current_bmi').textContent= (bmiCurr? `BMI ${bmiCurr}`:'BMI —');
+      $('#mi_target_bmi').textContent = (bmiTgt? `BMI ${bmiTgt}`:'BMI —');
+
+      $('#mi_prog_bar').style.width = (S.empty? '0%' : `${S.progress.toFixed(0)}%`);
+      const lost = S.empty? 0 : (S.start.kg - S.curr.kg);
+      const remain = (S.targetKg!=null) ? (S.curr.kg - S.targetKg) : null;
+      $('#mi_prog_text').textContent = S.empty
+        ? '—'
+        : `Lost ${toUnit(lost, unitW)} ${unitLabel}${remain!=null?` • Remaining ${toUnit(remain, unitW)} ${unitLabel}`:''}`;
+
+      $('#mi_avg_day').textContent  = (S.avgDay==null)?'—':`${toUnit(S.avgDay, unitW)} ${unitLabel}`;
+      $('#mi_avg_week').textContent = (S.avgWeek==null)?'—':`${toUnit(S.avgWeek, unitW)} ${unitLabel}`;
+
+      // area losses tiles
+      const wrap=$('mi_area_tiles'); if(wrap){
+        wrap.innerHTML='';
+        const {losses,total}=computeAreaLosses(S.measures);
+        const keys=Object.keys(losses);
+        if(!keys.length){ wrap.innerHTML='<div class="note">Add some measurements to see area losses.</div>'; $('#mi_area_total').textContent='—'; }
+        else{
+          keys.forEach(k=>{
+            const tile=document.createElement('div'); tile.className='mi-tile';
+            const val = losses[k];
+            tile.innerHTML = `<div class="mi-l">${k}</div><div class="mi-v">${(val>=0?'-':'+' )}${Math.abs(val)} cm</div><div class="mi-sub">${val>=0?'loss':'gain'} since start</div>`;
+            wrap.appendChild(tile);
+          });
+          $('#mi_area_total').textContent = `Overall change: ${(total>=0?'-':'+' )}${Math.abs(total)} cm across logged areas.`;
+        }
+      }
+    }
+
+    function miRenderHistory(){
+      const wrap = $('#mi_hist_list'); wrap.innerHTML='';
+      const {b}=getBucket(); const U=b.unitW||'kg';
+      if(b.entries.length===0 && b.measures.length===0){ wrap.innerHTML='<div class="note">No entries yet.</div>'; return; }
+
+      // Combine weights & measures by date for a friendlier feed
+      const byDate = {};
+      b.entries.forEach(e=>{ byDate[e.d]=byDate[e.d]||{}; byDate[e.d].kg=e.kg; });
+      b.measures.forEach(m=>{ byDate[m.d]=byDate[m.d]||{}; byDate[m.d].parts=m.parts; });
+
+      const dates = Object.keys(byDate).sort((a,b)=> b.localeCompare(a)); // newest first
+      dates.forEach(d=>{
+        const it=byDate[d];
+        const row=document.createElement('div'); row.className='mi-row';
+        const wText = (it.kg!=null) ? `<strong>${toUnit(it.kg,U)} ${U}</strong>` : '<strong>—</strong>';
+        const parts = it.parts ? Object.entries(it.parts).map(([k,v])=>`${k}:${v}cm`).join(' • ') : '—';
+        row.innerHTML = `
+          <div>${wText}<div class="note">${new Date(d).toLocaleString()}</div></div>
+          <div class="note">${parts}</div>
+        `;
+        wrap.appendChild(row);
+      });
+    }
+
+    function miDrawGraph(){
+      const {b}=getBucket(); const E=b.entries; const M=b.measures; const U=b.unitW||'kg';
+      const c=$('#mi_canvas'); const ctx=c.getContext('2d');
+      ctx.clearRect(0,0,c.width,c.height);
+
+      const seriesActive = (key)=> (key==='weight' ? SERIES_STATE.weight : SERIES_STATE[key]);
+
+      // build aligned dataset
+      const allDates = Array.from(new Set([
+        ...E.map(x=>x.d),
+        ...M.map(x=>x.d),
+      ])).sort((a,b)=> a.localeCompare(b));
+
+      if(allDates.length<1){ $('#mi_graph_note').textContent='Add data to see the chart.'; return; }
+
+      // zoom
+      const z = +($('#mi_zoom').value||0);
+      $('#mi_zoom_label').textContent = z===0 ? 'All time' : `Zoom ${z}%`;
+      const keep = Math.max(5, Math.round(allDates.length - (allDates.length-10)*(z/100)));
+      const dates = allDates.slice(-keep);
+
+      // assemble series
+      const weight = dates.map(d=> {
+        const e = E.find(x=>x.d===d); return e? e.kg : null;
+      });
+      const partsSeries = {};
+      PART_KEYS.forEach(k=>{
+        partsSeries[k] = dates.map(d=>{
+          const m = M.find(x=>x.d===d);
+          return m?.parts?.[k] ?? null;
+        });
+      });
+
+      // Y scaling (auto uses whichever series are active)
+      const values=[];
+      if(seriesActive('weight')) weight.forEach(v=> { if(v!=null) values.push(v); });
+      PART_KEYS.forEach(k=>{ if(seriesActive(k)) partsSeries[k].forEach(v=>{ if(v!=null) values.push(v); }); });
+
+      if(values.length===0){ $('#mi_graph_note').textContent='Toggle at least one series to view.'; return; }
+
+      const minV = Math.min(...values), maxV=Math.max(...values);
+      const pad  = Math.max(1, (maxV-minV)*0.1);
+      const y0   = minV-pad, y1=maxV+pad;
+
+      const left=50, right=20, top=20, bottom=35;
+      const W=c.width-left-right, H=c.height-top-bottom;
+
+      // axes
+      ctx.strokeStyle = '#223049'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(left, top); ctx.lineTo(left, top+H); ctx.lineTo(left+W, top+H); ctx.stroke();
+
+      ctx.fillStyle='#aab3c5'; ctx.font='12px '+getComputedStyle(document.body).fontFamily;
+      for(let i=0;i<=4;i++){
+        const yv = y0 + (i*(y1-y0))/4;
+        const py = top+H - ( (yv-y0)/(y1-y0) )*H;
+        ctx.fillText( (seriesActive('weight')? toUnit(yv,U): yv.toFixed(1)), 6, py+4);
+        ctx.strokeStyle='#1b2230'; ctx.beginPath(); ctx.moveTo(left,py); ctx.lineTo(left+W,py); ctx.stroke();
+      }
+// expose snapshot hook to profile save
+window.mistatsSnapshotProfile = function(dateISO, prof){
+  const {s,b}=getBucket();
+  // collect parts (exact same keys the graph knows)
+  const PART_KEYS = ['bust','underbust','waist','hip','thigh','calf','ankle','upperarm','forearm','wrist','neck'];
+  const parts = {};
+  PART_KEYS.forEach(k=>{
+    const v = prof?.[k];
+    if (typeof v==='number' && !isNaN(v)) parts[k]= +v; // cm
   });
+  if (Object.keys(parts).length){
+    b.measures.push({d: dateISO, parts});
+    b.measures.sort((a,b)=> a.d.localeCompare(b.d));
+  }
+  saveStore(s);
+  // don’t force-tabs; just keep current screen, refresh if in MiStats
+  if (CURRENT_SCREEN==='mistats') refreshAll();
+};
+      // draw helper
+      function plotLine(arr){
+        ctx.beginPath();
+        arr.forEach((v,i)=>{
+          if(v==null) return;
+          const px = left + (i/(arr.length-1))*W;
+          const py = top+H - ( (v-y0)/(y1-y0) )*H;
+          if(i===0 || arr[i-1]==null) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+          ctx.beginPath(); ctx.arc(px,py,2,0,Math.PI*2); ctx.fill();
+        });
+        ctx.stroke();
+      }
+
+      // weight line
+      if(seriesActive('weight')){
+        ctx.strokeStyle='#5da8ff'; ctx.fillStyle='#5da8ff'; ctx.lineWidth=2;
+        plotLine(weight);
+      }
+
+      // parts lines (muted but visible)
+      PART_KEYS.forEach(k=>{
+        if(!seriesActive(k)) return;
+        ctx.strokeStyle='#8a8f9e'; ctx.fillStyle='#8a8f9e'; ctx.lineWidth=1.5;
+        plotLine(partsSeries[k]);
+      });
+
+      $('#mi_graph_note').textContent = `${dates.length} points • series shown: ${['weight',...PART_KEYS].filter(seriesActive).join(', ')}`;
+    }
+
+    function renderSettings(){
+      const {b}=getBucket();
+      document.querySelectorAll('.mi-unit-w').forEach(x=> x.classList.toggle('active', x.dataset.u===b.unitW));
+      document.querySelectorAll('.mi-unit-h').forEach(x=> x.classList.toggle('active', x.dataset.u===b.unitH));
+      $('#mi_height').value = b.heightCm ? (b.unitH==='m' ? (b.heightCm/100).toFixed(2) : (b.unitH==='ftin' ? '' : b.heightCm)) : '';
+      $('#mi_height_hint').textContent = b.unitH==='ftin' ? 'Enter like 5\'6 or 5 6' : 'Stored in cm internally.';
+      $('#mi_target_in').value = b.targetKg!=null ? toUnit(b.targetKg, b.unitW) : '';
+    }
+
+    function refreshAll(){
+      renderCurrent(); renderSettings();
+      if(CURRENT_SCREEN==='mistats'){ miDrawGraph(); miRenderHistory(); }
+      // (re)build legend checkboxes active class from SERIES_STATE
+      const legend=$('mi_series_legend');
+      if(legend){
+        legend.querySelectorAll('[data-series]').forEach(el=>{
+          const key=el.getAttribute('data-series');
+          const active = SERIES_STATE[key];
+          const cb = el.querySelector('input'); if(cb) cb.checked = !!active;
+          el.classList.toggle('active', !!active);
+        });
+      }
+    }
+    window.refreshAll = refreshAll;
+const SERIES_STATE = { weight:true };
+PART_KEYS.forEach(k=> SERIES_STATE[k]=false);
+
+document.addEventListener('click', (e)=>{
+  const t=e.target.closest('.mi-tab'); if(t){ setMiTab(t.dataset.view); }
+  const uw=e.target.closest('.mi-unit-w'); if(uw){ const {s,b}=getBucket(); b.unitW=uw.dataset.u; saveStore(s); refreshAll(); }
+  const uh=e.target.closest('.mi-unit-h'); if(uh){ const {s,b}=getBucket(); b.unitH=uh.dataset.u; saveStore(s); refreshAll(); }
+
+  const lg=e.target.closest('[data-series]');
+  if(lg){
+    const key = lg.getAttribute('data-series');
+    SERIES_STATE[key] = !SERIES_STATE[key];
+    lg.classList.toggle('active', !!SERIES_STATE[key]);
+    const cb = lg.querySelector('input'); if(cb) cb.checked = !!SERIES_STATE[key];
+    miDrawGraph();
+  }
+});
+    // build legend & part inputs once
+    buildSeriesLegend();
+
+    // also refresh when active profile pills rerender
+    const _origRenderProfilePills = window.renderProfilePills;
+    window.renderProfilePills = function(){ _origRenderProfilePills(); refreshAll(); };
+
+    // init
+    setTimeout(()=>{
+      const di = $('#mi_date_in'); if(di) di.value = new Date().toISOString().slice(0,10);
+      refreshAll();
+    },0);
+// ===================== MiStats (drop-in) =====================
+(function(){
+  // ... all the MiStats code ...
+})();
+
+// ===================== Global Weight Units Card =====================
+(function buildGlobalWeightUnitCard(){
+  const card = document.getElementById('global_weight_units_card');
+  if(!card) return;
+  card.innerHTML = `
+    <div class="row two">
+      <div>
+        <div class="big">Weight units</div>
+        <p class="note">Choose how weight is shown across MiStats.</p>
+      </div>
+      <div class="pill-row" id="global_wu_btns" style="align-items:center;justify-content:flex-end;">
+        <button class="pill" data-wu="kg">Kilograms</button>
+        <button class="pill" data-wu="lb">Pounds</button>
+        <button class="pill" data-wu="st">Stones</button>
+      </div>
+    </div>
+  `;
+  // wire up
+  card.addEventListener('click', (e)=>{
+    const b=e.target.closest('[data-wu]'); if(!b) return;
+    if(window.refreshAll){
+      const {s,b:bucket} = (function(){ const f=window.getBucket; return f?f():{s:null,b:null}; })();
+      if(bucket){ bucket.unitW = b.dataset.wu; if(s) localStorage.setItem('mistats_v2', JSON.stringify(s)); refreshAll(); }
+    }
+    card.querySelectorAll('[data-wu]').forEach(x=> x.classList.remove('active'));
+    b.classList.add('active');
+  });
+})();
+  })();
   </script>
 </body>
 </html>
