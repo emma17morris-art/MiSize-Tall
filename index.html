@@ -323,11 +323,6 @@
       font-weight: 600;
     }
 
-    .form-input:focus {
-      outline: none;
-      border-color: var(--brand);
-    }
-
     .button-group {
       display: flex;
       gap: 12px;
@@ -673,132 +668,22 @@
       background: var(--card);
       border-radius: 12px;
       padding: 24px;
-      margin-bottom: 24px;
       border: 2px solid var(--border);
+      margin-bottom: 24px;
     }
 
     .settings-section h3 {
-      margin: 0 0 20px;
       color: var(--brand);
       font-size: 20px;
       font-weight: 800;
+      margin: 0 0 16px;
     }
 
-    .settings-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-
-    .settings-grid.single {
-      grid-template-columns: 1fr;
-    }
-
-    .profile-card {
-      background: var(--border);
-      border-radius: 8px;
-      padding: 16px;
-      border: 1px solid var(--border);
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .profile-card:hover {
-      border-color: var(--brand);
-    }
-
-    .profile-card.active {
-      border-color: var(--brand);
-      background: rgba(138, 43, 226, 0.1);
-    }
-
-    .body-diagram {
+    .pill-settings-group {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      min-height: 600px;
-      margin: 20px 0;
-    }
-
-    .body-outline {
-      width: 200px;
-      height: 500px;
-      background: var(--border);
-      border-radius: 100px 100px 50px 50px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .measurement-point {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      background: var(--brand);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s;
-      border: 3px solid var(--bg);
-    }
-
-    .measurement-point:hover {
-      transform: scale(1.1);
-      background: var(--orange);
-    }
-
-    .measurement-point input {
-      width: 35px;
-      padding: 2px 4px;
-      background: transparent;
-      border: none;
-      color: #fff;
-      font-size: 10px;
-      font-weight: 700;
-      text-align: center;
-    }
-
-    .measurement-point input:focus {
-      outline: none;
-    }
-
-    /* Measurement point positions */
-    .point-neck { top: 80px; left: 50%; transform: translateX(-50%); }
-    .point-chest { top: 140px; left: 50%; transform: translateX(-50%); }
-    .point-waist { top: 200px; left: 50%; transform: translateX(-50%); }
-    .point-hips { top: 260px; left: 50%; transform: translateX(-50%); }
-    .point-thigh { top: 320px; left: 30%; }
-    .point-arm { top: 160px; left: -20px; }
-    .point-forearm { top: 200px; left: -15px; }
-
-    .measurement-labels {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .measurement-label {
-      background: var(--border);
-      padding: 12px;
-      border-radius: 8px;
-      text-align: center;
-      font-size: 12px;
-      color: var(--brand);
-      font-weight: 700;
-    }
-
-    .pill-section {
-      display: flex;
-      flex-wrap: wrap;
       gap: 8px;
-      margin-top: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
     }
 
     .settings-pill {
@@ -819,15 +704,93 @@
       border-color: var(--brand);
     }
 
-    .profile-form {
+    .body-diagram {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px 0;
+    }
+
+    .body-sketch {
+      position: relative;
+      width: 200px;
+      height: 400px;
+      background: linear-gradient(to bottom, #4a5568, #2d3748);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      margin: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .measurement-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 16px;
       margin-top: 20px;
     }
 
-    .profile-form .form-group.full-width {
-      grid-column: span 2;
+    .measurement-bubble {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .measurement-bubble:hover {
+      border-color: var(--brand);
+    }
+
+    .measurement-bubble h4 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .measurement-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .profile-card {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .profile-card:hover {
+      border-color: var(--brand);
+    }
+
+    .profile-card.active {
+      border-color: var(--brand);
+      background: rgba(138, 43, 226, 0.1);
+    }
+
+    .profile-name {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .profile-details {
+      font-size: 14px;
+      color: var(--muted);
     }
   </style>
 </head>
@@ -1097,130 +1060,135 @@
       <!-- Profiles Section -->
       <div class="settings-section">
         <h3>👤 Profiles</h3>
-        <div class="settings-grid">
-          <div class="profile-card active">
-            <h4>Emma Johnson</h4>
-            <p>Primary Profile</p>
-            <p style="font-size: 12px; color: var(--muted);">Standard • 5'6" • Size 10</p>
-          </div>
-          <div class="profile-card">
-            <h4>+ Add New Profile</h4>
-            <p>Create another profile</p>
-          </div>
+        <p style="margin-bottom: 16px; color: var(--muted);">Create and manage multiple user profiles</p>
+        
+        <div class="profile-card active">
+          <div class="profile-name">Emma Thompson</div>
+          <div class="profile-details">Standard • 5'6" • UK Sizes • Active Profile</div>
+        </div>
+        
+        <div class="profile-card">
+          <div class="profile-name">+ Add New Profile</div>
+          <div class="profile-details">Create a new profile for family member or friend</div>
         </div>
 
-        <div class="profile-form">
-          <div class="form-group">
-            <label class="form-label">First Name</label>
-            <input type="text" class="form-input" value="Emma" placeholder="First Name">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Last Name</label>
-            <input type="text" class="form-input" value="Johnson" placeholder="Last Name">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Age</label>
-            <input type="number" class="form-input" value="28" placeholder="Age">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Height</label>
-            <input type="text" class="form-input" value="168cm" placeholder="Height">
-          </div>
-          <div class="form-group full-width">
-            <label class="form-label">Body Type</label>
-            <div class="pill-section">
-              <div class="settings-pill active" data-body="standard">Standard</div>
-              <div class="settings-pill" data-body="petite">Petite</div>
-              <div class="settings-pill" data-body="tall">Tall</div>
-              <div class="settings-pill" data-body="plus">Plus</div>
-            </div>
-          </div>
+        <div class="form-group" style="margin-top: 20px;">
+          <label class="form-label">Profile Name</label>
+          <input type="text" class="form-input" placeholder="Enter profile name" />
         </div>
+        
+        <div class="form-group">
+          <label class="form-label">Body Type</label>
+          <select class="form-select">
+            <option>Standard</option>
+            <option>Petite</option>
+            <option>Tall</option>
+            <option>Plus Size</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Height</label>
+          <input type="text" class="form-input" placeholder="5'6&quot; or 168cm" />
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%;">Save Profile</button>
       </div>
 
       <!-- Measurements Section -->
       <div class="settings-section">
         <h3>📏 Measurements & Weights</h3>
-        <p style="color: var(--muted); margin-bottom: 20px;">Click on the measurement points to enter your data</p>
+        <p style="margin-bottom: 16px; color: var(--muted);">Track your body measurements for accurate sizing</p>
         
         <div class="body-diagram">
-          <div class="body-outline">
-            Body Outline
-            <div class="measurement-point point-neck" title="Neck">
-              <input type="text" placeholder="34">
-            </div>
-            <div class="measurement-point point-chest" title="Chest/Bust">
-              <input type="text" placeholder="86">
-            </div>
-            <div class="measurement-point point-waist" title="Waist">
-              <input type="text" placeholder="68">
-            </div>
-            <div class="measurement-point point-hips" title="Hips">
-              <input type="text" placeholder="94">
-            </div>
-            <div class="measurement-point point-thigh" title="Thigh">
-              <input type="text" placeholder="58">
-            </div>
-            <div class="measurement-point point-arm" title="Upper Arm">
-              <input type="text" placeholder="28">
-            </div>
-            <div class="measurement-point point-forearm" title="Forearm">
-              <input type="text" placeholder="24">
-            </div>
+          <div class="body-sketch">
+            Human Body Diagram
+            <br>
+            <small>(Measurement points)</small>
           </div>
         </div>
 
-        <div class="measurement-labels">
-          <div class="measurement-label">Neck: 34cm</div>
-          <div class="measurement-label">Chest: 86cm</div>
-          <div class="measurement-label">Waist: 68cm</div>
-          <div class="measurement-label">Hips: 94cm</div>
-          <div class="measurement-label">Thigh: 58cm</div>
-          <div class="measurement-label">Upper Arm: 28cm</div>
-          <div class="measurement-label">Forearm: 24cm</div>
-          <div class="measurement-label">Weight: 62kg</div>
+        <div class="measurement-grid">
+          <div class="measurement-bubble">
+            <h4>Weight</h4>
+            <input type="number" class="measurement-input" placeholder="62" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Chest/Bust</h4>
+            <input type="number" class="measurement-input" placeholder="86" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Waist</h4>
+            <input type="number" class="measurement-input" placeholder="68" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Hips</h4>
+            <input type="number" class="measurement-input" placeholder="92" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Shoulders</h4>
+            <input type="number" class="measurement-input" placeholder="38" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Arms</h4>
+            <input type="number" class="measurement-input" placeholder="28" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Thighs</h4>
+            <input type="number" class="measurement-input" placeholder="56" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Inseam</h4>
+            <input type="number" class="measurement-input" placeholder="76" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Neck</h4>
+            <input type="number" class="measurement-input" placeholder="32" />
+          </div>
         </div>
+
+        <button class="btn btn-primary" style="width: 100%; margin-top: 20px;">Save Measurements</button>
       </div>
 
       <!-- Region Settings -->
       <div class="settings-section">
         <h3>🌍 Change Region</h3>
-        <div class="pill-section">
-          <div class="settings-pill active" data-region="uk">🇬🇧 UK</div>
-          <div class="settings-pill" data-region="eu">🇪🇺 EU</div>
-          <div class="settings-pill" data-region="us">🇺🇸 US</div>
-          <div class="settings-pill" data-region="ca">🇨🇦 CA</div>
+        <p style="margin-bottom: 16px; color: var(--muted);">Select your primary shopping region</p>
+        
+        <div class="pill-settings-group">
+          <button class="settings-pill active" data-region="uk">🇬🇧 UK</button>
+          <button class="settings-pill" data-region="eu">🇪🇺 EU</button>
+          <button class="settings-pill" data-region="us">🇺🇸 US</button>
+          <button class="settings-pill" data-region="ca">🇨🇦 CA</button>
         </div>
       </div>
 
-      <!-- Unit Settings -->
+      <!-- Length Unit Settings -->
       <div class="settings-section">
-        <h3>📐 Measurement Units</h3>
-        <div style="margin-bottom: 16px;">
-          <h4 style="margin: 0 0 8px; font-size: 14px;">Length</h4>
-          <div class="pill-section">
-            <div class="settings-pill active" data-length="cm">Centimeters</div>
-            <div class="settings-pill" data-length="inch">Inches</div>
-          </div>
-        </div>
-        <div>
-          <h4 style="margin: 0 0 8px; font-size: 14px;">Weight</h4>
-          <div class="pill-section">
-            <div class="settings-pill" data-weight="lbs">Pounds (lbs)</div>
-            <div class="settings-pill" data-weight="stone">Stone</div>
-            <div class="settings-pill active" data-weight="kg">Kilograms (kg)</div>
-          </div>
+        <h3>📐 Length Units</h3>
+        <p style="margin-bottom: 16px; color: var(--muted);">Choose your preferred measurement unit</p>
+        
+        <div class="pill-settings-group">
+          <button class="settings-pill active" data-length="cm">Centimeters (cm)</button>
+          <button class="settings-pill" data-length="inches">Inches (in)</button>
         </div>
       </div>
 
-      <div class="button-group">
-        <button class="btn btn-primary">Save Changes</button>
-        <button class="btn btn-secondary">Reset to Defaults</button>
+      <!-- Weight Unit Settings -->
+      <div class="settings-section">
+        <h3>⚖️ Weight Units</h3>
+        <p style="margin-bottom: 16px; color: var(--muted);">Choose your preferred weight unit</p>
+        
+        <div class="pill-settings-group">
+          <button class="settings-pill" data-weight="lbs">Pounds (lbs)</button>
+          <button class="settings-pill" data-weight="stone">Stone (st)</button>
+          <button class="settings-pill active" data-weight="kg">Kilograms (kg)</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- EU Settings (duplicate structure for EU) -->
+  <!-- EU Settings -->
   <div id="eu-settings" class="screen">
     <div class="content-container">
       <div class="hub-header">
@@ -1231,125 +1199,130 @@
       <!-- Profiles Section -->
       <div class="settings-section">
         <h3>👤 Profiles</h3>
-        <div class="settings-grid">
-          <div class="profile-card active">
-            <h4>Emma Johnson</h4>
-            <p>Primary Profile</p>
-            <p style="font-size: 12px; color: var(--muted);">Standard • 168cm • Size 38</p>
-          </div>
-          <div class="profile-card">
-            <h4>+ Add New Profile</h4>
-            <p>Create another profile</p>
-          </div>
+        <p style="margin-bottom: 16px; color: var(--muted);">Create and manage multiple user profiles</p>
+        
+        <div class="profile-card active">
+          <div class="profile-name">Emma Thompson</div>
+          <div class="profile-details">Standard • 168cm • EU Sizes • Active Profile</div>
+        </div>
+        
+        <div class="profile-card">
+          <div class="profile-name">+ Add New Profile</div>
+          <div class="profile-details">Create a new profile for family member or friend</div>
         </div>
 
-        <div class="profile-form">
-          <div class="form-group">
-            <label class="form-label">First Name</label>
-            <input type="text" class="form-input" value="Emma" placeholder="First Name">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Last Name</label>
-            <input type="text" class="form-input" value="Johnson" placeholder="Last Name">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Age</label>
-            <input type="number" class="form-input" value="28" placeholder="Age">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Height</label>
-            <input type="text" class="form-input" value="168cm" placeholder="Height">
-          </div>
-          <div class="form-group full-width">
-            <label class="form-label">Body Type</label>
-            <div class="pill-section">
-              <div class="settings-pill active" data-body="standard">Standard</div>
-              <div class="settings-pill" data-body="petite">Petite</div>
-              <div class="settings-pill" data-body="tall">Tall</div>
-              <div class="settings-pill" data-body="plus">Plus</div>
-            </div>
-          </div>
+        <div class="form-group" style="margin-top: 20px;">
+          <label class="form-label">Profile Name</label>
+          <input type="text" class="form-input" placeholder="Enter profile name" />
         </div>
+        
+        <div class="form-group">
+          <label class="form-label">Body Type</label>
+          <select class="form-select">
+            <option>Standard</option>
+            <option>Petite</option>
+            <option>Tall</option>
+            <option>Plus Size</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Height</label>
+          <input type="text" class="form-input" placeholder="168cm" />
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%;">Save Profile</button>
       </div>
 
       <!-- Measurements Section -->
       <div class="settings-section">
         <h3>📏 Measurements & Weights</h3>
-        <p style="color: var(--muted); margin-bottom: 20px;">Click on the measurement points to enter your data</p>
+        <p style="margin-bottom: 16px; color: var(--muted);">Track your body measurements for accurate sizing</p>
         
         <div class="body-diagram">
-          <div class="body-outline">
-            Body Outline
-            <div class="measurement-point point-neck" title="Neck">
-              <input type="text" placeholder="34">
-            </div>
-            <div class="measurement-point point-chest" title="Chest/Bust">
-              <input type="text" placeholder="86">
-            </div>
-            <div class="measurement-point point-waist" title="Waist">
-              <input type="text" placeholder="68">
-            </div>
-            <div class="measurement-point point-hips" title="Hips">
-              <input type="text" placeholder="94">
-            </div>
-            <div class="measurement-point point-thigh" title="Thigh">
-              <input type="text" placeholder="58">
-            </div>
-            <div class="measurement-point point-arm" title="Upper Arm">
-              <input type="text" placeholder="28">
-            </div>
-            <div class="measurement-point point-forearm" title="Forearm">
-              <input type="text" placeholder="24">
-            </div>
+          <div class="body-sketch">
+            Human Body Diagram
+            <br>
+            <small>(Measurement points)</small>
           </div>
         </div>
 
-        <div class="measurement-labels">
-          <div class="measurement-label">Neck: 34cm</div>
-          <div class="measurement-label">Chest: 86cm</div>
-          <div class="measurement-label">Waist: 68cm</div>
-          <div class="measurement-label">Hips: 94cm</div>
-          <div class="measurement-label">Thigh: 58cm</div>
-          <div class="measurement-label">Upper Arm: 28cm</div>
-          <div class="measurement-label">Forearm: 24cm</div>
-          <div class="measurement-label">Weight: 62kg</div>
+        <div class="measurement-grid">
+          <div class="measurement-bubble">
+            <h4>Weight</h4>
+            <input type="number" class="measurement-input" placeholder="62" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Chest/Bust</h4>
+            <input type="number" class="measurement-input" placeholder="86" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Waist</h4>
+            <input type="number" class="measurement-input" placeholder="68" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Hips</h4>
+            <input type="number" class="measurement-input" placeholder="92" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Shoulders</h4>
+            <input type="number" class="measurement-input" placeholder="38" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Arms</h4>
+            <input type="number" class="measurement-input" placeholder="28" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Thighs</h4>
+            <input type="number" class="measurement-input" placeholder="56" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Inseam</h4>
+            <input type="number" class="measurement-input" placeholder="76" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Neck</h4>
+            <input type="number" class="measurement-input" placeholder="32" />
+          </div>
         </div>
+
+        <button class="btn btn-primary" style="width: 100%; margin-top: 20px;">Save Measurements</button>
       </div>
 
       <!-- Region Settings -->
       <div class="settings-section">
         <h3>🌍 Change Region</h3>
-        <div class="pill-section">
-          <div class="settings-pill" data-region="uk">🇬🇧 UK</div>
-          <div class="settings-pill active" data-region="eu">🇪🇺 EU</div>
-          <div class="settings-pill" data-region="us">🇺🇸 US</div>
-          <div class="settings-pill" data-region="ca">🇨🇦 CA</div>
+        <p style="margin-bottom: 16px; color: var(--muted);">Select your primary shopping region</p>
+        
+        <div class="pill-settings-group">
+          <button class="settings-pill" data-region="uk">🇬🇧 UK</button>
+          <button class="settings-pill active" data-region="eu">🇪🇺 EU</button>
+          <button class="settings-pill" data-region="us">🇺🇸 US</button>
+          <button class="settings-pill" data-region="ca">🇨🇦 CA</button>
         </div>
       </div>
 
-      <!-- Unit Settings -->
+      <!-- Length Unit Settings -->
       <div class="settings-section">
-        <h3>📐 Measurement Units</h3>
-        <div style="margin-bottom: 16px;">
-          <h4 style="margin: 0 0 8px; font-size: 14px;">Length</h4>
-          <div class="pill-section">
-            <div class="settings-pill active" data-length="cm">Centimeters</div>
-            <div class="settings-pill" data-length="inch">Inches</div>
-          </div>
-        </div>
-        <div>
-          <h4 style="margin: 0 0 8px; font-size: 14px;">Weight</h4>
-          <div class="pill-section">
-            <div class="settings-pill" data-weight="lbs">Pounds (lbs)</div>
-            <div class="settings-pill" data-weight="stone">Stone</div>
-            <div class="settings-pill active" data-weight="kg">Kilograms (kg)</div>
-          </div>
+        <h3>📐 Length Units</h3>
+        <p style="margin-bottom: 16px; color: var(--muted);">Choose your preferred measurement unit</p>
+        
+        <div class="pill-settings-group">
+          <button class="settings-pill active" data-length="cm">Centimeters (cm)</button>
+          <button class="settings-pill" data-length="inches">Inches (in)</button>
         </div>
       </div>
 
-      <div class="button-group">
-        <button class="btn btn-primary">Save Changes</button>
-        <button class="btn btn-secondary">Reset to Defaults</button>
+      <!-- Weight Unit Settings -->
+      <div class="settings-section">
+        <h3>⚖️ Weight Units</h3>
+        <p style="margin-bottom: 16px; color: var(--muted);">Choose your preferred weight unit</p>
+        
+        <div class="pill-settings-group">
+          <button class="settings-pill" data-weight="lbs">Pounds (lbs)</button>
+          <button class="settings-pill" data-weight="stone">Stone (st)</button>
+          <button class="settings-pill active" data-weight="kg">Kilograms (kg)</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1365,125 +1338,130 @@
       <!-- Profiles Section -->
       <div class="settings-section">
         <h3>👤 Profiles</h3>
-        <div class="settings-grid">
-          <div class="profile-card active">
-            <h4>Emma Johnson</h4>
-            <p>Primary Profile</p>
-            <p style="font-size: 12px; color: var(--muted);">Standard • 5'6" • Size 8</p>
-          </div>
-          <div class="profile-card">
-            <h4>+ Add New Profile</h4>
-            <p>Create another profile</p>
-          </div>
+        <p style="margin-bottom: 16px; color: var(--muted);">Create and manage multiple user profiles</p>
+        
+        <div class="profile-card active">
+          <div class="profile-name">Emma Thompson</div>
+          <div class="profile-details">Standard • 5'6" • US Sizes • Active Profile</div>
+        </div>
+        
+        <div class="profile-card">
+          <div class="profile-name">+ Add New Profile</div>
+          <div class="profile-details">Create a new profile for family member or friend</div>
         </div>
 
-        <div class="profile-form">
-          <div class="form-group">
-            <label class="form-label">First Name</label>
-            <input type="text" class="form-input" value="Emma" placeholder="First Name">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Last Name</label>
-            <input type="text" class="form-input" value="Johnson" placeholder="Last Name">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Age</label>
-            <input type="number" class="form-input" value="28" placeholder="Age">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Height</label>
-            <input type="text" class="form-input" value="5'6\"" placeholder="Height">
-          </div>
-          <div class="form-group full-width">
-            <label class="form-label">Body Type</label>
-            <div class="pill-section">
-              <div class="settings-pill active" data-body="standard">Standard</div>
-              <div class="settings-pill" data-body="petite">Petite</div>
-              <div class="settings-pill" data-body="tall">Tall</div>
-              <div class="settings-pill" data-body="plus">Plus</div>
-            </div>
-          </div>
+        <div class="form-group" style="margin-top: 20px;">
+          <label class="form-label">Profile Name</label>
+          <input type="text" class="form-input" placeholder="Enter profile name" />
         </div>
+        
+        <div class="form-group">
+          <label class="form-label">Body Type</label>
+          <select class="form-select">
+            <option>Standard</option>
+            <option>Petite</option>
+            <option>Tall</option>
+            <option>Plus Size</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Height</label>
+          <input type="text" class="form-input" placeholder="5'6&quot;" />
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%;">Save Profile</button>
       </div>
 
       <!-- Measurements Section -->
       <div class="settings-section">
         <h3>📏 Measurements & Weights</h3>
-        <p style="color: var(--muted); margin-bottom: 20px;">Click on the measurement points to enter your data</p>
+        <p style="margin-bottom: 16px; color: var(--muted);">Track your body measurements for accurate sizing</p>
         
         <div class="body-diagram">
-          <div class="body-outline">
-            Body Outline
-            <div class="measurement-point point-neck" title="Neck">
-              <input type="text" placeholder="13">
-            </div>
-            <div class="measurement-point point-chest" title="Chest/Bust">
-              <input type="text" placeholder="34">
-            </div>
-            <div class="measurement-point point-waist" title="Waist">
-              <input type="text" placeholder="27">
-            </div>
-            <div class="measurement-point point-hips" title="Hips">
-              <input type="text" placeholder="37">
-            </div>
-            <div class="measurement-point point-thigh" title="Thigh">
-              <input type="text" placeholder="23">
-            </div>
-            <div class="measurement-point point-arm" title="Upper Arm">
-              <input type="text" placeholder="11">
-            </div>
-            <div class="measurement-point point-forearm" title="Forearm">
-              <input type="text" placeholder="9">
-            </div>
+          <div class="body-sketch">
+            Human Body Diagram
+            <br>
+            <small>(Measurement points)</small>
           </div>
         </div>
 
-        <div class="measurement-labels">
-          <div class="measurement-label">Neck: 13.5"</div>
-          <div class="measurement-label">Chest: 34"</div>
-          <div class="measurement-label">Waist: 27"</div>
-          <div class="measurement-label">Hips: 37"</div>
-          <div class="measurement-label">Thigh: 23"</div>
-          <div class="measurement-label">Upper Arm: 11"</div>
-          <div class="measurement-label">Forearm: 9.5"</div>
-          <div class="measurement-label">Weight: 137lbs</div>
+        <div class="measurement-grid">
+          <div class="measurement-bubble">
+            <h4>Weight</h4>
+            <input type="number" class="measurement-input" placeholder="136" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Chest/Bust</h4>
+            <input type="number" class="measurement-input" placeholder="34" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Waist</h4>
+            <input type="number" class="measurement-input" placeholder="27" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Hips</h4>
+            <input type="number" class="measurement-input" placeholder="36" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Shoulders</h4>
+            <input type="number" class="measurement-input" placeholder="15" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Arms</h4>
+            <input type="number" class="measurement-input" placeholder="11" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Thighs</h4>
+            <input type="number" class="measurement-input" placeholder="22" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Inseam</h4>
+            <input type="number" class="measurement-input" placeholder="30" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Neck</h4>
+            <input type="number" class="measurement-input" placeholder="13" />
+          </div>
         </div>
+
+        <button class="btn btn-primary" style="width: 100%; margin-top: 20px;">Save Measurements</button>
       </div>
 
       <!-- Region Settings -->
       <div class="settings-section">
         <h3>🌍 Change Region</h3>
-        <div class="pill-section">
-          <div class="settings-pill" data-region="uk">🇬🇧 UK</div>
-          <div class="settings-pill" data-region="eu">🇪🇺 EU</div>
-          <div class="settings-pill active" data-region="us">🇺🇸 US</div>
-          <div class="settings-pill" data-region="ca">🇨🇦 CA</div>
+        <p style="margin-bottom: 16px; color: var(--muted);">Select your primary shopping region</p>
+        
+        <div class="pill-settings-group">
+          <button class="settings-pill" data-region="uk">🇬🇧 UK</button>
+          <button class="settings-pill" data-region="eu">🇪🇺 EU</button>
+          <button class="settings-pill active" data-region="us">🇺🇸 US</button>
+          <button class="settings-pill" data-region="ca">🇨🇦 CA</button>
         </div>
       </div>
 
-      <!-- Unit Settings -->
+      <!-- Length Unit Settings -->
       <div class="settings-section">
-        <h3>📐 Measurement Units</h3>
-        <div style="margin-bottom: 16px;">
-          <h4 style="margin: 0 0 8px; font-size: 14px;">Length</h4>
-          <div class="pill-section">
-            <div class="settings-pill" data-length="cm">Centimeters</div>
-            <div class="settings-pill active" data-length="inch">Inches</div>
-          </div>
-        </div>
-        <div>
-          <h4 style="margin: 0 0 8px; font-size: 14px;">Weight</h4>
-          <div class="pill-section">
-            <div class="settings-pill active" data-weight="lbs">Pounds (lbs)</div>
-            <div class="settings-pill" data-weight="stone">Stone</div>
-            <div class="settings-pill" data-weight="kg">Kilograms (kg)</div>
-          </div>
+        <h3>📐 Length Units</h3>
+        <p style="margin-bottom: 16px; color: var(--muted);">Choose your preferred measurement unit</p>
+        
+        <div class="pill-settings-group">
+          <button class="settings-pill" data-length="cm">Centimeters (cm)</button>
+          <button class="settings-pill active" data-length="inches">Inches (in)</button>
         </div>
       </div>
 
-      <div class="button-group">
-        <button class="btn btn-primary">Save Changes</button>
-        <button class="btn btn-secondary">Reset to Defaults</button>
+      <!-- Weight Unit Settings -->
+      <div class="settings-section">
+        <h3>⚖️ Weight Units</h3>
+        <p style="margin-bottom: 16px; color: var(--muted);">Choose your preferred weight unit</p>
+        
+        <div class="pill-settings-group">
+          <button class="settings-pill active" data-weight="lbs">Pounds (lbs)</button>
+          <button class="settings-pill" data-weight="stone">Stone (st)</button>
+          <button class="settings-pill" data-weight="kg">Kilograms (kg)</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1499,38 +1477,553 @@
       <!-- Profiles Section -->
       <div class="settings-section">
         <h3>👤 Profiles</h3>
-        <div class="settings-grid">
-          <div class="profile-card active">
-            <h4>Emma Johnson</h4>
-            <p>Primary Profile</p>
-            <p style="font-size: 12px; color: var(--muted);">Standard • 168cm • Size 8</p>
-          </div>
-          <div class="profile-card">
-            <h4>+ Add New Profile</h4>
-            <p>Create another profile</p>
+        <p style="margin-bottom: 16px; color: var(--muted);">Create and manage multiple user profiles</p>
+        
+        <div class="profile-card active">
+          <div class="profile-name">Emma Thompson</div>
+          <div class="profile-details">Standard • 5'6" • Canadian Sizes • Active Profile</div>
+        </div>
+        
+        <div class="profile-card">
+          <div class="profile-name">+ Add New Profile</div>
+          <div class="profile-details">Create a new profile for family member or friend</div>
+        </div>
+
+        <div class="form-group" style="margin-top: 20px;">
+          <label class="form-label">Profile Name</label>
+          <input type="text" class="form-input" placeholder="Enter profile name" />
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Body Type</label>
+          <select class="form-select">
+            <option>Standard</option>
+            <option>Petite</option>
+            <option>Tall</option>
+            <option>Plus Size</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Height</label>
+          <input type="text" class="form-input" placeholder="5'6&quot; or 168cm" />
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%;">Save Profile</button>
+      </div>
+
+      <!-- Measurements Section -->
+      <div class="settings-section">
+        <h3>📏 Measurements & Weights</h3>
+        <p style="margin-bottom: 16px; color: var(--muted);">Track your body measurements for accurate sizing</p>
+        
+        <div class="body-diagram">
+          <div class="body-sketch">
+            Human Body Diagram
+            <br>
+            <small>(Measurement points)</small>
           </div>
         </div>
 
-        <div class="profile-form">
-          <div class="form-group">
-            <label class="form-label">First Name</label>
-            <input type="text" class="form-input" value="Emma" placeholder="First Name">
+        <div class="measurement-grid">
+          <div class="measurement-bubble">
+            <h4>Weight</h4>
+            <input type="number" class="measurement-input" placeholder="136" />
           </div>
-          <div class="form-group">
-            <label class="form-label">Last Name</label>
-            <input type="text" class="form-input" value="Johnson" placeholder="Last Name">
+          <div class="measurement-bubble">
+            <h4>Chest/Bust</h4>
+            <input type="number" class="measurement-input" placeholder="34" />
           </div>
-          <div class="form-group">
-            <label class="form-label">Age</label>
-            <input type="number" class="form-input" value="28" placeholder="Age">
+          <div class="measurement-bubble">
+            <h4>Waist</h4>
+            <input type="number" class="measurement-input" placeholder="27" />
           </div>
-          <div class="form-group">
-            <label class="form-label">Height</label>
-            <input type="text" class="form-input" value="168cm" placeholder="Height">
+          <div class="measurement-bubble">
+            <h4>Hips</h4>
+            <input type="number" class="measurement-input" placeholder="36" />
           </div>
-          <div class="form-group full-width">
-            <label class="form-label">Body Type</label>
-            <div class="pill-section">
-              <div class="settings-pill active" data-body="standard">Standard</div>
-              <div class="settings-pill" da
-                
+          <div class="measurement-bubble">
+            <h4>Shoulders</h4>
+            <input type="number" class="measurement-input" placeholder="15" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Arms</h4>
+            <input type="number" class="measurement-input" placeholder="11" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Thighs</h4>
+            <input type="number" class="measurement-input" placeholder="22" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Inseam</h4>
+            <input type="number" class="measurement-input" placeholder="30" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Neck</h4>
+            <input type="number" class="measurement-input" placeholder="13" />
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%; margin-top: 20px;">Save Measurements</button>
+      </div>
+
+      <!-- Region Settings -->
+      <div class="settings-section">
+        <h3>🌍 Change Region</h3>
+        <p style="margin-bottom: 16px; color: var(--muted);">Select your primary shopping region</p>
+        
+        <div class="pill-settings-group">
+          <button class="settings-pill" data-region="uk">🇬🇧 UK</button>
+          <button class="settings-pill" data-region="eu">🇪🇺 EU</button>
+          <button class="settings-pill" data-region="us">🇺🇸 US</button>
+          <button class="settings-pill active" data-region="ca">🇨🇦 CA</button>
+        </div>
+      </div>
+
+      <!-- Length Unit Settings -->
+      <div class="settings-section">
+        <h3>📐 Length Units</h3>
+        <p style="margin-bottom: 16px; color: var(--muted);">Choose your preferred measurement unit</p>
+        
+        <div class="pill-settings-group">
+          <button class="settings-pill" data-length="cm">Centimeters (cm)</button>
+          <button class="settings-pill active" data-length="inches">Inches (in)</button>
+        </div>
+      </div>
+
+      <!-- Weight Unit Settings -->
+      <div class="settings-section">
+        <h3>⚖️ Weight Units</h3>
+        <p style="margin-bottom: 16px; color: var(--muted);">Choose your preferred weight unit</p>
+        
+        <div class="pill-settings-group">
+          <button class="settings-pill active" data-weight="lbs">Pounds (lbs)</button>
+          <button class="settings-pill" data-weight="stone">Stone (st)</button>
+          <button class="settings-pill" data-weight="kg">Kilograms (kg)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UK Size Finder -->
+  <div id="uk-sizefinder" class="screen">
+    <div class="content-container">
+      <div class="hub-header">
+        <h2 class="hub-title">🇬🇧 Size Finder</h2>
+        <p class="hub-subtitle">Find your perfect size across UK brands</p>
+      </div>
+      
+      <div class="form-container">
+        <div class="form-group">
+          <label class="form-label">Brand</label>
+          <select class="form-select" id="uk-brand-select">
+            <option value="">Select a brand...</option>
+            <option value="asos">ASOS</option>
+            <option value="next">Next</option>
+            <option value="marks-spencer">Marks & Spencer</option>
+            <option value="zara">Zara</option>
+            <option value="h&m">H&M</option>
+            <option value="topshop">Topshop</option>
+            <option value="primark">Primark</option>
+            <option value="uniqlo">Uniqlo</option>
+            <option value="cos">COS</option>
+            <option value="other-stories">& Other Stories</option>
+            <option value="mango">Mango</option>
+            <option value="river-island">River Island</option>
+            <option value="new-look">New Look</option>
+            <option value="boohoo">Boohoo</option>
+            <option value="pretty-little-thing">PrettyLittleThing</option>
+            <option value="missguided">Missguided</option>
+            <option value="french-connection">French Connection</option>
+            <option value="reiss">Reiss</option>
+            <option value="whistles">Whistles</option>
+            <option value="ted-baker">Ted Baker</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select class="form-select" id="uk-category-select">
+            <option value="">Select category...</option>
+            <option value="womens-jeans">Women's Jeans</option>
+            <option value="womens-dresses">Women's Dresses</option>
+            <option value="womens-tops">Women's Tops</option>
+            <option value="womens-shoes">Women's Shoes (UK)</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Fit Preference</label>
+          <select class="form-select" id="uk-fit-select">
+            <option value="">Select fit...</option>
+            <option value="standard">Standard</option>
+            <option value="snug">Snug</option>
+            <option value="relaxed">Relaxed</option>
+          </select>
+        </div>
+        
+        <div class="button-group">
+          <button class="btn btn-primary" onclick="getMySize()">Get My Size</button>
+          <button class="btn btn-secondary" onclick="saveToHistory()">Save to History</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UK My Sizes -->
+  <div id="uk-mysizes" class="screen">
+    <div class="content-container">
+      <div class="hub-header">
+        <h2 class="hub-title">My Sizes</h2>
+        <p class="hub-subtitle">(Filtered by <span id="body-type-display">Standard</span> body type)</p>
+        <p style="font-size: 14px; color: var(--muted); margin-top: 8px;">
+          Only brands that support your body type are included
+        </p>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Category</label>
+        <select class="form-select" id="mysizes-category">
+          <option value="">All categories</option>
+          <option value="womens-jeans">Women's Jeans</option>
+          <option value="womens-dresses">Women's Dresses</option>
+          <option value="womens-tops">Women's Tops</option>
+          <option value="womens-shoes">Women's Shoes (UK)</option>
+        </select>
+      </div>
+      
+      <div class="brand-grid" id="my-sizes-grid">
+        <div class="brand-card">
+          <div class="brand-name">ASOS</div>
+          <div class="brand-size">Size 10</div>
+          <p style="font-size: 14px; color: var(--muted); margin-top: 8px;">Women's Jeans - Standard Fit</p>
+        </div>
+        <div class="brand-card">
+          <div class="brand-name">Zara</div>
+          <div class="brand-size">Size S</div>
+          <p style="font-size: 14px; color: var(--muted); margin-top: 8px;">Women's Dresses - Standard Fit</p>
+        </div>
+        <div class="brand-card">
+          <div class="brand-name">H&M</div>
+          <div class="brand-size">Size 38</div>
+          <p style="font-size: 14px; color: var(--muted); margin-top: 8px;">Women's Tops - Standard Fit</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UK Brand Notes -->
+  <div id="uk-brandnotes" class="screen">
+    <div class="content-container">
+      <div class="hub-header">
+        <h2 class="hub-title">🇬🇧 Brand Notes</h2>
+        <p class="hub-subtitle">Information about UK brands and their sizing</p>
+      </div>
+      
+      <div class="brand-grid">
+        <div class="brand-card">
+          <div class="brand-name">ASOS</div>
+          <p><strong>Sizing:</strong> UK sizes, runs slightly large</p>
+          <p><strong>Body Types:</strong> Standard, Petite, Tall, Plus</p>
+          <p><strong>Categories:</strong> Full range including jeans, dresses, tops, shoes</p>
+          <p><strong>Note:</strong> Online exclusive, good size range</p>
+        </div>
+        <div class="brand-card">
+          <div class="brand-name">Zara</div>
+          <p><strong>Sizing:</strong> European sizes, runs small</p>
+          <p><strong>Body Types:</strong> Standard, Limited plus sizes</p>
+          <p><strong>Categories:</strong> Dresses, tops, jeans, shoes</p>
+          <p><strong>Note:</strong> Trend-focused, size up recommended</p>
+        </div>
+        <div class="brand-card">
+          <div class="brand-name">Marks & Spencer</div>
+          <p><strong>Sizing:</strong> UK sizes, true to size</p>
+          <p><strong>Body Types:</strong> Standard, Petite, Tall, Plus</p>
+          <p><strong>Categories:</strong> Full range, excellent basics</p>
+          <p><strong>Note:</strong> Reliable sizing, good quality</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UK History -->
+  <div id="uk-history" class="screen">
+    <div class="content-container">
+      <div class="hub-header">
+        <h2 class="hub-title">🇬🇧 Search History</h2>
+        <p class="hub-subtitle">Your past size finder searches</p>
+      </div>
+      
+      <div class="history-list">
+        <div class="history-item">
+          <div>
+            <strong>ASOS - Women's Jeans</strong><br>
+            <span class="history-date">Size 10, Standard fit - 2 days ago</span>
+          </div>
+        </div>
+        <div class="history-item">
+          <div>
+            <strong>Zara - Women's Dresses</strong><br>
+            <span class="history-date">Size S, Standard fit - 1 week ago</span>
+          </div>
+        </div>
+        <div class="history-item">
+          <div>
+            <strong>H&M - Women's Tops</strong><br>
+            <span class="history-date">Size 38, Relaxed fit - 2 weeks ago</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UK Converters -->
+  <div id="uk-converters" class="screen">
+    <div class="content-container">
+      <div class="hub-header">
+        <h2 class="hub-title">🇬🇧 Size Converters</h2>
+        <p class="hub-subtitle">Convert between UK, US, CA, EU sizes</p>
+      </div>
+      
+      <div class="hub-tiles">
+        <div class="hub-tile" onclick="openConverter('dresses')">
+          Dress Sizes
+        </div>
+        <div class="hub-tile" onclick="openConverter('jeans')">
+          Jean Sizes
+        </div>
+        <div class="hub-tile" onclick="openConverter('tops')">
+          Top Sizes
+        </div>
+        <div class="hub-tile" onclick="openConverter('shoes')">
+          Shoe Sizes
+        </div>
+        <div class="hub-tile" onclick="openConverter('bra')">
+          Bra Helper
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MiStats Screen with Tabs (Help removed) -->
+  <div id="mistats" class="screen">
+    <div class="stats-tabs">
+      <button class="stats-tab active" onclick="showStatsTab('current')">Current</button>
+      <button class="stats-tab" onclick="showStatsTab('graph')">Graph</button>
+      <button class="stats-tab" onclick="showStatsTab('history')">History</button>
+    </div>
+    
+    <!-- Current Progress Tab -->
+    <div id="stats-current" class="stats-content active" style="padding-top: 120px;">
+      <div class="content-container">
+        <div class="hub-header">
+          <h2 class="hub-title">Welcome back, <span id="user-name">Emma</span>!</h2>
+        </div>
+        
+        <div class="stats-grid">
+          <div class="stats-bubble">
+            <h3>Start</h3>
+            <p class="value">65kg</p>
+          </div>
+          <div class="stats-bubble current">
+            <h3>Current</h3>
+            <p class="value">62kg</p>
+          </div>
+          <div class="stats-bubble">
+            <h3>Target</h3>
+            <p class="value">58kg</p>
+          </div>
+        </div>
+        
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 43%;"></div>
+        </div>
+        <p style="text-align: center; margin-bottom: 32px;">43% to goal</p>
+        
+        <h3 style="text-align: center; margin-bottom: 16px;">Current Statistics</h3>
+        <div class="mini-stats">
+          <div class="mini-bubble">
+            <h4>Body Fat %</h4>
+            <p class="value">22%</p>
+          </div>
+          <div class="mini-bubble">
+            <h4>Amount Lost</h4>
+            <p class="value">3kg</p>
+          </div>
+          <div class="mini-bubble">
+            <h4>Remaining</h4>
+            <p class="value">4kg</p>
+          </div>
+        </div>
+        
+        <div class="bmi-indicator">
+          <h4>BMI Tracker</h4>
+          <p class="value" style="color: var(--green);">22.5</p>
+          <p style="font-size: 14px; margin-top: 8px;">Normal Weight</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Graph Tab -->
+    <div id="stats-graph" class="stats-content" style="display: none; padding-top: 120px;">
+      <div class="content-container">
+        <div class="graph-controls">
+          <button class="graph-btn active">Week</button>
+          <button class="graph-btn">Month</button>
+          <button class="graph-btn">Year</button>
+          <button class="graph-btn">Table</button>
+        </div>
+        <div style="background: var(--card); border-radius: 12px; padding: 40px; text-align: center; border: 2px solid var(--border);">
+          <p>📊 Graph visualization will be displayed here</p>
+          <p style="color: var(--muted); font-size: 14px;">Interactive chart with zoom capabilities</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- History Tab -->
+    <div id="stats-history" class="stats-content" style="display: none; padding-top: 120px;">
+      <div class="content-container">
+        <h3>Measurement History</h3>
+        <div class="history-list">
+          <div class="history-item">
+            <div>
+              <strong>Weight: 62kg</strong><br>
+              <span class="history-date">March 15, 2024</span>
+            </div>
+          </div>
+          <div class="history-item">
+            <div>
+              <strong>Waist: 68cm</strong><br>
+              <span class="history-date">March 15, 2024</span>
+            </div>
+          </div>
+          <div class="history-item">
+            <div>
+              <strong>Hips: 92cm</strong><br>
+              <span class="history-date">March 10, 2024</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Other Hub Screens (EU, US, CA) -->
+  <div id="eu-hub" class="screen">
+    <div class="hub-container">
+      <div class="hub-header">
+        <div class="hub-flag">🇪🇺</div>
+        <h2 class="hub-title">EU Hub</h2>
+        <p class="hub-subtitle">European sizing & tracking</p>
+      </div>
+      
+      <div class="hub-tiles">
+        <div class="hub-tile" onclick="goToScreen('eu-sizefinder')">
+          Size Finder
+        </div>
+        <div class="hub-tile" onclick="goToScreen('eu-mistats')">
+          MiStats Tracker
+        </div>
+        <div class="hub-tile" onclick="goToScreen('eu-profile')">
+          My Profile
+        </div>
+        <div class="hub-tile" onclick="goToScreen('eu-settings')">
+          Settings
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="us-hub" class="screen">
+    <div class="hub-container">
+      <div class="hub-header">
+        <div class="hub-flag">🇺🇸</div>
+        <h2 class="hub-title">US Hub</h2>
+        <p class="hub-subtitle">United States sizing & tracking</p>
+      </div>
+      
+      <div class="hub-tiles">
+        <div class="hub-tile" onclick="goToScreen('us-sizefinder')">
+          Size Finder
+        </div>
+        <div class="hub-tile" onclick="goToScreen('us-mistats')">
+          MiStats Tracker
+        </div>
+        <div class="hub-tile" onclick="goToScreen('us-profile')">
+          My Profile
+        </div>
+        <div class="hub-tile" onclick="goToScreen('us-settings')">
+          Settings
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="ca-hub" class="screen">
+    <div class="hub-container">
+      <div class="hub-header">
+        <div class="hub-flag">🇨🇦</div>
+        <h2 class="hub-title">Canada Hub</h2>
+        <p class="hub-subtitle">Canadian sizing & tracking</p>
+      </div>
+      
+      <div class="hub-tiles">
+        <div class="hub-tile" onclick="goToScreen('ca-sizefinder')">
+          Size Finder
+        </div>
+        <div class="hub-tile" onclick="goToScreen('ca-mistats')">
+          MiStats Tracker
+        </div>
+        <div class="hub-tile" onclick="goToScreen('ca-profile')">
+          My Profile
+        </div>
+        <div class="hub-tile" onclick="goToScreen('ca-settings')">
+          Settings
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation (5 buttons with Back restored as 5th) -->
+  <div class="bottom-nav">
+    <button class="nav-item active" onclick="goHome()">Home</button>
+    <button class="nav-item" onclick="goToMiStats()">MiStats</button>
+    <button class="nav-item" onclick="goToSettings()">Settings</button>
+    <button class="nav-item" onclick="goToHelp()">Help</button>
+    <button class="nav-item" onclick="goBack()">Back</button>
+  </div>
+
+  <script>
+    let currentScreen = 'home';
+    let navigationHistory = [];
+    let selectedBodyType = 'standard';
+    let selectedUnit = 'cm';
+    let selectedRegion = 'uk';
+    let selectedWeightUnit = 'kg';
+    
+    function enterHub(region) {
+      const hubScreen = region.toLowerCase() + '-hub';
+      goToScreen(hubScreen);
+    }
+    
+    function goToScreen(screenId) {
+      if (currentScreen !== screenId) {
+        navigationHistory.push(currentScreen);
+      }
+      
+      document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+      });
+      
+      document.getElementById(screenId).classList.add('active');
+      currentScreen = screenId;
+      
+      updateNavigation();
+    }
+    
+    function goHome() {
+      navigationHistory = [];
+      goToScreen('home');
+    }
+    
+    function go
