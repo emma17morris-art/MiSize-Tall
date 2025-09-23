@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My Fit App</title>
 <style>
 :root{
   --bg:#0f131a; --card:#151a22; --border:#243048; --muted:#aab3c5;
@@ -44,7 +50,7 @@ button.pill{padding:6px 12px;border-radius:16px;border:1px solid #243048;backgro
 .delta.down{color:#5da8ff;}
 .delta.up{color:#ff9a9a;}
 </style>
-
+</head>
 <body>
 
 <!-- Topbar -->
@@ -95,7 +101,7 @@ button.pill{padding:6px 12px;border-radius:16px;border:1px solid #243048;backgro
 <section id="mistats" class="screen">
   <h2 class="big">MiStats</h2>
   <div class="card" id="mi_view_current"></div>
-  <div class="card"><canvas id="mi_canvas"></canvas><p id="mi_graph_note" class="note"></p></div>
+  <div class="card"><canvas id="mi_canvas" width="900" height="260"></canvas><p id="mi_graph_note" class="note"></p></div>
   <div class="card" id="mi_view_history"></div>
 </section>
 
@@ -126,21 +132,20 @@ button.pill{padding:6px 12px;border-radius:16px;border:1px solid #243048;backgro
   <button id="tab_hub" class="tab" onclick="hubBack()">Hub</button>
 </div>
 
-</body>
-
-/* Navigation */
-const NAV_STACK=[]; 
+<script>
+/* ========= Tiny helpers ========= */
+const NAV_STACK=[];
 let CURRENT_SCREEN='home';
-function $(id){return document.getElementById(id)}
+const $ = (id)=>document.getElementById(id);
 
+/* ========= Navigation ========= */
 function switchTab(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  $(id).classList.add('active');
+  ( $(id) || $('home') ).classList.add('active');
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   const t = $('tab_'+id); if(t) t.classList.add('active');
   CURRENT_SCREEN=id;
 }
-
 function hubBack(){
   if (CURRENT_SCREEN && CURRENT_SCREEN.startsWith('uk_')){ switchTab('uk'); return; }
   if (!['home','uk','eu','us','ca','profile','mistats','settings','splash'].includes(CURRENT_SCREEN)){
@@ -149,14 +154,22 @@ function hubBack(){
   switchTab('home');
 }
 
-/* Profiles */
+/* ========= Profiles (stored in localStorage) ========= */
 function getProfilesAndActive(){
   let arr=JSON.parse(localStorage.getItem('profiles')||'[]');
   let act=localStorage.getItem('activeProfileId');
-  if(!arr.length){ arr=[{id:'p1',name:'Default',sex:'female',height:null,bust:null,waist:null,hip:null,thigh:null,calf:null,neck:null}]; act='p1'; localStorage.setItem('profiles',JSON.stringify(arr)); localStorage.setItem('activeProfileId',act); }
+  if(!arr.length){
+    arr=[{id:'p1',name:'Default',sex:'female',height:null,bust:null,waist:null,hip:null,thigh:null,calf:null,neck:null}];
+    act='p1';
+    localStorage.setItem('profiles',JSON.stringify(arr));
+    localStorage.setItem('activeProfileId',act);
+  }
+  // ensure active exists
+  if(!arr.find(p=>p.id===act)){ act=arr[0].id; localStorage.setItem('activeProfileId',act); }
   return {profiles:arr, activeId:act};
 }
-function saveProfiles(p){localStorage.setItem('profiles',JSON.stringify(p))}
+function saveProfiles(p){ localStorage.setItem('profiles', JSON.stringify(p)); }
+
 function renderProfilePills(){
   const {profiles, activeId}=getProfilesAndActive();
   const frag=document.createDocumentFragment();
@@ -165,64 +178,191 @@ function renderProfilePills(){
     b.className='profile-pill'+(p.id===activeId?' active':'');
     b.dataset.id=p.id; b.textContent=p.name; frag.appendChild(b);
   });
-  const add=document.createElement('button'); add.className='profile-pill add'; add.dataset.action='add-profile'; add.textContent='+ Add profile'; frag.appendChild(add);
-  $('profilePillsSettings').innerHTML=''; $('profilePillsSettings').appendChild(frag);
+  const add=document.createElement('button');
+  add.className='profile-pill add'; add.dataset.action='add-profile'; add.textContent='+ Add profile';
+  frag.appendChild(add);
+  const host=$('profilePillsSettings');
+  if(host){ host.innerHTML=''; host.appendChild(frag); }
 }
+
+// profile pill interactions (in Settings)
 document.addEventListener('click',e=>{
-  const b=e.target.closest('.profile-pill'); if(!b)return;
-  if(b.dataset.action==='add-profile'){ const {profiles}=getProfilesAndActive(); const id='p'+Math.random().toString(36).slice(2,7); profiles.push({id,name:'Profile '+(profiles.length+1)}); saveProfiles(profiles); renderProfilePills(); return; }
-  localStorage.setItem('activeProfileId',b.dataset.id); renderProfilePills();
+  const b=e.target.closest('.profile-pill'); if(!b) return;
+  if(b.dataset.action==='add-profile'){
+    const name=prompt('Profile name?','Profile '+(getProfilesAndActive().profiles.length+1));
+    if(!name) return;
+    const {profiles}=getProfilesAndActive();
+    const id='p'+Math.random().toString(36).slice(2,7);
+    profiles.push({id,name,sex:'female',height:null,bust:null,waist:null,hip:null,thigh:null,calf:null,neck:null});
+    saveProfiles(profiles);
+    localStorage.setItem('activeProfileId',id);
+    renderProfilePills();
+    refreshAll();
+    return;
+  }
+  localStorage.setItem('activeProfileId',b.dataset.id);
+  renderProfilePills();
+  refreshAll();
 });
 
-/* MiStats */
+/* ========= MiStats (weight entries + simple measures hook) ========= */
 (function(){
   const STORE_KEY='mistats_v2';
-  function load(){try{return JSON.parse(localStorage.getItem(STORE_KEY)||'{}')}catch(e){return {}}}
-  function save(s){localStorage.setItem(STORE_KEY,JSON.stringify(s))}
-  function getBucket(){const S=load();const {activeId}=getProfilesAndActive(); if(!S[activeId])S[activeId]={unitW:'kg',entries:[],measures:[]}; return {s:S,b:S[activeId]}}
-  window.getBucket=getBucket;
-  window.refreshAll=refreshAll;
 
+  function load(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY)||'{}'); }catch(e){ return {}; } }
+  function save(s){ localStorage.setItem(STORE_KEY, JSON.stringify(s)); }
+  function getBucket(){
+    const S=load();
+    const {activeId}=getProfilesAndActive();
+    if(!S[activeId]) S[activeId]={unitW:'kg', entries:[], measures:[]};
+    return {s:S, b:S[activeId], id:activeId};
+  }
+
+  // expose a couple utils
+  window.getBucket = getBucket;
+  window.refreshAll = refreshAll;
+
+  // ——— renderers
   function renderCurrent(){
     const {b}=getBucket(); const E=b.entries;
     const box=$('mi_view_current'); if(!box)return;
-    if(!E.length){ box.innerHTML='<p class="note">No entries yet</p>'; return; }
+    if(!E.length){
+      box.innerHTML=`
+        <div class="row two">
+          <div>
+            <div class="big">No entries yet</div>
+            <p class="note">Add weights programmatically or via future UI.</p>
+          </div>
+          <div class="note">Unit: ${b.unitW}</div>
+        </div>`;
+      return;
+    }
     const start=E[0], curr=E[E.length-1];
     const lost=(start.kg-curr.kg).toFixed(1);
-    box.innerHTML=`<div class="big">Current weight ${curr.kg}kg</div><p class="note">Start: ${start.kg}kg • Lost: ${lost}kg</p>`;
+    box.innerHTML=`<div class="big">Current weight ${formatUnit(curr.kg,b.unitW)}</div>
+      <p class="note">Start: ${formatUnit(start.kg,b.unitW)} • Lost: ${formatUnit(+lost,b.unitW)}</p>`;
   }
+
   function renderHistory(){
     const {b}=getBucket(); const E=b.entries; const box=$('mi_view_history'); if(!box)return;
-    box.innerHTML=E.map(e=>`<div class="mi-row"><div>${e.d}</div><div>${e.kg}kg</div></div>`).join('');
+    if(!E.length){ box.innerHTML='<p class="note">No history yet</p>'; return; }
+    box.innerHTML=E.map(e=>`<div class="mi-row"><div>${e.d}</div><div>${formatUnit(e.kg,b.unitW)}</div></div>`).join('');
   }
+
   function miDrawGraph(){
-    const {b}=getBucket(); const E=b.entries; const c=$('mi_canvas'); const ctx=c.getContext('2d'); ctx.clearRect(0,0,c.width,c.height);
-    if(E.length<2){$('mi_graph_note').textContent='Need 2+ entries';return;}
+    const {b}=getBucket(); const E=b.entries;
+    const c=$('mi_canvas'); const ctx=c.getContext('2d'); ctx.clearRect(0,0,c.width,c.height);
+    if(E.length<2){ $('mi_graph_note').textContent='Need 2+ entries'; return; }
+
+    // scale
     const min=Math.min(...E.map(e=>e.kg)), max=Math.max(...E.map(e=>e.kg));
-    const left=40,top=10,right=10,bottom=20,W=c.width-left-right,H=c.height-top-bottom;
-    ctx.strokeStyle='#5da8ff';ctx.beginPath();
-    E.forEach((e,i)=>{const x=left+(i/(E.length-1))*W;const y=top+H-(e.kg-min)/(max-min)*H; if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);ctx.arc(x,y,2,0,Math.PI*2);});
-    ctx.stroke(); $('mi_graph_note').textContent=E.length+' points';
+    const left=40, top=10, right=10, bottom=24;
+    const W=c.width-left-right, H=c.height-top-bottom;
+
+    // axes
+    ctx.strokeStyle='#243048'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(left, top); ctx.lineTo(left, top+H); ctx.lineTo(left+W, top+H); ctx.stroke();
+
+    // line
+    ctx.strokeStyle='#5da8ff'; ctx.fillStyle='#5da8ff'; ctx.lineWidth=2; ctx.beginPath();
+    E.forEach((e,i)=>{
+      const x=left+(i/(E.length-1))*W;
+      const y=top+H-(e.kg-min)/(Math.max(0.0001,(max-min)))*H;
+      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      ctx.beginPath(); ctx.arc(x,y,2,0,Math.PI*2); ctx.fill();
+    });
+    ctx.stroke();
+
+    $('mi_graph_note').textContent = `${E.length} points • unit ${b.unitW}`;
   }
-  function refreshAll(){renderCurrent();renderHistory();miDrawGraph();}
+
+  // ——— units
+  function formatUnit(kg, unitW){
+    if(unitW==='kg') return kg.toFixed(1)+' kg';
+    if(unitW==='lb') return (kg/0.45359237).toFixed(1)+' lb';
+    if(unitW==='st') return (kg/6.35029318).toFixed(2)+' st';
+    return kg.toFixed(1)+' kg';
+  }
+
+  // public refresh
+  function refreshAll(){
+    renderCurrent();
+    renderHistory();
+    miDrawGraph();
+  }
+
+  // seed example data for quick demo (only if empty)
+  (function seed(){
+    const {s,b}=getBucket();
+    if(!b.entries.length){
+      const today=new Date();
+      const d=(off)=> new Date(today.getTime()+off*86400000).toISOString().slice(0,10);
+      b.entries=[
+        {d:d(-20), kg:80.0},
+        {d:d(-15), kg:79.2},
+        {d:d(-10), kg:78.9},
+        {d:d(-5),  kg:78.3},
+        {d:d(0),   kg:77.8},
+      ];
+      save(s);
+    }
+  })();
+
+  // first paint
   refreshAll();
 })();
 
-/* Global weight units card */
+/* ========= Global weight units card (in Settings) ========= */
 (function buildGlobalWeightUnitCard(){
   const card=$('global_weight_units_card'); if(!card)return;
+
   card.innerHTML=`
     <div class="row two">
-      <div><div class="big">Weight units</div><p class="note">Choose how weight is shown across MiStats.</p></div>
+      <div>
+        <div class="big">Weight units</div>
+        <p class="note">Choose how weight is shown across MiStats.</p>
+      </div>
       <div class="pill-row">
         <button class="pill" data-wu="kg">Kilograms</button>
         <button class="pill" data-wu="lb">Pounds</button>
         <button class="pill" data-wu="st">Stones</button>
       </div>
     </div>`;
+
+  // mark active btn
+  const markActive = ()=>{
+    const {b}=getBucket();
+    card.querySelectorAll('[data-wu]').forEach(x=>{
+      x.classList.toggle('active', x.dataset.wu===b.unitW);
+    });
+  };
+  markActive();
+
   card.addEventListener('click',e=>{
-    const b=e.target.closest('[data-wu]'); if(!b)return;
-    const {s,b:bucket}=getBucket(); bucket.unitW=b.dataset.wu; save(s); refreshAll();
-    card.querySelectorAll('[data-wu]').forEach(x=>x.classList.remove('active')); b.classList.add('active');
+    const btn=e.target.closest('[data-wu]'); if(!btn) return;
+    const {id}=getBucket(); // active profile id
+    // write unit directly to storage (no need to reach into MiStats closure)
+    let store={}; try{ store=JSON.parse(localStorage.getItem('mistats_v2')||'{}'); }catch(_){}
+    if(!store[id]) store[id]={unitW:'kg', entries:[], measures:[]};
+    store[id].unitW = btn.dataset.wu;
+    localStorage.setItem('mistats_v2', JSON.stringify(store));
+    markActive();
+    refreshAll();
   });
 })();
+
+/* ========= Boot ========= */
+window.addEventListener('load', ()=>{
+  // Splash -> Home
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $('splash').classList.add('active');
+  setTimeout(()=>{
+    $('splash').classList.remove('active');
+    switchTab('home');
+  }, 500);
+
+  renderProfilePills();
+});
+</script>
+</body>
+</html>
