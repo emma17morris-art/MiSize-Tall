@@ -106,7 +106,51 @@
   <div class="topbar" role="navigation" aria-label="Global controls">
     <div class="topbar-inner">
       <h1>MiSize</h1>
-      <div class="pill-row" aria-label="Profiles" id="profilePillsTop"></div>
+      <section id="settings" class="screen" aria-label="Settings">
+  <h2 class="big">Settings</h2>
+  <p class="note">Preferences go here later.</p>
+
+  <div class="card">
+    <div class="row two">
+      <div>
+        <div class="big">Profiles</div>
+        <p class="note">Switch or add profiles here.</p>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:flex-end;">
+        <button class="pill" onclick="switchTab('profile')">Open Profile editor</button>
+      </div>
+    </div>
+    <div id="profilePillsSettings" class="pill-row" style="margin-top:10px;"></div>
+  </div>
+/* smaller top bar everywhere */
+.topbar{padding:6px 10px;}
+.topbar h1{font-size:14px;}
+
+/* Profile screen: compact controls + 3 per row on wider screens */
+#profile select, #profile input{ padding:10px; font-size:14px; border-radius:10px; }
+@media (min-width:760px){
+  #profile .row.two{ grid-template-columns: repeat(3,1fr); }
+}
+  <!-- weight unit conversion (see section 5 below) -->
+  <div id="global_weight_units_card" class="card"></div>
+</section>
+      function renderProfilePills(){
+  const {profiles, activeId} = getProfilesAndActive();
+  const frag = document.createDocumentFragment();
+  profiles.forEach(p=>{
+    const b=document.createElement('button');
+    b.className='profile-pill'+(p.id===activeId?' active':'');
+    b.dataset.id=p.id; b.textContent=p.name; frag.appendChild(b);
+  });
+  const add=document.createElement('button');
+  add.className='profile-pill add'; add.dataset.action='add-profile'; add.textContent='+ Add profile';
+  frag.appendChild(add);
+
+  // NEW: settings location
+  const settings = document.getElementById('profilePillsSettings');
+  if(settings){ settings.innerHTML=''; settings.appendChild(frag.cloneNode(true)); }
+  // (If you also want them on Profile screen header, you can append there too)
+}
       <div class="pill-row" style="margin-left:8px;" aria-label="Body type" id="bodyTypePillsTop">
         <button type="button" class="pt-pill active" data-val="standard">Standard</button>
         <button type="button" class="pt-pill" data-val="petite">Petite</button>
@@ -592,7 +636,19 @@
     if(!activeId || !profiles.find(p=>p.id===activeId)){ activeId=profiles[0]?.id; if(activeId) setActiveProfileId(activeId); }
     return {profiles, activeId};
   }
+function saveActiveProfile(){
+  const {profiles, activeId}=getProfilesAndActive();
+  const idx=profiles.findIndex(p=>p.id===activeId); if(idx<0) return;
+  const updated=collectFormAsCM(); profiles[idx]={...profiles[idx], ...updated};
+  saveProfiles(profiles); renderProfilePills();
 
+  // NEW: snapshot to MiStats
+  try{
+    const date = ($('m_log_date')?.value) || new Date().toISOString().slice(0,10);
+    if (window.mistatsSnapshotProfile) mistatsSnapshotProfile(date, profiles[idx]);
+  }catch(_){}
+  alert('Profile saved.');
+}
   /* ---------- Global/Local pills render ---------- */
   function renderUnitPills(){
     const html = `
@@ -1390,7 +1446,24 @@ window.addEventListener('load',()=>{
         ctx.fillText( (seriesActive('weight')? toUnit(yv,U): yv.toFixed(1)), 6, py+4);
         ctx.strokeStyle='#1b2230'; ctx.beginPath(); ctx.moveTo(left,py); ctx.lineTo(left+W,py); ctx.stroke();
       }
-
+// expose snapshot hook to profile save
+window.mistatsSnapshotProfile = function(dateISO, prof){
+  const {s,b}=getBucket();
+  // collect parts (exact same keys the graph knows)
+  const PART_KEYS = ['bust','underbust','waist','hip','thigh','calf','ankle','upperarm','forearm','wrist','neck'];
+  const parts = {};
+  PART_KEYS.forEach(k=>{
+    const v = prof?.[k];
+    if (typeof v==='number' && !isNaN(v)) parts[k]= +v; // cm
+  });
+  if (Object.keys(parts).length){
+    b.measures.push({d: dateISO, parts});
+    b.measures.sort((a,b)=> a.d.localeCompare(b.d));
+  }
+  saveStore(s);
+  // don’t force-tabs; just keep current screen, refresh if in MiStats
+  if (CURRENT_SCREEN==='mistats') refreshAll();
+};
       // draw helper
       function plotLine(arr){
         ctx.beginPath();
@@ -1444,7 +1517,23 @@ window.addEventListener('load',()=>{
       }
     }
     window.refreshAll = refreshAll;
+const SERIES_STATE = { weight:true };
+PART_KEYS.forEach(k=> SERIES_STATE[k]=false);
 
+document.addEventListener('click', (e)=>{
+  const t=e.target.closest('.mi-tab'); if(t){ setMiTab(t.dataset.view); }
+  const uw=e.target.closest('.mi-unit-w'); if(uw){ const {s,b}=getBucket(); b.unitW=uw.dataset.u; saveStore(s); refreshAll(); }
+  const uh=e.target.closest('.mi-unit-h'); if(uh){ const {s,b}=getBucket(); b.unitH=uh.dataset.u; saveStore(s); refreshAll(); }
+
+  const lg=e.target.closest('[data-series]');
+  if(lg){
+    const key = lg.getAttribute('data-series');
+    SERIES_STATE[key] = !SERIES_STATE[key];
+    lg.classList.toggle('active', !!SERIES_STATE[key]);
+    const cb = lg.querySelector('input'); if(cb) cb.checked = !!SERIES_STATE[key];
+    miDrawGraph();
+  }
+});
     // build legend & part inputs once
     buildSeriesLegend();
 
