@@ -559,7 +559,13 @@
   </div>
 
   <button id="tab_hub" class="tab" onclick="hubBack()" role="tab">Hub</button>
-  
+  <section id="settings" class="screen" aria-label="Settings">
+  <h2 class="big">Settings</h2>
+  <p class="note">Preferences go here later.</p>
+
+  <!-- 👇 Add this container -->
+  <div id="global_weight_units_card" class="card"></div>
+</section>
   <script>
   /* ---------- Helpers & Units ---------- */
   function $(id){ return document.getElementById(id); }
@@ -1546,7 +1552,39 @@ document.addEventListener('click', (e)=>{
       const di = $('#mi_date_in'); if(di) di.value = new Date().toISOString().slice(0,10);
       refreshAll();
     },0);
+// ===================== MiStats (drop-in) =====================
+(function(){
+  // ... all the MiStats code ...
+})();
 
+// ===================== Global Weight Units Card =====================
+(function buildGlobalWeightUnitCard(){
+  const card = document.getElementById('global_weight_units_card');
+  if(!card) return;
+  card.innerHTML = `
+    <div class="row two">
+      <div>
+        <div class="big">Weight units</div>
+        <p class="note">Choose how weight is shown across MiStats.</p>
+      </div>
+      <div class="pill-row" id="global_wu_btns" style="align-items:center;justify-content:flex-end;">
+        <button class="pill" data-wu="kg">Kilograms</button>
+        <button class="pill" data-wu="lb">Pounds</button>
+        <button class="pill" data-wu="st">Stones</button>
+      </div>
+    </div>
+  `;
+  // wire up
+  card.addEventListener('click', (e)=>{
+    const b=e.target.closest('[data-wu]'); if(!b) return;
+    if(window.refreshAll){
+      const {s,b:bucket} = (function(){ const f=window.getBucket; return f?f():{s:null,b:null}; })();
+      if(bucket){ bucket.unitW = b.dataset.wu; if(s) localStorage.setItem('mistats_v2', JSON.stringify(s)); refreshAll(); }
+    }
+    card.querySelectorAll('[data-wu]').forEach(x=> x.classList.remove('active'));
+    b.classList.add('active');
+  });
+})();
   })();
   </script>
 </body>
