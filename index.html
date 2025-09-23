@@ -1,1571 +1,555 @@
-if(scored[1]){ const diff=scored[1].score-scored[0].score; if(fit==='relaxed'&&diff<2) pick=scored[1]; }
-    const avg=pick.score/used.length; let conf='Medium'; if(avg<1.2&&used.length>=2) conf='High'; if(avg>3.0) conf='Low';
-    const notes=[`Profile: ${labelBody(SELECTED_BODYTYPE)}`];
-    if(fit==='snug') notes.push('Snug fit chosen.'); if(fit==='relaxed') notes.push('Relaxed fit chosen.');
-    if(cat.includes('Jeans') && brand?.lengths_cm){ notes.push('Check length options.'); }
-    return { size:pick.size, conf, notes };
-  }
-  function initMySizesSelectors(){
-    const sel=$('ms_category'); if(!sel) return; sel.innerHTML='';
-    CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; sel.appendChild(o); });
-    if(sel.options.length) sel.options[0].selected=true;
-    computeAllSizes();
-  }
-  function computeAllSizes(){
-    const meas=currentMeasurements(); const sel=$('ms_category'); const fit=$('ms_fit').value;
-    const cats=Array.from(sel.selectedOptions).map(o=>o.value); const results=[];
-    cats.forEach(cat=>{
-      BRANDS.forEach(b=>{
-        const res=scoreFor(b.id,cat,meas,fit); if(res) results.push({brandId:b.id,brandName:b.name,category:cat,size:res.size,conf:res.conf,notes:res.notes||[]});
-      });
-    });
-    const rank={High:0,Medium:1,Low:2};
-    results.sort((a,b)=> a.category.localeCompare(b.category) || (rank[a.conf]??9)-(rank[b.conf]??9) || a.brandName.localeCompare(b.brandName));
-    renderMySizes(results);
-  }
-  function renderMySizes(list){
-    const wrap=$('ms_list'); if(!wrap) return; wrap.innerHTML='';
-    const counter=$('ms_count'); if(counter) counter.textContent=`${list.length} results`;
-    if(!list.length){ wrap.innerHTML='<div class="note">No results — try a different body type or add measurements.</div>'; return; }
-    list.forEach(row=>{
-      const confClass=row.conf==='High'?'success':row.conf==='Low'?'danger':'warning';
-      const notesHtml=(row.notes||[]).map(n=>`<span class="pill">${n}</span>`).join(' ');
-      const div=document.createElement('div'); div.className='card';
-      div.innerHTML=`
-        <div>
-          <div><strong>${row.brandName}</strong> • <span class="note">${row.category}</span></div>
-          <div class="note" style="margin-top:6px;">${notesHtml||''}</div>
-        </div>
-        <div style="text-align:right;margin-top:8px;">
-          <span class="pill" style="background:#1d4ed8;color:#fff;">Size: ${row.size}</span>
-          <span class="pill ${confClass}" style="margin-left:6px;">${row.conf}</span>
-        </div>`;
-      wrap.appendChild(div);
-    });
-    window._lastMySizes=list;
-  }
-  function copyMySizes(){
-    const list=window._lastMySizes||[]; if(!list.length){ alert('Nothing to copy yet.'); return; }
-    const text=list.map(r=>`${r.category} — ${r.brandName}: ${r.size} (${r.conf})`).join('\n');
-    navigator.clipboard?.writeText(text).then(()=>alert('Copied sizes!'),()=>alert('Copy failed.'));
-  }
-  function exportMySizesCSV(){
-    const list=window._lastMySizes||[]; if(!list.length){ alert('Nothing to export yet.'); return; }
-    const header=['Category','Brand','Size','Confidence','Notes'];
-    const rows=list.map(r=>[`"${r.category}"`,`"${r.brandName}"`,`"${r.size}"`,`"${r.conf}"`,`"${(r.notes||[]).join('; ').replace(/"/g,'""')}"`]);
-    const csv=[header.join(','),...rows.map(r=>r.join(','))].join('\n');
-    const blob=new Blob([csv],{type:'text/csv'}); const url=URL.createObjectURL(blob);
-    const a=document.createElement('a'); a.href=url; a.download='my-sizes.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-  }
-
-  /* ---------- Brand Notes ---------- */
-  function renderBrandNotes(){
-    const wrap=$('brandList'); if(!wrap) return; wrap.innerHTML='';
-    const filtered = BRANDS.filter(b=> !b.supports || b.supports[SELECTED_BODYTYPE]);
-    if(!filtered.length){ wrap.innerHTML='<div class="note">No brands for this body type in demo data. Switch body type.</div>'; return; }
-    filtered.forEach(b=>{
-      const L=b.lengths_cm||{};
-      const div=document.createElement('div'); div.className='card';
-      div.innerHTML=`
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
-          <div>
-            <div style="font-weight:800;">${b.name}</div>
-            <div class="note">${b.notes||''}</div>
-            <div class="note" style="margin-top:6px;">Supports: ${Object.keys(b.supports||{standard:true}).filter(k=>b.supports[k]).map(labelBody).join(', ')}</div>
-          </div>
-          <div class="pill-row">
-            <span class="pill">Short ~${L.short??'–'}cm</span>
-            <span class="pill">Reg ~${L.regular??'–'}cm</span>
-            <span class="pill">Long ~${L.long??'–'}cm</span>
-            <span class="pill">Tall ~${L.tall??'–'}cm</span>
-          </div>
-        </div>`;
-      wrap.appendChild(div);
-    });
-  }
-
-  /* ---------- History ---------- */
-  function getHistory(){ try{ return JSON.parse(localStorage.getItem('history')||'[]'); }catch(e){ return []; } }
-  function saveHistory(){ if(!window._lastResult) return; const h=getHistory(); h.unshift(window._lastResult); localStorage.setItem('history', JSON.stringify(h.slice(0,20))); alert('Saved to history.'); }
-  function renderUkHistory(){
-    const wrap=$('histList'); if(!wrap) return; wrap.innerHTML='';
-    const h=getHistory();
-    if(!h.length){ wrap.innerHTML='<div class="note">No lookups yet.</div>'; return; }
-    h.forEach(item=>{
-      const div=document.createElement('div'); div.className='card';
-      div.innerHTML=`
-        <div>
-          <div><strong>${item.brand}</strong> • ${item.category}</div>
-          <div class="note">${new Date(item.when).toLocaleString()} • Body: ${labelBody(item.body||'standard')}</div>
-        </div>
-        <div style="text-align:right;margin-top:8px;">
-          <span class="pill" style="background:#1d4ed8;color:#fff;">${item.size}</span>
-          <span class="pill">${item.conf}</span>
-        </div>`;
-      wrap.appendChild(div);
-    });
-  }
-
-  /* ---------- Converters ---------- */
-  const CLOTHES_TABLE=[{UK:4,EU:32,US:0},{UK:6,EU:34,US:2},{UK:8,EU:36,US:4},{UK:10,EU:38,US:6},{UK:12,EU:40,US:8},{UK:14,EU:42,US:10},{UK:16,EU:44,US:12},{UK:18,EU:46,US:14},{UK:20,EU:48,US:16},{UK:22,EU:50,US:18},{UK:24,EU:52,US:20}];
-  function nearestRowBy(from,val){ return CLOTHES_TABLE.reduce((best,row)=>{ const d=Math.abs((row[from]??Infinity)-val); return d<best.d?{row,d}:{row:best.row,d:best.d}; },{row:null,d:Infinity}).row; }
-  function convertClothing(){ const from=$('cw_from').value, to=$('cw_to').value, raw=parseFloat($('cw_val').value), out=$('cw_out');
-    if(isNaN(raw)){ out.textContent='Enter a number'; return; } if(from===to){ out.textContent=`${raw} ${from} ≈ ${raw} ${to}`; return; }
-    const row=nearestRowBy(from,raw); if(!row||row[from]==null||row[to]==null){ out.textContent='No map'; return; } out.textContent=`${raw} ${from} ≈ ${row[to]} ${to}`; }
-  const SHOES_TABLE=[{UK:3,EU:36,US:5.5},{UK:4,EU:37,US:6.5},{UK:5,EU:38,US:7.5},{UK:6,EU:39,US:8.5},{UK:7,EU:40,US:9.5},{UK:8,EU:41,US:10.5}];
-  function nearestShoeBy(from,val){ return SHOES_TABLE.reduce((best,row)=>{ const d=Math.abs((row[from]??Infinity)-val); return d<best.d?{row,d}:{row:best.row,d:best.d}; },{row:null,d:Infinity}).row; }
-  function convertShoes(){ const from=$('sh_from').value, to=$('sh_to').value, raw=parseFloat($('sh_val').value), out=$('sh_out');
-    if(isNaN(raw)){ out.textContent='Enter a number'; return; } if(from===to){ out.textContent=`${raw} ${from} ≈ ${raw} ${to}`; return; }
-    const row=nearestShoeBy(from,raw); if(!row||row[from]==null||row[to]==null){ out.textContent='No map'; return; } out.textContent=`${raw} ${from} ≈ ${row[to]} ${to}`; }
-  function convertBra(){ const bandCm=parseFloat($('br_band').value); const cup=($('br_cup').value||'').toUpperCase(); const out=$('br_out');
-    if(isNaN(bandCm)||!cup){ out.textContent='Add band & cup'; return; } out.textContent=`~UK ${Math.round(bandCm/2.54)}${cup}`; }
-
-  /* ---------- Bootstrap ---------- */
-  function renderUnitBadges(){ document.querySelectorAll('.unit-badge').forEach(b=> b.textContent = UNIT_MODE); }
-  function updateSupportOnBrandChange(){ updateSupportNote(); }
-
-  (function start(){
-    loadAppData();
-    renderUnitPills(); renderProfilePills(); renderBodyTypePillsTop();
-    initSelectors(); loadActiveProfileIntoForm(); renderUnitBadges(); updateBackButton();
-    $('sf_brand')?.addEventListener('change', updateSupportOnBrandChange);
-  })();
-
-  window.addEventListener('load',()=>{
-    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    $('splash').classList.add('active'); CURRENT_SCREEN='splash'; updateBackButton();
-    setTimeout(()=>{
-      $('splash').classList.remove('active');
-      document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-      $('home').classList.add('active');
-      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-      $('tab_home')?.classList.add('active');
-      CURRENT_SCREEN='home'; updateBackButton();
-    },800);
-  });
-
-// ===================== Enhanced MiStats (comprehensive tracking) =====================
-(function(){
-  const STORE_KEY = 'mistats_comprehensive_v1';
-
-  // unit helpers
-  const kgFrom = (val, unit) => {
-    const n = parseFloat(val); if (isNaN(n)) return null;
-    if (unit==='kg') return n;
-    if (unit==='lb') return n * 0.45359237;
-    if (unit==='st') return n * 6.35029318;
-    return n;
-  };
-  const toUnit = (kg, unit) => {
-    if (kg==null) return '';
-    if (unit==='kg') return kg.toFixed(1);
-    if (unit==='lb') return (kg/0.45359237).toFixed(1);
-    if (unit==='st') return (kg/6.35029318).toFixed(2);
-    return kg.toFixed(1);
-  };
-  const cmFromHeightInput = (val, unit) => {
-    if (unit==='ftin'){
-      const m = String(val).trim().match(/(\d+)[^\d]+(\d+)/);
-      if (m){ const ft=+m[1], inch=+m[2]; return Math.round((ft*12+inch)*2.54); }
-      const n=parseFloat(val); if(!isNaN(n)) return Math.round(n*12*2.54);
-      return null;
-    }
-    const n = parseFloat(val); if (isNaN(n)) return null;
-    if (unit==='m') return Math.round(n*100);
-    return Math.round(n); // cm
-  };
-  const bmi = (kg, cm) => (kg>0 && cm>0) ? +(kg/((cm/100)**2)).toFixed(1) : null;
-
-  // store
-  function loadStore(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY)||'{}'); }catch(e){ return {}; } }
-  function saveStore(s){ localStorage.setItem(STORE_KEY, JSON.stringify(s)); }
-  function activeId(){ return getProfilesAndActive().activeId; }
-  function ensureProfileBucket(){
-    const id = activeId(); const s = loadStore();
-    if(!s[id]) s[id] = { 
-      unitW:'kg', unitH:'cm', heightCm:null, targetKg:null, 
-      weightEntries:[], measurementEntries:[]
-    };
-    return s;
-  }
-  function getBucket(){ const s=ensureProfileBucket(); return { s, b: s[activeId()] }; }
-
-  // Tabs
-  function setMiTab(view){
-    document.querySelectorAll('#mi_tabs .mi-tab').forEach(b=>{
-      b.classList.toggle('active', b.dataset.view===view);
-    });
-    document.querySelectorAll('#mistats .mi-view').forEach(v=> v.style.display='none');
-    $('#mi_view_'+view).style.display='block';
-    if(view==='graph') miDrawGraph();
-    if(view==='history') miRenderHistory();
-  }
-  window.setMiTab = setMiTab;
-
-  // Click handlers
-  document.addEventListener('click', (e)=>{
-    const t=e.target.closest('.mi-tab'); if(t){ setMiTab(t.dataset.view); return; }
-    const gt=e.target.closest('.mi-graph-type'); if(gt){
-      document.querySelectorAll('.mi-graph-type').forEach(b=>b.classList.remove('active'));
-      gt.classList.add('active'); miDrawGraph(); return;
-    }
-    const hf=e.target.closest('.mi-hist-filter'); if(hf){
-      document.querySelectorAll('.mi-hist-filter').forEach(b=>b.classList.remove('active'));
-      hf.classList.add('active'); miRenderHistory(); return;
-    }
-    const uw=e.target.closest('.mi-unit-w'); if(uw){ 
-      const {s,b}=getBucket(); b.unitW=uw.dataset.u; saveStore(s); refreshAll(); return;
-    }
-    const uh=e.target.closest('.mi-unit-h'); if(uh){ 
-      const {s,b}=getBucket(); b.unitH=uh.dataset.u; saveStore(s); refreshAll(); return;
-    }
-  });
-
-  // Add entries
-  function onAddWeight(){
-    const {s,b}=getBucket();
-    const unit=b.unitW||'kg';
-    const kg = kgFrom($('#mi_weight_in').value, unit);
-    const d = $('#mi_date_in').value || new Date().toISOString().slice(0,10);
-    if(kg==null){ alert('Enter a valid weight'); return; }
-    b.weightEntries.push({d, kg:+kg.toFixed(2), type:'weight'});
-    b.weightEntries.sort((a,b)=> a.d.localeCompare(b.d));
-    saveStore(s);
-    $('#mi_weight_in').value=''; $('#mi_date_in').value='';
-    refreshAll();
-  }
-  
-  function onAddMeasurements(){
-    const {s,b}=getBucket();
-    const d = $('#mi_date_in').value || new Date().toISOString().slice(0,10);
-    const bust = fromDisplay($('#mi_bust_in').value);
-    const waist = fromDisplay($('#mi_waist_in').value);
-    const hip = fromDisplay($('#mi_hip_in').value);
-    
-    if(!bust && !waist && !hip){ alert('Enter at least one measurement'); return; }
-    
-    const entry = {d, type:'measurements'};
-    if(bust) entry.bust = bust;
-    if(waist) entry.waist = waist;
-    if(hip) entry.hip = hip;
-    
-    b.measurementEntries.push(entry);
-    b.measurementEntries.sort((a,b)=> a.d.localeCompare(b.d));
-    saveStore(s);
-    
-    $('#mi_bust_in').value=''; $('#mi_waist_in').value=''; $('#mi_hip_in').value='';
-    $('#mi_date_in').value='';
-    refreshAll();
-  }
-
-  $('#mi_add_weight_btn')?.addEventListener('click', onAddWeight);
-  $('#mi_add_measurements_btn')?.addEventListener('click', onAddMeasurements);
-
-  // Settings in main settings tab
-  $('#save_global_settings')?.addEventListener('click', ()=>{
-    const {s,b}=getBucket();
-    const h = cmFromHeightInput($('#settings_height').value, b.unitH||'cm');
-    if(h) b.heightCm=h;
-    const tgtRaw = $('#settings_target').value.trim();
-    b.targetKg = tgtRaw ? kgFrom(tgtRaw, b.unitW||'kg') : null;
-    saveStore(s); refreshAll(); alert('Settings saved!');
-  });
-  
-  $('#reset_current_profile')?.addEventListener('click', ()=>{
-    if(!confirm('Reset MiStats for this profile? This will delete all weight and measurement data.')) return;
-    const s=loadStore(); delete s[activeId()]; saveStore(s); refreshAll();
-  });
-
-  // Zoom
-  $('#mi_zoom')?.addEventListener('input', miDrawGraph);
-
-  // Calculations
-  function calcWeightStats(){
-    const {b}=getBucket(); const E=b.weightEntries || [];
-    const heightCm = b.heightCm ?? getProfilesAndActive().profiles.find(p=>p.id===activeId())?.height ?? null;
-    
-    if(E.length===0) return { empty:true, unitW:b.unitW, heightCm, targetKg:b.targetKg };
-    
-    const start=E[0], curr=E[E.length-1], target=b.targetKg ?? null;
-    const lost = start.kg - curr.kg;
-    const remaining = target ? curr.kg - target : null;
-    
-    let progress = 0;
-    if(target && start.kg !== target) {
-      const totalLoss = start.kg - target;
-      progress = Math.min(100, Math.max(0, (lost / totalLoss) * 100));
-    }
-
-    return { unitW:b.unitW, heightCm, targetKg:target, start, curr, lost, remaining, progress };
-  }
-  
-  function calcMeasurementStats(){
-    const {b}=getBucket(); const E=b.measurementEntries || [];
-    if(E.length===0) return { empty:true };
-    
-    const start = E[0], curr = E[E.length-1];
-    const changes = {};
-    
-    ['bust', 'waist', 'hip'].forEach(measure => {
-      if(start[measure] && curr[measure]) {
-        changes[measure] = {
-          start: start[measure],
-          current: curr[measure],
-          change: start[measure] - curr[measure]
-        };
-      }
-    });
-    
-    return { start, curr, changes };
-  }
-
-  // Renderers
-  function renderCurrent(){
-    const {unitW}=getBucket().b; 
-    const weightStats = calcWeightStats();
-    const measurementStats = calcMeasurementStats();
-    
-    const unitLabel = unitW==='kg'?'kg':(unitW==='lb'?'lb':'st');
-    $('#mi_hint_units').textContent = `Weight unit: ${unitLabel} • Measurements: ${UNIT_MODE}`;
-
-    // Weight progress
-    if(weightStats.empty) {
-      $('#mi_start_weight').textContent = '—';
-      $('#mi_current_weight').textContent = '—';
-      $('#mi_weight_lost').textContent = '—';
-      $('#mi_start_bmi').textContent = 'BMI —';
-      $('#mi_current_bmi').textContent = 'BMI —';
-      $('#mi_weight_remaining').textContent = 'Add weight entries';
-      $('#mi_weight_prog_bar').style.width = '0%';
-      $('#mi_weight_prog_text').textContent = 'No weight data yet';
-    } else {
-      $('#mi_start_weight').textContent = `${toUnit(weightStats.start.kg, unitW)} ${unitLabel}`;
-      $('#mi_current_weight').textContent = `${toUnit(weightStats.curr.kg, unitW)} ${unitLabel}`;
-      $('#mi_weight_lost').textContent = `${toUnit(Math.abs(weightStats.lost), unitW)} ${unitLabel}`;
-      
-      const startBMI = bmi(weightStats.start.kg, weightStats.heightCm);
-      const currBMI = bmi(weightStats.curr.kg, weightStats.heightCm);
-      $('#mi_start_bmi').textContent = startBMI ? `BMI ${startBMI}` : 'BMI —';
-      $('#mi_current_bmi').textContent = currBMI ? `BMI ${currBMI}` : 'BMI —';
-      
-      $('#mi_weight_remaining').textContent = weightStats.remaining !== null ? 
-        `${toUnit(Math.abs(weightStats.remaining), unitW)} ${unitLabel} to target` : 'No target set';
-      
-      $('#mi_weight_prog_bar').style.width = `${weightStats.progress.toFixed(0)}%`;
-      $('#mi_weight_prog_text').textContent = 
-        `Progress: ${weightStats.progress.toFixed(1)}% ${weightStats.targetKg ? 'to target' : ''}`;
-    }
-
-    // Measurements progress
-    const measWrap = $('#mi_measurements_progress');
-    if(measurementStats.empty) {
-      measWrap.innerHTML = '<div class="note">Add measurement entries to see progress tracking.</div>';
-    } else {
-      let html = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">';
-      
-      ['bust', 'waist', 'hip'].forEach(measure => {
-        if(measurementStats.changes[measure]) {
-          const c = measurementStats.changes[measure];
-          const changeText = c.change > 0 ? `-${toDisplay(c.change)}` : `+${toDisplay(Math.abs(c.change))}`;
-          const changeClass = c.change > 0 ? 'success' : 'danger';
-          
-          html += `
-            <div class="mi-tile">
-              <div class="mi-l">${measure.charAt(0).toUpperCase() + measure.slice(1)}</div>
-              <div class="mi-v">${toDisplay(c.current)} ${UNIT_MODE}</div>
-              <div class="mi-sub ${changeClass}">${changeText} ${UNIT_MODE}</div>
-            </div>
-          `;
-        }
-      });
-      
-      html += '</div>';
-      measWrap.innerHTML = html;
-    }
-  }
-
-  function miRenderHistory(){
-    const wrap = $('#mi_hist_list'); wrap.innerHTML='';
-    const {b}=getBucket(); const U=b.unitW||'kg';
-    const filter = document.querySelector('.mi-hist-filter.active')?.dataset.filter || 'all';
-    
-    let allEntries = [];
-    
-    if(filter === 'all' || filter === 'weight') {
-      allEntries = allEntries.concat((b.weightEntries || []).map(e => ({...e, type:'weight'})));
-    }
-    if(filter === 'all' || filter === 'measurements') {
-      allEntries = allEntries.concat((b.measurementEntries || []).map(e => ({...e, type:'measurements'})));
-    }
-    
-    allEntries.sort((a,b) => b.d.localeCompare(a.d)); // newest first
-    
-    if(allEntries.length===0){ 
-      wrap.innerHTML='<div class="note">No entries yet.</div>'; 
-      return; 
-    }
-    
-    allEntries.forEach(entry => {
-      const row=document.createElement('div'); row.className='mi-row';
-      
-      if(entry.type === 'weight') {
-        row.innerHTML = `
-          <div><strong>Weight: ${toUnit(entry.kg,U)} ${U}</strong><div class="note">${new Date(entry.d).toLocaleDateString()}</div></div>
-          <div class="note">Weight entry</div>
-        `;
-      } else if(entry.type === 'measurements') {
-        const measurements = [];
-        if(entry.bust) measurements.push(`Bust: ${toDisplay(entry.bust)}${UNIT_MODE}`);
-        if(entry.waist) measurements.push(`Waist: ${toDisplay(entry.waist)}${UNIT_MODE}`);
-        if(entry.hip) measurements.push(`Hip: ${toDisplay(entry.hip)}${UNIT_MODE}`);
-        
-        row.innerHTML = `
-          <div><strong>${measurements.join(', ')}</strong><div class="note">${new Date(entry.d).toLocaleDateString()}</div></div>
-          <div class="note">Measurements</div>
-        `;
-      }
-      
-      wrap.appendChild(row);
-    });
-  }
-
-  function miDrawGraph(){
-    const {b}=getBucket();
-    const c=$('#mi_canvas'); const ctx=c.getContext('2d');
-    ctx.clearRect(0,0,c.width,c.height);
-    
-    const graphType = document.querySelector('.mi-graph-type.active')?.dataset.type || 'weight';
-    
-    if(graphType === 'weight') {
-      drawWeightGraph(ctx, c, b);
-    } else if(graphType === 'measurements') {
-      drawMeasurementsGraph(ctx, c, b);
-    } else if(graphType === 'combined') {
-      drawCombinedGraph(ctx, c, b);
-    }
-  }
-  
-  function drawWeightGraph(ctx, c, b) {
-    const E = b.weightEntries || [];
-    const U = b.unitW || 'kg';
-    
-    if(E.length < 1){ 
-      $('#mi_graph_note').textContent='Add weight entries to see the chart.'; 
-      return; 
-    }
-
-    const z = +($('#mi_zoom').value||0);
-    $('#mi_zoom_label').textContent = z===0 ? 'All time' : `Zoom ${z}%`;
-    const keep = Math.max(5, Math.round(E.length - (E.length-10)*(z/100)));
-    const data = E.slice(-keep);
-
-    const weights = data.map(x => x.kg);
-    const minW = Math.min(...weights);
-    const maxW = Math.max(...weights);
-    const pad = Math.max(1, (maxW-minW)*0.1);
-    
-    drawChart(ctx, c, data, minW-pad, maxW+pad, (pt) => pt.kg, '#5da8ff', U);
-    $('#mi_graph_note').textContent = `${data.length} weight points • unit: ${U}`;
-  }
-  
-  function drawMeasurementsGraph(ctx, c, b) {
-    const E = b.measurementEntries || [];
-    
-    if(E.length < 1){ 
-      $('#mi_graph_note').textContent='Add measurement entries to see the chart.'; 
-      return; 
-    }
-
-    const z = +($('#mi_zoom').value||0);
-    const keep = Math.max(5, Math.round(E.length - (E.length-10)*(z/100)));
-    const data = E.slice(-keep);
-    
-    // Draw multiple lines for different measurements
-    const colors = {bust: '#ff6b9d', waist: '#4ecdc4', hip: '#45b7d1'};
-    const measurements = ['bust', 'waist', 'hip'];
-    
-    let allValues = [];
-    measurements.forEach(measure => {
-      data.forEach(entry => {
-        if(entry[measure]) allValues.push(entry[measure]);
-      });
-    });
-    
-    if(allValues.length === 0) {
-      $('#mi_graph_note').textContent='No measurement data to display.';
-      return;
-    }
-    
-    const minV = Math.min(...allValues);
-    const maxV = Math.max(...allValues);
-    const pad = Math.max(1, (maxV-minV)*0.1);
-    
-    // Draw grid and axes first
-    drawChartBase(ctx, c, minV-pad, maxV+pad, UNIT_MODE);
-    
-    // Draw each measurement line
-    measurements.forEach(measure => {
-      const measureData = data.filter(entry => entry[measure] !== undefined);
-      if(measureData.length > 0) {
-        drawLine(ctx, c, measureData, minV-pad, maxV+pad, (pt) => pt[measure], colors[measure]);
-      }
-    });
-    
-    $('#mi_graph_note').textContent = `${data.length} measurement points • unit: ${UNIT_MODE}`;
-  }
-  
-  function drawCombinedGraph(ctx, c, b) {
-    // This would show both weight and measurements on the same timeline
-  function drawCombinedGraph(ctx, c, b) {
-    // This would show both weight and measurements on the same timeline
-    $('#mi_graph_note').textContent = 'Combined view - feature coming soon';
-  }
-  
-  function drawChart(ctx, c, data, minY, maxY, valueFunc, color, unit) {
-    drawChartBase(ctx, c, minY, maxY, unit);
-    drawLine(ctx, c, data, minY, maxY, valueFunc, color);
-  }
-  
-  function drawChartBase(ctx, c, minY, maxY, unit) {
-    const left=50, right=20, top=20, bottom=35;
-    const W=c.width-left-right, H=c.height-top-bottom;
-
-    // Draw axes
-    ctx.strokeStyle = '#223049'; ctx.lineWidth=1;
-    ctx.beginPath(); 
-    ctx.moveTo(left, top); 
-    ctx.lineTo(left, top+H); 
-    ctx.lineTo(left+W, top+H); 
-    ctx.stroke();
-
-    // Draw grid lines and labels
-    ctx.fillStyle='#aab3c5'; 
-    ctx.font='12px '+getComputedStyle(document.body).fontFamily;
-    
-    for(let i=0;i<=4;i++){
-      const yv = minY + (i*(maxY-minY))/4;
-      const py = top+H - ( (yv-minY)/(maxY-minY) )*H;
-      ctx.fillText(yv.toFixed(1) + (unit ? ' '+unit : ''), 6, py+4);
-      ctx.strokeStyle='#1b2230'; 
-      ctx.beginPath(); 
-      ctx.moveTo(left,py); 
-      ctx.lineTo(left+W,py); 
-      ctx.stroke();
-    }
-  }
-  
-  function drawLine(ctx, c, data, minY, maxY, valueFunc, color) {
-    if(data.length === 0) return;
-    
-    const left=50, right=20, top=20, bottom=35;
-    const W=c.width-left-right, H=c.height-top-bottom;
-    
-    ctx.strokeStyle=color; 
-    ctx.lineWidth=2; 
-    ctx.beginPath();
-    
-    data.forEach((pt,i)=>{
-      const px = left + (i/(Math.max(1, data.length-1)))*W;
-      const py = top+H - ( (valueFunc(pt)-minY)/(maxY-minY) )*H;
-      if(i===0) ctx.moveTo(px,py); 
-      else ctx.lineTo(px,py);
-      
-      // Draw point
-      ctx.fillStyle=color; 
-      ctx.beginPath(); 
-      ctx.arc(px,py,3,0,Math.PI*2); 
-      ctx.fill();
-    });
-    ctx.stroke();
-  }
-
-  function renderSettings(){
-    const {b}=getBucket();
-    document.querySelectorAll('.mi-unit-w').forEach(x=> x.classList.toggle('active', x.dataset.u===b.unitW));
-    document.querySelectorAll('.mi-unit-h').forEach(x=> x.classList.toggle('active', x.dataset.u===b.unitH));
-    
-    // Update settings form
-    const heightInput = $('#settings_height');
-    const targetInput = $('#settings_target');
-    
-    if(heightInput) {
-      heightInput.value = b.heightCm ? (b.unitH==='m' ? (b.heightCm/100).toFixed(2) : 
-        (b.unitH==='ftin' ? Math.floor(b.heightCm/30.48) + "'" + Math.round((b.heightCm%30.48)/2.54) + '"' : b.heightCm)) : '';
-    }
-    
-    if(targetInput) {
-      targetInput.value = b.targetKg!=null ? toUnit(b.targetKg, b.unitW) : '';
-    }
-    
-    const heightHint = $('#settings_height_hint');
-    if(heightHint) {
-      heightHint.textContent = b.unitH==='ftin' ? 'Enter like 5\'6 or 5 6' : 'Stored in cm internally.';
-    }
-  }
-
-  function refreshAll(){
-    renderCurrent(); 
-    renderSettings();
-    if(CURRENT_SCREEN==='mistats'){ 
-      miDrawGraph(); 
-      miRenderHistory(); 
-    }
-  }
-  window.refreshAll = refreshAll;
-
-  // Update the original renderProfilePills function to also refresh MiStats
-  const _origRenderProfilePills = window.renderProfilePills;
-  if(_origRenderProfilePills) {
-    window.renderProfilePills = function(){ 
-      _origRenderProfilePills(); 
-      refreshAll(); 
-    };
-  }
-
-  // Initialize
-  setTimeout(()=>{
-    const di = $('#mi_date_in'); 
-    if(di) di.value = new Date().toISOString().slice(0,10);
-    refreshAll();
-  },100);
-
-})();
-  </script>
-</body>
-</html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MiSize Prototype</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MiSize - Size Finder & Body Tracker</title>
   <style>
-  :root{
-    --brand:#8A2BE2;--brand-text:#fff;
-    --bg:#0b0d12;--card:#111520;
-    --border:#1b2230;--text:#eef1f5;--muted:#aab3c5;
-    --radius:14px;--font:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-  }
-  *{box-sizing:border-box;}
-  body{margin:0;font-family:var(--font);background:var(--bg);color:var(--text);}
-
-  /* Top Bar */
-  .topbar{position:sticky; top:0; z-index:100; backdrop-filter:saturate(120%) blur(8px);
-    background:rgba(15,19,26,.75); border-bottom:1px solid var(--border); padding:6px 8px;}
-  .topbar-inner{display:flex; gap:8px; align-items:center; flex-wrap:wrap; max-width:1200px; margin:0 auto;}
-  .topbar h1{font-size:14px; margin:0 6px 0 0; font-weight:800; letter-spacing:.2px; color:#cfe0ff;}
-  .pill-row{display:flex; gap:6px; align-items:center; flex-wrap:wrap;}
-  .profile-pill, .unit-pill, .pt-pill{
-    border:1px solid rgba(255,255,255,.12);
-    background:#151a3a; color:#c9d3ea; font-weight:700; font-size:10px;
-    padding:4px 8px; border-radius:999px; cursor:pointer; white-space:nowrap;
-  }
-  .profile-pill.active, .unit-pill.active, .pt-pill.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8;}
-  .profile-pill.add{background:transparent;border-style:dashed;opacity:.9;}
-
-  /* Screens & layout */
-  .screen{display:none;padding:20px 20px 90px;background:#2b1055;min-height:100vh;}
-  .screen.active{display:block;}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:18px;}
-  .row{display:grid;grid-template-columns:1fr;gap:12px;}
-  @media(min-width:760px){.row.two{grid-template-columns:1fr 1fr}.row.three{grid-template-columns:repeat(3,1fr)}}
-  label{font-size:14px;color:var(--muted);}
-  select,input{width:100%;padding:12px;border-radius:10px;border:1px solid #243048;background:#0f131a;color:#eef1f5;}
-  .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px;}
-  .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#172034;border:1px solid #223049;font-size:12px;color:#c9d3ea;cursor:pointer;}
-  .big{font-size:28px;font-weight:800;margin:0 0 6px;}
-  .note{font-size:13px;opacity:.85;}
-  .divider{height:1px;background:var(--border);margin:14px 0;}
-  .success{color:#8ee0b2}.warning{color:#ffd27a}.danger{color:#ff9a9a}
-
-  /* --- MiStats styles --- */
-  .mi-bar{height:12px;background:#172034;border:1px solid #223049;border-radius:999px;overflow:hidden}
-  .mi-bar>div{height:100%;width:0;background:#1d4ed8;transition:width .3s}
-  .mi-bar>b{display:block;height:100%;width:0;background:#1d4ed8;transition:width .3s}
-  .mi-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
-  .mi-row:last-child{border-bottom:0}
-  .mi-row .delta.up{color:#ff9a9a}.mi-row .delta.down{color:#8ee0b2}
-  .mi-tab.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
-  .mi-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}
-  .mi-tab{cursor:pointer}
-  .mi-view{display:none}
-  .mi-view.active{display:block}
-  .mi-tiles{display:grid;grid-template-columns:1fr;gap:12px}
-  .mi-tile{background:#0f131a;border:1px solid var(--border);border-radius:12px;padding:12px}
-  .mi-l{font-size:12px;color:var(--muted);letter-spacing:.3px}
-  .mi-v{font-size:28px;font-weight:900;line-height:1.1}
-  .mi-sub{font-size:12px;opacity:.85;margin-top:2px}
-  .mi-graph-type.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
-  .mi-hist-filter.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
-  .mi-list .row{display:flex;align-items:center;justify-content:space-between}
-  .mi-kv{display:flex;gap:8px;align-items:baseline}
-  .mi-kv .k{color:var(--muted);font-size:12px}
-  .mi-kv .v{font-weight:700}
-  .mi-canvas{width:100%;height:280px;display:block}
-  @media(min-width:760px){.mi-tiles{grid-template-columns:repeat(3,1fr)}}
-
-  /* Splash */
-  #splash{display:none;padding:0;}
-  #splash.active{display:block;}
-  .splash-stage{position:relative;height:100vh;width:100%;display:flex;align-items:center;justify-content:center;background:#2b1055;overflow:hidden;}
-  .flash-logo-wrap{line-height:0;width:min(75vw,560px);aspect-ratio:1/1;background:center/contain no-repeat url('MiSize.png');margin:0 auto;opacity:1;z-index:1;}
-
-  /* Hubs & tabs */
-  .tiles{display:grid;grid-template-columns:1fr;grid-template-rows:repeat(4,1fr);gap:16px;height:calc(100vh - 210px);margin-top:20px;}
-  .tiles button{font-size:28px;font-weight:800;border-radius:14px;border:0;color:#fff;cursor:pointer;width:100%;height:100%;background:#1d4ed8;}
-  .hub{display:grid;grid-template-rows:repeat(5,1fr);grid-template-columns:1fr;gap:16px;height:calc(100vh - 210px);margin-top:20px;}
-  .hub .bigbtn{width:100%;height:100%;font-size:26px;font-weight:800;display:flex;align-items:center;justify-content:center;border-radius:14px;border:0;background:#1d4ed8;color:#fff;cursor:pointer;}
-  .bottom-tabs{position:fixed;left:0;right:0;bottom:0;background:#0f131a;border-top:1px solid var(--border);display:flex;z-index:30;}
-  .bottom-tabs .tab{flex:1;padding:12px 8px;border:0;background:transparent;color:#cfd7ea;font-weight:700;cursor:pointer;}
-  .bottom-tabs .tab.active{color:var(--brand);}
-  #tab_home.active{color:#8A2BE2;}
-  .backbtn{position:fixed;top:60px;left:14px;z-index:50;background:#182034;color:#eef1f5;border:1px solid #223049;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer;display:none;}
-  .pt-pills{display:flex;gap:8px;flex-wrap:wrap;}
-
-  .spacer-top{height:8px;}
+    :root {
+      --brand: #8A2BE2;
+      --bg: #0b0d12;
+      --card: #111520;
+      --border: #1b2230;
+      --text: #eef1f5;
+      --muted: #aab3c5;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 19, 26, .75);
+      border-bottom: 1px solid var(--border);
+      padding: 6px 8px;
+    }
+    .topbar-inner {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .topbar h1 {
+      font-size: 14px;
+      margin: 0 6px 0 0;
+      font-weight: 800;
+      color: #cfe0ff;
+    }
+    .pill-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .pill, .unit-pill, .pt-pill {
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: #151a3a;
+      color: #c9d3ea;
+      font-weight: 700;
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .pill.active, .unit-pill.active, .pt-pill.active {
+      background: #1d4ed8;
+      color: #fff;
+    }
+    .screen {
+      display: none;
+      padding: 20px 20px 90px;
+      background: #2b1055;
+      min-height: 100vh;
+    }
+    .screen.active { display: block; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+    .row {
+      display: grid;
+      gap: 12px;
+    }
+    @media (min-width: 760px) {
+      .row.two { grid-template-columns: 1fr 1fr; }
+      .row.three { grid-template-columns: repeat(3, 1fr); }
+    }
+    label {
+      font-size: 14px;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+    select, input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #243048;
+      background: #0f131a;
+      color: #eef1f5;
+    }
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .big {
+      font-size: 28px;
+      font-weight: 800;
+      margin: 0 0 6px;
+    }
+    .note {
+      font-size: 13px;
+      opacity: .85;
+      color: var(--muted);
+    }
+    .success { color: #8ee0b2; }
+    .warning { color: #ffd27a; }
+    .danger { color: #ff9a9a; }
+    .tiles {
+      display: grid;
+      gap: 16px;
+      height: calc(100vh - 210px);
+      margin-top: 20px;
+    }
+    .tiles button {
+      font-size: 28px;
+      font-weight: 800;
+      border-radius: 14px;
+      border: 0;
+      color: #fff;
+      cursor: pointer;
+      background: #1d4ed8;
+    }
+    .bottom-tabs {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #0f131a;
+      border-top: 1px solid var(--border);
+      display: flex;
+      z-index: 30;
+    }
+    .bottom-tabs .tab {
+      flex: 1;
+      padding: 12px 8px;
+      border: 0;
+      background: transparent;
+      color: #cfd7ea;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .bottom-tabs .tab.active {
+      color: var(--brand);
+    }
+    .mi-tile {
+      background: #0f131a;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+    }
+    .mi-v {
+      font-size: 24px;
+      font-weight: 900;
+      margin: 8px 0;
+    }
+    .mi-l {
+      font-size: 12px;
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
   <!-- Top Bar -->
-  <div class="topbar" role="navigation" aria-label="Global controls">
+  <div class="topbar">
     <div class="topbar-inner">
       <h1>MiSize</h1>
-      <div class="pill-row" style="margin-left:8px;" aria-label="Body type" id="bodyTypePillsTop">
-        <button type="button" class="pt-pill active" data-val="standard">Standard</button>
-        <button type="button" class="pt-pill" data-val="petite">Petite</button>
-        <button type="button" class="pt-pill" data-val="tall">Tall</button>
-        <button type="button" class="pt-pill" data-val="plus">Plus-size</button>
+      <div class="pill-row" id="bodyTypePills">
+        <button class="pt-pill active" data-val="standard">Standard</button>
+        <button class="pt-pill" data-val="petite">Petite</button>
+        <button class="pt-pill" data-val="tall">Tall</button>
+        <button class="pt-pill" data-val="plus">Plus-size</button>
       </div>
       <div style="flex:1;"></div>
-      <div class="pill-row" aria-label="Units" id="unitPillsTop"></div>
+      <div class="pill-row" id="unitPills">
+        <button class="unit-pill active" data-unit="cm">cm</button>
+        <button class="unit-pill" data-unit="in">inches</button>
+      </div>
     </div>
   </div>
 
-  <div class="spacer-top"></div>
-
-  <button class="backbtn" id="backbtn" onclick="goBack()" aria-label="Back">◀ Back</button>
-
-  <!-- Splash -->
-  <section id="splash" class="screen active" aria-label="Splash">
-    <div class="splash-stage">
-      <div class="flash-logo-wrap" aria-label="MiSize logo"><div class="flash-logo-shine"></div></div>
-    </div>
-  </section>
-
   <!-- Home -->
-  <section id="home" class="screen" aria-label="Home">
+  <section id="home" class="screen active">
     <h1 class="big">Welcome to MiSize</h1>
-    <p>Select your region:</p>
-    <div class="tiles" role="group" aria-label="Regions">
-      <button class="uk" onclick="switchTab('uk')" aria-label="United Kingdom">UK</button>
-      <button class="eu" onclick="switchTab('eu')" aria-label="European Union">EU</button>
-      <button class="us" onclick="switchTab('us')" aria-label="United States">US</button>
-      <button class="ca" onclick="switchTab('ca')" aria-label="Canada">CA</button>
+    <p>Your personal size finder and body tracker.</p>
+    <div class="tiles">
+      <button onclick="switchTab('sizefinder')">Size Finder</button>
+      <button onclick="switchTab('mistats')">MiStats Tracker</button>
+      <button onclick="switchTab('profile')">My Profile</button>
+      <button onclick="switchTab('settings')">Settings</button>
     </div>
   </section>
 
-  <!-- UK Hub -->
-  <section id="uk" class="screen" aria-label="UK hub">
-    <h2 class="big">UK</h2>
-    <p class="note">Pick a tool below. Back button will appear on the next screen.</p>
-    <div class="hub" role="group" aria-label="UK tools">
-      <button class="bigbtn" onclick="openUK('uk_sizefinder')">Size Finder</button>
-      <button class="bigbtn" onclick="openUK('uk_mysizes')">My Sizes (all brands)</button>
-      <button class="bigbtn" onclick="openUK('uk_brandnotes')">Brand Notes</button>
-      <button class="bigbtn" onclick="openUK('uk_history')">History</button>
-      <button class="bigbtn" onclick="openUK('uk_converters')">Converters</button>
-    </div>
-  </section>
-
-  <!-- UK › Size Finder -->
-  <section id="uk_sizefinder" class="screen" aria-label="UK Size Finder">
+  <!-- Size Finder -->
+  <section id="sizefinder" class="screen">
     <div class="card">
-      <h3 class="big">Size Finder</h3>
+      <h2 class="big">Size Finder</h2>
       <div class="row two">
         <div>
-          <label class="ms-label" for="sf_brand">Brand</label>
-          <select id="sf_brand" class="ms-select"></select>
-          <p class="note" id="sf_support_note" style="margin-top:6px;"></p>
+          <label for="sf_brand">Brand</label>
+          <select id="sf_brand">
+            <option value="primark">Primark</option>
+            <option value="next">Next</option>
+            <option value="ms">M&S</option>
+            <option value="zara">Zara</option>
+            <option value="hm">H&M</option>
+          </select>
         </div>
         <div>
-          <label class="ms-label" for="sf_category">Category</label>
-          <select id="sf_category" class="ms-select"></select>
-        </div>
-        <div>
-          <label class="ms-label" for="sf_fit">Fit preference</label>
-          <select id="sf_fit" class="ms-select">
-            <option value="standard">Standard</option>
-            <option value="snug">Snug</option>
-            <option value="relaxed">Relaxed</option>
+          <label for="sf_category">Category</label>
+          <select id="sf_category">
+            <option value="dress">Dress</option>
+            <option value="jeans">Jeans</option>
+            <option value="top">Top</option>
           </select>
         </div>
       </div>
       <div class="toolbar">
-        <button class="pill" onclick="computeSize()">Get my size</button>
-        <button class="pill" onclick="saveHistory()">Save to history</button>
+        <button class="pill" onclick="findSize()">Find My Size</button>
       </div>
-      <div id="sf_result" class="card" style="display:none;" aria-live="polite"></div>
-    </div>
-  </section>
-
-  <!-- UK › My Sizes -->
-  <section id="uk_mysizes" class="screen" aria-label="UK My Sizes">
-    <div class="card">
-      <h3 class="big">My Sizes (filtered by body type)</h3>
-      <p class="note">Only brands that support your selected body type are included.</p>
-
-      <div class="row two">
-        <div>
-          <label class="ms-label" for="ms_category">Categories</label>
-          <select id="ms_category" class="ms-select" multiple size="4" style="height:120px;"></select>
-          <p class="note" style="margin:6px 0 0;">Cmd/Ctrl-click to multi-select.</p>
-        </div>
-
-        <div>
-          <label class="ms-label">Fit preference</label>
-          <div id="ms_fit_pills" class="pt-pills" role="tablist" aria-label="Fit">
-            <button type="button" class="pt-pill ms-fit-pill" data-fit="standard">Standard</button>
-            <button type="button" class="pt-pill ms-fit-pill" data-fit="snug">Snug</button>
-            <button type="button" class="pt-pill ms-fit-pill" data-fit="relaxed">Relaxed</button>
-            <button type="button" class="pt-pill ms-fit-pill" data-fit="all">All</button>
-          </div>
-
-          <select id="ms_fit" class="ms-select" style="display:none;">
-            <option value="standard" selected>Standard</option>
-            <option value="snug">Snug</option>
-            <option value="relaxed">Relaxed</option>
-            <option value="all">All</option>
-          </select>
-
-          <div class="toolbar" style="margin-top:8px;">
-            <button class="pill" onclick="computeAllSizes()">Compute all</button>
-            <button class="pill" onclick="exportMySizesCSV()">Export CSV</button>
-            <button class="pill" onclick="copyMySizes()">Copy</button>
-            <span class="pill" id="ms_count">—</span>
-          </div>
-        </div>
-      </div>
-
-      <div id="ms_list" class="panel-list"></div>
-    </div>
-  </section>
-
-  <!-- UK › Brand Notes -->
-  <section id="uk_brandnotes" class="screen" aria-label="UK Brand Notes">
-    <div class="card">
-      <h3 class="big">Brand Notes</h3>
-      <p class="note">Shows only brands that support your selected body type.</p>
-      <div id="brandList" class="panel-list"></div>
-    </div>
-  </section>
-
-  <!-- UK › History -->
-  <section id="uk_history" class="screen" aria-label="UK History">
-    <div class="card">
-      <h3 class="big">History</h3>
-      <div id="histList" class="panel-list"></div>
-    </div>
-  </section>
-
-  <!-- UK › Converters -->
-  <section id="uk_converters" class="screen" aria-label="UK Converters">
-    <div class="card">
-      <h3>Clothes (UK ⇄ EU ⇄ US)</h3>
-      <div class="row three">
-        <div><label for="cw_from">From</label><select id="cw_from"><option>UK</option><option>EU</option><option>US</option></select></div>
-        <div><label for="cw_to">To</label><select id="cw_to"><option>UK</option><option>EU</option><option>US</option></select></div>
-        <div><label for="cw_val">Value</label><input id="cw_val" inputmode="decimal" placeholder="e.g., 10"></div>
-      </div>
-      <div class="toolbar">
-        <button class="pill" onclick="convertClothing()">Convert</button>
-        <span class="pill" id="cw_out">—</span>
-      </div>
-      <p class="note">Approximate mappings for women's sizes.</p>
-    </div>
-
-    <div class="card">
-      <h3>Shoes</h3>
-      <div class="row three">
-        <div><label for="sh_from">From</label><select id="sh_from"><option>UK</option><option>EU</option><option>US</option></select></div>
-        <div><label for="sh_to">To</label><select id="sh_to"><option>UK</option><option>EU</option><option>US</option></select></div>
-        <div><label for="sh_val">Value</label><input id="sh_val" inputmode="decimal" placeholder="e.g., 5"></div>
-      </div>
-      <div class="toolbar">
-        <button class="pill" onclick="convertShoes()">Convert</button>
-        <span class="pill" id="sh_out">—</span>
-      </div>
-      <p class="note">Approximate women's shoe size mapping.</p>
-    </div>
-
-    <div class="card">
-      <h3>Bra helper</h3>
-      <div class="row three">
-        <div><label for="br_band">Band (cm)</label><input id="br_band" inputmode="decimal" placeholder="e.g., 75"></div>
-        <div><label for="br_cup">Cup</label><input id="br_cup" placeholder="e.g., C"></div>
-        <div style="display:flex;align-items:flex-end;"><button class="pill" onclick="convertBra()">Estimate</button></div>
-      </div>
-      <div class="toolbar"><span class="pill" id="br_out">—</span></div>
-      <p class="note">Very rough: UK band ≈ round(cm ÷ 2.54).</p>
+      <div id="size_result" style="margin-top: 16px;"></div>
     </div>
   </section>
 
   <!-- Profile -->
-  <section id="profile" class="screen" aria-label="Profile">
+  <section id="profile" class="screen">
     <div class="card">
-      <h3 class="big">Profile Management</h3>
-      <p class="note">Data saves in cm internally. Use top pills to switch units and body type.</p>
-    </div>
-
-    <div class="card">
+      <h2 class="big">My Profile</h2>
       <div class="row three">
         <div>
-          <label class="ms-label" for="m_name">Profile name</label>
-          <input id="m_name" placeholder="e.g., Emma">
+          <label for="height">Height (cm)</label>
+          <input id="height" placeholder="e.g., 168">
         </div>
         <div>
-          <label class="ms-label" for="m_sex">Sex</label>
-          <select id="m_sex" class="ms-select">
-            <option value="female">Female</option>
-            <option value="male">Male</option>
-            <option value="child">Child</option>
-          </select>
+          <label for="bust">Bust (cm)</label>
+          <input id="bust" placeholder="e.g., 88">
         </div>
-        <div style="display:flex;align-items:flex-end;">
-          <button class="pill" onclick="saveActiveProfile()">Save profile</button>
+        <div>
+          <label for="waist">Waist (cm)</label>
+          <input id="waist" placeholder="e.g., 70">
+        </div>
+        <div>
+          <label for="hip">Hip (cm)</label>
+          <input id="hip" placeholder="e.g., 94">
+        </div>
+        <div>
+          <label for="weight">Weight (kg)</label>
+          <input id="weight" placeholder="e.g., 65">
         </div>
       </div>
-
-      <div class="divider"></div>
-
-      <div class="row three">
-        <div><label class="ms-label" for="m_height">Height <span class="unit-badge">cm</span></label><input id="m_height" inputmode="decimal" placeholder="e.g., 168"></div>
-        <div><label class="ms-label" for="m_shoulder">Shoulder <span class="unit-badge">cm</span></label><input id="m_shoulder" inputmode="decimal" placeholder="e.g., 40"></div>
-        <div><label class="ms-label" for="m_bust">Bust <span class="unit-badge">cm</span></label><input id="m_bust" inputmode="decimal" placeholder="e.g., 88"></div>
-        <div><label class="ms-label" for="m_waist">Waist <span class="unit-badge">cm</span></label><input id="m_waist" inputmode="decimal" placeholder="e.g., 70"></div>
-        <div><label class="ms-label" for="m_hip">Hip <span class="unit-badge">cm</span></label><input id="m_hip" inputmode="decimal" placeholder="e.g., 94"></div>
-        <div><label class="ms-label" for="m_inseam">Inseam <span class="unit-badge">cm</span></label><input id="m_inseam" inputmode="decimal" placeholder="e.g., 76"></div>
-        <div><label class="ms-label" for="m_torso">Torso <span class="unit-badge">cm</span></label><input id="m_torso" inputmode="decimal" placeholder="optional"></div>
-        <div><label class="ms-label" for="m_footlen">Foot length <span class="unit-badge">cm</span></label><input id="m_footlen" inputmode="decimal" placeholder="e.g., 24.6"></div>
-        <div><label class="ms-label" for="m_band">Bra band <span class="unit-badge">cm</span></label><input id="m_band" inputmode="decimal" placeholder="e.g., 75"></div>
-        <div><label class="ms-label" for="m_cup">Bra cup</label><input id="m_cup" placeholder="e.g., C"></div>
-      </div>
-
-      <div class="toolbar" style="margin-top:12px;">
-        <button class="pill" onclick="resetFormFields()">Reset fields</button>
-        <button class="pill" onclick="deleteActiveProfile()">Delete profile</button>
-        <button class="pill" onclick="goBack()">◀ Back to Settings</button>
+      <div class="toolbar">
+        <button class="pill" onclick="saveProfile()">Save Profile</button>
       </div>
     </div>
   </section>
 
-  <!-- Placeholders -->
-  <section id="eu" class="screen" aria-label="EU"><h2 class="big">EU</h2><p class="note">Coming later.</p></section>
-  <section id="us" class="screen" aria-label="US"><h2 class="big">US</h2><p class="note">Coming later.</p></section>
-  <section id="ca" class="screen" aria-label="CA"><h2 class="big">CA</h2><p class="note">Coming later.</p></section>
-
   <!-- MiStats -->
-  <section id="mistats" class="screen" aria-label="MiStats">
-    <h2 class="big">MiStats</h2>
-    <p class="note">Comprehensive tracking for weight and body measurements linked to your active profile.</p>
-
-    <div class="toolbar" role="tablist" aria-label="MiStats views" id="mi_tabs">
-      <button class="pill mi-tab active" data-view="current" onclick="window.setMiTab && setMiTab('current')">Current</button>
-      <button class="pill mi-tab" data-view="graph" onclick="window.setMiTab && setMiTab('graph')">Graphs</button>
-      <button class="pill mi-tab" data-view="history" onclick="window.setMiTab && setMiTab('history')">History</button>
-    </div>
-
-    <!-- CURRENT -->
-    <div id="mi_view_current" class="mi-view card active">
-      <!-- Weight Progress -->
-      <div class="card" style="margin-bottom:16px;">
-        <h4>Weight Progress</h4>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0;">
-          <div class="mi-tile">
-            <div class="mi-l">Start Weight</div>
-            <div class="mi-v" id="mi_start_weight">—</div>
-            <div class="mi-sub" id="mi_start_bmi">BMI —</div>
-          </div>
-          <div class="mi-tile">
-            <div class="mi-l">Current Weight</div>
-            <div class="mi-v" id="mi_current_weight">—</div>
-            <div class="mi-sub" id="mi_current_bmi">BMI —</div>
-          </div>
-          <div class="mi-tile">
-            <div class="mi-l">Weight Lost</div>
-            <div class="mi-v" id="mi_weight_lost">—</div>
-            <div class="mi-sub" id="mi_weight_remaining">—</div>
-          </div>
-        </div>
-        
-        <div class="mi-bar"><b id="mi_weight_prog_bar" style="transition:width 0.3s;"></b></div>
-        <div class="mi-sub" style="margin-top:4px;" id="mi_weight_prog_text">—</div>
-      </div>
-
-      <!-- Body Measurements Progress -->
-      <div class="card">
-        <h4>Body Measurements Progress</h4>
-        <div id="mi_measurements_progress">
-          <div class="note">Add measurements to see progress tracking.</div>
-        </div>
-      </div>
-
-      <!-- Data Entry -->
-      <div class="card" style="margin-top:16px;">
-        <h4>Add New Entry</h4>
-        <div class="row three">
-          <div>
-            <label for="mi_weight_in">Weight</label>
-            <input id="mi_weight_in" inputmode="decimal" placeholder="e.g., 70">
-          </div>
-          <div>
-            <label for="mi_date_in">Date</label>
-            <input id="mi_date_in" type="date">
-          </div>
-          <div style="display:flex;align-items:flex-end;">
-            <button class="pill" id="mi_add_weight_btn">Add Weight</button>
-          </div>
-        </div>
-
-        <div class="row three" style="margin-top:12px;">
-          <div>
-            <label for="mi_bust_in">Bust <span class="unit-badge">cm</span></label>
-            <input id="mi_bust_in" inputmode="decimal" placeholder="e.g., 88">
-          </div>
-          <div>
-            <label for="mi_waist_in">Waist <span class="unit-badge">cm</span></label>
-            <input id="mi_waist_in" inputmode="decimal" placeholder="e.g., 70">
-          </div>
-          <div>
-            <label for="mi_hip_in">Hip <span class="unit-badge">cm</span></label>
-            <input id="mi_hip_in" inputmode="decimal" placeholder="e.g., 94">
-          </div>
-        </div>
-
-        <div class="toolbar" style="margin-top:12px;">
-          <button class="pill" id="mi_add_measurements_btn">Add Measurements</button>
-          <span class="pill" id="mi_hint_units">Units: —</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- GRAPHS -->
-    <div id="mi_view_graph" class="mi-view card" style="display:none;">
-      <div class="toolbar">
-        <span class="pill">View:</span>
-        <button class="pill mi-graph-type active" data-type="weight">Weight</button>
-        <button class="pill mi-graph-type" data-type="measurements">Measurements</button>
-        <button class="pill mi-graph-type" data-type="combined">Combined</button>
-      </div>
+  <section id="mistats" class="screen">
+    <div class="card">
+      <h2 class="big">MiStats</h2>
+      <p class="note">Track your progress over time.</p>
       
-      <div class="toolbar">
-        <span class="pill">Zoom:</span>
-        <input id="mi_zoom" type="range" min="0" max="100" value="0" style="accent-color:#1d4ed8;width:180px;">
-        <span class="pill" id="mi_zoom_label">All time</span>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0;">
+        <div class="mi-tile">
+          <div class="mi-l">Current Weight</div>
+          <div class="mi-v" id="current_weight">—</div>
+        </div>
+        <div class="mi-tile">
+          <div class="mi-l">Current Bust</div>
+          <div class="mi-v" id="current_bust">—</div>
+        </div>
+        <div class="mi-tile">
+          <div class="mi-l">Current Waist</div>
+          <div class="mi-v" id="current_waist">—</div>
+        </div>
       </div>
-      
-      <canvas id="mi_canvas" width="1200" height="420" style="width:100%;height:320px;border-radius:12px;background:#0f131a;border:1px solid var(--border);"></canvas>
-      <p class="note" id="mi_graph_note">—</p>
+
+      <div class="row three">
+        <div>
+          <label for="new_weight">Add Weight Entry</label>
+          <input id="new_weight" placeholder="Weight in kg">
+        </div>
+        <div>
+          <label for="entry_date">Date</label>
+          <input id="entry_date" type="date">
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+          <button class="pill" onclick="addEntry()">Add Entry</button>
+        </div>
+      </div>
     </div>
 
-    <!-- HISTORY -->
-    <div id="mi_view_history" class="mi-view card" style="display:none;">
-      <div class="toolbar">
-        <button class="pill mi-hist-filter active" data-filter="all">All Data</button>
-        <button class="pill mi-hist-filter" data-filter="weight">Weight Only</button>
-        <button class="pill mi-hist-filter" data-filter="measurements">Measurements Only</button>
+    <div class="card">
+      <h3>Recent Entries</h3>
+      <div id="entries_list">
+        <div class="note">No entries yet. Add your first measurement above.</div>
       </div>
-      <div id="mi_hist_list"></div>
     </div>
   </section>
 
   <!-- Settings -->
-  <section id="settings" class="screen" aria-label="Settings">
-    <h2 class="big">Settings</h2>
-    
-    <!-- Profiles Section -->
+  <section id="settings" class="screen">
     <div class="card">
-      <h3>Profiles</h3>
-      <div class="pill-row" aria-label="Profiles" id="profilePillsSettings"></div>
-      <div class="toolbar" style="margin-top:10px;">
-        <button class="pill" onclick="switchToProfileTab()">Manage Profiles</button>
-      </div>
-    </div>
-
-    <!-- Weight Units Section -->
-    <div class="card">
-      <h3>Weight Units</h3>
-      <div class="pill-row">
-        <button class="pill mi-unit-w" data-u="kg">Kilograms</button>
-        <button class="pill mi-unit-w" data-u="lb">Pounds</button>
-        <button class="pill mi-unit-w" data-u="st">Stones</button>
-      </div>
-    </div>
-
-    <!-- Height Unit Section -->
-    <div class="card">
-      <h3>Height Unit (for BMI)</h3>
-      <div class="pill-row">
-        <button class="pill mi-unit-h" data-u="cm">Centimeters</button>
-        <button class="pill mi-unit-h" data-u="m">Meters</button>
-        <button class="pill mi-unit-h" data-u="ftin">Feet+Inches</button>
-      </div>
-    </div>
-
-    <!-- Weight Target Section -->
-    <div class="card">
-      <div class="row two">
-        <div>
-          <label for="settings_height">Your height</label>
-          <input id="settings_height" placeholder="e.g., 168 (cm)">
-          <p class="note" id="settings_height_hint">Stored in cm internally.</p>
-        </div>
-        <div>
-          <label for="settings_target">Target weight</label>
-          <input id="settings_target" placeholder="e.g., 70">
-          <p class="note">Leave empty to disable target.</p>
+      <h2 class="big">Settings</h2>
+      <div class="card">
+        <h3>Units</h3>
+        <div class="pill-row">
+          <button class="pill active" onclick="setUnit('metric')">Metric (cm/kg)</button>
+          <button class="pill" onclick="setUnit('imperial')">Imperial (in/lb)</button>
         </div>
       </div>
-      <div class="toolbar" style="margin-top:10px;">
-        <button class="pill" id="save_global_settings">Save settings</button>
-        <button class="pill" id="reset_current_profile">Reset this profile</button>
-      </div>
-    </div>
-
-    <!-- Weight Conversion Tool -->
-    <div class="card">
-      <h3>Weight Converter</h3>
-      <div class="row three">
-        <div>
-          <label for="weight_from">From</label>
-          <select id="weight_from">
-            <option value="kg">Kilograms</option>
-            <option value="lb">Pounds</option>
-            <option value="st">Stones</option>
-          </select>
-        </div>
-        <div>
-          <label for="weight_to">To</label>
-          <select id="weight_to">
-            <option value="kg">Kilograms</option>
-            <option value="lb">Pounds</option>
-            <option value="st">Stones</option>
-          </select>
-        </div>
-        <div>
-          <label for="weight_val">Weight</label>
-          <input id="weight_val" inputmode="decimal" placeholder="e.g., 70">
+      
+      <div class="card">
+        <h3>Body Type</h3>
+        <div class="pill-row">
+          <button class="pill active" onclick="setBodyType('standard')">Standard</button>
+          <button class="pill" onclick="setBodyType('petite')">Petite</button>
+          <button class="pill" onclick="setBodyType('tall')">Tall</button>
+          <button class="pill" onclick="setBodyType('plus')">Plus Size</button>
         </div>
       </div>
-      <div class="toolbar">
-        <button class="pill" onclick="convertWeight()">Convert</button>
-        <span class="pill" id="weight_out">—</span>
-      </div>
-      <p class="note">Convert between weight units.</p>
     </div>
   </section>
 
-  <div class="bottom-tabs" role="tablist" aria-label="Main tabs">
-    <button id="tab_home" class="tab active" onclick="switchTab('home')" role="tab" aria-selected="true">Home</button>
-    <button id="tab_back" class="tab" onclick="goBack()" role="tab" style="display:none;">◀ Back</button>
-    <button id="tab_mistats" class="tab" onclick="switchTab('mistats')" role="tab">MiStats</button>
-    <button id="tab_settings" class="tab" onclick="switchTab('settings')" role="tab">Settings</button>
+  <!-- Bottom Navigation -->
+  <div class="bottom-tabs">
+    <button id="tab_home" class="tab active" onclick="switchTab('home')">Home</button>
+    <button id="tab_back" class="tab" onclick="goBack()" style="display:none;">Back</button>
+    <button id="tab_mistats" class="tab" onclick="switchTab('mistats')">MiStats</button>
+    <button id="tab_settings" class="tab" onclick="switchTab('settings')">Settings</button>
   </div>
 
   <script>
-  /* ---------- Helpers & Units ---------- */
-  function $(id){ return document.getElementById(id); }
-  let UNIT_MODE = 'cm';
-  const CM_PER_IN = 2.54;
-  const toDisplay = (cm) => (cm==null ? '' : (UNIT_MODE==='cm' ? cm : (cm/CM_PER_IN)).toFixed(2));
-  const fromDisplay = (val) => { const n=parseFloat(val); if(isNaN(n)) return null; return UNIT_MODE==='cm' ? n : +(n*CM_PER_IN).toFixed(2); };
-
-  // Fit pills (My Sizes)
-  function initMsFitPills(){
-    const sel = document.getElementById('ms_fit');
-    const pillsWrap = document.getElementById('ms_fit_pills');
-    if(!sel || !pillsWrap) return;
-    const current = sel.value || 'standard';
-    pillsWrap.querySelectorAll('.ms-fit-pill').forEach(btn=>{
-      btn.classList.toggle('active', btn.dataset.fit === current);
-    });
-  }
-  document.addEventListener('click', (e)=>{
-    const btn = e.target.closest('.ms-fit-pill');
-    if(!btn) return;
-    const sel = document.getElementById('ms_fit');
-    const wrap = document.getElementById('ms_fit_pills');
-    if(!sel || !wrap) return;
-    sel.value = btn.dataset.fit;
-    wrap.querySelectorAll('.ms-fit-pill').forEach(b=> b.classList.toggle('active', b === btn));
-    if (typeof computeAllSizes === 'function') computeAllSizes();
-  });
-  window.addEventListener('load', initMsFitPills);
-
-  /* ---------- Body type (GLOBAL) ---------- */
-  let SELECTED_BODYTYPE = 'standard';
-  function renderBodyTypePillsTop(){
-    const wrap = $('bodyTypePillsTop'); if(!wrap) return;
-    wrap.querySelectorAll('.pt-pill').forEach(p=>{
-      p.classList.toggle('active', p.dataset.val === SELECTED_BODYTYPE);
-    });
-  }
-  function setBodyType(val){
-    SELECTED_BODYTYPE = val;
-    renderBodyTypePillsTop();
-    if (CURRENT_SCREEN === 'uk_sizefinder') {
-      updateSupportNote();
-      if ($('sf_brand')?.value) computeSize();
-    } else if (CURRENT_SCREEN === 'uk_mysizes') {
-      computeAllSizes();
-    } else if (CURRENT_SCREEN === 'uk_brandnotes') {
-      renderBrandNotes();
-    }
-  }
-  document.addEventListener('click', (e) => {
-    const pill = e.target.closest('.pt-pill'); if (!pill) return;
-    setBodyType(pill.dataset.val);
-  });
-
-  /* ---------- Profiles store ---------- */
-  const PROFILES_KEY='profiles', ACTIVE_PROFILE_KEY='activeProfileId';
-  function newProfileTemplate(name='Profile', sex='female'){
-    return { id:'p_'+Math.random().toString(36).slice(2,9), name, sex,
-      height:null, shoulder:null, bust:88, waist:70, hip:94, inseam:76,
-      torso:null, footlen:24.6, band:null, cup:'' };
-  }
-  function loadProfiles(){
-    try{ const arr=JSON.parse(localStorage.getItem(PROFILES_KEY)||'[]'); if(Array.isArray(arr)&&arr.length) return arr; }catch(e){}
-    const seed=[newProfileTemplate('Emma')]; localStorage.setItem(PROFILES_KEY, JSON.stringify(seed)); return seed;
-  }
-  function saveProfiles(list){ localStorage.setItem(PROFILES_KEY, JSON.stringify(list)); }
-  function getActiveProfileId(){ return localStorage.getItem(ACTIVE_PROFILE_KEY); }
-  function setActiveProfileId(id){ localStorage.setItem(ACTIVE_PROFILE_KEY, id); }
-  function getProfilesAndActive(){
-    const profiles=loadProfiles(); let activeId=getActiveProfileId();
-    if(!activeId || !profiles.find(p=>p.id===activeId)){ activeId=profiles[0]?.id; if(activeId) setActiveProfileId(activeId); }
-    return {profiles, activeId};
-  }
-
-  /* ---------- Global/Local pills render ---------- */
-  function renderUnitPills(){
-    const html = `
-      <button class="unit-pill ${UNIT_MODE==='cm'?'active':''}" data-unit="cm">cm</button>
-      <button class="unit-pill ${UNIT_MODE==='in'?'active':''}" data-unit="in">inches</button>
-    `;
-    const top = $('unitPillsTop'); if(top) top.innerHTML = html;
-  }
-  function renderProfilePills(){
-    const {profiles, activeId} = getProfilesAndActive();
-    const frag = document.createDocumentFragment();
-    profiles.forEach(p=>{
-      const b=document.createElement('button');
-      b.className='profile-pill'+(p.id===activeId?' active':'');
-      b.dataset.id=p.id; b.textContent=p.name; frag.appendChild(b);
-    });
-    const add=document.createElement('button');
-    add.className='profile-pill add'; add.dataset.action='add-profile'; add.textContent='+ Add profile';
-    frag.appendChild(add);
-    const settings = $('profilePillsSettings'); if(settings){ settings.innerHTML=''; settings.appendChild(frag.cloneNode(true)); }
-  }
-  
-  function switchToProfileTab(){
-    NAV_STACK.push('settings');
-    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    $('profile').classList.add('active'); CURRENT_SCREEN='profile'; updateBackButton();
-  }
-  
-  function convertWeight(){
-    const from=$('weight_from').value, to=$('weight_to').value, val=parseFloat($('weight_val').value);
-    if(isNaN(val)){ $('weight_out').textContent='Enter a number'; return; }
-    if(from===to){ $('weight_out').textContent=`${val} ${from}`; return; }
-    
-    // Convert to kg first
-    let kg;
-    if(from==='lb') kg = val * 0.45359237;
-    else if(from==='st') kg = val * 6.35029318;
-    else kg = val;
-    
-    // Convert from kg to target
-    let result;
-    if(to==='lb') result = kg / 0.45359237;
-    else if(to==='st') result = kg / 6.35029318;
-    else result = kg;
-    
-    $('weight_out').textContent = `${result.toFixed(2)} ${to}`;
-  }
-
-  document.addEventListener('click',(e)=>{
-    const u=e.target.closest('.unit-pill'); if(u){
-      UNIT_MODE=u.dataset.unit; renderUnitPills(); loadActiveProfileIntoForm();
-      document.querySelectorAll('.unit-badge').forEach(b=> b.textContent = UNIT_MODE);
-      return;
-    }
-    const addBtn=e.target.closest('.profile-pill.add');
-    if(addBtn){
-      const name=prompt('Profile name?','New profile');
-      if(name){
-        const {profiles}=getProfilesAndActive(); const p=newProfileTemplate(name);
-        profiles.push(p); saveProfiles(profiles); setActiveProfileId(p.id);
-        renderProfilePills(); loadActiveProfileIntoForm();
-      } return;
-    }
-    const pill=e.target.closest('.profile-pill');
-    if(pill && !pill.classList.contains('add')){
-      setActiveProfileId(pill.dataset.id); renderProfilePills(); loadActiveProfileIntoForm();
-      if (CURRENT_SCREEN==='uk_sizefinder') computeSize();
-      if (CURRENT_SCREEN==='uk_mysizes') computeAllSizes();
-      if (CURRENT_SCREEN==='mistats' && typeof refreshAll==='function') refreshAll();
-    }
-  });
-
-  /* ---------- Form binding ---------- */
-  function loadActiveProfileIntoForm(){
-    const {profiles, activeId} = getProfilesAndActive();
-    const p = profiles.find(x=>x.id===activeId); if(!p) return;
-    const set=(id,val)=>{ const el=$(id); if(el) el.value = val ?? ''; };
-    set('m_name', p.name); set('m_sex', p.sex);
-    set('m_height', toDisplay(p.height)); set('m_shoulder', toDisplay(p.shoulder));
-    set('m_bust', toDisplay(p.bust)); set('m_waist', toDisplay(p.waist));
-    set('m_hip', toDisplay(p.hip)); set('m_inseam', toDisplay(p.inseam));
-    set('m_torso', toDisplay(p.torso)); set('m_footlen', toDisplay(p.footlen));
-    set('m_band', toDisplay(p.band)); set('m_cup', p.cup || '');
-  }
-  function collectFormAsCM(){
-    const gv=id=> fromDisplay($(id)?.value);
-    return {
-      name:$('m_name')?.value||'Profile', sex:$('m_sex')?.value||'female',
-      height:gv('m_height'), shoulder:gv('m_shoulder'), bust:gv('m_bust'),
-      waist:gv('m_waist'), hip:gv('m_hip'), inseam:gv('m_inseam'),
-      torso:gv('m_torso'), footlen:gv('m_footlen'), band:gv('m_band'),
-      cup:($('m_cup')?.value||'').toUpperCase()
+    // Global variables
+    let currentProfile = {
+      height: 168,
+      bust: 88,
+      waist: 70,
+      hip: 94,
+      weight: 65
     };
-  }
-  function saveActiveProfile(){
-    const {profiles, activeId}=getProfilesAndActive();
-    const idx=profiles.findIndex(p=>p.id===activeId); if(idx<0) return;
-    const updated=collectFormAsCM(); profiles[idx]={...profiles[idx], ...updated};
-    saveProfiles(profiles); renderProfilePills(); alert('Profile saved.');
-  }
-  function deleteActiveProfile(){
-    const {profiles, activeId}=getProfilesAndActive();
-    if(!confirm('Delete this profile? This cannot be undone.')) return;
-    const left=profiles.filter(p=>p.id!==activeId);
-    if(!left.length){ const seed=[newProfileTemplate('Profile')]; saveProfiles(seed); setActiveProfileId(seed[0].id); }
-    else{ saveProfiles(left); setActiveProfileId(left[0].id); }
-    renderProfilePills(); loadActiveProfileIntoForm();
-  }
-  function resetFormFields(){
-    ['m_height','m_shoulder','m_bust','m_waist','m_hip','m_inseam','m_torso','m_footlen','m_band','m_cup'].forEach(id=>{ const el=$(id); if(el) el.value=''; });
-  }
+    let entries = [];
+    let navStack = [];
+    let currentScreen = 'home';
 
-  /* ---------- Navigation (fixed) ---------- */
-  const NAV_STACK=[]; 
-  let CURRENT_SCREEN='home';
+    // Size database (simplified)
+    const sizeData = {
+      primark: {
+        dress: [
+          { size: '8', bust: 84, waist: 66, hip: 90 },
+          { size: '10', bust: 88, waist: 70, hip: 94 },
+          { size: '12', bust: 92, waist: 74, hip: 98 },
+          { size: '14', bust: 96, waist: 78, hip: 102 }
+        ]
+      },
+      next: {
+        dress: [
+          { size: '8', bust: 83, waist: 65, hip: 89 },
+          { size: '10', bust: 87, waist: 69, hip: 93 },
+          { size: '12', bust: 91, waist: 73, hip: 97 },
+          { size: '14', bust: 95, waist: 77, hip: 101 }
+        ]
+      }
+    };
 
-  function switchTab(id){
-    if(id!==CURRENT_SCREEN) NAV_STACK.push(CURRENT_SCREEN);
-    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    ($(id)||$('home')).classList.add('active');
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    const t=$('tab_'+id); if(t) t.classList.add('active');
-    CURRENT_SCREEN=id; 
-    updateBackButton();
-    if (id==='uk_brandnotes') renderBrandNotes();
-    if (id==='settings') renderProfilePills();
-
-    // MiStats: make sure it opens on "Current" and refreshes
-    if (id==='mistats'){
-      if (typeof setMiTab==='function') setMiTab('current');
-      if (typeof refreshAll==='function') refreshAll();
+    // Navigation
+    function switchTab(tab) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      
+      document.getElementById(tab).classList.add('active');
+      document.getElementById('tab_' + tab)?.classList.add('active');
+      
+      currentScreen = tab;
+      updateBackButton();
+      
+      if (tab === 'mistats') updateMiStats();
+      if (tab === 'profile') loadProfile();
     }
-  }
 
-  function openUK(id){
-    NAV_STACK.push('uk');
-    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    $(id).classList.add('active'); CURRENT_SCREEN=id; updateBackButton();
-    if(id==='uk_mysizes') initMySizesSelectors();
-    if(id==='uk_sizefinder') updateSupportNote();
-    if(id==='uk_brandnotes') renderBrandNotes();
-    if(id==='uk_history') renderUkHistory();
-  }
-  function goBack(){
-    const prev= NAV_STACK.pop() || 'home';
-    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    ($(prev)||$('home')).classList.add('active');
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    const tb=$('tab_'+prev); if(tb) tb.classList.add('active');
-    CURRENT_SCREEN=prev; updateBackButton();
-  }
-  function updateBackButton(){
-    const btn=$('backbtn');
-    const topLevels=['splash','home','uk','mistats','settings','eu','us','ca'];
-    btn.style.display= topLevels.includes(CURRENT_SCREEN) ? 'none' : 'inline-block';
-    
-    // Show/hide back button in bottom tabs
-    const tabBack = $('tab_back');
-    if(tabBack) {
-      tabBack.style.display = topLevels.includes(CURRENT_SCREEN) ? 'none' : 'inline-block';
+    function goBack() {
+      if (navStack.length > 0) {
+        const prevScreen = navStack.pop();
+        switchTab(prevScreen);
+      } else {
+        switchTab('home');
+      }
     }
-  }
 
-  /* ---------- Brand data (with body-type support flags) ---------- */
-  const DEFAULT_BRANDS=[
-    {id:'primark', name:'Primark', notes:'Runs true to size.',
-      supports:{standard:true, petite:true, tall:false, plus:true},
-      lengths_cm:{short:72,regular:76,long:80,tall:84}},
-    {id:'george', name:'George (ASDA)', notes:'Waist generous.',
-      supports:{standard:true, petite:true, tall:true, plus:true},
-      lengths_cm:{short:71,regular:75,long:79,tall:83}},
-    {id:'next', name:'Next', notes:'Jeans come up slightly long.',
-      supports:{standard:true, petite:true, tall:true, plus:true},
-      lengths_cm:{short:70,regular:74,long:78,tall:82}},
-    {id:'m_s', name:'M&S', notes:'Consistent across seasons.',
-      supports:{standard:true, petite:true, tall:true, plus:true},
-      lengths_cm:{short:71,regular:75,long:79,tall:83}},
-    {id:'zara', name:'Zara', notes:'Sizes run small.',
-      supports:{standard:true, petite:false, tall:false, plus:false},
-      lengths_cm:{short:70,regular:74,long:78,tall:82}},
-    {id:'hm', name:'H&M', notes:'Tops generous, bottoms small.',
-      supports:{standard:true, petite:true, tall:true, plus:true},
-      lengths_cm:{short:72,regular:76,long:80,tall:84}},
-    {id:'uniqlo', name:'Uniqlo', notes:'Minimalist, runs neat.',
-      supports:{standard:true, petite:false, tall:true, plus:false},
-      lengths_cm:{short:70,regular:74,long:78,tall:82}},
-    {id:'river', name:'River Island', notes:'Trendy fits.',
-      supports:{standard:true, petite:false, tall:false, plus:true},
-      lengths_cm:{short:71,regular:75,long:79,tall:83}},
-    {id:'gap', name:'GAP', notes:'US sizing, generous.',
-      supports:{standard:true, petite:true, tall:true, plus:true},
-      lengths_cm:{short:72,regular:76,long:80,tall:84}},
-    {id:'tedbaker', name:'Ted Baker', notes:'Numbered sizing, true to fit.',
-      supports:{standard:true, petite:false, tall:false, plus:false},
-      lengths_cm:{short:70,regular:74,long:78,tall:82}}
-  ];
-  const DEFAULT_CHARTS=[
-    {brandId:'primark', category:'Women • Dresses', size:'8',  bust:84, waist:66, hip:90},
-    {brandId:'primark', category:'Women • Dresses', size:'10', bust:88, waist:70, hip:94},
-    {brandId:'george',  category:'Women • Dresses', size:'8',  bust:85, waist:67, hip:91},
-    {brandId:'george',  category:'Women • Dresses', size:'10', bust:89, waist:71, hip:95},
-    {brandId:'next',    category:'Women • Dresses', size:'8',  bust:84, waist:66, hip:90},
-    {brandId:'next',    category:'Women • Dresses', size:'10', bust:88, waist:70, hip:94},
-    {brandId:'m_s',     category:'Women • Dresses', size:'8',  bust:85, waist:67, hip:91},
-    {brandId:'m_s',     category:'Women • Dresses', size:'10', bust:89, waist:71, hip:95},
-
-    {brandId:'primark', category:'Women • Jeans',   size:'8',  waist:66, hip:90},
-    {brandId:'primark', category:'Women • Jeans',   size:'10', waist:70, hip:94},
-    {brandId:'george',  category:'Women • Jeans',   size:'8',  waist:67, hip:91},
-    {brandId:'george',  category:'Women • Jeans',   size:'10', waist:71, hip:95},
-    {brandId:'next',    category:'Women • Jeans',   size:'8',  waist:66, hip:90},
-    {brandId:'next',    category:'Women • Jeans',   size:'10', waist:70, hip:94},
-    {brandId:'m_s',     category:'Women • Jeans',   size:'8',  waist:67, hip:91},
-    {brandId:'m_s',     category:'Women • Jeans',   size:'10', waist:71, hip:95},
-
-    {brandId:'primark', category:'Shoes (UK)', size:'5', footLen:24.1},
-    {brandId:'primark', category:'Shoes (UK)', size:'6', footLen:24.8},
-    {brandId:'george',  category:'Shoes (UK)', size:'5', footLen:24.0},
-    {brandId:'george',  category:'Shoes (UK)', size:'6', footLen:24.7},
-    {brandId:'next',    category:'Shoes (UK)', size:'5', footLen:24.1},
-    {brandId:'next',    category:'Shoes (UK)', size:'6', footLen:24.8},
-    {brandId:'m_s',     category:'Shoes (UK)', size:'5', footLen:24.0},
-    {brandId:'m_s',     category:'Shoes (UK)', size:'6', footLen:24.7}
-  ];
-  const DEFAULT_CATEGORIES=['Women • Dresses','Women • Jeans','Shoes (UK)'];
-  function loadAppData(){
-    window.BRANDS = DEFAULT_BRANDS.slice();
-    window.CHARTS = DEFAULT_CHARTS.slice();
-    window.CATEGORIES = DEFAULT_CATEGORIES.slice();
-  }
-
-  /* ---------- Init selectors ---------- */
-  function initSelectors(){
-    const b=$('sf_brand'); if(b){ b.innerHTML=''; BRANDS.forEach(br=>{ const o=document.createElement('option'); o.value=br.id; o.textContent=br.name; b.appendChild(o); }); b.addEventListener('change', updateSupportNote); }
-    const c=$('sf_category'); if(c){ c.innerHTML=''; CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; c.appendChild(o); }); }
-    const ms=$('ms_category'); if(ms){ ms.innerHTML=''; CATEGORIES.forEach(cat=>{ const o=document.createElement('option'); o.value=cat; o.textContent=cat; ms.appendChild(o); }); if(ms.options.length) ms.options[0].selected=true; }
-    renderBrandNotes(); renderUkHistory();
-    updateSupportNote();
-  }
-  function updateSupportNote(){
-    const brandId = $('sf_brand')?.value;
-    const note = $('sf_support_note'); if(!note) return;
-    const brand = BRANDS.find(b=>b.id===brandId);
-    if(!brand){ note.textContent=''; return; }
-    const ok = !brand.supports || brand.supports[SELECTED_BODYTYPE];
-    note.textContent = ok ? `✓ ${brand.name} supports ${labelBody(SELECTED_BODYTYPE)}.` : `✕ ${brand.name} does not offer a dedicated ${labelBody(SELECTED_BODYTYPE)} range.`;
-  }
-  function labelBody(k){ return k==='plus'?'plus-size':k; }
-
-  /* ---------- Measurements ---------- */
-  function currentMeasurements(){
-    const {profiles, activeId}=getProfilesAndActive();
-    const p=profiles.find(x=>x.id===activeId);
-    if(!p) return { bust:88, waist:70, hip:94, inseam:76, footlen:24.6 };
-    return { bust:p.bust, waist:p.waist, hip:p.hip, inseam:p.inseam, footlen:p.footlen,
-             height:p.height, shoulder:p.shoulder, torso:p.torso, band:p.band, cup:p.cup };
-  }
-
-  /* ---------- Size Finder ---------- */
-  function computeSize(){
-    const meas=currentMeasurements();
-    const brandId=$('sf_brand').value, cat=$('sf_category').value, fit=$('sf_fit').value;
-    const brand=BRANDS.find(b=>b.id===brandId);
-    if(!brand){ showResult('—','Low','Pick a brand.',[]); return; }
-    if(brand.supports && !brand.supports[SELECTED_BODYTYPE]){
-      showResult('—','Low',`This brand doesn't have a ${labelBody(SELECTED_BODYTYPE)} range. Choose another brand or switch body type.`,[]);
-      return;
+    function updateBackButton() {
+      const backBtn = document.getElementById('tab_back');
+      const topLevel = ['home', 'mistats', 'profile', 'settings'];
+      if (backBtn) {
+        backBtn.style.display = topLevel.includes(currentScreen) ? 'none' : 'inline-block';
+      }
     }
-    const table=CHARTS.filter(r=>r.brandId===brandId && r.category===cat)
-      .map(r=>({size:r.size,bust:r.bust??null,waist:r.waist??null,hip:r.hip??null,footLen:r.footLen??null}));
-    if(!table.length){ showResult('—','Low','No data for this brand/category yet.',[]); return; }
-    let dims=[]; if(cat.includes('Dresses')) dims=['bust','waist','hip']; if(cat.includes('Jeans')) dims=['waist','hip']; if(cat.includes('Shoes')) dims=['footLen'];
-    const wants={}; dims.forEach(d=> wants[d]=meas[d==='footLen'?'footlen':d]);
-    const used=dims.filter(d=> wants[d]!=null); if(!used.length){ showResult('—','Low','Please add measurements for this category.',[]); return; }
-    const scored=table.map(r=>({ size:r.size, score:used.reduce((s,d)=>s+Math.abs((r[d]||0)-wants[d]),0)})).sort((a,b)=>a.score-b.score);
-    let pick=scored[0]; if(!pick){ showResult('—','Low','No matching sizes found.',[]); return; }
-    if(scored[1]){ const diff=scored[1].score-scored[0].score; if(fit==='relaxed'&&diff<2) pick=scored[1]; }
-    const avg=pick.score/used.length; let conf='Medium'; if(avg<1.2 && used.length>=2) conf='High'; if(avg>3.0) conf='Low';
-    const notes=[];
-    if(cat.includes('Jeans') && meas.inseam && brand?.lengths_cm){
-      const len = mapInseamToLengthFromBrand(brand.lengths_cm, meas.inseam);
-      const inches=(brand.lengths_cm[len]/2.54).toFixed(1);
-      notes.push(`Suggested length: ${len.toUpperCase()} (~${inches}" for this label).`);
-    }
-    if(brand?.notes) notes.push(`Brand note: ${brand.notes}`);
-    notes.push(`Profile: ${labelBody(SELECTED_BODYTYPE)}`);
-    showResult(pick.size, conf, null, notes);
-  }
-  function showResult(size, conf, message, notes){
-    const box=$('sf_result'); box.style.display='block';
-    const confClass= conf==='High'?'success':(conf==='Low'?'danger':'warning');
-    const noteBadges=(notes||[]).map(n=>`<span class="pill">${n}</span>`).join(' ');
-    box.innerHTML=`
-      <div>
-        ${size==='—'?`<div class="note">No result for this selection.</div>`:`<span class="pill" style="font-weight:900;font-size:20px;background:#1d4ed8;color:#fff;">Size ${size}</span>`}
-        ${message?`<p class="note" style="margin-top:8px;">${message}</p>`:''}
-        <div class="toolbar" style="margin-top:10px;">
-          <span class="pill">Confidence: <span class="${confClass}">${conf}</span></span>
-          ${noteBadges}
-        </div>
-      </div>`;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    window._lastResult={ when:new Date().toISOString(), brand:$('sf_brand').value, category:$('sf_category').value, size:size, conf:conf, body:SELECTED_BODYTYPE };
-  }
-  function mapInseamToLengthFromBrand(lengths, cm){
-    const entries=Object.entries(lengths||{}); if(!entries.length) return 'regular';
-    const sorted=entries.map(([k,v])=>({k, d:Math.abs(v-cm)})).sort((a,b)=>a.d-b.d);
-    return sorted[0].k;
-  }
 
-  /* ---------- My Sizes ---------- */
-  function scoreFor(brandId, cat, meas, fit){
-    const brand=BRANDS.find(b=>b.id===brandId);
-    if(!brand) return null;
-    if(brand.supports && !brand.supports[SELECTED_BODYTYPE]) return null;
-    const rows=CHARTS.filter(r=>r.brandId===brandId && r.category===cat);
-    if(rows.length===0) return null;
-    let dims=[]; if(cat.includes('Dresses')) dims=['bust','waist','hip']; if(cat.includes('Jeans')) dims=['waist','hip']; if(cat.includes('Shoes')) dims=['footLen'];
-    const wants={}; dims.forEach(d=> wants[d]=meas[d==='footLen'?'footlen':d]);
-    const used=dims.filter(d=> wants[d]!=null); if(!used.length) return {size:'—',conf:'Low',notes:['Add measurements for this category.']};
-    const table=rows.map(r=>({size:r.size,bust:r.bust??null,waist:r.waist??null,hip:r.hip??null,footLen:r.footLen??null}));
-    const scored=table.map(r=>({size:r.size, score:used.reduce((s,d)=>s+Math.abs((r[d]||0)-wants[d]),0)})).sort((a,b)=>a.score-b.score);
-    let pick=scored[0]; if(!pick) return {size:'—',conf:'Low',notes:['No matching sizes found.']};
-    if(scored[1]){ const diff=scored[1].score-scored[0].score; if(fit=
+    // Size finder
+    function findSize() {
+      const brand = document.getElementById('sf_brand').value;
+      const category = document.getElementById('sf_category').value;
+      
+      if (!sizeData[brand] || !sizeData[brand][category]) {
+        document.getElementById('size_result').innerHTML = 
+          '<div class="card"><p class="note">Size data not available for this combination.</p></div>';
+        return;
+      }
+      
+      const sizes = sizeData[brand][category];
+      let bestMatch = null;
+      let smallestDiff = Infinity;
+      
+      sizes.forEach(size => {
+        const diff = Math.abs(size.bust - currentProfile.bust) + 
+                    Math.abs(size.waist - currentProfile.waist) + 
+                    Math.abs(size.hip - currentProfile.hip);
+        
+        if (diff < smallestDiff) {
+          smallestDiff = diff;
+          bestMatch = size;
+        }
+      });
+      
+      if (bestMatch) {
+        const confidence = smallestDiff < 5 ? 'High' : smallestDiff < 10 ? 'Medium' : 'Low';
+        const confClass = confidence === 'High' ? 'success' : confidence === 'Medium' ? 'warning' : 'danger';
+        
+        document.getElementById('size_result').innerHTML = `
+          <div class="card">
+            <h3>Recommended Size: <span style="font-size: 32px; color: #1d4ed8;">${bestMatch.size}</span></h3>
+            <p>Confidence: <span class="${confClass}">${confidence}</span></p>
+            <div class="note">
+              <p>Based on: Bust ${bestMatch.bust}cm, Waist ${bestMatch.waist}cm, Hip ${bestMatch.hip}cm</p>
+              <p>Your measurements: Bust ${currentProfile.bust}cm, Waist ${currentProfile.waist}cm, Hip ${currentProfile.hip}cm</p>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // Profile management
+    function saveProfile() {
+      currentProfile.height = parseFloat(document.getElementById('height').value) || currentProfile.height;
+      currentProfile.bust = parseFloat(document.getElementById('bust').value) || currentProfile.bust;
+      currentProfile.waist = parseFloat(document.getElementById('waist').value) || currentProfile.waist;
+      currentProfile.hip = parseFloat(document.getElementById('hip').value) || currentProfile.hip;
+      currentProfile.weight = parseFloat(document.getElementById('weight').value) || currentProfile.weight;
+      
+      localStorage.setItem('misize_profile', JSON.stringify(currentProfile));
+      alert('Profile saved!');
+      updateMiStats();
+    }
+
+    function loadProfile() {
+      const saved = localStorage.getItem('misize_profile');
+      if (saved) {
+        currentProfile = JSON.parse(saved);
+      }
+      
+      document.getElementById('height').value = currentProfile.height;
+      document.getElementById('bust').value = currentProfile.bust;
+      document.getElementById('waist').value = currentProfile.waist;
+      document.getElementById('hip').value = currentProfile.hip;
+      document.getElementById('weight').value = currentProfile.weight;
+    }
+
+    // MiStats
+    function addEntry() {
+      const weight = parseFloat(document.getElementById('new_weight').value);
+      const date = document.getElementById('entry_date').value;
+      
+      if (!weight || !date) {
+        alert('Please enter both weight and date');
+        return;
+      }
+      
+      entries.unshift({
+        weight: weight,
+        date: date,
+        bust: currentProfile.bust,
+        waist: currentProfile.waist,
+        hip: currentProfile.hip
+      });
+      
+      localStorage.setItem('misize_entries', JSON.stringify(entries));
+      
+      document.getElementById('new_weight').value = '';
+      document.getElementById('entry_date').value = '';
+      
+      updateMiStats();
+    }
+
+    function updateMiStats() {
+      const saved = localStorage.getItem('misize_entries');
+      if (saved) {
+        entries = JSON.parse(saved);
+      }
+      
+      document.getElementById('current_weight').textContent = currentProfile.weight + ' kg';
+      document.getElementById('current_bust').textContent = currentProfile.bust + ' cm';
+      document.getElementById('current_waist').textContent = currentProfile.waist + ' cm';
+      
+      const entriesList = document.getElementById('entries_list');
+      if (entries.length === 0) {
+        entriesList.innerHTML = '<div class="note">No entries yet. Add your first measurement above.</div>';
+      } else {
+        entriesList.innerHTML = entries.map(entry => `
+          <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <strong>${entry.date}</strong>
+                <div class="note">Weight: ${entry.weight}kg, Bust: ${entry.bust}cm, Waist: ${entry.waist}cm</div>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    // Settings
+    function setUnit(unit) {
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      event.target.classList.add('active');
+      // Unit conversion would go here
+    }
+
+    function setBodyType(type) {
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      event.target.classList.add('active');
+      // Body type logic would go here
+    }
+
+    // Initialize
+    window.addEventListener('load', () => {
+      loadProfile();
+      updateMiStats();
+      
+      // Set today's date
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('entry_date').value = today;
+    });
+  </script>
+</body>
+</html>
