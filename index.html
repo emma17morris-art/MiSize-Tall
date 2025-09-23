@@ -1,644 +1,228 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MiSize</title>
-  <style>
-    :root{
-      --brand:#8A2BE2; --brand-text:#fff;
-      --bg:#0b0d12; --card:#111520;
-      --border:#1b2230; --text:#eef1f5; --muted:#aab3c5;
-      --radius:14px; --font:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-    }
-    *{box-sizing:border-box;}
-    body{margin:0;font-family:var(--font);background:var(--bg);color:var(--text);}
+<style>
+:root{
+  --bg:#0f131a; --card:#151a22; --border:#243048; --muted:#aab3c5;
+}
+body{margin:0;font-family:sans-serif;background:var(--bg);color:#eef1f5;}
+h1,h2,h3{margin:0;font-weight:700;}
+.big{font-size:18px;}
+.note{font-size:13px;color:var(--muted);}
+.screen{display:none;padding:18px;max-width:900px;margin:0 auto;}
+.screen.active{display:block;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:18px;}
+.row{display:grid;grid-gap:12px;}
+.row.two{grid-template-columns:repeat(2,1fr);}
+.row.three{grid-template-columns:repeat(3,1fr);}
+label{font-size:13px;color:var(--muted);}
+select,input{width:100%;padding:8px;border-radius:10px;border:1px solid #243048;background:#0f131a;color:#eef1f5;}
+button{cursor:pointer}
+button.pill{padding:6px 12px;border-radius:16px;border:1px solid #243048;background:#1d2430;color:#eef1f5;}
+.pill-row{display:flex;flex-wrap:wrap;gap:8px;}
+.profile-pill{padding:4px 10px;border-radius:14px;border:1px solid #243048;background:#1d2430;color:#eef1f5;}
+.profile-pill.active{background:#5da8ff;color:#fff;}
+.profile-pill.add{border-style:dashed;}
 
-    /* Top bar — smaller */
-    .topbar{position:sticky;top:0;z-index:100;backdrop-filter:saturate(120%) blur(8px);
-      background:rgba(15,19,26,.75);border-bottom:1px solid var(--border);padding:6px 10px;}
-    .topbar-inner{display:flex;gap:8px;align-items:center;flex-wrap:wrap;max-width:1200px;margin:0 auto;}
-    .topbar h1{font-size:14px;margin:0 6px 0 0;font-weight:800;letter-spacing:.2px;color:#cfe0ff;}
+/* Topbar smaller */
+.topbar{position:sticky;top:0;z-index:100;backdrop-filter:saturate(120%) blur(8px);background:rgba(15,19,26,.75);border-bottom:1px solid var(--border);padding:6px 10px;}
+.topbar-inner{display:flex;gap:8px;align-items:center;flex-wrap:wrap;max-width:1200px;margin:0 auto;}
+.topbar h1{font-size:14px;margin:0 6px 0 0;font-weight:800;letter-spacing:.2px;color:#cfe0ff;}
 
-    /* Layout */
-    .screen{display:none;padding:20px 20px 90px;min-height:100vh;}
-    .screen.active{display:block;}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:18px;}
-    .row{display:grid;gap:12px;}
-    .row.two{grid-template-columns:1fr;}
-    .row.three{grid-template-columns:1fr;}
-    @media(min-width:760px){
-      .row.two{grid-template-columns:repeat(2,1fr);}
-      .row.three{grid-template-columns:repeat(3,1fr);}
-    }
-    label{font-size:14px;color:var(--muted);}
-    select,input{width:100%;padding:12px;border-radius:10px;border:1px solid #243048;background:#0f131a;color:#eef1f5;}
-    .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px;}
-    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#172034;border:1px solid #223049;font-size:12px;color:#c9d3ea;}
-    .pill-row{display:flex;gap:8px;flex-wrap:wrap;}
-    .big{font-size:24px;font-weight:800;margin:0 0 6px;}
-    .note{font-size:13px;opacity:.85;}
-    .divider{height:1px;background:var(--border);margin:14px 0;}
-    .success{color:#8ee0b2}.warning{color:#ffd27a}.danger{color:#ff9a9a}
+/* Bottom tabs */
+.bottom-tabs{position:sticky;bottom:0;display:flex;justify-content:space-around;background:#151a22;border-top:1px solid var(--border);}
+.bottom-tabs .tab{flex:1;padding:10px;border:none;background:none;color:#eef1f5;}
+.bottom-tabs .tab.active{background:#243048;}
 
-    /* Bottom tabs */
-    .bottom-tabs{position:fixed;left:0;right:0;bottom:0;background:#0f131a;border-top:1px solid var(--border);display:flex;z-index:30;}
-    .bottom-tabs .tab{flex:1;padding:12px 8px;border:0;background:transparent;color:#cfd7ea;font-weight:700;cursor:pointer;}
-    .bottom-tabs .tab.active{color:var(--brand);}
+/* Profile tweaks */
+#profile select,#profile input{padding:10px;font-size:14px;border-radius:10px;}
+@media (min-width:760px){
+  #profile .row.two{grid-template-columns:repeat(3,1fr);}
+}
 
-    /* Profile inputs compact (3 per row on wide) */
-    #profile select,#profile input{padding:10px;font-size:14px;border-radius:10px;}
-    @media(min-width:760px){ #profile .row.two{grid-template-columns:repeat(3,1fr);} }
+/* MiStats graph */
+#mi_canvas{width:100%;height:220px;background:#0f131a;border:1px solid var(--border);border-radius:8px;}
+.mi-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);}
+.mi-row:last-child{border-bottom:none;}
+.delta.down{color:#5da8ff;}
+.delta.up{color:#ff9a9a;}
+</style>
 
-    /* MiStats */
-    .mi-tab.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
-    .mi-tab{cursor:pointer}
-    .mi-view{display:none}
-    .mi-view.active{display:block}
-    .mi-tiles{display:grid;grid-template-columns:1fr;gap:12px}
-    @media(min-width:760px){.mi-tiles{grid-template-columns:repeat(3,1fr)}}
-    #mi_canvas{width:100%;height:320px;border-radius:12px;background:#0f131a;border:1px solid var(--border);}
-
-    /* Pills (profiles in Settings) */
-    .profile-pill{padding:6px 12px;border-radius:16px;border:1px solid #243048;background:#1d2430;color:#eef1f5;}
-    .profile-pill.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8;}
-    .profile-pill.add{border-style:dashed;}
-  </style>
-</head>
 <body>
 
-  <!-- Top Bar -->
-  <div class="topbar" role="navigation" aria-label="Global controls">
-    <div class="topbar-inner">
-      <h1>MiSize</h1>
+<!-- Topbar -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <h1>My Fit App</h1>
+    <div class="pill-row" id="bodyTypePills"></div>
+    <div class="pill-row" id="unitPills"></div>
+  </div>
+</div>
+
+<!-- Splash -->
+<section id="splash" class="screen active">
+  <h2 class="big">Loading…</h2>
+</section>
+
+<!-- Hubs -->
+<section id="home" class="screen"><h2 class="big">Home Hub</h2></section>
+<section id="uk" class="screen"><h2 class="big">UK Hub</h2></section>
+<section id="eu" class="screen"><h2 class="big">EU Hub</h2></section>
+<section id="us" class="screen"><h2 class="big">US Hub</h2></section>
+<section id="ca" class="screen"><h2 class="big">CA Hub</h2></section>
+
+<!-- Profile -->
+<section id="profile" class="screen">
+  <h2 class="big">Profile</h2>
+  <div class="card">
+    <div class="row two">
+      <div><label>Name</label><input id="m_name"></div>
+      <div><label>Sex</label>
+        <select id="m_sex">
+          <option value="female">Female</option>
+          <option value="male">Male</option>
+        </select>
+      </div>
+      <div><label>Height</label><input id="m_height"></div>
+      <div><label>Bust</label><input id="m_bust"></div>
+      <div><label>Waist</label><input id="m_waist"></div>
+      <div><label>Hip</label><input id="m_hip"></div>
+      <div><label>Thigh</label><input id="m_thigh"></div>
+      <div><label>Calf</label><input id="m_calf"></div>
+      <div><label>Neck</label><input id="m_neck"></div>
     </div>
   </div>
+</section>
 
-  <!-- Splash -->
-  <section id="splash" class="screen active" aria-label="Splash">
-    <div class="card"><div class="big">Loading…</div><div class="note">One moment</div></div>
-  </section>
+<!-- MiStats -->
+<section id="mistats" class="screen">
+  <h2 class="big">MiStats</h2>
+  <div class="card" id="mi_view_current"></div>
+  <div class="card"><canvas id="mi_canvas"></canvas><p id="mi_graph_note" class="note"></p></div>
+  <div class="card" id="mi_view_history"></div>
+</section>
 
-  <!-- Home -->
-  <section id="home" class="screen" aria-label="Home">
-    <h2 class="big">Home</h2>
-    <p class="note">Pick a region to open its hub.</p>
+<!-- Settings -->
+<section id="settings" class="screen">
+  <h2 class="big">Settings</h2>
+  <div class="card">
     <div class="row two">
-      <button class="pill" onclick="switchTab('uk')">UK</button>
-      <button class="pill" onclick="switchTab('eu')">EU</button>
-      <button class="pill" onclick="switchTab('us')">US</button>
-      <button class="pill" onclick="switchTab('ca')">CA</button>
-    </div>
-  </section>
-
-  <!-- Hubs -->
-  <section id="uk" class="screen" aria-label="UK hub">
-    <h2 class="big">UK Hub</h2>
-    <div class="row two">
-      <button class="pill" onclick="openUK('uk_sizefinder')">Size Finder</button>
-      <button class="pill" onclick="openUK('uk_converters')">Converters</button>
-    </div>
-  </section>
-  <section id="eu" class="screen" aria-label="EU hub"><h2 class="big">EU Hub</h2><p class="note">Coming later.</p></section>
-  <section id="us" class="screen" aria-label="US hub"><h2 class="big">US Hub</h2><p class="note">Coming later.</p></section>
-  <section id="ca" class="screen" aria-label="CA hub"><h2 class="big">CA Hub</h2><p class="note">Coming later.</p></section>
-
-  <!-- Example UK tool to prove Hub Back works -->
-  <section id="uk_sizefinder" class="screen" aria-label="UK Size Finder">
-    <div class="card">
-      <h3 class="big">Size Finder (demo)</h3>
-      <p class="note">Navigate here from UK Hub then tap Hub (Back) to go back.</p>
-    </div>
-  </section>
-
-  <!-- Converters (demo) -->
-  <section id="uk_converters" class="screen" aria-label="UK Converters">
-    <div class="card">
-      <h3 class="big">Converters (demo)</h3>
-      <p class="note">Just a placeholder.</p>
-    </div>
-  </section>
-
-  <!-- Profile -->
-  <section id="profile" class="screen" aria-label="Profile">
-    <div class="card">
-      <h3 class="big">Profile</h3>
-      <p class="note">Measurements save to local storage (cm internally).</p>
-    </div>
-
-    <div class="card">
-      <div class="row two">
-        <div><label for="m_name">Profile name</label><input id="m_name" placeholder="e.g., Emma"></div>
-        <div><label for="m_sex">Sex</label>
-          <select id="m_sex"><option value="female">Female</option><option value="male">Male</option><option value="child">Child</option></select>
-        </div>
-
-        <div><label for="m_height">Height (cm)</label><input id="m_height" inputmode="decimal" placeholder="e.g., 168"></div>
-        <div><label for="m_bust">Bust (cm)</label><input id="m_bust" inputmode="decimal"></div>
-        <div><label for="m_waist">Waist (cm)</label><input id="m_waist" inputmode="decimal"></div>
-        <div><label for="m_hip">Hip (cm)</label><input id="m_hip" inputmode="decimal"></div>
-        <div><label for="m_thigh">Thigh (cm)</label><input id="m_thigh" inputmode="decimal"></div>
-        <div><label for="m_calf">Calf (cm)</label><input id="m_calf" inputmode="decimal"></div>
-        <div><label for="m_neck">Neck (cm)</label><input id="m_neck" inputmode="decimal"></div>
+      <div>
+        <div class="big">Profiles</div>
+        <p class="note">Switch or add profiles here.</p>
       </div>
-
-      <div class="divider"></div>
-
-      <div class="row two">
-        <div>
-          <label for="m_weight_now">Current weight</label>
-          <input id="m_weight_now" inputmode="decimal" placeholder="e.g., 80">
-          <p class="note">Uses MiStats weight unit.</p>
-        </div>
-        <div>
-          <label for="m_log_date">Date</label>
-          <input id="m_log_date" type="date">
-        </div>
-      </div>
-
-      <div class="toolbar">
-        <button class="pill" onclick="saveActiveProfile()">Save profile</button>
-        <button class="pill" onclick="resetFormFields()">Reset fields</button>
-        <button class="pill" onclick="deleteActiveProfile()">Delete profile</button>
-        <button class="pill" onclick="logToMiStats()">Log weight + measurements → MiStats</button>
+      <div style="display:flex;align-items:center;justify-content:flex-end;">
+        <button class="pill" onclick="switchTab('profile')">Open Profile editor</button>
       </div>
     </div>
-  </section>
-
-  <!-- MiStats -->
-  <section id="mistats" class="screen" aria-label="MiStats">
-    <h2 class="big">MiStats</h2>
-    <p class="note">Track weight & measurements per active profile.</p>
-
-    <div class="toolbar" id="mi_tabs" role="tablist" aria-label="MiStats views">
-      <button class="pill mi-tab active" data-view="current">Current</button>
-      <button class="pill mi-tab" data-view="graph">Graph</button>
-      <button class="pill mi-tab" data-view="history">History</button>
-      <button class="pill mi-tab" data-view="settings">Settings</button>
-    </div>
-
-    <!-- CURRENT -->
-    <div id="mi_view_current" class="mi-view card active">
-      <div class="row two">
-        <div class="card">
-          <div class="note">Start</div>
-          <div class="big" id="mi_start">—</div>
-          <div class="note" id="mi_start_bmi">BMI —</div>
-        </div>
-        <div class="card">
-          <div class="note">Current</div>
-          <div class="big" id="mi_current">—</div>
-          <div class="note" id="mi_current_bmi">BMI —</div>
-        </div>
-        <div class="card">
-          <div class="note">Target</div>
-          <div class="big" id="mi_target">—</div>
-          <div class="note" id="mi_target_bmi">BMI —</div>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="row three">
-        <div>
-          <label for="mi_weight_in">Enter weight</label>
-          <input id="mi_weight_in" inputmode="decimal" placeholder="e.g., 80">
-        </div>
-        <div>
-          <label for="mi_date_in">Date</label>
-          <input id="mi_date_in" type="date">
-        </div>
-        <div style="display:flex;align-items:flex-end;">
-          <button class="pill" id="mi_add_btn">Save entry</button>
-        </div>
-      </div>
-      <p class="note" id="mi_hint_units">Units: —</p>
-    </div>
-
-    <!-- GRAPH -->
-    <div id="mi_view_graph" class="mi-view card">
-      <canvas id="mi_canvas" width="1100" height="380"></canvas>
-      <p class="note" id="mi_graph_note">—</p>
-    </div>
-
-    <!-- HISTORY -->
-    <div id="mi_view_history" class="mi-view card">
-      <div id="mi_hist_list"></div>
-    </div>
-
-    <!-- SETTINGS -->
-    <div id="mi_view_settings" class="mi-view card">
-      <div class="row two">
-        <div>
-          <label>Weight unit</label>
-          <div class="pill-row">
-            <button class="pill mi-unit-w" data-u="kg">Kilos</button>
-            <button class="pill mi-unit-w" data-u="lb">Pounds</button>
-            <button class="pill mi-unit-w" data-u="st">Stones</button>
-          </div>
-        </div>
-        <div>
-          <label>Height unit (for BMI)</label>
-          <div class="pill-row">
-            <button class="pill mi-unit-h" data-u="cm">Centimeters</button>
-            <button class="pill mi-unit-h" data-u="m">Meters</button>
-            <button class="pill mi-unit-h" data-u="ftin">Feet+Inches</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="row two" style="margin-top:10px;">
-        <div>
-          <label for="mi_height">Your height</label>
-          <input id="mi_height" placeholder="e.g., 168 (cm)">
-          <p class="note" id="mi_height_hint">Stored in cm internally.</p>
-        </div>
-        <div>
-          <label for="mi_target_in">Target weight</label>
-          <input id="mi_target_in" placeholder="e.g., 70">
-          <p class="note">Leave empty to disable target.</p>
-        </div>
-      </div>
-
-      <div class="toolbar" style="margin-top:10px;">
-        <button class="pill" id="mi_save_settings">Save settings</button>
-        <button class="pill" id="mi_reset_profile">Reset this profile</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Settings (global) -->
-  <section id="settings" class="screen" aria-label="Settings">
-    <h2 class="big">Settings</h2>
-
-    <!-- Profiles live here -->
-    <div class="card">
-      <div class="row two">
-        <div>
-          <div class="big">Profiles</div>
-          <p class="note">Switch or add profiles here. These drive MiStats.</p>
-        </div>
-        <div style="display:flex;align-items:center;justify-content:flex-end;">
-          <button class="pill" onclick="switchTab('profile')">Open Profile editor</button>
-        </div>
-      </div>
-      <div id="profilePillsSettings" class="pill-row" style="margin-top:10px;"></div>
-    </div>
-
-    <!-- Global weight unit card -->
-    <div id="global_weight_units_card" class="card"></div>
-  </section>
-
-  <!-- Bottom Tabs -->
-  <div class="bottom-tabs" role="tablist" aria-label="Main tabs">
-    <button id="tab_home" class="tab active" onclick="switchTab('home')" role="tab" aria-selected="true">Home</button>
-    <button id="tab_profile" class="tab" onclick="switchTab('profile')" role="tab">Profile</button>
-    <button id="tab_mistats" class="tab" onclick="switchTab('mistats')" role="tab">MiStats</button>
-    <button id="tab_settings" class="tab" onclick="switchTab('settings')" role="tab">Settings</button>
-    <!-- Bottom-right: Hub = Back -->
-    <button id="tab_hub" class="tab" onclick="hubBack()" role="tab">Hub</button>
+    <div id="profilePillsSettings" class="pill-row" style="margin-top:10px;"></div>
   </div>
+  <div id="global_weight_units_card" class="card"></div>
+</section>
 
+<!-- Bottom Tabs -->
+<div class="bottom-tabs" role="tablist">
+  <button id="tab_home" class="tab active" onclick="switchTab('home')">Home</button>
+  <button id="tab_profile" class="tab" onclick="switchTab('profile')">Profile</button>
+  <button id="tab_mistats" class="tab" onclick="switchTab('mistats')">MiStats</button>
+  <button id="tab_settings" class="tab" onclick="switchTab('settings')">Settings</button>
+  <button id="tab_hub" class="tab" onclick="hubBack()">Hub</button>
+</div>
 
-    <script>
-    /* ---------- tiny helpers ---------- */
-    const $ = (id)=> document.getElementById(id);
-    let CURRENT_SCREEN = 'splash';
-
-    function show(id){
-      document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-      (document.getElementById(id)||document.getElementById('home')).classList.add('active');
-      document.querySelectorAll('.bottom-tabs .tab').forEach(t=>t.classList.remove('active'));
-      const tb = document.getElementById('tab_'+id); if(tb) tb.classList.add('active');
-      CURRENT_SCREEN = id;
-    }
-
-    function switchTab(id){
-      show(id);
-      if(id==='mistats'){ setMiTab('current'); refreshAll(); }
-    }
-
-    // Hub button works as Back
-    function hubBack(){
-      if (CURRENT_SCREEN && CURRENT_SCREEN.startsWith('uk_')) { show('uk'); return; }
-      if (!['home','uk','eu','us','ca','profile','mistats','settings','splash'].includes(CURRENT_SCREEN)) {
-        show('home'); return;
-      }
-      show('home');
-    }
-
-    // open a UK tool
-    function openUK(id){ show(id); }
-
-    /* ---------- profiles storage ---------- */
-    const PROFILES_KEY='profiles_v1', ACTIVE_KEY='active_profile_id';
-    function newProfile(name='Profile'){
-      return { id:'p_'+Math.random().toString(36).slice(2,8), name, sex:'female',
-        height:null,bust:null,waist:null,hip:null,thigh:null,calf:null,neck:null };
-    }
-    function loadProfiles(){
-      try{ const arr=JSON.parse(localStorage.getItem(PROFILES_KEY)||'[]'); if(arr.length) return arr; }catch(e){}
-      const seed=[newProfile('Emma')]; localStorage.setItem(PROFILES_KEY,JSON.stringify(seed)); return seed;
-    }
-    function saveProfiles(list){ localStorage.setItem(PROFILES_KEY, JSON.stringify(list)); }
-    function getActiveId(){
-      let id = localStorage.getItem(ACTIVE_KEY);
-      const list = loadProfiles();
-      if(!id || !list.find(p=>p.id===id)){ id=list[0].id; localStorage.setItem(ACTIVE_KEY,id); }
-      return id;
-    }
-    function setActiveId(id){ localStorage.setItem(ACTIVE_KEY,id); }
-    function getProfilesAndActive(){ const profiles=loadProfiles(); const activeId=getActiveId(); return {profiles, activeId}; }
-
-    // Fill settings pills only
-    function renderProfilePills(){
-      const wrap = $('profilePillsSettings'); if(!wrap) return;
-      const {profiles, activeId} = getProfilesAndActive();
-      wrap.innerHTML='';
-      profiles.forEach(p=>{
-        const b=document.createElement('button');
-        b.className='profile-pill'+(p.id===activeId?' active':'');
-        b.textContent=p.name; b.dataset.id=p.id;
-        b.addEventListener('click',()=>{ setActiveId(p.dataset.id); renderProfilePills(); refreshAll(); });
-        wrap.appendChild(b);
-      });
-      const add=document.createElement('button');
-      add.className='profile-pill add'; add.textContent='+ Add profile';
-      add.addEventListener('click',()=>{
-        const name = prompt('New profile name?','Profile '+(profiles.length+1));
-        if(!name) return;
-        const arr=loadProfiles(); const p=newProfile(name); arr.push(p); saveProfiles(arr); setActiveId(p.id);
-        renderProfilePills(); refreshAll();
-      });
-      wrap.appendChild(add);
-    }
-
-    // Bind profile form
-    function loadActiveProfileIntoForm(){
-      const {profiles, activeId}=getProfilesAndActive();
-      const p=profiles.find(x=>x.id===activeId); if(!p) return;
-      const set=(id,val)=>{ const el=$(id); if(el) el.value = (val??''); };
-      set('m_name', p.name); set('m_sex', p.sex);
-      set('m_height', p.height); set('m_bust', p.bust);
-      set('m_waist', p.waist); set('m_hip', p.hip);
-      set('m_thigh', p.thigh); set('m_calf', p.calf); set('m_neck', p.neck);
-      const d=$('m_log_date'); if(d && !d.value) d.value = new Date().toISOString().slice(0,10);
-    }
-    function collectForm(){
-      const gv=(id)=>{ const v=$(id)?.value?.trim(); const n=parseFloat(v); return isNaN(n)?null:n; };
-      return {
-        name: $('m_name')?.value?.trim() || 'Profile',
-        sex: $('m_sex')?.value || 'female',
-        height: gv('m_height'), bust: gv('m_bust'), waist: gv('m_waist'),
-        hip: gv('m_hip'), thigh: gv('m_thigh'), calf: gv('m_calf'), neck: gv('m_neck')
-      };
-    }
-    function saveActiveProfile(){
-      const {profiles, activeId}=getProfilesAndActive();
-      const idx = profiles.findIndex(p=>p.id===activeId); if(idx<0) return;
-      profiles[idx]={...profiles[idx], ...collectForm()};
-      saveProfiles(profiles); renderProfilePills(); alert('Profile saved.');
-    }
-    function deleteActiveProfile(){
-      if(!confirm('Delete this profile?')) return;
-      const {profiles, activeId}=getProfilesAndActive();
-      const left = profiles.filter(p=>p.id!==activeId);
-      const next = left[0] || newProfile('Profile');
-      saveProfiles(left.length?left:[next]); setActiveId(next.id);
-      renderProfilePills(); loadActiveProfileIntoForm(); refreshAll();
-    }
-    function resetFormFields(){
-      ['m_height','m_bust','m_waist','m_hip','m_thigh','m_calf','m_neck','m_weight_now'].forEach(id=>{ const el=$(id); if(el) el.value=''; });
-    }
-
-    /* ---------- MiStats store ---------- */
-    const MS_KEY='mistats_v2';
-    function msLoad(){ try{ return JSON.parse(localStorage.getItem(MS_KEY)||'{}'); }catch(e){ return {}; } }
-    function msSave(s){ localStorage.setItem(MS_KEY, JSON.stringify(s)); }
-    function msBucket(){
-      const s=msLoad(); const id=getActiveId();
-      if(!s[id]) s[id]={ unitW:'kg', unitH:'cm', heightCm:null, targetKg:null, entries:[] };
-      return {s, b:s[id], id};
-    }
-
-    // unit helpers
-    const kgFrom = (val, unit) => {
-      const n=parseFloat(val); if(isNaN(n)) return null;
-      if(unit==='kg') return n;
-      if(unit==='lb') return n*0.45359237;
-      if(unit==='st') return n*6.35029318;
-      return n;
-    };
-    const toUnit = (kg, unit) => {
-      if(kg==null) return '';
-      if(unit==='kg') return kg.toFixed(1);
-      if(unit==='lb') return (kg/0.45359237).toFixed(1);
-      if(unit==='st') return (kg/6.35029318).toFixed(2);
-      return String(kg);
-    };
-    const bmi = (kg, cm) => (kg>0 && cm>0) ? +(kg/((cm/100)**2)).toFixed(1) : null;
-
-    // Global weight unit card in Settings
-    (function buildGlobalWeightUnits(){
-      const card=$('global_weight_units_card'); if(!card) return;
-      card.innerHTML=`
-        <div class="row two">
-          <div>
-            <div class="big">Weight units</div>
-            <p class="note">Choose how weight is shown across MiStats.</p>
-          </div>
-          <div class="pill-row" id="global_wu_btns" style="align-items:center;justify-content:flex-end;">
-            <button class="pill" data-wu="kg">Kilograms</button>
-            <button class="pill" data-wu="lb">Pounds</button>
-            <button class="pill" data-wu="st">Stones</button>
-          </div>
-        </div>
-      `;
-      card.addEventListener('click', (e)=>{
-        const b=e.target.closest('[data-wu]'); if(!b) return;
-        const {s,b:bucket}=msBucket(); bucket.unitW=b.dataset.wu; msSave(s); refreshAll();
-        card.querySelectorAll('[data-wu]').forEach(x=>x.classList.remove('active'));
-        b.classList.add('active');
-      });
-    })();
-
-    /* ---------- MiStats UI logic ---------- */
-    function setMiTab(view){
-      document.querySelectorAll('#mi_tabs .mi-tab').forEach(b=>{
-        b.classList.toggle('active', b.dataset.view===view);
-      });
-      document.querySelectorAll('#mistats .mi-view').forEach(v=> v.classList.remove('active'));
-      (document.getElementById('mi_view_'+view)||document.getElementById('mi_view_current')).classList.add('active');
-      if(view==='graph') drawGraph();
-      if(view==='history') renderHistory();
-    }
-    document.getElementById('mi_tabs').addEventListener('click',(e)=>{
-      const t=e.target.closest('.mi-tab'); if(!t) return;
-      setMiTab(t.dataset.view);
-    });
-
-    function onAddWeight(){
-      const {s,b}=msBucket();
-      const kg = kgFrom($('mi_weight_in').value, b.unitW||'kg');
-      const d  = $('mi_date_in').value || new Date().toISOString().slice(0,10);
-      if(kg==null){ alert('Enter a valid weight'); return; }
-      b.entries.push({d, kg:+kg.toFixed(2)});
-      b.entries.sort((a,b)=> a.d.localeCompare(b.d));
-      msSave(s);
-      $('mi_weight_in').value=''; $('mi_date_in').value='';
-      refreshAll(); setMiTab('history');
-    }
-    $('mi_add_btn').addEventListener('click', onAddWeight);
-
-    // log from Profile quick action
-    function logToMiStats(){
-      const {s,b}=msBucket();
-      const unit=b.unitW||'kg';
-      const d = $('m_log_date')?.value || new Date().toISOString().slice(0,10);
-      const raw = $('m_weight_now')?.value || '';
-      const kg = raw ? kgFrom(raw, unit) : null;
-      if(kg!=null){ b.entries.push({d, kg:+kg.toFixed(2)}); b.entries.sort((a,b)=>a.d.localeCompare(b.d)); msSave(s); }
-      alert('Logged to MiStats.'); switchTab('mistats'); setMiTab('current'); refreshAll();
-    }
-    window.logToMiStats = logToMiStats;
-
-    function saveMiSettings(){
-      const {s,b}=msBucket();
-      const hRaw = $('mi_height').value.trim();
-      // interpret based on selected unitH
-      const unitH = b.unitH || 'cm';
-      let h=null;
-      if(unitH==='cm'){ const n=parseFloat(hRaw); if(!isNaN(n)) h=Math.round(n); }
-      else if(unitH==='m'){ const n=parseFloat(hRaw); if(!isNaN(n)) h=Math.round(n*100); }
-      else if(unitH==='ftin'){
-        const m = hRaw.match(/(\d+)[^\d]+(\d+)/); if(m){ const ft=+m[1], inch=+m[2]; h=Math.round((ft*12+inch)*2.54); }
-      }
-      if(h) b.heightCm=h;
-
-      const tgtRaw = $('mi_target_in').value.trim();
-      b.targetKg = tgtRaw ? kgFrom(tgtRaw, b.unitW||'kg') : null;
-
-      msSave(s); refreshAll(); setMiTab('current');
-    }
-    $('mi_save_settings').addEventListener('click', saveMiSettings);
-
-    $('mi_reset_profile').addEventListener('click', ()=>{
-      if(!confirm('Reset MiStats for this profile?')) return;
-      const s=msLoad(); delete s[getActiveId()]; msSave(s); refreshAll();
-    });
-
-    document.addEventListener('click', (e)=>{
-      const uw=e.target.closest('.mi-unit-w'); if(uw){ const {s,b}=msBucket(); b.unitW=uw.dataset.u; msSave(s); refreshAll(); }
-      const uh=e.target.closest('.mi-unit-h'); if(uh){ const {s,b}=msBucket(); b.unitH=uh.dataset.u; msSave(s); refreshAll(); }
-    });
-
-    function calcStats(){
-      const {b}=msBucket(); const E=b.entries;
-      const heightCm = b.heightCm ?? (loadProfiles().find(p=>p.id===getActiveId())?.height ?? null);
-      if(E.length===0) return {empty:true, unitW:b.unitW, heightCm, targetKg:b.targetKg};
-      const start=E[0], curr=E[E.length-1], target=b.targetKg ?? null;
-
-      let avgDay=null, avgWeek=null;
-      if(E.length>=2){
-        const first=new Date(E[0].d), last=new Date(curr.d);
-        const days=Math.max(1, (last-first)/86400000);
-        avgDay= +((curr.kg-start.kg)/days).toFixed(2);
-        avgWeek= +(avgDay*7).toFixed(2);
-      }
-      return { unitW:b.unitW, heightCm, targetKg:target, start, curr, avgDay, avgWeek };
-    }
-
-    function renderCurrent(){
-      const S=calcStats(); const U=S.unitW||'kg';
-      $('mi_hint_units').textContent = `Units: ${U}`;
-      $('mi_start').textContent   = S.empty ? '—' : `${toUnit(S.start.kg, U)} ${U}`;
-      $('mi_current').textContent = S.empty ? '—' : `${toUnit(S.curr.kg,  U)} ${U}`;
-      $('mi_target').textContent  = (S.targetKg==null) ? '—' : `${toUnit(S.targetKg, U)} ${U}`;
-      $('mi_start_bmi').textContent   = (!S.empty && S.heightCm)? `BMI ${bmi(S.start.kg, S.heightCm)}` : 'BMI —';
-      $('mi_current_bmi').textContent = (!S.empty && S.heightCm)? `BMI ${bmi(S.curr.kg,  S.heightCm)}` : 'BMI —';
-      $('mi_target_bmi').textContent  = (S.targetKg!=null && S.heightCm)? `BMI ${bmi(S.targetKg, S.heightCm)}` : 'BMI —';
-    }
-
-    function renderHistory(){
-      const {b}=msBucket(); const U=b.unitW||'kg';
-      const wrap=$('mi_hist_list'); wrap.innerHTML='';
-      if(!b.entries.length){ wrap.innerHTML='<div class="note">No entries yet.</div>'; return; }
-      b.entries.slice().reverse().forEach(e=>{
-        const row=document.createElement('div'); row.className='pill'; row.style.display='flex'; row.style.justifyContent='space-between';
-        row.style.margin='6px 0'; row.innerHTML=`<span>${new Date(e.d).toLocaleDateString()}</span><strong>${toUnit(e.kg,U)} ${U}</strong>`;
-        wrap.appendChild(row);
-      });
-    }
-
-    function drawGraph(){
-      const {b}=msBucket(); const E=b.entries; const U=b.unitW||'kg';
-      const c=$('mi_canvas'); const ctx=c.getContext('2d');
-      ctx.clearRect(0,0,c.width,c.height);
-      if(E.length<2){ $('mi_graph_note').textContent='Add at least 2 entries to see a line.'; return; }
-
-      const xs = E.map((_,i)=>i);
-      const ys = E.map(e=>e.kg);
-      const minY=Math.min(...ys), maxY=Math.max(...ys);
-      const left=40, right=10, top=10, bottom=30, W=c.width-left-right, H=c.height-top-bottom;
-
-      // axes
-      ctx.strokeStyle='#223049'; ctx.lineWidth=1;
-      ctx.beginPath(); ctx.moveTo(left,top); ctx.lineTo(left,top+H); ctx.lineTo(left+W,top+H); ctx.stroke();
-
-      // labels
-      ctx.fillStyle='#aab3c5'; ctx.font='12px '+getComputedStyle(document.body).fontFamily;
-      for(let i=0;i<=4;i++){
-        const v = minY + (i*(maxY-minY))/4;
-        const py = top+H - ((v-minY)/(maxY-minY))*H;
-        ctx.fillText(toUnit(v,U), 6, py+4);
-        ctx.strokeStyle='#1b2230'; ctx.beginPath(); ctx.moveTo(left,py); ctx.lineTo(left+W,py); ctx.stroke();
-      }
-
-      // line
-      ctx.strokeStyle='#5da8ff'; ctx.fillStyle='#5da8ff'; ctx.lineWidth=2;
-      ctx.beginPath();
-      xs.forEach((x,i)=>{
-        const px = left + (i/(xs.length-1))*W;
-        const py = top+H - ((ys[i]-minY)/(maxY-minY))*H;
-        if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
-        ctx.beginPath(); ctx.arc(px,py,2,0,Math.PI*2); ctx.fill();
-      });
-      ctx.stroke();
-
-      $('mi_graph_note').textContent = `${E.length} points • Units ${U}`;
-    }
-
-    function renderMiSettings(){
-      const {b}=msBucket();
-      document.querySelectorAll('.mi-unit-w').forEach(x=> x.classList.toggle('active', x.dataset.u===b.unitW));
-      document.querySelectorAll('.mi-unit-h').forEach(x=> x.classList.toggle('active', x.dataset.u===b.unitH));
-      $('mi_height').value = b.heightCm ? (b.unitH==='m' ? (b.heightCm/100).toFixed(2) : (b.unitH==='ftin' ? '' : b.heightCm)) : '';
-      $('mi_height_hint').textContent = b.unitH==='ftin' ? 'Enter like 5\'6 or 5 6' : 'Stored in cm internally.';
-      $('mi_target_in').value = b.targetKg!=null ? toUnit(b.targetKg, b.unitW) : '';
-    }
-
-    function refreshAll(){
-      renderCurrent(); renderHistory(); drawGraph(); renderMiSettings();
-    }
-
-    // expose for buttons
-    window.switchTab = switchTab;
-    window.hubBack = hubBack;
-    window.openUK = openUK;
-    window.saveActiveProfile = saveActiveProfile;
-    window.deleteActiveProfile = deleteActiveProfile;
-    window.resetFormFields = resetFormFields;
-
-    // bootstrap
-    window.addEventListener('load', ()=>{
-      // splash → UK hub quickly
-      show('splash');
-      setTimeout(()=>{ show('uk'); document.getElementById('tab_hub')?.classList.add('active'); }, 500);
-
-      renderProfilePills();
-      loadActiveProfileIntoForm();
-      refreshAll();
-    });
-  </script>
 </body>
-</html>
+
+/* Navigation */
+const NAV_STACK=[]; 
+let CURRENT_SCREEN='home';
+function $(id){return document.getElementById(id)}
+
+function switchTab(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $(id).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  const t = $('tab_'+id); if(t) t.classList.add('active');
+  CURRENT_SCREEN=id;
+}
+
+function hubBack(){
+  if (CURRENT_SCREEN && CURRENT_SCREEN.startsWith('uk_')){ switchTab('uk'); return; }
+  if (!['home','uk','eu','us','ca','profile','mistats','settings','splash'].includes(CURRENT_SCREEN)){
+    switchTab('home'); return;
+  }
+  switchTab('home');
+}
+
+/* Profiles */
+function getProfilesAndActive(){
+  let arr=JSON.parse(localStorage.getItem('profiles')||'[]');
+  let act=localStorage.getItem('activeProfileId');
+  if(!arr.length){ arr=[{id:'p1',name:'Default',sex:'female',height:null,bust:null,waist:null,hip:null,thigh:null,calf:null,neck:null}]; act='p1'; localStorage.setItem('profiles',JSON.stringify(arr)); localStorage.setItem('activeProfileId',act); }
+  return {profiles:arr, activeId:act};
+}
+function saveProfiles(p){localStorage.setItem('profiles',JSON.stringify(p))}
+function renderProfilePills(){
+  const {profiles, activeId}=getProfilesAndActive();
+  const frag=document.createDocumentFragment();
+  profiles.forEach(p=>{
+    const b=document.createElement('button');
+    b.className='profile-pill'+(p.id===activeId?' active':'');
+    b.dataset.id=p.id; b.textContent=p.name; frag.appendChild(b);
+  });
+  const add=document.createElement('button'); add.className='profile-pill add'; add.dataset.action='add-profile'; add.textContent='+ Add profile'; frag.appendChild(add);
+  $('profilePillsSettings').innerHTML=''; $('profilePillsSettings').appendChild(frag);
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.profile-pill'); if(!b)return;
+  if(b.dataset.action==='add-profile'){ const {profiles}=getProfilesAndActive(); const id='p'+Math.random().toString(36).slice(2,7); profiles.push({id,name:'Profile '+(profiles.length+1)}); saveProfiles(profiles); renderProfilePills(); return; }
+  localStorage.setItem('activeProfileId',b.dataset.id); renderProfilePills();
+});
+
+/* MiStats */
+(function(){
+  const STORE_KEY='mistats_v2';
+  function load(){try{return JSON.parse(localStorage.getItem(STORE_KEY)||'{}')}catch(e){return {}}}
+  function save(s){localStorage.setItem(STORE_KEY,JSON.stringify(s))}
+  function getBucket(){const S=load();const {activeId}=getProfilesAndActive(); if(!S[activeId])S[activeId]={unitW:'kg',entries:[],measures:[]}; return {s:S,b:S[activeId]}}
+  window.getBucket=getBucket;
+  window.refreshAll=refreshAll;
+
+  function renderCurrent(){
+    const {b}=getBucket(); const E=b.entries;
+    const box=$('mi_view_current'); if(!box)return;
+    if(!E.length){ box.innerHTML='<p class="note">No entries yet</p>'; return; }
+    const start=E[0], curr=E[E.length-1];
+    const lost=(start.kg-curr.kg).toFixed(1);
+    box.innerHTML=`<div class="big">Current weight ${curr.kg}kg</div><p class="note">Start: ${start.kg}kg • Lost: ${lost}kg</p>`;
+  }
+  function renderHistory(){
+    const {b}=getBucket(); const E=b.entries; const box=$('mi_view_history'); if(!box)return;
+    box.innerHTML=E.map(e=>`<div class="mi-row"><div>${e.d}</div><div>${e.kg}kg</div></div>`).join('');
+  }
+  function miDrawGraph(){
+    const {b}=getBucket(); const E=b.entries; const c=$('mi_canvas'); const ctx=c.getContext('2d'); ctx.clearRect(0,0,c.width,c.height);
+    if(E.length<2){$('mi_graph_note').textContent='Need 2+ entries';return;}
+    const min=Math.min(...E.map(e=>e.kg)), max=Math.max(...E.map(e=>e.kg));
+    const left=40,top=10,right=10,bottom=20,W=c.width-left-right,H=c.height-top-bottom;
+    ctx.strokeStyle='#5da8ff';ctx.beginPath();
+    E.forEach((e,i)=>{const x=left+(i/(E.length-1))*W;const y=top+H-(e.kg-min)/(max-min)*H; if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);ctx.arc(x,y,2,0,Math.PI*2);});
+    ctx.stroke(); $('mi_graph_note').textContent=E.length+' points';
+  }
+  function refreshAll(){renderCurrent();renderHistory();miDrawGraph();}
+  refreshAll();
+})();
+
+/* Global weight units card */
+(function buildGlobalWeightUnitCard(){
+  const card=$('global_weight_units_card'); if(!card)return;
+  card.innerHTML=`
+    <div class="row two">
+      <div><div class="big">Weight units</div><p class="note">Choose how weight is shown across MiStats.</p></div>
+      <div class="pill-row">
+        <button class="pill" data-wu="kg">Kilograms</button>
+        <button class="pill" data-wu="lb">Pounds</button>
+        <button class="pill" data-wu="st">Stones</button>
+      </div>
+    </div>`;
+  card.addEventListener('click',e=>{
+    const b=e.target.closest('[data-wu]'); if(!b)return;
+    const {s,b:bucket}=getBucket(); bucket.unitW=b.dataset.wu; save(s); refreshAll();
+    card.querySelectorAll('[data-wu]').forEach(x=>x.classList.remove('active')); b.classList.add('active');
+  });
+})();
