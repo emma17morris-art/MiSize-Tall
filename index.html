@@ -813,7 +813,7 @@
           <h5><span class="step-number">8</span>Navigation Tips</h5>
           <p>Getting around the app efficiently:</p>
           <ul>
-            <li><strong>Bottom Navigation:</strong> Use Home, MiStats, Settings, and Help buttons</li>
+            <li><strong>Bottom Navigation:</strong> Use Home, MiStats, Settings, Help, and Back buttons</li>
             <li><strong>Back Button:</strong> Returns you to your previous screen</li>
             <li><strong>Home Button:</strong> Always takes you to the main region selection</li>
             <li><strong>Regional Hubs:</strong> Each region has its own specialized tools and data</li>
@@ -1287,12 +1287,13 @@
     </div>
   </div>
 
-  <!-- Bottom Navigation (Help moved here) -->
+  <!-- Bottom Navigation with Back button restored -->
   <div class="bottom-nav">
     <button class="nav-item active" onclick="goHome()">Home</button>
     <button class="nav-item" onclick="goToMiStats()">MiStats</button>
     <button class="nav-item" onclick="goToSettings()">Settings</button>
     <button class="nav-item" onclick="goToHelp()">Help</button>
+    <button class="nav-item" onclick="goBack()">Back</button>
   </div>
 
   <script>
