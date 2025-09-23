@@ -55,7 +55,7 @@
   .mi-view{display:none}
   .mi-view.active{display:block}
   .mi-tiles{display:grid;grid-template-columns:1fr;gap:12px}
-  .mi-tile{background:#0f131a;border:1px solid var(--border);border-radius:12px;padding:12px}
+  .mi-tile{background:#0f131a;border:1px solid #223049;border-radius:12px;padding:12px}
   .mi-l{font-size:12px;color:var(--muted);letter-spacing:.3px}
   .mi-v{font-size:28px;font-weight:900;line-height:1.1}
   .mi-sub{font-size:12px;opacity:.85;margin-top:2px}
@@ -66,6 +66,8 @@
   .mi-kv .k{color:var(--muted);font-size:12px}
   .mi-kv .v{font-weight:700}
   .mi-canvas{width:100%;height:280px;display:block}
+  .mi-legend{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+  .mi-legend .pill input{margin-right:6px}
   @media(min-width:760px){.mi-tiles{grid-template-columns:repeat(3,1fr)}}
 
   /* Splash */
@@ -83,7 +85,7 @@
   .bottom-tabs .tab{flex:1;padding:12px 8px;border:0;background:transparent;color:#cfd7ea;font-weight:700;cursor:pointer;}
   .bottom-tabs .tab.active{color:var(--brand);}
   #tab_home.active{color:#8A2BE2;}
-  .backbtn{position:fixed;top:60px;left:14px;z-index:50;background:#182034;color:#eef1f5;border:1px solid #223049;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer;display:none;}
+  .backbtn{display:none !important;} /* removed back button as requested */
   .pt-pills{display:flex;gap:8px;flex-wrap:wrap;}
 
   .spacer-top{height:8px;}
@@ -108,8 +110,6 @@
 
   <div class="spacer-top"></div>
 
-  <button class="backbtn" id="backbtn" onclick="goBack()" aria-label="Back">◀ Back</button>
-
   <!-- Splash -->
   <section id="splash" class="screen active" aria-label="Splash">
     <div class="splash-stage">
@@ -132,7 +132,7 @@
   <!-- UK Hub -->
   <section id="uk" class="screen" aria-label="UK hub">
     <h2 class="big">UK</h2>
-    <p class="note">Pick a tool below. Back button will appear on the next screen.</p>
+    <p class="note">Pick a tool below.</p>
     <div class="hub" role="group" aria-label="UK tools">
       <button class="bigbtn" onclick="openUK('uk_sizefinder')">Size Finder</button>
       <button class="bigbtn" onclick="openUK('uk_mysizes')">My Sizes (all brands)</button>
@@ -299,12 +299,21 @@
 
       <div class="divider"></div>
 
+      <!-- measurements -->
       <div class="row two">
         <div><label class="ms-label" for="m_height">Height <span class="unit-badge">cm</span></label><input id="m_height" inputmode="decimal" placeholder="e.g., 168"></div>
         <div><label class="ms-label" for="m_shoulder">Shoulder <span class="unit-badge">cm</span></label><input id="m_shoulder" inputmode="decimal" placeholder="e.g., 40"></div>
         <div><label class="ms-label" for="m_bust">Bust <span class="unit-badge">cm</span></label><input id="m_bust" inputmode="decimal" placeholder="e.g., 88"></div>
+        <div><label class="ms-label" for="m_underbust">Underbust <span class="unit-badge">cm</span></label><input id="m_underbust" inputmode="decimal" placeholder="optional"></div>
         <div><label class="ms-label" for="m_waist">Waist <span class="unit-badge">cm</span></label><input id="m_waist" inputmode="decimal" placeholder="e.g., 70"></div>
         <div><label class="ms-label" for="m_hip">Hip <span class="unit-badge">cm</span></label><input id="m_hip" inputmode="decimal" placeholder="e.g., 94"></div>
+        <div><label class="ms-label" for="m_thigh">Thigh <span class="unit-badge">cm</span></label><input id="m_thigh" inputmode="decimal" placeholder="optional"></div>
+        <div><label class="ms-label" for="m_calf">Calf <span class="unit-badge">cm</span></label><input id="m_calf" inputmode="decimal" placeholder="optional"></div>
+        <div><label class="ms-label" for="m_ankle">Ankle <span class="unit-badge">cm</span></label><input id="m_ankle" inputmode="decimal" placeholder="optional"></div>
+        <div><label class="ms-label" for="m_upperarm">Upper arm <span class="unit-badge">cm</span></label><input id="m_upperarm" inputmode="decimal" placeholder="optional"></div>
+        <div><label class="ms-label" for="m_forearm">Forearm <span class="unit-badge">cm</span></label><input id="m_forearm" inputmode="decimal" placeholder="optional"></div>
+        <div><label class="ms-label" for="m_wrist">Wrist <span class="unit-badge">cm</span></label><input id="m_wrist" inputmode="decimal" placeholder="optional"></div>
+        <div><label class="ms-label" for="m_neck">Neck <span class="unit-badge">cm</span></label><input id="m_neck" inputmode="decimal" placeholder="optional"></div>
         <div><label class="ms-label" for="m_inseam">Inseam <span class="unit-badge">cm</span></label><input id="m_inseam" inputmode="decimal" placeholder="e.g., 76"></div>
         <div><label class="ms-label" for="m_torso">Torso <span class="unit-badge">cm</span></label><input id="m_torso" inputmode="decimal" placeholder="optional"></div>
         <div><label class="ms-label" for="m_footlen">Foot length <span class="unit-badge">cm</span></label><input id="m_footlen" inputmode="decimal" placeholder="e.g., 24.6"></div>
@@ -312,10 +321,24 @@
         <div><label class="ms-label" for="m_cup">Bra cup</label><input id="m_cup" placeholder="e.g., C"></div>
       </div>
 
-      <div class="toolbar" style="margin-top:12px;">
+      <!-- quick weight + log -->
+      <div class="divider"></div>
+      <div class="row two">
+        <div>
+          <label class="ms-label" for="m_weight_now">Current weight</label>
+          <input id="m_weight_now" inputmode="decimal" placeholder="e.g., 80">
+          <p class="note">Uses MiStats weight unit.</p>
+        </div>
+        <div>
+          <label class="ms-label" for="m_log_date">Date</label>
+          <input id="m_log_date" type="date">
+        </div>
+      </div>
+      <div class="toolbar">
         <button class="pill" onclick="saveActiveProfile()">Save profile</button>
         <button class="pill" onclick="resetFormFields()">Reset fields</button>
         <button class="pill" onclick="deleteActiveProfile()">Delete profile</button>
+        <button class="pill" onclick="logToMiStats()">Log weight + measurements → MiStats</button>
       </div>
     </div>
   </section>
@@ -328,18 +351,14 @@
   <!-- MiStats -->
   <section id="mistats" class="screen" aria-label="MiStats">
     <h2 class="big">MiStats</h2>
-    <p class="note">Personal weight tracker linked to your active profile.</p>
+    <p class="note">Personal weight & measurements tracker linked to your active profile.</p>
 
     <div class="toolbar" role="tablist" aria-label="MiStats views" id="mi_tabs">
-     <button class="pill mi-tab active" data-view="current"
-        onclick="window.setMiTab && setMiTab('current')">Current</button>
-<button class="pill mi-tab" data-view="graph"
-        onclick="window.setMiTab && setMiTab('graph')">Graph</button>
-<button class="pill mi-tab" data-view="history"
-        onclick="window.setMiTab && setMiTab('history')">History</button>
-<button class="pill mi-tab" data-view="settings"
-        onclick="window.setMiTab && setMiTab('settings')">Settings</button>
-      </div>
+      <button class="pill mi-tab active" data-view="current"  onclick="window.setMiTab && setMiTab('current')">Current</button>
+      <button class="pill mi-tab" data-view="graph"    onclick="window.setMiTab && setMiTab('graph')">Graph</button>
+      <button class="pill mi-tab" data-view="history"  onclick="window.setMiTab && setMiTab('history')">History</button>
+      <button class="pill mi-tab" data-view="settings" onclick="window.setMiTab && setMiTab('settings')">Settings</button>
+    </div>
 
     <!-- CURRENT -->
     <div id="mi_view_current" class="mi-view card active">
@@ -365,6 +384,13 @@
             <div class="big" id="mi_target">—</div>
             <div class="note" id="mi_target_bmi">BMI —</div>
           </div>
+        </div>
+
+        <!-- NEW: area losses -->
+        <div class="card">
+          <div class="note">Area losses since start (cm)</div>
+          <div class="mi-tiles" id="mi_area_tiles"></div>
+          <div class="note" id="mi_area_total">—</div>
         </div>
 
         <div class="card">
@@ -399,6 +425,12 @@
             </div>
           </div>
           <p class="note" id="mi_hint_units">Units: —</p>
+
+          <!-- NEW: inline body part capture -->
+          <div class="divider"></div>
+          <div class="note">Optional: log measurements with this weight</div>
+          <div class="row two" id="mi_parts_inputs"></div>
+          <div class="toolbar"><button class="pill" id="mi_add_with_parts_btn">Save weight + measurements</button></div>
         </div>
       </div>
     </div>
@@ -410,6 +442,7 @@
         <input id="mi_zoom" type="range" min="0" max="100" value="0" style="accent-color:#1d4ed8;width:180px;">
         <span class="pill" id="mi_zoom_label">All time</span>
       </div>
+      <div class="mi-legend" id="mi_series_legend"></div>
       <canvas id="mi_canvas" width="1200" height="420" style="width:100%;height:320px;border-radius:12px;background:#0f131a;border:1px solid var(--border);"></canvas>
       <p class="note" id="mi_graph_note">—</p>
     </div>
@@ -467,6 +500,8 @@
     <button id="tab_profile" class="tab" onclick="switchTab('profile')" role="tab">Profile</button>
     <button id="tab_mistats" class="tab" onclick="switchTab('mistats')" role="tab">MiStats</button>
     <button id="tab_settings" class="tab" onclick="switchTab('settings')" role="tab">Settings</button>
+    <!-- NEW: Hub tab next to Settings -->
+    <button id="tab_hub" class="tab" onclick="switchTab('uk')" role="tab">Hub</button>
   </div>
 
   <script>
@@ -529,7 +564,9 @@
   function newProfileTemplate(name='Profile', sex='female'){
     return { id:'p_'+Math.random().toString(36).slice(2,9), name, sex,
       height:null, shoulder:null, bust:88, waist:70, hip:94, inseam:76,
-      torso:null, footlen:24.6, band:null, cup:'' };
+      torso:null, footlen:24.6, band:null, cup:'',
+      underbust:null, thigh:null, calf:null, ankle:null,
+      upperarm:null, forearm:null, wrist:null, neck:null };
   }
   function loadProfiles(){
     try{ const arr=JSON.parse(localStorage.getItem(PROFILES_KEY)||'[]'); if(Array.isArray(arr)&&arr.length) return arr; }catch(e){}
@@ -596,19 +633,28 @@
     const set=(id,val)=>{ const el=$(id); if(el) el.value = val ?? ''; };
     set('m_name', p.name); set('m_sex', p.sex);
     set('m_height', toDisplay(p.height)); set('m_shoulder', toDisplay(p.shoulder));
-    set('m_bust', toDisplay(p.bust)); set('m_waist', toDisplay(p.waist));
-    set('m_hip', toDisplay(p.hip)); set('m_inseam', toDisplay(p.inseam));
-    set('m_torso', toDisplay(p.torso)); set('m_footlen', toDisplay(p.footlen));
+    set('m_bust', toDisplay(p.bust)); set('m_underbust', toDisplay(p.underbust));
+    set('m_waist', toDisplay(p.waist)); set('m_hip', toDisplay(p.hip));
+    set('m_thigh', toDisplay(p.thigh)); set('m_calf', toDisplay(p.calf));
+    set('m_ankle', toDisplay(p.ankle)); set('m_upperarm', toDisplay(p.upperarm));
+    set('m_forearm', toDisplay(p.forearm)); set('m_wrist', toDisplay(p.wrist));
+    set('m_neck', toDisplay(p.neck));
+    set('m_inseam', toDisplay(p.inseam)); set('m_torso', toDisplay(p.torso));
+    set('m_footlen', toDisplay(p.footlen));
     set('m_band', toDisplay(p.band)); set('m_cup', p.cup || '');
+    // set date default
+    const d=$('m_log_date'); if(d && !d.value) d.value=new Date().toISOString().slice(0,10);
   }
   function collectFormAsCM(){
     const gv=id=> fromDisplay($(id)?.value);
     return {
       name:$('m_name')?.value||'Profile', sex:$('m_sex')?.value||'female',
       height:gv('m_height'), shoulder:gv('m_shoulder'), bust:gv('m_bust'),
-      waist:gv('m_waist'), hip:gv('m_hip'), inseam:gv('m_inseam'),
-      torso:gv('m_torso'), footlen:gv('m_footlen'), band:gv('m_band'),
-      cup:($('m_cup')?.value||'').toUpperCase()
+      underbust:gv('m_underbust'), waist:gv('m_waist'), hip:gv('m_hip'),
+      thigh:gv('m_thigh'), calf:gv('m_calf'), ankle:gv('m_ankle'),
+      upperarm:gv('m_upperarm'), forearm:gv('m_forearm'), wrist:gv('m_wrist'), neck:gv('m_neck'),
+      inseam:gv('m_inseam'), torso:gv('m_torso'), footlen:gv('m_footlen'),
+      band:gv('m_band'), cup:($('m_cup')?.value||'').toUpperCase()
     };
   }
   function saveActiveProfile(){
@@ -626,7 +672,7 @@
     renderProfilePills(); loadActiveProfileIntoForm();
   }
   function resetFormFields(){
-    ['m_height','m_shoulder','m_bust','m_waist','m_hip','m_inseam','m_torso','m_footlen','m_band','m_cup'].forEach(id=>{ const el=$(id); if(el) el.value=''; });
+    ['m_height','m_shoulder','m_bust','m_underbust','m_waist','m_hip','m_thigh','m_calf','m_ankle','m_upperarm','m_forearm','m_wrist','m_neck','m_inseam','m_torso','m_footlen','m_band','m_cup','m_weight_now'].forEach(id=>{ const el=$(id); if(el) el.value=''; });
   }
 
   /* ---------- Navigation (fixed) ---------- */
@@ -634,13 +680,12 @@
   let CURRENT_SCREEN='home';
 
   function switchTab(id){
-    if(id!==CURRENT_SCREEN) NAV_STACK.push(CURRENT_SCREEN);
+    // no back button stack changes required anymore
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     ($(id)||$('home')).classList.add('active');
     document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
     const t=$('tab_'+id); if(t) t.classList.add('active');
     CURRENT_SCREEN=id; 
-    updateBackButton();
     if (id==='uk_brandnotes') renderBrandNotes();
 
     // MiStats: make sure it opens on "Current" and refreshes
@@ -651,26 +696,12 @@
   }
 
   function openUK(id){
-    NAV_STACK.push('uk');
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    $(id).classList.add('active'); CURRENT_SCREEN=id; updateBackButton();
+    $(id).classList.add('active'); CURRENT_SCREEN=id;
     if(id==='uk_mysizes') initMySizesSelectors();
     if(id==='uk_sizefinder') updateSupportNote();
     if(id==='uk_brandnotes') renderBrandNotes();
     if(id==='uk_history') renderUkHistory();
-  }
-  function goBack(){
-    const prev= NAV_STACK.pop() || 'home';
-    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    ($(prev)||$('home')).classList.add('active');
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    const tb=$('tab_'+prev); if(tb) tb.classList.add('active');
-    CURRENT_SCREEN=prev; updateBackButton();
-  }
-  function updateBackButton(){
-    const btn=$('backbtn');
-    const topLevels=['splash','home','uk','profile','mistats','settings','eu','us','ca'];
-    btn.style.display= topLevels.includes(CURRENT_SCREEN) ? 'none' : 'inline-block';
   }
 
   /* ---------- Brand data (with body-type support flags) ---------- */
@@ -759,7 +790,7 @@
   }
   function labelBody(k){ return k==='plus'?'plus-size':k; }
 
-  /* ---------- Measurements ---------- */
+  /* ---------- Measurements (for sizing) ---------- */
   function currentMeasurements(){
     const {profiles, activeId}=getProfilesAndActive();
     const p=profiles.find(x=>x.id===activeId);
@@ -792,6 +823,7 @@
     if(cat.includes('Jeans') && meas.inseam && brand?.lengths_cm){
       const len = mapInseamToLengthFromBrand(brand.lengths_cm, meas.inseam);
       const inches=(brand.lengths_cm[len]/2.54).toFixed(1);
+      // keep internal; do not expose all brand lengths in Brand Notes list
       notes.push(`Suggested length: ${len.toUpperCase()} (~${inches}" for this label).`);
     }
     if(brand?.notes) notes.push(`Brand note: ${brand.notes}`);
@@ -893,27 +925,18 @@
     const a=document.createElement('a'); a.href=url; a.download='my-sizes.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
   }
 
-  /* ---------- Brand Notes ---------- */
+  /* ---------- Brand Notes (no public measurements) ---------- */
   function renderBrandNotes(){
     const wrap=$('brandList'); if(!wrap) return; wrap.innerHTML='';
     const filtered = BRANDS.filter(b=> !b.supports || b.supports[SELECTED_BODYTYPE]);
     if(!filtered.length){ wrap.innerHTML='<div class="note">No brands for this body type in demo data. Switch body type.</div>'; return; }
     filtered.forEach(b=>{
-      const L=b.lengths_cm||{};
       const div=document.createElement('div'); div.className='card';
       div.innerHTML=`
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
-          <div>
-            <div style="font-weight:800;">${b.name}</div>
-            <div class="note">${b.notes||''}</div>
-            <div class="note" style="margin-top:6px;">Supports: ${Object.keys(b.supports||{standard:true}).filter(k=>b.supports[k]).map(labelBody).join(', ')}</div>
-          </div>
-          <div class="pill-row">
-            <span class="pill">Short ~${L.short??'–'}cm</span>
-            <span class="pill">Reg ~${L.regular??'–'}cm</span>
-            <span class="pill">Long ~${L.long??'–'}cm</span>
-            <span class="pill">Tall ~${L.tall??'–'}cm</span>
-          </div>
+        <div>
+          <div style="font-weight:800;">${b.name}</div>
+          <div class="note">${b.notes||''}</div>
+          <div class="note" style="margin-top:6px;">Supports: ${Object.keys(b.supports||{standard:true}).filter(k=>b.supports[k]).map(labelBody).join(', ')}</div>
         </div>`;
       wrap.appendChild(div);
     });
@@ -941,7 +964,6 @@
     });
   }
 
-
   /* ---------- Converters ---------- */
   const CLOTHES_TABLE=[{UK:4,EU:32,US:0},{UK:6,EU:34,US:2},{UK:8,EU:36,US:4},{UK:10,EU:38,US:6},{UK:12,EU:40,US:8},{UK:14,EU:42,US:10},{UK:16,EU:44,US:12},{UK:18,EU:46,US:14},{UK:20,EU:48,US:16},{UK:22,EU:50,US:18},{UK:24,EU:52,US:20}];
   function nearestRowBy(from,val){ return CLOTHES_TABLE.reduce((best,row)=>{ const d=Math.abs((row[from]??Infinity)-val); return d<best.d?{row,d}:{row:best.row,d:best.d}; },{row:null,d:Infinity}).row; }
@@ -963,258 +985,455 @@
   (function start(){
     loadAppData();
     renderUnitPills(); renderProfilePills(); renderBodyTypePillsTop();
-    initSelectors(); loadActiveProfileIntoForm(); renderUnitBadges(); updateBackButton();
-    $('sf_brand')?.addEventListener('change', updateSupportOnBrandChange);
+    initSelectors(); loadActiveProfileIntoForm(); renderUnitBadges();
   })();
 
+  // Splash → Home (auto)
   window.addEventListener('load',()=>{
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    $('splash').classList.add('active'); CURRENT_SCREEN='splash'; updateBackButton();
+    $('splash').classList.add('active'); CURRENT_SCREEN='splash';
     setTimeout(()=>{
       $('splash').classList.remove('active');
       document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
       $('home').classList.add('active');
       document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
       $('tab_home')?.classList.add('active');
-      CURRENT_SCREEN='home'; updateBackButton();
+      CURRENT_SCREEN='home';
     },800);
   });
-    
-// ===================== MiStats (drop-in) =====================
-(function(){
-  const STORE_KEY = 'mistats_v1';
 
-  // unit helpers
-  const kgFrom = (val, unit) => {
-    const n = parseFloat(val); if (isNaN(n)) return null;
-    if (unit==='kg') return n;
-    if (unit==='lb') return n * 0.45359237;
-    if (unit==='st') return n * 6.35029318;
-    return n;
-  };
-  const toUnit = (kg, unit) => {
-    if (kg==null) return '';
-    if (unit==='kg') return kg.toFixed(1);
-    if (unit==='lb') return (kg/0.45359237).toFixed(1);
-    if (unit==='st') return (kg/6.35029318).toFixed(2);
-    return kg.toFixed(1);
-  };
-  const cmFromHeightInput = (val, unit) => {
-    if (unit==='ftin'){
-      const m = String(val).trim().match(/(\d+)[^\d]+(\d+)/);
-      if (m){ const ft=+m[1], inch=+m[2]; return Math.round((ft*12+inch)*2.54); }
-      const n=parseFloat(val); if(!isNaN(n)) return Math.round(n*12*2.54);
-      return null;
+  // ===================== MiStats (drop-in, extended) =====================
+  (function(){
+    const STORE_KEY = 'mistats_v2'; // bumped for new structure
+
+    // body part keys to track
+    const PART_KEYS = ['bust','underbust','waist','hip','thigh','calf','ankle','upperarm','forearm','wrist','neck'];
+
+    // unit helpers
+    const kgFrom = (val, unit) => {
+      const n = parseFloat(val); if (isNaN(n)) return null;
+      if (unit==='kg') return n;
+      if (unit==='lb') return n * 0.45359237;
+      if (unit==='st') return n * 6.35029318;
+      return n;
+    };
+    const toUnit = (kg, unit) => {
+      if (kg==null) return '';
+      if (unit==='kg') return kg.toFixed(1);
+      if (unit==='lb') return (kg/0.45359237).toFixed(1);
+      if (unit==='st') return (kg/6.35029318).toFixed(2);
+      return kg.toFixed(1);
+    };
+    const cmFromHeightInput = (val, unit) => {
+      if (unit==='ftin'){
+        const m = String(val).trim().match(/(\d+)[^\d]+(\d+)/);
+        if (m){ const ft=+m[1], inch=+m[2]; return Math.round((ft*12+inch)*2.54); }
+        const n=parseFloat(val); if(!isNaN(n)) return Math.round(n*12*2.54);
+        return null;
+      }
+      const n = parseFloat(val); if (isNaN(n)) return null;
+      if (unit==='m') return Math.round(n*100);
+      return Math.round(n); // cm
+    };
+    const bmi = (kg, cm) => (kg>0 && cm>0) ? +(kg/((cm/100)**2)).toFixed(1) : null;
+
+    // store
+    function loadStore(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY)||'{}'); }catch(e){ return {}; } }
+    function saveStore(s){ localStorage.setItem(STORE_KEY, JSON.stringify(s)); }
+    function activeId(){ return getProfilesAndActive().activeId; }
+    function ensureProfileBucket(){
+      const id = activeId(); const s = loadStore();
+      if(!s[id]) s[id] = { unitW:'kg', unitH:'cm', heightCm:null, targetKg:null, entries:[], measures:[] };
+      return s;
     }
-    const n = parseFloat(val); if (isNaN(n)) return null;
-    if (unit==='m') return Math.round(n*100);
-    return Math.round(n); // cm
-  };
-  const bmi = (kg, cm) => (kg>0 && cm>0) ? +(kg/((cm/100)**2)).toFixed(1) : null;
+    function getBucket(){ const s=ensureProfileBucket(); return { s, b: s[activeId()] }; }
 
-  // store
-  function loadStore(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY)||'{}'); }catch(e){ return {}; } }
-  function saveStore(s){ localStorage.setItem(STORE_KEY, JSON.stringify(s)); }
-  function activeId(){ return getProfilesAndActive().activeId; }
-  function ensureProfileBucket(){
-    const id = activeId(); const s = loadStore();
-    if(!s[id]) s[id] = { unitW:'kg', unitH:'cm', heightCm:null, targetKg:null, entries:[] };
-    return s;
-  }
-  function getBucket(){ const s=ensureProfileBucket(); return { s, b: s[activeId()] }; }
-
-  // Tabs
-  function setMiTab(view){
-    document.querySelectorAll('#mi_tabs .mi-tab').forEach(b=>{
-      b.classList.toggle('active', b.dataset.view===view);
-    });
-    document.querySelectorAll('#mistats .mi-view').forEach(v=> v.style.display='none');
-    $('#mi_view_'+view).style.display='block';
-    if(view==='graph') miDrawGraph();
-    if(view==='history') miRenderHistory();
-  }
-  window.setMiTab = setMiTab;
-
-  // Click handlers
-  document.addEventListener('click', (e)=>{
-    const t=e.target.closest('.mi-tab'); if(t){ setMiTab(t.dataset.view); }
-    const uw=e.target.closest('.mi-unit-w'); if(uw){ const {s,b}=getBucket(); b.unitW=uw.dataset.u; saveStore(s); refreshAll(); }
-    const uh=e.target.closest('.mi-unit-h'); if(uh){ const {s,b}=getBucket(); b.unitH=uh.dataset.u; saveStore(s); refreshAll(); }
-  });
-
-  // Add entry
-  function onAddEntry(){
-    const {s,b}=getBucket();
-    const unit=b.unitW||'kg';
-    const kg = kgFrom($('#mi_weight_in').value, unit);
-    const d = $('#mi_date_in').value || new Date().toISOString().slice(0,10);
-    if(kg==null){ alert('Enter a valid weight'); return; }
-    b.entries.push({d, kg:+kg.toFixed(2)});
-    b.entries.sort((a,b)=> a.d.localeCompare(b.d));
-    saveStore(s);
-    $('#mi_weight_in').value=''; $('#mi_date_in').value='';
-    refreshAll(); setMiTab('history');
-  }
-  $('#mi_add_btn')?.addEventListener('click', onAddEntry);
-
-  // Settings
-  $('#mi_save_settings')?.addEventListener('click', ()=>{
-    const {s,b}=getBucket();
-    const h = cmFromHeightInput($('#mi_height').value, b.unitH||'cm');
-    if(h) b.heightCm=h;
-    const tgtRaw = $('#mi_target_in').value.trim();
-    b.targetKg = tgtRaw ? kgFrom(tgtRaw, b.unitW||'kg') : null;
-    saveStore(s); refreshAll(); setMiTab('current');
-  });
-  $('#mi_reset_profile')?.addEventListener('click', ()=>{
-    if(!confirm('Reset MiStats for this profile?')) return;
-    const s=loadStore(); delete s[activeId()]; saveStore(s); refreshAll();
-  });
-
-  // Zoom
-  $('#mi_zoom')?.addEventListener('input', miDrawGraph);
-
-  // Calcs
-  function calcStats(){
-    const {b}=getBucket(); const E=b.entries;
-    const heightCm = b.heightCm ?? getProfilesAndActive().profiles.find(p=>p.id===activeId())?.height ?? null;
-
-    if(E.length===0) return { empty:true, unitW:b.unitW, heightCm, targetKg:b.targetKg };
-    const start=E[0], curr=E[E.length-1], target=b.targetKg ?? null;
-
-    let avgDay=null, avgWeek=null;
-    if(E.length>=2){
-      const first=new Date(E[0].d), last=new Date(curr.d);
-      const days=Math.max(1, (last-first)/86400000);
-      avgDay= +((curr.kg-start.kg)/days).toFixed(2);
-      avgWeek= +(avgDay*7).toFixed(2);
+    // Tabs
+    function setMiTab(view){
+      document.querySelectorAll('#mi_tabs .mi-tab').forEach(b=>{
+        b.classList.toggle('active', b.dataset.view===view);
+      });
+      document.querySelectorAll('#mistats .mi-view').forEach(v=> v.style.display='none');
+      $('#mi_view_'+view).style.display='block';
+      if(view==='graph') miDrawGraph();
+      if(view==='history') miRenderHistory();
     }
+    window.setMiTab = setMiTab;
 
-    const goal = target ?? Math.min(...E.map(x=>x.kg));
-    const span = Math.abs(start.kg - goal) || 1;
-    const done = Math.min(100, Math.max(0, ((start.kg - curr.kg)/span)*100 ));
+    // Add entry (weight only)
+    function onAddEntry(){
+      const {s,b}=getBucket();
+      const unit=b.unitW||'kg';
+      const kg = kgFrom($('#mi_weight_in').value, unit);
+      const d = $('#mi_date_in').value || new Date().toISOString().slice(0,10);
+      if(kg==null){ alert('Enter a valid weight'); return; }
+      b.entries.push({d, kg:+kg.toFixed(2)});
+      b.entries.sort((a,b)=> a.d.localeCompare(b.d));
+      saveStore(s);
+      $('#mi_weight_in').value=''; $('#mi_date_in').value='';
+      refreshAll(); setMiTab('history');
+    }
+    $('#mi_add_btn')?.addEventListener('click', onAddEntry);
 
-    return { unitW:b.unitW, heightCm, targetKg:target, start, curr, avgDay, avgWeek, progress:done };
-  }
+    // Add entry (weight + parts)
+    function onAddWithParts(){
+      const {s,b}=getBucket();
+      const unit=b.unitW||'kg';
+      const kgVal = $('#mi_weight_in').value;
+      if(!kgVal){ onAddEntry(); return; }
+      const kg = kgFrom(kgVal, unit);
+      const d = $('#mi_date_in').value || new Date().toISOString().slice(0,10);
+      if(kg==null){ alert('Enter a valid weight'); return; }
+      // collect parts from inline inputs
+      const parts={};
+      PART_KEYS.forEach(k=>{
+        const el = document.querySelector(`[data-mi-part="${k}"]`);
+        const n = el ? parseFloat(el.value) : NaN;
+        if(!isNaN(n)) parts[k]=n;
+      });
+      b.entries.push({d, kg:+kg.toFixed(2)});
+      if(Object.keys(parts).length){ b.measures.push({d, parts}); }
+      b.entries.sort((a,b)=> a.d.localeCompare(b.d));
+      b.measures.sort((a,b)=> a.d.localeCompare(b.d));
+      saveStore(s);
+      // clear only the inline part fields
+      PART_KEYS.forEach(k=>{ const el=document.querySelector(`[data-mi-part="${k}"]`); if(el) el.value=''; });
+      $('#mi_weight_in').value=''; $('#mi_date_in').value='';
+      refreshAll(); setMiTab('history');
+    }
+    $('#mi_add_with_parts_btn')?.addEventListener('click', onAddWithParts);
 
-  // Renderers
-  function renderCurrent(){
-    const {unitW}=getBucket().b; const S=calcStats();
-    const unitLabel = unitW==='kg'?'kg':(unitW==='lb'?'lb':'st');
-    $('#mi_hint_units').textContent = `Units: ${unitLabel}`;
+    // Link from Profile quick logger
+    window.logToMiStats = function(){
+      const {s,b}=getBucket();
+      const unit=b.unitW||'kg';
+      const d = $('m_log_date')?.value || new Date().toISOString().slice(0,10);
+      const kgVal = $('m_weight_now')?.value || '';
+      const kg = kgVal ? kgFrom(kgVal, unit) : null;
+      if(kg!=null){ b.entries.push({d, kg:+kg.toFixed(2)}); }
+      // pull measurements from profile
+      const prof = collectFormAsCM();
+      const parts = {};
+      PART_KEYS.forEach(k=>{
+        const v = prof[k];
+        if(typeof v==='number' && !isNaN(v)) parts[k]= +(UNIT_MODE==='cm' ? v : (v)); // stored conceptually as cm from collectFormAsCM
+      });
+      if(Object.keys(parts).length){ b.measures.push({d, parts}); }
+      b.entries.sort((a,b)=> a.d.localeCompare(b.d));
+      b.measures.sort((a,b)=> a.d.localeCompare(b.d));
+      saveStore(s);
+      alert('Logged to MiStats.');
+      switchTab('mistats'); setMiTab('current'); refreshAll();
+    };
 
-    const title = (S.empty? 'No entries yet' : `${toUnit(S.curr.kg, unitW)} ${unitLabel}`);
-    $('#mi_current_title').textContent = title;
-    $('#mi_current_meta').textContent = S.empty ? 'Add your first weight below.' : new Date(S.curr.d).toLocaleDateString();
-
-    $('#mi_start').textContent = S.empty ? '—' : `${toUnit(S.start.kg, unitW)} ${unitLabel}`;
-    $('#mi_current').textContent = S.empty ? '—' : `${toUnit(S.curr.kg, unitW)} ${unitLabel}`;
-    $('#mi_target').textContent = (S.targetKg==null) ? '—' : `${toUnit(S.targetKg, unitW)} ${unitLabel}`;
-
-    const bmiStart = bmi(S.start?.kg, S.heightCm);
-    const bmiCurr  = bmi(S.curr?.kg,  S.heightCm);
-    const bmiTgt   = bmi(S.targetKg,  S.heightCm);
-    $('#mi_start_bmi').textContent = (bmiStart? `BMI ${bmiStart}`:'BMI —');
-    $('#mi_current_bmi').textContent= (bmiCurr? `BMI ${bmiCurr}`:'BMI —');
-    $('#mi_target_bmi').textContent = (bmiTgt? `BMI ${bmiTgt}`:'BMI —');
-
-    $('#mi_prog_bar').style.width = (S.empty? '0%' : `${S.progress.toFixed(0)}%`);
-    const lost = S.empty? 0 : (S.start.kg - S.curr.kg);
-    const remain = (S.targetKg!=null) ? (S.curr.kg - S.targetKg) : null;
-    $('#mi_prog_text').textContent = S.empty
-      ? '—'
-      : `Lost ${toUnit(lost, unitW)} ${unitLabel}${remain!=null?` • Remaining ${toUnit(remain, unitW)} ${unitLabel}`:''}`;
-
-    $('#mi_avg_day').textContent  = (S.avgDay==null)?'—':`${toUnit(S.avgDay, unitW)} ${unitLabel}`;
-    $('#mi_avg_week').textContent = (S.avgWeek==null)?'—':`${toUnit(S.avgWeek, unitW)} ${unitLabel}`;
-  }
-
-  function miRenderHistory(){
-    const wrap = $('#mi_hist_list'); wrap.innerHTML='';
-    const {b}=getBucket(); const U=b.unitW||'kg';
-    if(b.entries.length===0){ wrap.innerHTML='<div class="note">No entries yet.</div>'; return; }
-    let prev=null;
-    b.entries.slice().reverse().forEach(it=>{
-      const delta = (prev? (prev.kg-it.kg): null);
-      const row=document.createElement('div'); row.className='mi-row';
-      row.innerHTML = `
-        <div><strong>${toUnit(it.kg,U)} ${U}</strong><div class="note">${new Date(it.d).toLocaleString()}</div></div>
-        <div class="delta ${delta==null?'':(delta>0?'down':'up')}">${delta==null?'':( (delta>0?'-':'+')+toUnit(Math.abs(delta),U)+' '+U )}</div>
-      `;
-      wrap.appendChild(row);
-      prev=it;
+    // Settings
+    $('#mi_save_settings')?.addEventListener('click', ()=>{
+      const {s,b}=getBucket();
+      const h = cmFromHeightInput($('#mi_height').value, b.unitH||'cm');
+      if(h) b.heightCm=h;
+      const tgtRaw = $('#mi_target_in').value.trim();
+      b.targetKg = tgtRaw ? kgFrom(tgtRaw, b.unitW||'kg') : null;
+      saveStore(s); refreshAll(); setMiTab('current');
     });
-  }
+    $('#mi_reset_profile')?.addEventListener('click', ()=>{
+      if(!confirm('Reset MiStats for this profile?')) return;
+      const s=loadStore(); delete s[activeId()]; saveStore(s); refreshAll();
+    });
 
-  function miDrawGraph(){
-    const {b}=getBucket(); const E=b.entries; const U=b.unitW||'kg';
-    const c=$('#mi_canvas'); const ctx=c.getContext('2d');
-    ctx.clearRect(0,0,c.width,c.height);
+    // clicks to change units
+    document.addEventListener('click', (e)=>{
+      const t=e.target.closest('.mi-tab'); if(t){ setMiTab(t.dataset.view); }
+      const uw=e.target.closest('.mi-unit-w'); if(uw){ const {s,b}=getBucket(); b.unitW=uw.dataset.u; saveStore(s); refreshAll(); }
+      const uh=e.target.closest('.mi-unit-h'); if(uh){ const {s,b}=getBucket(); b.unitH=uh.dataset.u; saveStore(s); refreshAll(); }
+      const lg=e.target.closest('[data-series]'); if(lg){ lg.classList.toggle('active'); miDrawGraph(); }
+    });
 
-    if(E.length<1){ $('#mi_graph_note').textContent='Add weights to see the chart.'; return; }
-
-    const z = +($('#mi_zoom').value||0);
-    $('#mi_zoom_label').textContent = z===0 ? 'All time' : `Zoom ${z}%`;
-    const keep = Math.max(5, Math.round(E.length - (E.length-10)*(z/100)));
-    const data = E.slice(-keep);
-
-    const minW = Math.min(...data.map(x=>x.kg));
-    const maxW = Math.max(...data.map(x=>x.kg));
-    const pad  = Math.max(1, (maxW-minW)*0.1);
-    const y0   = minW-pad, y1=maxW+pad;
-
-    const left=50, right=20, top=20, bottom=35;
-    const W=c.width-left-right, H=c.height-top-bottom;
-
-    ctx.strokeStyle = '#223049'; ctx.lineWidth=1;
-    ctx.beginPath(); ctx.moveTo(left, top); ctx.lineTo(left, top+H); ctx.lineTo(left+W, top+H); ctx.stroke();
-
-    ctx.fillStyle='#aab3c5'; ctx.font='12px '+getComputedStyle(document.body).fontFamily;
-    for(let i=0;i<=4;i++){
-      const yv = y0 + (i*(y1-y0))/4;
-      const py = top+H - ( (yv-y0)/(y1-y0) )*H;
-      ctx.fillText(toUnit(yv,U), 6, py+4);
-      ctx.strokeStyle='#1b2230'; ctx.beginPath(); ctx.moveTo(left,py); ctx.lineTo(left+W,py); ctx.stroke();
+    // Build inline part inputs in Current view
+    function buildInlinePartInputs(){
+      const wrap = $('#mi_parts_inputs'); if(!wrap) return;
+      wrap.innerHTML='';
+      PART_KEYS.forEach(k=>{
+        const id = `mi_part_${k}`;
+        const div=document.createElement('div');
+        div.innerHTML = `
+          <label for="${id}">${k.charAt(0).toUpperCase()+k.slice(1)} <span class="unit-badge">cm</span></label>
+          <input id="${id}" data-mi-part="${k}" inputmode="decimal" placeholder="optional">
+        `;
+        wrap.appendChild(div);
+      });
     }
 
-    ctx.strokeStyle='#5da8ff'; ctx.lineWidth=2; ctx.beginPath();
-    data.forEach((pt,i)=>{
-      const px = left + (i/(data.length-1))*W;
-      const py = top+H - ( (pt.kg-y0)/(y1-y0) )*H;
-      if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
-      ctx.fillStyle='#5da8ff'; ctx.beginPath(); ctx.arc(px,py,3,0,Math.PI*2); ctx.fill();
-    });
-    ctx.stroke();
+    // Build legend toggles for graph
+    const SERIES_STATE = { weight:true };
+    PART_KEYS.forEach(k=> SERIES_STATE[k]=false);
 
-    $('#mi_graph_note').textContent = `${data.length} points • unit: ${U}`;
-  }
+    function buildSeriesLegend(){
+      const wrap=$('mi_series_legend'); if(!wrap) return;
+      wrap.innerHTML='';
+      const mk=(key,label)=> {
+        const span=document.createElement('label');
+        span.className='pill'+(SERIES_STATE[key]?' active':'');
+        span.setAttribute('data-series', key);
+        span.innerHTML = `<input type="checkbox" ${SERIES_STATE[key]?'checked':''} onclick="return false;"> ${label}`;
+        wrap.appendChild(span);
+      };
+      mk('weight','Weight');
+      PART_KEYS.forEach(k=> mk(k, k));
+    }
 
-  function renderSettings(){
-    const {b}=getBucket();
-    document.querySelectorAll('.mi-unit-w').forEach(x=> x.classList.toggle('active', x.dataset.u===b.unitW));
-    document.querySelectorAll('.mi-unit-h').forEach(x=> x.classList.toggle('active', x.dataset.u===b.unitH));
-    $('#mi_height').value = b.heightCm ? (b.unitH==='m' ? (b.heightCm/100).toFixed(2) : (b.unitH==='ftin' ? '' : b.heightCm)) : '';
-    $('#mi_height_hint').textContent = b.unitH==='ftin' ? 'Enter like 5\'6 or 5 6' : 'Stored in cm internally.';
-    $('#mi_target_in').value = b.targetKg!=null ? toUnit(b.targetKg, b.unitW) : '';
-  }
+    // Zoom
+    $('#mi_zoom')?.addEventListener('input', miDrawGraph);
 
-  function refreshAll(){
-    renderCurrent(); renderSettings();
-    if(CURRENT_SCREEN==='mistats'){ miDrawGraph(); miRenderHistory(); }
-  }
-  window.refreshAll = refreshAll;
+    // Calcs
+    function calcStats(){
+      const {b}=getBucket(); const E=b.entries;
+      const heightCm = b.heightCm ?? getProfilesAndActive().profiles.find(p=>p.id===activeId())?.height ?? null;
 
-  // also refresh when active profile pills rerender
-  const _origRenderProfilePills = window.renderProfilePills;
-  window.renderProfilePills = function(){ _origRenderProfilePills(); refreshAll(); };
+      if(E.length===0) return { empty:true, unitW:b.unitW, heightCm, targetKg:b.targetKg, measures: b.measures };
+      const start=E[0], curr=E[E.length-1], target=b.targetKg ?? null;
 
-  // init
-  setTimeout(()=>{
-    const di = $('#mi_date_in'); if(di) di.value = new Date().toISOString().slice(0,10);
-    refreshAll();
-  },0);
+      let avgDay=null, avgWeek=null;
+      if(E.length>=2){
+        const first=new Date(E[0].d), last=new Date(curr.d);
+        const days=Math.max(1, (last-first)/86400000);
+        avgDay= +((curr.kg-start.kg)/days).toFixed(2);
+        avgWeek= +(avgDay*7).toFixed(2);
+      }
 
-})();
-</script>
+      const goal = target ?? Math.min(...E.map(x=>x.kg));
+      const span = Math.abs(start.kg - goal) || 1;
+      const done = Math.min(100, Math.max(0, ((start.kg - curr.kg)/span)*100 ));
+
+      return { unitW:b.unitW, heightCm, targetKg:target, start, curr, avgDay, avgWeek, progress:done, measures:b.measures };
+    }
+
+    // helper: get first and latest parts to compute losses
+    function computeAreaLosses(measures){
+      if(!measures || measures.length===0) return {losses:{}, total:0};
+      // find earliest snapshot with that part and latest snapshot with that part
+      const firstByPart={}, lastByPart={};
+      measures.forEach(m=>{
+        PART_KEYS.forEach(k=>{
+          const v=m.parts?.[k];
+          if(v==null) return;
+          if(!(k in firstByPart)) firstByPart[k]=v;
+          lastByPart[k]=v;
+        });
+      });
+      const losses={}, totals=[];
+      Object.keys(firstByPart).forEach(k=>{
+        const start = firstByPart[k], curr = lastByPart[k]??start;
+        const delta = +(start - curr).toFixed(1); // cm lost (can be negative)
+        losses[k]=delta;
+        totals.push(delta);
+      });
+      const total = +(totals.reduce((a,b)=>a+(isFinite(b)?b:0),0).toFixed(1));
+      return {losses, total};
+    }
+
+    // Renderers
+    function renderCurrent(){
+      buildInlinePartInputs();
+      buildSeriesLegend();
+
+      const {unitW}=getBucket().b; const S=calcStats();
+      const unitLabel = unitW==='kg'?'kg':(unitW==='lb'?'lb':'st');
+      $('#mi_hint_units').textContent = `Units: ${unitLabel}`;
+
+      const title = (S.empty? 'No entries yet' : `${toUnit(S.curr.kg, unitW)} ${unitLabel}`);
+      $('#mi_current_title').textContent = title;
+      $('#mi_current_meta').textContent = S.empty ? 'Add your first weight below.' : new Date(S.curr.d).toLocaleDateString();
+
+      $('#mi_start').textContent = S.empty ? '—' : `${toUnit(S.start.kg, unitW)} ${unitLabel}`;
+      $('#mi_current').textContent = S.empty ? '—' : `${toUnit(S.curr.kg, unitW)} ${unitLabel}`;
+      $('#mi_target').textContent = (S.targetKg==null) ? '—' : `${toUnit(S.targetKg, unitW)} ${unitLabel}`;
+
+      const bmiStart = bmi(S.start?.kg, S.heightCm);
+      const bmiCurr  = bmi(S.curr?.kg,  S.heightCm);
+      const bmiTgt   = bmi(S.targetKg,  S.heightCm);
+      $('#mi_start_bmi').textContent = (bmiStart? `BMI ${bmiStart}`:'BMI —');
+      $('#mi_current_bmi').textContent= (bmiCurr? `BMI ${bmiCurr}`:'BMI —');
+      $('#mi_target_bmi').textContent = (bmiTgt? `BMI ${bmiTgt}`:'BMI —');
+
+      $('#mi_prog_bar').style.width = (S.empty? '0%' : `${S.progress.toFixed(0)}%`);
+      const lost = S.empty? 0 : (S.start.kg - S.curr.kg);
+      const remain = (S.targetKg!=null) ? (S.curr.kg - S.targetKg) : null;
+      $('#mi_prog_text').textContent = S.empty
+        ? '—'
+        : `Lost ${toUnit(lost, unitW)} ${unitLabel}${remain!=null?` • Remaining ${toUnit(remain, unitW)} ${unitLabel}`:''}`;
+
+      $('#mi_avg_day').textContent  = (S.avgDay==null)?'—':`${toUnit(S.avgDay, unitW)} ${unitLabel}`;
+      $('#mi_avg_week').textContent = (S.avgWeek==null)?'—':`${toUnit(S.avgWeek, unitW)} ${unitLabel}`;
+
+      // area losses tiles
+      const wrap=$('mi_area_tiles'); if(wrap){
+        wrap.innerHTML='';
+        const {losses,total}=computeAreaLosses(S.measures);
+        const keys=Object.keys(losses);
+        if(!keys.length){ wrap.innerHTML='<div class="note">Add some measurements to see area losses.</div>'; $('#mi_area_total').textContent='—'; }
+        else{
+          keys.forEach(k=>{
+            const tile=document.createElement('div'); tile.className='mi-tile';
+            const val = losses[k];
+            tile.innerHTML = `<div class="mi-l">${k}</div><div class="mi-v">${(val>=0?'-':'+' )}${Math.abs(val)} cm</div><div class="mi-sub">${val>=0?'loss':'gain'} since start</div>`;
+            wrap.appendChild(tile);
+          });
+          $('#mi_area_total').textContent = `Overall change: ${(total>=0?'-':'+' )}${Math.abs(total)} cm across logged areas.`;
+        }
+      }
+    }
+
+    function miRenderHistory(){
+      const wrap = $('#mi_hist_list'); wrap.innerHTML='';
+      const {b}=getBucket(); const U=b.unitW||'kg';
+      if(b.entries.length===0 && b.measures.length===0){ wrap.innerHTML='<div class="note">No entries yet.</div>'; return; }
+
+      // Combine weights & measures by date for a friendlier feed
+      const byDate = {};
+      b.entries.forEach(e=>{ byDate[e.d]=byDate[e.d]||{}; byDate[e.d].kg=e.kg; });
+      b.measures.forEach(m=>{ byDate[m.d]=byDate[m.d]||{}; byDate[m.d].parts=m.parts; });
+
+      const dates = Object.keys(byDate).sort((a,b)=> b.localeCompare(a)); // newest first
+      dates.forEach(d=>{
+        const it=byDate[d];
+        const row=document.createElement('div'); row.className='mi-row';
+        const wText = (it.kg!=null) ? `<strong>${toUnit(it.kg,U)} ${U}</strong>` : '<strong>—</strong>';
+        const parts = it.parts ? Object.entries(it.parts).map(([k,v])=>`${k}:${v}cm`).join(' • ') : '—';
+        row.innerHTML = `
+          <div>${wText}<div class="note">${new Date(d).toLocaleString()}</div></div>
+          <div class="note">${parts}</div>
+        `;
+        wrap.appendChild(row);
+      });
+    }
+
+    function miDrawGraph(){
+      const {b}=getBucket(); const E=b.entries; const M=b.measures; const U=b.unitW||'kg';
+      const c=$('#mi_canvas'); const ctx=c.getContext('2d');
+      ctx.clearRect(0,0,c.width,c.height);
+
+      const seriesActive = (key)=> (key==='weight' ? SERIES_STATE.weight : SERIES_STATE[key]);
+
+      // build aligned dataset
+      const allDates = Array.from(new Set([
+        ...E.map(x=>x.d),
+        ...M.map(x=>x.d),
+      ])).sort((a,b)=> a.localeCompare(b));
+
+      if(allDates.length<1){ $('#mi_graph_note').textContent='Add data to see the chart.'; return; }
+
+      // zoom
+      const z = +($('#mi_zoom').value||0);
+      $('#mi_zoom_label').textContent = z===0 ? 'All time' : `Zoom ${z}%`;
+      const keep = Math.max(5, Math.round(allDates.length - (allDates.length-10)*(z/100)));
+      const dates = allDates.slice(-keep);
+
+      // assemble series
+      const weight = dates.map(d=> {
+        const e = E.find(x=>x.d===d); return e? e.kg : null;
+      });
+      const partsSeries = {};
+      PART_KEYS.forEach(k=>{
+        partsSeries[k] = dates.map(d=>{
+          const m = M.find(x=>x.d===d);
+          return m?.parts?.[k] ?? null;
+        });
+      });
+
+      // Y scaling (auto uses whichever series are active)
+      const values=[];
+      if(seriesActive('weight')) weight.forEach(v=> { if(v!=null) values.push(v); });
+      PART_KEYS.forEach(k=>{ if(seriesActive(k)) partsSeries[k].forEach(v=>{ if(v!=null) values.push(v); }); });
+
+      if(values.length===0){ $('#mi_graph_note').textContent='Toggle at least one series to view.'; return; }
+
+      const minV = Math.min(...values), maxV=Math.max(...values);
+      const pad  = Math.max(1, (maxV-minV)*0.1);
+      const y0   = minV-pad, y1=maxV+pad;
+
+      const left=50, right=20, top=20, bottom=35;
+      const W=c.width-left-right, H=c.height-top-bottom;
+
+      // axes
+      ctx.strokeStyle = '#223049'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(left, top); ctx.lineTo(left, top+H); ctx.lineTo(left+W, top+H); ctx.stroke();
+
+      ctx.fillStyle='#aab3c5'; ctx.font='12px '+getComputedStyle(document.body).fontFamily;
+      for(let i=0;i<=4;i++){
+        const yv = y0 + (i*(y1-y0))/4;
+        const py = top+H - ( (yv-y0)/(y1-y0) )*H;
+        ctx.fillText( (seriesActive('weight')? toUnit(yv,U): yv.toFixed(1)), 6, py+4);
+        ctx.strokeStyle='#1b2230'; ctx.beginPath(); ctx.moveTo(left,py); ctx.lineTo(left+W,py); ctx.stroke();
+      }
+
+      // draw helper
+      function plotLine(arr){
+        ctx.beginPath();
+        arr.forEach((v,i)=>{
+          if(v==null) return;
+          const px = left + (i/(arr.length-1))*W;
+          const py = top+H - ( (v-y0)/(y1-y0) )*H;
+          if(i===0 || arr[i-1]==null) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+          ctx.beginPath(); ctx.arc(px,py,2,0,Math.PI*2); ctx.fill();
+        });
+        ctx.stroke();
+      }
+
+      // weight line
+      if(seriesActive('weight')){
+        ctx.strokeStyle='#5da8ff'; ctx.fillStyle='#5da8ff'; ctx.lineWidth=2;
+        plotLine(weight);
+      }
+
+      // parts lines (muted but visible)
+      PART_KEYS.forEach(k=>{
+        if(!seriesActive(k)) return;
+        ctx.strokeStyle='#8a8f9e'; ctx.fillStyle='#8a8f9e'; ctx.lineWidth=1.5;
+        plotLine(partsSeries[k]);
+      });
+
+      $('#mi_graph_note').textContent = `${dates.length} points • series shown: ${['weight',...PART_KEYS].filter(seriesActive).join(', ')}`;
+    }
+
+    function renderSettings(){
+      const {b}=getBucket();
+      document.querySelectorAll('.mi-unit-w').forEach(x=> x.classList.toggle('active', x.dataset.u===b.unitW));
+      document.querySelectorAll('.mi-unit-h').forEach(x=> x.classList.toggle('active', x.dataset.u===b.unitH));
+      $('#mi_height').value = b.heightCm ? (b.unitH==='m' ? (b.heightCm/100).toFixed(2) : (b.unitH==='ftin' ? '' : b.heightCm)) : '';
+      $('#mi_height_hint').textContent = b.unitH==='ftin' ? 'Enter like 5\'6 or 5 6' : 'Stored in cm internally.';
+      $('#mi_target_in').value = b.targetKg!=null ? toUnit(b.targetKg, b.unitW) : '';
+    }
+
+    function refreshAll(){
+      renderCurrent(); renderSettings();
+      if(CURRENT_SCREEN==='mistats'){ miDrawGraph(); miRenderHistory(); }
+      // (re)build legend checkboxes active class from SERIES_STATE
+      const legend=$('mi_series_legend');
+      if(legend){
+        legend.querySelectorAll('[data-series]').forEach(el=>{
+          const key=el.getAttribute('data-series');
+          const active = SERIES_STATE[key];
+          const cb = el.querySelector('input'); if(cb) cb.checked = !!active;
+          el.classList.toggle('active', !!active);
+        });
+      }
+    }
+    window.refreshAll = refreshAll;
+
+    // build legend & part inputs once
+    buildSeriesLegend();
+
+    // also refresh when active profile pills rerender
+    const _origRenderProfilePills = window.renderProfilePills;
+    window.renderProfilePills = function(){ _origRenderProfilePills(); refreshAll(); };
+
+    // init
+    setTimeout(()=>{
+      const di = $('#mi_date_in'); if(di) di.value = new Date().toISOString().slice(0,10);
+      refreshAll();
+    },0);
+
+  })();
+  </script>
 </body>
 </html>
