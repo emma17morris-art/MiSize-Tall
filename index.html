@@ -5,101 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MiSize Prototype</title>
   <style>
-  :root{
-    --brand:#8A2BE2;--brand-text:#fff;
-    --bg:#0b0d12;--card:#111520;
-    --border:#1b2230;--text:#eef1f5;--muted:#aab3c5;
-    --radius:14px;--font:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-  }
-  *{box-sizing:border-box;}
-  body{margin:0;font-family:var(--font);background:var(--bg);color:var(--text);}
-
-  /* Top Bar */
-  .topbar{position:sticky; top:0; z-index:100; backdrop-filter:saturate(120%) blur(8px);
-    background:rgba(15,19,26,.75); border-bottom:1px solid var(--border); padding:10px 12px;}
-  .topbar-inner{display:flex; gap:12px; align-items:center; flex-wrap:wrap; max-width:1200px; margin:0 auto;}
-  .topbar h1{font-size:16px; margin:0 8px 0 0; font-weight:800; letter-spacing:.2px; color:#cfe0ff;}
-  .pill-row{display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
-  .profile-pill, .unit-pill, .pt-pill{
-    border:1px solid rgba(255,255,255,.12);
-    background:#151a3a; color:#c9d3ea; font-weight:700; font-size:12px;
-    padding:8px 12px; border-radius:999px; cursor:pointer; white-space:nowrap;
-  }
-  .profile-pill.active, .unit-pill.active, .pt-pill.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8;}
-  .profile-pill.add{background:transparent;border-style:dashed;opacity:.9;}
-/* Top Bar – make smaller */
-.topbar{padding:6px 10px;}
-.topbar h1{font-size:14px;}
-
-/* Profile screen: compact fields */
-#profile select,
-#profile input{
-  padding:10px;
-  font-size:14px;
-  border-radius:10px;
+:root{
+  --bg:#0f131a; --card:#151a22; --border:#243048; --muted:#aab3c5;
 }
-  /* Screens & layout */
-  .screen{display:none;padding:20px 20px 90px;background:#2b1055;min-height:100vh;}
-  .screen.active{display:block;}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:18px;}
-  .row{display:grid;grid-template-columns:1fr;gap:12px;}
-  @media(min-width:760px){.row.two{grid-template-columns:1fr 1fr}.row.three{grid-template-columns:repeat(3,1fr)}}
-  label{font-size:14px;color:var(--muted);}
-  select,input{width:100%;padding:12px;border-radius:10px;border:1px solid #243048;background:#0f131a;color:#eef1f5;}
-  .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px;}
-  .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#172034;border:1px solid #223049;font-size:12px;color:#c9d3ea;}
-  .big{font-size:28px;font-weight:800;margin:0 0 6px;}
-  .note{font-size:13px;opacity:.85;}
-  .divider{height:1px;background:var(--border);margin:14px 0;}
-  .success{color:#8ee0b2}.warning{color:#ffd27a}.danger{color:#ff9a9a}
+body{margin:0;font-family:sans-serif;background:var(--bg);color:#eef1f5;}
+h1,h2,h3{margin:0;font-weight:700;}
+.big{font-size:18px;}
+.note{font-size:13px;color:var(--muted);}
+.screen{display:none;padding:18px;max-width:900px;margin:0 auto;}
+.screen.active{display:block;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:18px;}
+.row{display:grid;grid-gap:12px;}
+.row.two{grid-template-columns:repeat(2,1fr);}
+.row.three{grid-template-columns:repeat(3,1fr);}
+label{font-size:13px;color:var(--muted);}
+select,input{width:100%;padding:8px;border-radius:10px;border:1px solid #243048;background:#0f131a;color:#eef1f5;}
+button{cursor:pointer}
+button.pill{padding:6px 12px;border-radius:16px;border:1px solid #243048;background:#1d2430;color:#eef1f5;}
+.pill-row{display:flex;flex-wrap:wrap;gap:8px;}
+.profile-pill{padding:4px 10px;border-radius:14px;border:1px solid #243048;background:#1d2430;color:#eef1f5;}
+.profile-pill.active{background:#5da8ff;color:#fff;}
+.profile-pill.add{border-style:dashed;}
 
-  /* --- MiStats styles --- */
-  .mi-bar{height:12px;background:#172034;border:1px solid #223049;border-radius:999px;overflow:hidden}
-  .mi-bar>div{height:100%;width:0;background:#1d4ed8;transition:width .3s}
-  .mi-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
-  .mi-row:last-child{border-bottom:0}
-  .mi-row .delta.up{color:#ff9a9a}.mi-row .delta.down{color:#8ee0b2}
-  .mi-tab.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
-  .mi-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}
-  .mi-tab{cursor:pointer}
-  .mi-view{display:none}
-  .mi-view.active{display:block}
-  .mi-tiles{display:grid;grid-template-columns:1fr;gap:12px}
-  .mi-tile{background:#0f131a;border:1px solid #223049;border-radius:12px;padding:12px}
-  .mi-l{font-size:12px;color:var(--muted);letter-spacing:.3px}
-  .mi-v{font-size:28px;font-weight:900;line-height:1.1}
-  .mi-sub{font-size:12px;opacity:.85;margin-top:2px}
-  .mi-bar{height:10px;border-radius:8px;background:#172034;border:1px solid #223049;overflow:hidden}
-  .mi-bar > b{display:block;height:100%;width:0;background:#1d4ed8}
-  .mi-list .row{display:flex;align-items:center;justify-content:space-between}
-  .mi-kv{display:flex;gap:8px;align-items:baseline}
-  .mi-kv .k{color:var(--muted);font-size:12px}
-  .mi-kv .v{font-weight:700}
-  .mi-canvas{width:100%;height:280px;display:block}
-  .mi-legend{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
-  .mi-legend .pill input{margin-right:6px}
-  @media(min-width:760px){.mi-tiles{grid-template-columns:repeat(3,1fr)}}
+/* Topbar smaller */
+.topbar{position:sticky;top:0;z-index:100;backdrop-filter:saturate(120%) blur(8px);background:rgba(15,19,26,.75);border-bottom:1px solid var(--border);padding:6px 10px;}
+.topbar-inner{display:flex;gap:8px;align-items:center;flex-wrap:wrap;max-width:1200px;margin:0 auto;}
+.topbar h1{font-size:14px;margin:0 6px 0 0;font-weight:800;letter-spacing:.2px;color:#cfe0ff;}
 
-  /* Splash */
-  #splash{display:none;padding:0;}
-  #splash.active{display:block;}
-  .splash-stage{position:relative;height:100vh;width:100%;display:flex;align-items:center;justify-content:center;background:#2b1055;overflow:hidden;}
-  .flash-logo-wrap{line-height:0;width:min(75vw,560px);aspect-ratio:1/1;background:center/contain no-repeat url('MiSize.png');margin:0 auto;opacity:1;z-index:1;}
+/* Bottom tabs */
+.bottom-tabs{position:sticky;bottom:0;display:flex;justify-content:space-around;background:#151a22;border-top:1px solid var(--border);}
+.bottom-tabs .tab{flex:1;padding:10px;border:none;background:none;color:#eef1f5;}
+.bottom-tabs .tab.active{background:#243048;}
 
-  /* Hubs & tabs */
-  .tiles{display:grid;grid-template-columns:1fr;grid-template-rows:repeat(4,1fr);gap:16px;height:calc(100vh - 210px);margin-top:20px;}
-  .tiles button{font-size:28px;font-weight:800;border-radius:14px;border:0;color:#fff;cursor:pointer;width:100%;height:100%;background:#1d4ed8;}
-  .hub{display:grid;grid-template-rows:repeat(5,1fr);grid-template-columns:1fr;gap:16px;height:calc(100vh - 210px);margin-top:20px;}
-  .hub .bigbtn{width:100%;height:100%;font-size:26px;font-weight:800;display:flex;align-items:center;justify-content:center;border-radius:14px;border:0;background:#1d4ed8;color:#fff;cursor:pointer;}
-  .bottom-tabs{position:fixed;left:0;right:0;bottom:0;background:#0f131a;border-top:1px solid var(--border);display:flex;z-index:30;}
-  .bottom-tabs .tab{flex:1;padding:12px 8px;border:0;background:transparent;color:#cfd7ea;font-weight:700;cursor:pointer;}
-  .bottom-tabs .tab.active{color:var(--brand);}
-  #tab_home.active{color:#8A2BE2;}
-  .backbtn{display:none !important;} /* removed back button as requested */
-  .pt-pills{display:flex;gap:8px;flex-wrap:wrap;}
+/* Profile tweaks */
+#profile select,#profile input{padding:10px;font-size:14px;border-radius:10px;}
+@media (min-width:760px){
+  #profile .row.two{grid-template-columns:repeat(3,1fr);}
+}
 
-  .spacer-top{height:8px;}
-  </style>
+/* MiStats graph */
+#mi_canvas{width:100%;height:220px;background:#0f131a;border:1px solid var(--border);border-radius:8px;}
+.mi-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);}
+.mi-row:last-child{border-bottom:none;}
+.delta.down{color:#5da8ff;}
+.delta.up{color:#ff9a9a;}
+</style>
 </head>
 <body>
   <!-- Top Bar -->
