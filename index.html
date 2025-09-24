@@ -1068,6 +1068,41 @@
       </div>
       
       <div class="brand-grid" id="my-sizes-grid"></div>
+      const UK_BRANDS = [
+  // name, display size (example), note
+  { brand: 'ASOS', size: '10', cat: "Women's Jeans" },
+  { brand: 'Zara', size: 'S', cat: "Women's Dresses" },
+  { brand: 'H&M', size: '38', cat: "Women's Tops" },
+  { brand: 'Next', size: '10', cat: "Women's Jeans" },
+  { brand: 'Marks & Spencer', size: '10', cat: "Women's Dresses" },
+  { brand: 'Primark', size: '10', cat: "Women's Tops" },
+  { brand: 'Topshop', size: '28', cat: "Women's Jeans" },
+  { brand: 'Uniqlo', size: 'S', cat: "Women's Tops" },
+  { brand: 'River Island', size: '10', cat: "Women's Dresses" },
+  { brand: 'New Look', size: '10', cat: "Women's Jeans" },
+  { brand: 'Boden', size: '10', cat: "Women's Dresses" },
+  { brand: 'Superdry', size: 'S', cat: "Women's Tops" }
+];
+
+function populateMySizesGrid() {
+  const grid = document.getElementById('my-sizes-grid');
+  const filter = document.getElementById('mysizes-category')?.value || '';
+  if (!grid) return;
+
+  const items = UK_BRANDS
+    .filter(b => !filter || b.cat === filter)
+    .map(b => `
+      <div class="brand-card">
+        <div class="brand-name">${b.brand}</div>
+        <div class="brand-size">Size ${b.size}</div>
+        <p style="font-size:14px;color:var(--muted);margin-top:8px;">${b.cat} - Standard Fit</p>
+      </div>
+    `).join('');
+
+  grid.innerHTML = items || '<p style="color:var(--muted);">No matches for this category.</p>';
+}
+
+document.getElementById('mysizes-category')?.addEventListener('change', populateMySizesGrid);
         <div class="brand-card">
           <div class="brand-name">ASOS</div>
           <div class="brand-size">Size 10</div>
