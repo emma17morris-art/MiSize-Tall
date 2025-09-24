@@ -592,6 +592,13 @@
       padding: 24px;
       border: 2px solid var(--border);
       margin-bottom: 24px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .app-guide:hover {
+      border-color: var(--brand);
+      transform: translateY(-2px);
     }
 
     .guide-section {
@@ -704,27 +711,6 @@
       border-color: var(--brand);
     }
 
-    .body-diagram {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 20px 0;
-    }
-
-    .body-sketch {
-      position: relative;
-      width: 200px;
-      height: 400px;
-      background: linear-gradient(to bottom, #4a5568, #2d3748);
-      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-      margin: 20px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
     .measurement-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -771,6 +757,7 @@
       margin-bottom: 16px;
       cursor: pointer;
       transition: all 0.3s;
+      position: relative;
     }
 
     .profile-card:hover {
@@ -791,6 +778,94 @@
     .profile-details {
       font-size: 14px;
       color: var(--muted);
+    }
+
+    .profile-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--card);
+      border: 2px solid var(--brand);
+      border-radius: 12px;
+      z-index: 10;
+      display: none;
+    }
+
+    .profile-dropdown.show {
+      display: block;
+    }
+
+    .profile-option {
+      padding: 16px 20px;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+    .profile-option:last-child {
+      border-bottom: none;
+    }
+
+    .profile-option:hover {
+      background: rgba(138, 43, 226, 0.1);
+    }
+
+    .guide-tile {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 24px;
+      border: 2px solid var(--border);
+      margin-bottom: 24px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .guide-tile:hover {
+      border-color: var(--brand);
+      transform: translateY(-2px);
+    }
+
+    .guide-tile h4 {
+      color: var(--brand);
+      font-size: 18px;
+      font-weight: 800;
+      margin: 0 0 12px;
+    }
+
+    .guide-content {
+      display: none;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .guide-content.show {
+      display: block;
+    }
+
+    .measurement-diagram {
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 16px 0;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+
+    .measurement-list {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0;
+    }
+
+    .measurement-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .measurement-list li:last-child {
+      border-bottom: none;
     }
   </style>
 </head>
@@ -851,171 +926,203 @@
   <!-- Help Screen -->
   <div id="help" class="screen">
     <div class="content-container">
+      <div class="hub-header">
+        <h2 class="hub-title">Help & Support</h2>
+        <p class="hub-subtitle">Get started and find answers to your questions</p>
+      </div>
+
+      <p style="text-align: center; margin-bottom: 32px; color: var(--muted);">
+        👋 <strong>New to MiSize?</strong> Go to Settings first to create your profile, then follow the guidance below.
+      </p>
       
-      <!-- How to Use the App Section -->
-      <div class="app-guide">
+      <!-- How to Use MiSize Tile -->
+      <div class="guide-tile" onclick="toggleGuide('app-guide')">
         <h4>📱 How to Use MiSize - Complete Guide</h4>
+        <p style="margin: 0; color: var(--muted);">Step-by-step instructions for using all features</p>
         
-        <div class="guide-section">
-          <h5><span class="step-number">1</span>Getting Started</h5>
-          <p>Welcome to MiSize! Start by selecting your region (UK, EU, US, CA) from the home screen to access region-specific sizing and brands.</p>
-          
-          <div class="highlight-tip">
-            <p><strong>💡 Tip:</strong> Choose the region where you shop most frequently for the most accurate sizing information.</p>
+        <div id="app-guide" class="guide-content">
+          <div class="guide-section">
+            <h5><span class="step-number">1</span>Getting Started</h5>
+            <p>Welcome to MiSize! Start by selecting your region (UK, EU, US, CA) from the home screen to access region-specific sizing and brands.</p>
+            
+            <div class="highlight-tip">
+              <p><strong>💡 Tip:</strong> Choose the region where you shop most frequently for the most accurate sizing information.</p>
+            </div>
+            
+            <h5><span class="step-number">2</span>Setting Your Body Type & Units</h5>
+            <p>At the top of your screen, you'll see two pill groups:</p>
+            <ul>
+              <li><strong>Body Type:</strong> Select Standard, Petite, Tall, or Plus to filter results for your body type</li>
+              <li><strong>Units:</strong> Choose between cm or inches for measurements</li>
+            </ul>
           </div>
-          
-          <h5><span class="step-number">2</span>Setting Your Body Type & Units</h5>
-          <p>At the top of your screen, you'll see two pill groups:</p>
-          <ul>
-            <li><strong>Body Type:</strong> Select Standard, Petite, Tall, or Plus to filter results for your body type</li>
-            <li><strong>Units:</strong> Choose between cm or inches for measurements</li>
-          </ul>
-        </div>
 
-        <div class="guide-section">
-          <h5><span class="step-number">3</span>Using Size Finder</h5>
-          <p>Find your perfect size across different brands:</p>
-          <ul>
-            <li>Select a brand from our extensive list of 20+ popular retailers</li>
-            <li>Choose your category (Jeans, Dresses, Tops, Shoes)</li>
-            <li>Pick your fit preference (Standard, Snug, or Relaxed)</li>
-            <li>Tap "Get My Size" to see your recommended size</li>
-            <li>Use "Save to History" to keep track of your searches</li>
-          </ul>
-          
-          <div class="highlight-tip">
-            <p><strong>🔍 Pro Tip:</strong> The app considers your body type and measurements to provide the most accurate size recommendations.</p>
+          <div class="guide-section">
+            <h5><span class="step-number">3</span>Using Size Finder</h5>
+            <p>Find your perfect size across different brands:</p>
+            <ul>
+              <li>Select a brand from our extensive list of 20+ popular retailers</li>
+              <li>Choose your category (Jeans, Dresses, Tops, Shoes)</li>
+              <li>Pick your fit preference (Standard, Snug, or Relaxed)</li>
+              <li>Tap "Get My Size" to see your recommended size</li>
+              <li>Use "Save to History" to keep track of your searches</li>
+            </ul>
+            
+            <div class="highlight-tip">
+              <p><strong>🔍 Pro Tip:</strong> The app considers your body type and measurements to provide the most accurate size recommendations.</p>
+            </div>
           </div>
-        </div>
 
-        <div class="guide-section">
-          <h5><span class="step-number">4</span>My Sizes Dashboard</h5>
-          <p>View all your sizes in one place:</p>
-          <ul>
-            <li>Automatically filtered by your selected body type</li>
-            <li>Only shows brands that support your body type</li>
-            <li>Filter by category to find specific items quickly</li>
-            <li>See your recommended size for each brand and category</li>
-          </ul>
-        </div>
-
-        <div class="guide-section">
-          <h5><span class="step-number">5</span>Brand Notes</h5>
-          <p>Access detailed information about each brand:</p>
-          <ul>
-            <li>Sizing systems used (UK, EU, US)</li>
-            <li>Which body types they support</li>
-            <li>Available categories and product ranges</li>
-            <li>Special sizing notes and fit recommendations</li>
-          </ul>
-        </div>
-
-        <div class="guide-section">
-          <h5><span class="step-number">6</span>Size Converters</h5>
-          <p>Convert sizes between different regions:</p>
-          <ul>
-            <li><strong>Dress Sizes:</strong> UK ↔ US ↔ EU ↔ CA conversion</li>
-            <li><strong>Jean Sizes:</strong> Convert between different sizing systems</li>
-            <li><strong>Top Sizes:</strong> Blouses, shirts, and casual tops</li>
-            <li><strong>Shoe Sizes:</strong> International shoe size conversion</li>
-            <li><strong>Bra Helper:</strong> Find your perfect bra size across regions</li>
-          </ul>
-        </div>
-
-        <div class="guide-section">
-          <h5><span class="step-number">7</span>MiStats Body Tracker</h5>
-          <p>Track your body measurements and progress:</p>
-          
-          <h6>Current Progress Tab:</h6>
-          <ul>
-            <li>View your starting, current, and target measurements</li>
-            <li>Track progress with visual progress bars</li>
-            <li>Monitor body fat percentage, weight lost, and remaining goals</li>
-            <li>Keep an eye on your BMI status</li>
-          </ul>
-
-          <h6>Graph Tab:</h6>
-          <ul>
-            <li>Visualize your progress over time</li>
-            <li>Switch between weekly, monthly, and yearly views</li>
-            <li>Zoom into specific time periods</li>
-            <li>Toggle between graph and table view</li>
-          </ul>
-
-          <h6>History Tab:</h6>
-          <ul>
-            <li>Complete log of all your recorded measurements</li>
-            <li>Organized by date for easy tracking</li>
-            <li>Include weight, body measurements, and sizing data</li>
-          </ul>
-        </div>
-
-        <div class="guide-section">
-          <h5><span class="step-number">8</span>Navigation Tips</h5>
-          <p>Getting around the app efficiently:</p>
-          <ul>
-            <li><strong>Bottom Navigation:</strong> Use Home, MiStats, Settings, Help, and Back buttons</li>
-            <li><strong>Back Button:</strong> Returns you to your previous screen</li>
-            <li><strong>Home Button:</strong> Always takes you to the main region selection</li>
-            <li><strong>Regional Hubs:</strong> Each region has its own specialized tools and data</li>
-          </ul>
-          
-          <div class="highlight-tip">
-            <p><strong>⚡ Quick Tip:</strong> You can switch between body types and units at any time using the top bar controls - your preferences are saved automatically!</p>
+          <div class="guide-section">
+            <h5><span class="step-number">4</span>My Sizes Dashboard</h5>
+            <p>View all your sizes in one place:</p>
+            <ul>
+              <li>Automatically filtered by your selected body type</li>
+              <li>Only shows brands that support your body type</li>
+              <li>Filter by category to find specific items quickly</li>
+              <li>See your recommended size for each brand and category</li>
+            </ul>
           </div>
-        </div>
 
-        <div class="guide-section">
-          <h5><span class="step-number">9</span>Best Practices</h5>
-          <p>Get the most out of MiSize:</p>
-          <ul>
-            <li>Update your measurements regularly for accurate sizing</li>
-            <li>Save interesting size searches to build your personal database</li>
-            <li>Check brand notes before shopping for sizing insights</li>
-            <li>Use converters when shopping internationally</li>
-            <li>Set realistic goals in your body tracker</li>
-          </ul>
-        </div>
+          <div class="guide-section">
+            <h5><span class="step-number">5</span>Brand Notes</h5>
+            <p>Access detailed information about each brand:</p>
+            <ul>
+              <li>Sizing systems used (UK, EU, US)</li>
+              <li>Which body types they support</li>
+              <li>Available categories and product ranges</li>
+              <li>Special sizing notes and fit recommendations</li>
+            </ul>
+          </div>
 
-        <div class="guide-section">
-          <h5><span class="step-number">10</span>Troubleshooting</h5>
-          <p>Common questions and solutions:</p>
-          <ul>
-            <li><strong>Size seems wrong?</strong> Check your body type setting and brand notes</li>
-            <li><strong>Missing measurements?</strong> Use our measurement guides in the Help section</li>
-            <li><strong>Can't find a brand?</strong> Check if you're in the right regional hub</li>
-            <li><strong>Progress not showing?</strong> Ensure you're logging measurements regularly</li>
-          </ul>
+          <div class="guide-section">
+            <h5><span class="step-number">6</span>Size Converters</h5>
+            <p>Convert sizes between different regions:</p>
+            <ul>
+              <li><strong>Dress Sizes:</strong> UK ↔ US ↔ EU ↔ CA conversion</li>
+              <li><strong>Jean Sizes:</strong> Convert between different sizing systems</li>
+              <li><strong>Top Sizes:</strong> Blouses, shirts, and casual tops</li>
+              <li><strong>Shoe Sizes:</strong> International shoe size conversion</li>
+              <li><strong>Bra Helper:</strong> Find your perfect bra size across regions</li>
+            </ul>
+          </div>
+
+          <div class="guide-section">
+            <h5><span class="step-number">7</span>MiStats Body Tracker</h5>
+            <p>Track your body measurements and progress:</p>
+            
+            <h6>Current Progress Tab:</h6>
+            <ul>
+              <li>View your starting, current, and target measurements</li>
+              <li>Track progress with visual progress bars</li>
+              <li>Monitor body fat percentage, weight lost, and remaining goals</li>
+              <li>Keep an eye on your BMI status</li>
+            </ul>
+
+            <h6>Graph Tab:</h6>
+            <ul>
+              <li>Visualize your progress over time</li>
+              <li>Switch between weekly, monthly, and yearly views</li>
+              <li>Zoom into specific time periods</li>
+              <li>Toggle between graph and table view</li>
+            </ul>
+
+            <h6>History Tab:</h6>
+            <ul>
+              <li>Complete log of all your recorded measurements</li>
+              <li>Organized by date for easy tracking</li>
+              <li>Include weight, body measurements, and sizing data</li>
+            </ul>
+          </div>
+
+          <div class="guide-section">
+            <h5><span class="step-number">8</span>Navigation Tips</h5>
+            <p>Getting around the app efficiently:</p>
+            <ul>
+              <li><strong>Bottom Navigation:</strong> Use Home, MiStats, Settings, Help, and Back buttons</li>
+              <li><strong>Back Button:</strong> Returns you to your previous screen</li>
+              <li><strong>Home Button:</strong> Always takes you to the main region selection</li>
+              <li><strong>Regional Hubs:</strong> Each region has its own specialized tools and data</li>
+            </ul>
+            
+            <div class="highlight-tip">
+              <p><strong>⚡ Quick Tip:</strong> You can switch between body types and units at any time using the top bar controls - your preferences are saved automatically!</p>
+            </div>
+          </div>
+
+          <div class="guide-section">
+            <h5><span class="step-number">9</span>Best Practices</h5>
+            <p>Get the most out of MiSize:</p>
+            <ul>
+              <li>Update your measurements regularly for accurate sizing</li>
+              <li>Save interesting size searches to build your personal database</li>
+              <li>Check brand notes before shopping for sizing insights</li>
+              <li>Use converters when shopping internationally</li>
+              <li>Set realistic goals in your body tracker</li>
+            </ul>
+          </div>
+
+          <div class="guide-section">
+            <h5><span class="step-number">10</span>Troubleshooting</h5>
+            <p>Common questions and solutions:</p>
+            <ul>
+              <li><strong>Size seems wrong?</strong> Check your body type setting and brand notes</li>
+              <li><strong>Missing measurements?</strong> Use our measurement guides in the Help section</li>
+              <li><strong>Can't find a brand?</strong> Check if you're in the right regional hub</li>
+              <li><strong>Progress not showing?</strong> Ensure you're logging measurements regularly</li>
+            </ul>
+          </div>
         </div>
       </div>
 
+      <!-- Report Issues Tile -->
+      <div class="guide-tile" onclick="reportIssue()">
+        <h4>🐛 Report Issues & Feedback</h4>
+        <p style="margin: 0; color: var(--muted);">Found wrong sizes, app bugs, or have suggestions? Let us know!</p>
+      </div>
+
       <!-- Measurement Guides Section -->
-      <h3>Measurement Guides</h3>
+      <h3 style="text-align: center; margin: 32px 0 24px;">Measurement Guides</h3>
+      
       <div class="help-grid">
-        <div class="help-card">
+        <div class="help-card" onclick="showMeasurementGuide('womens')">
           <h4>Women's Measurements</h4>
           <p>Complete guide for taking accurate body measurements</p>
         </div>
-        <div class="help-card">
+        <div class="help-card" onclick="showMeasurementGuide('mens')">
           <h4>Men's Measurements</h4>
           <p>Essential measurements for men's clothing</p>
         </div>
-        <div class="help-card">
+        <div class="help-card" onclick="showMeasurementGuide('childrens')">
           <h4>Children's Guide</h4>
           <p>How to measure children and teens</p>
         </div>
-        <div class="help-card">
+        <div class="help-card" onclick="showMeasurementGuide('foot')">
           <h4>Foot Measuring</h4>
           <p>Get accurate foot measurements for shoes</p>
         </div>
-        <div class="help-card">
+        <div class="help-card" onclick="showMeasurementGuide('inseam')">
           <h4>Inseam Guide</h4>
           <p>Measure inseam length correctly</p>
         </div>
-        <div class="help-card">
+        <div class="help-card" onclick="showMeasurementGuide('special')">
           <h4>Special Occasion</h4>
           <p>Detailed measurements for formal wear</p>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Measurement Guide Screens -->
+  <div id="measurement-guide" class="screen">
+    <div class="content-container">
+      <div class="hub-header">
+        <h2 class="hub-title" id="guide-title">Measurement Guide</h2>
+        <p class="hub-subtitle" id="guide-subtitle">Follow these steps for accurate measurements</p>
+      </div>
+      
+      <div id="guide-content">
+        <!-- Content will be populated by JavaScript -->
       </div>
     </div>
   </div>
@@ -1043,6 +1150,93 @@
           History
         </div>
         <div class="hub-tile" onclick="goToScreen('uk-converters')">
+          Converters
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EU Hub -->
+  <div id="eu-hub" class="screen">
+    <div class="hub-container">
+      <div class="hub-header">
+        <div class="hub-flag">🇪🇺</div>
+        <h2 class="hub-title">EU Hub</h2>
+        <p class="hub-subtitle">European sizing & tracking</p>
+      </div>
+      
+      <div class="hub-tiles-5">
+        <div class="hub-tile" onclick="goToScreen('eu-sizefinder')">
+          Size Finder
+        </div>
+        <div class="hub-tile" onclick="goToScreen('eu-mysizes')">
+          My Sizes
+        </div>
+        <div class="hub-tile" onclick="goToScreen('eu-brandnotes')">
+          Brand Notes
+        </div>
+        <div class="hub-tile" onclick="goToScreen('eu-history')">
+          History
+        </div>
+        <div class="hub-tile" onclick="goToScreen('eu-converters')">
+          Converters
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- US Hub -->
+  <div id="us-hub" class="screen">
+    <div class="hub-container">
+      <div class="hub-header">
+        <div class="hub-flag">🇺🇸</div>
+        <h2 class="hub-title">US Hub</h2>
+        <p class="hub-subtitle">United States sizing & tracking</p>
+      </div>
+      
+      <div class="hub-tiles-5">
+        <div class="hub-tile" onclick="goToScreen('us-sizefinder')">
+          Size Finder
+        </div>
+        <div class="hub-tile" onclick="goToScreen('us-mysizes')">
+          My Sizes
+        </div>
+        <div class="hub-tile" onclick="goToScreen('us-brandnotes')">
+          Brand Notes
+        </div>
+        <div class="hub-tile" onclick="goToScreen('us-history')">
+          History
+        </div>
+        <div class="hub-tile" onclick="goToScreen('us-converters')">
+          Converters
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CA Hub -->
+  <div id="ca-hub" class="screen">
+    <div class="hub-container">
+      <div class="hub-header">
+        <div class="hub-flag">🇨🇦</div>
+        <h2 class="hub-title">Canada Hub</h2>
+        <p class="hub-subtitle">Canadian sizing & tracking</p>
+      </div>
+      
+      <div class="hub-tiles-5">
+        <div class="hub-tile" onclick="goToScreen('ca-sizefinder')">
+          Size Finder
+        </div>
+        <div class="hub-tile" onclick="goToScreen('ca-mysizes')">
+          My Sizes
+        </div>
+        <div class="hub-tile" onclick="goToScreen('ca-brandnotes')">
+          Brand Notes
+        </div>
+        <div class="hub-tile" onclick="goToScreen('ca-history')">
+          History
+        </div>
+        <div class="hub-tile" onclick="goToScreen('ca-converters')">
           Converters
         </div>
       </div>
@@ -1262,24 +1456,26 @@
         <h3>👤 Profiles</h3>
         <p style="margin-bottom: 16px; color: var(--muted);">Create and manage multiple user profiles</p>
         
-        <div class="profile-card active">
-          <div class="profile-name">Emma Thompson</div>
-          <div class="profile-details">Standard • 5'6" • UK Sizes • Active Profile</div>
-        </div>
-        
-        <div class="profile-card">
-          <div class="profile-name">+ Add New Profile</div>
-          <div class="profile-details">Create a new profile for family member or friend</div>
+        <div class="profile-card active" onclick="toggleProfileDropdown()">
+          <div class="profile-name" id="active-profile-name">Emma Thompson</div>
+          <div class="profile-details" id="active-profile-details">Standard • 5'6" • UK Sizes • Active Profile</div>
+          
+          <div class="profile-dropdown" id="profile-dropdown">
+            <div class="profile-option" onclick="switchProfile('Emma Thompson', 'Standard • 5\'6&quot; • UK Sizes • Active Profile')">Emma Thompson</div>
+            <div class="profile-option" onclick="switchProfile('John Doe', 'Standard • 6\'0&quot; • UK Sizes')">John Doe</div>
+            <div class="profile-option" onclick="switchProfile('Sarah Wilson', 'Petite • 5\'2&quot; • UK Sizes')">Sarah Wilson</div>
+            <div class="profile-option" onclick="createNewProfile()">+ Create New Profile</div>
+          </div>
         </div>
 
         <div class="form-group" style="margin-top: 20px;">
           <label class="form-label">Profile Name</label>
-          <input type="text" class="form-input" placeholder="Enter profile name" />
+          <input type="text" class="form-input" id="new-profile-name" placeholder="Enter profile name" />
         </div>
         
         <div class="form-group">
           <label class="form-label">Body Type</label>
-          <select class="form-select">
+          <select class="form-select" id="new-profile-body-type">
             <option>Standard</option>
             <option>Petite</option>
             <option>Tall</option>
@@ -1289,24 +1485,16 @@
 
         <div class="form-group">
           <label class="form-label">Height</label>
-          <input type="text" class="form-input" placeholder="5'6&quot; or 168cm" />
+          <input type="text" class="form-input" id="new-profile-height" placeholder="5'6&quot; or 168cm" />
         </div>
 
-        <button class="btn btn-primary" style="width: 100%;">Save Profile</button>
+        <button class="btn btn-primary" style="width: 100%;" onclick="saveProfile()">Save Profile</button>
       </div>
 
       <!-- Measurements Section -->
       <div class="settings-section">
         <h3>📏 Measurements & Weights</h3>
         <p style="margin-bottom: 16px; color: var(--muted);">Track your body measurements for accurate sizing</p>
-        
-        <div class="body-diagram">
-          <div class="body-sketch">
-            Human Body Diagram
-            <br>
-            <small>(Measurement points)</small>
-          </div>
-        </div>
 
         <div class="measurement-grid">
           <div class="measurement-bubble">
@@ -1491,55 +1679,109 @@
     </div>
   </div>
 
-  <!-- Other region hubs (simplified) -->
-  <div id="eu-hub" class="screen">
-    <div class="hub-container">
-      <div class="hub-header">
-        <div class="hub-flag">🇪🇺</div>
-        <h2 class="hub-title">EU Hub</h2>
-        <p class="hub-subtitle">European sizing & tracking</p>
-      </div>
-      
-      <div class="hub-tiles">
-        <div class="hub-tile">Size Finder</div>
-        <div class="hub-tile">MiStats Tracker</div>
-        <div class="hub-tile">My Profile</div>
-        <div class="hub-tile">Settings</div>
-      </div>
+  <!-- Placeholder screens for other regions -->
+  <div id="eu-sizefinder" class="screen">
+    <div class="content-container">
+      <h2>🇪🇺 EU Size Finder</h2>
+      <p>Size finder functionality coming soon...</p>
     </div>
   </div>
 
-  <div id="us-hub" class="screen">
-    <div class="hub-container">
-      <div class="hub-header">
-        <div class="hub-flag">🇺🇸</div>
-        <h2 class="hub-title">US Hub</h2>
-        <p class="hub-subtitle">United States sizing & tracking</p>
-      </div>
-      
-      <div class="hub-tiles">
-        <div class="hub-tile">Size Finder</div>
-        <div class="hub-tile">MiStats Tracker</div>
-        <div class="hub-tile">My Profile</div>
-        <div class="hub-tile">Settings</div>
-      </div>
+  <div id="eu-mysizes" class="screen">
+    <div class="content-container">
+      <h2>🇪🇺 EU My Sizes</h2>
+      <p>My sizes dashboard coming soon...</p>
     </div>
   </div>
 
-  <div id="ca-hub" class="screen">
-    <div class="hub-container">
-      <div class="hub-header">
-        <div class="hub-flag">🇨🇦</div>
-        <h2 class="hub-title">Canada Hub</h2>
-        <p class="hub-subtitle">Canadian sizing & tracking</p>
-      </div>
-      
-      <div class="hub-tiles">
-        <div class="hub-tile">Size Finder</div>
-        <div class="hub-tile">MiStats Tracker</div>
-        <div class="hub-tile">My Profile</div>
-        <div class="hub-tile">Settings</div>
-      </div>
+  <div id="eu-brandnotes" class="screen">
+    <div class="content-container">
+      <h2>🇪🇺 EU Brand Notes</h2>
+      <p>Brand information coming soon...</p>
+    </div>
+  </div>
+
+  <div id="eu-history" class="screen">
+    <div class="content-container">
+      <h2>🇪🇺 EU History</h2>
+      <p>Search history coming soon...</p>
+    </div>
+  </div>
+
+  <div id="eu-converters" class="screen">
+    <div class="content-container">
+      <h2>🇪🇺 EU Converters</h2>
+      <p>Size conversion tools coming soon...</p>
+    </div>
+  </div>
+
+  <div id="us-sizefinder" class="screen">
+    <div class="content-container">
+      <h2>🇺🇸 US Size Finder</h2>
+      <p>Size finder functionality coming soon...</p>
+    </div>
+  </div>
+
+  <div id="us-mysizes" class="screen">
+    <div class="content-container">
+      <h2>🇺🇸 US My Sizes</h2>
+      <p>My sizes dashboard coming soon...</p>
+    </div>
+  </div>
+
+  <div id="us-brandnotes" class="screen">
+    <div class="content-container">
+      <h2>🇺🇸 US Brand Notes</h2>
+      <p>Brand information coming soon...</p>
+    </div>
+  </div>
+
+  <div id="us-history" class="screen">
+    <div class="content-container">
+      <h2>🇺🇸 US History</h2>
+      <p>Search history coming soon...</p>
+    </div>
+  </div>
+
+  <div id="us-converters" class="screen">
+    <div class="content-container">
+      <h2>🇺🇸 US Converters</h2>
+      <p>Size conversion tools coming soon...</p>
+    </div>
+  </div>
+
+  <div id="ca-sizefinder" class="screen">
+    <div class="content-container">
+      <h2>🇨🇦 CA Size Finder</h2>
+      <p>Size finder functionality coming soon...</p>
+    </div>
+  </div>
+
+  <div id="ca-mysizes" class="screen">
+    <div class="content-container">
+      <h2>🇨🇦 CA My Sizes</h2>
+      <p>My sizes dashboard coming soon...</p>
+    </div>
+  </div>
+
+  <div id="ca-brandnotes" class="screen">
+    <div class="content-container">
+      <h2>🇨🇦 CA Brand Notes</h2>
+      <p>Brand information coming soon...</p>
+    </div>
+  </div>
+
+  <div id="ca-history" class="screen">
+    <div class="content-container">
+      <h2>🇨🇦 CA History</h2>
+      <p>Search history coming soon...</p>
+    </div>
+  </div>
+
+  <div id="ca-converters" class="screen">
+    <div class="content-container">
+      <h2>🇨🇦 CA Converters</h2>
+      <p>Size conversion tools coming soon...</p>
     </div>
   </div>
 
@@ -1579,6 +1821,11 @@
     let navigationHistory = [];
     let selectedBodyType = 'standard';
     let selectedUnit = 'cm';
+    let savedProfiles = [
+      { name: 'Emma Thompson', details: 'Standard • 5\'6" • UK Sizes • Active Profile' },
+      { name: 'John Doe', details: 'Standard • 6\'0" • UK Sizes' },
+      { name: 'Sarah Wilson', details: 'Petite • 5\'2" • UK Sizes' }
+    ];
     
     function enterHub(region) {
       const hubScreen = region.toLowerCase() + '-hub';
@@ -1688,48 +1935,134 @@
     function openConverter(type) {
       alert(`Opening ${type} size converter...`);
     }
-    
-    // Body type selection
-    document.querySelectorAll('[data-type]').forEach(pill => {
-      pill.addEventListener('click', (e) => {
-        document.querySelectorAll('[data-type]').forEach(p => p.classList.remove('active'));
-        e.target.classList.add('active');
-        selectedBodyType = e.target.dataset.type;
-        
-        const bodyTypeDisplay = document.getElementById('body-type-display');
-        if (bodyTypeDisplay) {
-          bodyTypeDisplay.textContent = selectedBodyType.charAt(0).toUpperCase() + selectedBodyType.slice(1);
-        }
-      });
-    });
-    
-    // Unit selection
-    document.querySelectorAll('[data-unit]').forEach(pill => {
-      pill.addEventListener('click', (e) => {
-        document.querySelectorAll('[data-unit]').forEach(p => p.classList.remove('active'));
-        e.target.classList.add('active');
-        selectedUnit = e.target.dataset.unit;
-      });
-    });
 
-    // Settings pills
-    document.addEventListener('click', (e) => {
-      if (e.target.classList.contains('settings-pill')) {
-        const group = e.target.parentElement;
-        group.querySelectorAll('.settings-pill').forEach(pill => pill.classList.remove('active'));
-        e.target.classList.add('active');
-      }
-      
-      if (e.target.classList.contains('graph-btn')) {
-        document.querySelectorAll('.graph-btn').forEach(btn => btn.classList.remove('active'));
-        e.target.classList.add('active');
-      }
-    });
-    
-    // Initialize
-    window.addEventListener('load', () => {
-      updateNavigation();
-    });
-  </script>
-</body>
-</html>
+    function toggleGuide(guideId) {
+      const guide = document.getElementById(guideId);
+      guide.classList.toggle('show');
+    }
+
+    function reportIssue() {
+      alert('Report Issue feature coming soon! You can contact us at support@misize.com');
+    }
+
+    function showMeasurementGuide(type) {
+      const guides = {
+        womens: {
+          title: "Women's Measurement Guide",
+          subtitle: "Complete guide for taking accurate body measurements",
+          content: `
+            <div class="measurement-diagram">
+              <h4>📐 Women's Body Measurements</h4>
+              <p>Diagram showing measurement points A-J</p>
+            </div>
+            <h4>Key measurements:</h4>
+            <ul class="measurement-list">
+              <li><strong>Bust (B)</strong> — across fullest part</li>
+              <li><strong>Waist (C)</strong> — narrowest part</li>
+              <li><strong>Hip (I)</strong> — fullest part of hips/bottom</li>
+              <li><strong>Arm length (D)</strong></li>
+              <li><strong>Shoulder width (H)</strong></li>
+              <li><strong>Inside leg / inseam (J)</strong></li>
+              <li><strong>Thigh (E)</strong></li>
+              <li><strong>Calf (F)</strong></li>
+            </ul>
+            <h4>👉 How to measure yourself:</h4>
+            <ul>
+              <li>Wear light clothing or underwear.</li>
+              <li>Measure bust while breathing normally.</li>
+              <li>Hips: keep feet together.</li>
+              <li>Use a soft measuring tape.</li>
+              <li>Keep tape snug but not tight.</li>
+            </ul>
+          `
+        },
+        mens: {
+          title: "Men's Measurement Guide",
+          subtitle: "Essential measurements for men's clothing",
+          content: `
+            <div class="measurement-diagram">
+              <h4>📐 Men's Body Measurements</h4>
+              <p>Diagram showing measurement points A-J</p>
+            </div>
+            <h4>Key measurements:</h4>
+            <ul class="measurement-list">
+              <li><strong>Neck (A)</strong></li>
+              <li><strong>Chest (B)</strong></li>
+              <li><strong>Waist (C)</strong></li>
+              <li><strong>Hip (I)</strong></li>
+              <li><strong>Arm length (D)</strong></li>
+              <li><strong>Shoulder width (H)</strong></li>
+              <li><strong>Inside leg / inseam (J)</strong></li>
+              <li><strong>Thigh (E)</strong></li>
+              <li><strong>Calf (F)</strong></li>
+            </ul>
+            <h4>👉 How to measure yourself:</h4>
+            <ul>
+              <li>Use a soft measuring tape.</li>
+              <li>Stand naturally, don't suck in or puff chest.</li>
+              <li>Keep tape snug but not tight.</li>
+              <li>Measure chest at fullest part.</li>
+              <li>Waist at natural waistline.</li>
+            </ul>
+          `
+        },
+        childrens: {
+          title: "Children's Measurement Guide",
+          subtitle: "How to measure children and teens",
+          content: `
+            <div class="measurement-diagram">
+              <h4>📐 Children's Body Measurements</h4>
+              <p>Simplified measurement points for children</p>
+            </div>
+            <h4>Key measurements (simplified):</h4>
+            <ul class="measurement-list">
+              <li><strong>Height</strong> — crown of head → heel</li>
+              <li><strong>Chest (B)</strong></li>
+              <li><strong>Waist (C)</strong></li>
+              <li><strong>Hip (I)</strong></li>
+              <li><strong>Arm length (D)</strong></li>
+              <li><strong>Inside leg (J)</strong></li>
+            </ul>
+            <h4>👉 How to measure your child:</h4>
+            <ul>
+              <li>Stand tall against a wall for height.</li>
+              <li>Keep tape flat and snug.</li>
+              <li>For toddlers, measure lying down if easier.</li>
+              <li>Make it fun - let them help!</li>
+              <li>Take measurements over light clothing.</li>
+            </ul>
+          `
+        },
+        foot: {
+          title: "Foot Measurement Guide",
+          subtitle: "Get accurate foot measurements for shoes",
+          content: `
+            <div class="measurement-diagram">
+              <h4>👟 Foot Measurement</h4>
+              <p>Diagram showing foot length and width measurement</p>
+            </div>
+            <h4>How to measure your feet:</h4>
+            <ul>
+              <li>Measure both feet (they may be different sizes)</li>
+              <li>Measure at the end of the day when feet are largest</li>
+              <li>Stand on a piece of paper</li>
+              <li>Mark the longest toe and back of heel</li>
+              <li>Measure the distance between marks</li>
+              <li>Also measure the widest part of your foot</li>
+            </ul>
+          `
+        },
+        inseam: {
+          title: "Inseam Measurement Guide",
+          subtitle: "Measure inseam length correctly",
+          content: `
+            <div class="measurement-diagram">
+              <h4>📏 Inseam Measurement</h4>
+              <p>Diagram showing inseam measurement from crotch to ankle</p>
+            </div>
+            <h4>How to measure inseam:</h4>
+            <ul>
+              <li>Use a pair of well-fitting jeans as reference</li>
+              <li>Measure from the crotch seam to the bottom hem</li>
+              <li>Or stand against wall, measure from crotch to floor</li>
+              <li>
