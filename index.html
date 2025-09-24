@@ -688,7 +688,6 @@
       display: block;
     }
 
-    /* Settings Specific Styles */
     .settings-section {
       background: var(--card);
       border-radius: 12px;
@@ -869,7 +868,6 @@
       </div>
     </div>
   </div>
-
   <!-- Help Screen -->
   <div id="help" class="screen">
     <div class="content-container">
@@ -1067,42 +1065,7 @@
         </select>
       </div>
       
-      <div class="brand-grid" id="my-sizes-grid"></div>
-      const UK_BRANDS = [
-  // name, display size (example), note
-  { brand: 'ASOS', size: '10', cat: "Women's Jeans" },
-  { brand: 'Zara', size: 'S', cat: "Women's Dresses" },
-  { brand: 'H&M', size: '38', cat: "Women's Tops" },
-  { brand: 'Next', size: '10', cat: "Women's Jeans" },
-  { brand: 'Marks & Spencer', size: '10', cat: "Women's Dresses" },
-  { brand: 'Primark', size: '10', cat: "Women's Tops" },
-  { brand: 'Topshop', size: '28', cat: "Women's Jeans" },
-  { brand: 'Uniqlo', size: 'S', cat: "Women's Tops" },
-  { brand: 'River Island', size: '10', cat: "Women's Dresses" },
-  { brand: 'New Look', size: '10', cat: "Women's Jeans" },
-  { brand: 'Boden', size: '10', cat: "Women's Dresses" },
-  { brand: 'Superdry', size: 'S', cat: "Women's Tops" }
-];
-
-function populateMySizesGrid() {
-  const grid = document.getElementById('my-sizes-grid');
-  const filter = document.getElementById('mysizes-category')?.value || '';
-  if (!grid) return;
-
-  const items = UK_BRANDS
-    .filter(b => !filter || b.cat === filter)
-    .map(b => `
-      <div class="brand-card">
-        <div class="brand-name">${b.brand}</div>
-        <div class="brand-size">Size ${b.size}</div>
-        <p style="font-size:14px;color:var(--muted);margin-top:8px;">${b.cat} - Standard Fit</p>
-      </div>
-    `).join('');
-
-  grid.innerHTML = items || '<p style="color:var(--muted);">No matches for this category.</p>';
-}
-
-document.getElementById('mysizes-category')?.addEventListener('change', populateMySizesGrid);
+      <div class="brand-grid" id="my-sizes-grid">
         <div class="brand-card">
           <div class="brand-name">ASOS</div>
           <div class="brand-size">Size 10</div>
@@ -1215,7 +1178,7 @@ document.getElementById('mysizes-category')?.addEventListener('change', populate
     </div>
   </div>
 
-  <!-- UK Settings - UPDATED VERSION -->
+  <!-- UK Settings -->
   <div id="uk-settings" class="screen">
     <div class="content-container">
       <div class="hub-header">
@@ -1240,51 +1203,48 @@ document.getElementById('mysizes-category')?.addEventListener('change', populate
           </div>
         </div>
       </div>
-<!-- Measurements Section - UPDATED -->
-<div class="settings-section">
-  <h3>📏 Profile Measurements</h3>
-  <p style="margin-bottom: 16px; color: var(--muted);">Track body measurements for accurate sizing</p>
 
-  <!-- Profile Selection Dropdown -->
-  <div class="form-group">
-    <label class="form-label">Select Profile to Update</label>
-    <select class="form-select" id="measurement-profile-select">
-      <option value="">Choose a profile...</option>
-      <!-- This will be populated with available profiles -->
-    </select>
-  </div>
+      <!-- Measurements Section -->
+      <div class="settings-section">
+        <h3>📏 Profile Measurements</h3>
+        <p style="margin-bottom: 16px; color: var(--muted);">Track body measurements for accurate sizing</p>
 
-  <div class="measurement-grid">
-    <div class="measurement-bubble">
-      <h4>Weight</h4>
-      <input type="number" class="measurement-input" id="weight" placeholder="62" />
-    </div>
-    <div class="measurement-bubble">
-      <h4>Chest/Bust</h4>
-      <input type="number" class="measurement-input" id="chest" placeholder="86" />
-    </div>
-    <div class="measurement-bubble">
-      <h4>Waist</h4>
-      <input type="number" class="measurement-input" id="waist" placeholder="68" />
-    </div>
-    <div class="measurement-bubble">
-      <h4>Hips</h4>
-      <input type="number" class="measurement-input" id="hips" placeholder="92" />
-    </div>
-    <div class="measurement-bubble">
-      <h4>Shoulders</h4>
-      <input type="number" class="measurement-input" id="shoulders" placeholder="38" />
-    </div>
-    <div class="measurement-bubble">
-      <h4>Arms</h4>
-      <input type="number" class="measurement-input" id="arms" placeholder="28" />
-    </div>
-  </div>
+        <!-- Profile Selection Dropdown -->
+        <div class="form-group">
+          <label class="form-label">Select Profile to Update</label>
+          <select class="form-select" id="measurement-profile-select">
+            <option value="">Choose a profile...</option>
+          </select>
+        </div>
 
-  <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="saveMeasurementsToProfile()">Save Measurements to Profile</button>
-</div>
+        <div class="measurement-grid">
+          <div class="measurement-bubble">
+            <h4>Weight</h4>
+            <input type="number" class="measurement-input" id="weight" placeholder="62" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Chest/Bust</h4>
+            <input type="number" class="measurement-input" id="chest" placeholder="86" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Waist</h4>
+            <input type="number" class="measurement-input" id="waist" placeholder="68" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Hips</h4>
+            <input type="number" class="measurement-input" id="hips" placeholder="92" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Shoulders</h4>
+            <input type="number" class="measurement-input" id="shoulders" placeholder="38" />
+          </div>
+          <div class="measurement-bubble">
+            <h4>Arms</h4>
+            <input type="number" class="measurement-input" id="arms" placeholder="28" />
+          </div>
+        </div>
 
-        <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="saveMeasurements()">Save Measurements</button>
+        <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="saveMeasurementsToProfile()">Save Measurements to Profile</button>
       </div>
 
       <!-- Region Settings -->
@@ -1309,14 +1269,6 @@ document.getElementById('mysizes-category')?.addEventListener('change', populate
         <h2 class="hub-title">Create New Profile</h2>
         <p class="hub-subtitle">Set up a new user profile</p>
       </div>
-
-  
-
-
-       <div class="form-group">
-          <label class="form-label">target date</label>
-          <input type="date" class="form-input" id="create-date-birth" />
-        </div>
       
       <div class="form-container">
         <div class="form-group">
@@ -1328,7 +1280,6 @@ document.getElementById('mysizes-category')?.addEventListener('change', populate
           <label class="form-label">Date of Birth</label>
           <input type="date" class="form-input" id="create-date-birth" />
         </div>
-
       
         <div class="form-group">
           <label class="form-label">Gender</label>
@@ -1375,19 +1326,22 @@ document.getElementById('mysizes-category')?.addEventListener('change', populate
           </div>
         </div>
 
-           
-<!-- Target Goal -->
-<div class="form-group">
-  <label class="form-label">Target Weight</label>
-  <div style="display: flex; gap: 12px; align-items: center;">
-    <input type="number" class="form-input" id="create-target-weight" placeholder="Enter target weight" style="flex: 1;" />
-    <div class="pill-settings-group" style="margin: 0;">
-      <button class="settings-pill active" data-target-weight-unit="kg">kg</button>
-      <button class="settings-pill" data-target-weight-unit="lbs">lbs</button>
-      <button class="settings-pill" data-target-weight-unit="stone">stone</button>
-    </div>
-  </div>
-</div>
+        <div class="form-group">
+          <label class="form-label">Target Weight</label>
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <input type="number" class="form-input" id="create-target-weight" placeholder="Enter target weight" style="flex: 1;" />
+            <div class="pill-settings-group" style="margin: 0;">
+              <button class="settings-pill active" data-target-weight-unit="kg">kg</button>
+              <button class="settings-pill" data-target-weight-unit="lbs">lbs</button>
+              <button class="settings-pill" data-target-weight-unit="stone">stone</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Target Date</label>
+          <input type="date" class="form-input" id="create-target-date" />
+        </div>
 
         <div class="button-group">
           <button class="btn btn-primary" onclick="saveNewProfile()">Create Profile</button>
@@ -1397,7 +1351,6 @@ document.getElementById('mysizes-category')?.addEventListener('change', populate
     </div>
   </div>
 
-  
   <!-- Saved Profiles Screen -->
   <div id="saved-profiles" class="screen">
     <div class="content-container">
@@ -1514,9 +1467,10 @@ document.getElementById('mysizes-category')?.addEventListener('change', populate
         </div>
         
         <div class="form-group" style="max-width:320px;margin:0 auto 16px;">
-  <label class="form-label" style="text-align:center;display:block;">Profile</label>
-  <select class="form-select" id="mistats-profile-select"></select>
-</div>
+          <label class="form-label" style="text-align:center;display:block;">Profile</label>
+          <select class="form-select" id="mistats-profile-select"></select>
+        </div>
+
         <div class="stats-grid">
           <div class="stats-bubble">
             <h3>Start</h3>
@@ -1668,7 +1622,6 @@ document.getElementById('mysizes-category')?.addEventListener('change', populate
     <button class="nav-item" onclick="goToHelp()">Help</button>
     <button class="nav-item" onclick="goBack()">Back</button>
   </div>
-
   <script>
     // Global variables
     let currentScreen = 'home';
@@ -1678,42 +1631,56 @@ document.getElementById('mysizes-category')?.addEventListener('change', populate
     let currentProfile = null;
     let editingProfile = null;
     let profileData = {
-      
-  'Emma Thompson': {
-    name: 'Emma Thompson',
-    dateOfBirth: '1990-05-15',
-    gender: 'female',
-    bodyFrame: 'medium',
-    startingDate: '2024-01-01',
-    startingWeight: { value: 65, unit: 'kg' },
-    startingHeight: { value: 168, unit: 'cm' },
-    targetWeight: { value: 58, unit: 'kg' },   // NEW
-    targetDate: '2024-06-30',                  // NEW
-    measurements: { weight: 62, chest: 86, waist: 68, hips: 92, shoulders: 38, arms: 28 },
-    history: [                                  // NEW: time series for MiStats
-      { date: '2024-03-10', type: 'weight', value: 63, unit: 'kg' },
-      { date: '2024-03-15', type: 'weight', value: 62, unit: 'kg' },
-      { date: '2024-03-15', type: 'waist',  value: 68, unit: 'cm' },
-      { date: '2024-03-10', type: 'hips',   value: 92, unit: 'cm' }
-    ]
-  },
-  'John Doe': {
-    name: 'John Doe',
-    dateOfBirth: '1985-08-20',
-    gender: 'male',
-    bodyFrame: 'large',
-    startingDate: '2024-02-01',
-    startingWeight: { value: 80, unit: 'kg' },
-    startingHeight: { value: 180, unit: 'cm' },
-    targetWeight: { value: 75, unit: 'kg' },    // NEW
-    targetDate: '2024-06-01',                   // NEW
-    measurements: { weight: 75, chest: 102, waist: 84, hips: 96, shoulders: 46, arms: 32 },
-    history: [
-      { date: '2024-03-01', type: 'weight', value: 77, unit: 'kg' },
-      { date: '2024-03-15', type: 'weight', value: 75, unit: 'kg' }
-    ]
-  }
-};
+      'Emma Thompson': {
+        name: 'Emma Thompson',
+        dateOfBirth: '1990-05-15',
+        gender: 'female',
+        bodyFrame: 'medium',
+        startingDate: '2024-01-01',
+        startingWeight: { value: 65, unit: 'kg' },
+        startingHeight: { value: 168, unit: 'cm' },
+        targetWeight: { value: 58, unit: 'kg' },
+        targetDate: '2024-06-30',
+        measurements: { weight: 62, chest: 86, waist: 68, hips: 92, shoulders: 38, arms: 28 },
+        history: [
+          { date: '2024-03-10', type: 'weight', value: 63, unit: 'kg' },
+          { date: '2024-03-15', type: 'weight', value: 62, unit: 'kg' },
+          { date: '2024-03-15', type: 'waist', value: 68, unit: 'cm' },
+          { date: '2024-03-10', type: 'hips', value: 92, unit: 'cm' }
+        ]
+      },
+      'John Doe': {
+        name: 'John Doe',
+        dateOfBirth: '1985-08-20',
+        gender: 'male',
+        bodyFrame: 'large',
+        startingDate: '2024-02-01',
+        startingWeight: { value: 80, unit: 'kg' },
+        startingHeight: { value: 180, unit: 'cm' },
+        targetWeight: { value: 75, unit: 'kg' },
+        targetDate: '2024-06-01',
+        measurements: { weight: 75, chest: 102, waist: 84, hips: 96, shoulders: 46, arms: 32 },
+        history: [
+          { date: '2024-03-01', type: 'weight', value: 77, unit: 'kg' },
+          { date: '2024-03-15', type: 'weight', value: 75, unit: 'kg' }
+        ]
+      }
+    };
+
+    const UK_BRANDS = [
+      { brand: 'ASOS', size: '10', cat: "Women's Jeans" },
+      { brand: 'Zara', size: 'S', cat: "Women's Dresses" },
+      { brand: 'H&M', size: '38', cat: "Women's Tops" },
+      { brand: 'Next', size: '10', cat: "Women's Jeans" },
+      { brand: 'Marks & Spencer', size: '10', cat: "Women's Dresses" },
+      { brand: 'Primark', size: '10', cat: "Women's Tops" },
+      { brand: 'Topshop', size: '28', cat: "Women's Jeans" },
+      { brand: 'Uniqlo', size: 'S', cat: "Women's Tops" },
+      { brand: 'River Island', size: '10', cat: "Women's Dresses" },
+      { brand: 'New Look', size: '10', cat: "Women's Jeans" },
+      { brand: 'Boden', size: '10', cat: "Women's Dresses" },
+      { brand: 'Superdry', size: 'S', cat: "Women's Tops" }
+    ];
 
     // Navigation functions
     function enterHub(region) {
@@ -1738,234 +1705,21 @@ document.getElementById('mysizes-category')?.addEventListener('change', populate
         updateNavigation();
       }
     }
-function updateScreenData(screenId) {
-  if (screenId === 'saved-profiles') {
-    loadSavedProfiles();
-  } else if (screenId === 'edit-profiles') {
-    loadEditableProfiles();
-  } else if (screenId === 'uk-settings') {
-    populateProfileDropdown();   // your Settings profile dropdown
-  } else if (screenId === 'mistats') {
-    populateMiStatsProfileSelect();
-    renderMiStats();
-  } else if (screenId === 'uk-mysizes') {
-    populateMySizesGrid();
-  }
-}
-  
 
-// Add these new functions
-function populateProfileDropdown() {
-  const dropdown = document.getElementById('measurement-profile-select');
-  if (!dropdown) return;
-  
-  // Clear existing options except the first one
-  dropdown.innerHTML = '<option value="">Choose a profile...</option>';
-  
-  // Populate with available profiles
-  Object.keys(profileData).forEach(profileName => {
-    const option = document.createElement('option');
-    option.value = profileName;
-    option.textContent = profileName;
-    dropdown.appendChild(option);
-  });
-  
-  // Add event listener for profile selection
-  dropdown.addEventListener('change', loadSelectedProfileMeasurements);
-}
-
-function loadSelectedProfileMeasurements() {
-  const selectedProfile = document.getElementById('measurement-profile-select')?.value;
-  
-  if (!selectedProfile || !profileData[selectedProfile]) {
-    // Clear all inputs if no profile selected
-    ['weight', 'chest', 'waist', 'hips', 'shoulders', 'arms'].forEach(key => {
-      const input = document.getElementById(key);
-      if (input) input.value = '';
-    });
-    return;
-  }
-  
-  const profile = profileData[selectedProfile];
-  
-  // Load the profile's current measurements
-  Object.entries(profile.measurements).forEach(([key, value]) => {
-    const input = document.getElementById(key);
-    if (input) {
-      input.value = value || '';
-    }
-  });
-}
-
-function saveMeasurementsToProfile() {
-  const selectedProfileName = document.getElementById('measurement-profile-select')?.value;
-  if (!selectedProfileName) { alert('Please select a profile first'); return; }
-  if (!profileData[selectedProfileName]) { alert('Selected profile not found'); return; }
-
-  const profile = profileData[selectedProfileName];
-  let hasChanges = false;
-  const todayISO = new Date().toISOString().slice(0,10);
-  profile.history = profile.history || [];
-
-  // Update current measurements and history entries where provided
-  ['weight', 'chest', 'waist', 'hips', 'shoulders', 'arms'].forEach(key => {
-    const input = document.getElementById(key);
-    if (input && input.value !== '') {
-      const newValue = parseFloat(input.value);
-      if (newValue !== profile.measurements[key]) {
-        hasChanges = true;
-      }
-      profile.measurements[key] = newValue;
-
-      // Units: weight uses startingWeight.unit by default, body measures follow selectedUnit
-      const unit = (key === 'weight') ? (profile.startingWeight?.unit || 'kg') : (selectedUnit || 'cm');
-
-      // Push a history row
-      profile.history.push({
-        date: todayISO,
-        type: key,
-        value: newValue,
-        unit
-      });
-    }
-  });
-
-  if (hasChanges) {
-    alert(`Measurements saved to ${selectedProfileName}!`);
-    // If we edited the currently viewed profile, refresh MiStats
-    if (currentProfile === selectedProfileName) {
-      renderMiStats();
-    }
-  } else {
-    alert('No changes to save.');
-  }
-}
-
-// Update the existing saveMeasurements function to call the new one
-function saveMeasurements() {
-  // Keep the old function but redirect to new one
-  saveMeasurementsToProfile();
-}
     function updateScreenData(screenId) {
       if (screenId === 'saved-profiles') {
         loadSavedProfiles();
       } else if (screenId === 'edit-profiles') {
         loadEditableProfiles();
+      } else if (screenId === 'uk-settings') {
+        populateProfileDropdown();
+      } else if (screenId === 'mistats') {
+        populateMiStatsProfileSelect();
+        renderMiStats();
+      } else if (screenId === 'uk-mysizes') {
+        populateMySizesGrid();
       }
     }
-
-    function setCurrentProfile(name) {
-  if (!profileData[name]) return;
-  currentProfile = name;
-  // Update MiStats profile selector
-  const sel = document.getElementById('mistats-profile-select');
-  if (sel) sel.value = name;
-  renderMiStats();
-}
-
-function populateMiStatsProfileSelect() {
-  const sel = document.getElementById('mistats-profile-select');
-  if (!sel) return;
-  sel.innerHTML = Object.keys(profileData).map(n => `<option value="${n}">${n}</option>`).join('');
-  if (currentProfile && profileData[currentProfile]) {
-    sel.value = currentProfile;
-  } else {
-    currentProfile = Object.keys(profileData)[0] || null;
-    if (currentProfile) sel.value = currentProfile;
-  }
-  sel.onchange = () => setCurrentProfile(sel.value);
-}
-
-function kgFrom(value, unit) {
-  if (unit === 'kg') return value;
-  if (unit === 'lbs') return value * 0.45359237;
-  if (unit === 'stone') return value * 6.35029318;
-  return value;
-}
-function cmFrom(value, unit) {
-  if (unit === 'cm') return value;
-  if (unit === 'inch') return value * 2.54;
-  return value;
-}
-
-function computeBMIKgCm(weightKg, heightCm) {
-  const h = heightCm / 100;
-  if (!h) return null;
-  return weightKg / (h * h);
-}
-function bmiCategory(bmi) {
-  if (bmi == null) return '';
-  if (bmi < 18.5) return 'Underweight';
-  if (bmi < 25) return 'Normal Weight';
-  if (bmi < 30) return 'Overweight';
-  return 'Obese';
-}
-
-function renderMiStats() {
-  const p = profileData[currentProfile];
-  if (!p) return;
-
-  const startKg = kgFrom(p.startingWeight.value, p.startingWeight.unit);
-  const heightCm = cmFrom(p.startingHeight.value, p.startingHeight.unit);
-
-  // Current weight = latest weight entry in history (or measurements.weight, or starting)
-  const latestWeightEntry = [...(p.history || [])]
-    .filter(e => e.type === 'weight')
-    .sort((a,b) => new Date(a.date) - new Date(b.date))
-    .slice(-1)[0];
-
-  const currentWeightVal = latestWeightEntry?.value ?? p.measurements?.weight ?? p.startingWeight.value;
-  const currentWeightUnit = latestWeightEntry?.unit ?? p.startingWeight.unit;
-  const currentKg = kgFrom(currentWeightVal, currentWeightUnit);
-
-  const targetKg = p.targetWeight ? kgFrom(p.targetWeight.value, p.targetWeight.unit) : null;
-
-  // Fill Current tab
-  document.getElementById('user-name').textContent = p.name.split(' ')[0];
-  document.getElementById('start-weight').textContent = `${p.startingWeight.value}${p.startingWeight.unit}`;
-  document.getElementById('current-weight').textContent = `${currentWeightVal}${currentWeightUnit}`;
-  document.getElementById('target-weight').textContent = p.targetWeight ? `${p.targetWeight.value}${p.targetWeight.unit}` : '—';
-
-  const lostKg = startKg - currentKg;
-  const remainingKg = (targetKg != null) ? (currentKg - targetKg) : null;
-  const progressPct = (targetKg != null && startKg !== targetKg)
-    ? Math.max(0, Math.min(100, ((startKg - currentKg) / (startKg - targetKg)) * 100))
-    : 0;
-
-  document.getElementById('amount-lost').textContent = `${Math.round(lostKg * 10) / 10}kg`;
-  document.getElementById('remaining-weight').textContent = (remainingKg != null)
-    ? `${Math.max(0, Math.round(remainingKg * 10) / 10)}kg` : '—';
-  document.getElementById('progress-fill').style.width = `${Math.round(progressPct)}%`;
-  document.getElementById('progress-text').textContent = `${Math.round(progressPct)}% to goal`;
-
-  const bmi = computeBMIKgCm(currentKg, heightCm);
-  if (bmi) {
-    document.getElementById('bmi-value').textContent = (Math.round(bmi * 10) / 10).toString();
-    document.getElementById('bmi-category').textContent = bmiCategory(bmi);
-  }
-
-  // History list
-  renderMeasurementHistory();
-}
-
-function renderMeasurementHistory() {
-  const p = profileData[currentProfile];
-  const list = document.getElementById('measurement-history');
-  if (!p || !list) return;
-
-  const entries = [...(p.history || [])]
-    .sort((a,b) => new Date(b.date) - new Date(a.date))
-    .map(e => `
-      <div class="history-item">
-        <div>
-          <strong>${e.type.charAt(0).toUpperCase() + e.type.slice(1)}: ${e.value}${e.unit || ''}</strong><br>
-          <span class="history-date">${new Date(e.date).toLocaleDateString()}</span>
-        </div>
-      </div>
-    `).join('');
-
-  list.innerHTML = entries || '<div class="history-item"><div><span class="history-date" style="color:var(--muted);">No history yet</span></div></div>';
-}
     
     function goHome() {
       navigationHistory = [];
@@ -1998,7 +1752,7 @@ function renderMeasurementHistory() {
           currentScreen = previousScreen;
           updateScreenData(previousScreen);
           updateNavigation();
-          }
+        }
       }
     }
 
@@ -2033,6 +1787,117 @@ function renderMeasurementHistory() {
       if (activeContent) activeContent.style.display = 'block';
     }
 
+    function setCurrentProfile(name) {
+      if (!profileData[name]) return;
+      currentProfile = name;
+      const sel = document.getElementById('mistats-profile-select');
+      if (sel) sel.value = name;
+      renderMiStats();
+    }
+
+    function populateMiStatsProfileSelect() {
+      const sel = document.getElementById('mistats-profile-select');
+      if (!sel) return;
+      sel.innerHTML = Object.keys(profileData).map(n => `<option value="${n}">${n}</option>`).join('');
+      if (currentProfile && profileData[currentProfile]) {
+        sel.value = currentProfile;
+      } else {
+        currentProfile = Object.keys(profileData)[0] || null;
+        if (currentProfile) sel.value = currentProfile;
+      }
+      sel.onchange = () => setCurrentProfile(sel.value);
+    }
+
+    function kgFrom(value, unit) {
+      if (unit === 'kg') return value;
+      if (unit === 'lbs') return value * 0.45359237;
+      if (unit === 'stone') return value * 6.35029318;
+      return value;
+    }
+
+    function cmFrom(value, unit) {
+      if (unit === 'cm') return value;
+      if (unit === 'inch') return value * 2.54;
+      return value;
+    }
+
+    function computeBMIKgCm(weightKg, heightCm) {
+      const h = heightCm / 100;
+      if (!h) return null;
+      return weightKg / (h * h);
+    }
+
+    function bmiCategory(bmi) {
+      if (bmi == null) return '';
+      if (bmi < 18.5) return 'Underweight';
+      if (bmi < 25) return 'Normal Weight';
+      if (bmi < 30) return 'Overweight';
+      return 'Obese';
+    }
+
+    function renderMiStats() {
+      const p = profileData[currentProfile];
+      if (!p) return;
+
+      const startKg = kgFrom(p.startingWeight.value, p.startingWeight.unit);
+      const heightCm = cmFrom(p.startingHeight.value, p.startingHeight.unit);
+
+      const latestWeightEntry = [...(p.history || [])]
+        .filter(e => e.type === 'weight')
+        .sort((a,b) => new Date(a.date) - new Date(b.date))
+        .slice(-1)[0];
+
+      const currentWeightVal = latestWeightEntry?.value ?? p.measurements?.weight ?? p.startingWeight.value;
+      const currentWeightUnit = latestWeightEntry?.unit ?? p.startingWeight.unit;
+      const currentKg = kgFrom(currentWeightVal, currentWeightUnit);
+
+      const targetKg = p.targetWeight ? kgFrom(p.targetWeight.value, p.targetWeight.unit) : null;
+
+      document.getElementById('user-name').textContent = p.name.split(' ')[0];
+      document.getElementById('start-weight').textContent = `${p.startingWeight.value}${p.startingWeight.unit}`;
+      document.getElementById('current-weight').textContent = `${currentWeightVal}${currentWeightUnit}`;
+      document.getElementById('target-weight').textContent = p.targetWeight ? `${p.targetWeight.value}${p.targetWeight.unit}` : '—';
+
+      const lostKg = startKg - currentKg;
+      const remainingKg = (targetKg != null) ? (currentKg - targetKg) : null;
+      const progressPct = (targetKg != null && startKg !== targetKg)
+        ? Math.max(0, Math.min(100, ((startKg - currentKg) / (startKg - targetKg)) * 100))
+        : 0;
+
+      document.getElementById('amount-lost').textContent = `${Math.round(lostKg * 10) / 10}kg`;
+      document.getElementById('remaining-weight').textContent = (remainingKg != null)
+        ? `${Math.max(0, Math.round(remainingKg * 10) / 10)}kg` : '—';
+      document.getElementById('progress-fill').style.width = `${Math.round(progressPct)}%`;
+      document.getElementById('progress-text').textContent = `${Math.round(progressPct)}% to goal`;
+
+      const bmi = computeBMIKgCm(currentKg, heightCm);
+      if (bmi) {
+        document.getElementById('bmi-value').textContent = (Math.round(bmi * 10) / 10).toString();
+        document.getElementById('bmi-category').textContent = bmiCategory(bmi);
+      }
+
+      renderMeasurementHistory();
+    }
+
+    function renderMeasurementHistory() {
+      const p = profileData[currentProfile];
+      const list = document.getElementById('measurement-history');
+      if (!p || !list) return;
+
+      const entries = [...(p.history || [])]
+        .sort((a,b) => new Date(b.date) - new Date(a.date))
+        .map(e => `
+          <div class="history-item">
+            <div>
+              <strong>${e.type.charAt(0).toUpperCase() + e.type.slice(1)}: ${e.value}${e.unit || ''}</strong><br>
+              <span class="history-date">${new Date(e.date).toLocaleDateString()}</span>
+            </div>
+          </div>
+        `).join('');
+
+      list.innerHTML = entries || '<div class="history-item"><div><span class="history-date" style="color:var(--muted);">No history yet</span></div></div>';
+    }
+
     // Size Finder functions
     function getMySize() {
       const brand = document.getElementById('uk-brand-select')?.value;
@@ -2054,6 +1919,25 @@ function renderMeasurementHistory() {
       alert(`Opening ${type} size converter...`);
     }
 
+    // My Sizes functions
+    function populateMySizesGrid() {
+      const grid = document.getElementById('my-sizes-grid');
+      const filter = document.getElementById('mysizes-category')?.value || '';
+      if (!grid) return;
+
+      const items = UK_BRANDS
+        .filter(b => !filter || b.cat === filter)
+        .map(b => `
+          <div class="brand-card">
+            <div class="brand-name">${b.brand}</div>
+            <div class="brand-size">Size ${b.size}</div>
+            <p style="font-size:14px;color:var(--muted);margin-top:8px;">${b.cat} - Standard Fit</p>
+          </div>
+        `).join('');
+
+      grid.innerHTML = items || '<p style="color:var(--muted);">No matches for this category.</p>';
+    }
+
     // Utility functions
     function toggleGuide(guideId) {
       const guide = document.getElementById(guideId);
@@ -2071,48 +1955,126 @@ function renderMeasurementHistory() {
     }
 
     // Profile management functions
-function saveNewProfile() {
-  const name = document.getElementById('create-profile-name')?.value;
-  const dateOfBirth = document.getElementById('create-date-birth')?.value;
-  const startDate = document.getElementById('create-start-date')?.value;
-  const startWeight = document.getElementById('create-start-weight')?.value;
-  const startHeight = document.getElementById('create-start-height')?.value;
-
-  const targetWeight = document.getElementById('create-target-weight')?.value;              // NEW
-  const targetDate = document.getElementById('create-target-date')?.value;                  // NEW
-
-  const gender = document.querySelector('[data-gender].active')?.dataset.gender;
-  const frame = document.querySelector('[data-frame].active')?.dataset.frame;
-  const weightUnit = document.querySelector('[data-weight-unit].active')?.dataset.weightUnit;
-  const heightUnit = document.querySelector('[data-height-unit].active')?.dataset.heightUnit;
-  const targetWeightUnit = document.querySelector('[data-target-weight-unit].active')?.dataset.targetWeightUnit || 'kg'; // NEW
-
-  if (!name || !dateOfBirth || !gender || !frame || !startDate || !startWeight || !startHeight || !targetWeight || !targetDate) {
-    alert('Please fill in all fields');
-    return;
-  }
-
-  const newProfile = {
-    name,
-    dateOfBirth,
-    gender,
-    bodyFrame: frame,
-    startingDate: startDate,
-    startingWeight: { value: parseFloat(startWeight), unit: weightUnit },
-    startingHeight: { value: parseFloat(startHeight), unit: heightUnit },
-    targetWeight: { value: parseFloat(targetWeight), unit: targetWeightUnit },  // NEW
-    targetDate,                                                                 // NEW
-    measurements: { weight: null, chest: null, waist: null, hips: null, shoulders: null, arms: null },
-    history: []                                                                 // NEW
-  };
-
-  profileData[name] = newProfile;
-  alert('Profile created successfully!');
-  clearCreateForm();
-  goToScreen('uk-settings');
-}
+    function populateProfileDropdown() {
+      const dropdown = document.getElementById('measurement-profile-select');
+      if (!dropdown) return;
       
-      // Clear form
+      dropdown.innerHTML = '<option value="">Choose a profile...</option>';
+      
+      Object.keys(profileData).forEach(profileName => {
+        const option = document.createElement('option');
+        option.value = profileName;
+        option.textContent = profileName;
+        dropdown.appendChild(option);
+      });
+      
+      dropdown.removeEventListener('change', loadSelectedProfileMeasurements);
+      dropdown.addEventListener('change', loadSelectedProfileMeasurements);
+    }
+
+    function loadSelectedProfileMeasurements() {
+      const selectedProfile = document.getElementById('measurement-profile-select')?.value;
+      
+      if (!selectedProfile || !profileData[selectedProfile]) {
+        ['weight', 'chest', 'waist', 'hips', 'shoulders', 'arms'].forEach(key => {
+          const input = document.getElementById(key);
+          if (input) input.value = '';
+        });
+        return;
+      }
+      
+      const profile = profileData[selectedProfile];
+      
+      Object.entries(profile.measurements).forEach(([key, value]) => {
+        const input = document.getElementById(key);
+        if (input) {
+          input.value = value || '';
+        }
+      });
+    }
+
+    function saveMeasurementsToProfile() {
+      const selectedProfileName = document.getElementById('measurement-profile-select')?.value;
+      if (!selectedProfileName) {
+        alert('Please select a profile first');
+        return;
+      }
+      if (!profileData[selectedProfileName]) {
+        alert('Selected profile not found');
+        return;
+      }
+
+      const profile = profileData[selectedProfileName];
+      let hasChanges = false;
+      const todayISO = new Date().toISOString().slice(0, 10);
+      profile.history = profile.history || [];
+
+      ['weight', 'chest', 'waist', 'hips', 'shoulders', 'arms'].forEach(key => {
+        const input = document.getElementById(key);
+        if (input && input.value !== '') {
+          const newValue = parseFloat(input.value);
+          if (newValue !== profile.measurements[key]) {
+            hasChanges = true;
+          }
+          profile.measurements[key] = newValue;
+
+          const unit = (key === 'weight') ? (profile.startingWeight?.unit || 'kg') : (selectedUnit || 'cm');
+
+          profile.history.push({
+            date: todayISO,
+            type: key,
+            value: newValue,
+            unit
+          });
+        }
+      });
+
+      if (hasChanges) {
+        alert(`Measurements saved to ${selectedProfileName}!`);
+        if (currentProfile === selectedProfileName) {
+          renderMiStats();
+        }
+      } else {
+        alert('No changes to save.');
+      }
+    }
+
+    function saveNewProfile() {
+      const name = document.getElementById('create-profile-name')?.value;
+      const dateOfBirth = document.getElementById('create-date-birth')?.value;
+      const startDate = document.getElementById('create-start-date')?.value;
+      const startWeight = document.getElementById('create-start-weight')?.value;
+      const startHeight = document.getElementById('create-start-height')?.value;
+      const targetWeight = document.getElementById('create-target-weight')?.value;
+      const targetDate = document.getElementById('create-target-date')?.value;
+
+      const gender = document.querySelector('#create-profile [data-gender].active')?.dataset.gender;
+      const frame = document.querySelector('#create-profile [data-frame].active')?.dataset.frame;
+      const weightUnit = document.querySelector('#create-profile [data-weight-unit].active')?.dataset.weightUnit;
+      const heightUnit = document.querySelector('#create-profile [data-height-unit].active')?.dataset.heightUnit;
+      const targetWeightUnit = document.querySelector('#create-profile [data-target-weight-unit].active')?.dataset.targetWeightUnit || 'kg';
+
+      if (!name || !dateOfBirth || !gender || !frame || !startDate || !startWeight || !startHeight || !targetWeight || !targetDate) {
+        alert('Please fill in all fields');
+        return;
+      }
+
+      const newProfile = {
+        name,
+        dateOfBirth,
+        gender,
+        bodyFrame: frame,
+        startingDate: startDate,
+        startingWeight: { value: parseFloat(startWeight), unit: weightUnit },
+        startingHeight: { value: parseFloat(startHeight), unit: heightUnit },
+        targetWeight: { value: parseFloat(targetWeight), unit: targetWeightUnit },
+        targetDate,
+        measurements: { weight: null, chest: null, waist: null, hips: null, shoulders: null, arms: null },
+        history: []
+      };
+
+      profileData[name] = newProfile;
+      alert('Profile created successfully!');
       clearCreateForm();
       goToScreen('uk-settings');
     }
@@ -2123,15 +2085,18 @@ function saveNewProfile() {
       document.getElementById('create-start-date').value = '';
       document.getElementById('create-start-weight').value = '';
       document.getElementById('create-start-height').value = '';
+      document.getElementById('create-target-weight').value = '';
+      document.getElementById('create-target-date').value = '';
       
-      // Reset pills to default
-      document.querySelectorAll('[data-gender]').forEach(pill => pill.classList.remove('active'));
-      document.querySelectorAll('[data-frame]').forEach(pill => pill.classList.remove('active'));
-      document.querySelector('[data-frame="medium"]')?.classList.add('active');
-      document.querySelectorAll('[data-weight-unit]').forEach(pill => pill.classList.remove('active'));
-      document.querySelector('[data-weight-unit="kg"]')?.classList.add('active');
-      document.querySelectorAll('[data-height-unit]').forEach(pill => pill.classList.remove('active'));
-      document.querySelector('[data-height-unit="cm"]')?.classList.add('active');
+      document.querySelectorAll('#create-profile [data-gender]').forEach(pill => pill.classList.remove('active'));
+      document.querySelectorAll('#create-profile [data-frame]').forEach(pill => pill.classList.remove('active'));
+      document.querySelector('#create-profile [data-frame="medium"]')?.classList.add('active');
+      document.querySelectorAll('#create-profile [data-weight-unit]').forEach(pill => pill.classList.remove('active'));
+      document.querySelector('#create-profile [data-weight-unit="kg"]')?.classList.add('active');
+      document.querySelectorAll('#create-profile [data-height-unit]').forEach(pill => pill.classList.remove('active'));
+      document.querySelector('#create-profile [data-height-unit="cm"]')?.classList.add('active');
+      document.querySelectorAll('#create-profile [data-target-weight-unit]').forEach(pill => pill.classList.remove('active'));
+      document.querySelector('#create-profile [data-target-weight-unit="kg"]')?.classList.add('active');
     }
 
     function loadSavedProfiles() {
@@ -2147,7 +2112,9 @@ function saveNewProfile() {
             <strong>DOB:</strong> ${new Date(profile.dateOfBirth).toLocaleDateString()}<br>
             <strong>Starting Weight:</strong> ${profile.startingWeight.value} ${profile.startingWeight.unit}<br>
             <strong>Starting Height:</strong> ${profile.startingHeight.value} ${profile.startingHeight.unit}<br>
-            <strong>Start Date:</strong> ${new Date(profile.startingDate).toLocaleDateString()}
+            <strong>Start Date:</strong> ${new Date(profile.startingDate).toLocaleDateString()}<br>
+            <strong>Target Weight:</strong> ${profile.targetWeight ? `${profile.targetWeight.value} ${profile.targetWeight.unit}` : 'Not set'}<br>
+            <strong>Target Date:</strong> ${profile.targetDate ? new Date(profile.targetDate).toLocaleDateString() : 'Not set'}
           </div>
         </div>
       `).join('');
@@ -2171,24 +2138,22 @@ function saveNewProfile() {
       editingProfile = profileKey;
       const profile = profileData[profileKey];
       
-      // Populate form with profile data
       document.getElementById('edit-profile-name').value = profile.name;
       document.getElementById('edit-date-birth').value = profile.dateOfBirth;
       document.getElementById('edit-start-date').value = profile.startingDate;
       document.getElementById('edit-start-weight').value = profile.startingWeight.value;
       document.getElementById('edit-start-height').value = profile.startingHeight.value;
       
-      // Set active pills
-      document.querySelectorAll('[data-gender]').forEach(pill => pill.classList.remove('active'));
+      document.querySelectorAll('#edit-profile-form [data-gender]').forEach(pill => pill.classList.remove('active'));
       document.getElementById(`edit-gender-${profile.gender}`)?.classList.add('active');
       
-      document.querySelectorAll('[data-frame]').forEach(pill => pill.classList.remove('active'));
+      document.querySelectorAll('#edit-profile-form [data-frame]').forEach(pill => pill.classList.remove('active'));
       document.getElementById(`edit-frame-${profile.bodyFrame}`)?.classList.add('active');
       
-      document.querySelectorAll('[data-weight-unit]').forEach(pill => pill.classList.remove('active'));
+      document.querySelectorAll('#edit-profile-form [data-weight-unit]').forEach(pill => pill.classList.remove('active'));
       document.getElementById(`edit-weight-${profile.startingWeight.unit}`)?.classList.add('active');
       
-      document.querySelectorAll('[data-height-unit]').forEach(pill => pill.classList.remove('active'));
+      document.querySelectorAll('#edit-profile-form [data-height-unit]').forEach(pill => pill.classList.remove('active'));
       document.getElementById(`edit-height-${profile.startingHeight.unit}`)?.classList.add('active');
       
       goToScreen('edit-profile-form');
@@ -2203,7 +2168,6 @@ function saveNewProfile() {
       const startWeight = document.getElementById('edit-start-weight')?.value;
       const startHeight = document.getElementById('edit-start-height')?.value;
       
-      // Get selected values from pills
       const gender = document.querySelector('#edit-profile-form [data-gender].active')?.dataset.gender;
       const frame = document.querySelector('#edit-profile-form [data-frame].active')?.dataset.frame;
       const weightUnit = document.querySelector('#edit-profile-form [data-weight-unit].active')?.dataset.weightUnit;
@@ -2214,7 +2178,6 @@ function saveNewProfile() {
         return;
       }
       
-      // Update the profile
       const oldProfile = profileData[editingProfile];
       const updatedProfile = {
         ...oldProfile,
@@ -2227,7 +2190,6 @@ function saveNewProfile() {
         startingHeight: { value: parseFloat(startHeight), unit: heightUnit }
       };
       
-      // If name changed, update the key
       if (name !== editingProfile) {
         delete profileData[editingProfile];
         profileData[name] = updatedProfile;
@@ -2240,22 +2202,17 @@ function saveNewProfile() {
       goToScreen('edit-profiles');
     }
 
-    function saveMeasurements() {
-      alert('Measurements saved successfully!');
-    }
-
     // Event listeners for pills
     function setupPillEventListeners() {
-      // Body type selection
       document.querySelectorAll('[data-type]').forEach(pill => {
         pill.addEventListener('click', (e) => {
           document.querySelectorAll('[data-type]').forEach(p => p.classList.remove('active'));
           e.target.classList.add('active');
           selectedBodyType = e.target.dataset.type;
+          document.getElementById('body-type-display').textContent = selectedBodyType.charAt(0).toUpperCase() + selectedBodyType.slice(1);
         });
       });
       
-      // Unit selection
       document.querySelectorAll('[data-unit]').forEach(pill => {
         pill.addEventListener('click', (e) => {
           document.querySelectorAll('[data-unit]').forEach(p => p.classList.remove('active'));
@@ -2264,10 +2221,9 @@ function saveNewProfile() {
         });
       });
 
-      // Gender selection
       document.querySelectorAll('[data-gender]').forEach(pill => {
         pill.addEventListener('click', (e) => {
-          const container = e.target.closest('.form-group');
+          const container = e.target.closest('.form-group') || e.target.closest('.screen');
           if (container) {
             container.querySelectorAll('[data-gender]').forEach(p => p.classList.remove('active'));
             e.target.classList.add('active');
@@ -2275,10 +2231,9 @@ function saveNewProfile() {
         });
       });
 
-      // Frame selection
       document.querySelectorAll('[data-frame]').forEach(pill => {
         pill.addEventListener('click', (e) => {
-          const container = e.target.closest('.form-group');
+          const container = e.target.closest('.form-group') || e.target.closest('.screen');
           if (container) {
             container.querySelectorAll('[data-frame]').forEach(p => p.classList.remove('active'));
             e.target.classList.add('active');
@@ -2286,10 +2241,9 @@ function saveNewProfile() {
         });
       });
 
-      // Weight unit selection
       document.querySelectorAll('[data-weight-unit]').forEach(pill => {
         pill.addEventListener('click', (e) => {
-          const container = e.target.closest('.form-group');
+          const container = e.target.closest('.form-group') || e.target.closest('.screen');
           if (container) {
             container.querySelectorAll('[data-weight-unit]').forEach(p => p.classList.remove('active'));
             e.target.classList.add('active');
@@ -2297,12 +2251,21 @@ function saveNewProfile() {
         });
       });
 
-      // Height unit selection
       document.querySelectorAll('[data-height-unit]').forEach(pill => {
         pill.addEventListener('click', (e) => {
-          const container = e.target.closest('.form-group');
+          const container = e.target.closest('.form-group') || e.target.closest('.screen');
           if (container) {
             container.querySelectorAll('[data-height-unit]').forEach(p => p.classList.remove('active'));
+            e.target.classList.add('active');
+          }
+        });
+      });
+
+      document.querySelectorAll('[data-target-weight-unit]').forEach(pill => {
+        pill.addEventListener('click', (e) => {
+          const container = e.target.closest('.form-group') || e.target.closest('.screen');
+          if (container) {
+            container.querySelectorAll('[data-target-weight-unit]').forEach(p => p.classList.remove('active'));
             e.target.classList.add('active');
           }
         });
@@ -2310,18 +2273,21 @@ function saveNewProfile() {
     }
 
     function initApp() {
-  setupPillEventListeners();
-  updateNavigation();
+      setupPillEventListeners();
+      updateNavigation();
 
-  if (!currentProfile && Object.keys(profileData).length > 0) {
-    currentProfile = Object.keys(profileData)[0];
-  }
-    }
-      
-      // Set default profile if none exists
-      if (Object.keys(profileData).length > 0) {
+      if (!currentProfile && Object.keys(profileData).length > 0) {
         currentProfile = Object.keys(profileData)[0];
       }
+
+      // Set up category filter for My Sizes
+      const categorySelect = document.getElementById('mysizes-category');
+      if (categorySelect) {
+        categorySelect.addEventListener('change', populateMySizesGrid);
+      }
+
+      // Initialize My Sizes grid
+      populateMySizesGrid();
     }
 
     // Initialize when DOM is loaded
@@ -2329,4 +2295,3 @@ function saveNewProfile() {
   </script>
 </body>
 </html>
-
