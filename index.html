@@ -1458,62 +1458,64 @@
       <button class="stats-tab" onclick="showStatsTab('graph')">Graph</button>
       <button class="stats-tab" onclick="showStatsTab('history')">History</button>
     </div>
+    <!-- Current Progress Tab - UPDATED -->
+<div id="stats-current" class="stats-content active" style="padding-top: 120px;">
+  <div class="content-container">
+    <div class="hub-header">
+      <h2 class="hub-title">Welcome back, <span id="user-name">Emma</span>!</h2>
+    </div>
     
-    <!-- Current Progress Tab -->
-    <div id="stats-current" class="stats-content active" style="padding-top: 120px;">
-      <div class="content-container">
-        <div class="hub-header">
-          <h2 class="hub-title">Welcome back, <span id="user-name">Emma</span>!</h2>
-        </div>
-        
-        <div class="form-group" style="max-width:320px;margin:0 auto 16px;">
-          <label class="form-label" style="text-align:center;display:block;">Profile</label>
-          <select class="form-select" id="mistats-profile-select"></select>
-        </div>
+    <div class="form-group" style="max-width:320px;margin:0 auto 16px;">
+      <label class="form-label" style="text-align:center;display:block;">Profile</label>
+      <select class="form-select" id="mistats-profile-select"></select>
+    </div>
 
-        <div class="stats-grid">
-          <div class="stats-bubble">
-            <h3>Start</h3>
-            <p class="value" id="start-weight">65kg</p>
-          </div>
-          <div class="stats-bubble current">
-            <h3>Current</h3>
-            <p class="value" id="current-weight">62kg</p>
-          </div>
-          <div class="stats-bubble">
-            <h3>Target</h3>
-            <p class="value" id="target-weight">58kg</p>
-          </div>
-        </div>
-        
-        <div class="progress-bar">
-          <div class="progress-fill" id="progress-fill" style="width: 43%;"></div>
-        </div>
-        <p style="text-align: center; margin-bottom: 32px;" id="progress-text">43% to goal</p>
-        
-        <h3 style="text-align: center; margin-bottom: 16px;">Current Statistics</h3>
-        <div class="mini-stats">
-          <div class="mini-bubble">
-            <h4>Body Fat %</h4>
-            <p class="value" id="body-fat">22%</p>
-          </div>
-          <div class="mini-bubble">
-            <h4>Amount Lost</h4>
-            <p class="value" id="amount-lost">3kg</p>
-          </div>
-          <div class="mini-bubble">
-            <h4>Remaining</h4>
-            <p class="value" id="remaining-weight">4kg</p>
-          </div>
-        </div>
-        
-        <div class="bmi-indicator">
-          <h4>BMI Tracker</h4>
-          <p class="value" style="color: var(--green);" id="bmi-value">22.5</p>
-          <p style="font-size: 14px; margin-top: 8px;" id="bmi-category">Normal Weight</p>
-        </div>
+    <div class="stats-grid">
+      <div class="stats-bubble">
+        <h3>Start</h3>
+        <p class="value" id="start-weight">65kg</p>
+        <p style="font-size: 14px; margin-top: 4px; opacity: 0.8;" id="start-bmi">BMI: 23.1</p>
+      </div>
+      <div class="stats-bubble current">
+        <h3>Current</h3>
+        <p class="value" id="current-weight">62kg</p>
+        <p style="font-size: 14px; margin-top: 4px; opacity: 0.8;" id="current-bmi">BMI: 22.0</p>
+      </div>
+      <div class="stats-bubble">
+        <h3>Target</h3>
+        <p class="value" id="target-weight">58kg</p>
+        <p style="font-size: 14px; margin-top: 4px; opacity: 0.8;" id="target-bmi">BMI: 20.6</p>
       </div>
     </div>
+    
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill" style="width: 43%;"></div>
+    </div>
+    <p style="text-align: center; margin-bottom: 32px;" id="progress-text">43% to goal</p>
+    
+    <h3 style="text-align: center; margin-bottom: 16px;">Current Statistics</h3>
+    <div class="mini-stats">
+      <div class="mini-bubble">
+        <h4>Body Fat %</h4>
+        <p class="value" id="body-fat">22%</p>
+      </div>
+      <div class="mini-bubble">
+        <h4>Amount Lost</h4>
+        <p class="value" id="amount-lost">3kg</p>
+      </div>
+      <div class="mini-bubble">
+        <h4>Remaining</h4>
+        <p class="value" id="remaining-weight">4kg</p>
+      </div>
+    </div>
+    
+    <div class="bmi-indicator">
+      <h4>BMI Tracker</h4>
+      <p class="value" style="color: var(--green);" id="bmi-value">22.5</p>
+      <p style="font-size: 14px; margin-top: 8px;" id="bmi-category">Normal Weight</p>
+    </div>
+  </div>
+</div>
 
     <!-- Graph Tab -->
     <div id="stats-graph" class="stats-content" style="display: none; padding-top: 120px;">
