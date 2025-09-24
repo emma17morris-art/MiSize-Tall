@@ -1289,49 +1289,90 @@
           </div>
         </div>
       </div>
+<!-- Measurements Section - UPDATED -->
+<div class="settings-section">
+  <h3>📏 Profile Measurements</h3>
+  <p style="margin-bottom: 16px; color: var(--muted);">Track body measurements for accurate sizing</p>
 
-      <!-- Measurements Section -->
-      <div class="settings-section">
-        <h3>📏 Profile Measurements</h3>
-        <p style="margin-bottom: 16px; color: var(--muted);">Track body measurements for accurate sizing</p>
+  <!-- Profile Selection Dropdown -->
+  <div class="form-group">
+    <label class="form-label">Select Profile to Update</label>
+    <select class="form-select" id="measurement-profile-select">
+      <option value="">Choose a profile...</option>
+    </select>
+  </div>
 
-        <!-- Profile Selection Dropdown -->
-        <div class="form-group">
-          <label class="form-label">Select Profile to Update</label>
-          <select class="form-select" id="measurement-profile-select">
-            <option value="">Choose a profile...</option>
-          </select>
+  <div class="measurement-grid">
+    <div class="measurement-bubble">
+      <h4>Weight</h4>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <input type="number" class="measurement-input" id="weight" placeholder="62" style="flex: 1;" />
+        <div class="pill-settings-group" style="margin: 0;">
+          <button class="settings-pill active" data-weight-unit="kg">kg</button>
+          <button class="settings-pill" data-weight-unit="lbs">lbs</button>
+          <button class="settings-pill" data-weight-unit="stone">st</button>
         </div>
-
-        <div class="measurement-grid">
-          <div class="measurement-bubble">
-            <h4>Weight</h4>
-            <input type="number" class="measurement-input" id="weight" placeholder="62" />
-          </div>
-          <div class="measurement-bubble">
-            <h4>Chest/Bust</h4>
-            <input type="number" class="measurement-input" id="chest" placeholder="86" />
-          </div>
-          <div class="measurement-bubble">
-            <h4>Waist</h4>
-            <input type="number" class="measurement-input" id="waist" placeholder="68" />
-          </div>
-          <div class="measurement-bubble">
-            <h4>Hips</h4>
-            <input type="number" class="measurement-input" id="hips" placeholder="92" />
-          </div>
-          <div class="measurement-bubble">
-            <h4>Shoulders</h4>
-            <input type="number" class="measurement-input" id="shoulders" placeholder="38" />
-          </div>
-          <div class="measurement-bubble">
-            <h4>Arms</h4>
-            <input type="number" class="measurement-input" id="arms" placeholder="28" />
-          </div>
-        </div>
-
-        <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="saveMeasurementsToProfile()">Save Measurements to Profile</button>
       </div>
+    </div>
+    
+    <div class="measurement-bubble">
+      <h4>Chest/Bust</h4>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <input type="number" class="measurement-input" id="chest" placeholder="86" style="flex: 1;" />
+        <div class="pill-settings-group" style="margin: 0;">
+          <button class="settings-pill active" data-measurement-unit="cm">cm</button>
+          <button class="settings-pill" data-measurement-unit="inch">in</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="measurement-bubble">
+      <h4>Waist</h4>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <input type="number" class="measurement-input" id="waist" placeholder="68" style="flex: 1;" />
+        <div class="pill-settings-group" style="margin: 0;">
+          <button class="settings-pill active" data-measurement-unit="cm">cm</button>
+          <button class="settings-pill" data-measurement-unit="inch">in</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="measurement-bubble">
+      <h4>Hips</h4>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <input type="number" class="measurement-input" id="hips" placeholder="92" style="flex: 1;" />
+        <div class="pill-settings-group" style="margin: 0;">
+          <button class="settings-pill active" data-measurement-unit="cm">cm</button>
+          <button class="settings-pill" data-measurement-unit="inch">in</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="measurement-bubble">
+      <h4>Shoulders</h4>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <input type="number" class="measurement-input" id="shoulders" placeholder="38" style="flex: 1;" />
+        <div class="pill-settings-group" style="margin: 0;">
+          <button class="settings-pill active" data-measurement-unit="cm">cm</button>
+          <button class="settings-pill" data-measurement-unit="inch">in</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="measurement-bubble">
+      <h4>Arms</h4>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <input type="number" class="measurement-input" id="arms" placeholder="28" style="flex: 1;" />
+        <div class="pill-settings-group" style="margin: 0;">
+          <button class="settings-pill active" data-measurement-unit="cm">cm</button>
+          <button class="settings-pill" data-measurement-unit="inch">in</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="saveMeasurementsToProfile()">Save Measurements to Profile</button>
+</div>
 
       <!-- Region Settings -->
       <div class="settings-section">
