@@ -1796,34 +1796,43 @@ function loadSelectedProfileMeasurements() {
 
 function saveMeasurementsToProfile() {
   const selectedProfileName = document.getElementById('measurement-profile-select')?.value;
-  
-  if (!selectedProfileName) {
-    alert('Please select a profile first');
-    return;
-  }
-  
-  if (!profileData[selectedProfileName]) {
-    alert('Selected profile not found');
-    return;
-  }
-  
+  if (!selectedProfileName) { alert('Please select a profile first'); return; }
+  if (!profileData[selectedProfileName]) { alert('Selected profile not found'); return; }
+
   const profile = profileData[selectedProfileName];
   let hasChanges = false;
-  
-  // Get all measurement inputs and update the selected profile
+  const todayISO = new Date().toISOString().slice(0,10);
+  profile.history = profile.history || [];
+
+  // Update current measurements and history entries where provided
   ['weight', 'chest', 'waist', 'hips', 'shoulders', 'arms'].forEach(key => {
     const input = document.getElementById(key);
-    if (input && input.value) {
+    if (input && input.value !== '') {
       const newValue = parseFloat(input.value);
       if (newValue !== profile.measurements[key]) {
         hasChanges = true;
       }
       profile.measurements[key] = newValue;
+
+      // Units: weight uses startingWeight.unit by default, body measures follow selectedUnit
+      const unit = (key === 'weight') ? (profile.startingWeight?.unit || 'kg') : (selectedUnit || 'cm');
+
+      // Push a history row
+      profile.history.push({
+        date: todayISO,
+        type: key,
+        value: newValue,
+        unit
+      });
     }
   });
-  
+
   if (hasChanges) {
-    alert(`Measurements saved successfully to ${selectedProfileName}'s profile!`);
+    alert(`Measurements saved to ${selectedProfileName}!`);
+    // If we edited the currently viewed profile, refresh MiStats
+    if (currentProfile === selectedProfileName) {
+      renderMiStats();
+    }
   } else {
     alert('No changes to save.');
   }
