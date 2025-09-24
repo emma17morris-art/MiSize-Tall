@@ -1738,16 +1738,19 @@ document.getElementById('mysizes-category')?.addEventListener('change', populate
         updateNavigation();
       }
     }
-// Add this to the updateScreenData function
 function updateScreenData(screenId) {
   if (screenId === 'saved-profiles') {
     loadSavedProfiles();
   } else if (screenId === 'edit-profiles') {
     loadEditableProfiles();
   } else if (screenId === 'uk-settings') {
-    populateProfileDropdown();
-    if (screenId === 'uk-mysizes') {
-  populateMySizesGrid();
+    populateProfileDropdown();   // your Settings profile dropdown
+  } else if (screenId === 'mistats') {
+    populateMiStatsProfileSelect();
+    renderMiStats();
+  } else if (screenId === 'uk-mysizes') {
+    populateMySizesGrid();
+  }
 }
   
 
