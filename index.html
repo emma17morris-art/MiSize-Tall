@@ -854,6 +854,96 @@
       color: var(--text);
       font-weight: 600;
     }
+
+    /* Size Result Display */
+    .size-result {
+      background: var(--green);
+      color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 20px;
+      font-weight: 800;
+      font-size: 18px;
+      display: none;
+    }
+
+    .size-result.show {
+      display: block;
+    }
+
+    .measurement-display {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .measurement-display h4 {
+      margin: 0 0 12px;
+      color: var(--brand);
+      font-size: 16px;
+    }
+
+    .measurement-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .measurement-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .category-filter {
+      margin-bottom: 20px;
+    }
+
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .filter-pill {
+      padding: 8px 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-pill.active {
+      background: var(--brand);
+      color: #fff;
+      border-color: var(--brand);
+    }
+
+    .no-measurements-warning {
+      background: rgba(245, 158, 11, 0.1);
+      border: 2px solid var(--orange);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .no-measurements-warning h4 {
+      color: var(--orange);
+      margin: 0 0 8px;
+    }
+
+    .no-measurements-warning p {
+      margin: 0;
+      color: var(--text);
+    }
   </style>
 </head>
 <body>
@@ -935,40 +1025,6 @@
             <div class="highlight-tip">
               <p><strong>💡 Tip:</strong> Choose the region where you shop most frequently for the most accurate sizing information.</p>
             </div>
-            
-            <h5><span class="step-number">2</span>Setting Your Body Type & Units</h5>
-            <p>At the top of your screen, you'll see two pill groups:</p>
-            <ul>
-              <li><strong>Body Type:</strong> Select Standard, Petite, Tall, or Plus to filter results for your body type</li>
-              <li><strong>Units:</strong> Choose between cm or inches for measurements</li>
-            </ul>
-          </div>
-
-          <div class="guide-section">
-            <h5><span class="step-number">3</span>Using Size Finder</h5>
-            <p>Find your perfect size across different brands:</p>
-            <ul>
-              <li>Select a brand from our extensive list of 20+ popular retailers</li>
-              <li>Choose your category (Jeans, Dresses, Tops, Shoes)</li>
-              <li>Pick your fit preference (Standard, Snug, or Relaxed)</li>
-              <li>Tap "Get My Size" to see your recommended size</li>
-              <li>Use "Save to History" to keep track of your searches</li>
-            </ul>
-            
-            <div class="highlight-tip">
-              <p><strong>🔍 Pro Tip:</strong> The app considers your body type and measurements to provide the most accurate size recommendations.</p>
-            </div>
-          </div>
-
-          <div class="guide-section">
-            <h5><span class="step-number">4</span>My Sizes Dashboard</h5>
-            <p>View all your sizes in one place:</p>
-            <ul>
-              <li>Automatically filtered by your selected body type</li>
-              <li>Only shows brands that support your body type</li>
-              <li>Filter by category to find specific items quickly</li>
-              <li>See your recommended size for each brand and category</li>
-            </ul>
           </div>
         </div>
       </div>
@@ -1041,6 +1097,12 @@
       </div>
       
       <div class="form-container">
+        <!-- Current Measurements Display -->
+        <div id="current-measurements" class="measurement-display">
+          <h4>📏 Your Current Measurements</h4>
+          <!-- This will be populated with current profile measurements -->
+        </div>
+        
         <div class="form-group">
           <label class="form-label">Brand</label>
           <select class="form-select" id="uk-brand-select">
@@ -1053,6 +1115,8 @@
             <option value="Topshop">Topshop</option>
             <option value="Primark">Primark</option>
             <option value="Uniqlo">Uniqlo</option>
+            <option value="COS">COS</option>
+            <option value="& Other Stories">& Other Stories</option>
           </select>
         </div>
         
@@ -1064,6 +1128,9 @@
             <option value="Women's Dresses">Women's Dresses</option>
             <option value="Women's Tops">Women's Tops</option>
             <option value="Women's Shoes">Women's Shoes</option>
+            <option value="Men's Jeans">Men's Jeans</option>
+            <option value="Men's Shirts">Men's Shirts</option>
+            <option value="Men's Shoes">Men's Shoes</option>
           </select>
         </div>
         
@@ -1072,14 +1139,19 @@
           <select class="form-select" id="uk-fit-select">
             <option value="">Select fit...</option>
             <option value="Standard">Standard</option>
-            <option value="Snug">Snug</option>
-            <option value="Relaxed">Relaxed</option>
+            <option value="Snug">Snug (Size down)</option>
+            <option value="Relaxed">Relaxed (Size up)</option>
           </select>
         </div>
         
         <div class="button-group">
           <button class="btn btn-primary" onclick="getMySize()">Get My Size</button>
           <button class="btn btn-secondary" onclick="saveToHistory()">Save to History</button>
+        </div>
+        
+        <!-- Size Result Display -->
+        <div id="size-result" class="size-result">
+          <!-- Size recommendation will appear here -->
         </div>
       </div>
     </div>
@@ -1092,19 +1164,19 @@
         <h2 class="hub-title">My Sizes</h2>
         <p class="hub-subtitle">(Filtered by <span id="body-type-display">Standard</span> body type)</p>
         <p style="font-size: 14px; color: var(--muted); margin-top: 8px;">
-          Only brands that support your body type are included
+          Based on your current measurements
         </p>
       </div>
       
-      <div class="form-group">
-        <label class="form-label">Category</label>
-        <select class="form-select" id="mysizes-category">
-          <option value="">All categories</option>
-          <option value="Women's Jeans">Women's Jeans</option>
-          <option value="Women's Dresses">Women's Dresses</option>
-          <option value="Women's Tops">Women's Tops</option>
-          <option value="Women's Shoes">Women's Shoes</option>
-        </select>
+      <!-- Category Filter -->
+      <div class="category-filter">
+        <div class="filter-pills">
+          <button class="filter-pill active" onclick="filterMySizes('all')">All</button>
+          <button class="filter-pill" onclick="filterMySizes('jeans')">Jeans</button>
+          <button class="filter-pill" onclick="filterMySizes('dresses')">Dresses</button>
+          <button class="filter-pill" onclick="filterMySizes('tops')">Tops</button>
+          <button class="filter-pill" onclick="filterMySizes('shoes')">Shoes</button>
+        </div>
       </div>
       
       <div class="brand-grid" id="my-sizes-grid">
@@ -1440,8 +1512,9 @@
     let selectedBodyType = 'standard';
     let selectedUnit = 'cm';
     let currentProfile = 'Emma Thompson';
+    let currentFilter = 'all';
     
-    // Profile data structure
+    // Enhanced profile data with brand-specific sizing algorithms
     let profileData = {
       'Emma Thompson': {
         id: 'emma-thompson',
@@ -1466,75 +1539,116 @@
           targetWeight: 58,
           bodyFat: 22
         },
-        brandSizes: {
-          'ASOS': { category: 'Women\'s Jeans', size: 'Size 10', fit: 'Standard' },
-          'Zara': { category: 'Women\'s Dresses', size: 'Size S', fit: 'Standard' },
-          'H&M': { category: 'Women\'s Tops', size: 'Size 38', fit: 'Standard' }
-        },
+        brandSizes: {},
         searchHistory: [
           { brand: 'ASOS', category: 'Women\'s Jeans', size: 'Size 10', fit: 'Standard', date: '2 days ago' },
-          { brand: 'Zara', category: 'Women\'s Dresses', size: 'Size S', fit: 'Standard', date: '1 week ago' },
-          { brand: 'H&M', category: 'Women\'s Tops', size: 'Size 38', fit: 'Relaxed', date: '2 weeks ago' }
+          { brand: 'Zara', category: 'Women\'s Dresses', size: 'Size M', fit: 'Standard', date: '1 week ago' }
         ],
         measurementHistory: [
           { type: 'Weight', value: '62kg', date: 'March 15, 2024' },
-          { type: 'Waist', value: '68cm', date: 'March 15, 2024' },
-          { type: 'Hips', value: '92cm', date: 'March 10, 2024' }
+          { type: 'Waist', value: '68cm', date: 'March 15, 2024' }
         ]
+      }
+    };
+
+    // Brand-specific sizing algorithms
+    const brandSizingAlgorithms = {
+      'ASOS': {
+        'Women\'s Jeans': (measurements) => {
+          if (measurements.waist <= 60) return 'Size 6';
+          if (measurements.waist <= 65) return 'Size 8';
+          if (measurements.waist <= 70) return 'Size 10';
+          if (measurements.waist <= 75) return 'Size 12';
+          if (measurements.waist <= 80) return 'Size 14';
+          return 'Size 16';
+        },
+        'Women\'s Dresses': (measurements) => {
+          if (measurements.chest <= 81 && measurements.waist <= 63) return 'Size XS';
+          if (measurements.chest <= 86 && measurements.waist <= 68) return 'Size S';
+          if (measurements.chest <= 91 && measurements.waist <= 73) return 'Size M';
+          if (measurements.chest <= 96 && measurements.waist <= 78) return 'Size L';
+          return 'Size XL';
+        },
+        'Women\'s Tops': (measurements) => {
+          if (measurements.chest <= 81) return 'Size XS';
+          if (measurements.chest <= 86) return 'Size S';
+          if (measurements.chest <= 91) return 'Size M';
+          if (measurements.chest <= 96) return 'Size L';
+          return 'Size XL';
+        },
+        'Women\'s Shoes': (measurements) => {
+          // Placeholder - would need foot measurements
+          return 'Size 6 UK';
+        }
       },
-      'John Doe': {
-        id: 'john-doe',
-        name: 'John Doe',
-        bodyType: 'Standard',
-        height: "6'0\"",
-        region: 'UK',
-        details: 'Standard • 6\'0" • UK Sizes',
-        measurements: {
-          weight: 75,
-          chest: 102,
-          waist: 84,
-          hips: 96,
-          shoulders: 46,
-          arms: 32,
-          thighs: 62,
-          inseam: 84,
-          neck: 38
+      'Zara': {
+        'Women\'s Jeans': (measurements) => {
+          // Zara runs small, so size up
+          if (measurements.waist <= 58) return 'Size 34 (XS)';
+          if (measurements.waist <= 63) return 'Size 36 (S)';
+          if (measurements.waist <= 68) return 'Size 38 (M)';
+          if (measurements.waist <= 73) return 'Size 40 (L)';
+          return 'Size 42 (XL)';
         },
-        goals: {
-          startWeight: 80,
-          targetWeight: 72,
-          bodyFat: 15
+        'Women\'s Dresses': (measurements) => {
+          if (measurements.chest <= 84 && measurements.waist <= 66) return 'Size S';
+          if (measurements.chest <= 89 && measurements.waist <= 71) return 'Size M';
+          if (measurements.chest <= 94 && measurements.waist <= 76) return 'Size L';
+          return 'Size XL';
         },
-        brandSizes: {},
-        searchHistory: [],
-        measurementHistory: []
+        'Women\'s Tops': (measurements) => {
+          if (measurements.chest <= 84) return 'Size S';
+          if (measurements.chest <= 89) return 'Size M';
+          if (measurements.chest <= 94) return 'Size L';
+          return 'Size XL';
+        }
       },
-      'Sarah Wilson': {
-        id: 'sarah-wilson',
-        name: 'Sarah Wilson',
-        bodyType: 'Petite',
-        height: "5'2\"",
-        region: 'UK',
-        details: 'Petite • 5\'2" • UK Sizes',
-        measurements: {
-          weight: 55,
-          chest: 81,
-          waist: 64,
-          hips: 88,
-          shoulders: 34,
-          arms: 26,
-          thighs: 52,
-          inseam: 68,
-          neck: 30
+      'H&M': {
+        'Women\'s Jeans': (measurements) => {
+          if (measurements.waist <= 62) return 'Size 34';
+          if (measurements.waist <= 67) return 'Size 36';
+          if (measurements.waist <= 72) return 'Size 38';
+          if (measurements.waist <= 77) return 'Size 40';
+          return 'Size 42';
         },
-        goals: {
-          startWeight: 58,
-          targetWeight: 53,
-          bodyFat: 20
+        'Women\'s Dresses': (measurements) => {
+          if (measurements.chest <= 82 && measurements.waist <= 64) return 'Size XS';
+          if (measurements.chest <= 87 && measurements.waist <= 69) return 'Size S';
+          if (measurements.chest <= 92 && measurements.waist <= 74) return 'Size M';
+          if (measurements.chest <= 97 && measurements.waist <= 79) return 'Size L';
+          return 'Size XL';
+        }
+      },
+      'Next': {
+        'Women\'s Jeans': (measurements) => {
+          if (measurements.waist <= 63) return 'Size 8';
+          if (measurements.waist <= 68) return 'Size 10';
+          if (measurements.waist <= 73) return 'Size 12';
+          if (measurements.waist <= 78) return 'Size 14';
+          return 'Size 16';
         },
-        brandSizes: {},
-        searchHistory: [],
-        measurementHistory: []
+        'Women\'s Dresses': (measurements) => {
+          if (measurements.chest <= 84 && measurements.waist <= 66) return 'Size 8';
+          if (measurements.chest <= 89 && measurements.waist <= 71) return 'Size 10';
+          if (measurements.chest <= 94 && measurements.waist <= 76) return 'Size 12';
+          if (measurements.chest <= 99 && measurements.waist <= 81) return 'Size 14';
+          return 'Size 16';
+        }
+      },
+      'Marks & Spencer': {
+        'Women\'s Jeans': (measurements) => {
+          if (measurements.waist <= 63) return 'Size 8';
+          if (measurements.waist <= 68) return 'Size 10';
+          if (measurements.waist <= 73) return 'Size 12';
+          if (measurements.waist <= 78) return 'Size 14';
+          return 'Size 16';
+        },
+        'Women\'s Dresses': (measurements) => {
+          if (measurements.chest <= 84 && measurements.waist <= 66) return 'Size 8';
+          if (measurements.chest <= 89 && measurements.waist <= 71) return 'Size 10';
+          if (measurements.chest <= 94 && measurements.waist <= 76) return 'Size 12';
+          return 'Size 14';
+        }
       }
     };
 
@@ -1542,8 +1656,6 @@
     function initApp() {
       updateScreenData('home');
       updateNavigation();
-      
-      // Set up event listeners
       setupPillEventListeners();
       setupClickOutsideListener();
     }
@@ -1583,9 +1695,219 @@
         updateHistoryData(profile);
       } else if (screenId === 'uk-settings') {
         loadProfileMeasurements(profile);
+      } else if (screenId === 'uk-sizefinder') {
+        displayCurrentMeasurements(profile);
       }
     }
+
+    function displayCurrentMeasurements(profile) {
+      const measurementDisplay = document.getElementById('current-measurements');
+      if (measurementDisplay) {
+        const measurements = profile.measurements;
+        const hasMeasurements = Object.values(measurements).some(val => val !== null && val !== undefined);
+        
+        if (!hasMeasurements) {
+          measurementDisplay.innerHTML = `
+            <div class="no-measurements-warning">
+              <h4>⚠️ No Measurements Found</h4>
+              <p>Go to Settings to add your measurements for accurate size recommendations.</p>
+            </div>
+          `;
+          return;
+        }
+
+        measurementDisplay.innerHTML = `
+          <h4>📏 Your Current Measurements (${currentProfile})</h4>
+          <div class="measurement-row">
+            <span>Weight:</span>
+            <span>${measurements.weight || '--'} kg</span>
+          </div>
+          <div class="measurement-row">
+            <span>Chest/Bust:</span>
+            <span>${measurements.chest || '--'} cm</span>
+          </div>
+          <div class="measurement-row">
+            <span>Waist:</span>
+            <span>${measurements.waist || '--'} cm</span>
+          </div>
+          <div class="measurement-row">
+            <span>Hips:</span>
+            <span>${measurements.hips || '--'} cm</span>
+          </div>
+          <div class="measurement-row">
+            <span>Height:</span>
+            <span>${profile.height}</span>
+          </div>
+        `;
+      }
+    }
+
+    // Enhanced size finder function
+    function getMySize() {
+      const brand = document.getElementById('uk-brand-select')?.value;
+      const category = document.getElementById('uk-category-select')?.value;
+      const fit = document.getElementById('uk-fit-select')?.value;
+      const resultDiv = document.getElementById('size-result');
+      
+      if (!brand || !category || !fit) {
+        alert('Please select all options to find your size.');
+        return;
+      }
+
+      const profile = profileData[currentProfile];
+      const measurements = profile.measurements;
+      
+      // Check if measurements exist
+      const hasMeasurements = Object.values(measurements).some(val => val !== null && val !== undefined);
+      if (!hasMeasurements) {
+        alert('Please add your measurements in Settings first for accurate size recommendations.');
+        return;
+      }
+
+      // Get size using brand-specific algorithm
+      let size = 'Size not available';
+      if (brandSizingAlgorithms[brand] && brandSizingAlgorithms[brand][category]) {
+        size = brandSizingAlgorithms[brand][category](measurements);
+        
+        // Apply fit preference
+        if (fit === 'Snug') {
+          size += ' (Consider sizing down for snug fit)';
+        } else if (fit === 'Relaxed') {
+          size += ' (Consider sizing up for relaxed fit)';
+        }
+      } else {
+        // Fallback generic sizing
+        size = getGenericSize(category, measurements);
+      }
+
+      // Display result
+      if (resultDiv) {
+        resultDiv.innerHTML = `
+          <strong>${brand}</strong> ${category}<br>
+          Recommended Size: <strong>${size}</strong><br>
+          Fit: ${fit}
+        `;
+        resultDiv.classList.add('show');
+      }
+
+      // Save to profile
+      if (!profile.brandSizes[brand]) {
+        profile.brandSizes[brand] = {};
+      }
+      profile.brandSizes[brand][category] = { size, fit, date: new Date().toLocaleDateString() };
+      
+      // Add to history
+      profile.searchHistory.unshift({
+        brand,
+        category,
+        size,
+        fit,
+        date: 'Just now'
+      });
+
+      // Update displays if viewing those screens
+      if (currentScreen === 'uk-mysizes') updateMySizesData(profile);
+      if (currentScreen === 'uk-history') updateHistoryData(profile);
+    }
+
+    function getGenericSize(category, measurements) {
+      if (category.includes('Jeans')) {
+        if (measurements.waist <= 63) return 'Size 8/XS';
+        if (measurements.waist <= 68) return 'Size 10/S';
+        if (measurements.waist <= 73) return 'Size 12/M';
+        if (measurements.waist <= 78) return 'Size 14/L';
+        return 'Size 16/XL';
+      } else if (category.includes('Dress') || category.includes('Top')) {
+        if (measurements.chest <= 84) return 'Size S';
+        if (measurements.chest <= 89) return 'Size M';
+        if (measurements.chest <= 94) return 'Size L';
+        return 'Size XL';
+      } else if (category.includes('Shoe')) {
+        return 'Size 6 UK (Add foot measurements for accuracy)';
+      }
+      return 'Size M (Generic)';
+    }
+
+    function updateMySizesData(profile) {
+      const grid = document.getElementById('my-sizes-grid');
+      if (!grid) return;
+
+      // Generate sizes for all major brands
+      const allBrands = Object.keys(brandSizingAlgorithms);
+      const categories = ['Women\'s Jeans', 'Women\'s Dresses', 'Women\'s Tops', 'Women\'s Shoes'];
+      
+      const brandSizeData = [];
+      
+      allBrands.forEach(brand => {
+        categories.forEach(category => {
+          if (currentFilter === 'all' || 
+              (currentFilter === 'jeans' && category.includes('Jeans')) ||
+              (currentFilter === 'dresses' && category.includes('Dresses')) ||
+              (currentFilter === 'tops' && category.includes('Tops')) ||
+              (currentFilter === 'shoes' && category.includes('Shoes'))) {
+            
+            let size = 'Add measurements';
+            const measurements = profile.measurements;
+            const hasMeasurements = Object.values(measurements).some(val => val !== null);
+            
+            if (hasMeasurements && brandSizingAlgorithms[brand][category]) {
+              size = brandSizingAlgorithms[brand][category](measurements);
+            }
+            
+            brandSizeData.push({
+              brand,
+              category,
+              size
+            });
+          }
+        });
+      });
+
+      if (brandSizeData.length === 0) {
+        grid.innerHTML = '<p style="grid-column: span 2; text-align: center; color: var(--muted);">No sizes for selected filter.</p>';
+        return;
+      }
+
+      grid.innerHTML = brandSizeData.map(item => `
+        <div class="brand-card">
+          <div class="brand-name">${item.brand}</div>
+          <div class="brand-size">${item.size}</div>
+          <p style="font-size: 14px; color: var(--muted); margin-top: 8px;">${item.category}</p>
+        </div>
+      `).join('');
+    }
+
+    function filterMySizes(filter) {
+      currentFilter = filter;
+      
+      // Update active filter pill
+      document.querySelectorAll('.filter-pill').forEach(pill => {
+        pill.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      // Update displayed sizes
+      updateMySizesData(profileData[currentProfile]);
+    }
     
+    function updateHistoryData(profile) {
+      const historyList = document.getElementById('uk-history-list');
+      if (historyList) {
+        if (profile.searchHistory.length === 0) {
+          historyList.innerHTML = '<p style="text-align: center; color: var(--muted); padding: 40px;">No search history yet</p>';
+        } else {
+          historyList.innerHTML = profile.searchHistory.map(item => `
+            <div class="history-item">
+              <div>
+                <strong>${item.brand} - ${item.category}</strong><br>
+                <span class="history-date">${item.size}, ${item.fit} fit - ${item.date}</span>
+              </div>
+            </div>
+          `).join('');
+        }
+      }
+    }
+
     function updateMiStatsData(profile) {
       document.getElementById('user-name').textContent = profile.name.split(' ')[0];
       document.getElementById('start-weight').textContent = profile.goals.startWeight + 'kg';
@@ -1623,41 +1945,6 @@
             </div>
           </div>
         `).join('') || '<p style="text-align: center; color: var(--muted); padding: 40px;">No measurement history yet</p>';
-      }
-    }
-    
-    function updateMySizesData(profile) {
-      const grid = document.getElementById('my-sizes-grid');
-      if (grid) {
-        if (Object.keys(profile.brandSizes).length === 0) {
-          grid.innerHTML = '<p style="grid-column: span 2; text-align: center; color: var(--muted);">No saved sizes yet. Use Size Finder to discover your sizes!</p>';
-        } else {
-          grid.innerHTML = Object.entries(profile.brandSizes).map(([brand, data]) => `
-            <div class="brand-card">
-              <div class="brand-name">${brand}</div>
-              <div class="brand-size">${data.size}</div>
-              <p style="font-size: 14px; color: var(--muted); margin-top: 8px;">${data.category} - ${data.fit} Fit</p>
-            </div>
-          `).join('');
-        }
-      }
-    }
-    
-    function updateHistoryData(profile) {
-      const historyList = document.getElementById('uk-history-list');
-      if (historyList) {
-        if (profile.searchHistory.length === 0) {
-          historyList.innerHTML = '<p style="text-align: center; color: var(--muted); padding: 40px;">No search history yet</p>';
-        } else {
-          historyList.innerHTML = profile.searchHistory.map(item => `
-            <div class="history-item">
-              <div>
-                <strong>${item.brand} - ${item.category}</strong><br>
-                <span class="history-date">${item.size}, ${item.fit} fit - ${item.date}</span>
-              </div>
-            </div>
-          `).join('');
-        }
       }
     }
     
@@ -1752,40 +2039,6 @@
       if (activeContent) activeContent.style.display = 'block';
     }
 
-    // Size Finder functions
-    function getMySize() {
-      const brand = document.getElementById('uk-brand-select')?.value;
-      const category = document.getElementById('uk-category-select')?.value;
-      const fit = document.getElementById('uk-fit-select')?.value;
-      
-      if (brand && category && fit) {
-        const profile = profileData[currentProfile];
-        let size = 'Size 10'; // Default
-        
-        // Simple size calculation based on measurements
-        if (category === "Women's Jeans") {
-          if (profile.measurements.waist < 65) size = 'Size 8';
-          else if (profile.measurements.waist > 75) size = 'Size 12';
-        } else if (category === "Women's Dresses") {
-          if (profile.measurements.chest < 85) size = 'Size S';
-          else if (profile.measurements.chest > 95) size = 'Size L';
-          else size = 'Size M';
-        }
-        
-        alert(`Your recommended size for ${brand} ${category} in ${fit} fit is: ${size}`);
-        
-        // Add to brand sizes and history
-        profile.brandSizes[brand] = { category, size, fit };
-        profile.searchHistory.unshift({ brand, category, size, fit, date: 'Just now' });
-        
-        // Update displays if currently viewing
-        if (currentScreen === 'uk-mysizes') updateMySizesData(profile);
-        if (currentScreen === 'uk-history') updateHistoryData(profile);
-      } else {
-        alert('Please select all options to find your size.');
-      }
-    }
-
     function saveToHistory() {
       const brand = document.getElementById('uk-brand-select')?.value;
       const category = document.getElementById('uk-category-select')?.value;
@@ -1820,14 +2073,6 @@
               <div class="profile-option" onclick="switchProfile('${profileName}')">
                 <div style="font-weight: 700;">${profileName}</div>
                 <div style="font-size: 12px; color: var(--muted);">${profile.details}</div>
-                ${profileName !== currentProfile ? '' : 
-                  `<div class="profile-data-view">
-                    <div class="data-row"><span class="data-label">Weight:</span><span class="data-value">${profile.measurements.weight}kg</span></div>
-                    <div class="data-row"><span class="data-label">Waist:</span><span class="data-value">${profile.measurements.waist}cm</span></div>
-                    <div class="data-row"><span class="data-label">Hips:</span><span class="data-value">${profile.measurements.hips}cm</span></div>
-                    <div class="data-row"><span class="data-label">Brands:</span><span class="data-value">${Object.keys(profile.brandSizes).length}</span></div>
-                  </div>`
-                }
               </div>
             `;
           }).join('') + 
@@ -1849,150 +2094,4 @@
         if (profileDetailsElement) profileDetailsElement.textContent = profile.details;
         if (dropdown) dropdown.classList.remove('show');
         
-        // Update current screen data
-        updateScreenData(currentScreen);
-      }
-    }
-
-    function createNewProfile() {
-      const dropdown = document.getElementById('profile-dropdown');
-      const nameInput = document.getElementById('new-profile-name');
-      
-      if (dropdown) dropdown.classList.remove('show');
-      if (nameInput) nameInput.focus();
-    }
-
-    function saveProfile() {
-      const nameInput = document.getElementById('new-profile-name');
-      const bodyTypeSelect = document.getElementById('new-profile-body-type');
-      const heightInput = document.getElementById('new-profile-height');
-      
-      const name = nameInput?.value;
-      const bodyType = bodyTypeSelect?.value;
-      const height = heightInput?.value;
-      
-      if (name && bodyType && height) {
-        const newProfile = {
-          id: name.toLowerCase().replace(/\s+/g, '-'),
-          name: name,
-          bodyType: bodyType,
-          height: height,
-          region: 'UK',
-          details: `${bodyType} • ${height} • UK Sizes`,
-          measurements: {
-            weight: null, chest: null, waist: null, hips: null,
-            shoulders: null, arms: null, thighs: null, inseam: null, neck: null
-          },
-          goals: { startWeight: null, targetWeight: null, bodyFat: null },
-          brandSizes: {},
-          searchHistory: [],
-          measurementHistory: []
-        };
-        
-        profileData[name] = newProfile;
-        
-        // Clear form
-        if (nameInput) nameInput.value = '';
-        if (heightInput) heightInput.value = '';
-        
-        alert('Profile created successfully! Switch to it using the profile dropdown.');
-      } else {
-        alert('Please fill in all profile fields.');
-      }
-    }
-
-    function saveMeasurements() {
-      const profile = profileData[currentProfile];
-      let hasChanges = false;
-      
-      // Get all measurement inputs
-      ['weight', 'chest', 'waist', 'hips', 'shoulders', 'arms', 'thighs', 'inseam', 'neck'].forEach(key => {
-        const input = document.getElementById(key);
-        if (input && input.value) {
-          const newValue = parseFloat(input.value);
-          if (newValue !== profile.measurements[key]) {
-            hasChanges = true;
-            // Add to measurement history
-            profile.measurementHistory.unshift({
-              type: key.charAt(0).toUpperCase() + key.slice(1),
-              value: newValue + (key === 'weight' ? 'kg' : 'cm'),
-              date: new Date().toLocaleDateString()
-            });
-          }
-          profile.measurements[key] = newValue;
-        }
-      });
-      
-      if (hasChanges) {
-        alert('Measurements saved successfully!');
-        // Update MiStats if currently viewing
-        if (currentScreen === 'mistats') {
-          updateMiStatsData(profile);
-        }
-      } else {
-        alert('No changes to save.');
-      }
-    }
-    
-    // Utility functions
-    function toggleGuide(guideId) {
-      const guide = document.getElementById(guideId);
-      if (guide) {
-        guide.classList.toggle('show');
-      }
-    }
-
-    function reportIssue() {
-      alert('Report Issue feature coming soon! You can contact us at support@misize.com');
-    }
-
-    function openConverter(type) {
-      alert(`Opening ${type} size converter...`);
-    }
-
-    function showMeasurementGuide(type) {
-      alert(`Opening ${type} measurement guide...`);
-    }
-
-    // Setup event listeners
-    function setupPillEventListeners() {
-      // Body type selection
-      document.querySelectorAll('[data-type]').forEach(pill => {
-        pill.addEventListener('click', (e) => {
-          document.querySelectorAll('[data-type]').forEach(p => p.classList.remove('active'));
-          e.target.classList.add('active');
-          selectedBodyType = e.target.dataset.type;
-          
-          const bodyTypeDisplay = document.getElementById('body-type-display');
-          if (bodyTypeDisplay) {
-            bodyTypeDisplay.textContent = selectedBodyType.charAt(0).toUpperCase() + selectedBodyType.slice(1);
-          }
-        });
-      });
-      
-      // Unit selection
-      document.querySelectorAll('[data-unit]').forEach(pill => {
-        pill.addEventListener('click', (e) => {
-          document.querySelectorAll('[data-unit]').forEach(p => p.classList.remove('active'));
-          e.target.classList.add('active');
-          selectedUnit = e.target.dataset.unit;
-        });
-      });
-    }
-
-    function setupClickOutsideListener() {
-      document.addEventListener('click', (e) => {
-        const dropdown = document.getElementById('profile-dropdown');
-        const profileCard = document.querySelector('.profile-card');
-        
-        if (dropdown && !profileCard?.contains(e.target)) {
-          dropdown.classList.remove('show');
-        }
-      });
-    }
-
-    // Initialize app when DOM is loaded
-    document.addEventListener('DOMContentLoaded', initApp);
-  </script>
-</body>
-</html>
+        // Update current screen
