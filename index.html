@@ -1842,6 +1842,119 @@ function saveMeasurements() {
       }
     }
 
+    function setCurrentProfile(name) {
+  if (!profileData[name]) return;
+  currentProfile = name;
+  // Update MiStats profile selector
+  const sel = document.getElementById('mistats-profile-select');
+  if (sel) sel.value = name;
+  renderMiStats();
+}
+
+function populateMiStatsProfileSelect() {
+  const sel = document.getElementById('mistats-profile-select');
+  if (!sel) return;
+  sel.innerHTML = Object.keys(profileData).map(n => `<option value="${n}">${n}</option>`).join('');
+  if (currentProfile && profileData[currentProfile]) {
+    sel.value = currentProfile;
+  } else {
+    currentProfile = Object.keys(profileData)[0] || null;
+    if (currentProfile) sel.value = currentProfile;
+  }
+  sel.onchange = () => setCurrentProfile(sel.value);
+}
+
+function kgFrom(value, unit) {
+  if (unit === 'kg') return value;
+  if (unit === 'lbs') return value * 0.45359237;
+  if (unit === 'stone') return value * 6.35029318;
+  return value;
+}
+function cmFrom(value, unit) {
+  if (unit === 'cm') return value;
+  if (unit === 'inch') return value * 2.54;
+  return value;
+}
+
+function computeBMIKgCm(weightKg, heightCm) {
+  const h = heightCm / 100;
+  if (!h) return null;
+  return weightKg / (h * h);
+}
+function bmiCategory(bmi) {
+  if (bmi == null) return '';
+  if (bmi < 18.5) return 'Underweight';
+  if (bmi < 25) return 'Normal Weight';
+  if (bmi < 30) return 'Overweight';
+  return 'Obese';
+}
+
+function renderMiStats() {
+  const p = profileData[currentProfile];
+  if (!p) return;
+
+  const startKg = kgFrom(p.startingWeight.value, p.startingWeight.unit);
+  const heightCm = cmFrom(p.startingHeight.value, p.startingHeight.unit);
+
+  // Current weight = latest weight entry in history (or measurements.weight, or starting)
+  const latestWeightEntry = [...(p.history || [])]
+    .filter(e => e.type === 'weight')
+    .sort((a,b) => new Date(a.date) - new Date(b.date))
+    .slice(-1)[0];
+
+  const currentWeightVal = latestWeightEntry?.value ?? p.measurements?.weight ?? p.startingWeight.value;
+  const currentWeightUnit = latestWeightEntry?.unit ?? p.startingWeight.unit;
+  const currentKg = kgFrom(currentWeightVal, currentWeightUnit);
+
+  const targetKg = p.targetWeight ? kgFrom(p.targetWeight.value, p.targetWeight.unit) : null;
+
+  // Fill Current tab
+  document.getElementById('user-name').textContent = p.name.split(' ')[0];
+  document.getElementById('start-weight').textContent = `${p.startingWeight.value}${p.startingWeight.unit}`;
+  document.getElementById('current-weight').textContent = `${currentWeightVal}${currentWeightUnit}`;
+  document.getElementById('target-weight').textContent = p.targetWeight ? `${p.targetWeight.value}${p.targetWeight.unit}` : '—';
+
+  const lostKg = startKg - currentKg;
+  const remainingKg = (targetKg != null) ? (currentKg - targetKg) : null;
+  const progressPct = (targetKg != null && startKg !== targetKg)
+    ? Math.max(0, Math.min(100, ((startKg - currentKg) / (startKg - targetKg)) * 100))
+    : 0;
+
+  document.getElementById('amount-lost').textContent = `${Math.round(lostKg * 10) / 10}kg`;
+  document.getElementById('remaining-weight').textContent = (remainingKg != null)
+    ? `${Math.max(0, Math.round(remainingKg * 10) / 10)}kg` : '—';
+  document.getElementById('progress-fill').style.width = `${Math.round(progressPct)}%`;
+  document.getElementById('progress-text').textContent = `${Math.round(progressPct)}% to goal`;
+
+  const bmi = computeBMIKgCm(currentKg, heightCm);
+  if (bmi) {
+    document.getElementById('bmi-value').textContent = (Math.round(bmi * 10) / 10).toString();
+    document.getElementById('bmi-category').textContent = bmiCategory(bmi);
+  }
+
+  // History list
+  renderMeasurementHistory();
+}
+
+function renderMeasurementHistory() {
+  const p = profileData[currentProfile];
+  const list = document.getElementById('measurement-history');
+  if (!p || !list) return;
+
+  const entries = [...(p.history || [])]
+    .sort((a,b) => new Date(b.date) - new Date(a.date))
+    .map(e => `
+      <div class="history-item">
+        <div>
+          <strong>${e.type.charAt(0).toUpperCase() + e.type.slice(1)}: ${e.value}${e.unit || ''}</strong><br>
+          <span class="history-date">${new Date(e.date).toLocaleDateString()}</span>
+        </div>
+      </div>
+    `).join('');
+
+  list.innerHTML = entries || '<div class="history-item"><div><span class="history-date" style="color:var(--muted);">No history yet</span></div></div>';
+}
+    
     function goHome() {
       navigationHistory = [];
       goToScreen('home');
