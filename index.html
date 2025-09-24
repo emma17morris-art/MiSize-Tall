@@ -2486,66 +2486,89 @@ const BRAND_SIZE_DATABASE = {
     }
 
     // Enhanced My Sizes Grid
-    async function populateMySizesGrid() {
-      const grid = document.getElementById('my-sizes-grid');
-      if (!grid) return;
-      
-      grid.innerHTML = '<div style="text-align: center; padding: 40px; grid-column: 1/-1;"><div class="loading-spinner"></div><p>Loading your accurate sizes...</p></div>';
-      
-      try {
-        const allSizes = await miSizeSystem.getAllMySizes();
-        const filter = document.getElementById('mysizes-category')?.value || '';
-        
-        let itemsHTML = '';
-        let totalItems = 0;
-        
-        Object.entries(allSizes).forEach(([category, recommendations]) => {
-          if (!filter || category === filter) {
-            recommendations.forEach(rec => {
-              totalItems++;
-              const confidenceColor = rec.confidence >= 90 ? 'var(--green)' : rec.confidence >= 80 ? 'var(--blue)' : 'var(--orange)';
-              
-              itemsHTML += `
-                <div class="brand-card">
-                  <div class="brand-name">${rec.brand}</div>
-                  <div class="brand-size">Size ${rec.recommendedSize}</div>
-                  <div style="background: ${confidenceColor}; color: white; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; display: inline-block; margin: 8px 0;">
-                    ${rec.confidence}% match
-                  </div>
-                  <p style="font-size:14px;color:var(--muted);margin:8px 0 4px;">${category} - ${rec.fitPreference} fit</p>
-                  <p style="font-size:12px;color:var(--green);margin:4px 0 0;font-weight:600;">
-                    📏 Based on: 36" bust, 34" waist, 38" hips
-                  </p>
-                  ${rec.alternatives.length > 0 ? `
-                    <p style="font-size:11px;color:var(--muted);margin:4px 0 0;">
-                      Alt: ${rec.alternatives[0].size} (${rec.alternatives[0].confidence}%)
-                    </p>
-                  ` : ''}
+   async function populateMySizesGrid() {
+  const grid = document.getElementById('my-sizes-grid');
+  if (!grid) return;
+  
+  grid.innerHTML = '<div style="text-align: center; padding: 40px; grid-column: 1/-1;"><div class="loading-spinner"></div><p>Analyzing your measurements against UK brands...</p></div>';
+  
+  try {
+    // Ensure AI system is ready
+    if (!miSizeSystem || !miSizeSystem.isInitialized) {
+      await miSizeSystem.initialize();
+    }
+    
+    const allSizes = await miSizeSystem.getAllMySizes();
+    const filter = document.getElementById('mysizes-category')?.value || '';
+    
+    console.log('My sizes results:', allSizes); // Debug log
+    
+    let itemsHTML = '';
+    let totalItems = 0;
+    
+    Object.entries(allSizes).forEach(([category, recommendations]) => {
+      if (!filter || category === filter) {
+        recommendations.forEach(rec => {
+          if (rec.confidence >= 75) { // Lower threshold to show more results
+            totalItems++;
+            const confidenceColor = rec.confidence >= 90 ? 'var(--green)' : 
+                                  rec.confidence >= 80 ? 'var(--blue)' : 'var(--orange)';
+            
+            itemsHTML += `
+              <div class="brand-card">
+                <div class="brand-name">${rec.brand}</div>
+                <div class="brand-size">Size ${rec.recommendedSize}</div>
+                <div style="background: ${confidenceColor}; color: white; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; display: inline-block; margin: 8px 0;">
+                  ${rec.confidence}% match
                 </div>
-              `;
-            });
+                <p style="font-size:14px;color:var(--muted);margin:8px 0 4px;">${category} - ${rec.fitPreference} fit</p>
+                <p style="font-size:12px;color:var(--green);margin:4px 0 0;font-weight:600;">
+                  📏 Based on: ${miSizeSystem.sizeEngine.userMeasurements.bust}" bust, ${miSizeSystem.sizeEngine.userMeasurements.waist}" waist, ${miSizeSystem.sizeEngine.userMeasurements.hips}" hips
+                </p>
+                <div style="font-size:11px;color:var(--muted);margin:6px 0 0;">
+                  ${rec.fitAnalysis ? Object.entries(rec.fitAnalysis.fit).map(([measurement, details]) => 
+                    `${measurement}: ${details.description}`
+                  ).join(' • ') : 'Perfect fit analysis'}
+                </div>
+                ${rec.alternatives && rec.alternatives.length > 0 ? `
+                  <p style="font-size:11px;color:var(--muted);margin:4px 0 0;">
+                    Alt: ${rec.alternatives[0].size} (${rec.alternatives[0].confidence}%)
+                  </p>
+                ` : ''}
+              </div>
+            `;
           }
         });
-        
-        if (totalItems > 0) {
-          grid.innerHTML = itemsHTML;
-        } else {
-          grid.innerHTML = `
-            <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
-              <p style="color: var(--muted);">No high-confidence matches found for this category.</p>
-              <p style="color: var(--muted); font-size: 14px;">Try adjusting your confidence threshold in Settings.</p>
-            </div>
-          `;
-        }
-        
-      } catch (error) {
-        grid.innerHTML = `
-          <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
-            <p style="color: var(--orange);">Error loading sizes: ${error.message}</p>
-          </div>
-        `;
       }
+    });
+    
+    if (totalItems > 0) {
+      grid.innerHTML = itemsHTML;
+    } else {
+      grid.innerHTML = `
+        <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
+          <h3 style="color: var(--orange); margin-bottom: 16px;">⚠️ No Size Matches Found</h3>
+          <p style="color: var(--muted); margin-bottom: 12px;">Your measurements: ${miSizeSystem.sizeEngine.userMeasurements.bust || '?'}" bust, ${miSizeSystem.sizeEngine.userMeasurements.waist || '?'}" waist, ${miSizeSystem.sizeEngine.userMeasurements.hips || '?'}" hips</p>
+          <p style="color: var(--muted);">Try:</p>
+          <ul style="text-align: left; max-width: 300px; margin: 0 auto;">
+            <li>Update your measurements in Settings</li>
+            <li>Lower confidence threshold in Settings</li>
+            <li>Create a new profile with accurate measurements</li>
+          </ul>
+        </div>
+      `;
     }
+    
+  } catch (error) {
+    console.error('Error in populateMySizesGrid:', error);
+    grid.innerHTML = `
+      <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
+        <p style="color: var(--orange);">Error loading sizes: ${error.message}</p>
+        <button onclick="populateMySizesGrid()" class="btn btn-primary" style="margin-top: 12px;">Retry</button>
+      </div>
+    `;
+  }
+}
 
     // Brand Notes Population
     function populateBrandNotes() {
