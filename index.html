@@ -2309,10 +2309,14 @@ function saveNewProfile() {
       });
     }
 
-    // Initialize app
     function initApp() {
-      setupPillEventListeners();
-      updateNavigation();
+  setupPillEventListeners();
+  updateNavigation();
+
+  if (!currentProfile && Object.keys(profileData).length > 0) {
+    currentProfile = Object.keys(profileData)[0];
+  }
+    }
       
       // Set default profile if none exists
       if (Object.keys(profileData).length > 0) {
