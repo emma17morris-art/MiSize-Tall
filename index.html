@@ -3033,7 +3033,8 @@ function openConverter(type) {
   alert(`Opening ${type} size converter...`);
 }
 
-// Initialize the application
+
+// Fix the initApp function - replace the existing one
 async function initApp() {
   updateNavigation();
 
@@ -3055,6 +3056,49 @@ async function initApp() {
   const categorySelect = document.getElementById('mysizes-category');
   if (categorySelect) {
     categorySelect.addEventListener('change', populateMySizesGrid);
+  }
+
+  // Set up pill controls
+  setupPillControls();
+
+  // Initialize current profile
+  if (!currentProfile && Object.keys(profileData).length > 0) {
+    currentProfile = Object.keys(profileData)[0];
+  }
+
+  // Auto-update debug info after 3 seconds
+  setTimeout(refreshDebug, 3000);
+}
+
+// Add this new function for pill controls
+function setupPillControls() {
+  // Body type pills
+  document.querySelectorAll('.pill[data-type]').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.pill[data-type]').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      selectedBodyType = pill.dataset.type;
+    });
+  });
+
+  // Unit pills
+  document.querySelectorAll('.pill[data-unit]').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.pill[data-unit]').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      selectedUnit = pill.dataset.unit;
+    });
+  });
+
+  // Settings pills
+  document.querySelectorAll('.settings-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const group = pill.parentElement;
+      group.querySelectorAll('.settings-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+    });
+  });
+}
   }
 
   // Initialize current profile
