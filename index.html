@@ -828,30 +828,6 @@
     .guide-content.show {
       display: block;
     }
-
-    .measurement-diagram {
-      background: var(--bg);
-      border-radius: 12px;
-      padding: 20px;
-      margin: 16px 0;
-      text-align: center;
-      border: 1px solid var(--border);
-    }
-
-    .measurement-list {
-      list-style: none;
-      padding: 0;
-      margin: 16px 0;
-    }
-
-    .measurement-list li {
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .measurement-list li:last-child {
-      border-bottom: none;
-    }
   </style>
 </head>
 <body>
@@ -1070,44 +1046,30 @@
       <h3 style="text-align: center; margin: 32px 0 24px;">Measurement Guides</h3>
       
       <div class="help-grid">
-        <div class="help-card" onclick="showMeasurementGuide('womens')">
+        <div class="help-card">
           <h4>Women's Measurements</h4>
           <p>Complete guide for taking accurate body measurements</p>
         </div>
-        <div class="help-card" onclick="showMeasurementGuide('mens')">
+        <div class="help-card">
           <h4>Men's Measurements</h4>
           <p>Essential measurements for men's clothing</p>
         </div>
-        <div class="help-card" onclick="showMeasurementGuide('childrens')">
+        <div class="help-card">
           <h4>Children's Guide</h4>
           <p>How to measure children and teens</p>
         </div>
-        <div class="help-card" onclick="showMeasurementGuide('foot')">
+        <div class="help-card">
           <h4>Foot Measuring</h4>
           <p>Get accurate foot measurements for shoes</p>
         </div>
-        <div class="help-card" onclick="showMeasurementGuide('inseam')">
+        <div class="help-card">
           <h4>Inseam Guide</h4>
           <p>Measure inseam length correctly</p>
         </div>
-        <div class="help-card" onclick="showMeasurementGuide('special')">
+        <div class="help-card">
           <h4>Special Occasion</h4>
           <p>Detailed measurements for formal wear</p>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Measurement Guide Screen -->
-  <div id="measurement-guide" class="screen">
-    <div class="content-container">
-      <div class="hub-header">
-        <h2 class="hub-title" id="guide-title">Measurement Guide</h2>
-        <p class="hub-subtitle" id="guide-subtitle">Follow these steps for accurate measurements</p>
-      </div>
-      
-      <div id="guide-content">
-        <!-- Content will be populated by JavaScript -->
       </div>
     </div>
   </div>
@@ -1930,134 +1892,103 @@
       alert('Report Issue feature coming soon! You can contact us at support@misize.com');
     }
 
-    function showMeasurementGuide(type) {
-      const guides = {
-        womens: {
-          title: "Women's Measurement Guide",
-          subtitle: "Complete guide for taking accurate body measurements",
-          content: `
-            <div class="measurement-diagram">
-              <h4>📐 Women's Body Measurements</h4>
-              <p>Diagram showing measurement points A-J</p>
-            </div>
-            <h4>Key measurements:</h4>
-            <ul class="measurement-list">
-              <li><strong>Bust (B)</strong> — across fullest part</li>
-              <li><strong>Waist (C)</strong> — narrowest part</li>
-              <li><strong>Hip (I)</strong> — fullest part of hips/bottom</li>
-              <li><strong>Arm length (D)</strong></li>
-              <li><strong>Shoulder width (H)</strong></li>
-              <li><strong>Inside leg / inseam (J)</strong></li>
-              <li><strong>Thigh (E)</strong></li>
-              <li><strong>Calf (F)</strong></li>
-            </ul>
-            <h4>👉 How to measure yourself:</h4>
-            <ul>
-              <li>Wear light clothing or underwear.</li>
-              <li>Measure bust while breathing normally.</li>
-              <li>Hips: keep feet together.</li>
-              <li>Use a soft measuring tape.</li>
-              <li>Keep tape snug but not tight.</li>
-            </ul>
-          `
-        },
-        mens: {
-          title: "Men's Measurement Guide",
-          subtitle: "Essential measurements for men's clothing",
-          content: `
-            <div class="measurement-diagram">
-              <h4>📐 Men's Body Measurements</h4>
-              <p>Diagram showing measurement points A-J</p>
-            </div>
-            <h4>Key measurements:</h4>
-            <ul class="measurement-list">
-              <li><strong>Neck (A)</strong></li>
-              <li><strong>Chest (B)</strong></li>
-              <li><strong>Waist (C)</strong></li>
-              <li><strong>Hip (I)</strong></li>
-              <li><strong>Arm length (D)</strong></li>
-              <li><strong>Shoulder width (H)</strong></li>
-              <li><strong>Inside leg / inseam (J)</strong></li>
-              <li><strong>Thigh (E)</strong></li>
-              <li><strong>Calf (F)</strong></li>
-            </ul>
-            <h4>👉 How to measure yourself:</h4>
-            <ul>
-              <li>Use a soft measuring tape.</li>
-              <li>Stand naturally, don't suck in or puff chest.</li>
-              <li>Keep tape snug but not tight.</li>
-              <li>Measure chest at fullest part.</li>
-              <li>Waist at natural waistline.</li>
-            </ul>
-          `
-        },
-        childrens: {
-          title: "Children's Measurement Guide",
-          subtitle: "How to measure children and teens",
-          content: `
-            <div class="measurement-diagram">
-              <h4>📐 Children's Body Measurements</h4>
-              <p>Simplified measurement points for children</p>
-            </div>
-            <h4>Key measurements (simplified):</h4>
-            <ul class="measurement-list">
-              <li><strong>Height</strong> — crown of head → heel</li>
-              <li><strong>Chest (B)</strong></li>
-              <li><strong>Waist (C)</strong></li>
-              <li><strong>Hip (I)</strong></li>
-              <li><strong>Arm length (D)</strong></li>
-              <li><strong>Inside leg (J)</strong></li>
-            </ul>
-            <h4>👉 How to measure your child:</h4>
-            <ul>
-              <li>Stand tall against a wall for height.</li>
-              <li>Keep tape flat and snug.</li>
-              <li>For toddlers, measure lying down if easier.</li>
-              <li>Make it fun - let them help!</li>
-              <li>Take measurements over light clothing.</li>
-            </ul>
-          `
-        },
-        foot: {
-          title: "Foot Measurement Guide",
-          subtitle: "Get accurate foot measurements for shoes",
-          content: `
-            <div class="measurement-diagram">
-              <h4>👟 Foot Measurement</h4>
-              <p>Diagram showing foot length and width measurement</p>
-            </div>
-            <h4>How to measure your feet:</h4>
-            <ul>
-              <li>Measure both feet (they may be different sizes)</li>
-              <li>Measure at the end of the day when feet are largest</li>
-              <li>Stand on a piece of paper</li>
-              <li>Mark the longest toe and back of heel</li>
-              <li>Measure the distance between marks</li>
-              <li>Also measure the widest part of your foot</li>
-            </ul>
-          `
-        },
-        inseam: {
-          title: "Inseam Measurement Guide",
-          subtitle: "Measure inseam length correctly",
-          content: `
-            <div class="measurement-diagram">
-              <h4>📏 Inseam Measurement</h4>
-              <p>Diagram showing inseam measurement from crotch to ankle</p>
-            </div>
-            <h4>How to measure inseam:</h4>
-            <ul>
-              <li>Use a pair of well-fitting jeans as reference</li>
-              <li>Measure from the crotch seam to the bottom hem</li>
-              <li>Or stand against wall, measure from crotch to floor</li>
-              <li>Subtract 1 inch for proper length</li>
-              <li>Consider your preferred break (no break, slight break, etc.)</li>
-            </ul>
-          `
-        },
-        special: {
-          title: "Special Occasion Measurement Guide",
-          subtitle: "Detailed measurements for formal wear",
-          content: `
-            <div class="measurement-diagram">
-              <h4>👗 Formal Wear
+    function toggleProfileDropdown() {
+      const dropdown = document.getElementById('profile-dropdown');
+      dropdown.classList.toggle('show');
+    }
+
+    function switchProfile(name, details) {
+      document.getElementById('active-profile-name').textContent = name;
+      document.getElementById('active-profile-details').textContent = details;
+      document.getElementById('profile-dropdown').classList.remove('show');
+      
+      // Update user name in MiStats
+      document.getElementById('user-name').textContent = name.split(' ')[0];
+    }
+
+    function createNewProfile() {
+      document.getElementById('profile-dropdown').classList.remove('show');
+      document.getElementById('new-profile-name').focus();
+    }
+
+    function saveProfile() {
+      const name = document.getElementById('new-profile-name').value;
+      const bodyType = document.getElementById('new-profile-body-type').value;
+      const height = document.getElementById('new-profile-height').value;
+      
+      if (name && bodyType && height) {
+        const newProfile = {
+          name: name,
+          details: `${bodyType} • ${height} • UK Sizes`
+        };
+        savedProfiles.push(newProfile);
+        
+        // Add to dropdown
+        const dropdown = document.getElementById('profile-dropdown');
+        const newOption = document.createElement('div');
+        newOption.className = 'profile-option';
+        newOption.onclick = () => switchProfile(newProfile.name, newProfile.details);
+        newOption.textContent = newProfile.name;
+        dropdown.insertBefore(newOption, dropdown.lastElementChild);
+        
+        // Clear form
+        document.getElementById('new-profile-name').value = '';
+        document.getElementById('new-profile-height').value = '';
+        
+        alert('Profile saved successfully!');
+      } else {
+        alert('Please fill in all profile fields.');
+      }
+    }
+    
+    // Body type selection
+    document.querySelectorAll('[data-type]').forEach(pill => {
+      pill.addEventListener('click', (e) => {
+        document.querySelectorAll('[data-type]').forEach(p => p.classList.remove('active'));
+        e.target.classList.add('active');
+        selectedBodyType = e.target.dataset.type;
+        
+        const bodyTypeDisplay = document.getElementById('body-type-display');
+        if (bodyTypeDisplay) {
+          bodyTypeDisplay.textContent = selectedBodyType.charAt(0).toUpperCase() + selectedBodyType.slice(1);
+        }
+      });
+    });
+    
+    // Unit selection
+    document.querySelectorAll('[data-unit]').forEach(pill => {
+      pill.addEventListener('click', (e) => {
+        document.querySelectorAll('[data-unit]').forEach(p => p.classList.remove('active'));
+        e.target.classList.add('active');
+        selectedUnit = e.target.dataset.unit;
+      });
+    });
+
+    // Settings pills
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('settings-pill')) {
+        const group = e.target.parentElement;
+        group.querySelectorAll('.settings-pill').forEach(pill => pill.classList.remove('active'));
+        e.target.classList.add('active');
+      }
+      
+      if (e.target.classList.contains('graph-btn')) {
+        document.querySelectorAll('.graph-btn').forEach(btn => btn.classList.remove('active'));
+        e.target.classList.add('active');
+      }
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.profile-card')) {
+        document.getElementById('profile-dropdown').classList.remove('show');
+      }
+    });
+    
+    // Initialize
+    window.addEventListener('load', () => {
+      updateNavigation();
+    });
+  </script>
+</body>
+</html>
