@@ -1205,38 +1205,49 @@
           </div>
         </div>
       </div>
+<!-- Measurements Section - UPDATED -->
+<div class="settings-section">
+  <h3>📏 Profile Measurements</h3>
+  <p style="margin-bottom: 16px; color: var(--muted);">Track body measurements for accurate sizing</p>
 
-      <!-- Measurements Section -->
-      <div class="settings-section">
-        <h3>📏 Current Profile Measurements</h3>
-        <p style="margin-bottom: 16px; color: var(--muted);">Track body measurements for accurate sizing</p>
+  <!-- Profile Selection Dropdown -->
+  <div class="form-group">
+    <label class="form-label">Select Profile to Update</label>
+    <select class="form-select" id="measurement-profile-select">
+      <option value="">Choose a profile...</option>
+      <!-- This will be populated with available profiles -->
+    </select>
+  </div>
 
-        <div class="measurement-grid">
-          <div class="measurement-bubble">
-            <h4>Weight</h4>
-            <input type="number" class="measurement-input" id="weight" placeholder="62" />
-          </div>
-          <div class="measurement-bubble">
-            <h4>Chest/Bust</h4>
-            <input type="number" class="measurement-input" id="chest" placeholder="86" />
-          </div>
-          <div class="measurement-bubble">
-            <h4>Waist</h4>
-            <input type="number" class="measurement-input" id="waist" placeholder="68" />
-          </div>
-          <div class="measurement-bubble">
-            <h4>Hips</h4>
-            <input type="number" class="measurement-input" id="hips" placeholder="92" />
-          </div>
-          <div class="measurement-bubble">
-            <h4>Shoulders</h4>
-            <input type="number" class="measurement-input" id="shoulders" placeholder="38" />
-          </div>
-          <div class="measurement-bubble">
-            <h4>Arms</h4>
-            <input type="number" class="measurement-input" id="arms" placeholder="28" />
-          </div>
-        </div>
+  <div class="measurement-grid">
+    <div class="measurement-bubble">
+      <h4>Weight</h4>
+      <input type="number" class="measurement-input" id="weight" placeholder="62" />
+    </div>
+    <div class="measurement-bubble">
+      <h4>Chest/Bust</h4>
+      <input type="number" class="measurement-input" id="chest" placeholder="86" />
+    </div>
+    <div class="measurement-bubble">
+      <h4>Waist</h4>
+      <input type="number" class="measurement-input" id="waist" placeholder="68" />
+    </div>
+    <div class="measurement-bubble">
+      <h4>Hips</h4>
+      <input type="number" class="measurement-input" id="hips" placeholder="92" />
+    </div>
+    <div class="measurement-bubble">
+      <h4>Shoulders</h4>
+      <input type="number" class="measurement-input" id="shoulders" placeholder="38" />
+    </div>
+    <div class="measurement-bubble">
+      <h4>Arms</h4>
+      <input type="number" class="measurement-input" id="arms" placeholder="28" />
+    </div>
+  </div>
+
+  <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="saveMeasurementsToProfile()">Save Measurements to Profile</button>
+</div>
 
         <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="saveMeasurements()">Save Measurements</button>
       </div>
