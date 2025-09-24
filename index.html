@@ -1662,7 +1662,100 @@
         updateNavigation();
       }
     }
+// Add this to the updateScreenData function
+function updateScreenData(screenId) {
+  if (screenId === 'saved-profiles') {
+    loadSavedProfiles();
+  } else if (screenId === 'edit-profiles') {
+    loadEditableProfiles();
+  } else if (screenId === 'uk-settings') {
+    populateProfileDropdown();
+  }
+}
 
+// Add these new functions
+function populateProfileDropdown() {
+  const dropdown = document.getElementById('measurement-profile-select');
+  if (!dropdown) return;
+  
+  // Clear existing options except the first one
+  dropdown.innerHTML = '<option value="">Choose a profile...</option>';
+  
+  // Populate with available profiles
+  Object.keys(profileData).forEach(profileName => {
+    const option = document.createElement('option');
+    option.value = profileName;
+    option.textContent = profileName;
+    dropdown.appendChild(option);
+  });
+  
+  // Add event listener for profile selection
+  dropdown.addEventListener('change', loadSelectedProfileMeasurements);
+}
+
+function loadSelectedProfileMeasurements() {
+  const selectedProfile = document.getElementById('measurement-profile-select')?.value;
+  
+  if (!selectedProfile || !profileData[selectedProfile]) {
+    // Clear all inputs if no profile selected
+    ['weight', 'chest', 'waist', 'hips', 'shoulders', 'arms'].forEach(key => {
+      const input = document.getElementById(key);
+      if (input) input.value = '';
+    });
+    return;
+  }
+  
+  const profile = profileData[selectedProfile];
+  
+  // Load the profile's current measurements
+  Object.entries(profile.measurements).forEach(([key, value]) => {
+    const input = document.getElementById(key);
+    if (input) {
+      input.value = value || '';
+    }
+  });
+}
+
+function saveMeasurementsToProfile() {
+  const selectedProfileName = document.getElementById('measurement-profile-select')?.value;
+  
+  if (!selectedProfileName) {
+    alert('Please select a profile first');
+    return;
+  }
+  
+  if (!profileData[selectedProfileName]) {
+    alert('Selected profile not found');
+    return;
+  }
+  
+  const profile = profileData[selectedProfileName];
+  let hasChanges = false;
+  
+  // Get all measurement inputs and update the selected profile
+  ['weight', 'chest', 'waist', 'hips', 'shoulders', 'arms'].forEach(key => {
+    const input = document.getElementById(key);
+    if (input && input.value) {
+      const newValue = parseFloat(input.value);
+      if (newValue !== profile.measurements[key]) {
+        hasChanges = true;
+      }
+      profile.measurements[key] = newValue;
+    }
+  });
+  
+  if (hasChanges) {
+    alert(`Measurements saved successfully to ${selectedProfileName}'s profile!`);
+  } else {
+    alert('No changes to save.');
+  }
+}
+
+// Update the existing saveMeasurements function to call the new one
+function saveMeasurements() {
+  // Keep the old function but redirect to new one
+  saveMeasurementsToProfile();
+}
     function updateScreenData(screenId) {
       if (screenId === 'saved-profiles') {
         loadSavedProfiles();
