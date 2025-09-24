@@ -2323,26 +2323,340 @@ function setupPillEventListeners() {
 
       renderMeasurementHistory();
     }
+div>';
+    }
+function renderMeasurementHistory() {
+  const p = profileData[currentProfile];
+  const list = document.getElementById('measurement-history');
+  if (!p || !list) return;
 
-    function renderMeasurementHistory() {
-      const p = profileData[currentProfile];
-      const list = document.getElementById('measurement-history');
-      if (!p || !list) return;
+  // Get all measurement entries including starting weight
+  const allEntries = [
+    { date: p.startingDate, type: 'weight', value: p.startingWeight.value, unit: p.startingWeight.unit, isStarting: true },
+    ...(p.history || [])
+  ].sort((a, b) => new Date(b.date) - new Date(a.date));
 
-      const entries = [...(p.history || [])]
-        .sort((a,b) => new Date(b.date) - new Date(a.date))
-        .map(e => `
-          <div class="history-item">
+  // Group entries by type to show progression
+  const measurementTypes = {
+    weight: { label: 'Weight', icon: '⚖️', color: 'var(--brand)' },
+    waist: { label: 'Waist', icon: '📏', color: 'var(--blue)' },
+    hips: { label: 'Hips', icon: '📐', color: 'var(--green)' },
+    chest: { label: 'Chest/Bust', icon: '📊', color: 'var(--orange)' },
+    shoulders: { label: 'Shoulders', icon: '📏', color: 'var(--muted)' },
+    arms: { label: 'Arms', icon: '💪', color: 'var(--blue)' }
+  };
+
+  let historyHTML = '';
+  
+  // Show recent entries first, then group by measurement type
+  const recentEntries = allEntries.slice(0, 8);
+  const olderEntries = allEntries.slice(8);
+
+  // Recent measurements section
+  if (recentEntries.length > 0) {
+    historyHTML += '<h4 style="margin: 0 0 12px; color: var(--brand); font-size: 16px;">📅 Recent Measurements</h4>';
+    
+    recentEntries.forEach(entry => {
+      const date = new Date(entry.date).toLocaleDateString('en-GB');
+      const typeInfo = measurementTypes[entry.type] || { label: entry.type, icon: '📊', color: 'var(--muted)' };
+      const isStarting = entry.isStarting;
+      
+      // Convert measurements for display
+      let displayValue = `${entry.value}${entry.unit || ''}`;
+      if (entry.type === 'weight') {
+        const weightKg = kgFrom(entry.value, entry.unit || 'kg');
+        displayValue = `${entry.value}${entry.unit} (${Math.round(weightKg * 10) / 10}kg)`;
+      }
+      
+      historyHTML += `
+        <div class="history-item" style="border-left: 4px solid ${typeInfo.color};">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
             <div>
-              <strong>${e.type.charAt(0).toUpperCase() + e.type.slice(1)}: ${e.value}${e.unit || ''}</strong><br>
-              <span class="history-date">${new Date(e.date).toLocaleDateString()}</span>
+              <strong style="color: ${typeInfo.color};">${typeInfo.icon} ${typeInfo.label}: ${displayValue}</strong>
+              ${isStarting ? '<span style="background: var(--orange); color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; margin-left: 8px;">STARTING</span>' : ''}
+              <br>
+              <span class="history-date">${date}</span>
+            </div>
+            ${entry.type === 'weight' && !isStarting ? `<div style="font-size: 12px; color: var(--green);">Progress 📈</div>` : ''}
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  // Measurement progression summary
+  historyHTML += '<h4 style="margin: 20px 0 12px; color: var(--green); font-size: 16px;">🎯 Your Amazing Progress</h4>';
+  
+  // Calculate total changes for each measurement type
+  Object.keys(measurementTypes).forEach(type => {
+    const typeEntries = allEntries.filter(e => e.type === type).sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    if (typeEntries.length >= 2) {
+      const first = typeEntries[0];
+      const latest = typeEntries[typeEntries.length - 1];
+      const typeInfo = measurementTypes[type];
+      
+      let change = '';
+      let changeColor = 'var(--muted)';
+      
+      if (type === 'weight') {
+        const firstKg = kgFrom(first.value, first.unit || 'kg');
+        const latestKg = kgFrom(latest.value, latest.unit || 'kg');
+        const diff = firstKg - latestKg;
+        
+        if (diff > 0) {
+          change = `${Math.round(diff * 10) / 10}kg lost 🎉`;
+          changeColor = 'var(--green)';
+        } else if (diff < 0) {
+          change = `${Math.round(Math.abs(diff) * 10) / 10}kg gained`;
+          changeColor = 'var(--orange)';
+        }
+      } else {
+        // For other measurements, assume smaller is better
+        const firstVal = first.unit === 'inch' ? first.value * 2.54 : first.value;
+        const latestVal = latest.unit === 'inch' ? latest.value * 2.54 : latest.value;
+        const diff = firstVal - latestVal;
+        
+        if (Math.abs(diff) > 0.5) {
+          const displayDiff = Math.round(Math.abs(diff) * 10) / 10;
+          if (diff > 0) {
+            change = `${displayDiff}cm reduced 💪`;
+            changeColor = 'var(--green)';
+          } else {
+            change = `${displayDiff}cm increased`;
+            changeColor = 'var(--orange)';
+          }
+        }
+      }
+      
+      if (change) {
+        historyHTML += `
+          <div class="history-item" style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid ${typeInfo.color};">
+            <div>
+              <strong>${typeInfo.icon} ${typeInfo.label} Progress</strong><br>
+              <span style="color: ${changeColor}; font-weight: bold;">${change}</span>
+              <br>
+              <span class="history-date" style="font-size: 11px;">
+                ${new Date(first.date).toLocaleDateString()} → ${new Date(latest.date).toLocaleDateString()}
+              </span>
             </div>
           </div>
-        `).join('');
-
-      list.innerHTML = entries || '<div class="history-item"><div><span class="history-date" style="color:var(--muted);">No history yet</span></div></div>';
+        `;
+      }
     }
+  });
 
+  // If no entries, show encouraging message
+  if (allEntries.length === 1) {
+    historyHTML += `
+      <div class="history-item" style="text-align: center; color: var(--muted);">
+        <div>
+          <strong>🌟 Your Journey Starts Here! 🌟</strong><br>
+          <span class="history-date">Add more measurements to track your amazing progress</span>
+        </div>
+      </div>
+    `;
+  }
+
+  list.innerHTML = historyHTML || '<div class="history-item"><div><span class="history-date" style="color:var(--muted);">No history yet</span></div></div>';
+}
+
+function showWeightTable() {
+  const p = profileData[currentProfile];
+  if (!p) return;
+
+  // Include starting weight in table
+  const allWeightData = [
+    { date: p.startingDate, value: p.startingWeight.value, unit: p.startingWeight.unit, isStarting: true },
+    ...(p.history || []).filter(e => e.type === 'weight').map(e => ({ ...e, isStarting: false }))
+  ].sort((a, b) => new Date(b.date) - new Date(a.date)); // Most recent first
+
+  const startingWeight = kgFrom(allWeightData[allWeightData.length - 1].value, allWeightData[allWeightData.length - 1].unit);
+  
+  let tableHTML = `
+    <div style="text-align: center; margin-bottom: 20px;">
+      <h3 style="color: var(--brand); margin: 0;">📊 Complete Weight Loss Journey</h3>
+      <p style="color: var(--muted); margin: 8px 0 0;">Detailed breakdown of your incredible ${Math.round((startingWeight - kgFrom(allWeightData[0].value, allWeightData[0].unit)) * 10) / 10}kg transformation</p>
+    </div>
+  `;
+  
+  tableHTML += '<div style="overflow-x: auto;"><table style="width: 100%; border-collapse: collapse; font-size: 13px;">';
+  tableHTML += `
+    <thead>
+      <tr style="background: var(--card); border-bottom: 2px solid var(--border);">
+        <th style="padding: 12px 8px; text-align: left; color: var(--brand); font-weight: bold;">📅 Date</th>
+        <th style="padding: 12px 8px; text-align: left; color: var(--brand); font-weight: bold;">⚖️ Weight</th>
+        <th style="padding: 12px 8px; text-align: left; color: var(--brand); font-weight: bold;">📈 Weekly Change</th>
+        <th style="padding: 12px 8px; text-align: left; color: var(--brand); font-weight: bold;">🎯 Total Lost</th>
+        <th style="padding: 12px 8px; text-align: left; color: var(--brand); font-weight: bold;">💪 Milestone</th>
+      </tr>
+    </thead>
+    <tbody>
+  `;
+  
+  allWeightData.forEach((entry, index) => {
+    const date = new Date(entry.date).toLocaleDateString('en-GB');
+    const weight = `${entry.value}${entry.unit}`;
+    const currentWeightKg = kgFrom(entry.value, entry.unit);
+    const isStarting = entry.isStarting;
+    
+    // Weekly change calculation
+    let change = '';
+    let changeColor = 'var(--muted)';
+    let changeIcon = '';
+    
+    if (index < allWeightData.length - 1) {
+      const prevWeight = kgFrom(allWeightData[index + 1].value, allWeightData[index + 1].unit);
+      const diff = currentWeightKg - prevWeight;
+      if (Math.abs(diff) >= 0.1) {
+        const absDiff = Math.abs(diff);
+        if (diff > 0) {
+          change = `+${Math.round(diff * 10) / 10}kg`;
+          changeColor = 'var(--orange)';
+          changeIcon = '📈';
+        } else {
+          change = `${Math.round(diff * 10) / 10}kg`;
+          changeColor = 'var(--green)';
+          changeIcon = '📉';
+        }
+      }
+    }
+    
+    // Total lost calculation
+    const totalLost = startingWeight - currentWeightKg;
+    const totalLostText = totalLost > 0.1 ? `${Math.round(totalLost * 10) / 10}kg` : '0kg';
+    
+    // Milestone detection
+    let milestone = '';
+    let milestoneColor = 'var(--muted)';
+    
+    if (isStarting) {
+      milestone = '🚀 Journey Begins';
+      milestoneColor = 'var(--orange)';
+    } else if (currentWeightKg <= 80 && startingWeight > 80) {
+      milestone = '🎉 Goal Achieved!';
+      milestoneColor = 'var(--green)';
+    } else if (totalLost >= 50) {
+      milestone = '⭐ 50kg+ Lost';
+      milestoneColor = 'var(--brand)';
+    } else if (totalLost >= 30) {
+      milestone = '💪 30kg+ Lost';
+      milestoneColor = 'var(--blue)';
+    } else if (totalLost >= 10) {
+      milestone = '🔥 10kg+ Lost';
+      milestoneColor = 'var(--green)';
+    } else if (totalLost >= 5) {
+      milestone = '✨ 5kg+ Lost';
+      milestoneColor = 'var(--green)';
+    }
+    
+    const rowStyle = isStarting ? 
+      'background: rgba(245, 158, 11, 0.1); border-bottom: 1px solid var(--border);' : 
+      `background: ${index % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent'}; border-bottom: 1px solid var(--border);`;
+    
+    tableHTML += `
+      <tr style="${rowStyle}">
+        <td style="padding: 10px 8px; ${isStarting ? 'font-weight: bold; color: var(--orange);' : ''}">${date}</td>
+        <td style="padding: 10px 8px; font-weight: 600;">
+          ${weight}
+          ${currentWeightKg !== entry.value ? `<br><span style="font-size: 11px; color: var(--muted);">(${Math.round(currentWeightKg * 10) / 10}kg)</span>` : ''}
+        </td>
+        <td style="padding: 10px 8px; color: ${changeColor}; font-weight: 500;">
+          ${changeIcon} ${change}
+        </td>
+        <td style="padding: 10px 8px; color: var(--green); font-weight: 600; font-size: 14px;">
+          ${totalLostText}
+        </td>
+        <td style="padding: 10px 8px; color: ${milestoneColor}; font-weight: 500; font-size: 12px;">
+          ${milestone}
+        </td>
+      </tr>
+    `;
+  });
+  
+  tableHTML += '</tbody></table></div>';
+  
+  // Add summary statistics
+  if (allWeightData.length > 1) {
+    const journeyDays = Math.ceil((new Date(allWeightData[0].date) - new Date(allWeightData[allWeightData.length - 1].date)) / (24 * 60 * 60 * 1000));
+    const totalLossKg = startingWeight - kgFrom(allWeightData[0].value, allWeightData[0].unit);
+    const avgPerWeek = (totalLossKg / (journeyDays / 7));
+    const avgPerMonth = avgPerWeek * 4.33;
+    
+    tableHTML += `
+      <div style="margin-top: 24px; padding: 20px; background: var(--card); border-radius: 12px; border: 2px solid var(--border);">
+        <h4 style="margin: 0 0 16px; text-align: center; color: var(--brand);">🏆 Journey Statistics</h4>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+          <div style="text-align: center; padding: 12px; background: var(--bg); border-radius: 8px;">
+            <div style="color: var(--green); font-size: 20px; font-weight: bold;">${Math.round(totalLossKg * 10) / 10}kg</div>
+            <div style="color: var(--muted); font-size: 12px;">Total Weight Lost</div>
+          </div>
+          <div style="text-align: center; padding: 12px; background: var(--bg); border-radius: 8px;">
+            <div style="color: var(--blue); font-size: 20px; font-weight: bold;">${journeyDays} days</div>
+            <div style="color: var(--muted); font-size: 12px;">Journey Duration</div>
+          </div>
+          <div style="text-align: center; padding: 12px; background: var(--bg); border-radius: 8px;">
+            <div style="color: var(--brand); font-size: 20px; font-weight: bold;">${Math.round(avgPerWeek * 10) / 10}kg</div>
+            <div style="color: var(--muted); font-size: 12px;">Average Per Week</div>
+          </div>
+          <div style="text-align: center; padding: 12px; background: var(--bg); border-radius: 8px;">
+            <div style="color: var(--orange); font-size: 20px; font-weight: bold;">${Math.round(avgPerMonth * 10) / 10}kg</div>
+            <div style="color: var(--muted); font-size: 12px;">Average Per Month</div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 16px; padding: 12px; background: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+          <div style="color: var(--green); font-weight: bold; font-size: 16px;">🎉 Congratulations on your incredible transformation! 🎉</div>
+          <div style="color: var(--muted); font-size: 14px; margin-top: 4px;">From ${startingWeight}kg to ${Math.round(kgFrom(allWeightData[0].value, allWeightData[0].unit) * 10) / 10}kg - You are amazing! 💚</div>
+        </div>
+      </div>
+    `;
+  }
+  
+  document.getElementById('chart-content').innerHTML = tableHTML;
+}
+
+// Enhanced populateMySizesGrid with Emma's actual sizes
+function populateMySizesGrid() {
+  const grid = document.getElementById('my-sizes-grid');
+  const filter = document.getElementById('mysizes-category')?.value || '';
+  if (!grid) return;
+
+  const items = UK_BRANDS
+    .filter(b => !filter || b.cat === filter)
+    .map(b => `
+      <div class="brand-card">
+        <div class="brand-name">${b.brand}</div>
+        <div class="brand-size">Size ${b.size}</div>
+        <p style="font-size:14px;color:var(--muted);margin-top:8px;">${b.cat} - Standard Fit</p>
+        <p style="font-size:12px;color:var(--green);margin-top:4px;font-weight:600;">✅ Current Size (80kg, 183cm)</p>
+      </div>
+    `).join('');
+
+  grid.innerHTML = items || '<p style="color:var(--muted);">No matches for this category.</p>';
+}
+
+// Initialize with Emma Morris as default
+function initApp() {
+  setupPillEventListeners();
+  updateNavigation();
+
+  // Set Emma Morris as the default profile
+  if (!currentProfile && Object.keys(profileData).length > 0) {
+    currentProfile = 'Emma Morris';
+  }
+
+  // Set up category filter for My Sizes
+  const categorySelect = document.getElementById('mysizes-category');
+  if (categorySelect) {
+    categorySelect.addEventListener('change', populateMySizesGrid);
+  }
+
+  // Initialize My Sizes grid
+  populateMySizesGrid();
+  
+  // Update body type display
+  document.getElementById('body-type-display').textContent = selectedBodyType.charAt(0).toUpperCase() + selectedBodyType.slice(1);
+}
     // Size Finder functions
     function getMySize() {
       const brand = document.getElementById('uk-brand-select')?.value;
