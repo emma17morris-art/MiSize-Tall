@@ -217,150 +217,6 @@
       display: block;
     }
 
-    .content-container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    .hub-header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .hub-title {
-      font-size: 36px;
-      font-weight: 900;
-      margin: 0 0 8px;
-    }
-
-    .hub-subtitle {
-      font-size: 16px;
-      color: var(--muted);
-      margin: 0;
-    }
-
-    .help-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .help-card {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 20px;
-      border: 2px solid var(--border);
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .help-card:hover {
-      border-color: var(--brand);
-      transform: translateY(-2px);
-    }
-
-    .help-card h4 {
-      margin: 0 0 8px;
-      color: var(--text);
-      font-weight: 800;
-    }
-
-    .help-card p {
-      margin: 0;
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .guide-tile {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 24px;
-      border: 2px solid var(--border);
-      margin-bottom: 24px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .guide-tile:hover {
-      border-color: var(--brand);
-      transform: translateY(-2px);
-    }
-
-    .guide-tile h4 {
-      color: var(--brand);
-      font-size: 18px;
-      font-weight: 800;
-      margin: 0 0 12px;
-    }
-
-    .guide-content {
-      display: none;
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-    }
-
-    .guide-content.show {
-      display: block;
-    }
-
-    .guide-section {
-      margin-bottom: 24px;
-    }
-
-    .guide-section h5 {
-      color: var(--text);
-      font-size: 16px;
-      font-weight: 700;
-      margin: 16px 0 8px;
-    }
-
-    .guide-section p {
-      margin: 0 0 8px;
-      line-height: 1.6;
-      color: var(--text);
-    }
-
-    .guide-section ul {
-      margin: 8px 0;
-      padding-left: 20px;
-      color: var(--text);
-    }
-
-    .guide-section li {
-      margin-bottom: 4px;
-      line-height: 1.5;
-    }
-
-    .highlight-tip {
-      background: rgba(138, 43, 226, 0.1);
-      border-left: 4px solid var(--brand);
-      padding: 12px 16px;
-      margin: 16px 0;
-      border-radius: 0 8px 8px 0;
-    }
-
-    .highlight-tip p {
-      margin: 0;
-      font-weight: 600;
-    }
-
-    .step-number {
-      background: var(--brand);
-      color: #fff;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
-      margin-right: 8px;
-    }
-
     .system-status {
       background: var(--card);
       border-radius: 12px;
@@ -387,90 +243,21 @@
     .status-loading { background: var(--orange); }
     .status-offline { background: var(--muted); }
 
-    /* Profile First Notice Styles */
-    .profile-first-notice {
-      background: linear-gradient(135deg, var(--brand), var(--blue));
-      border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 32px;
-      text-align: center;
-      border: 2px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .profile-first-notice h3 {
-      margin: 0 0 12px;
-      color: #fff;
-      font-size: 24px;
-      font-weight: 900;
-    }
-
-    .profile-first-notice p {
-      margin: 0 0 16px;
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 16px;
-      line-height: 1.5;
-    }
-
-    .create-profile-btn {
-      background: #fff;
-      color: var(--brand);
+    .btn {
       padding: 12px 24px;
-      border: none;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 16px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .create-profile-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
-
-    /* Modal Styles for Measurement Guides */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0,0,0,0.8);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-content {
-      background: var(--card);
-      border-radius: 12px;
-      max-width: 600px;
-      max-height: 80vh;
-      overflow-y: auto;
-      padding: 24px;
-      border: 2px solid var(--border);
-      position: relative;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 16px;
-      right: 16px;
       background: var(--brand);
       color: white;
       border: none;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 18px;
-      font-weight: 700;
+      margin: 8px;
+      font-weight: bold;
+      font-size: 14px;
     }
 
-    .modal-close:hover {
-      background: var(--blue);
+    .btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
     }
   </style>
 </head>
@@ -507,7 +294,7 @@
       <div class="system-status">
         <div class="status-indicator">
           <div class="status-dot status-loading" id="system-status-dot"></div>
-          <span id="system-status-text">Initializing intelligent sizing system...</span>
+          <span id="system-status-text">Initializing AI system...</span>
         </div>
       </div>
       
@@ -517,17 +304,17 @@
           <h3 class="region-name">UK</h3>
         </div>
         
-        <div class="region-tile" onclick="enterHub('EU')">
+        <div class="region-tile" onclick="alert('Coming soon!')">
           <span class="region-flag">🇪🇺</span>
           <h3 class="region-name">EU</h3>
         </div>
         
-        <div class="region-tile" onclick="enterHub('US')">
+        <div class="region-tile" onclick="alert('Coming soon!')">
           <span class="region-flag">🇺🇸</span>
           <h3 class="region-name">US</h3>
         </div>
         
-        <div class="region-tile" onclick="enterHub('CA')">
+        <div class="region-tile" onclick="alert('Coming soon!')">
           <span class="region-flag">🇨🇦</span>
           <h3 class="region-name">CA</h3>
         </div>
@@ -535,1656 +322,455 @@
     </div>
   </div>
 
-  <!-- Help Screen WITH PROFILE-FIRST EMPHASIS -->
-  <div id="help" class="screen">
-    <div class="content-container">
-      <div class="hub-header">
-        <h2 class="hub-title">Help & Support</h2>
-        <p class="hub-subtitle">Get started and find answers to your questions</p>
-      </div>
-
-      <!-- PROFILE CREATION NOTICE - CRITICAL FIRST STEP -->
-      <div class="profile-first-notice">
-        <h3>🚀 IMPORTANT: Create Your Profile First!</h3>
-        <p><strong>BEFORE using any MiSize features, you MUST create a profile with your measurements.</strong> The AI sizing system requires your personal data to provide accurate size recommendations.</p>
-        <p>Without a profile, none of the sizing features will work properly. This takes just 2 minutes and unlocks all AI-powered features!</p>
-        <button class="create-profile-btn" onclick="goToScreen('uk-settings')">Create Profile Now →</button>
-      </div>
+  <!-- AI Test Screen -->
+  <div id="ai-test-screen" class="screen">
+    <div class="main-container" style="padding: 40px 20px;">
+      <h1 class="title" style="font-size: 36px;">🤖 AI Engine Test</h1>
+      <p class="subtitle" id="ai-status">Testing AI system capabilities...</p>
       
-      <!-- How to Use MiSize Tile -->
-      <div class="guide-tile" onclick="toggleGuide('app-guide')">
-        <h4>📱 How to Use MiSize - Complete Guide</h4>
-        <p style="margin: 0; color: var(--muted);">Step-by-step instructions for using all AI-powered features</p>
+      <div style="max-width: 800px; margin: 20px auto; text-align: left;">
+        <div id="ai-info" style="background: var(--card); padding: 20px; border-radius: 12px; border: 2px solid var(--border); margin-bottom: 20px;"></div>
         
-        <div id="app-guide" class="guide-content">
-          <div class="guide-section">
-            <h5><span class="step-number">1</span>Create Your Profile FIRST (Essential!)</h5>
-            <p><strong>This is absolutely essential!</strong> Go to Settings → Profile Management → Create Profile. Add your measurements (bust, waist, hips, weight, height). Without this, the AI system cannot provide accurate sizes.</p>
-            
-            <div class="highlight-tip">
-              <p><strong>💡 Why This Matters:</strong> Our AI system uses your exact measurements to compare against real brand size charts for precise recommendations.</p>
-            </div>
-            
-            <h5><span class="step-number">2</span>Select Your Region & Preferences</h5>
-            <p>Choose your region (UK, EU, US, CA) from the home screen and set your preferences:</p>
-            <ul>
-              <li><strong>Body Type:</strong> Standard, Petite, Tall, or Plus</li>
-              <li><strong>Units:</strong> cm or inches for measurements</li>
-            </ul>
-          </div>
-
-          <div class="guide-section">
-            <h5><span class="step-number">3</span>AI-Powered Size Finder</h5>
-            <p>Once your profile is created, use the AI Size Finder:</p>
-            <ul>
-              <li>Select from 30+ brands with real size chart data</li>
-              <li>Choose your category (Jeans, Dresses, Tops, Shoes)</li>
-              <li>Pick your fit preference (Snug, Standard, or Relaxed)</li>
-              <li>Get accurate sizes with confidence ratings based on your measurements</li>
-              <li>See detailed fit analysis showing how each measurement fits</li>
-            </ul>
-            
-            <div class="highlight-tip">
-              <p><strong>🔍 Pro Tip:</strong> The system compares your exact measurements to real brand size charts for precision recommendations.</p>
-            </div>
-          </div>
-
-          <div class="guide-section">
-            <h5><span class="step-number">4</span>My Sizes Dashboard</h5>
-            <p>View all your accurate sizes in one place:</p>
-            <ul>
-              <li>Automatically calculated based on your profile measurements</li>
-              <li>Confidence ratings for each recommendation</li>
-              <li>Alternative sizes with fit analysis</li>
-              <li>Updates automatically when you update your profile</li>
-            </ul>
-          </div>
-
-          <div class="guide-section">
-            <h5><span class="step-number">5</span>Keep Your Profile Updated</h5>
-            <p>For best results:</p>
-            <ul>
-              <li>Update measurements every 6-12 months</li>
-              <li>Re-measure after significant weight changes</li>
-              <li>Check the MiStats section to track your progress</li>
-              <li>Use the measurement guides below for accurate measurements</li>
-            </ul>
-          </div>
+        <div style="text-align: center; margin: 30px 0;">
+          <button class="btn" onclick="testAISystem()" style="background: var(--green); margin-right: 10px;">🎯 Test Size Finder</button>
+          <button class="btn" onclick="testGetAllSizes()" style="background: var(--blue); margin-right: 10px;">📊 Test All Sizes</button>
+          <button class="btn" onclick="testMeasurements()" style="background: var(--orange);">📏 Test Measurements</button>
         </div>
+        
+        <div id="ai-results" style="margin-top: 30px;"></div>
       </div>
-
-      <!-- Report Issues Tile -->
-      <div class="guide-tile" onclick="reportIssue()">
-        <h4>🐛 Report Issues & Feedback</h4>
-        <p style="margin: 0; color: var(--muted);">Found wrong sizes, app bugs, or have suggestions? Let us know!</p>
-      </div>
-
-      <!-- Measurement Guides Section -->
-      <h3 style="text-align: center; margin: 32px 0 24px; color: var(--brand);">📏 Measurement Guides</h3>
-      <p style="text-align: center; margin-bottom: 32px; color: var(--muted);">
-        <strong>Essential for profile creation!</strong> Use these guides to take accurate measurements for your profile.
-      </p>
       
-      <div class="help-grid">
-        <div class="help-card" onclick="showMeasurementGuide('women')">
-          <h4>👩 Women's Measurements</h4>
-          <p>Complete guide for bust, waist, and hip measurements</p>
-        </div>
-        <div class="help-card" onclick="showMeasurementGuide('men')">
-          <h4>👨 Men's Measurements</h4>
-          <p>Essential measurements for men's clothing sizing</p>
-        </div>
-        <div class="help-card" onclick="showMeasurementGuide('children')">
-          <h4>👶 Children's Guide</h4>
-          <p>How to measure children and teens accurately</p>
-        </div>
-        <div class="help-card" onclick="showMeasurementGuide('foot')">
-          <h4>👟 Foot Measuring</h4>
-          <p>Get accurate foot measurements for shoes</p>
-        </div>
-      </div>
+      <button onclick="goHome()" class="btn" style="margin-top: 30px;">🏠 Go Home</button>
     </div>
   </div>
 
   <!-- Bottom Navigation -->
   <div class="bottom-nav">
     <button class="nav-item active" onclick="goHome()">Home</button>
-    <button class="nav-item" onclick="goToMiStats()">MiStats</button>
-    <button class="nav-item" onclick="goToSettings()">Settings</button>
-    <button class="nav-item" onclick="goToHelp()">Help</button>
-    <button class="nav-item" onclick="goBack()">Back</button>
+    <button class="nav-item" onclick="goToScreen('ai-test-screen')">Test AI</button>
+    <button class="nav-item" onclick="alert('MiStats coming soon!')">MiStats</button>
+    <button class="nav-item" onclick="alert('Settings coming soon!')">Settings</button>
+    <button class="nav-item" onclick="alert('Help coming soon!')">Help</button>
   </div>
 
-  <script>
-    // Global variables
-    let currentScreen = 'home';
-    let navigationHistory = [];
-    let selectedBodyType = 'standard';
-    let selectedUnit = 'cm';
+<script>
+// Global variables
+let currentScreen = 'home';
+let currentProfile = 'Emma Morris';
+let miSizeSystem = null;
 
-    // Basic navigation functions
-    function enterHub(region) {
-      const hubScreen = region.toLowerCase() + '-hub';
-      goToScreen(hubScreen);
+// Profile Data
+let profileData = {
+  'Emma Morris': {
+    name: 'Emma Morris',
+    measurements: { weight: 80, chest: 36, waist: 34, hips: 38, shoulders: 38, arms: 28 }
+  }
+};
+
+// Brand Database
+const BRAND_SIZE_DATABASE = {
+  'ASOS': {
+    name: 'ASOS',
+    categories: {
+      "Women's Tops": {
+        '12': { bust: 36, waist: 30, hips: 38 },
+        '14': { bust: 38, waist: 32, hips: 40 },
+        '16': { bust: 40, waist: 34, hips: 42 },
+        '18': { bust: 42, waist: 36, hips: 44 }
+      }
+    }
+  },
+  'Zara': {
+    name: 'Zara',
+    categories: {
+      "Women's Tops": {
+        'M': { bust: 36, waist: 30, hips: 38 },
+        'L': { bust: 38, waist: 32, hips: 40 },
+        'XL': { bust: 40, waist: 34, hips: 42 }
+      }
+    }
+  }
+};
+
+console.log('🚀 Starting MiSize AI Test...');
+
+// AI ENGINE CLASSES
+class SizeMatchingEngine {
+  constructor() {
+    this.brandDatabase = BRAND_SIZE_DATABASE;
+    this.userMeasurements = {};
+    console.log('✅ SizeMatchingEngine created');
+  }
+
+  setUserMeasurements(measurements) {
+    this.userMeasurements = {
+      bust: parseFloat(measurements.bust) || 0,
+      waist: parseFloat(measurements.waist) || 0,
+      hips: parseFloat(measurements.hips) || 0,
+      unit: measurements.unit || 'inch'
+    };
+    console.log('📏 Measurements set:', this.userMeasurements);
+  }
+
+  findBestSizeForBrand(brandName, category, fitPreference = 'standard') {
+    console.log(`🔍 Finding size for ${brandName} - ${category}`);
+    
+    const brandData = this.brandDatabase[brandName];
+    if (!brandData || !brandData.categories || !brandData.categories[category]) {
+      console.warn(`❌ No data for ${brandName} - ${category}`);
+      return null;
+    }
+
+    const sizes = brandData.categories[category];
+    let bestSize = null;
+    let bestScore = -1;
+
+    Object.entries(sizes).forEach(([size, measurements]) => {
+      const score = this.calculateFitScore(measurements);
+      console.log(`Size ${size} score: ${score}`);
+      
+      if (score > bestScore) {
+        bestScore = score;
+        bestSize = size;
+      }
+    });
+
+    const confidence = Math.round(bestScore);
+    console.log(`✅ Best size: ${bestSize} (${confidence}% confidence)`);
+
+    return {
+      brand: brandName,
+      recommendedSize: bestSize,
+      confidence: confidence,
+      category: category
+    };
+  }
+
+  calculateFitScore(sizeMeasurements) {
+    const user = this.userMeasurements;
+    let totalScore = 0;
+    let count = 0;
+
+    ['bust', 'waist', 'hips'].forEach(measurement => {
+      if (user[measurement] && sizeMeasurements[measurement]) {
+        const diff = Math.abs(user[measurement] - sizeMeasurements[measurement]);
+        const score = Math.max(0, 100 - (diff * 15));
+        totalScore += score;
+        count++;
+      }
+    });
+
+    return count > 0 ? totalScore / count : 0;
+  }
+
+  getAllBrandSizes(category) {
+    const results = [];
+    
+    Object.keys(this.brandDatabase).forEach(brandName => {
+      const result = this.findBestSizeForBrand(brandName, category);
+      if (result && result.confidence >= 50) {
+        results.push(result);
+      }
+    });
+
+    return results.sort((a, b) => b.confidence - a.confidence);
+  }
+}
+
+class MiSizeAISystem {
+  constructor() {
+    this.sizeEngine = new SizeMatchingEngine();
+    this.isInitialized = false;
+    console.log('🧠 MiSizeAISystem created');
+  }
+
+  async initialize() {
+    console.log('🔄 Initializing AI system...');
+    this.updateSystemStatus('loading', 'Initializing AI sizing system...');
+    
+    await this.sleep(1500);
+    
+    this.updateUserMeasurements();
+    this.isInitialized = true;
+    this.updateSystemStatus('online', '🤖 AI sizing system active');
+    
+    console.log('✅ AI system initialized');
+    return true;
+  }
+
+  updateUserMeasurements() {
+    const profile = profileData[currentProfile];
+    if (profile && profile.measurements) {
+      this.sizeEngine.setUserMeasurements({
+        bust: profile.measurements.chest || 36,
+        waist: profile.measurements.waist || 34,
+        hips: profile.measurements.hips || 38,
+        unit: 'inch'
+      });
+      console.log('✅ User measurements loaded from profile');
+    }
+  }
+
+  async getAccurateSize(brand, category, fitPreference = 'standard') {
+    if (!this.isInitialized) throw new Error('AI system not initialized');
+    
+    const result = this.sizeEngine.findBestSizeForBrand(brand, category, fitPreference);
+    
+    if (!result) {
+      return { success: false, message: `No size data for ${brand} - ${category}` };
+    }
+
+    return {
+      success: true,
+      ...result
+    };
+  }
+
+  async getAllMySizes() {
+    if (!this.isInitialized) throw new Error('AI system not initialized');
+    
+    const results = {};
+    results["Women's Tops"] = this.sizeEngine.getAllBrandSizes("Women's Tops");
+    
+    return results;
+  }
+
+  updateSystemStatus(status, message) {
+    const statusDot = document.getElementById('system-status-dot');
+    const statusText = document.getElementById('system-status-text');
+    
+    if (statusDot) statusDot.className = `status-dot status-${status}`;
+    if (statusText) statusText.textContent = message;
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+}
+
+// NAVIGATION
+function goToScreen(screenId) {
+  console.log('📱 Navigating to:', screenId);
+  
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.remove('active');
+  });
+  
+  const targetScreen = document.getElementById(screenId);
+  if (targetScreen) {
+    targetScreen.classList.add('active');
+    currentScreen = screenId;
+    
+    if (screenId === 'ai-test-screen') {
+      displayAITestInfo();
     }
     
-    function goToScreen(screenId) {
-      if (currentScreen !== screenId) {
-        navigationHistory.push(currentScreen);
-      }
-      
-      document.querySelectorAll('.screen').forEach(screen => {
-        screen.classList.remove('active');
-      });
-      
-      const targetScreen = document.getElementById(screenId);
-      if (targetScreen) {
-        targetScreen.classList.add('active');
-        currentScreen = screenId;
-        updateNavigation();
-      }
+    updateNavigation();
+  }
+}
+
+function goHome() { goToScreen('home'); }
+function enterHub(region) { 
+  if (region === 'UK') {
+    goToScreen('ai-test-screen'); 
+  } else {
+    alert(region + ' coming soon!');
+  }
+}
+
+function updateNavigation() {
+  document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+  
+  if (currentScreen === 'home') {
+    document.querySelector('.nav-item[onclick="goHome()"]')?.classList.add('active');
+  } else if (currentScreen === 'ai-test-screen') {
+    document.querySelector('.nav-item[onclick="goToScreen(\'ai-test-screen\')"]')?.classList.add('active');
+  }
+}
+
+// AI TEST FUNCTIONS
+function displayAITestInfo() {
+  const status = document.getElementById('ai-status');
+  const info = document.getElementById('ai-info');
+  
+  const profile = profileData[currentProfile];
+  const aiStatus = miSizeSystem ? (miSizeSystem.isInitialized ? '✅ Ready' : '⏳ Initializing') : '❌ Not loaded';
+  
+  status.textContent = `AI System: ${aiStatus} | Profile: ${profile.name}`;
+  
+  info.innerHTML = `
+    <h3 style="color: var(--brand); margin-top: 0;">🤖 AI System Status</h3>
+    <p><strong>Status:</strong> ${aiStatus}</p>
+    <p><strong>Current Profile:</strong> ${profile.name}</p>
+    <p><strong>Measurements:</strong> ${profile.measurements.chest}" bust, ${profile.measurements.waist}" waist, ${profile.measurements.hips}" hips</p>
+    <p><strong>Available Brands:</strong> ${Object.keys(BRAND_SIZE_DATABASE).length} loaded (ASOS, Zara)</p>
+    
+    <div style="margin-top: 16px; padding: 12px; background: var(--bg); border-radius: 8px;">
+      <strong>🧪 Test Options:</strong>
+      <ul style="margin: 8px 0; padding-left: 20px;">
+        <li><strong>Size Finder:</strong> Tests finding your best size for ASOS Women's Tops</li>
+        <li><strong>All Sizes:</strong> Tests getting sizes across all brands</li>
+        <li><strong>Measurements:</strong> Shows how your measurements compare to size charts</li>
+      </ul>
+    </div>
+  `;
+}
+
+async function testAISystem() {
+  console.log('🧪 Testing AI Size Finder...');
+  const results = document.getElementById('ai-results');
+  results.innerHTML = '<div style="text-align: center; padding: 20px;"><div style="display: inline-block; width: 20px; height: 20px; border: 3px solid var(--muted); border-top: 3px solid var(--brand); border-radius: 50%; animation: spin 1s linear infinite;"></div><p>Testing AI...</p></div>';
+  
+  try {
+    if (!miSizeSystem.isInitialized) {
+      await miSizeSystem.initialize();
     }
     
-    function goHome() {
-      navigationHistory = [];
-      goToScreen('home');
-    }
-
-    function goToMiStats() {
-      alert('Create a profile first to access MiStats tracking features!');
-    }
-
-    function goToSettings() {
-      alert('Settings screen where you create your profile - coming in next section!');
-    }
-
-    function goToHelp() {
-      goToScreen('help');
-    }
-
-    function goBack() {
-      if (navigationHistory.length > 0) {
-        const previousScreen = navigationHistory.pop();
-        goToScreen(previousScreen);
-      } else {
-        goHome();
-      }
-    }
-
-    function updateNavigation() {
-      document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.remove('active');
-      });
-      
-      if (currentScreen === 'home') {
-        document.querySelector('.nav-item[onclick="goHome()"]')?.classList.add('active');
-      } else if (currentScreen === 'help') {
-        document.querySelector('.nav-item[onclick="goToHelp()"]')?.classList.add('active');
-      }
-    }
-
-    function toggleGuide(guideId) {
-      const guide = document.getElementById(guideId);
-      if (guide) {
-        guide.classList.toggle('show');
-      }
-    }
-
-    function reportIssue() {
-      alert('Report Issue feature coming soon! You can contact us at support@misize.com');
-    }
-
-    // MEASUREMENT GUIDE MODAL SYSTEM - THE KEY UPDATE
-    function showMeasurementGuide(type) {
-      let content = '';
-      
-      if (type === 'women') {
-        content = `
-          <div class="guide-section">
-            <h4 style="color: var(--brand); font-size: 18px; font-weight: 800; margin: 0 0 12px;">👩 Women's Measurements - Complete Guide</h4>
-            <p>Taking accurate measurements is essential for proper sizing. Use a flexible measuring tape and have someone help you for the most accurate results.</p>
-            
-            <div class="highlight-tip">
-              <p><strong>Essential Tools:</strong> Flexible measuring tape, mirror, well-fitting bra, and a helper for best results</p>
+    const result = await miSizeSystem.getAccurateSize('ASOS', "Women's Tops");
+    
+    if (result.success) {
+      results.innerHTML = `
+        <div style="background: var(--card); padding: 20px; border-radius: 12px; border: 2px solid var(--green);">
+          <h3 style="color: var(--green); margin-top: 0;">✅ AI Test Successful!</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <p><strong>Brand:</strong> ${result.brand}</p>
+              <p><strong>Category:</strong> ${result.category}</p>
+              <p><strong>Your measurements:</strong> 36" bust, 34" waist, 38" hips</p>
             </div>
-
-            <h5><span class="step-number">1</span>Bust/Chest Measurement</h5>
-            <ul>
-              <li>Wear a well-fitting, non-padded bra</li>
-              <li>Wrap the measuring tape around the fullest part of your bust</li>
-              <li>Keep the tape parallel to the floor and snug but not tight</li>
-              <li>Breathe normally and take the measurement at the end of a normal exhale</li>
-              <li>Record to the nearest quarter inch</li>
-            </ul>
-
-            <h5><span class="step-number">2</span>Waist Measurement</h5>
-            <ul>
-              <li>Find your natural waistline - the narrowest part of your torso</li>
-              <li>Usually located about 1-2 inches above your belly button</li>
-              <li>Wrap the tape around your waist, keeping it parallel to the floor</li>
-              <li>Don't suck in your stomach - stand naturally</li>
-              <li>The tape should be snug but not compressing your skin</li>
-            </ul>
-
-            <h5><span class="step-number">3</span>Hip Measurement</h5>
-            <ul>
-              <li>Stand with feet together</li>
-              <li>Find the fullest part of your hips and buttocks</li>
-              <li>Wrap the tape around this fullest part</li>
-              <li>Keep the tape parallel to the floor</li>
-              <li>Ensure the tape is snug but not tight</li>
-            </ul>
-
-            <h5><span class="step-number">4</span>Additional Measurements</h5>
-            <p><strong>Shoulders:</strong> Measure across the back from the edge of one shoulder to the other</p>
-            <p><strong>Arms:</strong> Measure around the fullest part of your upper arm when relaxed</p>
-            <p><strong>Inseam:</strong> Measure from crotch to desired hem length along the inside of your leg</p>
-
-            <div class="highlight-tip">
-              <p><strong>Important:</strong> Take measurements over thin, form-fitting clothing or undergarments only. Bulky clothing will affect accuracy.</p>
+            <div style="text-align: center;">
+              <div style="background: var(--brand); color: white; padding: 12px; border-radius: 8px; font-size: 18px; font-weight: bold;">
+                Size ${result.recommendedSize}
+              </div>
+              <p style="color: var(--green); font-weight: bold; margin-top: 8px;">${result.confidence}% Confidence</p>
             </div>
+          </div>
+        </div>
+      `;
+    } else {
+      results.innerHTML = `
+        <div style="background: var(--card); padding: 20px; border-radius: 12px; border: 2px solid var(--orange);">
+          <h3 style="color: var(--orange);">⚠️ Test Issue</h3>
+          <p>${result.message}</p>
+        </div>
+      `;
+    }
+  } catch (error) {
+    results.innerHTML = `
+      <div style="background: var(--card); padding: 20px; border-radius: 12px; border: 2px solid var(--orange);">
+        <h3 style="color: var(--orange);">❌ Test Failed</h3>
+        <p>${error.message}</p>
+      </div>
+    `;
+  }
+}
+
+async function testGetAllSizes() {
+  console.log('🧪 Testing Get All Sizes...');
+  const results = document.getElementById('ai-results');
+  results.innerHTML = '<div style="text-align: center; padding: 20px;"><div style="display: inline-block; width: 20px; height: 20px; border: 3px solid var(--muted); border-top: 3px solid var(--brand); border-radius: 50%; animation: spin 1s linear infinite;"></div><p>Getting all sizes...</p></div>';
+  
+  try {
+    if (!miSizeSystem.isInitialized) {
+      await miSizeSystem.initialize();
+    }
+    
+    const allSizes = await miSizeSystem.getAllMySizes();
+    
+    let html = `<div style="background: var(--card); padding: 20px; border-radius: 12px; border: 2px solid var(--green);">
+      <h3 style="color: var(--green); margin-top: 0;">✅ All Sizes Test Successful!</h3>`;
+    
+    Object.entries(allSizes).forEach(([category, brands]) => {
+      html += `<h4 style="color: var(--brand);">${category}:</h4><div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">`;
+      
+      brands.forEach(brand => {
+        const confidenceColor = brand.confidence >= 80 ? 'var(--green)' : brand.confidence >= 60 ? 'var(--blue)' : 'var(--orange)';
+        html += `
+          <div style="background: var(--bg); padding: 12px; border-radius: 8px; border: 1px solid ${confidenceColor};">
+            <strong>${brand.brand}</strong><br>
+            Size: <span style="color: ${confidenceColor}; font-weight: bold;">${brand.recommendedSize}</span><br>
+            <small>${brand.confidence}% match</small>
           </div>
         `;
-      } else if (type === 'men') {
-        content = `
-          <div class="guide-section">
-            <h4 style="color: var(--brand); font-size: 18px; font-weight: 800; margin: 0 0 12px;">👨 Men's Measurements - Complete Guide</h4>
-            <p>Accurate measurements ensure better fitting clothes. Stand naturally and don't hold your breath during measurements.</p>
-
-            <h5><span class="step-number">1</span>Chest Measurement</h5>
-            <ul>
-              <li>Wrap the measuring tape around the fullest part of your chest</li>
-              <li>Keep the tape under your armpits and across your shoulder blades</li>
-              <li>Stand with arms at your sides, relaxed</li>
-              <li>Keep the tape snug but not tight</li>
-              <li>Breathe normally and measure at the end of a normal exhale</li>
-            </ul>
-
-            <h5><span class="step-number">2</span>Waist Measurement</h5>
-            <ul>
-              <li>Find where you naturally bend when you lean to the side</li>
-              <li>Usually just above your hip bones</li>
-              <li>Wrap the tape around your waist at this point</li>
-              <li>Don't suck in your stomach - stand naturally</li>
-              <li>The tape should be comfortably snug</li>
-            </ul>
-
-            <h5><span class="step-number">3</span>Neck Measurement</h5>
-            <ul>
-              <li>Wrap the tape around the base of your neck</li>
-              <li>Keep the tape just below your Adam's apple</li>
-              <li>Insert one finger between the tape and your neck</li>
-              <li>The tape should be snug but comfortable for shirt collar sizing</li>
-            </ul>
-
-            <h5><span class="step-number">4</span>Additional Key Measurements</h5>
-            <p><strong>Shoulders:</strong> Measure from the edge of one shoulder to the other across the back</p>
-            <p><strong>Sleeve Length:</strong> Measure from shoulder point down to desired cuff position</p>
-            <p><strong>Inseam:</strong> Measure from crotch to desired trouser hem length</p>
-
-            <div class="highlight-tip">
-              <p><strong>Shirt Sizing Tip:</strong> For dress shirts, ensure you can fit two fingers between your neck and the measuring tape for proper collar fit.</p>
-            </div>
-          </div>
-        `;
-      } else if (type === 'children') {
-        content = `
-          <div class="guide-section">
-            <h4 style="color: var(--brand); font-size: 18px; font-weight: 800; margin: 0 0 12px;">👶 Children's Measurements - Complete Guide</h4>
-            <p>Measuring children requires patience and cooperation. Make it fun and explain what you're doing to keep them still.</p>
-
-            <h5
-
-            <!-- UK Hub -->
-  <div id="uk-hub" class="screen">
-    <div class="hub-container">
-      <div class="hub-header">
-        <div class="hub-flag">🇬🇧</div>
-        <h2 class="hub-title">UK Hub</h2>
-        <p class="hub-subtitle">United Kingdom sizing & tracking with AI precision</p>
-      </div>
+      });
       
-      <div class="system-status">
-        <div class="status-indicator">
-          <div class="status-dot status-online"></div>
-          <span>AI sizing system active - Profile required for personalized features</span>
-        </div>
-      </div>
-      
-      <div class="hub-tiles-5">
-        <div class="hub-tile" onclick="checkProfileThenGo('uk-sizefinder')">
-          AI Size Finder
-        </div>
-        <div class="hub-tile" onclick="checkProfileThenGo('uk-mysizes')">
-          My Accurate Sizes
-        </div>
-        <div class="hub-tile" onclick="goToScreen('uk-brandnotes')">
-          Brand Intelligence
-        </div>
-        <div class="hub-tile" onclick="goToScreen('uk-history')">
-          Search History
-        </div>
-        <div class="hub-tile" onclick="goToScreen('uk-converters')">
-          Size Converters
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- UK Settings Screen -->
-  <div id="uk-settings" class="screen">
-    <div class="content-container">
-      <div class="hub-header">
-        <h2 class="hub-title">🇬🇧 Settings</h2>
-        <p class="hub-subtitle">Manage your profiles and AI system preferences</p>
-      </div>
-
-      <!-- Profile Creation Emphasis -->
-      <div class="system-status" style="background: linear-gradient(135deg, var(--brand), var(--blue)); color: white;">
-        <div class="status-indicator" style="color: white;">
-          <div style="background: white; width: 12px; height: 12px; border-radius: 50%;"></div>
-          <span style="font-size: 16px; font-weight: 700;">Profile Required: Create your profile to unlock AI sizing features</span>
-        </div>
-      </div>
-
-      <!-- Profile Management Section -->
-      <div class="settings-section">
-        <h3>👤 Profile Management</h3>
-        <p style="margin-bottom: 16px; color: var(--muted);">Create and manage user profiles for accurate size recommendations</p>
-        
-        <div class="profile-tiles-group">
-          <div class="profile-tile" onclick="goToScreen('create-profile')">
-            Create Profile
-          </div>
-          <div class="profile-tile" onclick="goToScreen('saved-profiles')">
-            Saved Profiles
-          </div>
-          <div class="profile-tile" onclick="goToScreen('edit-profiles')">
-            Edit Profiles
-          </div>
-        </div>
-      </div>
-
-      <!-- Enhanced Measurements Section -->
-      <div class="settings-section">
-        <h3>📏 Profile Measurements</h3>
-        <p style="margin-bottom: 16px; color: var(--muted);">Track body measurements for AI-powered accurate sizing</p>
-
-        <div class="form-group">
-          <label class="form-label">Select Profile to Update</label>
-          <select class="form-select" id="measurement-profile-select">
-            <option value="">Choose a profile...</option>
-            <option value="Emma Morris">Emma Morris (Sample Profile)</option>
-          </select>
-        </div>
-
-        <div class="measurement-grid">
-          <div class="measurement-bubble">
-            <h4>Weight</h4>
-            <div style="display: flex; gap: 8px; align-items: center;">
-              <input type="number" class="measurement-input" id="weight" placeholder="80" style="flex: 1;" />
-              <div class="pill-settings-group" style="margin: 0;">
-                <button class="settings-pill active" data-weight-unit="kg">kg</button>
-                <button class="settings-pill" data-weight-unit="lbs">lbs</button>
-                <button class="settings-pill" data-weight-unit="stone">st</button>
-              </div>
-            </div>
-          </div>
-          
-          <div class="measurement-bubble">
-            <h4>Chest/Bust</h4>
-            <div style="display: flex; gap: 8px; align-items: center;">
-              <input type="number" class="measurement-input" id="chest" placeholder="36" style="flex: 1;" />
-              <div class="pill-settings-group" style="margin: 0;">
-                <button class="settings-pill" data-measurement-unit="cm">cm</button>
-                <button class="settings-pill active" data-measurement-unit="inch">in</button>
-              </div>
-            </div>
-          </div>
-          
-          <div class="measurement-bubble">
-            <h4>Waist</h4>
-            <div style="display: flex; gap: 8px; align-items: center;">
-              <input type="number" class="measurement-input" id="waist" placeholder="34" style="flex: 1;" />
-              <div class="pill-settings-group" style="margin: 0;">
-                <button class="settings-pill" data-measurement-unit="cm">cm</button>
-                <button class="settings-pill active" data-measurement-unit="inch">in</button>
-              </div>
-            </div>
-          </div>
-          
-          <div class="measurement-bubble">
-            <h4>Hips</h4>
-            <div style="display: flex; gap: 8px; align-items: center;">
-              <input type="number" class="measurement-input" id="hips" placeholder="38" style="flex: 1;" />
-              <div class="pill-settings-group" style="margin: 0;">
-                <button class="settings-pill" data-measurement-unit="cm">cm</button>
-                <button class="settings-pill active" data-measurement-unit="inch">in</button>
-              </div>
-            </div>
-          </div>
-          
-          <div class="measurement-bubble">
-            <h4>Shoulders</h4>
-            <div style="display: flex; gap: 8px; align-items: center;">
-              <input type="number" class="measurement-input" id="shoulders" placeholder="38" style="flex: 1;" />
-              <div class="pill-settings-group" style="margin: 0;">
-                <button class="settings-pill" data-measurement-unit="cm">cm</button>
-                <button class="settings-pill active" data-measurement-unit="inch">in</button>
-              </div>
-            </div>
-          </div>
-          
-          <div class="measurement-bubble">
-            <h4>Arms</h4>
-            <div style="display: flex; gap: 8px; align-items: center;">
-              <input type="number" class="measurement-input" id="arms" placeholder="28" style="flex: 1;" />
-              <div class="pill-settings-group" style="margin: 0;">
-                <button class="settings-pill" data-measurement-unit="cm">cm</button>
-                <button class="settings-pill active" data-measurement-unit="inch">in</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="saveMeasurementsToProfile()">
-          Save Measurements & Update AI Sizing
-        </button>
-      </div>
-
-      <!-- AI System Settings -->
-      <div class="settings-section">
-        <h3>🔧 AI System Preferences</h3>
-        <p style="margin-bottom: 16px; color: var(--muted);">Configure your AI sizing preferences</p>
-        
-        <div class="form-group">
-          <label class="form-label">Confidence Threshold</label>
-          <div class="pill-settings-group">
-            <button class="settings-pill active" data-confidence="70">70%+ Show All</button>
-            <button class="settings-pill" data-confidence="85">85%+ High Confidence</button>
-            <button class="settings-pill" data-confidence="95">95%+ Perfect Match Only</button>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Data Update Frequency</label>
-          <div class="pill-settings-group">
-            <button class="settings-pill" data-update="daily">Daily</button>
-            <button class="settings-pill active" data-update="weekly">Weekly</button>
-            <button class="settings-pill" data-update="monthly">Monthly</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Region Settings -->
-      <div class="settings-section">
-        <h3>🌍 Change Region</h3>
-        <p style="margin-bottom: 16px; color: var(--muted);">Select your primary shopping region</p>
-        
-        <div class="pill-settings-group">
-          <button class="settings-pill active" data-region="uk">🇬🇧 UK</button>
-          <button class="settings-pill" data-region="eu">🇪🇺 EU</button>
-          <button class="settings-pill" data-region="us">🇺🇸 US</button>
-          <button class="settings-pill" data-region="ca">🇨🇦 CA</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Create Profile Screen -->
-  <div id="create-profile" class="screen">
-    <div class="content-container">
-      <div class="hub-header">
-        <h2 class="hub-title">Create New Profile</h2>
-        <p class="hub-subtitle">Set up a new user profile for AI-powered sizing</p>
-      </div>
-      
-      <div class="form-container">
-        <div class="form-group">
-          <label class="form-label">Profile Name</label>
-          <input type="text" class="form-input" id="create-profile-name" placeholder="Enter profile name" />
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">Date of Birth</label>
-          <input type="date" class="form-input" id="create-date-birth" />
-        </div>
-      
-        <div class="form-group">
-          <label class="form-label">Gender</label>
-          <div class="pill-settings-group">
-            <button class="settings-pill" data-gender="male">Male</button>
-            <button class="settings-pill" data-gender="female">Female</button>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Body Frame</label>
-          <div class="pill-settings-group">
-            <button class="settings-pill" data-frame="small">Small</button>
-            <button class="settings-pill active" data-frame="medium">Medium</button>
-            <button class="settings-pill" data-frame="large">Large</button>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Starting Date</label>
-          <input type="date" class="form-input" id="create-start-date" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Starting Weight</label>
-          <div style="display: flex; gap: 12px; align-items: center;">
-            <input type="number" class="form-input" id="create-start-weight" placeholder="Enter weight" style="flex: 1;" />
-            <div class="pill-settings-group" style="margin: 0;">
-              <button class="settings-pill active" data-weight-unit="kg">kg</button>
-              <button class="settings-pill" data-weight-unit="lbs">lbs</button>
-              <button class="settings-pill" data-weight-unit="stone">stone</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Starting Height</label>
-          <div style="display: flex; gap: 12px; align-items: center;">
-            <input type="text" class="form-input" id="create-start-height" placeholder="Enter height" style="flex: 1;" />
-            <div class="pill-settings-group" style="margin: 0;">
-              <button class="settings-pill active" data-height-unit="cm">cm</button>
-              <button class="settings-pill" data-height-unit="inch">inch</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Current Measurements (Required for AI Sizing)</label>
-          <div class="measurement-grid">
-            <div class="measurement-bubble">
-              <h4>Chest/Bust</h4>
-              <input type="number" class="measurement-input" id="create-chest" placeholder="36" />
-              <small style="color: var(--muted);">inches</small>
-            </div>
-            <div class="measurement-bubble">
-              <h4>Waist</h4>
-              <input type="number" class="measurement-input" id="create-waist" placeholder="34" />
-              <small style="color: var(--muted);">inches</small>
-            </div>
-            <div class="measurement-bubble">
-              <h4>Hips</h4>
-              <input type="number" class="measurement-input" id="create-hips" placeholder="38" />
-              <small style="color: var(--muted);">inches</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Target Weight (Optional)</label>
-          <div style="display: flex; gap: 12px; align-items: center;">
-            <input type="number" class="form-input" id="create-target-weight" placeholder="Enter target weight" style="flex: 1;" />
-            <div class="pill-settings-group" style="margin: 0;">
-              <button class="settings-pill active" data-target-weight-unit="kg">kg</button>
-              <button class="settings-pill" data-target-weight-unit="lbs">lbs</button>
-              <button class="settings-pill" data-target-weight-unit="stone">stone</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Target Date (Optional)</label>
-          <input type="date" class="form-input" id="create-target-date" />
-        </div>
-
-        <div class="button-group">
-          <button class="btn btn-primary" onclick="saveNewProfile()">Create Profile & Enable AI</button>
-          <button class="btn btn-secondary" onclick="goBack()">Cancel</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Saved Profiles Screen -->
-  <div id="saved-profiles" class="screen">
-    <div class="content-container">
-      <div class="hub-header">
-        <h2 class="hub-title">Saved Profiles</h2>
-        <p class="hub-subtitle">View and manage your saved profiles</p>
-      </div>
-
-      <div id="profiles-list">
-        <div class="profile-card">
-          <div class="profile-name">Emma Morris (Sample)</div>
-          <div class="profile-details">
-            <strong>Weight Journey:</strong> 150kg → 80kg<br>
-            <strong>Height:</strong> 183cm<br>
-            <strong>Latest Measurements:</strong> 36" chest, 34" waist, 38" hips<br>
-            <strong>Status:</strong> Ready for AI sizing
-          </div>
-          <div style="margin-top: 12px;">
-            <button class="btn btn-primary" style="padding: 8px 16px; font-size: 14px; margin-right: 8px;" onclick="selectProfile('Emma Morris')">Select</button>
-            <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 14px;">Edit</button>
-          </div>
-        </div>
-        
-        <p style="text-align: center; color: var(--muted); padding: 20px; font-style: italic;">
-          👆 Sample profile shown above. Create your own profile to see it listed here.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Edit Profiles Screen -->
-  <div id="edit-profiles" class="screen">
-    <div class="content-container">
-      <div class="hub-header">
-        <h2 class="hub-title">Edit Profiles</h2>
-        <p class="hub-subtitle">Modify existing profile information</p>
-      </div>
-
-      <div id="edit-profiles-list">
-        <p style="text-align: center; color: var(--muted); padding: 40px;">
-          No profiles available to edit yet. Create a profile first to see editing options here.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- MiStats Screen -->
-  <div id="mistats" class="screen">
-    <div class="content-container" style="padding-top: 40px;">
-      <div class="hub-header">
-        <h2 class="hub-title">📊 MiStats</h2>
-        <p class="hub-subtitle">Track your measurements and progress over time</p>
-      </div>
-      
-      <div class="system-status">
-        <div class="status-indicator">
-          <div class="status-dot status-loading"></div>
-          <span>Create a profile first to access MiStats tracking features</span>
-        </div>
-      </div>
-
-      <div style="text-align: center; padding: 60px 20px;">
-        <h3 style="color: var(--brand); margin-bottom: 16px;">📈 Measurement Tracking</h3>
-        <p style="color: var(--muted); margin-bottom: 24px;">
-          MiStats will track your body measurements, weight changes, and sizing progress over time once you create a profile.
-        </p>
-        <button class="btn btn-primary" onclick="goToScreen('create-profile')" style="display: inline-block; width: auto; padding: 12px 32px;">
-          Create Profile to Enable MiStats
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- UK Size Finder -->
-  <div id="uk-sizefinder" class="screen">
-    <div class="content-container">
-      <div class="hub-header">
-        <h2 class="hub-title">🇬🇧 AI Size Finder</h2>
-        <p class="hub-subtitle">Find your perfect size using real brand measurements</p>
-      </div>
-      
-      <div class="system-status">
-        <div class="status-indicator">
-          <div class="status-dot status-online"></div>
-          <span>Real-time brand data active</span>
-        </div>
-      </div>
-      
-      <div class="form-container">
-        <div class="form-group">
-          <label class="form-label">Brand</label>
-          <select class="form-select" id="uk-brand-select">
-            <option value="">Select a brand...</option>
-            <option value="ASOS">ASOS</option>
-            <option value="Next">Next</option>
-            <option value="Marks & Spencer">Marks & Spencer</option>
-            <option value="Zara">Zara</option>
-            <option value="H&M">H&M</option>
-            <option value="Topshop">Topshop</option>
-            <option value="Primark">Primark</option>
-            <option value="Uniqlo">Uniqlo</option>
-            <option value="River Island">River Island</option>
-            <option value="New Look">New Look</option>
-            <option value="Boden">Boden</option>
-            <option value="Superdry">Superdry</option>
-            <option value="John Lewis">John Lewis</option>
-            <option value="Monsoon">Monsoon</option>
-            <option value="White Stuff">White Stuff</option>
-          </select>
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">Category</label>
-          <select class="form
-
-          <!-- Additional CSS Styles -->
-  <style>
-    /* Additional styles for complete functionality */
+      html += `</div>`;
+    });
     
-    .hub-container {
-      padding: 40px 20px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .hub-flag {
-      font-size: 60px;
-      margin-bottom: 16px;
-    }
-
-    .hub-tiles {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .hub-tiles-5 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .hub-tiles-5 .hub-tile:last-child {
-      grid-column: span 2;
-    }
-
-    .hub-tile {
-      background: var(--blue);
-      border-radius: 16px;
-      padding: 32px 20px;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 2px solid transparent;
-      text-align: center;
-      color: #fff;
-      font-size: 18px;
-      font-weight: 800;
-      min-height: 120px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hub-tile:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(29, 78, 216, 0.3);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .form-container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 24px;
-    }
-
-    .form-label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .form-select {
-      width: 100%;
-      padding: 12px 16px;
-      background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      color: var(--text);
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 12px 16px;
-      background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      color: var(--text);
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .button-group {
-      display: flex;
-      gap: 12px;
-      margin-top: 32px;
-    }
-
-    .btn {
-      flex: 1;
-      padding: 16px 24px;
-      border: 0;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 16px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .btn-primary {
-      background: var(--brand);
-      color: #fff;
-    }
-
-    .btn-secondary {
-      background: var(--card);
-      color: var(--text);
-      border: 2px solid var(--border);
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .brand-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .brand-card {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 20px;
-      border: 2px solid var(--border);
-      transition: all 0.3s;
-    }
-
-    .brand-card:hover {
-      border-color: var(--brand);
-      transform: translateY(-2px);
-    }
-
-    .brand-name {
-      font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 8px;
-      color: var(--text);
-    }
-
-    .confidence-indicator {
-      background: var(--green);
-      color: #fff;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 600;
-      margin-left: 8px;
-    }
-
-    .history-list {
-      background: var(--card);
-      border-radius: 12px;
-      overflow: hidden;
-      border: 2px solid var(--border);
-    }
-
-    .history-item {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .history-item:last-child {
-      border-bottom: none;
-    }
-
-    .history-date {
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .settings-section {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 24px;
-      border: 2px solid var(--border);
-      margin-bottom: 24px;
-    }
-
-    .settings-section h3 {
-      color: var(--brand);
-      font-size: 20px;
-      font-weight: 800;
-      margin: 0 0 16px;
-    }
-
-    .pill-settings-group {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-
-    .settings-pill {
-      border: 1px solid rgba(255, 255, 255, .12);
-      background: #151a3a;
-      color: #c9d3ea;
-      font-weight: 700;
-      font-size: 12px;
-      padding: 8px 16px;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .settings-pill.active {
-      background: var(--brand);
-      color: #fff;
-      border-color: var(--brand);
-    }
-
-    .profile-tile {
-      background: var(--blue);
-      border-radius: 12px;
-      padding: 20px;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-align: center;
-      color: #fff;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    .profile-tile:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(29, 78, 216, 0.3);
-    }
-
-    .profile-tiles-group {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .profile-card {
-      background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 16px;
-      transition: all 0.3s;
-    }
-
-    .profile-card:hover {
-      border-color: var(--brand);
-    }
-
-    .profile-name {
-      font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .profile-details {
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .measurement-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .measurement-bubble {
-      background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      transition: all 0.3s;
-    }
-
-    .measurement-bubble:hover {
-      border-color: var(--brand);
-    }
-
-    .measurement-bubble h4 {
-      margin: 0 0 8px;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .measurement-input {
-      width: 100%;
-      padding: 8px 12px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      text-align: center;
-      font-weight: 600;
-    }
-  </style>
-
-  <!-- EU Hub -->
-  <div id="eu-hub" class="screen">
-    <div class="hub-container">
-      <div class="hub-header">
-        <div class="hub-flag">🇪🇺</div>
-        <h2 class="hub-title">EU Hub</h2>
-        <p class="hub-subtitle">European sizing & tracking</p>
-      </div>
-      
-      <div class="system-status">
-        <div class="status-indicator">
-          <div class="status-dot status-loading"></div>
-          <span>EU features coming soon - Full launch Q2 2025</span>
-        </div>
-      </div>
-      
-      <div class="hub-tiles-5">
-        <div class="hub-tile" onclick="alert('EU AI Size Finder coming soon! 🇪🇺')">
-          AI Size Finder
-          <div style="font-size: 12px; margin-top: 8px; opacity: 0.8;">Coming Soon</div>
-        </div>
-        <div class="hub-tile" onclick="alert('EU My Sizes coming soon! 🇪🇺')">
-          My Accurate Sizes
-          <div style="font-size: 12px; margin-top: 8px; opacity: 0.8;">Coming Soon</div>
-        </div>
-        <div class="hub-tile" onclick="alert('EU Brand Intelligence coming soon! 🇪🇺')">
-          Brand Intelligence
-          <div style="font-size: 12px; margin-top: 8px; opacity: 0.8;">Coming Soon</div>
-        </div>
-        <div class="hub-tile" onclick="alert('EU History coming soon! 🇪🇺')">
-          History
-          <div style="font-size: 12px; margin-top: 8
-
-          <!-- Additional CSS Styles -->
-  <style>
-    /* Additional styles for complete functionality */
+    html += `</div>`;
+    results.innerHTML = html;
     
-    .hub-container {
-      padding: 40px 20px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .hub-flag {
-      font-size: 60px;
-      margin-bottom: 16px;
-    }
-
-    .hub-tiles {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .hub-tiles-5 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .hub-tiles-5 .hub-tile:last-child {
-      grid-column: span 2;
-    }
-
-    .hub-tile {
-      background: var(--blue);
-      border-radius: 16px;
-      padding: 32px 20px;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 2px solid transparent;
-      text-align: center;
-      color: #fff;
-      font-size: 18px;
-      font-weight: 800;
-      min-height: 120px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hub-tile:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(29, 78, 216, 0.3);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .form-container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 24px;
-    }
-
-    .form-label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .form-select {
-      width: 100%;
-      padding: 12px 16px;
-      background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      color: var(--text);
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 12px 16px;
-      background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      color: var(--text);
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .button-group {
-      display: flex;
-      gap: 12px;
-      margin-top: 32px;
-    }
-
-    .btn {
-      flex: 1;
-      padding: 16px 24px;
-      border: 0;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 16px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .btn-primary {
-      background: var(--brand);
-      color: #fff;
-    }
-
-    .btn-secondary {
-      background: var(--card);
-      color: var(--text);
-      border: 2px solid var(--border);
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .brand-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .brand-card {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 20px;
-      border: 2px solid var(--border);
-      transition: all 0.3s;
-    }
-
-    .brand-card:hover {
-      border-color: var(--brand);
-      transform: translateY(-2px);
-    }
-
-    .brand-name {
-      font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 8px;
-      color: var(--text);
-    }
-
-    .confidence-indicator {
-      background: var(--green);
-      color: #fff;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 600;
-      margin-left: 8px;
-    }
-
-    .history-list {
-      background: var(--card);
-      border-radius: 12px;
-      overflow: hidden;
-      border: 2px solid var(--border);
-    }
-
-    .history-item {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .history-item:last-child {
-      border-bottom: none;
-    }
-
-    .history-date {
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .settings-section {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 24px;
-      border: 2px solid var(--border);
-      margin-bottom: 24px;
-    }
-
-    .settings-section h3 {
-      color: var(--brand);
-      font-size: 20px;
-      font-weight: 800;
-      margin: 0 0 16px;
-    }
-
-    .pill-settings-group {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-
-    .settings-pill {
-      border: 1px solid rgba(255, 255, 255, .12);
-      background: #151a3a;
-      color: #c9d3ea;
-      font-weight: 700;
-      font-size: 12px;
-      padding: 8px 16px;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .settings-pill.active {
-      background: var(--brand);
-      color: #fff;
-      border-color: var(--brand);
-    }
-
-    .profile-tile {
-      background: var(--blue);
-      border-radius: 12px;
-      padding: 20px;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-align: center;
-      color: #fff;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    .profile-tile:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(29, 78, 216, 0.3);
-    }
-
-    .profile-tiles-group {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .profile-card {
-      background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 16px;
-      transition: all 0.3s;
-    }
-
-    .profile-card:hover {
-      border-color: var(--brand);
-    }
-
-    .profile-name {
-      font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .profile-details {
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .measurement-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .measurement-bubble {
-      background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      transition: all 0.3s;
-    }
-
-    .measurement-bubble:hover {
-      border-color: var(--brand);
-    }
-
-    .measurement-bubble h4 {
-      margin: 0 0 8px;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .measurement-input {
-      width: 100%;
-      padding: 8px 12px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      text-align: center;
-      font-weight: 600;
-    }
-  </style>
-
-  <!-- EU Hub -->
-  <div id="eu-hub" class="screen">
-    <div class="hub-container">
-      <div class="hub-header">
-        <div class="hub-flag">🇪🇺</div>
-        <h2 class="hub-title">EU Hub</h2>
-        <p class="hub-subtitle">European sizing & tracking</p>
+  } catch (error) {
+    results.innerHTML = `
+      <div style="background: var(--card); padding: 20px; border-radius: 12px; border: 2px solid var(--orange);">
+        <h3 style="color: var(--orange);">❌ Test Failed</h3>
+        <p>${error.message}</p>
       </div>
-      
-      <div class="system-status">
-        <div class="status-indicator">
-          <div class="status-dot status-loading"></div>
-          <span>EU features coming soon - Full launch Q2 2025</span>
+    `;
+  }
+}
+
+function testMeasurements() {
+  const results = document.getElementById('ai-results');
+  const profile = profileData[currentProfile];
+  
+  results.innerHTML = `
+    <div style="background: var(--card); padding: 20px; border-radius: 12px; border: 2px solid var(--blue);">
+      <h3 style="color: var(--blue); margin-top: 0;">📏 Measurement Analysis</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px;">
+        <div style="background: var(--bg); padding: 12px; border-radius: 8px; text-align: center;">
+          <strong>Bust/Chest</strong><br>
+          <span style="font-size: 24px; color: var(--brand);">${profile.measurements.chest}"</span>
+        </div>
+        <div style="background: var(--bg); padding: 12px; border-radius: 8px; text-align: center;">
+          <strong>Waist</strong><br>
+          <span style="font-size: 24px; color: var(--brand);">${profile.measurements.waist}"</span>
+        </div>
+        <div style="background: var(--bg); padding: 12px; border-radius: 8px; text-align: center;">
+          <strong>Hips</strong><br>
+          <span style="font-size: 24px; color: var(--brand);">${profile.measurements.hips}"</span>
         </div>
       </div>
       
-      <div class="hub-tiles-5">
-        <div class="hub-tile" onclick="alert('EU AI Size Finder coming soon! 🇪🇺')">
-          AI Size Finder
-          <div style="font-size: 12px; margin-top: 8px; opacity: 0.8;">Coming Soon</div>
-        </div>
-        <div class="hub-tile" onclick="alert('EU Converters coming soon! 🇪🇺')">
-          Converters
-          <div style="font-size: 12px; margin-top: 8px; opacity: 0.8;">Coming Soon</div>
-        </div>
-      </div>
-      
-      <div style="text-align: center; margin-top: 40px; padding: 20px; background: var(--card); border-radius: 12px;">
-        <h4 style="color: var(--brand); margin-bottom: 12px;">🚧 Under Development</h4>
-        <p style="color: var(--muted); margin: 0;">
-          EU region features are currently in development. We're working with European brands to integrate their size charts for accurate AI recommendations.
-        </p>
+      <div style="margin-top: 16px; padding: 12px; background: var(--bg); border-radius: 8px;">
+        <p><strong>Size Comparison:</strong></p>
+        <ul style="margin: 8px 0; padding-left: 20px;">
+          <li><strong>ASOS Size 16:</strong> 40" bust, 34" waist, 42" hips</li>
+          <li><strong>Your measurements:</strong> ${profile.measurements.chest}" bust, ${profile.measurements.waist}" waist, ${profile.measurements.hips}" hips</li>
+          <li><strong>Best match:</strong> Close to size 16 waist, smaller bust/hips</li>
+        </ul>
       </div>
     </div>
-  </div>
+  `;
+}
 
-  <!-- US Hub -->
-  <div id="us-hub" class="screen">
-    <div class="hub-container">
-      <div class="hub-header">
-        <div class="hub-flag">🇺🇸</div>
-        <h2 class="hub-title">US Hub</h2>
-        <p class="hub-subtitle">United States sizing & tracking</p>
-      </div>
-      
-      <div class="system-status">
-        <div class="status-indicator">
-          <div class="status-dot status-loading"></div>
-          <span>US features coming soon - Full launch Q3 2025</span>
-        </div>
-      </div>
-      
-      <div class="hub-tiles-5">
-        <div class="hub-tile" onclick="alert('US AI Size Finder coming soon! 🇺🇸')">
-          AI Size Finder
-          <div style="font-size: 12px; margin-top: 8px; opacity: 0.8;">Coming Soon</div>
-        </div>
-        <div class="hub-tile" onclick="alert('US My Sizes coming soon! 🇺🇸')">
-          My Accurate Sizes
-          <div style="font-size: 12px; margin-top: 8px; opacity: 0.8;">Coming Soon</div>
-        </div>
-        <div class="hub-tile" onclick="alert('US Brand Intelligence coming soon! 🇺🇸')">
-          Brand Intelligence
-          <div style="font-size: 12px; margin-top: 8px; opacity: 0.8;">Coming Soon</div>
-        </div>
-        <div class="hub-tile" onclick="alert('US History coming soon! 🇺🇸')">
-          History
-          <div style="font-size: 12px; margin-top: 8px; opacity: 0.8;">Coming Soon</div>
-        </div>
-        <div class="hub-tile" onclick="alert('US Converters coming soon! 🇺🇸')">
-          Converters
-          <div style="font-size: 12px; margin-top: 8px; opacity: 0.8;">Coming Soon</div>
-        </div>
-      </div>
-      
-      <div style="text-align: center; margin-top: 40px; padding: 20px; background: var(--card); border-radius: 12px;">
-        <h4 style="color: var(--brand); margin-bottom: 12px;">🚧 Under Development</h4>
-        <p style="color: var(--muted); margin: 0;">
-          US region features are currently in development. We're partnering with major US retailers to provide accurate sizing recommendations.
-        </p>
-      </div>
-    </div>
-  </div>
+// Initialize
+async function initApp() {
+  console.log('🔄 Initializing AI test app...');
+  
+  // Set up pill controls
+  document.querySelectorAll('.pill').forEach(pill => {
+    pill.addEventListener('click', function() {
+      const group = this.parentElement;
+      group.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+  
+  // Initialize AI
+  miSizeSystem = new MiSizeAISystem();
+  await miSizeSystem.initialize();
+  
+  updateNavigation();
+  console.log('✅ AI test app ready');
+}
 
-  <!-- Canada Hub -->
-  <div id="ca-hub" class="screen">
-    <div class="hub-container">
-      <div class="hub-header">
-        <div class="hub-flag">🇨🇦</div>
-        <h2 class="hub-title">Canada Hub</h2>
-        <p class="hub-subtitle">Canadian sizing & tracking</p>
-      </div>
-      
-      <div class="system-status">
-        <div class="status-indicator">
-          <div class="status-dot status-loading"></div>
-          <span>Canada features coming soon - Full launch Q4 2025</span>
-        </div>
-      </div>
-      
-      <div class="hub-tiles-5">
-        <div class="hub-tile" onclick="alert('CA AI Size Finder coming soon! 🇨🇦')">
-          AI Size Finder
-          <div style="font-size: 12px; margin-top: 8px; opacity: 0.8;">Coming Soon</div>
-        </div>
-        <div class="hub-tile" onclick="alert('CA My Sizes coming soon! 🇨🇦')">
-          My Accurate Sizes
-          <div style="font-size: 12px; margin-top: 8px; opacity: 0.8;">Coming Soon</div>
-        </div>
-        <div class="hub-tile" onclick="alert('CA Brand Intelligence coming soon! 🇨🇦')">
-          Brand Intelligence
-          <div style="font-size: 12px; margin-top: 8px; opacity: 0.8;">Coming Soon</div>
-        </div>
-        <div class="hub-tile" onclick="alert('CA History coming soon! 🇨🇦')">
-          History
-          <div style="font-size: 12px; margin-top: 8px; opacity: 0.8;">Coming Soon</div>
-        </div>
-        <div class="hub-tile" onclick="alert('CA Converters coming soon! 🇨🇦')">
-          Converters
-          <div style="font-size: 12px; margin-top: 8px; opacity: 0.8;">Coming Soon</div>
-        </div>
-      </div>
-      
-      <div style="text-align: center; margin-top: 40px; padding: 20px; background: var(--card); border-radius: 12px;">
-        <h4 style="color: var(--brand); margin-bottom: 12px;">🚧 Under Development</h4>
-        <p style="color: var(--muted); margin: 0;">
-          Canadian region features are currently in development. We're working with Canadian brands to integrate their sizing systems.
-        </p>
-      </div>
-    </div>
-  </div>
+// Add CSS animation
+const style = document.createElement('style');
+style.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+document.head.appendChild(style);
 
-  <script>
-    // Complete the MiSize App with all functionality
-    
-    // Extended navigation system
-    function enterHub(region) {
-      const hubScreen = region.toLowerCase() + '-hub';
-      goToScreen(hubScreen);
-    }
-    
-    function goToScreen(screenId) {
-      console.log('Navigating to:', screenId);
-      
-      if (currentScreen !== screenId) {
-        navigationHistory.push(currentScreen);
-      }
-      
-      // Hide all screens
-      document.querySelectorAll('.screen').forEach(screen => {
-        screen.classList.remove('active');
-      });
-      
-      // Show target screen
-      const targetScreen = document.getElementById(screenId);
-      if (targetScreen) {
-        targetScreen.classList.add('active');
-        currentScreen = screenId;
-        updateNavigation();
-      } else {
-        console.error('Screen not found:', screenId);
-      }
-    }
-
-    function updateNavigation() {
-      document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.remove('active');
-      });
-      
-      if (currentScreen === 'home') {
-        document.querySelector('.nav-item[onclick="goHome()"]')?.classList.add('active');
-      } else if (currentScreen === 'mistats') {
-        document.querySelector('.nav-item[onclick="goToMiStats()"]')?.classList.add('active');
-      } else if (currentScreen === 'uk-settings') {
-        document.querySelector('.nav-item[onclick="goToSettings()"]')?.classList.add('active');
-      } else if (currentScreen === 'help') {
-        document.querySelector('.nav-item[onclick="goToHelp()"]')?.classList.add('active');
-      }
-    }
-
-    // Complete initialization system
-    function initCompleteApp() {
-      console.log('🚀 Initializing Complete MiSize App...');
-      
-      // Initialize all pill controls
-      setupAllPillControls();
-      
-      // Initialize navigation
-      updateNavigation();
-      
-      // Set up measurement guide modals (already defined in Section 1)
-      
-      // Simulate system initialization with status updates
-      setTimeout(() => {
-        const statusDots = document.querySelectorAll('.status-dot');
-        const statusTexts = document.querySelectorAll('[id$="status-text"]');
-        
-        statusDots.forEach(dot => {
-          if (dot.id === 'system-status-dot') {
-            dot.className = 'status-dot status-online';
-          }
-        });
-        
-        statusTexts.forEach(text => {
-          if (text.id === 'system-status-text') {
-            text.textContent = 'AI sizing system ready - Create your profile to begin!';
-          }
-        });
-      }, 2000);
-      
-      console.log('✅ Complete app initialization finished');
-    }
-
-    function setupAllPillControls() {
-      // Body type pills (top bar)
-      document.querySelectorAll('[data-type]').forEach(pill => {
-        pill.addEventListener('click', (e) => {
-          document.querySelectorAll('[data-type]').forEach(p => p.classList.remove('active'));
-          e.target.classList.add('active');
-          selectedBodyType = e.target.dataset.type;
-          console.log('Body type selected:', selectedBodyType);
-        });
-      });
-      
-      // Unit pills (top bar)
-      document.querySelectorAll('[data-unit]').forEach(pill => {
-        pill.addEventListener('click', (e) => {
-          document.querySelectorAll('[data-unit]').forEach(p => p.classList.remove('active'));
-          e.target.classList.add('active');
-          selectedUnit = e.target.dataset.unit;
-          console.log('Unit selected:', selectedUnit);
-        });
-      });
-      
-      // Settings pills (all settings screens)
-      document.querySelectorAll('.settings-pill').forEach(pill => {
-        pill.addEventListener('click', (e) => {
-          e.preventDefault();
-          const group = pill.parentElement;
-          if (group && group.classList.contains('pill-settings-group')) {
-            group.querySelectorAll('.settings-pill').forEach(p => p.classList.remove('active'));
-            pill.classList.add('active');
-          }
-        });
-      });
-    }
-
-    // Complete app functionality ready
-    console.log('🎯 MiSize App - All 3 Sections Loaded Successfully!');
-    console.log('📋 Features Available:');
-    console.log('✅ Profile Creation & Management');
-    console.log('✅ AI Size Finder (UK Region)');
-    console.log('✅ Measurement Guide Modals (4 types)');
-    console.log('✅ Brand Intelligence');
-    console.log('✅ Complete Navigation System');
-    console.log('✅ Settings & Preferences');
-    console.log('🚧 EU/US/CA Regions (Coming Soon)');
-
-    // Initialize complete app when DOM is ready
-    document.addEventListener('DOMContentLoaded', initCompleteApp);
-  </script>px; opacity: 0.8;">Coming Soon</div>
-        </div>
-        <div class="hub-tile" onclick="alert('EU My Sizes coming soon! 🇪🇺')">
-          My Accurate Sizes
-          <div style="font-size: 12px; margin-top: 8px; opacity: 0.8;">Coming Soon</div>
-        </div>
-        <div class="hub-tile" onclick="alert('EU Brand Intelligence coming soon! 🇪🇺')">
-          Brand Intelligence
-          <div style="font-size: 12px; margin-top: 8px; opacity: 0.8;">Coming Soon</div>
-        </div>
-        <div class="hub-tile" onclick="alert('EU History coming soon! 🇪🇺')">
-          History
-          <div style="font-size: 12px; margin-top: 8
+document.addEventListener('DOMContentLoaded', initApp);
+</script>
+</body>
+</html>
