@@ -1644,21 +1644,45 @@
   </div>
 </div>
 
-    <!-- Graph Tab -->
-    <div id="stats-graph" class="stats-content" style="display: none; padding-top: 120px;">
-      <div class="content-container">
-        <div class="graph-controls">
-          <button class="graph-btn active">Week</button>
-          <button class="graph-btn">Month</button>
-          <button class="graph-btn">Year</button>
-          <button class="graph-btn">Table</button>
+    <!-- Graph Tab - UPDATED -->
+<div id="stats-graph" class="stats-content" style="display: none; padding-top: 120px;">
+  <div class="content-container">
+    <div class="graph-controls">
+      <button class="graph-btn active" onclick="showGraphPeriod('week')">Week</button>
+      <button class="graph-btn" onclick="showGraphPeriod('month')">Month</button>
+      <button class="graph-btn" onclick="showGraphPeriod('year')">Year</button>
+      <button class="graph-btn" onclick="showGraphPeriod('table')">Table</button>
+    </div>
+    
+    <div id="graph-display" style="background: var(--card); border-radius: 12px; padding: 20px; border: 2px solid var(--border);">
+      <!-- Weight Loss Progress Chart -->
+      <div id="weight-chart" style="margin-bottom: 20px;">
+        <h4 style="text-align: center; margin-bottom: 16px; color: var(--brand);">Weight Progress</h4>
+        <div id="chart-container" style="background: var(--bg); border-radius: 8px; padding: 20px; min-height: 200px;">
+          <div id="chart-content">
+            <!-- Chart will be populated here -->
+          </div>
         </div>
-        <div style="background: var(--card); border-radius: 12px; padding: 40px; text-align: center; border: 2px solid var(--border);">
-          <p>📊 Graph visualization will be displayed here</p>
-          <p style="color: var(--muted); font-size: 14px;">Interactive chart with zoom capabilities</p>
+      </div>
+      
+      <!-- Progress Summary -->
+      <div id="progress-summary" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px;">
+        <div class="mini-bubble">
+          <h4>Total Loss</h4>
+          <p class="value" id="graph-total-loss">3.0kg</p>
+        </div>
+        <div class="mini-bubble">
+          <h4>Weekly Avg</h4>
+          <p class="value" id="graph-weekly-avg">-0.3kg</p>
+        </div>
+        <div class="mini-bubble">
+          <h4>Time Left</h4>
+          <p class="value" id="graph-time-left">14 weeks</p>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
     <!-- History Tab -->
     <div id="stats-history" class="stats-content" style="display: none; padding-top: 120px;">
