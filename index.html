@@ -1,20 +1,242 @@
-{
-  "id": "msg_01YZsQRXXS49MmX1Yw3JBA31",
-  "type": "message",
-  "role": "assistant",
-  "model": "claude-sonnet-4-20250514",
-  "content": [
-    {
-      "type": "text",
-      "text": "Perfect! I'll add the new settings features to your existing code without removing any of your current functionality. Here's the updated settings section with the new profile management structure:\n\n```html\n<!-- UK Settings -->\n<div id=\"uk-settings\" class=\"screen\">\n  <div class=\"content-container\">\n    <div class=\"hub-header\">\n      <h2 class=\"hub-title\">🇬🇧 Settings</h2>\n      <p class=\"hub-subtitle\">Manage your profiles and preferences</p>\n    </div>\n\n    <!-- Profile Management Pills -->\n    <div class=\"settings-section\">\n      <h3>👤 Profile Management</h3>\n      <p style=\"margin-bottom: 20px; color: var(--muted);\">Create and manage multiple user profiles</p>\n      \n      <div class=\"profile-management-pills\">\n        <div class=\"profile-pill\" onclick=\"showCreateProfile()\">\n          <div class=\"emoji\">👤</div>\n          <div>Create Profile</div>\n        </div>\n        <div class=\"profile-pill\" onclick=\"showSavedProfiles()\">\n          <div class=\"emoji\">📋</div>\n          <div>Saved Profiles</div>\n        </div>\n        <div class=\"profile-pill\" onclick=\"showEditProfiles()\">\n          <div class=\"emoji\">✏️</div>\n          <div>Edit Profiles</div>\n        </div>\n      </div>\n    </div>\n\n    <!-- Measurements Section -->\n    <div class=\"settings-section\">\n      <h3>📏 Measurements & Weights</h3>\n      <p style=\"margin-bottom: 16px; color: var(--muted);\">Track your body measurements for accurate sizing</p>\n\n      <div class=\"measurement-grid\">\n        <div class=\"measurement-bubble\">\n          <h4>Weight</h4>\n          <input type=\"number\" class=\"measurement-input\" id=\"weight\" placeholder=\"62\" />\n        </div>\n        <div class=\"measurement-bubble\">\n          <h4>Chest/Bust</h4>\n          <input type=\"number\" class=\"measurement-input\" id=\"chest\" placeholder=\"86\" />\n        </div>\n        <div class=\"measurement-bubble\">\n          <h4>Waist</h4>\n          <input type=\"number\" class=\"measurement-input\" id=\"waist\" placeholder=\"68\" />\n        </div>\n        <div class=\"measurement-bubble\">\n          <h4>Hips</h4>\n          <input type=\"number\" class=\"measurement-input\" id=\"hips\" placeholder=\"92\" />\n        </div>\n        <div class=\"measurement-bubble\">\n          <h4>Shoulders</h4>\n          <input type=\"number\" class=\"measurement-input\" id=\"shoulders\" placeholder=\"38\" />\n        </div>\n        <div class=\"measurement-bubble\">\n          <h4>Arms</h4>\n          <input type=\"number\" class=\"measurement-input\" id=\"arms\" placeholder=\"28\" />\n        </div>\n        <div class=\"measurement-bubble\">\n          <h4>Thighs</h4>\n          <input type=\"number\" class=\"measurement-input\" id=\"thighs\" placeholder=\"56\" />\n        </div>\n        <div class=\"measurement-bubble\">\n          <h4>Inseam</h4>\n          <input type=\"number\" class=\"measurement-input\" id=\"inseam\" placeholder=\"76\" />\n        </div>\n        <div class=\"measurement-bubble\">\n          <h4>Neck</h4>\n          <input type=\"number\" class=\"measurement-input\" id=\"neck\" placeholder=\"32\" />\n        </div>\n      </div>\n\n      <button class=\"btn btn-primary\" style=\"width: 100%; margin-top: 20px;\" onclick=\"saveMeasurements()\">Save Measurements</button>\n    </div>\n  </div>\n</div>\n\n<!-- Create Profile Screen -->\n<div id=\"create-profile\" class=\"screen\">\n  <div class=\"form-container\">\n    <div class=\"hub-header\">\n      <h2 class=\"hub-title\">Create New Profile</h2>\n      <p class=\"hub-subtitle\">Set up your personal sizing profile</p>\n    </div>\n\n    <div class=\"form-group\">\n      <label class=\"form-label\">Profile Name</label>\n      <input type=\"text\" class=\"form-input\" id=\"new-profile-name\" placeholder=\"Enter your name\">\n    </div>\n\n    <div class=\"form-group\">\n      <label class=\"form-label\">Date of Birth</label>\n      <input type=\"date\" class=\"form-input\" id=\"new-profile-dob\">\n    </div>\n\n    <div class=\"form-group\">\n      <label class=\"form-label\">Gender</label>\n      <div class=\"pill-settings-group\">\n        <button class=\"settings-pill active\" data-gender=\"female\">Female</button>\n        <button class=\"settings-pill\" data-gender=\"male\">Male</button>\n      </div>\n    </div>\n\n    <div class=\"form-group\">\n      <label class=\"form-label\">Body Frame</label>\n      <div class=\"pill-settings-group\">\n        <button class=\"settings-pill\" data-frame=\"small\">Small</button>\n        <button class=\"settings-pill active\" data-frame=\"medium\">Medium</button>\n        <button class=\"settings-pill\" data-frame=\"large\">Large</button>\n      </div>\n    </div>\n\n    <div class=\"form-group\">\n      <label class=\"form-label\">Starting Date</label>\n      <input type=\"date\" class=\"form-input\" id=\"new-profile-start-date\" value=\"\">\n    </div>\n\n    <div class=\"form-group\">\n      <label class=\"form-label\">Starting Weight</label>\n      <div style=\"display: flex; align-items: center; gap: 12px;\">\n        <input type=\"number\" class=\"form-input\" id=\"new-profile-weight\" placeholder=\"Enter weight\" style=\"flex: 1;\">\n        <div class=\"pill-settings-group\">\n          <button class=\"settings-pill active\" data-weight-unit=\"kg\">kg</button>\n          <button class=\"settings-pill\" data-weight-unit=\"lbs\">lbs</button>\n          <button class=\"settings-pill\" data-weight-unit=\"stone\">stone</button>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"form-group\">\n      <label class=\"form-label\">Starting Height</label>\n      <div style=\"display: flex; align-items: center; gap: 12px;\">\n        <input type=\"number\" class=\"form-input\" id=\"new-profile-height\" placeholder=\"Enter height\" style=\"flex: 1;\">\n        <div class=\"pill-settings-group\">\n          <button class=\"settings-pill active\" data-height-unit=\"cm\">cm</button>\n          <button class=\"settings-pill\" data-height-unit=\"inch\">inch</button>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"button-group\">\n      <button class=\"btn btn-secondary\" onclick=\"goToSettings()\">Cancel</button>\n      <button class=\"btn btn-primary\" onclick=\"saveNewProfile()\">Create Profile</button>\n    </div>\n  </div>\n</div>\n\n<!-- Saved Profiles Screen -->\n<div id=\"saved-profiles\" class=\"screen\">\n  <div class=\"content-container\">\n    <div class=\"hub-header\">\n      <h2 class=\"hub-title\">Saved Profiles</h2>\n      <p class=\"hub-subtitle\">View and manage your profiles</p>\n    </div>\n\n    <div id=\"profiles-list\">\n      <!-- This will be populated with profile data -->\n    </div>\n\n    <button class=\"btn btn-primary\" style=\"width: 100%; margin-top: 20px;\" onclick=\"showCreateProfile()\">Create New Profile</button>\n  </div>\n</div>\n\n<!-- Edit Profile Screen -->\n<div id=\"edit-profile\" class=\"screen\">\n  <div class=\"form-container\">\n    <div class=\"hub-header\">\n      <h2 class=\"hub-title\">Edit Profile</h2>\n      <p class=\"hub-subtitle\">Update your profile information</p>\n    </div>\n\n    <div class=\"form-group\">\n      <label class=\"form-label\">Select Profile to Edit</label>\n      <select class=\"form-select\" id=\"edit-profile-select\">\n        <option value=\"\">Choose a profile...</option>\n      </select>\n    </div>\n\n    <div id=\"edit-form\" style=\"display: none;\">\n      <div class=\"form-group\">\n        <label class=\"form-label\">Profile Name</label>\n        <input type=\"text\" class=\"form-input\" id=\"edit-profile-name\" placeholder=\"Enter your name\">\n      </div>\n\n      <div class=\"form-group\">\n        <label class=\"form-label\">Date of Birth</label>\n        <input type=\"date\" class=\"form-input\" id=\"edit-profile-dob\">\n      </div>\n\n      <div class=\"form-group\">\n        <label class=\"form-label\">Gender</label>\n        <div class=\"pill-settings-group\" id=\"edit-gender-pills\">\n          <button class=\"settings-pill\" data-gender=\"female\">Female</button>\n          <button class=\"settings-pill\" data-gender=\"male\">Male</button>\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <label class=\"form-label\">Body Frame</label>\n        <div class=\"pill-settings-group\" id=\"edit-frame-pills\">\n          <button class=\"settings-pill\" data-frame=\"small\">Small</button>\n          <button class=\"settings-pill\" data-frame=\"medium\">Medium</button>\n          <button class=\"settings-pill\" data-frame=\"large\">Large</button>\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <label class=\"form-label\">Starting Date</label>\n        <input type=\"date\" class=\"form-input\" id=\"edit-profile-start-date\">\n      </div>\n\n      <div class=\"form-group\">\n        <label class=\"form-label\">Starting Weight</label>\n        <div style=\"display: flex; align-items: center; gap: 12px;\">\n          <input type=\"number\" class=\"form-input\" id=\"edit-profile-weight\" placeholder=\"Enter weight\" style=\"flex: 1;\">\n          <div class=\"pill-settings-group\" id=\"edit-weight-pills\">\n            <button class=\"settings-pill\" data-weight-unit=\"kg\">kg</button>\n            <button class=\"settings-pill\" data-weight-unit=\"lbs\">lbs</button>\n            <button class=\"settings-pill\" data-weight-unit=\"stone\">stone</button>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <label class=\"form-label\">Starting Height</label>\n        <div style=\"display: flex; align-items: center; gap: 12px;\">\n          <input type=\"number\" class=\"form-input\" id=\"edit-profile-height\" placeholder=\"Enter height\" style=\"flex: 1;\">\n          <div class=\"pill-settings-group\" id=\"edit-height-pills\">\n            <button class=\"settings-pill\" data-height-unit=\"cm\">cm</button>\n            <button class=\"settings-pill\" data-height-unit=\"inch\">inch</button>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"button-group\">\n        <button class=\"btn btn-secondary\" onclick=\"deleteCurrentProfile()\" style=\"background: var(--red);\">Delete Profile</button>\n        <button class=\"btn btn-primary\" onclick=\"updateProfile()\">Update Profile</button>\n      </div>\n    </div>\n  </div>\n</div>\n```\n\nNow, add these additional CSS styles to your existing CSS (add after the existing styles):\n\n```css\n.profile-management-pills {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 16px;\n  margin-bottom: 32px;\n}\n\n.profile-pill {\n  background: var(--blue);\n  border-radius: 16px;\n  padding: 24px 20px;\n  cursor: pointer;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  border: 2px solid transparent;\n  text-align: center;\n  color: #fff;\n  font-size: 16px;\n  font-weight: 800;\n  min-height: 100px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n}\n\n.profile-pill:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 20px 40px rgba(29, 78, 216, 0.3);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n\n.profile-pill .emoji {\n  font-size: 24px;\n  margin-bottom: 8px;\n}\n\n.profile-display-card {\n  background: var(--card);\n  border: 2px solid var(--border);\n  border-radius: 12px;\n  padding: 20px;\n  margin-bottom: 16px;\n  transition: all 0.3s;\n}\n\n.profile-display-card:hover {\n  border-color: var(--brand);\n  transform: translateY(-2px);\n}\n\n.profile-display-header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 16px;\n}\n\n.profile-display-name {\n  font-size: 20px;\n  font-weight: 800;\n  color: var(--text);\n}\n\n.current-profile-indicator {\n  background: var(--green);\n  color: #fff;\n  padding: 4px 8px;\n  border-radius: 4px;\n  font-size: 12px;\n  font-weight: 700;\n}\n\n.profile-display-details {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  gap: 12px;\n  margin-bottom: 16px;\n}\n\n.profile-detail-item {\n  display: flex;\n  justify-content: space-between;\n  padding: 8px 0;\n  border-bottom: 1px solid var(--border);\n  font-size: 14px;\n}\n\n.profile-detail-item:last-child {\n  border-bottom: none;\n}\n\n.profile-actions {\n  display: flex;\n  gap: 8px;\n  margin-top: 12px;\n}\n\n.btn-small {\n  padding: 8px 16px;\n  font-size: 12px;\n  border-radius: 8px;\n  border: 0;\n  cursor: pointer;\n  transition: all 0.2s;\n  font-weight: 700;\n}\n```\n\nFinally, add these JavaScript functions to your existing script section:\n\n```javascript\n// Add these variables to your existing global variables\nlet selectedGender = 'female';\nlet selectedFrame = 'medium';\nlet selectedWeightUnit = 'kg';\nlet selectedHeightUnit = 'cm';\nlet editingProfileId = null;\n\n// Profile management functions\nfunction showCreateProfile() {\n  // Set today's date as default starting date\n  const today = new Date().toISOString().split('T')[0];\n  document.getElementById('new-profile-start-date').value = today;\n  \n  goToScreen('create-profile');\n  setupNewProfilePills();\n}\n\nfunction showSavedProfiles() {\n  goToScreen('saved-profiles');\n  displaySavedProfiles();\n}\n\nfunction showEditProfiles() {\n  goToScreen('edit-profile');\n  populateEditProfileSelect();\n}\n\nfunction setupNewProfilePills() {\n  // Gender pills\n  document.querySelectorAll('[data-gender]').forEach(pill => {\n    pill.addEventListener('click', (e) => {\n      document.querySelectorAll('[data-gender]').forEach(p => p.classList.remove('active'));\n      e.target.classList.add('active');\n      selectedGender = e.target.dataset.gender;\n    });\n  });\n\n  // Frame pills\n  document.querySelectorAll('[data-frame]').forEach(pill => {\n    pill.addEventListener('click', (e) => {\n      document.querySelectorAll('[data-frame]').forEach(p => p.classList.remove('active'));\n      e.target.classList.add('active');\n      selectedFrame = e.target.dataset.frame;\n    });\n  });\n\n  // Weight unit pills\n  document.querySelectorAll('[data-weight-unit]').forEach(pill => {\n    pill.addEventListener('click', (e) => {\n      document.querySelectorAll('[data-weight-unit]').forEach(p => p.classList.remove('active'));\n      e.target.classList.add('active');\n      selectedWeightUnit = e.target.dataset.weightUnit;\n    });\n  });\n\n  // Height unit pills\n  document.querySelectorAll('[data-height-unit]').forEach(pill => {\n    pill.addEventListener('click', (e) => {\n      document.querySelectorAll('[data-height-unit]').forEach(p => p.classList.remove('active'));\n      e.target.classList.add('active');\n      selectedHeightUnit = e.target.dataset.heightUnit;\n    });\n  });\n}\n\nfunction saveNewProfile() {\n  const name = document.getElementById('new-profile-name').value;\n  const dob = document.getElementById('new-profile-dob').value;\n  const startDate = document.getElementById('new-profile-start-date').value;\n  const weight = document.getElementById('new-profile-weight').value;\n  const height = document.getElementById('new-profile-height').value;\n\n  if (!name || !dob || !startDate || !weight || !height) {\n    alert('Please fill in all required fields.');\n    return;\n  }\n\n  const newProfile = {\n    id: name.toLowerCase().replace(/\\s+/g, '-') + '-' + Date.now(),\n    name: name,\n    dateOfBirth: dob,\n    gender: selectedGender,\n    bodyFrame: selectedFrame,\n    startDate: startDate,\n    startWeight: parseFloat(weight),\n    weightUnit: selectedWeightUnit,\n    currentHeight: parseFloat(height),\n    heightUnit: selectedHeightUnit,\n    bodyType: 'Standard', // Default\n    region: 'UK',\n    details: `${selectedFrame.charAt(0).toUpperCase() + selectedFrame.slice(1)} • ${height}${selectedHeightUnit} • ${selectedGender.charAt(0).toUpperCase() + selectedGender.slice(1)}`,\n    measurements: {\n      weight: parseFloat(weight),\n      chest: null, waist: null, hips: null,\n      shoulders: null, arms: null, thighs: null, inseam: null, neck: null\n    },\n    goals: { \n      startWeight: parseFloat(weight), \n      targetWeight: null, \n      bodyFat: null \n    },\n    brandSizes: {},\n    searchHistory: [],\n    measurementHistory: [{\n      type: 'Weight',\n      value: weight + selectedWeightUnit,\n      date: new Date().toLocaleDateString()\n    }]\n  };\n\n  profileData[name] = newProfile;\n  alert('Profile created successfully!');\n  \n  // Clear form\n  document.getElementById('new-profile-name').value = '';\n  document.getElementById('new-profile-dob').value = '';\n  document.getElementById('new-profile-weight').value = '';\n  document.getElementById('new-profile-height').value = '';\n  \n  // Reset to default selections\n  resetProfileForm();\n  goToSettings();\n}\n\nfunction displaySavedProfiles() {\n  const profilesList = document.getElementById('profiles-list');\n  \n  if (Object.keys(profileData).length === 0) {\n    profilesList.innerHTML = `\n      <div style=\"text-align: center; padding: 40px; color: var(--muted);\">\n        <p>No profiles found. Create your first profile!</p>\n      </div>\n    `;\n    return;\n  }\n\n  profilesList.innerHTML = Object.entries(profileData).map(([name, profile]) => `\n    <div class=\"profile-display-card\">\n      <div class=\"profile-display-header\">\n        <div class=\"profile-display-name\">${profile.name}</div>\n        ${name === currentProfile ? '<div class=\"current-profile-indicator\">Current</div>' : ''}\n      </div>\n      \n      <div class=\"profile-display-details\">\n        <div class=\"profile-detail-item\">\n          <span class=\"data-label\">Gender:</span>\n          <span class=\"data-value\">${profile.gender ? profile.gender.charAt(0).toUpperCase() + profile.gender.slice(1) : 'Not set'}</span>\n        </div>\n        <div class=\"profile-detail-item\">\n          <span class=\"data-label\">Body Frame:</span>\n          <span class=\"data-value\">${profile.bodyFrame ? profile.bodyFrame.charAt(0).toUpperCase() + profile.bodyFrame.slice(1) : 'Medium'}</span>\n        </div>\n        <div class=\"profile-detail-item\">\n          <span class=\"data-label\">Height:</span>\n          <span class=\"data-value\">${profile.currentHeight}${profile.heightUnit || 'cm'}</span>\n        </div>\n        <div class=\"profile-detail-item\">\n          <span class=\"data-label\">Start Weight:</span>\n          <span class=\"data-value\">${profile.startWeight || profile.goals.startWeight}${profile.weightUnit || 'kg'}</span>\n        </div>\n        <div class=\"profile-detail-item\">\n          <span class=\"data-label\">Start Date:</span>\n          <span class=\"data-value\">${profile.startDate ? new Date(profile.startDate).toLocaleDateString() : 'Not set'}</span>\n        </div>\n        <div class=\"profile-detail-item\">\n          <span class=\"data-label\">Measurements:</span>\n          <span class=\"data-value\">${profile.measurementHistory?.length || 0} recorded</span>\n        </div>\n      </div>\n      \n      <div class=\"profile-actions\">\n        <button class=\"btn-small btn-primary\" onclick=\"switchProfile('${name}')\">\n          ${name === currentProfile ? 'Current Profile' : 'Use Profile'}\n        </button>\n        <button class=\"btn-small btn-secondary\" onclick=\"editSpecificProfile('${name}')\">Edit</button>\n      </div>\n    </div>\n  `).join('');\n}\n\nfunction populateEditProfileSelect() {\n  const select = document.getElementById('edit-profile-select');\n  select.innerHTML = '<option value=\"\">Choose a profile...</option>' + \n    Object.keys(profileData).map(name => \n      `<option value=\"${name}\">${name}</option>`\n    ).join('');\n    \n  select.addEventListener('change', loadProfileForEditing);\n}\n\nfunction loadProfileForEditing() {\n  const select = document.getElementById('edit-profile-select');\n  const profileName = select.value;\n  const editForm = document.getElementById('edit-form');\n  \n  if (!profileName || !profileData[profileName]) {\n    editForm.style.display = 'none';\n    return;\n  }\n  \n  const profile = profileData[profileName];\n  editingProfileId = profileName;\n  \n  // Populate form fields\n  document.getElementById('edit-profile-name').value = profile.name;\n  document.getElementById('edit-profile-dob').value = profile.dateOfBirth || '';\n  document.getElementById('edit-profile-start-date').value = profile.startDate || '';\n  document.getElementById('edit-profile-weight').value = profile.startWeight || profile.goals.startWeight || '';\n  document.getElementById('edit-profile-height').value = profile.currentHeight || '';\n  \n  // Set active pills\n  setActivePill('#edit-gender-pills [data-gender]', profile.gender || 'female');\n  setActivePill('#edit-frame-pills [data-frame]', profile.bodyFrame || 'medium');\n  setActivePill('#edit-weight-pills [data-weight-unit]', profile.weightUnit || 'kg');\n  setActivePill('#edit-height-pills [data-height-unit]', profile.heightUnit || 'cm');\n  \n  setupEditProfilePills();\n  editForm.style.display = 'block';\n}\n\nfunction setActivePill(selector, value) {\n  document.querySelectorAll(selector).forEach(pill => {\n    pill.classList.remove('active');\n    if (pill.dataset[Object.keys(pill.dataset)[0]] === value) {\n      pill.classList.add('active');\n    }\n  });\n}\n\nfunction setupEditProfilePills() {\n  // Similar to setupNewProfilePills but for edit form\n  const pillGroups = [\n    { selector: '#edit-gender-pills [data-gender]', prop: 'gender' },\n    { selector: '#edit-frame-pills [data-frame]', prop: 'frame' },\n    { selector: '#edit-weight-pills [data-weight-unit]', prop: 'weightUnit' },\n    { selector: '#edit-height-pills [data-height-unit]', prop: 'heightUnit' }\n  ];\n  \n  pillGroups.forEach(({ selector, prop }) => {\n    document.querySelectorAll(selector).forEach(pill => {\n      pill.addEventListener('click', (e) => {\n        document.querySelectorAll(selector).forEach(p => p.classList.remove('active'));\n        e.target.classList.add('active');\n        \n        // Update the appropriate variable\n        const dataKey = Object.keys(e.target.dataset)[0];\n        const value = e.target.dataset[dataKey];\n        \n        if (prop === 'gender') selectedGender = value;\n        else if (prop === 'frame') selectedFrame = value;\n        else if (prop === 'weightUnit') selectedWeightUnit = value;\n        else if (prop === 'heightUnit') selectedHeightUnit = value;\n      });\n    });\n  });\n}\n\nfunction updateProfile() {\n  if (!editingProfileId || !profileData[editingProfileId]) {\n    alert('No profile selected for editing.');\n    return;\n  }\n  \n  const profile = profileData[editingProfileId];\n  const newName = document.getElementById('edit-profile-name').value;\n  \n  // Update profile data\n  profile.name = newName;\n  profile.dateOfBirth = document.getElementById('edit-profile-dob').value;\n  profile.gender = selectedGender;\n  profile.bodyFrame = selectedFrame;\n  profile.startDate = document.getElementById('edit-profile-start-date').value;\n  profile.startWeight = parseFloat(document.getElementById('edit-profile-weight').value);\n  profile.weightUnit = selectedWeightUnit;\n  profile.currentHeight = parseFloat(document.getElementById('edit-profile-height').value);\n  profile.heightUnit = selectedHeightUnit;\n  \n  // Update details string\n  profile.details = `${profile.bodyFrame.charAt(0).toUpperCase() + profile.bodyFrame.slice(1)} • ${profile.currentHeight}${profile.heightUnit} • ${profile.gender.charAt(0).toUpperCase() + profile.gender.slice(1)}`;\n  \n  // If name changed, update the key\n  if (newName !== editingProfileId) {\n    profileData[newName] = profile;\n    delete profileData[editingProfileId];\n    if (currentProfile === editingProfileId) {\n      currentProfile = newName;\n    }\n  }\n  \n  alert('Profile updated successfully!');\n  goToSettings();\n}\n\nfunction editSpecificProfile(profileName) {\n  goToScreen('edit-profile');\n  populateEditProfileSelect();\n  \n  // Set the select value and trigger the change event\n  setTimeout(() => {\n    const select = document.getElementById('edit-profile-select');\n    select.value = profileName;\n    loadProfileForEditing();\n  }, 100);\n}\n\nfunction deleteCurrentProfile() {\n  if (!editingProfileId || !profileData[editingProfileId]) {\n    alert('No profile selected for deletion.');\n    return;\n  }\n  \n  if (confirm(`Are you sure you want to delete the profile \"${editingProfileId}\"? This action cannot be undone.`)) {\n    if (currentProfile === editingProfileId) {\n      // Switch to another profile or prompt to create new one\n      const remainingProfiles = Object.keys(profileData).filter(name => name !== editingProfileId);\n      if (remainingProfiles.length > 0) {\n        currentProfile = remainingProfiles[0];\n        alert(`Profile deleted. Switched to \"${currentProfile}\".`);\n      } else {\n        currentProfile = null;\n        alert('Profile deleted. You will need to create a new profile.');\n      }\n    }\n    \n    delete profileData[editingProfileId];\n    editingProfileId = null;\n    \n    goToSettings();\n  }\n}\n\nfunction resetProfileForm() {\n  selectedGender = 'female';\n  selectedFrame = 'medium';\n  selectedWeightUnit = 'kg';\n  selectedHeightUnit = 'cm';\n  \n  // Reset pill selections\n  document.querySelectorAll('[data-gender]').forEach(pill => {\n    pill.classList.remove('active');\n    if (pill.dataset.gender === 'female') pill.classList.add('active');\n  });\n  \n  document.querySelectorAll('[data-frame]').forEach(pill => {\n    pill.classList.remove('active');\n    if (pill.dataset.frame === 'medium') pill.classList.add('active');\n  });\n  \n  document.querySelectorAll('[data-weight-unit]').forEach(pill => {\n    pill.classList.remove('active');\n    if (pill.dataset.weightUnit === 'kg') pill.classList.add('active');\n  });\n  \n  document.querySelectorAll('[data-height-unit]').forEach(pill => {\n    pill.classList.remove('active');\n    if (pill.dataset.heightUnit === 'cm') pill.classList.add('active');\n  });\n}\n\n// Add to your existing initApp function\nfunction initApp() {\n  updateScreenData('home');\n  updateNavigation();\n  \n  // Set up event listeners\n  setupPillEventListeners();\n  setupClickOutsideListener();\n  \n  // Set default date for new profiles\n  const today = new Date().toISOString().split('T')[0];\n  const startDateInput = document.getElementById('new-profile-start-date');\n  if (startDateInput) {\n    startDateInput.value = today;\n  }\n}\n```\n\nThis update adds:\n\n✅ **Profile Management Pills** - Create Profile, Saved Profiles, Edit Profiles\n✅ **Create Profile Page** - All the fields you requested with pill selectors\n✅ **Saved Profiles Page** - Displays all profile information in cards\n✅ **Edit Profile Page** - Allows editing all profile information\n✅ **Gender Selection** - Male/Female pills\n✅ **Body Frame Selection** - Small/Medium/Large pills  \n✅ **Weight Units** - kg/lbs/stone pills\n✅ **Height Units** - cm/inch pills\n✅ **Date Inputs** - Date of birth and starting date\n✅ **Profile Management** - Switch, edit, delete profiles\n\nAll your existing features and design remain exactly the same - I've only added the new profile management system you requested!"
-    }
-  ],
-  "stop_reason": "end_turn",
-  "stop_sequence": null,
-  "usage": {
-    "input_tokens": 42012,
-    "cache_creation_input_tokens": 0,
-    "cache_read_input_tokens": 0,
-    "output_tokens": 7920
-  }
-}
+<!-- UK Settings -->
+<div id="uk-settings" class="screen">
+  <div class="content-container">
+    <div class="hub-header">
+      <h2 class="hub-title">🇬🇧 Settings</h2>
+      <p class="hub-subtitle">Manage your profiles and preferences</p>
+    </div>
+
+    <!-- Profile Management Pills -->
+    <div class="settings-section">
+      <h3>👤 Profile Management</h3>
+      <p style="margin-bottom: 20px; color: var(--muted);">Create and manage multiple user profiles</p>
+      
+      <div class="profile-management-pills">
+        <div class="profile-pill" onclick="showCreateProfile()">
+          <div class="emoji">👤</div>
+          <div>Create Profile</div>
+        </div>
+        <div class="profile-pill" onclick="showSavedProfiles()">
+          <div class="emoji">📋</div>
+          <div>Saved Profiles</div>
+        </div>
+        <div class="profile-pill" onclick="showEditProfiles()">
+          <div class="emoji">✏️</div>
+          <div>Edit Profiles</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Measurements Section -->
+    <div class="settings-section">
+      <h3>📏 Measurements & Weights</h3>
+      <p style="margin-bottom: 16px; color: var(--muted);">Track your body measurements for accurate sizing</p>
+
+      <div class="measurement-grid">
+        <div class="measurement-bubble">
+          <h4>Weight</h4>
+          <input type="number" class="measurement-input" id="weight" placeholder="62" />
+        </div>
+        <div class="measurement-bubble">
+          <h4>Chest/Bust</h4>
+          <input type="number" class="measurement-input" id="chest" placeholder="86" />
+        </div>
+        <div class="measurement-bubble">
+          <h4>Waist</h4>
+          <input type="number" class="measurement-input" id="waist" placeholder="68" />
+        </div>
+        <div class="measurement-bubble">
+          <h4>Hips</h4>
+          <input type="number" class="measurement-input" id="hips" placeholder="92" />
+        </div>
+        <div class="measurement-bubble">
+          <h4>Shoulders</h4>
+          <input type="number" class="measurement-input" id="shoulders" placeholder="38" />
+        </div>
+        <div class="measurement-bubble">
+          <h4>Arms</h4>
+          <input type="number" class="measurement-input" id="arms" placeholder="28" />
+        </div>
+        <div class="measurement-bubble">
+          <h4>Thighs</h4>
+          <input type="number" class="measurement-input" id="thighs" placeholder="56" />
+        </div>
+        <div class="measurement-bubble">
+          <h4>Inseam</h4>
+          <input type="number" class="measurement-input" id="inseam" placeholder="76" />
+        </div>
+        <div class="measurement-bubble">
+          <h4>Neck</h4>
+          <input type="number" class="measurement-input" id="neck" placeholder="32" />
+        </div>
+      </div>
+
+      <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="saveMeasurements()">Save Measurements</button>
+    </div>
+  </div>
+</div>
+
+<!-- Create Profile Screen -->
+<div id="create-profile" class="screen">
+  <div class="form-container">
+    <div class="hub-header">
+      <h2 class="hub-title">Create New Profile</h2>
+      <p class="hub-subtitle">Set up your personal sizing profile</p>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Profile Name</label>
+      <input type="text" class="form-input" id="new-profile-name" placeholder="Enter your name">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Date of Birth</label>
+      <input type="date" class="form-input" id="new-profile-dob">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Gender</label>
+      <div class="pill-settings-group">
+        <button class="settings-pill active" data-gender="female">Female</button>
+        <button class="settings-pill" data-gender="male">Male</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Body Frame</label>
+      <div class="pill-settings-group">
+        <button class="settings-pill" data-frame="small">Small</button>
+        <button class="settings-pill active" data-frame="medium">Medium</button>
+        <button class="settings-pill" data-frame="large">Large</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Starting Date</label>
+      <input type="date" class="form-input" id="new-profile-start-date" value="">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Starting Weight</label>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <input type="number" class="form-input" id="new-profile-weight" placeholder="Enter weight" style="flex: 1;">
+        <div class="pill-settings-group">
+          <button class="settings-pill active" data-weight-unit="kg">kg</button>
+          <button class="settings-pill" data-weight-unit="lbs">lbs</button>
+          <button class="settings-pill" data-weight-unit="stone">stone</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Starting Height</label>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <input type="number" class="form-input" id="new-profile-height" placeholder="Enter height" style="flex: 1;">
+        <div class="pill-settings-group">
+          <button class="settings-pill active" data-height-unit="cm">cm</button>
+          <button class="settings-pill" data-height-unit="inch">inch</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button class="btn btn-secondary" onclick="goToSettings()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveNewProfile()">Create Profile</button>
+    </div>
+  </div>
+</div>
+
+<!-- Saved Profiles Screen -->
+<div id="saved-profiles" class="screen">
+  <div class="content-container">
+    <div class="hub-header">
+      <h2 class="hub-title">Saved Profiles</h2>
+      <p class="hub-subtitle">View and manage your profiles</p>
+    </div>
+
+    <div id="profiles-list">
+      <!-- This will be populated with profile data -->
+    </div>
+
+    <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="showCreateProfile()">Create New Profile</button>
+  </div>
+</div>
+
+<!-- Edit Profile Screen -->
+<div id="edit-profile" class="screen">
+  <div class="form-container">
+    <div class="hub-header">
+      <h2 class="hub-title">Edit Profile</h2>
+      <p class="hub-subtitle">Update your profile information</p>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Select Profile to Edit</label>
+      <select class="form-select" id="edit-profile-select">
+        <option value="">Choose a profile...</option>
+      </select>
+    </div>
+
+    <div id="edit-form" style="display: none;">
+      <div class="form-group">
+        <label class="form-label">Profile Name</label>
+        <input type="text" class="form-input" id="edit-profile-name" placeholder="Enter your name">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Date of Birth</label>
+        <input type="date" class="form-input" id="edit-profile-dob">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Gender</label>
+        <div class="pill-settings-group" id="edit-gender-pills">
+          <button class="settings-pill" data-gender="female">Female</button>
+          <button class="settings-pill" data-gender="male">Male</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Body Frame</label>
+        <div class="pill-settings-group" id="edit-frame-pills">
+          <button class="settings-pill" data-frame="small">Small</button>
+          <button class="settings-pill" data-frame="medium">Medium</button>
+          <button class="settings-pill" data-frame="large">Large</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Starting Date</label>
+        <input type="date" class="form-input" id="edit-profile-start-date">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Starting Weight</label>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <input type="number" class="form-input" id="edit-profile-weight" placeholder="Enter weight" style="flex: 1;">
+          <div class="pill-settings-group" id="edit-weight-pills">
+            <button class="settings-pill" data-weight-unit="kg">kg</button>
+            <button class="settings-pill" data-weight-unit="lbs">lbs</button>
+            <button class="settings-pill" data-weight-unit="stone">stone</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Starting Height</label>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <input type="number" class="form-input" id="edit-profile-height" placeholder="Enter height" style="flex: 1;">
+          <div class="pill-settings-group" id="edit-height-pills">
+            <button class="settings-pill" data-height-unit="cm">cm</button>
+            <button class="settings-pill" data-height-unit="inch">inch</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn btn-secondary" onclick="deleteCurrentProfile()" style="background: var(--red);">Delete Profile</button>
+        <button class="btn btn-primary" onclick="updateProfile()">Update Profile</button>
+      </div>
+    </div>
+  </div>
+</div>
