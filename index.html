@@ -242,6 +242,21 @@
     .status-online { background: var(--green); }
     .status-loading { background: var(--orange); }
     .status-offline { background: var(--muted); }
+
+    .btn {
+      padding: 12px 24px;
+      background: var(--brand);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 8px;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
   </style>
 </head>
 <body>
@@ -276,8 +291,8 @@
       
       <div class="system-status">
         <div class="status-indicator">
-          <div class="status-dot status-online" id="system-status-dot"></div>
-          <span id="system-status-text">System ready with profile data!</span>
+          <div class="status-dot status-loading" id="system-status-dot"></div>
+          <span id="system-status-text">Initializing AI system...</span>
         </div>
       </div>
       
@@ -308,17 +323,26 @@
   <!-- Test Screen -->
   <div id="test-screen" class="screen">
     <div class="main-container">
-      <h1 class="title">Profile & Brand Test</h1>
-      <p class="subtitle" id="data-status">Loading profile data...</p>
+      <h1 class="title">AI Engine Test</h1>
+      <p class="subtitle" id="data-status">Testing AI system...</p>
+      
       <div id="profile-info" style="margin-top: 20px; text-align: left; max-width: 600px;"></div>
-      <button onclick="goHome()" style="padding: 12px 24px; background: var(--brand); color: white; border: none; border-radius: 8px; cursor: pointer; margin-top: 20px;">Go Home</button>
+      
+      <div style="margin-top: 20px;">
+        <button class="btn" onclick="testAISystem()">Test AI Size Finder</button>
+        <button class="btn" onclick="testGetAllSizes()">Test Get All Sizes</button>
+      </div>
+      
+      <div id="ai-results" style="margin-top: 20px; text-align: left; max-width: 800px;"></div>
+      
+      <button onclick="goHome()" class="btn" style="margin-top: 20px;">Go Home</button>
     </div>
   </div>
 
   <!-- Bottom Navigation -->
   <div class="bottom-nav">
     <button class="nav-item active" onclick="goHome()">Home</button>
-    <button class="nav-item" onclick="goToScreen('test-screen')">Test Data</button>
+    <button class="nav-item" onclick="goToScreen('test-screen')">Test AI</button>
     <button class="nav-item" onclick="alert('MiStats coming soon!')">MiStats</button>
     <button class="nav-item" onclick="alert('Settings coming soon!')">Settings</button>
     <button class="nav-item" onclick="alert('Help coming soon!')">Help</button>
@@ -331,8 +355,9 @@ let navigationHistory = [];
 let selectedBodyType = 'standard';
 let selectedUnit = 'cm';
 let currentProfile = 'Emma Morris';
+let miSizeSystem = null;
 
-// YOUR PROFILE DATA (from Section 3)
+// Profile Data (same as before)
 let profileData = {
   'Emma Morris': {
     name: 'Emma Morris',
@@ -352,25 +377,10 @@ let profileData = {
       { date: '2024-12-19', type: 'hips', value: 38, unit: 'inch' },
       { date: '2024-12-19', type: 'chest', value: 36, unit: 'inch' }
     ]
-  },
-  'John Doe': {
-    name: 'John Doe',
-    dateOfBirth: '1985-08-20',
-    gender: 'male',
-    bodyFrame: 'large',
-    startingDate: '2024-02-01',
-    startingWeight: { value: 85, unit: 'kg' },
-    startingHeight: { value: 180, unit: 'cm' },
-    targetWeight: { value: 75, unit: 'kg' },
-    measurements: { weight: 78, chest: 102, waist: 84, hips: 96, shoulders: 46, arms: 32 },
-    history: [
-      { date: '2024-02-01', type: 'weight', value: 85, unit: 'kg' },
-      { date: '2024-04-15', type: 'weight', value: 78, unit: 'kg' }
-    ]
   }
 };
 
-// YOUR BRAND DATABASE (from Section 3)
+// Brand Database (expanded)
 const BRAND_SIZE_DATABASE = {
   'ASOS': {
     name: 'ASOS',
@@ -383,8 +393,7 @@ const BRAND_SIZE_DATABASE = {
         '14': { bust: 38, waist: 32, hips: 40 },
         '16': { bust: 40, waist: 34, hips: 42 },
         '18': { bust: 42, waist: 36, hips: 44 },
-        '20': { bust: 44, waist: 38, hips: 46 },
-        '22': { bust: 46, waist: 40, hips: 48 }
+        '20': { bust: 44, waist: 38, hips: 46 }
       }
     },
     notes: {
@@ -417,7 +426,281 @@ const BRAND_SIZE_DATABASE = {
   }
 };
 
-console.log('🚀 MiSize App Starting with profile data...');
+console.log('🚀 MiSize App Starting with AI Engine...');
+
+// AI SIZE MATCHING ENGINE (from Section 4)
+class SizeMatchingEngine {
+  constructor() {
+    this.brandDatabase = BRAND_SIZE_DATABASE;
+    this.userMeasurements = {};
+    this.fitPreferences = { 'snug': -1, 'standard': 0, 'relaxed': 1 };
+    console.log('🤖 SizeMatchingEngine created');
+  }
+
+  setUserMeasurements(measurements) {
+    this.userMeasurements = {
+      bust: parseFloat(measurements.bust) || 0,
+      waist: parseFloat(measurements.waist) || 0,
+      hips: parseFloat(measurements.hips) || 0,
+      unit: measurements.unit || 'inch'
+    };
+    console.log('📏 AI measurements updated:', this.userMeasurements);
+  }
+
+  findBestSizeForBrand(brandName, category, fitPreference = 'standard') {
+    const brandData = this.brandDatabase[brandName];
+    if (!brandData || !brandData.categories) {
+      console.warn(`No brand data found for: ${brandName}`);
+      return null;
+    }
+
+    const categoryData = brandData.categories[category];
+    if (!categoryData) {
+      console.warn(`No category data found for: ${brandName} - ${category}`);
+      return null;
+    }
+
+    const fitAdjustment = this.fitPreferences[fitPreference.toLowerCase()] || 0;
+    const sizeAnalysis = this.analyzeSizes(categoryData, fitAdjustment);
+
+    return {
+      brand: brandName,
+      recommendedSize: sizeAnalysis.bestSize,
+      confidence: sizeAnalysis.confidence,
+      fitAnalysis: sizeAnalysis.fitDetails,
+      alternatives: sizeAnalysis.alternatives,
+      category: category,
+      fitPreference: fitPreference
+    };
+  }
+
+  analyzeSizes(categoryData, fitAdjustment) {
+    const userMeasurements = this.userMeasurements;
+    const sizeScores = new Map();
+    const sizeDetails = new Map();
+
+    Object.entries(categoryData).forEach(([size, measurements]) => {
+      const score = this.calculateFitScore(userMeasurements, measurements, fitAdjustment);
+      const details = this.generateFitDetails(userMeasurements, measurements, size);
+      
+      sizeScores.set(size, score);
+      sizeDetails.set(size, details);
+    });
+
+    const sortedSizes = Array.from(sizeScores.entries()).sort((a, b) => b[1] - a[1]);
+    const bestSize = sortedSizes[0];
+    const alternatives = sortedSizes.slice(1, 2);
+
+    return {
+      bestSize: bestSize[0],
+      confidence: this.calculateConfidence(bestSize[1]),
+      fitDetails: sizeDetails.get(bestSize[0]),
+      alternatives: alternatives.map(([size, score]) => ({
+        size: size,
+        confidence: this.calculateConfidence(score)
+      }))
+    };
+  }
+
+  calculateFitScore(userMeasurements, sizeMeasurements, fitAdjustment) {
+    let totalScore = 0;
+    let measurementCount = 0;
+    const measurements = ['bust', 'waist', 'hips'];
+
+    measurements.forEach(measurement => {
+      if (userMeasurements[measurement] && sizeMeasurements[measurement]) {
+        const userValue = userMeasurements[measurement];
+        const sizeValue = sizeMeasurements[measurement] + fitAdjustment;
+        const difference = Math.abs(userValue - sizeValue);
+        const score = Math.max(0, 100 - (difference * 15));
+        
+        totalScore += score;
+        measurementCount++;
+      }
+    });
+
+    return measurementCount > 0 ? totalScore / measurementCount : 0;
+  }
+
+  generateFitDetails(userMeasurements, sizeMeasurements, size) {
+    const details = { size: size, measurements: sizeMeasurements, fit: {} };
+    const measurements = ['bust', 'waist', 'hips'];
+
+    measurements.forEach(measurement => {
+      if (userMeasurements[measurement] && sizeMeasurements[measurement]) {
+        const userValue = userMeasurements[measurement];
+        const sizeValue = sizeMeasurements[measurement];
+        const difference = userValue - sizeValue;
+
+        let fitDescription;
+        if (Math.abs(difference) <= 1) {
+          fitDescription = 'Perfect fit';
+        } else if (difference > 1) {
+          fitDescription = `${Math.abs(difference).toFixed(1)}" too small`;
+        } else {
+          fitDescription = `${Math.abs(difference).toFixed(1)}" too large`;
+        }
+
+        details.fit[measurement] = {
+          userMeasurement: userValue,
+          sizeMeasurement: sizeValue,
+          difference: difference,
+          description: fitDescription
+        };
+      }
+    });
+
+    return details;
+  }
+
+  calculateConfidence(score) {
+    return Math.max(0, Math.min(100, Math.round(score)));
+  }
+
+  getAllBrandSizes(category, fitPreference = 'standard') {
+    const results = [];
+    
+    Object.keys(this.brandDatabase).forEach(brandName => {
+      const result = this.findBestSizeForBrand(brandName, category, fitPreference);
+      if (result && result.confidence >= 70) {
+        results.push(result);
+      }
+    });
+
+    return results.sort((a, b) => b.confidence - a.confidence);
+  }
+}
+
+// MISIZE AI SYSTEM (from Section 4)
+class MiSizeAISystem {
+  constructor() {
+    this.sizeEngine = new SizeMatchingEngine();
+    this.isInitialized = false;
+    this.confidenceThreshold = 70;
+    console.log('🧠 MiSizeAISystem created');
+  }
+
+  async initialize() {
+    try {
+      this.updateSystemStatus('loading', 'Initializing AI sizing system...');
+      console.log('🔄 Initializing AI system...');
+      
+      await this.sleep(1000); // Simulate initialization
+      
+      this.updateUserMeasurements();
+      this.isInitialized = true;
+      this.updateSystemStatus('online', 'AI sizing system active');
+      
+      console.log('✅ MiSize AI System initialized successfully');
+      return true;
+    } catch (error) {
+      console.error('Failed to initialize AI system:', error);
+      this.updateSystemStatus('offline', 'System offline - using fallback data');
+      return false;
+    }
+  }
+
+  updateUserMeasurements() {
+    const profile = profileData[currentProfile];
+    if (profile && profile.measurements) {
+      console.log('📊 Loading measurements for:', currentProfile, profile.measurements);
+      this.sizeEngine.setUserMeasurements({
+        bust: profile.measurements.chest || 36,
+        waist: profile.measurements.waist || 34,
+        hips: profile.measurements.hips || 38,
+        unit: 'inch'
+      });
+    } else {
+      console.warn('No profile measurements found, using defaults');
+      this.sizeEngine.setUserMeasurements({ 
+        bust: 36, 
+        waist: 34, 
+        hips: 38, 
+        unit: 'inch' 
+      });
+    }
+  }
+
+  async getAccurateSize(brand, category, fitPreference = 'standard') {
+    if (!this.isInitialized) {
+      throw new Error('AI system not initialized');
+    }
+
+    this.updateUserMeasurements();
+    const result = this.sizeEngine.findBestSizeForBrand(brand, category, fitPreference);
+
+    if (!result) {
+      return {
+        success: false,
+        message: `No size data available for ${brand} in ${category}`
+      };
+    }
+
+    return {
+      success: true,
+      brand: brand,
+      category: category,
+      recommendedSize: result.recommendedSize,
+      confidence: result.confidence,
+      fitAnalysis: result.fitAnalysis,
+      alternatives: result.alternatives,
+      fitPreference: fitPreference
+    };
+  }
+
+  async getAllMySizes() {
+    if (!this.isInitialized) {
+      console.warn('AI system not initialized');
+      return {};
+    }
+
+    this.updateUserMeasurements();
+    const categories = ["Women's Tops"];
+    const results = {};
+
+    for (const category of categories) {
+      results[category] = this.sizeEngine.getAllBrandSizes(category, 'standard')
+        .filter(result => result.confidence >= this.confidenceThreshold);
+    }
+
+    console.log('Generated all sizes:', results);
+    return results;
+  }
+
+  updateSystemStatus(status, message) {
+    const statusDot = document.getElementById('system-status-dot');
+    const statusText = document.getElementById('system-status-text');
+    
+    if (statusDot) statusDot.className = `status-dot status-${status}`;
+    if (statusText) statusText.textContent = message;
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+}
+
+// UTILITY FUNCTIONS (from Section 4)
+function kgFrom(value, unit) {
+  if (unit === 'kg') return value;
+  if (unit === 'lbs') return value * 0.45359237;
+  if (unit === 'stone') return value * 6.35029318;
+  return value;
+}
+
+function computeBMIKgCm(weightKg, heightCm) {
+  const h = heightCm / 100;
+  if (!h) return null;
+  return weightKg / (h * h);
+}
+
+function bmiCategory(bmi) {
+  if (bmi == null) return '';
+  if (bmi < 18.5) return 'Underweight';
+  if (bmi < 25) return 'Normal Weight';
+  if (bmi < 30) return 'Overweight';
+  return 'Obese';
+}
 
 // Navigation functions
 function goToScreen(screenId) {
@@ -432,9 +715,8 @@ function goToScreen(screenId) {
     targetScreen.classList.add('active');
     currentScreen = screenId;
     
-    // Update screen content
     if (screenId === 'test-screen') {
-      displayProfileData();
+      displayAITest();
     }
     
     updateNavigation();
@@ -445,7 +727,6 @@ function goToScreen(screenId) {
 }
 
 function goHome() {
-  console.log('Going home...');
   goToScreen('home');
 }
 
@@ -458,44 +739,131 @@ function enterHub(region) {
   }
 }
 
-function displayProfileData() {
+// AI Testing Functions
+async function testAISystem() {
+  console.log('🧪 Testing AI system...');
+  const resultsDiv = document.getElementById('ai-results');
+  
+  try {
+    if (!miSizeSystem || !miSizeSystem.isInitialized) {
+      console.log('Initializing AI system for test...');
+      if (!miSizeSystem) {
+        miSizeSystem = new MiSizeAISystem();
+      }
+      await miSizeSystem.initialize();
+    }
+    
+    const result = await miSizeSystem.getAccurateSize('ASOS', "Women's Tops", 'standard');
+    
+    if (result.success) {
+      resultsDiv.innerHTML = `
+        <div style="background: var(--card); padding: 20px; border-radius: 12px; border: 2px solid var(--green);">
+          <h3 style="color: var(--green); margin-top: 0;">✅ AI Test Successful!</h3>
+          <p><strong>Brand:</strong> ${result.brand}</p>
+          <p><strong>Recommended Size:</strong> ${result.recommendedSize}</p>
+          <p><strong>Confidence:</strong> ${result.confidence}%</p>
+          <p><strong>Fit Analysis:</strong></p>
+          <ul>
+            ${Object.entries(result.fitAnalysis.fit).map(([measurement, details]) => 
+              `<li>${measurement.toUpperCase()}: ${details.description}</li>`
+            ).join('')}
+          </ul>
+          ${result.alternatives.length > 0 ? `
+            <p><strong>Alternatives:</strong> ${result.alternatives.map(alt => `${alt.size} (${alt.confidence}%)`).join(', ')}</p>
+          ` : ''}
+        </div>
+      `;
+    } else {
+      resultsDiv.innerHTML = `
+        <div style="background: var(--card); padding: 20px; border-radius: 12px; border: 2px solid var(--orange);">
+          <h3 style="color: var(--orange); margin-top: 0;">⚠️ AI Test Issue</h3>
+          <p>${result.message}</p>
+        </div>
+      `;
+    }
+    
+  } catch (error) {
+    console.error('AI test failed:', error);
+    resultsDiv.innerHTML = `
+      <div style="background: var(--card); padding: 20px; border-radius: 12px; border: 2px solid var(--orange);">
+        <h3 style="color: var(--orange); margin-top: 0;">❌ AI Test Failed</h3>
+        <p>Error: ${error.message}</p>
+      </div>
+    `;
+  }
+}
+
+async function testGetAllSizes() {
+  console.log('🧪 Testing Get All Sizes...');
+  const resultsDiv = document.getElementById('ai-results');
+  
+  try {
+    if (!miSizeSystem || !miSizeSystem.isInitialized) {
+      if (!miSizeSystem) {
+        miSizeSystem = new MiSizeAISystem();
+      }
+      await miSizeSystem.initialize();
+    }
+    
+    const allSizes = await miSizeSystem.getAllMySizes();
+    
+    let html = `<div style="background: var(--card); padding: 20px; border-radius: 12px; border: 2px solid var(--green);">
+      <h3 style="color: var(--green); margin-top: 0;">✅ All Sizes Test Successful!</h3>`;
+    
+    Object.entries(allSizes).forEach(([category, recommendations]) => {
+      html += `<h4>${category}:</h4><ul>`;
+      recommendations.forEach(rec => {
+        html += `<li>${rec.brand}: Size ${rec.recommendedSize} (${rec.confidence}% confidence)</li>`;
+      });
+      html += `</ul>`;
+    });
+    
+    html += `</div>`;
+    resultsDiv.innerHTML = html;
+    
+  } catch (error) {
+    console.error('Get All Sizes test failed:', error);
+    resultsDiv.innerHTML = `
+      <div style="background: var(--card); padding: 20px; border-radius: 12px; border: 2px solid var(--orange);">
+        <h3 style="color: var(--orange); margin-top: 0;">❌ Get All Sizes Test Failed</h3>
+        <p>Error: ${error.message}</p>
+      </div>
+    `;
+  }
+}
+
+function displayAITest() {
   const statusElement = document.getElementById('data-status');
   const infoElement = document.getElementById('profile-info');
   
-  if (!statusElement || !infoElement) {
-    console.error('Status or info elements not found');
-    return;
-  }
+  if (!statusElement || !infoElement) return;
   
   try {
     const profile = profileData[currentProfile];
-    const brandCount = Object.keys(BRAND_SIZE_DATABASE).length;
     
-    statusElement.textContent = `✅ Data loaded: ${Object.keys(profileData).length} profiles, ${brandCount} brands`;
+    statusElement.textContent = `🤖 AI Engine loaded - Ready to test size calculations`;
     
     infoElement.innerHTML = `
       <div style="background: var(--card); padding: 20px; border-radius: 12px; border: 2px solid var(--border);">
-        <h3 style="color: var(--brand); margin-top: 0;">Current Profile: ${profile.name}</h3>
-        <p><strong>Gender:</strong> ${profile.gender}</p>
-        <p><strong>Current Weight:</strong> ${profile.measurements.weight}kg</p>
+        <h3 style="color: var(--brand); margin-top: 0;">AI System Status</h3>
+        <p><strong>Status:</strong> ${miSizeSystem ? (miSizeSystem.isInitialized ? '✅ Ready' : '⏳ Not initialized') : '❌ Not created'}</p>
+        <p><strong>Profile:</strong> ${profile.name}</p>
         <p><strong>Measurements:</strong> ${profile.measurements.chest}" bust, ${profile.measurements.waist}" waist, ${profile.measurements.hips}" hips</p>
-        <p><strong>History Entries:</strong> ${profile.history.length} records</p>
+        <p><strong>Available Brands:</strong> ${Object.keys(BRAND_SIZE_DATABASE).length} brands loaded</p>
         
-        <h4 style="color: var(--brand); margin-bottom: 8px;">Available Brands:</h4>
-        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          ${Object.keys(BRAND_SIZE_DATABASE).map(brand => `
-            <span style="background: var(--blue); color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px;">${brand}</span>
-          `).join('')}
+        <div style="margin-top: 16px;">
+          <p><strong>Click the buttons above to test the AI engine:</strong></p>
+          <ul style="text-align: left;">
+            <li><strong>Test AI Size Finder:</strong> Tests finding your size for ASOS Women's Tops</li>
+            <li><strong>Test Get All Sizes:</strong> Tests getting all recommended sizes across brands</li>
+          </ul>
         </div>
       </div>
     `;
     
-    console.log('✅ Profile data displayed successfully');
-    
   } catch (error) {
-    console.error('❌ Error displaying profile data:', error);
-    statusElement.textContent = '❌ Error loading data';
-    infoElement.innerHTML = `<p style="color: var(--orange);">Error: ${error.message}</p>`;
+    console.error('Error displaying AI test:', error);
+    statusElement.textContent = '❌ Error setting up AI test';
   }
 }
 
@@ -537,19 +905,23 @@ function setupPillControls() {
 }
 
 // Initialize app
-function initApp() {
-  console.log('🔄 Initializing app with profile data...');
+async function initApp() {
+  console.log('🔄 Initializing app with AI engine...');
   
   try {
     setupPillControls();
     updateNavigation();
     
-    console.log('📊 Data check:');
+    // Initialize AI system
+    miSizeSystem = new MiSizeAISystem();
+    await miSizeSystem.initialize();
+    
+    console.log('📊 System check:');
     console.log('- Profiles loaded:', Object.keys(profileData).length);
     console.log('- Brands loaded:', Object.keys(BRAND_SIZE_DATABASE).length);
-    console.log('- Current profile:', currentProfile);
+    console.log('- AI system ready:', miSizeSystem.isInitialized);
     
-    console.log('✅ App initialized successfully with data');
+    console.log('✅ App initialized successfully with AI');
     
   } catch (error) {
     console.error('❌ App initialization failed:', error);
@@ -557,13 +929,13 @@ function initApp() {
   }
 }
 
-// Start the app when DOM is ready
+// Start the app
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('📄 DOM loaded, starting app...');
+  console.log('📄 DOM loaded, starting app with AI...');
   initApp();
 });
 
-console.log('📜 Script loaded with profile & brand data');
+console.log('📜 Script loaded with AI Engine');
 </script>
 </body>
 </html>
