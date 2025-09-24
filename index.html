@@ -983,9 +983,21 @@ SECTION 1: HTML Structure & Styles (Same as before)
     </div>
   </div>
 
+
+
+
+
+
+  
 SECTION 2: ALL Screen HTML Elements Including Help, MiStats & Settings
 
-  <!-- Help Screen -->
+
+
+
+
+
+  
+<!-- Help Screen -->
   <div id="help" class="screen">
     <div class="content-container">
       <div class="hub-header">
@@ -1302,65 +1314,7 @@ SECTION 2: ALL Screen HTML Elements Including Help, MiStats & Settings
         <h2 class="hub-title">🇬🇧 Settings</h2>
         <p class="hub-subtitle">Manage your profiles and AI system preferences</p>
       </div>
-<!-- Create Profile Screen -->
-<div id="create-profile" class="screen">
-  <div class="content-container">
-    <div class="hub-header">
-      <h2 class="hub-title">Create New Profile</h2>
-      <p class="hub-subtitle">Set up a new user profile for accurate sizing</p>
-    </div>
-    
-    <div class="form-container">
-      <div class="form-group">
-        <label class="form-label">Full Name</label>
-        <input type="text" class="form-input" id="new-profile-name" placeholder="Enter full name">
-      </div>
-      
-      <div class="form-group">
-        <label class="form-label">Date of Birth</label>
-        <input type="date" class="form-input" id="new-profile-dob">
-      </div>
-      
-      <div class="form-group">
-        <label class="form-label">Gender</label>
-        <select class="form-select" id="new-profile-gender">
-          <option value="female">Female</option>
-          <option value="male">Male</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      
-      <div class="button-group">
-        <button class="btn btn-primary" onclick="saveNewProfile()">Create Profile</button>
-        <button class="btn btn-secondary" onclick="goBack()">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- Saved Profiles Screen -->
-<div id="saved-profiles" class="screen">
-  <div class="content-container">
-    <div class="hub-header">
-      <h2 class="hub-title">Saved Profiles</h2>
-      <p class="hub-subtitle">Manage your user profiles</p>
-    </div>
-    
-    <div id="profiles-list"></div>
-  </div>
-</div>
-
-<!-- Edit Profiles Screen -->
-<div id="edit-profiles" class="screen">
-  <div class="content-container">
-    <div class="hub-header">
-      <h2 class="hub-title">Edit Profiles</h2>
-      <p class="hub-subtitle">Modify existing profile information</p>
-    </div>
-    
-    <div id="edit-profiles-list"></div>
-  </div>
-</div>
       <!-- System Status Section -->
       <div class="settings-section">
         <h3>🤖 AI System Status</h3>
@@ -1509,6 +1463,66 @@ SECTION 2: ALL Screen HTML Elements Including Help, MiStats & Settings
           <button class="settings-pill" data-region="ca">🇨🇦 CA</button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Create Profile Screen -->
+  <div id="create-profile" class="screen">
+    <div class="content-container">
+      <div class="hub-header">
+        <h2 class="hub-title">Create New Profile</h2>
+        <p class="hub-subtitle">Set up a new user profile for accurate sizing</p>
+      </div>
+      
+      <div class="form-container">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-input" id="new-profile-name" placeholder="Enter full name">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Date of Birth</label>
+          <input type="date" class="form-input" id="new-profile-dob">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Gender</label>
+          <select class="form-select" id="new-profile-gender">
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        
+        <div class="button-group">
+          <button class="btn btn-primary" onclick="saveNewProfile()">Create Profile</button>
+          <button class="btn btn-secondary" onclick="goBack()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Saved Profiles Screen -->
+  <div id="saved-profiles" class="screen">
+    <div class="content-container">
+      <div class="hub-header">
+        <h2 class="hub-title">Saved Profiles</h2>
+        <p class="hub-subtitle">Manage your user profiles</p>
+      </div>
+      
+      <div id="profiles-list"></div>
+    </div>
+  </div>
+
+  <!-- Edit Profiles Screen -->
+  <div id="edit-profiles" class="screen">
+    <div class="content-container">
+      <div class="hub-header">
+        <h2 class="hub-title">Edit Profiles</h2>
+        <p class="hub-subtitle">Modify existing profile information</p>
+      </div>
+      
+      <div id="edit-profiles-list"></div>
     </div>
   </div>
 
@@ -1708,10 +1722,23 @@ SECTION 2: ALL Screen HTML Elements Including Help, MiStats & Settings
     <button class="nav-item" onclick="goToHelp()">Help</button>
     <button class="nav-item" onclick="goBack()">Back</button>
   </div>
-</body>
-</html>
 
+
+
+
+
+
+
+  
 SECTION 3: JavaScript - Profile Data & Brand Database (Same as before)
+
+
+
+
+
+
+
+  
 <script>
 // Global variables
 let currentScreen = 'home';
@@ -2114,9 +2141,20 @@ const BRAND_SIZE_DATABASE = {
   }
 };
 
+
+
+
+
+  
   SECTION 4: AI Engine & Core Functions
 
-  // AI Size Matching Engine
+
+
+
+
+
+
+// AI Size Matching Engine
 class SizeMatchingEngine {
   constructor() {
     this.brandDatabase = BRAND_SIZE_DATABASE;
@@ -2131,14 +2169,21 @@ class SizeMatchingEngine {
       hips: parseFloat(measurements.hips) || 0,
       unit: measurements.unit || 'inch'
     };
+    console.log('AI Engine measurements updated:', this.userMeasurements);
   }
 
   findBestSizeForBrand(brandName, category, fitPreference = 'standard') {
     const brandData = this.brandDatabase[brandName];
-    if (!brandData || !brandData.categories) return null;
+    if (!brandData || !brandData.categories) {
+      console.warn(`No brand data found for: ${brandName}`);
+      return null;
+    }
 
     const categoryData = brandData.categories[category];
-    if (!categoryData) return null;
+    if (!categoryData) {
+      console.warn(`No category data found for: ${brandName} - ${category}`);
+      return null;
+    }
 
     const fitAdjustment = this.fitPreferences[fitPreference.toLowerCase()] || 0;
     const sizeAnalysis = this.analyzeSizes(categoryData, fitAdjustment);
@@ -2255,75 +2300,7 @@ class SizeMatchingEngine {
     return results.sort((a, b) => b.confidence - a.confidence);
   }
 }
-// Profile creation functions
-function saveNewProfile() {
-  const name = document.getElementById('new-profile-name')?.value;
-  const dob = document.getElementById('new-profile-dob')?.value;
-  const gender = document.getElementById('new-profile-gender')?.value;
-  
-  if (!name || !dob || !gender) {
-    alert('Please fill in all fields');
-    return;
-  }
-  
-  if (profileData[name]) {
-    alert('Profile with this name already exists');
-    return;
-  }
-  
-  profileData[name] = {
-    name: name,
-    dateOfBirth: dob,
-    gender: gender,
-    bodyFrame: 'medium',
-    startingDate: new Date().toISOString().slice(0, 10),
-    startingWeight: { value: 70, unit: 'kg' },
-    startingHeight: { value: 170, unit: 'cm' },
-    targetWeight: { value: 65, unit: 'kg' },
-    measurements: { weight: 70, chest: 34, waist: 28, hips: 36, shoulders: 36, arms: 26 },
-    history: []
-  };
-  
-  alert(`✅ Profile created for ${name}`);
-  goToScreen('saved-profiles');
-  populateSavedProfiles();
-}
 
-function populateSavedProfiles() {
-  const container = document.getElementById('profiles-list');
-  if (!container) return;
-  
-  const profilesHTML = Object.keys(profileData).map(name => `
-    <div class="profile-card">
-      <div class="profile-name">${name}</div>
-      <div class="profile-details">
-        Gender: ${profileData[name].gender}<br>
-        Created: ${profileData[name].startingDate}
-      </div>
-      <div style="margin-top: 12px;">
-        <button class="btn btn-primary" onclick="setCurrentProfile('${name}'); goToScreen('mistats');">Select</button>
-        <button class="btn btn-secondary" onclick="deleteProfile('${name}')">Delete</button>
-      </div>
-    </div>
-  `).join('');
-  
-  container.innerHTML = profilesHTML;
-}
-
-function deleteProfile(name) {
-  if (Object.keys(profileData).length <= 1) {
-    alert('Cannot delete the last profile');
-    return;
-  }
-  
-  if (confirm(`Delete profile for ${name}?`)) {
-    delete profileData[name];
-    if (currentProfile === name) {
-      currentProfile = Object.keys(profileData)[0];
-    }
-    populateSavedProfiles();
-  }
-}
 // MiSize AI System
 class MiSizeAISystem {
   constructor() {
@@ -2339,10 +2316,14 @@ class MiSizeAISystem {
       this.updateUserMeasurements();
       this.isInitialized = true;
       this.updateSystemStatus('online', 'AI sizing system active');
+      
+      // Update last update time
       const lastUpdateElement = document.getElementById('last-update-time');
       if (lastUpdateElement) {
         lastUpdateElement.textContent = new Date().toLocaleString();
       }
+      
+      console.log('✅ MiSize AI System initialized successfully');
       return true;
     } catch (error) {
       console.error('Failed to initialize AI system:', error);
@@ -2361,10 +2342,15 @@ class MiSizeAISystem {
         hips: profile.measurements.hips || 38,
         unit: 'inch'
       });
-      console.log('AI Engine updated with measurements:', this.sizeEngine.userMeasurements);
     } else {
       console.warn('No profile measurements found for:', currentProfile);
-      this.sizeEngine.setUserMeasurements({ bust: 36, waist: 34, hips: 38, unit: 'inch' });
+      // Set default measurements
+      this.sizeEngine.setUserMeasurements({ 
+        bust: 36, 
+        waist: 34, 
+        hips: 38, 
+        unit: 'inch' 
+      });
     }
   }
 
@@ -2373,7 +2359,9 @@ class MiSizeAISystem {
       throw new Error('AI system not initialized');
     }
 
+    // Ensure user measurements are up to date
     this.updateUserMeasurements();
+    
     const result = this.sizeEngine.findBestSizeForBrand(brand, category, fitPreference);
 
     if (!result) {
@@ -2397,7 +2385,13 @@ class MiSizeAISystem {
   }
 
   async getAllMySizes() {
-    if (!this.isInitialized) return {};
+    if (!this.isInitialized) {
+      console.warn('AI system not initialized');
+      return {};
+    }
+
+    // Ensure user measurements are up to date
+    this.updateUserMeasurements();
 
     const categories = ["Women's Jeans", "Women's Dresses", "Women's Tops"];
     const results = {};
@@ -2407,6 +2401,7 @@ class MiSizeAISystem {
         .filter(result => result.confidence >= this.confidenceThreshold);
     }
 
+    console.log('Generated all sizes:', results);
     return results;
   }
 
@@ -2429,14 +2424,23 @@ class MiSizeAISystem {
     });
     
     statusTexts.forEach(text => {
-      text.textContent = message;
+      if (text) text.textContent = message;
     });
 
+    // Update specific status elements
     const systemStatusDot = document.getElementById('system-status-dot');
     const systemStatusText = document.getElementById('system-status-text');
+    const ukSystemStatusDot = document.getElementById('uk-system-status-dot');
+    const ukSystemStatusText = document.getElementById('uk-system-status-text');
+    const aiSystemStatus = document.getElementById('ai-system-status');
+    const aiStatusText = document.getElementById('ai-status-text');
     
     if (systemStatusDot) systemStatusDot.className = `status-dot status-${status}`;
     if (systemStatusText) systemStatusText.textContent = message;
+    if (ukSystemStatusDot) ukSystemStatusDot.className = `status-dot status-${status}`;
+    if (ukSystemStatusText) ukSystemStatusText.textContent = message;
+    if (aiSystemStatus) aiSystemStatus.className = `status-dot status-${status}`;
+    if (aiStatusText) aiStatusText.textContent = message;
   }
 
   sleep(ms) {
@@ -2472,8 +2476,22 @@ function bmiCategory(bmi) {
   return 'Obese';
 }
 
+
+
+
+
+
+
+  
   SECTION 5: Navigation, App Functions & Complete Feature Set
 
+
+  
+
+
+  
+  
+  
   // Debug Panel Functions (iPad Friendly)
 let debugPanelOpen = false;
 
@@ -2590,6 +2608,10 @@ function updateScreenData(screenId) {
     renderMiStats();
   } else if (screenId === 'uk-settings') {
     populateProfileDropdown();
+  } else if (screenId === 'saved-profiles') {
+    populateSavedProfiles();
+  } else if (screenId === 'edit-profiles') {
+    populateEditProfiles();
   }
 }
 
@@ -2695,6 +2717,7 @@ async function getMySize() {
         ` : ''}
       `;
       resultDiv.style.display = 'block';
+      resultDiv.style.borderColor = 'var(--green)';
     } else {
       resultDiv.innerHTML = `
         <h4 style="color: var(--orange); margin: 0 0 16px;">⚠️ Limited Data Available</h4>
@@ -2818,6 +2841,113 @@ function populateBrandNotes() {
   `).join('');
 
   container.innerHTML = brandNotesHTML;
+}
+
+// Profile creation functions
+function saveNewProfile() {
+  const name = document.getElementById('new-profile-name')?.value;
+  const dob = document.getElementById('new-profile-dob')?.value;
+  const gender = document.getElementById('new-profile-gender')?.value;
+  
+  if (!name || !dob || !gender) {
+    alert('Please fill in all fields');
+    return;
+  }
+  
+  if (profileData[name]) {
+    alert('Profile with this name already exists');
+    return;
+  }
+  
+  profileData[name] = {
+    name: name,
+    dateOfBirth: dob,
+    gender: gender,
+    bodyFrame: 'medium',
+    startingDate: new Date().toISOString().slice(0, 10),
+    startingWeight: { value: 70, unit: 'kg' },
+    startingHeight: { value: 170, unit: 'cm' },
+    targetWeight: { value: 65, unit: 'kg' },
+    measurements: { weight: 70, chest: 34, waist: 28, hips: 36, shoulders: 36, arms: 26 },
+    history: []
+  };
+  
+  alert(`✅ Profile created for ${name}`);
+  goToScreen('saved-profiles');
+}
+
+function populateSavedProfiles() {
+  const container = document.getElementById('profiles-list');
+  if (!container) return;
+  
+  const profilesHTML = Object.keys(profileData).map(name => `
+    <div class="profile-card">
+      <div class="profile-name">${name}</div>
+      <div class="profile-details">
+        Gender: ${profileData[name].gender}<br>
+        Created: ${profileData[name].startingDate}
+      </div>
+      <div style="margin-top: 12px;">
+        <button class="btn btn-primary" onclick="setCurrentProfile('${name}'); goToScreen('mistats');" style="margin-right: 8px;">Select</button>
+        <button class="btn btn-secondary" onclick="deleteProfile('${name}')">Delete</button>
+      </div>
+    </div>
+  `).join('');
+  
+  container.innerHTML = profilesHTML;
+}
+
+function populateEditProfiles() {
+  const container = document.getElementById('edit-profiles-list');
+  if (!container) return;
+  
+  const profilesHTML = Object.keys(profileData).map(name => `
+    <div class="profile-card">
+      <div class="profile-name">${name}</div>
+      <div class="profile-details">
+        Gender: ${profileData[name].gender}<br>
+        Weight: ${profileData[name].measurements?.weight || 'Not set'}<br>
+        Measurements: ${profileData[name].measurements?.chest || '?'}" / ${profileData[name].measurements?.waist || '?'}" / ${profileData[name].measurements?.hips || '?'}"
+      </div>
+      <div style="margin-top: 12px;">
+        <button class="btn btn-primary" onclick="editProfile('${name}')" style="margin-right: 8px;">Edit</button>
+        <button class="btn btn-secondary" onclick="deleteProfile('${name}')">Delete</button>
+      </div>
+    </div>
+  `).join('');
+  
+  container.innerHTML = profilesHTML;
+}
+
+function editProfile(name) {
+  currentProfile = name;
+  goToScreen('uk-settings');
+  setTimeout(() => {
+    const profileSelect = document.getElementById('measurement-profile-select');
+    if (profileSelect) {
+      profileSelect.value = name;
+      loadSelectedProfileMeasurements();
+    }
+  }, 100);
+}
+
+function deleteProfile(name) {
+  if (Object.keys(profileData).length <= 1) {
+    alert('Cannot delete the last profile');
+    return;
+  }
+  
+  if (confirm(`Delete profile for ${name}?`)) {
+    delete profileData[name];
+    if (currentProfile === name) {
+      currentProfile = Object.keys(profileData)[0];
+    }
+    if (currentScreen === 'saved-profiles') {
+      populateSavedProfiles();
+    } else if (currentScreen === 'edit-profiles') {
+      populateEditProfiles();
+    }
+  }
 }
 
 // MiStats functions
@@ -3033,8 +3163,37 @@ function openConverter(type) {
   alert(`Opening ${type} size converter...`);
 }
 
+// Pill control setup
+function setupPillControls() {
+  // Body type pills
+  document.querySelectorAll('.pill[data-type]').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.pill[data-type]').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      selectedBodyType = pill.dataset.type;
+    });
+  });
 
-// Fix the initApp function - replace the existing one
+  // Unit pills
+  document.querySelectorAll('.pill[data-unit]').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.pill[data-unit]').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      selectedUnit = pill.dataset.unit;
+    });
+  });
+
+  // Settings pills
+  document.querySelectorAll('.settings-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const group = pill.parentElement;
+      group.querySelectorAll('.settings-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+    });
+  });
+}
+
+// Initialize the application
 async function initApp() {
   updateNavigation();
 
@@ -3070,48 +3229,5 @@ async function initApp() {
   setTimeout(refreshDebug, 3000);
 }
 
-// Add this new function for pill controls
-function setupPillControls() {
-  // Body type pills
-  document.querySelectorAll('.pill[data-type]').forEach(pill => {
-    pill.addEventListener('click', () => {
-      document.querySelectorAll('.pill[data-type]').forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-      selectedBodyType = pill.dataset.type;
-    });
-  });
-
-  // Unit pills
-  document.querySelectorAll('.pill[data-unit]').forEach(pill => {
-    pill.addEventListener('click', () => {
-      document.querySelectorAll('.pill[data-unit]').forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-      selectedUnit = pill.dataset.unit;
-    });
-  });
-
-  // Settings pills
-  document.querySelectorAll('.settings-pill').forEach(pill => {
-    pill.addEventListener('click', () => {
-      const group = pill.parentElement;
-      group.querySelectorAll('.settings-pill').forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-    });
-  });
-}
-  }
-
-  // Initialize current profile
-  if (!currentProfile && Object.keys(profileData).length > 0) {
-    currentProfile = Object.keys(profileData)[0];
-  }
-
-  // Auto-update debug info after 3 seconds
-  setTimeout(refreshDebug, 3000);
-}
-
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', initApp);
-</script>
-</body>
-</html>
