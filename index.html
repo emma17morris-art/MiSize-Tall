@@ -1742,8 +1742,10 @@ function updateScreenData(screenId) {
     loadEditableProfiles();
   } else if (screenId === 'uk-settings') {
     populateProfileDropdown();
-  }
+    if (screenId === 'uk-mysizes') {
+  populateMySizesGrid();
 }
+  
 
 // Add these new functions
 function populateProfileDropdown() {
