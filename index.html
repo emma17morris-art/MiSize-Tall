@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -278,7 +277,7 @@
       <div class="system-status">
         <div class="status-indicator">
           <div class="status-dot status-online" id="system-status-dot"></div>
-          <span id="system-status-text">System ready!</span>
+          <span id="system-status-text">System ready with profile data!</span>
         </div>
       </div>
       
@@ -306,11 +305,12 @@
     </div>
   </div>
 
-  <!-- Simple Test Screen -->
+  <!-- Test Screen -->
   <div id="test-screen" class="screen">
     <div class="main-container">
-      <h1 class="title">Test Screen</h1>
-      <p class="subtitle">If you can see this, navigation is working!</p>
+      <h1 class="title">Profile & Brand Test</h1>
+      <p class="subtitle" id="data-status">Loading profile data...</p>
+      <div id="profile-info" style="margin-top: 20px; text-align: left; max-width: 600px;"></div>
       <button onclick="goHome()" style="padding: 12px 24px; background: var(--brand); color: white; border: none; border-radius: 8px; cursor: pointer; margin-top: 20px;">Go Home</button>
     </div>
   </div>
@@ -318,7 +318,7 @@
   <!-- Bottom Navigation -->
   <div class="bottom-nav">
     <button class="nav-item active" onclick="goHome()">Home</button>
-    <button class="nav-item" onclick="goToScreen('test-screen')">Test</button>
+    <button class="nav-item" onclick="goToScreen('test-screen')">Test Data</button>
     <button class="nav-item" onclick="alert('MiStats coming soon!')">MiStats</button>
     <button class="nav-item" onclick="alert('Settings coming soon!')">Settings</button>
     <button class="nav-item" onclick="alert('Help coming soon!')">Help</button>
@@ -328,28 +328,119 @@
 // Global variables
 let currentScreen = 'home';
 let navigationHistory = [];
+let selectedBodyType = 'standard';
+let selectedUnit = 'cm';
+let currentProfile = 'Emma Morris';
 
-console.log('🚀 MiSize App Starting...');
+// YOUR PROFILE DATA (from Section 3)
+let profileData = {
+  'Emma Morris': {
+    name: 'Emma Morris',
+    dateOfBirth: '1983-10-12',
+    gender: 'female',
+    bodyFrame: 'medium',
+    startingDate: '2022-03-19',
+    startingWeight: { value: 150, unit: 'kg' },
+    startingHeight: { value: 183, unit: 'cm' },
+    targetWeight: { value: 80, unit: 'kg' },
+    targetDate: '2023-06-30',
+    measurements: { weight: 80, chest: 36, waist: 34, hips: 38, shoulders: 38, arms: 28 },
+    history: [
+      { date: '2022-03-19', type: 'weight', value: 150, unit: 'kg' },
+      { date: '2023-08-19', type: 'weight', value: 80, unit: 'kg' },
+      { date: '2024-12-19', type: 'waist', value: 34, unit: 'inch' },
+      { date: '2024-12-19', type: 'hips', value: 38, unit: 'inch' },
+      { date: '2024-12-19', type: 'chest', value: 36, unit: 'inch' }
+    ]
+  },
+  'John Doe': {
+    name: 'John Doe',
+    dateOfBirth: '1985-08-20',
+    gender: 'male',
+    bodyFrame: 'large',
+    startingDate: '2024-02-01',
+    startingWeight: { value: 85, unit: 'kg' },
+    startingHeight: { value: 180, unit: 'cm' },
+    targetWeight: { value: 75, unit: 'kg' },
+    measurements: { weight: 78, chest: 102, waist: 84, hips: 96, shoulders: 46, arms: 32 },
+    history: [
+      { date: '2024-02-01', type: 'weight', value: 85, unit: 'kg' },
+      { date: '2024-04-15', type: 'weight', value: 78, unit: 'kg' }
+    ]
+  }
+};
 
-// Simple navigation functions
+// YOUR BRAND DATABASE (from Section 3)
+const BRAND_SIZE_DATABASE = {
+  'ASOS': {
+    name: 'ASOS',
+    lastUpdated: new Date().toISOString(),
+    categories: {
+      "Women's Tops": {
+        '8': { bust: 32, waist: 26, hips: 34 },
+        '10': { bust: 34, waist: 28, hips: 36 },
+        '12': { bust: 36, waist: 30, hips: 38 },
+        '14': { bust: 38, waist: 32, hips: 40 },
+        '16': { bust: 40, waist: 34, hips: 42 },
+        '18': { bust: 42, waist: 36, hips: 44 },
+        '20': { bust: 44, waist: 38, hips: 46 },
+        '22': { bust: 46, waist: 40, hips: 48 }
+      }
+    },
+    notes: {
+      sizing: 'UK sizes, runs slightly large',
+      bodyTypes: 'Standard, Petite, Tall, Plus',
+      categories: 'Full range - jeans, dresses, tops, shoes, activewear',
+      fitNotes: 'Size down for oversized items, true to size for fitted',
+      special: 'Excellent size inclusivity, detailed size guides, online exclusive'
+    }
+  },
+  'Zara': {
+    name: 'Zara',
+    lastUpdated: new Date().toISOString(),
+    categories: {
+      "Women's Tops": {
+        'S': { bust: 34, waist: 28, hips: 36 },
+        'M': { bust: 36, waist: 30, hips: 38 },
+        'L': { bust: 38, waist: 32, hips: 40 },
+        'XL': { bust: 40, waist: 34, hips: 42 },
+        'XXL': { bust: 42, waist: 36, hips: 44 }
+      }
+    },
+    notes: {
+      sizing: 'European sizes, runs small',
+      bodyTypes: 'Standard, Limited plus sizes',
+      categories: 'Trend fashion - dresses, tops, jeans, shoes',
+      fitNotes: 'Size up 1-2 sizes, fitted cuts',
+      special: 'Fast fashion, trend-focused, size up recommended'
+    }
+  }
+};
+
+console.log('🚀 MiSize App Starting with profile data...');
+
+// Navigation functions
 function goToScreen(screenId) {
   console.log('Navigating to:', screenId);
   
-  // Hide all screens
   document.querySelectorAll('.screen').forEach(screen => {
     screen.classList.remove('active');
   });
   
-  // Show target screen
   const targetScreen = document.getElementById(screenId);
   if (targetScreen) {
     targetScreen.classList.add('active');
     currentScreen = screenId;
+    
+    // Update screen content
+    if (screenId === 'test-screen') {
+      displayProfileData();
+    }
+    
     updateNavigation();
     console.log('✅ Navigation successful');
   } else {
     console.error('❌ Screen not found:', screenId);
-    alert('Screen not found: ' + screenId);
   }
 }
 
@@ -367,12 +458,52 @@ function enterHub(region) {
   }
 }
 
+function displayProfileData() {
+  const statusElement = document.getElementById('data-status');
+  const infoElement = document.getElementById('profile-info');
+  
+  if (!statusElement || !infoElement) {
+    console.error('Status or info elements not found');
+    return;
+  }
+  
+  try {
+    const profile = profileData[currentProfile];
+    const brandCount = Object.keys(BRAND_SIZE_DATABASE).length;
+    
+    statusElement.textContent = `✅ Data loaded: ${Object.keys(profileData).length} profiles, ${brandCount} brands`;
+    
+    infoElement.innerHTML = `
+      <div style="background: var(--card); padding: 20px; border-radius: 12px; border: 2px solid var(--border);">
+        <h3 style="color: var(--brand); margin-top: 0;">Current Profile: ${profile.name}</h3>
+        <p><strong>Gender:</strong> ${profile.gender}</p>
+        <p><strong>Current Weight:</strong> ${profile.measurements.weight}kg</p>
+        <p><strong>Measurements:</strong> ${profile.measurements.chest}" bust, ${profile.measurements.waist}" waist, ${profile.measurements.hips}" hips</p>
+        <p><strong>History Entries:</strong> ${profile.history.length} records</p>
+        
+        <h4 style="color: var(--brand); margin-bottom: 8px;">Available Brands:</h4>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          ${Object.keys(BRAND_SIZE_DATABASE).map(brand => `
+            <span style="background: var(--blue); color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px;">${brand}</span>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    
+    console.log('✅ Profile data displayed successfully');
+    
+  } catch (error) {
+    console.error('❌ Error displaying profile data:', error);
+    statusElement.textContent = '❌ Error loading data';
+    infoElement.innerHTML = `<p style="color: var(--orange);">Error: ${error.message}</p>`;
+  }
+}
+
 function updateNavigation() {
   document.querySelectorAll('.nav-item').forEach(item => {
     item.classList.remove('active');
   });
   
-  // Simple active state management
   if (currentScreen === 'home') {
     document.querySelector('.nav-item[onclick="goHome()"]')?.classList.add('active');
   } else if (currentScreen === 'test-screen') {
@@ -388,7 +519,8 @@ function setupPillControls() {
     pill.addEventListener('click', function() {
       document.querySelectorAll('.pill[data-type]').forEach(p => p.classList.remove('active'));
       this.classList.add('active');
-      console.log('Body type selected:', this.dataset.type);
+      selectedBodyType = this.dataset.type;
+      console.log('Body type selected:', selectedBodyType);
     });
   });
 
@@ -396,7 +528,8 @@ function setupPillControls() {
     pill.addEventListener('click', function() {
       document.querySelectorAll('.pill[data-unit]').forEach(p => p.classList.remove('active'));
       this.classList.add('active');
-      console.log('Unit selected:', this.dataset.unit);
+      selectedUnit = this.dataset.unit;
+      console.log('Unit selected:', selectedUnit);
     });
   });
   
@@ -405,21 +538,18 @@ function setupPillControls() {
 
 // Initialize app
 function initApp() {
-  console.log('🔄 Initializing app...');
+  console.log('🔄 Initializing app with profile data...');
   
   try {
     setupPillControls();
     updateNavigation();
-    console.log('✅ App initialized successfully');
     
-    // Test that everything is working
-    setTimeout(() => {
-      console.log('🧪 Running self-test...');
-      console.log('Current screen:', currentScreen);
-      console.log('Pills found:', document.querySelectorAll('.pill').length);
-      console.log('Screens found:', document.querySelectorAll('.screen').length);
-      console.log('✅ Self-test complete');
-    }, 1000);
+    console.log('📊 Data check:');
+    console.log('- Profiles loaded:', Object.keys(profileData).length);
+    console.log('- Brands loaded:', Object.keys(BRAND_SIZE_DATABASE).length);
+    console.log('- Current profile:', currentProfile);
+    
+    console.log('✅ App initialized successfully with data');
     
   } catch (error) {
     console.error('❌ App initialization failed:', error);
@@ -433,8 +563,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initApp();
 });
 
-console.log('📜 Script loaded successfully');
+console.log('📜 Script loaded with profile & brand data');
 </script>
 </body>
 </html>
-```
