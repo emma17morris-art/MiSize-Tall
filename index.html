@@ -324,18 +324,6 @@
       font-weight: 600;
     }
 
-    .form-input-inline {
-      flex: 1;
-      padding: 12px 16px;
-      background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      color: var(--text);
-      font-size: 16px;
-      font-weight: 600;
-      margin-right: 12px;
-    }
-
     .button-group {
       display: flex;
       gap: 12px;
@@ -364,11 +352,6 @@
       border: 2px solid var(--border);
     }
 
-    .btn-danger {
-      background: var(--red);
-      color: #fff;
-    }
-
     .btn:hover {
       transform: translateY(-2px);
     }
@@ -379,301 +362,6 @@
       padding: 20px;
     }
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .stats-bubble {
-      background: var(--card);
-      border-radius: 20px;
-      padding: 24px;
-      text-align: center;
-      border: 2px solid var(--border);
-    }
-
-    .stats-bubble.current {
-      transform: scale(1.1);
-      background: var(--blue);
-      color: #fff;
-    }
-
-    .stats-bubble h3 {
-      margin: 0 0 8px;
-      font-size: 14px;
-      text-transform: uppercase;
-      opacity: 0.8;
-    }
-
-    .stats-bubble .value {
-      font-size: 24px;
-      font-weight: 900;
-      margin: 0;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 12px;
-      background: var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-      margin: 24px 0;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: var(--green);
-      transition: width 0.3s;
-    }
-
-    .mini-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 32px;
-    }
-
-    .mini-bubble {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      border: 2px solid var(--border);
-    }
-
-    .mini-bubble h4 {
-      margin: 0 0 4px;
-      font-size: 12px;
-      text-transform: uppercase;
-      opacity: 0.8;
-    }
-
-    .mini-bubble .value {
-      font-size: 18px;
-      font-weight: 700;
-      margin: 0;
-    }
-
-    .bmi-indicator {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      border: 2px solid var(--border);
-    }
-
-    .stats-tabs {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      right: 0;
-      background: rgba(15, 19, 26, .9);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      padding: 0 20px;
-      z-index: 99;
-    }
-
-    .stats-tab {
-      flex: 1;
-      padding: 16px 12px;
-      border: 0;
-      background: transparent;
-      color: #cfd7ea;
-      font-weight: 700;
-      font-size: 12px;
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-
-    .stats-tab.active {
-      color: var(--brand);
-      border-bottom: 2px solid var(--brand);
-    }
-
-    .graph-controls {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
-      justify-content: center;
-    }
-
-    .graph-btn {
-      padding: 8px 16px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-size: 12px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .graph-btn.active {
-      background: var(--brand);
-      color: #fff;
-      border-color: var(--brand);
-    }
-
-    .history-list {
-      background: var(--card);
-      border-radius: 12px;
-      overflow: hidden;
-      border: 2px solid var(--border);
-    }
-
-    .history-item {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .history-item:last-child {
-      border-bottom: none;
-    }
-
-    .history-date {
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .help-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .help-card {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 20px;
-      border: 2px solid var(--border);
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .help-card:hover {
-      border-color: var(--brand);
-      transform: translateY(-2px);
-    }
-
-    .help-card h4 {
-      margin: 0 0 8px;
-      color: var(--text);
-      font-weight: 800;
-    }
-
-    .help-card p {
-      margin: 0;
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .brand-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .brand-card {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 20px;
-      border: 2px solid var(--border);
-    }
-
-    .brand-name {
-      font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .brand-size {
-      background: var(--brand);
-      color: #fff;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .guide-section {
-      margin-bottom: 24px;
-    }
-
-    .guide-section:last-child {
-      margin-bottom: 0;
-    }
-
-    .guide-section h4 {
-      color: var(--brand);
-      font-size: 18px;
-      font-weight: 800;
-      margin: 0 0 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .guide-section h5 {
-      color: var(--text);
-      font-size: 16px;
-      font-weight: 700;
-      margin: 16px 0 8px;
-    }
-
-    .guide-section p {
-      margin: 0 0 8px;
-      line-height: 1.6;
-      color: var(--text);
-    }
-
-    .guide-section ul {
-      margin: 8px 0;
-      padding-left: 20px;
-      color: var(--text);
-    }
-
-    .guide-section li {
-      margin-bottom: 4px;
-      line-height: 1.5;
-    }
-
-    .highlight-tip {
-      background: rgba(138, 43, 226, 0.1);
-      border-left: 4px solid var(--brand);
-      padding: 12px 16px;
-      margin: 16px 0;
-      border-radius: 0 8px 8px 0;
-    }
-
-    .highlight-tip p {
-      margin: 0;
-      font-weight: 600;
-    }
-
-    .step-number {
-      background: var(--brand);
-      color: #fff;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
-      margin-right: 8px;
-    }
-
-    /* Settings Specific Styles */
     .settings-section {
       background: var(--card);
       border-radius: 12px;
@@ -687,31 +375,6 @@
       font-size: 20px;
       font-weight: 800;
       margin: 0 0 16px;
-    }
-
-    .pill-settings-group {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-
-    .settings-pill {
-      border: 1px solid rgba(255, 255, 255, .12);
-      background: #151a3a;
-      color: #c9d3ea;
-      font-weight: 700;
-      font-size: 12px;
-      padding: 8px 16px;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .settings-pill.active {
-      background: var(--brand);
-      color: #fff;
-      border-color: var(--brand);
     }
 
     .profile-management-pills {
@@ -749,268 +412,6 @@
       font-size: 24px;
       margin-bottom: 8px;
     }
-
-    .inline-form-group {
-      display: flex;
-      align-items: center;
-      margin-bottom: 24px;
-    }
-
-    .measurement-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .measurement-bubble {
-      background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      transition: all 0.3s;
-    }
-
-    .measurement-bubble:hover {
-      border-color: var(--brand);
-    }
-
-    .measurement-bubble h4 {
-      margin: 0 0 8px;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .measurement-input {
-      width: 100%;
-      padding: 8px 12px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      text-align: center;
-      font-weight: 600;
-    }
-
-    .guide-tile {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 24px;
-      border: 2px solid var(--border);
-      margin-bottom: 24px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .guide-tile:hover {
-      border-color: var(--brand);
-      transform: translateY(-2px);
-    }
-
-    .guide-tile h4 {
-      color: var(--brand);
-      font-size: 18px;
-      font-weight: 800;
-      margin: 0 0 12px;
-    }
-
-    .guide-content {
-      display: none;
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-    }
-
-    .guide-content.show {
-      display: block;
-    }
-
-    .profile-data-view {
-      background: var(--bg);
-      border-radius: 12px;
-      padding: 16px;
-      margin-top: 12px;
-      border: 1px solid var(--border);
-    }
-
-    .data-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 4px 0;
-      font-size: 14px;
-    }
-
-    .data-label {
-      color: var(--muted);
-    }
-
-    .data-value {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    /* Size Result Display */
-    .size-result {
-      background: var(--green);
-      color: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      text-align: center;
-      margin-top: 20px;
-      font-weight: 800;
-      font-size: 18px;
-      display: none;
-    }
-
-    .size-result.show {
-      display: block;
-    }
-
-    .measurement-display {
-      background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 20px;
-    }
-
-    .measurement-display h4 {
-      margin: 0 0 12px;
-      color: var(--brand);
-      font-size: 16px;
-    }
-
-    .measurement-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      font-size: 14px;
-    }
-
-    .measurement-row:last-child {
-      margin-bottom: 0;
-    }
-
-    .category-filter {
-      margin-bottom: 20px;
-    }
-
-    .filter-pills {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .filter-pill {
-      padding: 8px 16px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      color: var(--text);
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .filter-pill.active {
-      background: var(--brand);
-      color: #fff;
-      border-color: var(--brand);
-    }
-
-    .no-measurements-warning {
-      background: rgba(245, 158, 11, 0.1);
-      border: 2px solid var(--orange);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .no-measurements-warning h4 {
-      color: var(--orange);
-      margin: 0 0 8px;
-    }
-
-    .no-measurements-warning p {
-      margin: 0;
-      color: var(--text);
-    }
-
-    /* Profile Display Styles */
-    .profile-display-card {
-      background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 16px;
-      transition: all 0.3s;
-    }
-
-    .profile-display-card:hover {
-      border-color: var(--brand);
-      transform: translateY(-2px);
-    }
-
-    .profile-display-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .profile-display-name {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--text);
-    }
-
-    .profile-display-details {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .profile-detail-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .profile-detail-item:last-child {
-      border-bottom: none;
-    }
-
-    .profile-actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .btn-small {
-      padding: 8px 16px;
-      font-size: 12px;
-      border-radius: 8px;
-      border: 0;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-weight: 700;
-    }
-
-    .current-profile-indicator {
-      background: var(--green);
-      color: #fff;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 700;
-    }
   </style>
 </head>
 <body>
@@ -1044,4 +445,486 @@
       </div>
       
       <div class="region-grid">
-        <div class="region-tile" onclick="enterHub('
+        <div class="region-tile" onclick="enterHub('US')">
+          <span class="region-flag">🇺🇸</span>
+          <h3 class="region-name">US</h3>
+        </div>
+        <div class="region-tile" onclick="enterHub('UK')">
+          <span class="region-flag">🇬🇧</span>
+          <h3 class="region-name">UK</h3>
+        </div>
+        <div class="region-tile" onclick="enterHub('EU')">
+          <span class="region-flag">🇪🇺</span>
+          <h3 class="region-name">EU</h3>
+        </div>
+        <div class="region-tile" onclick="enterHub('AU')">
+          <span class="region-flag">🇦🇺</span>
+          <h3 class="region-name">AU</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hub Screen -->
+  <div id="hub" class="screen">
+    <div class="hub-container">
+      <div class="hub-header">
+        <div class="hub-flag">🇺🇸</div>
+        <h1 class="hub-title">US Sizing</h1>
+        <p class="hub-subtitle">Select a category to find your perfect size</p>
+      </div>
+      
+      <div class="hub-tiles">
+        <div class="hub-tile" onclick="showSizeFinder('tops')">Tops</div>
+        <div class="hub-tile" onclick="showSizeFinder('dresses')">Dresses</div>
+        <div class="hub-tile" onclick="showSizeFinder('bottoms')">Bottoms</div>
+        <div class="hub-tile" onclick="showSizeFinder('activewear')">Activewear</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Size Finder Screen -->
+  <div id="sizeFinder" class="screen">
+    <div class="form-container">
+      <h2 style="text-align: center; margin-bottom: 30px;">Find Your Size</h2>
+      
+      <div id="measurementForm">
+        <div class="form-group">
+          <label class="form-label">Bust (cm)</label>
+          <input type="number" class="form-input" id="bust" placeholder="Enter bust measurement">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Waist (cm)</label>
+          <input type="number" class="form-input" id="waist" placeholder="Enter waist measurement">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Hips (cm)</label>
+          <input type="number" class="form-input" id="hips" placeholder="Enter hip measurement">
+        </div>
+        
+        <div class="button-group">
+          <button class="btn btn-secondary" onclick="goBack()">Back</button>
+          <button class="btn btn-primary" onclick="calculateSize()">Find My Size</button>
+        </div>
+      </div>
+
+      <div id="sizeResult" style="display: none; margin-top: 30px; padding: 20px; background: var(--green); color: #fff; border-radius: 12px; text-align: center; font-weight: 800; font-size: 18px;">
+        Your size is: <span id="resultSize"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Screen -->
+  <div id="stats" class="screen">
+    <div class="content-container">
+      <h2 style="text-align: center; margin-bottom: 30px;">Body Stats & Tracking</h2>
+      
+      <div style="text-align: center; padding: 40px; background: var(--card); border-radius: 12px; border: 2px solid var(--border);">
+        <h3 style="color: var(--brand); margin-bottom: 16px;">Coming Soon!</h3>
+        <p style="color: var(--muted); margin: 0;">Track your measurements, view progress graphs, and monitor your fitness journey.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help Screen -->
+  <div id="help" class="screen">
+    <div class="content-container">
+      <h2 style="text-align: center; margin-bottom: 30px;">Help & Guides</h2>
+      
+      <div style="background: var(--card); border-radius: 12px; padding: 24px; border: 2px solid var(--border); margin-bottom: 24px;">
+        <h4 style="color: var(--brand); margin-bottom: 12px;">How to Measure</h4>
+        <p style="margin: 0 0 12px; line-height: 1.6;">Use a soft measuring tape and measure over your undergarments for the most accurate results.</p>
+        <ul style="margin: 0; padding-left: 20px;">
+          <li><strong>Bust:</strong> Measure around the fullest part of your bust</li>
+          <li><strong>Waist:</strong> Measure around the narrowest part of your waist</li>
+          <li><strong>Hips:</strong> Measure around the fullest part of your hips</li>
+        </ul>
+      </div>
+
+      <div style="background: var(--card); border-radius: 12px; padding: 24px; border: 2px solid var(--border);">
+        <h4 style="color: var(--brand); margin-bottom: 12px;">Size Guide Tips</h4>
+        <p style="margin: 0; line-height: 1.6;">Remember that sizes can vary between brands. Always check the specific brand's size chart when possible.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Screen -->
+  <div id="settings" class="screen">
+    <div class="content-container">
+      <h2 style="text-align: center; margin-bottom: 30px;">Settings & Profiles</h2>
+      
+      <!-- Profile Management -->
+      <div class="settings-section">
+        <h3>Profile Management</h3>
+        <div class="profile-management-pills">
+          <div class="profile-pill" onclick="showCreateProfile()">
+            <div class="emoji">👤</div>
+            <div>Create Profile</div>
+          </div>
+          <div class="profile-pill" onclick="showViewProfiles()">
+            <div class="emoji">📋</div>
+            <div>View Profiles</div>
+          </div>
+          <div class="profile-pill" onclick="showImportExport()">
+            <div class="emoji">💾</div>
+            <div>Import/Export</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- App Preferences -->
+      <div class="settings-section">
+        <h3>App Preferences</h3>
+        <p style="color: var(--muted); margin: 0;">Use the controls at the top to change measurement units and size types.</p>
+      </div>
+
+      <!-- About -->
+      <div class="settings-section">
+        <h3>About MiSize</h3>
+        <p style="color: var(--muted); margin: 0 0 8px;">Version 1.0.0</p>
+        <p style="color: var(--muted); margin: 0;">Your personal size finder and body tracking companion.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Profile Modal -->
+  <div id="createProfileModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 200; padding: 20px;">
+    <div style="background: var(--card); border-radius: 12px; padding: 24px; max-width: 500px; margin: 40px auto; max-height: 80vh; overflow-y: auto;">
+      <h3 style="color: var(--brand); margin: 0 0 20px; text-align: center;">Create New Profile</h3>
+      
+      <div class="form-group">
+        <label class="form-label">Profile Name</label>
+        <input type="text" class="form-input" id="profileName" placeholder="Enter profile name">
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Height (cm)</label>
+        <input type="number" class="form-input" id="profileHeight" placeholder="Enter height">
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Weight (kg)</label>
+        <input type="number" class="form-input" id="profileWeight" placeholder="Enter weight">
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Bust (cm)</label>
+        <input type="number" class="form-input" id="profileBust" placeholder="Enter bust measurement">
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Waist (cm)</label>
+        <input type="number" class="form-input" id="profileWaist" placeholder="Enter waist measurement">
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Hips (cm)</label>
+        <input type="number" class="form-input" id="profileHips" placeholder="Enter hip measurement">
+      </div>
+      
+      <div class="button-group">
+        <button class="btn btn-secondary" onclick="closeCreateProfile()">Cancel</button>
+        <button class="btn btn-primary" onclick="saveProfile()">Save Profile</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav">
+    <button class="nav-item active" onclick="showScreen('home')">Home</button>
+    <button class="nav-item" onclick="showScreen('stats')">Stats</button>
+    <button class="nav-item" onclick="showScreen('help')">Help</button>
+    <button class="nav-item" onclick="showScreen('settings')">Settings</button>
+  </div>
+
+  <script>
+    let currentRegion = 'US';
+    let currentCategory = '';
+    let currentUnit = 'cm';
+    let currentType = 'standard';
+    let profiles = JSON.parse(localStorage.getItem('misize_profiles') || '[]');
+    let currentProfile = localStorage.getItem('misize_current_profile') || null;
+
+    // Navigation
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+      });
+      document.getElementById(screenId).classList.add('active');
+      
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      document.querySelector(`[onclick="showScreen('${screenId}')"]`).classList.add('active');
+    }
+
+    function enterHub(region) {
+      currentRegion = region;
+      const flags = { US: '🇺🇸', UK: '🇬🇧', EU: '🇪🇺', AU: '🇦🇺' };
+      document.querySelector('.hub-flag').textContent = flags[region];
+      document.querySelector('.hub-title').textContent = `${region} Sizing`;
+      showScreen('hub');
+    }
+
+    function showSizeFinder(category) {
+      currentCategory = category;
+      document.querySelector('#sizeFinder h2').textContent = `Find Your ${category.charAt(0).toUpperCase() + category.slice(1)} Size`;
+      showScreen('sizeFinder');
+    }
+
+    function goBack() {
+      showScreen('hub');
+    }
+
+    // Size calculation
+    function calculateSize() {
+      const bust = parseFloat(document.getElementById('bust').value);
+      const waist = parseFloat(document.getElementById('waist').value);
+      const hips = parseFloat(document.getElementById('hips').value);
+      
+      if (!bust || !waist || !hips) {
+        alert('Please fill in all measurements');
+        return;
+      }
+      
+      // Simple size calculation logic
+      let size = 'M';
+      if (currentRegion === 'US') {
+        if (bust < 84 && waist < 69 && hips < 94) size = 'XS';
+        else if (bust < 89 && waist < 74 && hips < 99) size = 'S';
+        else if (bust < 94 && waist < 79 && hips < 104) size = 'M';
+        else if (bust < 99 && waist < 84 && hips < 109) size = 'L';
+        else size = 'XL';
+      }
+      
+      document.getElementById('resultSize').textContent = size;
+      document.getElementById('sizeResult').style.display = 'block';
+      
+      // Save measurement to current profile if exists
+      if (currentProfile) {
+        const profile = profiles.find(p => p.id === currentProfile);
+        if (profile) {
+          if (!profile.measurements) profile.measurements = [];
+          profile.measurements.push({
+            date: new Date().toISOString(),
+            category: currentCategory,
+            region: currentRegion,
+            bust, waist, hips, size
+          });
+          saveProfiles();
+        }
+      }
+    }
+
+    // Profile management
+    function showCreateProfile() {
+      document.getElementById('createProfileModal').style.display = 'block';
+    }
+
+    function closeCreateProfile() {
+      document.getElementById('createProfileModal').style.display = 'none';
+    }
+
+    function saveProfile() {
+      const name = document.getElementById('profileName').value;
+      const height = parseFloat(document.getElementById('profileHeight').value);
+      const weight = parseFloat(document.getElementById('profileWeight').value);
+      const bust = parseFloat(document.getElementById('profileBust').value);
+      const waist = parseFloat(document.getElementById('profileWaist').value);
+      const hips = parseFloat(document.getElementById('profileHips').value);
+      
+      if (!name || !height || !weight) {
+        alert('Please fill in at least name, height, and weight');
+        return;
+      }
+      
+      const profile = {
+        id: Date.now().toString(),
+        name,
+        height,
+        weight,
+        bust: bust || null,
+        waist: waist || null,
+        hips: hips || null,
+        created: new Date().toISOString(),
+        measurements: []
+      };
+      
+      profiles.push(profile);
+      saveProfiles();
+      closeCreateProfile();
+      
+      // Clear form
+      document.getElementById('profileName').value = '';
+      document.getElementById('profileHeight').value = '';
+      document.getElementById('profileWeight').value = '';
+      document.getElementById('profileBust').value = '';
+      document.getElementById('profileWaist').value = '';
+      document.getElementById('profileHips').value = '';
+      
+      alert('Profile created successfully!');
+    }
+
+    function showViewProfiles() {
+      if (profiles.length === 0) {
+        alert('No profiles found. Create a profile first!');
+        return;
+      }
+      
+      let profilesHtml = '<h3 style="color: var(--brand); margin-bottom: 20px;">Your Profiles</h3>';
+      profiles.forEach(profile => {
+        const isActive = profile.id === currentProfile;
+        profilesHtml += `
+          <div style="background: var(--bg); border: 2px solid ${isActive ? 'var(--brand)' : 'var(--border)'}; border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <strong style="color: var(--text);">${profile.name}</strong>
+              ${isActive ? '<span style="background: var(--green); color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Current</span>' : ''}
+            </div>
+            <div style="font-size: 14px; color: var(--muted);">
+              Height: ${profile.height}cm | Weight: ${profile.weight}kg<br>
+              Measurements: ${profile.measurements?.length || 0} recorded
+            </div>
+            <div style="margin-top: 12px;">
+              <button onclick="setCurrentProfile('${profile.id}')" style="background: var(--blue); color: #fff; border: 0; padding: 8px 16px; border-radius: 6px; margin-right: 8px; cursor: pointer;">Use Profile</button>
+              <button onclick="deleteProfile('${profile.id}')" style="background: var(--red); color: #fff; border: 0; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Delete</button>
+            </div>
+          </div>
+        `;
+      });
+      
+      showModal('Your Profiles', profilesHtml);
+    }
+
+    function showImportExport() {
+      const data = {
+        profiles,
+        currentProfile,
+        exportDate: new Date().toISOString()
+      };
+      
+      const content = `
+        <h3 style="color: var(--brand); margin-bottom: 20px;">Import/Export Data</h3>
+        <div style="margin-bottom: 20px;">
+          <h4>Export Your Data</h4>
+          <p style="color: var(--muted); font-size: 14px;">Copy this data to backup your profiles:</p>
+          <textarea readonly style="width: 100%; height: 150px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px; color: var(--text); font-family: monospace; font-size: 12px;">${JSON.stringify(data, null, 2)}</textarea>
+        </div>
+        <div>
+          <h4>Import Data</h4>
+          <p style="color: var(--muted); font-size: 14px;">Paste exported data here:</p>
+          <textarea id="importData" placeholder="Paste your exported data here..." style="width: 100%; height: 100px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px; color: var(--text); font-family: monospace; font-size: 12px;"></textarea>
+          <button onclick="importData()" style="background: var(--green); color: #fff; border: 0; padding: 12px 24px; border-radius: 8px; margin-top: 12px; cursor: pointer;">Import Data</button>
+        </div>
+      `;
+      
+      showModal('Import/Export', content);
+    }
+
+    function setCurrentProfile(profileId) {
+      currentProfile = profileId;
+      localStorage.setItem('misize_current_profile', profileId);
+      closeModal();
+      alert('Profile set as current!');
+    }
+
+    function deleteProfile(profileId) {
+      if (confirm('Are you sure you want to delete this profile?')) {
+        profiles = profiles.filter(p => p.id !== profileId);
+        if (currentProfile === profileId) {
+          currentProfile = null;
+          localStorage.removeItem('misize_current_profile');
+        }
+        saveProfiles();
+        showViewProfiles();
+      }
+    }
+
+    function importData() {
+      try {
+        const importText = document.getElementById('importData').value;
+        const data = JSON.parse(importText);
+        
+        if (data.profiles && Array.isArray(data.profiles)) {
+          profiles = data.profiles;
+          currentProfile = data.currentProfile || null;
+          saveProfiles();
+          if (currentProfile) {
+            localStorage.setItem('misize_current_profile', currentProfile);
+          }
+          closeModal();
+          alert('Data imported successfully!');
+        } else {
+          alert('Invalid data format');
+        }
+      } catch (e) {
+        alert('Error importing data: ' + e.message);
+      }
+    }
+
+    function saveProfiles() {
+      localStorage.setItem('misize_profiles', JSON.stringify(profiles));
+    }
+
+    function showModal(title, content) {
+      const modal = document.createElement('div');
+      modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 200; padding: 20px;';
+      modal.innerHTML = `
+        <div style="background: var(--card); border-radius: 12px; padding: 24px; max-width: 600px; margin: 40px auto; max-height: 80vh; overflow-y: auto;">
+          ${content}
+          <div style="text-align: center; margin-top: 20px;">
+            <button onclick="closeModal()" style="background: var(--border); color: var(--text); border: 0; padding: 12px 24px; border-radius: 8px; cursor: pointer;">Close</button>
+          </div>
+        </div>
+      `;
+      modal.onclick = (e) => { if (e.target === modal) closeModal(); };
+      document.body.appendChild(modal);
+      window.currentModal = modal;
+    }
+
+    function closeModal() {
+      if (window.currentModal) {
+        window.currentModal.remove();
+        window.currentModal = null;
+      }
+    }
+
+    // Settings pills
+    document.querySelectorAll('[data-type]').forEach(pill => {
+      pill.addEventListener('click', (e) => {
+        document.querySelectorAll('[data-type]').forEach(p => p.classList.remove('active'));
+        e.target.classList.add('active');
+        currentType = e.target.dataset.type;
+      });
+    });
+
+    document.querySelectorAll('[data-unit]').forEach(pill => {
+      pill.addEventListener('click', (e) => {
+        document.querySelectorAll('[data-unit]').forEach(p => p.classList.remove('active'));
+        e.target.classList.add('active');
+        currentUnit = e.target.dataset.unit;
+      });
+    });
+
+    // Auto-fill measurements from current profile
+    function fillFromCurrentProfile() {
+      if (currentProfile) {
+        const profile = profiles.find(p => p.id === currentProfile);
+        if (profile) {
+          if (profile.bust) document.getElementById('bust').value = profile.bust;
+          if (profile.waist) document.getElementById('waist').value = profile.waist;
+          if (profile.hips) document.getElementById('hips').value = profile.hips;
+        }
+      }
+    }
+
+    // Auto-fill when opening size finder
+    document.addEventListener('DOMContentLoaded', () => {
+      if (currentProfile) {
+        fillFromCurrentProfile();
+      }
+    });
+  </script>
+</body>
+</html>
