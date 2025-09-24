@@ -2491,8 +2491,8 @@ function bmiCategory(bmi) {
 
   
   
-  
-// Debug Panel Functions (iPad Friendly)
+
+  // Debug Panel Functions (iPad Friendly)
 let debugPanelOpen = false;
 
 function toggleDebugPanel() {
@@ -2567,6 +2567,9 @@ async function fixAI() {
 
 async function testSizes() {
   try {
+    if (!miSizeSystem || !miSizeSystem.isInitialized) {
+      await miSizeSystem.initialize();
+    }
     const result = await miSizeSystem.getAccurateSize('ASOS', "Women's Tops", 'standard');
     alert(`✅ Test passed! ASOS recommends size ${result.recommendedSize} with ${result.confidence}% confidence`);
   } catch (error) {
@@ -2581,37 +2584,53 @@ function enterHub(region) {
 }
 
 function goToScreen(screenId) {
+  console.log('Navigating to:', screenId);
+  
   if (currentScreen !== screenId) {
     navigationHistory.push(currentScreen);
   }
   
+  // Hide all screens
   document.querySelectorAll('.screen').forEach(screen => {
     screen.classList.remove('active');
   });
   
+  // Show target screen
   const targetScreen = document.getElementById(screenId);
   if (targetScreen) {
     targetScreen.classList.add('active');
     currentScreen = screenId;
-    updateScreenData(screenId);
-    updateNavigation();
+    
+    // Update screen data after a small delay to ensure DOM is ready
+    setTimeout(() => {
+      updateScreenData(screenId);
+      updateNavigation();
+    }, 50);
+  } else {
+    console.error('Screen not found:', screenId);
   }
 }
 
 function updateScreenData(screenId) {
-  if (screenId === 'uk-mysizes') {
-    populateMySizesGrid();
-  } else if (screenId === 'uk-brandnotes') {
-    populateBrandNotes();
-  } else if (screenId === 'mistats') {
-    populateMiStatsProfileSelect();
-    renderMiStats();
-  } else if (screenId === 'uk-settings') {
-    populateProfileDropdown();
-  } else if (screenId === 'saved-profiles') {
-    populateSavedProfiles();
-  } else if (screenId === 'edit-profiles') {
-    populateEditProfiles();
+  console.log('Updating screen data for:', screenId);
+  
+  try {
+    if (screenId === 'uk-mysizes') {
+      populateMySizesGrid();
+    } else if (screenId === 'uk-brandnotes') {
+      populateBrandNotes();
+    } else if (screenId === 'mistats') {
+      populateMiStatsProfileSelect();
+      renderMiStats();
+    } else if (screenId === 'uk-settings') {
+      populateProfileDropdown();
+    } else if (screenId === 'saved-profiles') {
+      populateSavedProfiles();
+    } else if (screenId === 'edit-profiles') {
+      populateEditProfiles();
+    }
+  } catch (error) {
+    console.error('Error updating screen data:', error);
   }
 }
 
@@ -2635,18 +2654,9 @@ function goToHelp() {
 function goBack() {
   if (navigationHistory.length > 0) {
     const previousScreen = navigationHistory.pop();
-    
-    document.querySelectorAll('.screen').forEach(screen => {
-      screen.classList.remove('active');
-    });
-    
-    const targetScreen = document.getElementById(previousScreen);
-    if (targetScreen) {
-      targetScreen.classList.add('active');
-      currentScreen = previousScreen;
-      updateScreenData(previousScreen);
-      updateNavigation();
-    }
+    goToScreen(previousScreen);
+  } else {
+    goHome();
   }
 }
 
@@ -2668,6 +2678,8 @@ function updateNavigation() {
 
 // Enhanced Size Finder with AI
 async function getMySize() {
+  console.log('Getting size...');
+  
   const brand = document.getElementById('uk-brand-select')?.value;
   const category = document.getElementById('uk-category-select')?.value;
   const fit = document.getElementById('uk-fit-select')?.value;
@@ -2678,12 +2690,31 @@ async function getMySize() {
   }
 
   const button = document.getElementById('size-finder-btn-text');
+  if (!button) {
+    console.error('Button not found');
+    return;
+  }
+  
   const originalText = button.textContent;
   button.innerHTML = '<span class="loading-spinner"></span>Analyzing...';
 
   try {
+    // Ensure AI system is ready
+    if (!miSizeSystem || !miSizeSystem.isInitialized) {
+      console.log('Initializing AI system...');
+      if (!miSizeSystem) {
+        miSizeSystem = new MiSizeAISystem();
+      }
+      await miSizeSystem.initialize();
+    }
+    
     const result = await miSizeSystem.getAccurateSize(brand, category, fit);
     const resultDiv = document.getElementById('size-result');
+    
+    if (!resultDiv) {
+      console.error('Result div not found');
+      return;
+    }
     
     if (result.success) {
       resultDiv.innerHTML = `
@@ -2709,7 +2740,7 @@ async function getMySize() {
             `${measurement.toUpperCase()}: ${details.description}`
           ).join('<br>')}
         </div>
-        ${result.alternatives.length > 0 ? `
+        ${result.alternatives && result.alternatives.length > 0 ? `
           <div style="margin-top: 12px;">
             <strong>Alternatives:</strong> 
             ${result.alternatives.map(alt => `Size ${alt.size} (${alt.confidence}%)`).join(', ')}
@@ -2729,13 +2760,16 @@ async function getMySize() {
     }
     
   } catch (error) {
+    console.error('Size finder error:', error);
     const resultDiv = document.getElementById('size-result');
-    resultDiv.innerHTML = `
-      <h4 style="color: var(--orange); margin: 0 0 16px;">❌ Error</h4>
-      <p>Error finding size: ${error.message}</p>
-    `;
-    resultDiv.style.display = 'block';
-    resultDiv.style.borderColor = 'var(--orange)';
+    if (resultDiv) {
+      resultDiv.innerHTML = `
+        <h4 style="color: var(--orange); margin: 0 0 16px;">❌ Error</h4>
+        <p>Error finding size: ${error.message}</p>
+      `;
+      resultDiv.style.display = 'block';
+      resultDiv.style.borderColor = 'var(--orange)';
+    }
   } finally {
     button.textContent = originalText;
   }
@@ -2743,13 +2777,23 @@ async function getMySize() {
 
 // Enhanced My Sizes Grid
 async function populateMySizesGrid() {
+  console.log('Populating My Sizes Grid...');
+  
   const grid = document.getElementById('my-sizes-grid');
-  if (!grid) return;
+  if (!grid) {
+    console.error('My sizes grid not found');
+    return;
+  }
   
   grid.innerHTML = '<div style="text-align: center; padding: 40px; grid-column: 1/-1;"><div class="loading-spinner"></div><p>Analyzing your measurements against UK brands...</p></div>';
   
   try {
+    // Ensure AI system is ready
     if (!miSizeSystem || !miSizeSystem.isInitialized) {
+      console.log('Initializing AI system for My Sizes...');
+      if (!miSizeSystem) {
+        miSizeSystem = new MiSizeAISystem();
+      }
       await miSizeSystem.initialize();
     }
     
@@ -2797,11 +2841,12 @@ async function populateMySizesGrid() {
     
     if (totalItems > 0) {
       grid.innerHTML = itemsHTML;
+      console.log(`Populated ${totalItems} size recommendations`);
     } else {
       grid.innerHTML = `
         <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
           <h3 style="color: var(--orange); margin-bottom: 16px;">⚠️ No Size Matches Found</h3>
-          <p style="color: var(--muted); margin-bottom: 12px;">Your measurements: ${miSizeSystem.sizeEngine.userMeasurements.bust || '?'}" bust, ${miSizeSystem.sizeEngine.userMeasurements.waist || '?'}" waist, ${miSizeSystem.sizeEngine.userMeasurements.hips || '?'}" hips</p>
+          <p style="color: var(--muted); margin-bottom: 12px;">Your measurements: ${miSizeSystem?.sizeEngine?.userMeasurements?.bust || '?'}" bust, ${miSizeSystem?.sizeEngine?.userMeasurements?.waist || '?'}" waist, ${miSizeSystem?.sizeEngine?.userMeasurements?.hips || '?'}" hips</p>
           <p style="color: var(--muted);">Try using the debug panel to fix any issues.</p>
         </div>
       `;
@@ -2820,8 +2865,13 @@ async function populateMySizesGrid() {
 
 // Brand Notes Population
 function populateBrandNotes() {
+  console.log('Populating Brand Notes...');
+  
   const container = document.getElementById('brand-notes-grid');
-  if (!container) return;
+  if (!container) {
+    console.error('Brand notes container not found');
+    return;
+  }
 
   const brandNotesHTML = Object.values(BRAND_SIZE_DATABASE).map(brand => `
     <div class="brand-card">
@@ -2841,6 +2891,7 @@ function populateBrandNotes() {
   `).join('');
 
   container.innerHTML = brandNotesHTML;
+  console.log('Brand notes populated successfully');
 }
 
 // Profile creation functions
@@ -2970,21 +3021,32 @@ function showStatsTab(tabName) {
 function populateMiStatsProfileSelect() {
   const sel = document.getElementById('mistats-profile-select');
   if (!sel) return;
+  
   sel.innerHTML = Object.keys(profileData).map(n => `<option value="${n}">${n}</option>`).join('');
+  
   if (currentProfile && profileData[currentProfile]) {
     sel.value = currentProfile;
   } else {
     currentProfile = Object.keys(profileData)[0] || null;
     if (currentProfile) sel.value = currentProfile;
   }
-  sel.onchange = () => setCurrentProfile(sel.value);
+  
+  // Remove old event listener and add new one
+  sel.removeEventListener('change', handleProfileChange);
+  sel.addEventListener('change', handleProfileChange);
+}
+
+function handleProfileChange(event) {
+  setCurrentProfile(event.target.value);
 }
 
 function setCurrentProfile(name) {
   if (!profileData[name]) return;
+  
   currentProfile = name;
   const sel = document.getElementById('mistats-profile-select');
   if (sel) sel.value = name;
+  
   renderMiStats();
   
   if (miSizeSystem && miSizeSystem.isInitialized) {
@@ -3015,14 +3077,21 @@ function renderMiStats() {
   const currentBMI = computeBMIKgCm(currentKg, heightCm);
   const targetBMI = targetKg ? computeBMIKgCm(targetKg, heightCm) : null;
 
-  document.getElementById('user-name').textContent = p.name.split(' ')[0];
-  document.getElementById('start-weight').textContent = `${p.startingWeight.value}${p.startingWeight.unit}`;
-  document.getElementById('current-weight').textContent = `${currentWeightVal}${currentWeightUnit}`;
-  document.getElementById('target-weight').textContent = p.targetWeight ? `${p.targetWeight.value}${p.targetWeight.unit}` : '—';
+  // Update DOM elements safely
+  const elements = {
+    'user-name': p.name.split(' ')[0],
+    'start-weight': `${p.startingWeight.value}${p.startingWeight.unit}`,
+    'current-weight': `${currentWeightVal}${currentWeightUnit}`,
+    'target-weight': p.targetWeight ? `${p.targetWeight.value}${p.targetWeight.unit}` : '—',
+    'start-bmi': startBMI ? `BMI: ${(Math.round(startBMI * 10) / 10)}` : 'BMI: —',
+    'current-bmi': currentBMI ? `BMI: ${(Math.round(currentBMI * 10) / 10)}` : 'BMI: —',
+    'target-bmi': targetBMI ? `BMI: ${(Math.round(targetBMI * 10) / 10)}` : 'BMI: —'
+  };
 
-  document.getElementById('start-bmi').textContent = startBMI ? `BMI: ${(Math.round(startBMI * 10) / 10)}` : 'BMI: —';
-  document.getElementById('current-bmi').textContent = currentBMI ? `BMI: ${(Math.round(currentBMI * 10) / 10)}` : 'BMI: —';
-  document.getElementById('target-bmi').textContent = targetBMI ? `BMI: ${(Math.round(targetBMI * 10) / 10)}` : 'BMI: —';
+  Object.entries(elements).forEach(([id, value]) => {
+    const element = document.getElementById(id);
+    if (element) element.textContent = value;
+  });
 
   const lostKg = startKg - currentKg;
   const remainingKg = (targetKg != null) ? Math.max(0, currentKg - targetKg) : null;
@@ -3030,22 +3099,37 @@ function renderMiStats() {
     ? Math.max(0, Math.min(100, ((startKg - currentKg) / (startKg - targetKg)) * 100))
     : 0;
 
-  document.getElementById('amount-lost').textContent = `${Math.round(lostKg * 10) / 10}kg`;
-  document.getElementById('remaining-weight').textContent = (remainingKg != null)
-    ? `${Math.round(remainingKg * 10) / 10}kg` : '🎉 Goal Reached!';
-  document.getElementById('progress-fill').style.width = `${Math.round(progressPct)}%`;
-  document.getElementById('progress-text').textContent = `${Math.round(progressPct)}% to goal`;
+  const amountLost = document.getElementById('amount-lost');
+  const remainingWeight = document.getElementById('remaining-weight');
+  const progressFill = document.getElementById('progress-fill');
+  const progressText = document.getElementById('progress-text');
+
+  if (amountLost) amountLost.textContent = `${Math.round(lostKg * 10) / 10}kg`;
+  if (remainingWeight) remainingWeight.textContent = (remainingKg != null) ? `${Math.round(remainingKg * 10) / 10}kg` : '🎉 Goal Reached!';
+  if (progressFill) progressFill.style.width = `${Math.round(progressPct)}%`;
+  if (progressText) progressText.textContent = `${Math.round(progressPct)}% to goal`;
 
   if (remainingKg !== null && remainingKg <= 0) {
-    document.getElementById('progress-text').textContent = '🎉 Congratulations! Goal achieved!';
-    document.getElementById('progress-fill').style.background = 'var(--green)';
+    if (progressText) progressText.textContent = '🎉 Congratulations! Goal achieved!';
+    if (progressFill) progressFill.style.background = 'var(--green)';
   }
 
   const bmi = computeBMIKgCm(currentKg, heightCm);
   if (bmi) {
-    document.getElementById('bmi-value').textContent = (Math.round(bmi * 10) / 10).toString();
-    document.getElementById('bmi-category').textContent = bmiCategory(bmi);
+    const bmiValue = document.getElementById('bmi-value');
+    const bmiCategory = document.getElementById('bmi-category');
+    if (bmiValue) bmiValue.textContent = (Math.round(bmi * 10) / 10).toString();
+    if (bmiCategory) bmiCategory.textContent = getBmiCategory(bmi);
   }
+}
+
+// Helper function with different name to avoid conflict
+function getBmiCategory(bmi) {
+  if (bmi == null) return '';
+  if (bmi < 18.5) return 'Underweight';
+  if (bmi < 25) return 'Normal Weight';
+  if (bmi < 30) return 'Overweight';
+  return 'Obese';
 }
 
 // Profile management functions
@@ -3147,16 +3231,18 @@ function showMeasurementGuide(type) {
   alert(`${type.charAt(0).toUpperCase() + type.slice(1)}'s measurement guide coming soon!`);
 }
 
-// Graph functions - FIXED THE CRITICAL ERROR HERE
+// Graph functions - COMPLETELY FIXED
 function showGraphPeriod(period) {
-  // Get the clicked element properly
-  const clickedButton = event?.target || document.querySelector('.graph-btn.active');
+  // Don't rely on the global event object
+  const buttons = document.querySelectorAll('.graph-btn');
+  buttons.forEach(btn => btn.classList.remove('active'));
   
-  document.querySelectorAll('.graph-btn').forEach(btn => btn.classList.remove('active'));
-  
-  if (clickedButton) {
-    clickedButton.classList.add('active');
-  }
+  // Find and activate the clicked button by matching the period
+  buttons.forEach(btn => {
+    if (btn.textContent.toLowerCase().includes(period.toLowerCase())) {
+      btn.classList.add('active');
+    }
+  });
   
   alert(`${period} view coming soon!`);
 }
@@ -3174,7 +3260,8 @@ function openConverter(type) {
 function setupPillControls() {
   // Body type pills
   document.querySelectorAll('.pill[data-type]').forEach(pill => {
-    pill.addEventListener('click', () => {
+    pill.addEventListener('click', (e) => {
+      e.preventDefault();
       document.querySelectorAll('.pill[data-type]').forEach(p => p.classList.remove('active'));
       pill.classList.add('active');
       selectedBodyType = pill.dataset.type;
@@ -3183,7 +3270,8 @@ function setupPillControls() {
 
   // Unit pills
   document.querySelectorAll('.pill[data-unit]').forEach(pill => {
-    pill.addEventListener('click', () => {
+    pill.addEventListener('click', (e) => {
+      e.preventDefault();
       document.querySelectorAll('.pill[data-unit]').forEach(p => p.classList.remove('active'));
       pill.classList.add('active');
       selectedUnit = pill.dataset.unit;
@@ -3192,7 +3280,8 @@ function setupPillControls() {
 
   // Settings pills
   document.querySelectorAll('.settings-pill').forEach(pill => {
-    pill.addEventListener('click', () => {
+    pill.addEventListener('click', (e) => {
+      e.preventDefault();
       const group = pill.parentElement;
       group.querySelectorAll('.settings-pill').forEach(p => p.classList.remove('active'));
       pill.classList.add('active');
@@ -3202,22 +3291,42 @@ function setupPillControls() {
 
 // Initialize the application
 async function initApp() {
-  updateNavigation();
-
-  // Initialize AI System
-  miSizeSystem = new MiSizeAISystem();
+  console.log('🚀 Initializing MiSize App...');
   
   try {
+    // Initialize navigation
+    updateNavigation();
+
+    // Initialize AI System
+    miSizeSystem = new MiSizeAISystem();
+    
     const success = await miSizeSystem.initialize();
     if (success) {
-      console.log('🎉 MiSize AI System ready!');
+      console.log('✅ MiSize AI System ready!');
     } else {
       console.warn('⚠️ AI System failed to initialize, using fallback data');
     }
-  } catch (error) {
-    console.error('Failed to initialize MiSize AI System:', error);
-  }
+    
+    // Set up event listeners
+    setupEventListeners();
 
+    // Initialize current profile
+    if (!currentProfile && Object.keys(profileData).length > 0) {
+      currentProfile = Object.keys(profileData)[0];
+      console.log('Set current profile to:', currentProfile);
+    }
+
+    // Auto-update debug info
+    setTimeout(refreshDebug, 2000);
+    
+    console.log('✅ App initialization complete');
+    
+  } catch (error) {
+    console.error('❌ App initialization failed:', error);
+  }
+}
+
+function setupEventListeners() {
   // Set up category filter for My Sizes
   const categorySelect = document.getElementById('mysizes-category');
   if (categorySelect) {
@@ -3226,14 +3335,8 @@ async function initApp() {
 
   // Set up pill controls
   setupPillControls();
-
-  // Initialize current profile
-  if (!currentProfile && Object.keys(profileData).length > 0) {
-    currentProfile = Object.keys(profileData)[0];
-  }
-
-  // Auto-update debug info after 3 seconds
-  setTimeout(refreshDebug, 3000);
+  
+  console.log('Event listeners set up');
 }
 
 // Initialize when DOM is loaded
