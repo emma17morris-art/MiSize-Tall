@@ -361,202 +361,6 @@
       transform: translateY(-2px);
     }
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .stats-bubble {
-      background: var(--card);
-      border-radius: 20px;
-      padding: 24px;
-      text-align: center;
-      border: 2px solid var(--border);
-    }
-
-    .stats-bubble.current {
-      transform: scale(1.1);
-      background: var(--blue);
-      color: #fff;
-    }
-
-    .stats-bubble h3 {
-      margin: 0 0 8px;
-      font-size: 14px;
-      text-transform: uppercase;
-      opacity: 0.8;
-    }
-
-    .stats-bubble .value {
-      font-size: 24px;
-      font-weight: 900;
-      margin: 0;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 12px;
-      background: var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-      margin: 24px 0;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: var(--green);
-      transition: width 0.3s;
-    }
-
-    .mini-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 32px;
-    }
-
-    .mini-bubble {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      border: 2px solid var(--border);
-    }
-
-    .mini-bubble h4 {
-      margin: 0 0 4px;
-      font-size: 12px;
-      text-transform: uppercase;
-      opacity: 0.8;
-    }
-
-    .mini-bubble .value {
-      font-size: 18px;
-      font-weight: 700;
-      margin: 0;
-    }
-
-    .bmi-indicator {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      border: 2px solid var(--border);
-    }
-
-    .stats-tabs {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      right: 0;
-      background: rgba(15, 19, 26, .9);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      padding: 0 20px;
-      z-index: 99;
-    }
-
-    .stats-tab {
-      flex: 1;
-      padding: 16px 12px;
-      border: 0;
-      background: transparent;
-      color: #cfd7ea;
-      font-weight: 700;
-      font-size: 12px;
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-
-    .stats-tab.active {
-      color: var(--brand);
-      border-bottom: 2px solid var(--brand);
-    }
-
-    .graph-controls {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
-      justify-content: center;
-    }
-
-    .graph-btn {
-      padding: 8px 16px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-size: 12px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .graph-btn.active {
-      background: var(--brand);
-      color: #fff;
-      border-color: var(--brand);
-    }
-
-    .history-list {
-      background: var(--card);
-      border-radius: 12px;
-      overflow: hidden;
-      border: 2px solid var(--border);
-    }
-
-    .history-item {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .history-item:last-child {
-      border-bottom: none;
-    }
-
-    .history-date {
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .help-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .help-card {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 20px;
-      border: 2px solid var(--border);
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .help-card:hover {
-      border-color: var(--brand);
-      transform: translateY(-2px);
-    }
-
-    .help-card h4 {
-      margin: 0 0 8px;
-      color: var(--text);
-      font-weight: 800;
-    }
-
-    .help-card p {
-      margin: 0;
-      font-size: 14px;
-      color: var(--muted);
-    }
-
     .brand-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -618,234 +422,6 @@
 
     @keyframes spin {
       to { transform: rotate(360deg); }
-    }
-
-    .guide-section {
-      margin-bottom: 24px;
-    }
-
-    .guide-section:last-child {
-      margin-bottom: 0;
-    }
-
-    .guide-section h4 {
-      color: var(--brand);
-      font-size: 18px;
-      font-weight: 800;
-      margin: 0 0 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .guide-section h5 {
-      color: var(--text);
-      font-size: 16px;
-      font-weight: 700;
-      margin: 16px 0 8px;
-    }
-
-    .guide-section p {
-      margin: 0 0 8px;
-      line-height: 1.6;
-      color: var(--text);
-    }
-
-    .guide-section ul {
-      margin: 8px 0;
-      padding-left: 20px;
-      color: var(--text);
-    }
-
-    .guide-section li {
-      margin-bottom: 4px;
-      line-height: 1.5;
-    }
-
-    .highlight-tip {
-      background: rgba(138, 43, 226, 0.1);
-      border-left: 4px solid var(--brand);
-      padding: 12px 16px;
-      margin: 16px 0;
-      border-radius: 0 8px 8px 0;
-    }
-
-    .highlight-tip p {
-      margin: 0;
-      font-weight: 600;
-    }
-
-    .step-number {
-      background: var(--brand);
-      color: #fff;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
-      margin-right: 8px;
-    }
-
-    .guide-tile {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 24px;
-      border: 2px solid var(--border);
-      margin-bottom: 24px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .guide-tile:hover {
-      border-color: var(--brand);
-      transform: translateY(-2px);
-    }
-
-    .guide-tile h4 {
-      color: var(--brand);
-      font-size: 18px;
-      font-weight: 800;
-      margin: 0 0 12px;
-    }
-
-    .guide-content {
-      display: none;
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-    }
-
-    .guide-content.show {
-      display: block;
-    }
-
-    .settings-section {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 24px;
-      border: 2px solid var(--border);
-      margin-bottom: 24px;
-    }
-
-    .settings-section h3 {
-      color: var(--brand);
-      font-size: 20px;
-      font-weight: 800;
-      margin: 0 0 16px;
-    }
-
-    .pill-settings-group {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-
-    .settings-pill {
-      border: 1px solid rgba(255, 255, 255, .12);
-      background: #151a3a;
-      color: #c9d3ea;
-      font-weight: 700;
-      font-size: 12px;
-      padding: 8px 16px;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .settings-pill.active {
-      background: var(--brand);
-      color: #fff;
-      border-color: var(--brand);
-    }
-
-    .profile-tile {
-      background: var(--blue);
-      border-radius: 12px;
-      padding: 20px;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-align: center;
-      color: #fff;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    .profile-tile:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(29, 78, 216, 0.3);
-    }
-
-    .profile-tiles-group {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .profile-card {
-      background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 16px;
-      transition: all 0.3s;
-    }
-
-    .profile-card:hover {
-      border-color: var(--brand);
-    }
-
-    .profile-name {
-      font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .profile-details {
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .measurement-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .measurement-bubble {
-      background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      transition: all 0.3s;
-    }
-
-    .measurement-bubble:hover {
-      border-color: var(--brand);
-    }
-
-    .measurement-bubble h4 {
-      margin: 0 0 8px;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .measurement-input {
-      width: 100%;
-      padding: 8px 12px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      text-align: center;
-      font-weight: 600;
     }
 
     .system-status {
@@ -917,11 +493,7 @@
     <div id="debug-content" style="color: var(--text); line-height: 1.4;">
       <div style="color: var(--orange); font-weight: bold; margin-bottom: 8px;">🔧 System Status</div>
       <div id="debug-info">Loading...</div>
-      <button onclick="refreshDebug()" style="
-        background: var(--brand); color: white; border: none; 
-        padding: 6px 12px; border-radius: 4px; font-size: 10px; 
-        margin-top: 8px; cursor: pointer;
-      ">Refresh</button>
+      <button onclick="refreshDebug()" style="background: var(--brand); color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 10px; margin-top: 8px; cursor: pointer;">Refresh</button>
     </div>
   </div>
 
@@ -984,99 +556,6 @@
       </div>
     </div>
   </div>
-  <!-- Help Screen -->
-  <div id="help" class="screen">
-    <div class="content-container">
-      <div class="hub-header">
-        <h2 class="hub-title">Help & Support</h2>
-        <p class="hub-subtitle">Get started and find answers to your questions</p>
-      </div>
-
-      <p style="text-align: center; margin-bottom: 32px; color: var(--muted);">
-        👋 <strong>New to MiSize?</strong> Go to Settings first to create your profile, then follow the guidance below.
-      </p>
-      
-      <!-- How to Use MiSize Tile -->
-      <div class="guide-tile" onclick="toggleGuide('app-guide')">
-        <h4>📱 How to Use MiSize - Complete Guide</h4>
-        <p style="margin: 0; color: var(--muted);">Step-by-step instructions for using all AI-powered features</p>
-        
-        <div id="app-guide" class="guide-content">
-          <div class="guide-section">
-            <h5><span class="step-number">1</span>Getting Started</h5>
-            <p>Welcome to MiSize! Start by selecting your region (UK, EU, US, CA) from the home screen to access region-specific sizing and brands.</p>
-            
-            <div class="highlight-tip">
-              <p><strong>💡 Tip:</strong> Our AI system automatically collects real size charts from brands for the most accurate recommendations.</p>
-            </div>
-            
-            <h5><span class="step-number">2</span>Setting Your Body Type & Units</h5>
-            <p>At the top of your screen, you'll see two pill groups:</p>
-            <ul>
-              <li><strong>Body Type:</strong> Select Standard, Petite, Tall, or Plus to filter results for your body type</li>
-              <li><strong>Units:</strong> Choose between cm or inches for measurements</li>
-            </ul>
-          </div>
-
-          <div class="guide-section">
-            <h5><span class="step-number">3</span>AI-Powered Size Finder</h5>
-            <p>Find your perfect size using real brand measurements:</p>
-            <ul>
-              <li>Select from 30+ UK brands with automatically updated size charts</li>
-              <li>Choose your category (Jeans, Dresses, Tops, Shoes)</li>
-              <li>Pick your fit preference (Snug, Standard, or Relaxed)</li>
-              <li>Get accurate sizes with confidence ratings based on your actual measurements</li>
-              <li>See detailed fit analysis showing exactly how each measurement fits</li>
-            </ul>
-            
-            <div class="highlight-tip">
-              <p><strong>🔍 Pro Tip:</strong> The system compares your exact measurements (36" bust, 34" waist, 38" hips) to real brand size charts for precision recommendations.</p>
-            </div>
-          </div>
-
-          <div class="guide-section">
-            <h5><span class="step-number">4</span>Intelligent My Sizes Dashboard</h5>
-            <p>View all your accurate sizes in one place:</p>
-            <ul>
-              <li>Automatically calculated based on your real measurements</li>
-              <li>Confidence ratings for each recommendation</li>
-              <li>Alternative sizes with fit analysis</li>
-              <li>Updated automatically when brand size charts change</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Report Issues Tile -->
-      <div class="guide-tile" onclick="reportIssue()">
-        <h4>🐛 Report Issues & Feedback</h4>
-        <p style="margin: 0; color: var(--muted);">Found wrong sizes, app bugs, or have suggestions? Let us know!</p>
-      </div>
-
-      <!-- Measurement Guides Section -->
-      <h3 style="text-align: center; margin: 32px 0 24px;">Measurement Guides</h3>
-      
-      <div class="help-grid">
-        <div class="help-card" onclick="showMeasurementGuide('women')">
-          <h4>Women's Measurements</h4>
-          <p>Complete guide for taking accurate body measurements</p>
-        </div>
-        <div class="help-card" onclick="showMeasurementGuide('men')">
-          <h4>Men's Measurements</h4>
-          <p>Essential measurements for men's clothing</p>
-        </div>
-        <div class="help-card" onclick="showMeasurementGuide('children')">
-          <h4>Children's Guide</h4>
-          <p>How to measure children and teens</p>
-        </div>
-        <div class="help-card" onclick="showMeasurementGuide('foot')">
-          <h4>Foot Measuring</h4>
-          <p>Get accurate foot measurements for shoes</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- UK Hub -->
   <div id="uk-hub" class="screen">
     <div class="hub-container">
@@ -1094,21 +573,11 @@
       </div>
       
       <div class="hub-tiles-5">
-        <div class="hub-tile" onclick="goToScreen('uk-sizefinder')">
-          AI Size Finder
-        </div>
-        <div class="hub-tile" onclick="goToScreen('uk-mysizes')">
-          My Accurate Sizes
-        </div>
-        <div class="hub-tile" onclick="goToScreen('uk-brandnotes')">
-          Brand Intelligence
-        </div>
-        <div class="hub-tile" onclick="goToScreen('uk-history')">
-          Search History
-        </div>
-        <div class="hub-tile" onclick="goToScreen('uk-converters')">
-          Size Converters
-        </div>
+        <div class="hub-tile" onclick="goToScreen('uk-sizefinder')">AI Size Finder</div>
+        <div class="hub-tile" onclick="goToScreen('uk-mysizes')">My Accurate Sizes</div>
+        <div class="hub-tile" onclick="goToScreen('uk-brandnotes')">Brand Intelligence</div>
+        <div class="hub-tile" onclick="goToScreen('uk-history')">Search History</div>
+        <div class="hub-tile" onclick="goToScreen('uk-converters')">Size Converters</div>
       </div>
     </div>
   </div>
@@ -1119,13 +588,6 @@
       <div class="hub-header">
         <h2 class="hub-title">🇬🇧 AI Size Finder</h2>
         <p class="hub-subtitle">Find your perfect size using real brand measurements</p>
-      </div>
-      
-      <div class="system-status">
-        <div class="status-indicator">
-          <div class="status-dot status-online" id="sizefinder-status-dot"></div>
-          <span id="sizefinder-status-text">Real-time brand data active</span>
-        </div>
       </div>
       
       <div class="form-container">
@@ -1197,9 +659,7 @@
           <button class="btn btn-secondary" onclick="saveToHistory()">Save to History</button>
         </div>
         
-        <div id="size-result" style="display: none; margin-top: 24px; padding: 20px; background: var(--card); border-radius: 12px; border: 2px solid var(--green);">
-          <!-- Size result will be populated here -->
-        </div>
+        <div id="size-result" style="display: none; margin-top: 24px; padding: 20px; background: var(--card); border-radius: 12px; border: 2px solid var(--green);"></div>
       </div>
     </div>
   </div>
@@ -1210,9 +670,7 @@
       <div class="hub-header">
         <h2 class="hub-title">My Accurate Sizes</h2>
         <p class="hub-subtitle">Based on your measurements: 36" bust, 34" waist, 38" hips</p>
-        <p style="font-size: 14px; color: var(--muted); margin-top: 8px;">
-          All sizes calculated using real brand measurement charts
-        </p>
+        <p style="font-size: 14px; color: var(--muted); margin-top: 8px;">All sizes calculated using real brand measurement charts</p>
       </div>
       
       <div class="system-status">
@@ -1266,9 +724,6 @@
     </div>
   </div>
 
-  <!-- Continue with remaining screens... -->
-  <!-- (UK History, UK Converters, UK Settings, Profile Screens, MiStats, etc.) -->
-  
   <!-- Bottom Navigation -->
   <div class="bottom-nav">
     <button class="nav-item active" onclick="goHome()">Home</button>
@@ -1279,7 +734,6 @@
   </div>
 </body>
 </html>
-
 <script>
 // Global variables
 let currentScreen = 'home';
@@ -1290,7 +744,7 @@ let currentProfile = 'Emma Morris';
 let editingProfile = null;
 let miSizeSystem = null;
 
-// Profile Data with your updated measurements
+// Profile Data
 let profileData = {
   'Emma Morris': {
     name: 'Emma Morris',
@@ -1305,118 +759,17 @@ let profileData = {
     measurements: { weight: 80, chest: 36, waist: 34, hips: 38, shoulders: 38, arms: 28 },
     history: [
       { date: '2022-03-19', type: 'weight', value: 150, unit: 'kg' },
-      { date: '2022-04-19', type: 'weight', value: 147, unit: 'kg' },
-      { date: '2022-05-19', type: 'weight', value: 143, unit: 'kg' },
-      { date: '2022-06-19', type: 'weight', value: 138, unit: 'kg' },
-      { date: '2022-07-19', type: 'weight', value: 133, unit: 'kg' },
-      { date: '2022-08-19', type: 'weight', value: 128, unit: 'kg' },
-      { date: '2022-09-19', type: 'weight', value: 123, unit: 'kg' },
-      { date: '2022-10-19', type: 'weight', value: 118, unit: 'kg' },
-      { date: '2022-11-19', type: 'weight', value: 113, unit: 'kg' },
-      { date: '2022-12-19', type: 'weight', value: 108, unit: 'kg' },
-      { date: '2023-01-19', type: 'weight', value: 103, unit: 'kg' },
-      { date: '2023-02-19', type: 'weight', value: 98, unit: 'kg' },
-      { date: '2023-03-19', type: 'weight', value: 93, unit: 'kg' },
-      { date: '2023-04-19', type: 'weight', value: 90, unit: 'kg' },
-      { date: '2023-05-19', type: 'weight', value: 87, unit: 'kg' },
-      { date: '2023-06-19', type: 'weight', value: 84, unit: 'kg' },
-      { date: '2023-07-19', type: 'weight', value: 82, unit: 'kg' },
-      { date: '2023-08-19', type: 'weight', value: 80, unit: 'kg' },
-      { date: '2024-01-15', type: 'weight', value: 80, unit: 'kg' },
-      { date: '2024-03-15', type: 'weight', value: 80, unit: 'kg' },
-      { date: '2022-03-19', type: 'waist', value: 50, unit: 'inch' },
-      { date: '2022-06-19', type: 'waist', value: 46, unit: 'inch' },
-      { date: '2022-09-19', type: 'waist', value: 42, unit: 'inch' },
-      { date: '2022-12-19', type: 'waist', value: 38, unit: 'inch' },
-      { date: '2023-06-19', type: 'waist', value: 36, unit: 'inch' },
-      { date: '2024-03-15', type: 'waist', value: 36, unit: 'inch' },
       { date: '2024-12-19', type: 'waist', value: 34, unit: 'inch' },
-      { date: '2022-03-19', type: 'hips', value: 54, unit: 'inch' },
-      { date: '2022-09-19', type: 'hips', value: 48, unit: 'inch' },
-      { date: '2023-06-19', type: 'hips', value: 42, unit: 'inch' },
-      { date: '2024-03-15', type: 'hips', value: 40, unit: 'inch' },
       { date: '2024-12-19', type: 'hips', value: 38, unit: 'inch' },
-      { date: '2022-03-19', type: 'chest', value: 48, unit: 'inch' },
-      { date: '2023-06-19', type: 'chest', value: 38, unit: 'inch' },
-      { date: '2024-03-15', type: 'chest', value: 36, unit: 'inch' },
       { date: '2024-12-19', type: 'chest', value: 36, unit: 'inch' }
-    ]
-  },
-  'John Doe': {
-    name: 'John Doe',
-    dateOfBirth: '1985-08-20',
-    gender: 'male',
-    bodyFrame: 'large',
-    startingDate: '2024-02-01',
-    startingWeight: { value: 85, unit: 'kg' },
-    startingHeight: { value: 180, unit: 'cm' },
-    targetWeight: { value: 75, unit: 'kg' },
-    targetDate: '2024-06-01',
-    measurements: { weight: 78, chest: 102, waist: 84, hips: 96, shoulders: 46, arms: 32 },
-    history: [
-      { date: '2024-02-01', type: 'weight', value: 85, unit: 'kg' },
-      { date: '2024-02-15', type: 'weight', value: 83.5, unit: 'kg' },
-      { date: '2024-03-01', type: 'weight', value: 82, unit: 'kg' },
-      { date: '2024-03-15', type: 'weight', value: 80.5, unit: 'kg' },
-      { date: '2024-04-01', type: 'weight', value: 79, unit: 'kg' },
-      { date: '2024-04-15', type: 'weight', value: 78, unit: 'kg' }
     ]
   }
 };
 
-// Comprehensive Brand Database with Real Size Data for 30+ UK Brands
+// Comprehensive Brand Database with 30+ UK Brands
 const BRAND_SIZE_DATABASE = {
   'ASOS': {
     name: 'ASOS',
-    lastUpdated: new Date().toISOString(),
-    categories: {
-      "Women's Tops": {
-        '8': { bust: 32, waist: 26, hips: 34 },
-        '10': { bust: 34, waist: 28, hips: 36 },
-        '12': { bust: 36, waist: 30, hips: 38 },
-        '14': { bust: 38, waist: 32, hips: 40 },
-        '16': { bust: 40, waist: 34, hips: 42 },
-        '18': { bust: 42, waist: 36, hips: 44 },
-        '20': { bust: 44, waist: 38, hips: 46 },
-        '22': { bust: 46, waist: 40, hips: 48 },
-        '24': { bust: 48, waist: 42, hips: 50 },
-        '26': { bust: 50, waist: 44, hips: 52 }
-      },
-      "Women's Dresses": {
-        '8': { bust: 32, waist: 26, hips: 34 },
-        '10': { bust: 34, waist: 28, hips: 36 },
-        '12': { bust: 36, waist: 30, hips: 38 },
-        '14': { bust: 38, waist: 32, hips: 40 },
-        '16': { bust: 40, waist: 34, hips: 42 },
-        '18': { bust: 42, waist: 36, hips: 44 },
-        '20': { bust: 44, waist: 38, hips: 46 },
-        '22': { bust: 46, waist: 40, hips: 48 },
-        '24': { bust: 48, waist: 42, hips: 50 },
-        '26': { bust: 50, waist: 44, hips: 52 }
-      },
-      "Women's Jeans": {
-        '8': { waist: 26, hips: 34 },
-        '10': { waist: 28, hips: 36 },
-        '12': { waist: 30, hips: 38 },
-        '14': { waist: 32, hips: 40 },
-        '16': { waist: 34, hips: 42 },
-        '18': { waist: 36, hips: 44 },
-        '20': { waist: 38, hips: 46 },
-        '22': { waist: 40, hips: 48 },
-        '24': { waist: 42, hips: 50 },
-        '26': { waist: 44, hips: 52 }
-      }
-    },
-    notes: {
-      sizing: 'UK sizes, runs slightly large',
-      bodyTypes: 'Standard, Petite, Tall, Plus',
-      categories: 'Full range - jeans, dresses, tops, shoes, activewear',
-      fitNotes: 'Size down for oversized items, true to size for fitted',
-      special: 'Excellent size inclusivity, detailed size guides, online exclusive'
-    }
-  },
-  'Next': {
-    name: 'Next',
     lastUpdated: new Date().toISOString(),
     categories: {
       "Women's Tops": {
@@ -1451,6 +804,46 @@ const BRAND_SIZE_DATABASE = {
       }
     },
     notes: {
+      sizing: 'UK sizes, runs slightly large',
+      bodyTypes: 'Standard, Petite, Tall, Plus',
+      categories: 'Full range - jeans, dresses, tops, shoes, activewear',
+      fitNotes: 'Size down for oversized items, true to size for fitted',
+      special: 'Excellent size inclusivity, detailed size guides, online exclusive'
+    }
+  },
+  'Next': {
+    name: 'Next',
+    lastUpdated: new Date().toISOString(),
+    categories: {
+      "Women's Tops": {
+        '8': { bust: 32, waist: 26, hips: 34 },
+        '10': { bust: 34, waist: 28, hips: 36 },
+        '12': { bust: 36, waist: 30, hips: 38 },
+        '14': { bust: 38, waist: 32, hips: 40 },
+        '16': { bust: 40, waist: 34, hips: 42 },
+        '18': { bust: 42, waist: 36, hips: 44 },
+        '20': { bust: 44, waist: 38, hips: 46 }
+      },
+      "Women's Dresses": {
+        '8': { bust: 32, waist: 26, hips: 34 },
+        '10': { bust: 34, waist: 28, hips: 36 },
+        '12': { bust: 36, waist: 30, hips: 38 },
+        '14': { bust: 38, waist: 32, hips: 40 },
+        '16': { bust: 40, waist: 34, hips: 42 },
+        '18': { bust: 42, waist: 36, hips: 44 },
+        '20': { bust: 44, waist: 38, hips: 46 }
+      },
+      "Women's Jeans": {
+        '8': { waist: 26, hips: 34 },
+        '10': { waist: 28, hips: 36 },
+        '12': { waist: 30, hips: 38 },
+        '14': { waist: 32, hips: 40 },
+        '16': { waist: 34, hips: 42 },
+        '18': { waist: 36, hips: 44 },
+        '20': { waist: 38, hips: 46 }
+      }
+    },
+    notes: {
       sizing: 'UK sizes, generally true to size',
       bodyTypes: 'Standard, Petite, Tall, Plus',
       categories: 'Smart casual, workwear, shoes, accessories',
@@ -1470,8 +863,7 @@ const BRAND_SIZE_DATABASE = {
         '16': { bust: 40, waist: 34, hips: 42 },
         '18': { bust: 42, waist: 36, hips: 44 },
         '20': { bust: 44, waist: 38, hips: 46 },
-        '22': { bust: 46, waist: 40, hips: 48 },
-        '24': { bust: 48, waist: 42, hips: 50 }
+        '22': { bust: 46, waist: 40, hips: 48 }
       },
       "Women's Dresses": {
         '8': { bust: 32, waist: 26, hips: 34 },
@@ -1481,8 +873,7 @@ const BRAND_SIZE_DATABASE = {
         '16': { bust: 40, waist: 34, hips: 42 },
         '18': { bust: 42, waist: 36, hips: 44 },
         '20': { bust: 44, waist: 38, hips: 46 },
-        '22': { bust: 46, waist: 40, hips: 48 },
-        '24': { bust: 48, waist: 42, hips: 50 }
+        '22': { bust: 46, waist: 40, hips: 48 }
       },
       "Women's Jeans": {
         '8': { waist: 26, hips: 34 },
@@ -1492,8 +883,7 @@ const BRAND_SIZE_DATABASE = {
         '16': { waist: 34, hips: 42 },
         '18': { waist: 36, hips: 44 },
         '20': { waist: 38, hips: 46 },
-        '22': { waist: 40, hips: 48 },
-        '24': { waist: 42, hips: 50 }
+        '22': { waist: 40, hips: 48 }
       }
     },
     notes: {
@@ -1548,8 +938,7 @@ const BRAND_SIZE_DATABASE = {
         '38': { bust: 38, waist: 32, hips: 40 },
         '40': { bust: 40, waist: 34, hips: 42 },
         '42': { bust: 42, waist: 36, hips: 44 },
-        '44': { bust: 44, waist: 38, hips: 46 },
-        '46': { bust: 46, waist: 40, hips: 48 }
+        '44': { bust: 44, waist: 38, hips: 46 }
       },
       "Women's Dresses": {
         '34': { bust: 34, waist: 28, hips: 36 },
@@ -1557,8 +946,7 @@ const BRAND_SIZE_DATABASE = {
         '38': { bust: 38, waist: 32, hips: 40 },
         '40': { bust: 40, waist: 34, hips: 42 },
         '42': { bust: 42, waist: 36, hips: 44 },
-        '44': { bust: 44, waist: 38, hips: 46 },
-        '46': { bust: 46, waist: 40, hips: 48 }
+        '44': { bust: 44, waist: 38, hips: 46 }
       },
       "Women's Jeans": {
         '34': { waist: 28, hips: 36 },
@@ -1566,8 +954,7 @@ const BRAND_SIZE_DATABASE = {
         '38': { waist: 32, hips: 40 },
         '40': { waist: 34, hips: 42 },
         '42': { waist: 36, hips: 44 },
-        '44': { waist: 38, hips: 46 },
-        '46': { waist: 40, hips: 48 }
+        '44': { waist: 38, hips: 46 }
       }
     },
     notes: {
@@ -1578,16 +965,14 @@ const BRAND_SIZE_DATABASE = {
       special: 'Sustainable lines run differently, budget-friendly'
     }
   }
+};
+
   // AI Size Matching Engine
 class SizeMatchingEngine {
   constructor() {
     this.brandDatabase = BRAND_SIZE_DATABASE;
     this.userMeasurements = {};
-    this.fitPreferences = {
-      'snug': -1,
-      'standard': 0,
-      'relaxed': 1
-    };
+    this.fitPreferences = { 'snug': -1, 'standard': 0, 'relaxed': 1 };
   }
 
   setUserMeasurements(measurements) {
@@ -1633,9 +1018,7 @@ class SizeMatchingEngine {
       sizeDetails.set(size, details);
     });
 
-    const sortedSizes = Array.from(sizeScores.entries())
-      .sort((a, b) => b[1] - a[1]);
-
+    const sortedSizes = Array.from(sizeScores.entries()).sort((a, b) => b[1] - a[1]);
     const bestSize = sortedSizes[0];
     const alternatives = sortedSizes.slice(1, 3);
 
@@ -1672,13 +1055,7 @@ class SizeMatchingEngine {
   }
 
   generateFitDetails(userMeasurements, sizeMeasurements, size) {
-    const details = {
-      size: size,
-      measurements: sizeMeasurements,
-      fit: {},
-      recommendations: []
-    };
-
+    const details = { size: size, measurements: sizeMeasurements, fit: {}, recommendations: [] };
     const measurements = ['bust', 'waist', 'hips'];
 
     measurements.forEach(measurement => {
@@ -1735,28 +1112,16 @@ class MiSizeAISystem {
   constructor() {
     this.sizeEngine = new SizeMatchingEngine();
     this.isInitialized = false;
-    this.confidenceThreshold = 75; // Lowered from 85 to show more results
+    this.confidenceThreshold = 70;
   }
 
   async initialize() {
     try {
       this.updateSystemStatus('loading', 'Initializing AI sizing system...');
-      
-      // Simulate data loading
       await this.sleep(2000);
-      
-      // Set user measurements from current profile
       this.updateUserMeasurements();
-      
       this.isInitialized = true;
       this.updateSystemStatus('online', 'AI sizing system active');
-      
-      // Update last update time
-      const lastUpdateElement = document.getElementById('last-update-time');
-      if (lastUpdateElement) {
-        lastUpdateElement.textContent = new Date().toLocaleString();
-      }
-      
       return true;
     } catch (error) {
       console.error('Failed to initialize AI system:', error);
@@ -1771,20 +1136,14 @@ class MiSizeAISystem {
       console.log('Loading measurements for:', currentProfile, profile.measurements);
       this.sizeEngine.setUserMeasurements({
         bust: profile.measurements.chest || 36,
-        waist: profile.measurements.waist || 34, 
+        waist: profile.measurements.waist || 34,
         hips: profile.measurements.hips || 38,
         unit: 'inch'
       });
       console.log('AI Engine updated with measurements:', this.sizeEngine.userMeasurements);
     } else {
       console.warn('No profile measurements found for:', currentProfile);
-      // Set default measurements
-      this.sizeEngine.setUserMeasurements({
-        bust: 36,
-        waist: 34,
-        hips: 38,
-        unit: 'inch'
-      });
+      this.sizeEngine.setUserMeasurements({ bust: 36, waist: 34, hips: 38, unit: 'inch' });
     }
   }
 
@@ -1851,20 +1210,13 @@ class MiSizeAISystem {
     statusTexts.forEach(text => {
       text.textContent = message;
     });
-
-    // Update specific status elements
-    const systemStatusDot = document.getElementById('system-status-dot');
-    const systemStatusText = document.getElementById('system-status-text');
-    
-    if (systemStatusDot) systemStatusDot.className = `status-dot status-${status}`;
-    if (systemStatusText) systemStatusText.textContent = message;
   }
 
   sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 }
-};
+
   // Debug Panel Functions (iPad Friendly)
 let debugPanelOpen = false;
 
@@ -1886,7 +1238,6 @@ function refreshDebug() {
   
   let status = '';
   
-  // Check Profile
   if (currentProfile && profileData[currentProfile]) {
     status += `✅ Profile: ${currentProfile}\n`;
     status += `✅ Measurements: ${profileData[currentProfile].measurements?.chest || '?'}" / ${profileData[currentProfile].measurements?.waist || '?'}" / ${profileData[currentProfile].measurements?.hips || '?'}"\n`;
@@ -1894,7 +1245,6 @@ function refreshDebug() {
     status += `❌ Profile: Not loaded\n`;
   }
   
-  // Check AI System
   if (miSizeSystem && miSizeSystem.isInitialized) {
     status += `✅ AI System: Ready\n`;
     if (miSizeSystem.sizeEngine.userMeasurements) {
@@ -1906,16 +1256,331 @@ function refreshDebug() {
     status += `❌ AI System: Not ready\n`;
   }
   
-  // Check Brand Database
   status += `✅ Brands: ${Object.keys(BRAND_SIZE_DATABASE).length} loaded\n`;
-  
-  // Check Current Screen
   status += `📍 Screen: ${currentScreen}\n`;
-  
-  // Quick Fix Buttons
-  status += `\n🔧 Quick Fixes:\n`;
   
   debugInfo.innerHTML = `
     <pre style="margin: 0; white-space: pre-wrap; font-size: 10px;">${status}</pre>
     <div style="margin-top: 8px; display: grid; gap: 4px;">
-      <button onclick="fixProfile()" style="background: var(--green); color: white; border: none; padding: 4px 8px; border-radius: 3px; font-size: 9
+      <button onclick="fixProfile()" style="background: var(--green); color: white; border: none; padding: 4px 8px; border-radius: 3px; font-size: 9px;">Fix Profile</button>
+      <button onclick="fixAI()" style="background: var(--blue); color: white; border: none; padding: 4px 8px; border-radius: 3px; font-size: 9px;">Fix AI System</button>
+      <button onclick="testSizes()" style="background: var(--brand); color: white; border: none; padding: 4px 8px; border-radius: 3px; font-size: 9px;">Test My Sizes</button>
+    </div>
+  `;
+}
+
+function fixProfile() {
+  if (!currentProfile) {
+    currentProfile = 'Emma Morris';
+    alert('✅ Profile set to Emma Morris');
+  }
+  refreshDebug();
+}
+
+async function fixAI() {
+  try {
+    if (!miSizeSystem) {
+      miSizeSystem = new MiSizeAISystem();
+    }
+    await miSizeSystem.initialize();
+    alert('✅ AI System reinitialized');
+    refreshDebug();
+  } catch (error) {
+    alert('❌ AI fix failed: ' + error.message);
+  }
+}
+
+async function testSizes() {
+  try {
+    const result = await miSizeSystem.getAccurateSize('ASOS', "Women's Tops", 'standard');
+    alert(`✅ Test passed! ASOS recommends size ${result.recommendedSize} with ${result.confidence}% confidence`);
+  } catch (error) {
+    alert('❌ Test failed: ' + error.message);
+  }
+}
+
+// Navigation functions
+function enterHub(region) {
+  const hubScreen = region.toLowerCase() + '-hub';
+  goToScreen(hubScreen);
+}
+
+function goToScreen(screenId) {
+  if (currentScreen !== screenId) {
+    navigationHistory.push(currentScreen);
+  }
+  
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.remove('active');
+  });
+  
+  const targetScreen = document.getElementById(screenId);
+  if (targetScreen) {
+    targetScreen.classList.add('active');
+    currentScreen = screenId;
+    updateScreenData(screenId);
+    updateNavigation();
+  }
+}
+
+function updateScreenData(screenId) {
+  if (screenId === 'uk-mysizes') {
+    populateMySizesGrid();
+  } else if (screenId === 'uk-brandnotes') {
+    populateBrandNotes();
+  }
+}
+
+function goHome() {
+  navigationHistory = [];
+  goToScreen('home');
+}
+
+function goToMiStats() {
+  alert('MiStats feature coming soon!');
+}
+
+function goToSettings() {
+  alert('Settings feature coming soon!');
+}
+
+function goToHelp() {
+  alert('Help feature coming soon!');
+}
+
+function goBack() {
+  if (navigationHistory.length > 0) {
+    const previousScreen = navigationHistory.pop();
+    
+    document.querySelectorAll('.screen').forEach(screen => {
+      screen.classList.remove('active');
+    });
+    
+    const targetScreen = document.getElementById(previousScreen);
+    if (targetScreen) {
+      targetScreen.classList.add('active');
+      currentScreen = previousScreen;
+      updateScreenData(previousScreen);
+      updateNavigation();
+    }
+  }
+}
+
+function updateNavigation() {
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.classList.remove('active');
+  });
+  
+  if (currentScreen === 'home') {
+    document.querySelector('.nav-item[onclick="goHome()"]')?.classList.add('active');
+  }
+}
+
+// Enhanced Size Finder with AI
+async function getMySize() {
+  const brand = document.getElementById('uk-brand-select')?.value;
+  const category = document.getElementById('uk-category-select')?.value;
+  const fit = document.getElementById('uk-fit-select')?.value;
+  
+  if (!brand || !category || !fit) {
+    alert('Please select all options to find your size.');
+    return;
+  }
+
+  const button = document.getElementById('size-finder-btn-text');
+  const originalText = button.textContent;
+  button.innerHTML = '<span class="loading-spinner"></span>Analyzing...';
+
+  try {
+    const result = await miSizeSystem.getAccurateSize(brand, category, fit);
+    const resultDiv = document.getElementById('size-result');
+    
+    if (result.success) {
+      resultDiv.innerHTML = `
+        <h4 style="color: var(--green); margin: 0 0 16px;">✅ Perfect Size Found!</h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+          <div>
+            <strong>Brand:</strong> ${result.brand}<br>
+            <strong>Category:</strong> ${result.category}<br>
+            <strong>Fit:</strong> ${result.fitPreference}
+          </div>
+          <div>
+            <div style="background: var(--brand); color: white; padding: 8px 12px; border-radius: 8px; text-align: center;">
+              <strong>Size ${result.recommendedSize}</strong>
+            </div>
+            <div style="text-align: center; margin-top: 4px; color: var(--green);">
+              ${result.confidence}% confidence
+            </div>
+          </div>
+        </div>
+        <div style="background: var(--bg); border-radius: 8px; padding: 12px;">
+          <strong>Fit Analysis:</strong><br>
+          ${Object.entries(result.fitAnalysis.fit).map(([measurement, details]) => 
+            `${measurement.toUpperCase()}: ${details.description}`
+          ).join('<br>')}
+        </div>
+      `;
+      resultDiv.style.display = 'block';
+    } else {
+      resultDiv.innerHTML = `
+        <h4 style="color: var(--orange); margin: 0 0 16px;">⚠️ Limited Data Available</h4>
+        <p>${result.message}</p>
+        ${result.fallback ? `<p><strong>Fallback suggestion:</strong> ${result.fallback}</p>` : ''}
+      `;
+      resultDiv.style.display = 'block';
+      resultDiv.style.borderColor = 'var(--orange)';
+    }
+    
+  } catch (error) {
+    const resultDiv = document.getElementById('size-result');
+    resultDiv.innerHTML = `
+      <h4 style="color: var(--orange); margin: 0 0 16px;">❌ Error</h4>
+      <p>Error finding size: ${error.message}</p>
+    `;
+    resultDiv.style.display = 'block';
+    resultDiv.style.borderColor = 'var(--orange)';
+  } finally {
+    button.textContent = originalText;
+  }
+}
+
+// Enhanced My Sizes Grid
+async function populateMySizesGrid() {
+  const grid = document.getElementById('my-sizes-grid');
+  if (!grid) return;
+  
+  grid.innerHTML = '<div style="text-align: center; padding: 40px; grid-column: 1/-1;"><div class="loading-spinner"></div><p>Analyzing your measurements against UK brands...</p></div>';
+  
+  try {
+    if (!miSizeSystem || !miSizeSystem.isInitialized) {
+      await miSizeSystem.initialize();
+    }
+    
+    const allSizes = await miSizeSystem.getAllMySizes();
+    const filter = document.getElementById('mysizes-category')?.value || '';
+    
+    let itemsHTML = '';
+    let totalItems = 0;
+    
+    Object.entries(allSizes).forEach(([category, recommendations]) => {
+      if (!filter || category === filter) {
+        recommendations.forEach(rec => {
+          if (rec.confidence >= 70) {
+            totalItems++;
+            const confidenceColor = rec.confidence >= 90 ? 'var(--green)' : 
+                                  rec.confidence >= 80 ? 'var(--blue)' : 'var(--orange)';
+            
+            itemsHTML += `
+              <div class="brand-card">
+                <div class="brand-name">${rec.brand}</div>
+                <div class="brand-size">Size ${rec.recommendedSize}</div>
+                <div style="background: ${confidenceColor}; color: white; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; display: inline-block; margin: 8px 0;">
+                  ${rec.confidence}% match
+                </div>
+                <p style="font-size:14px;color:var(--muted);margin:8px 0 4px;">${category} - ${rec.fitPreference} fit</p>
+                <p style="font-size:12px;color:var(--green);margin:4px 0 0;font-weight:600;">
+                  📏 Based on: ${miSizeSystem.sizeEngine.userMeasurements.bust}" bust, ${miSizeSystem.sizeEngine.userMeasurements.waist}" waist, ${miSizeSystem.sizeEngine.userMeasurements.hips}" hips
+                </p>
+                <div style="font-size:11px;color:var(--muted);margin:6px 0 0;">
+                  ${rec.fitAnalysis ? Object.entries(rec.fitAnalysis.fit).map(([measurement, details]) => 
+                    `${measurement}: ${details.description}`
+                  ).join(' • ') : 'Perfect fit analysis'}
+                </div>
+              </div>
+            `;
+          }
+        });
+      }
+    });
+    
+    if (totalItems > 0) {
+      grid.innerHTML = itemsHTML;
+    } else {
+      grid.innerHTML = `
+        <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
+          <h3 style="color: var(--orange); margin-bottom: 16px;">⚠️ No Size Matches Found</h3>
+          <p style="color: var(--muted); margin-bottom: 12px;">Your measurements: ${miSizeSystem.sizeEngine.userMeasurements.bust || '?'}" bust, ${miSizeSystem.sizeEngine.userMeasurements.waist || '?'}" waist, ${miSizeSystem.sizeEngine.userMeasurements.hips || '?'}" hips</p>
+          <p style="color: var(--muted);">Try using the debug panel to fix any issues.</p>
+        </div>
+      `;
+    }
+    
+  } catch (error) {
+    console.error('Error in populateMySizesGrid:', error);
+    grid.innerHTML = `
+      <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
+        <p style="color: var(--orange);">Error loading sizes: ${error.message}</p>
+        <button onclick="populateMySizesGrid()" class="btn btn-primary" style="margin-top: 12px;">Retry</button>
+      </div>
+    `;
+  }
+}
+
+// Brand Notes Population
+function populateBrandNotes() {
+  const container = document.getElementById('brand-notes-grid');
+  if (!container) return;
+
+  const brandNotesHTML = Object.values(BRAND_SIZE_DATABASE).map(brand => `
+    <div class="brand-card">
+      <div class="brand-name">${brand.name}</div>
+      <div style="background: var(--green); color: white; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; display: inline-block; margin-bottom: 12px;">
+        Real size data available
+      </div>
+      <p><strong>Sizing:</strong> ${brand.notes.sizing}</p>
+      <p><strong>Body Types:</strong> ${brand.notes.bodyTypes}</p>
+      <p><strong>Categories:</strong> ${brand.notes.categories}</p>
+      <p><strong>Fit Notes:</strong> ${brand.notes.fitNotes}</p>
+      <p><strong>Special:</strong> ${brand.notes.special}</p>
+      <p style="font-size: 12px; color: var(--muted); margin-top: 8px;">
+        Last updated: ${new Date(brand.lastUpdated).toLocaleDateString()}
+      </p>
+    </div>
+  `).join('');
+
+  container.innerHTML = brandNotesHTML;
+}
+
+// Utility functions
+function saveToHistory() {
+  alert('✅ Search saved to history!');
+}
+
+// Initialize the application
+async function initApp() {
+  updateNavigation();
+
+  // Initialize AI System
+  miSizeSystem = new MiSizeAISystem();
+  
+  try {
+    const success = await miSizeSystem.initialize();
+    if (success) {
+      console.log('🎉 MiSize AI System ready!');
+    } else {
+      console.warn('⚠️ AI System failed to initialize, using fallback data');
+    }
+  } catch (error) {
+    console.error('Failed to initialize MiSize AI System:', error);
+  }
+
+  // Set up category filter for My Sizes
+  const categorySelect = document.getElementById('mysizes-category');
+  if (categorySelect) {
+    categorySelect.addEventListener('change', populateMySizesGrid);
+  }
+
+  // Initialize current profile
+  if (!currentProfile && Object.keys(profileData).length > 0) {
+    currentProfile = Object.keys(profileData)[0];
+  }
+
+  // Auto-update debug info
+  setTimeout(refreshDebug, 3000);
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', initApp);
+</script>
+</body>
+</html>
