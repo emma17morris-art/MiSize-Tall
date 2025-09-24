@@ -2040,12 +2040,14 @@ function renderMiStats() {
   const startKg = kgFrom(p.startingWeight.value, p.startingWeight.unit);
   const heightCm = cmFrom(p.startingHeight.value, p.startingHeight.unit);
 
-  const latestWeightEntry = [...(p.history || [])]
-    .filter(e => e.type === 'weight')
-    .sort((a,b) => new Date(a.date) - new Date(b.date))
-    .slice(-1)[0];
+  // Get the most recent weight from history, including the starting weight
+  const allWeightEntries = [
+    { date: p.startingDate, value: p.startingWeight.value, unit: p.startingWeight.unit },
+    ...(p.history || []).filter(e => e.type === 'weight')
+  ].sort((a, b) => new Date(a.date) - new Date(b.date));
 
-  const currentWeightVal = latestWeightEntry?.value ?? p.measurements?.weight ?? p.startingWeight.value;
+  const latestWeightEntry = allWeightEntries[allWeightEntries.length - 1];
+  const currentWeightVal = latestWeightEntry?.value ?? p.startingWeight.value;
   const currentWeightUnit = latestWeightEntry?.unit ?? p.startingWeight.unit;
   const currentKg = kgFrom(currentWeightVal, currentWeightUnit);
 
@@ -2068,16 +2070,22 @@ function renderMiStats() {
   document.getElementById('target-bmi').textContent = targetBMI ? `BMI: ${(Math.round(targetBMI * 10) / 10)}` : 'BMI: —';
 
   const lostKg = startKg - currentKg;
-  const remainingKg = (targetKg != null) ? (currentKg - targetKg) : null;
+  const remainingKg = (targetKg != null) ? Math.max(0, currentKg - targetKg) : null;
   const progressPct = (targetKg != null && startKg !== targetKg)
     ? Math.max(0, Math.min(100, ((startKg - currentKg) / (startKg - targetKg)) * 100))
     : 0;
 
   document.getElementById('amount-lost').textContent = `${Math.round(lostKg * 10) / 10}kg`;
   document.getElementById('remaining-weight').textContent = (remainingKg != null)
-    ? `${Math.max(0, Math.round(remainingKg * 10) / 10)}kg` : '—';
+    ? `${Math.round(remainingKg * 10) / 10}kg` : '🎉 Goal Reached!';
   document.getElementById('progress-fill').style.width = `${Math.round(progressPct)}%`;
   document.getElementById('progress-text').textContent = `${Math.round(progressPct)}% to goal`;
+
+  // Special message for goal achievement
+  if (remainingKg !== null && remainingKg <= 0) {
+    document.getElementById('progress-text').textContent = '🎉 Congratulations! Goal achieved!';
+    document.getElementById('progress-fill').style.background = 'var(--green)';
+  }
 
   const bmi = computeBMIKgCm(currentKg, heightCm);
   if (bmi) {
@@ -2089,56 +2097,129 @@ function renderMiStats() {
   renderWeightGraph();
 }
 
-// Graph rendering function
 function renderWeightGraph() {
   const p = profileData[currentProfile];
   if (!p) return;
 
-  const weightHistory = [...(p.history || [])]
-    .filter(e => e.type === 'weight')
-    .sort((a, b) => new Date(a.date) - new Date(b.date));
+  // Include starting weight as the first data point
+  const allWeightData = [
+    { date: p.startingDate, value: p.startingWeight.value, unit: p.startingWeight.unit, isStarting: true },
+    ...(p.history || []).filter(e => e.type === 'weight').map(e => ({ ...e, isStarting: false }))
+  ].sort((a, b) => new Date(a.date) - new Date(b.date));
 
-  if (weightHistory.length === 0) {
+  if (allWeightData.length === 0) {
     document.getElementById('chart-content').innerHTML = '<p style="text-align: center; color: var(--muted);">No weight data recorded yet</p>';
     return;
   }
 
-  // Simple text-based chart for now
-  let chartHTML = '<div style="font-family: monospace; font-size: 12px;">';
-  chartHTML += '<div style="display: grid; grid-template-columns: 100px 1fr; gap: 8px; align-items: center; margin-bottom: 8px;">';
+  // Calculate total loss
+  const startWeight = kgFrom(allWeightData[0].value, allWeightData[0].unit);
+  const currentWeight = kgFrom(allWeightData[allWeightData.length - 1].value, allWeightData[allWeightData.length - 1].unit);
+  const totalLoss = startWeight - currentWeight;
+
+  // Enhanced visual chart for major weight loss
+  let chartHTML = '<div style="font-family: system-ui; font-size: 13px;">';
+  chartHTML += `<div style="text-align: center; margin-bottom: 20px;">`;
+  chartHTML += `<div style="color: var(--brand); font-weight: bold; font-size: 18px;">🎉 Amazing Progress! 🎉</div>`;
+  chartHTML += `<div style="color: var(--green); font-weight: bold; font-size: 16px; margin-top: 4px;">Total Weight Loss: ${Math.round(totalLoss * 10) / 10}kg</div>`;
+  chartHTML += `<div style="color: var(--muted); font-size: 14px;">Journey: ${new Date(allWeightData[0].date).toLocaleDateString()} - ${new Date(allWeightData[allWeightData.length - 1].date).toLocaleDateString()}</div>`;
+  chartHTML += `</div>`;
   
-  weightHistory.forEach((entry, index) => {
-    const date = new Date(entry.date).toLocaleDateString();
+  // Show key milestones only for readability
+  const milestones = allWeightData.filter((entry, index) => {
+    return entry.isStarting || 
+           index === allWeightData.length - 1 || 
+           index % 3 === 0 || // Show every 3rd entry
+           kgFrom(entry.value, entry.unit) % 10 === 0; // Show round numbers
+  });
+  
+  chartHTML += '<div style="display: grid; gap: 6px; max-height: 300px; overflow-y: auto;">';
+  
+  // Find min and max weights for scaling
+  const weights = allWeightData.map(entry => kgFrom(entry.value, entry.unit));
+  const minWeight = Math.min(...weights) - 5;
+  const maxWeight = Math.max(...weights) + 5;
+  const range = maxWeight - minWeight;
+
+  milestones.forEach((entry, index) => {
+    const date = new Date(entry.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' });
+    const weightKg = kgFrom(entry.value, entry.unit);
     const weight = `${entry.value}${entry.unit}`;
-    const isLatest = index === weightHistory.length - 1;
+    const isLatest = entry.date === allWeightData[allWeightData.length - 1].date;
+    const isStarting = entry.isStarting;
+    
+    // Calculate bar width based on weight (inverse - higher weight = longer bar)
+    const barWidth = Math.max(80, ((maxWeight - weightKg) / range) * 400 + 80);
+    
+    let milestoneIcon = '';
+    if (isStarting) milestoneIcon = '🚀';
+    else if (isLatest) milestoneIcon = '🎯';
+    else if (weightKg <= 100 && weightKg > 90) milestoneIcon = '💪';
+    else if (weightKg <= 90) milestoneIcon = '⭐';
     
     chartHTML += `
-      <div style="color: var(--muted);">${date}</div>
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <div style="background: ${isLatest ? 'var(--brand)' : 'var(--blue)'}; height: 20px; width: ${Math.max(20, (entry.value / 100) * 200)}px; border-radius: 4px;"></div>
-        <span style="color: var(--text); font-weight: bold;">${weight}</span>
+      <div style="display: grid; grid-template-columns: 70px 1fr 80px 30px; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border);">
+        <div style="color: var(--muted); font-size: 11px; font-weight: 500;">${date}</div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="
+            background: ${isStarting ? 'var(--orange)' : (isLatest ? 'var(--brand)' : 'var(--green)')}; 
+            height: 20px; 
+            width: ${barWidth}px; 
+            border-radius: 10px;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          "></div>
+        </div>
+        <div style="color: var(--text); font-weight: 700; font-size: 13px; text-align: right;">${weight}</div>
+        <div style="font-size: 16px;">${milestoneIcon}</div>
       </div>
     `;
   });
   
-  chartHTML += '</div></div>';
+  chartHTML += '</div>';
+  
+  // Add legend and stats
+  chartHTML += `
+    <div style="margin-top: 20px; padding: 16px; background: var(--bg); border-radius: 8px;">
+      <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 12px; font-size: 11px;">
+        <div style="display: flex; align-items: center; gap: 4px;">
+          <div style="width: 12px; height: 12px; background: var(--orange); border-radius: 2px;"></div>
+          <span style="color: var(--muted);">Starting Weight 🚀</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 4px;">
+          <div style="width: 12px; height: 12px; background: var(--green); border-radius: 2px;"></div>
+          <span style="color: var(--muted);">Progress 💪</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 4px;">
+          <div style="width: 12px; height: 12px; background: var(--brand); border-radius: 2px;"></div>
+          <span style="color: var(--muted);">Current Weight 🎯</span>
+        </div>
+      </div>
+      <div style="text-align: center; color: var(--green); font-weight: bold;">
+        ${p.name.split(' ')[0]}, you've achieved an incredible transformation! 💚
+      </div>
+    </div>
+  `;
+
   document.getElementById('chart-content').innerHTML = chartHTML;
 
   // Update summary stats
-  if (weightHistory.length > 1) {
-    const firstEntry = weightHistory[0];
-    const lastEntry = weightHistory[weightHistory.length - 1];
-    const totalLoss = kgFrom(firstEntry.value, firstEntry.unit) - kgFrom(lastEntry.value, lastEntry.unit);
-    const weeksDiff = Math.max(1, Math.ceil((new Date(lastEntry.date) - new Date(firstEntry.date)) / (7 * 24 * 60 * 60 * 1000)));
-    const weeklyAvg = totalLoss / weeksDiff;
-
-    document.getElementById('graph-total-loss').textContent = `${Math.round(totalLoss * 10) / 10}kg`;
-    document.getElementById('graph-weekly-avg').textContent = `${Math.round(weeklyAvg * 10) / 10}kg`;
+  if (allWeightData.length > 1) {
+    const firstEntry = allWeightData[0];
+    const lastEntry = allWeightData[allWeightData.length - 1];
+    const totalLossKg = kgFrom(firstEntry.value, firstEntry.unit) - kgFrom(lastEntry.value, lastEntry.unit);
     
-    // Calculate estimated time to goal
-    const remainingKg = p.targetWeight ? (kgFrom(lastEntry.value, lastEntry.unit) - kgFrom(p.targetWeight.value, p.targetWeight.unit)) : 0;
-    const weeksToGoal = weeklyAvg > 0 ? Math.ceil(remainingKg / weeklyAvg) : 0;
-    document.getElementById('graph-time-left').textContent = weeksToGoal > 0 ? `${weeksToGoal} weeks` : 'Goal reached!';
+    const daysDiff = Math.max(1, Math.ceil((new Date(lastEntry.date) - new Date(firstEntry.date)) / (24 * 60 * 60 * 1000)));
+    const weeksDiff = Math.max(1, daysDiff / 7);
+    const weeklyAvg = totalLossKg / weeksDiff;
+
+    document.getElementById('graph-total-loss').textContent = `${Math.round(totalLossKg * 10) / 10}kg`;
+    document.getElementById('graph-weekly-avg').textContent = `${Math.round(weeklyAvg * 10) / 10}kg/week`;
+    
+    // Calculate time to goal or show achievement
+    const remainingKg = p.targetWeight ? Math.max(0, kgFrom(lastEntry.value, lastEntry.unit) - kgFrom(p.targetWeight.value, p.targetWeight.unit)) : 0;
+    document.getElementById('graph-time-left').textContent = remainingKg > 0 ? `${Math.ceil(remainingKg / Math.max(weeklyAvg, 0.1))} weeks` : '🎉 Goal Achieved!';
   }
 }
 
