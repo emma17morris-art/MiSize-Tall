@@ -1302,7 +1302,65 @@ SECTION 2: ALL Screen HTML Elements Including Help, MiStats & Settings
         <h2 class="hub-title">🇬🇧 Settings</h2>
         <p class="hub-subtitle">Manage your profiles and AI system preferences</p>
       </div>
+<!-- Create Profile Screen -->
+<div id="create-profile" class="screen">
+  <div class="content-container">
+    <div class="hub-header">
+      <h2 class="hub-title">Create New Profile</h2>
+      <p class="hub-subtitle">Set up a new user profile for accurate sizing</p>
+    </div>
+    
+    <div class="form-container">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input type="text" class="form-input" id="new-profile-name" placeholder="Enter full name">
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Date of Birth</label>
+        <input type="date" class="form-input" id="new-profile-dob">
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Gender</label>
+        <select class="form-select" id="new-profile-gender">
+          <option value="female">Female</option>
+          <option value="male">Male</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      
+      <div class="button-group">
+        <button class="btn btn-primary" onclick="saveNewProfile()">Create Profile</button>
+        <button class="btn btn-secondary" onclick="goBack()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- Saved Profiles Screen -->
+<div id="saved-profiles" class="screen">
+  <div class="content-container">
+    <div class="hub-header">
+      <h2 class="hub-title">Saved Profiles</h2>
+      <p class="hub-subtitle">Manage your user profiles</p>
+    </div>
+    
+    <div id="profiles-list"></div>
+  </div>
+</div>
+
+<!-- Edit Profiles Screen -->
+<div id="edit-profiles" class="screen">
+  <div class="content-container">
+    <div class="hub-header">
+      <h2 class="hub-title">Edit Profiles</h2>
+      <p class="hub-subtitle">Modify existing profile information</p>
+    </div>
+    
+    <div id="edit-profiles-list"></div>
+  </div>
+</div>
       <!-- System Status Section -->
       <div class="settings-section">
         <h3>🤖 AI System Status</h3>
