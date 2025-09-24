@@ -1277,10 +1277,11 @@
 
   
 
-<div class="form-group">
-  <label class="form-label">Target Date</label>
-  <input type="date" class="form-input" id="create-target-date" />
-</div>
+
+       <div class="form-group">
+          <label class="form-label">target date</label>
+          <input type="date" class="form-input" id="create-date-birth" />
+        </div>
       
       <div class="form-container">
         <div class="form-group">
@@ -1293,6 +1294,7 @@
           <input type="date" class="form-input" id="create-date-birth" />
         </div>
 
+      
         <div class="form-group">
           <label class="form-label">Gender</label>
           <div class="pill-settings-group">
@@ -1903,37 +1905,46 @@ function saveMeasurements() {
     }
 
     // Profile management functions
-    function saveNewProfile() {
-      const name = document.getElementById('create-profile-name')?.value;
-      const dateOfBirth = document.getElementById('create-date-birth')?.value;
-      const startDate = document.getElementById('create-start-date')?.value;
-      const startWeight = document.getElementById('create-start-weight')?.value;
-      const startHeight = document.getElementById('create-start-height')?.value;
-      
-      // Get selected values from pills
-      const gender = document.querySelector('[data-gender].active')?.dataset.gender;
-      const frame = document.querySelector('[data-frame].active')?.dataset.frame;
-      const weightUnit = document.querySelector('[data-weight-unit].active')?.dataset.weightUnit;
-      const heightUnit = document.querySelector('[data-height-unit].active')?.dataset.heightUnit;
-      
-      if (!name || !dateOfBirth || !gender || !frame || !startDate || !startWeight || !startHeight) {
-        alert('Please fill in all fields');
-        return;
-      }
-      
-      const newProfile = {
-        name: name,
-        dateOfBirth: dateOfBirth,
-        gender: gender,
-        bodyFrame: frame,
-        startingDate: startDate,
-        startingWeight: { value: parseFloat(startWeight), unit: weightUnit },
-        startingHeight: { value: parseFloat(startHeight), unit: heightUnit },
-        measurements: { weight: null, chest: null, waist: null, hips: null, shoulders: null, arms: null }
-      };
-      
-      profileData[name] = newProfile;
-      alert('Profile created successfully!');
+function saveNewProfile() {
+  const name = document.getElementById('create-profile-name')?.value;
+  const dateOfBirth = document.getElementById('create-date-birth')?.value;
+  const startDate = document.getElementById('create-start-date')?.value;
+  const startWeight = document.getElementById('create-start-weight')?.value;
+  const startHeight = document.getElementById('create-start-height')?.value;
+
+  const targetWeight = document.getElementById('create-target-weight')?.value;              // NEW
+  const targetDate = document.getElementById('create-target-date')?.value;                  // NEW
+
+  const gender = document.querySelector('[data-gender].active')?.dataset.gender;
+  const frame = document.querySelector('[data-frame].active')?.dataset.frame;
+  const weightUnit = document.querySelector('[data-weight-unit].active')?.dataset.weightUnit;
+  const heightUnit = document.querySelector('[data-height-unit].active')?.dataset.heightUnit;
+  const targetWeightUnit = document.querySelector('[data-target-weight-unit].active')?.dataset.targetWeightUnit || 'kg'; // NEW
+
+  if (!name || !dateOfBirth || !gender || !frame || !startDate || !startWeight || !startHeight || !targetWeight || !targetDate) {
+    alert('Please fill in all fields');
+    return;
+  }
+
+  const newProfile = {
+    name,
+    dateOfBirth,
+    gender,
+    bodyFrame: frame,
+    startingDate: startDate,
+    startingWeight: { value: parseFloat(startWeight), unit: weightUnit },
+    startingHeight: { value: parseFloat(startHeight), unit: heightUnit },
+    targetWeight: { value: parseFloat(targetWeight), unit: targetWeightUnit },  // NEW
+    targetDate,                                                                 // NEW
+    measurements: { weight: null, chest: null, waist: null, hips: null, shoulders: null, arms: null },
+    history: []                                                                 // NEW
+  };
+
+  profileData[name] = newProfile;
+  alert('Profile created successfully!');
+  clearCreateForm();
+  goToScreen('uk-settings');
+}
       
       // Clear form
       clearCreateForm();
