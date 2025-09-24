@@ -1987,7 +1987,173 @@
       if (bmi < 30) return 'Overweight';
       return 'Obese';
     }
+// Enhanced MiStats rendering with BMI display
+function renderMiStats() {
+  const p = profileData[currentProfile];
+  if (!p) return;
 
+  const startKg = kgFrom(p.startingWeight.value, p.startingWeight.unit);
+  const heightCm = cmFrom(p.startingHeight.value, p.startingHeight.unit);
+
+  const latestWeightEntry = [...(p.history || [])]
+    .filter(e => e.type === 'weight')
+    .sort((a,b) => new Date(a.date) - new Date(b.date))
+    .slice(-1)[0];
+
+  const currentWeightVal = latestWeightEntry?.value ?? p.measurements?.weight ?? p.startingWeight.value;
+  const currentWeightUnit = latestWeightEntry?.unit ?? p.startingWeight.unit;
+  const currentKg = kgFrom(currentWeightVal, currentWeightUnit);
+
+  const targetKg = p.targetWeight ? kgFrom(p.targetWeight.value, p.targetWeight.unit) : null;
+
+  // Calculate BMIs
+  const startBMI = computeBMIKgCm(startKg, heightCm);
+  const currentBMI = computeBMIKgCm(currentKg, heightCm);
+  const targetBMI = targetKg ? computeBMIKgCm(targetKg, heightCm) : null;
+
+  // Update display
+  document.getElementById('user-name').textContent = p.name.split(' ')[0];
+  document.getElementById('start-weight').textContent = `${p.startingWeight.value}${p.startingWeight.unit}`;
+  document.getElementById('current-weight').textContent = `${currentWeightVal}${currentWeightUnit}`;
+  document.getElementById('target-weight').textContent = p.targetWeight ? `${p.targetWeight.value}${p.targetWeight.unit}` : '—';
+
+  // Update BMI displays
+  document.getElementById('start-bmi').textContent = startBMI ? `BMI: ${(Math.round(startBMI * 10) / 10)}` : 'BMI: —';
+  document.getElementById('current-bmi').textContent = currentBMI ? `BMI: ${(Math.round(currentBMI * 10) / 10)}` : 'BMI: —';
+  document.getElementById('target-bmi').textContent = targetBMI ? `BMI: ${(Math.round(targetBMI * 10) / 10)}` : 'BMI: —';
+
+  const lostKg = startKg - currentKg;
+  const remainingKg = (targetKg != null) ? (currentKg - targetKg) : null;
+  const progressPct = (targetKg != null && startKg !== targetKg)
+    ? Math.max(0, Math.min(100, ((startKg - currentKg) / (startKg - targetKg)) * 100))
+    : 0;
+
+  document.getElementById('amount-lost').textContent = `${Math.round(lostKg * 10) / 10}kg`;
+  document.getElementById('remaining-weight').textContent = (remainingKg != null)
+    ? `${Math.max(0, Math.round(remainingKg * 10) / 10)}kg` : '—';
+  document.getElementById('progress-fill').style.width = `${Math.round(progressPct)}%`;
+  document.getElementById('progress-text').textContent = `${Math.round(progressPct)}% to goal`;
+
+  const bmi = computeBMIKgCm(currentKg, heightCm);
+  if (bmi) {
+    document.getElementById('bmi-value').textContent = (Math.round(bmi * 10) / 10).toString();
+    document.getElementById('bmi-category').textContent = bmiCategory(bmi);
+  }
+
+  renderMeasurementHistory();
+  renderWeightGraph();
+}
+
+// Graph rendering function
+function renderWeightGraph() {
+  const p = profileData[currentProfile];
+  if (!p) return;
+
+  const weightHistory = [...(p.history || [])]
+    .filter(e => e.type === 'weight')
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  if (weightHistory.length === 0) {
+    document.getElementById('chart-content').innerHTML = '<p style="text-align: center; color: var(--muted);">No weight data recorded yet</p>';
+    return;
+  }
+
+  // Simple text-based chart for now
+  let chartHTML = '<div style="font-family: monospace; font-size: 12px;">';
+  chartHTML += '<div style="display: grid; grid-template-columns: 100px 1fr; gap: 8px; align-items: center; margin-bottom: 8px;">';
+  
+  weightHistory.forEach((entry, index) => {
+    const date = new Date(entry.date).toLocaleDateString();
+    const weight = `${entry.value}${entry.unit}`;
+    const isLatest = index === weightHistory.length - 1;
+    
+    chartHTML += `
+      <div style="color: var(--muted);">${date}</div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <div style="background: ${isLatest ? 'var(--brand)' : 'var(--blue)'}; height: 20px; width: ${Math.max(20, (entry.value / 100) * 200)}px; border-radius: 4px;"></div>
+        <span style="color: var(--text); font-weight: bold;">${weight}</span>
+      </div>
+    `;
+  });
+  
+  chartHTML += '</div></div>';
+  document.getElementById('chart-content').innerHTML = chartHTML;
+
+  // Update summary stats
+  if (weightHistory.length > 1) {
+    const firstEntry = weightHistory[0];
+    const lastEntry = weightHistory[weightHistory.length - 1];
+    const totalLoss = kgFrom(firstEntry.value, firstEntry.unit) - kgFrom(lastEntry.value, lastEntry.unit);
+    const weeksDiff = Math.max(1, Math.ceil((new Date(lastEntry.date) - new Date(firstEntry.date)) / (7 * 24 * 60 * 60 * 1000)));
+    const weeklyAvg = totalLoss / weeksDiff;
+
+    document.getElementById('graph-total-loss').textContent = `${Math.round(totalLoss * 10) / 10}kg`;
+    document.getElementById('graph-weekly-avg').textContent = `${Math.round(weeklyAvg * 10) / 10}kg`;
+    
+    // Calculate estimated time to goal
+    const remainingKg = p.targetWeight ? (kgFrom(lastEntry.value, lastEntry.unit) - kgFrom(p.targetWeight.value, p.targetWeight.unit)) : 0;
+    const weeksToGoal = weeklyAvg > 0 ? Math.ceil(remainingKg / weeklyAvg) : 0;
+    document.getElementById('graph-time-left').textContent = weeksToGoal > 0 ? `${weeksToGoal} weeks` : 'Goal reached!';
+  }
+}
+
+function showGraphPeriod(period) {
+  document.querySelectorAll('.graph-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  if (period === 'table') {
+    showWeightTable();
+  } else {
+    document.getElementById('chart-content').style.display = 'block';
+    renderWeightGraph(); // Could be filtered by period
+  }
+}
+
+function showWeightTable() {
+  const p = profileData[currentProfile];
+  if (!p) return;
+
+  const weightHistory = [...(p.history || [])]
+    .filter(e => e.type === 'weight')
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  let tableHTML = '<table style="width: 100%; border-collapse: collapse;">';
+  tableHTML += '<thead><tr style="border-bottom: 2px solid var(--border);"><th style="padding: 8px; text-align: left;">Date</th><th style="padding: 8px; text-align: left;">Weight</th><th style="padding: 8px; text-align: left;">Change</th></tr></thead><tbody>';
+  
+  weightHistory.forEach((entry, index) => {
+    const date = new Date(entry.date).toLocaleDateString();
+    const weight = `${entry.value} ${entry.unit}`;
+    let change = '';
+    
+    if (index < weightHistory.length - 1) {
+      const prevWeight = kgFrom(weightHistory[index + 1].value, weightHistory[index + 1].unit);
+      const currentWeight = kgFrom(entry.value, entry.unit);
+      const diff = currentWeight - prevWeight;
+      change = diff > 0 ? `+${Math.round(diff * 10) / 10}kg` : `${Math.round(diff * 10) / 10}kg`;
+    }
+    
+    tableHTML += `<tr style="border-bottom: 1px solid var(--border);"><td style="padding: 8px;">${date}</td><td style="padding: 8px;">${weight}</td><td style="padding: 8px; color: ${change.includes('+') ? 'var(--orange)' : 'var(--green)'};">${change}</td></tr>`;
+  });
+  
+  tableHTML += '</tbody></table>';
+  document.getElementById('chart-content').innerHTML = tableHTML;
+}
+
+// Add measurement unit toggle event listeners to the setupPillEventListeners function
+function setupPillEventListeners() {
+  // ... existing pill listeners ...
+
+  // Measurement unit toggles
+  document.querySelectorAll('[data-measurement-unit]').forEach(pill => {
+    pill.addEventListener('click', (e) => {
+      const container = e.target.closest('.measurement-bubble');
+      if (container) {
+        container.querySelectorAll('[data-measurement-unit]').forEach(p => p.classList.remove('active'));
+        e.target.classList.add('active');
+      }
+    });
+  });
+}
     function renderMiStats() {
       const p = profileData[currentProfile];
       if (!p) return;
