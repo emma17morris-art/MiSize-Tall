@@ -2255,7 +2255,75 @@ class SizeMatchingEngine {
     return results.sort((a, b) => b.confidence - a.confidence);
   }
 }
+// Profile creation functions
+function saveNewProfile() {
+  const name = document.getElementById('new-profile-name')?.value;
+  const dob = document.getElementById('new-profile-dob')?.value;
+  const gender = document.getElementById('new-profile-gender')?.value;
+  
+  if (!name || !dob || !gender) {
+    alert('Please fill in all fields');
+    return;
+  }
+  
+  if (profileData[name]) {
+    alert('Profile with this name already exists');
+    return;
+  }
+  
+  profileData[name] = {
+    name: name,
+    dateOfBirth: dob,
+    gender: gender,
+    bodyFrame: 'medium',
+    startingDate: new Date().toISOString().slice(0, 10),
+    startingWeight: { value: 70, unit: 'kg' },
+    startingHeight: { value: 170, unit: 'cm' },
+    targetWeight: { value: 65, unit: 'kg' },
+    measurements: { weight: 70, chest: 34, waist: 28, hips: 36, shoulders: 36, arms: 26 },
+    history: []
+  };
+  
+  alert(`✅ Profile created for ${name}`);
+  goToScreen('saved-profiles');
+  populateSavedProfiles();
+}
 
+function populateSavedProfiles() {
+  const container = document.getElementById('profiles-list');
+  if (!container) return;
+  
+  const profilesHTML = Object.keys(profileData).map(name => `
+    <div class="profile-card">
+      <div class="profile-name">${name}</div>
+      <div class="profile-details">
+        Gender: ${profileData[name].gender}<br>
+        Created: ${profileData[name].startingDate}
+      </div>
+      <div style="margin-top: 12px;">
+        <button class="btn btn-primary" onclick="setCurrentProfile('${name}'); goToScreen('mistats');">Select</button>
+        <button class="btn btn-secondary" onclick="deleteProfile('${name}')">Delete</button>
+      </div>
+    </div>
+  `).join('');
+  
+  container.innerHTML = profilesHTML;
+}
+
+function deleteProfile(name) {
+  if (Object.keys(profileData).length <= 1) {
+    alert('Cannot delete the last profile');
+    return;
+  }
+  
+  if (confirm(`Delete profile for ${name}?`)) {
+    delete profileData[name];
+    if (currentProfile === name) {
+      currentProfile = Object.keys(profileData)[0];
+    }
+    populateSavedProfiles();
+  }
+}
 // MiSize AI System
 class MiSizeAISystem {
   constructor() {
