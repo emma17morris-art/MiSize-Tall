@@ -2492,7 +2492,7 @@ function bmiCategory(bmi) {
   
   
   
-  // Debug Panel Functions (iPad Friendly)
+// Debug Panel Functions (iPad Friendly)
 let debugPanelOpen = false;
 
 function toggleDebugPanel() {
@@ -3147,10 +3147,17 @@ function showMeasurementGuide(type) {
   alert(`${type.charAt(0).toUpperCase() + type.slice(1)}'s measurement guide coming soon!`);
 }
 
-// Graph functions
+// Graph functions - FIXED THE CRITICAL ERROR HERE
 function showGraphPeriod(period) {
+  // Get the clicked element properly
+  const clickedButton = event?.target || document.querySelector('.graph-btn.active');
+  
   document.querySelectorAll('.graph-btn').forEach(btn => btn.classList.remove('active'));
-  event.target.classList.add('active');
+  
+  if (clickedButton) {
+    clickedButton.classList.add('active');
+  }
+  
   alert(`${period} view coming soon!`);
 }
 
@@ -3231,3 +3238,6 @@ async function initApp() {
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', initApp);
+</script>
+</body>
+</html>
