@@ -1757,76 +1757,83 @@
     let currentProfile = 'Emma Morris';
     let editingProfile = null;
     
-    let profileData = {
-      'Emma Morris': {
-        name: 'Emma Morris',
-        dateOfBirth: '1983-10-12',
-        gender: 'female',
-        bodyFrame: 'medium',
-        startingDate: '2022-03-19',
-        startingWeight: { value: 150, unit: 'kg' },
-        startingHeight: { value: 183, unit: 'cm' },
-        targetWeight: { value: 80, unit: 'kg' },
-        targetDate: '2023-06-30',
-        measurements: { weight: 80, chest: 86, waist: 68, hips: 92, shoulders: 38, arms: 28 },
-        history: [
-          { date: '2022-03-19', type: 'weight', value: 150, unit: 'kg' },
-          { date: '2022-04-19', type: 'weight', value: 147, unit: 'kg' },
-          { date: '2022-05-19', type: 'weight', value: 143, unit: 'kg' },
-          { date: '2022-06-19', type: 'weight', value: 138, unit: 'kg' },
-          { date: '2022-07-19', type: 'weight', value: 133, unit: 'kg' },
-          { date: '2022-08-19', type: 'weight', value: 128, unit: 'kg' },
-          { date: '2022-09-19', type: 'weight', value: 123, unit: 'kg' },
-          { date: '2022-10-19', type: 'weight', value: 118, unit: 'kg' },
-          { date: '2022-11-19', type: 'weight', value: 113, unit: 'kg' },
-          { date: '2022-12-19', type: 'weight', value: 108, unit: 'kg' },
-          { date: '2023-01-19', type: 'weight', value: 103, unit: 'kg' },
-          { date: '2023-02-19', type: 'weight', value: 98, unit: 'kg' },
-          { date: '2023-03-19', type: 'weight', value: 93, unit: 'kg' },
-          { date: '2023-04-19', type: 'weight', value: 90, unit: 'kg' },
-          { date: '2023-05-19', type: 'weight', value: 87, unit: 'kg' },
-          { date: '2023-06-19', type: 'weight', value: 84, unit: 'kg' },
-          { date: '2023-07-19', type: 'weight', value: 82, unit: 'kg' },
-          { date: '2023-08-19', type: 'weight', value: 80, unit: 'kg' },
-          { date: '2024-01-15', type: 'weight', value: 80, unit: 'kg' },
-          { date: '2024-03-15', type: 'weight', value: 80, unit: 'kg' },
-          { date: '2022-03-19', type: 'waist', value: 50, unit: 'inch' },
-          { date: '2022-06-19', type: 'waist', value: 46, unit: 'inch' },
-          { date: '2022-09-19', type: 'waist', value: 42, unit: 'inch' },
-          { date: '2022-12-19', type: 'waist', value: 38, unit: 'inch' },
-          { date: '2023-06-19', type: 'waist', value: 36, unit: 'inch' },
-          { date: '2024-03-15', type: 'waist', value: 36, unit: 'inch' },
-          { date: '2022-03-19', type: 'hips', value: 54, unit: 'inch' },
-          { date: '2022-09-19', type: 'hips', value: 48, unit: 'inch' },
-          { date: '2023-06-19', type: 'hips', value: 42, unit: 'inch' },
-          { date: '2024-03-15', type: 'hips', value: 40, unit: 'inch' },
-          { date: '2022-03-19', type: 'chest', value: 48, unit: 'inch' },
-          { date: '2023-06-19', type: 'chest', value: 38, unit: 'inch' },
-          { date: '2024-03-15', type: 'chest', value: 36, unit: 'inch' }
-        ]
-      },
-      'John Doe': {
-        name: 'John Doe',
-        dateOfBirth: '1985-08-20',
-        gender: 'male',
-        bodyFrame: 'large',
-        startingDate: '2024-02-01',
-        startingWeight: { value: 85, unit: 'kg' },
-        startingHeight: { value: 180, unit: 'cm' },
-        targetWeight: { value: 75, unit: 'kg' },
-        targetDate: '2024-06-01',
-        measurements: { weight: 78, chest: 102, waist: 84, hips: 96, shoulders: 46, arms: 32 },
-        history: [
-          { date: '2024-02-01', type: 'weight', value: 85, unit: 'kg' },
-          { date: '2024-02-15', type: 'weight', value: 83.5, unit: 'kg' },
-          { date: '2024-03-01', type: 'weight', value: 82, unit: 'kg' },
-          { date: '2024-03-15', type: 'weight', value: 80.5, unit: 'kg' },
-          { date: '2024-04-01', type: 'weight', value: 79, unit: 'kg' },
-          { date: '2024-04-15', type: 'weight', value: 78, unit: 'kg' }
-        ]
-      }
-    };
-
+   let profileData = {
+  'Emma Morris': {
+    name: 'Emma Morris',
+    dateOfBirth: '1983-10-12',
+    gender: 'female',
+    bodyFrame: 'medium',
+    startingDate: '2022-03-19',
+    startingWeight: { value: 150, unit: 'kg' },
+    startingHeight: { value: 183, unit: 'cm' },
+    targetWeight: { value: 80, unit: 'kg' },
+    targetDate: '2023-06-30',
+    measurements: { weight: 80, chest: 36, waist: 34, hips: 38, shoulders: 38, arms: 28 }, // UPDATED
+    history: [
+      // Weight history
+      { date: '2022-03-19', type: 'weight', value: 150, unit: 'kg' },
+      { date: '2022-04-19', type: 'weight', value: 147, unit: 'kg' },
+      { date: '2022-05-19', type: 'weight', value: 143, unit: 'kg' },
+      { date: '2022-06-19', type: 'weight', value: 138, unit: 'kg' },
+      { date: '2022-07-19', type: 'weight', value: 133, unit: 'kg' },
+      { date: '2022-08-19', type: 'weight', value: 128, unit: 'kg' },
+      { date: '2022-09-19', type: 'weight', value: 123, unit: 'kg' },
+      { date: '2022-10-19', type: 'weight', value: 118, unit: 'kg' },
+      { date: '2022-11-19', type: 'weight', value: 113, unit: 'kg' },
+      { date: '2022-12-19', type: 'weight', value: 108, unit: 'kg' },
+      { date: '2023-01-19', type: 'weight', value: 103, unit: 'kg' },
+      { date: '2023-02-19', type: 'weight', value: 98, unit: 'kg' },
+      { date: '2023-03-19', type: 'weight', value: 93, unit: 'kg' },
+      { date: '2023-04-19', type: 'weight', value: 90, unit: 'kg' },
+      { date: '2023-05-19', type: 'weight', value: 87, unit: 'kg' },
+      { date: '2023-06-19', type: 'weight', value: 84, unit: 'kg' },
+      { date: '2023-07-19', type: 'weight', value: 82, unit: 'kg' },
+      { date: '2023-08-19', type: 'weight', value: 80, unit: 'kg' },
+      { date: '2024-01-15', type: 'weight', value: 80, unit: 'kg' },
+      { date: '2024-03-15', type: 'weight', value: 80, unit: 'kg' },
+      
+      // Body measurements progression - UPDATED WITH TODAY'S DATE
+      { date: '2022-03-19', type: 'waist', value: 50, unit: 'inch' },
+      { date: '2022-06-19', type: 'waist', value: 46, unit: 'inch' },
+      { date: '2022-09-19', type: 'waist', value: 42, unit: 'inch' },
+      { date: '2022-12-19', type: 'waist', value: 38, unit: 'inch' },
+      { date: '2023-06-19', type: 'waist', value: 36, unit: 'inch' },
+      { date: '2024-03-15', type: 'waist', value: 36, unit: 'inch' },
+      { date: '2024-12-19', type: 'waist', value: 34, unit: 'inch' }, // NEW - Today's measurement
+      
+      { date: '2022-03-19', type: 'hips', value: 54, unit: 'inch' },
+      { date: '2022-09-19', type: 'hips', value: 48, unit: 'inch' },
+      { date: '2023-06-19', type: 'hips', value: 42, unit: 'inch' },
+      { date: '2024-03-15', type: 'hips', value: 40, unit: 'inch' },
+      { date: '2024-12-19', type: 'hips', value: 38, unit: 'inch' }, // NEW - Today's measurement
+      
+      { date: '2022-03-19', type: 'chest', value: 48, unit: 'inch' },
+      { date: '2023-06-19', type: 'chest', value: 38, unit: 'inch' },
+      { date: '2024-03-15', type: 'chest', value: 36, unit: 'inch' },
+      { date: '2024-12-19', type: 'chest', value: 36, unit: 'inch' } // NEW - Today's measurement
+    ]
+  },
+  'John Doe': {
+    name: 'John Doe',
+    dateOfBirth: '1985-08-20',
+    gender: 'male',
+    bodyFrame: 'large',
+    startingDate: '2024-02-01',
+    startingWeight: { value: 85, unit: 'kg' },
+    startingHeight: { value: 180, unit: 'cm' },
+    targetWeight: { value: 75, unit: 'kg' },
+    targetDate: '2024-06-01',
+    measurements: { weight: 78, chest: 102, waist: 84, hips: 96, shoulders: 46, arms: 32 },
+    history: [
+      { date: '2024-02-01', type: 'weight', value: 85, unit: 'kg' },
+      { date: '2024-02-15', type: 'weight', value: 83.5, unit: 'kg' },
+      { date: '2024-03-01', type: 'weight', value: 82, unit: 'kg' },
+      { date: '2024-03-15', type: 'weight', value: 80.5, unit: 'kg' },
+      { date: '2024-04-01', type: 'weight', value: 79, unit: 'kg' },
+      { date: '2024-04-15', type: 'weight', value: 78, unit: 'kg' }
+    ]
+  }
+};
     const UK_BRANDS = [
       { brand: 'ASOS', size: '16-18', cat: "Women's Jeans" },
       { brand: 'ASOS', size: '18', cat: "Women's Dresses" },
