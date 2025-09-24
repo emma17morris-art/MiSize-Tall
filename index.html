@@ -1630,30 +1630,42 @@
     let selectedUnit = 'cm';
     let currentProfile = null;
     let editingProfile = null;
-    
-    // Profile data structure
     let profileData = {
-      'Emma Thompson': {
-        name: 'Emma Thompson',
-        dateOfBirth: '1990-05-15',
-        gender: 'female',
-        bodyFrame: 'medium',
-        startingDate: '2024-01-01',
-        startingWeight: { value: 65, unit: 'kg' },
-        startingHeight: { value: 168, unit: 'cm' },
-        measurements: { weight: 62, chest: 86, waist: 68, hips: 92, shoulders: 38, arms: 28 }
-      },
-      'John Doe': {
-        name: 'John Doe',
-        dateOfBirth: '1985-08-20',
-        gender: 'male',
-        bodyFrame: 'large',
-        startingDate: '2024-02-01',
-        startingWeight: { value: 80, unit: 'kg' },
-        startingHeight: { value: 180, unit: 'cm' },
-        measurements: { weight: 75, chest: 102, waist: 84, hips: 96, shoulders: 46, arms: 32 }
-      }
-    };
+  'Emma Thompson': {
+    name: 'Emma Thompson',
+    dateOfBirth: '1990-05-15',
+    gender: 'female',
+    bodyFrame: 'medium',
+    startingDate: '2024-01-01',
+    startingWeight: { value: 65, unit: 'kg' },
+    startingHeight: { value: 168, unit: 'cm' },
+    targetWeight: { value: 58, unit: 'kg' },   // NEW
+    targetDate: '2024-06-30',                  // NEW
+    measurements: { weight: 62, chest: 86, waist: 68, hips: 92, shoulders: 38, arms: 28 },
+    history: [                                  // NEW: time series for MiStats
+      { date: '2024-03-10', type: 'weight', value: 63, unit: 'kg' },
+      { date: '2024-03-15', type: 'weight', value: 62, unit: 'kg' },
+      { date: '2024-03-15', type: 'waist',  value: 68, unit: 'cm' },
+      { date: '2024-03-10', type: 'hips',   value: 92, unit: 'cm' }
+    ]
+  },
+  'John Doe': {
+    name: 'John Doe',
+    dateOfBirth: '1985-08-20',
+    gender: 'male',
+    bodyFrame: 'large',
+    startingDate: '2024-02-01',
+    startingWeight: { value: 80, unit: 'kg' },
+    startingHeight: { value: 180, unit: 'cm' },
+    targetWeight: { value: 75, unit: 'kg' },    // NEW
+    targetDate: '2024-06-01',                   // NEW
+    measurements: { weight: 75, chest: 102, waist: 84, hips: 96, shoulders: 46, arms: 32 },
+    history: [
+      { date: '2024-03-01', type: 'weight', value: 77, unit: 'kg' },
+      { date: '2024-03-15', type: 'weight', value: 75, unit: 'kg' }
+    ]
+  }
+};
 
     // Navigation functions
     function enterHub(region) {
