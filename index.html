@@ -511,7 +511,7 @@
       padding: 16px 20px;
       border-bottom: 1px solid var(--border);
       display: flex;
-      justify-content: between;
+      justify-content: space-between;
       align-items: center;
     }
 
@@ -970,95 +970,6 @@
               <li>See your recommended size for each brand and category</li>
             </ul>
           </div>
-
-          <div class="guide-section">
-            <h5><span class="step-number">5</span>Brand Notes</h5>
-            <p>Access detailed information about each brand:</p>
-            <ul>
-              <li>Sizing systems used (UK, EU, US)</li>
-              <li>Which body types they support</li>
-              <li>Available categories and product ranges</li>
-              <li>Special sizing notes and fit recommendations</li>
-            </ul>
-          </div>
-
-          <div class="guide-section">
-            <h5><span class="step-number">6</span>Size Converters</h5>
-            <p>Convert sizes between different regions:</p>
-            <ul>
-              <li><strong>Dress Sizes:</strong> UK ↔ US ↔ EU ↔ CA conversion</li>
-              <li><strong>Jean Sizes:</strong> Convert between different sizing systems</li>
-              <li><strong>Top Sizes:</strong> Blouses, shirts, and casual tops</li>
-              <li><strong>Shoe Sizes:</strong> International shoe size conversion</li>
-              <li><strong>Bra Helper:</strong> Find your perfect bra size across regions</li>
-            </ul>
-          </div>
-
-          <div class="guide-section">
-            <h5><span class="step-number">7</span>MiStats Body Tracker</h5>
-            <p>Track your body measurements and progress:</p>
-            
-            <h6>Current Progress Tab:</h6>
-            <ul>
-              <li>View your starting, current, and target measurements</li>
-              <li>Track progress with visual progress bars</li>
-              <li>Monitor body fat percentage, weight lost, and remaining goals</li>
-              <li>Keep an eye on your BMI status</li>
-            </ul>
-
-            <h6>Graph Tab:</h6>
-            <ul>
-              <li>Visualize your progress over time</li>
-              <li>Switch between weekly, monthly, and yearly views</li>
-              <li>Zoom into specific time periods</li>
-              <li>Toggle between graph and table view</li>
-            </ul>
-
-            <h6>History Tab:</h6>
-            <ul>
-              <li>Complete log of all your recorded measurements</li>
-              <li>Organized by date for easy tracking</li>
-              <li>Include weight, body measurements, and sizing data</li>
-            </ul>
-          </div>
-
-          <div class="guide-section">
-            <h5><span class="step-number">8</span>Navigation Tips</h5>
-            <p>Getting around the app efficiently:</p>
-            <ul>
-              <li><strong>Bottom Navigation:</strong> Use Home, MiStats, Settings, Help, and Back buttons</li>
-              <li><strong>Back Button:</strong> Returns you to your previous screen</li>
-              <li><strong>Home Button:</strong> Always takes you to the main region selection</li>
-              <li><strong>Regional Hubs:</strong> Each region has its own specialized tools and data</li>
-            </ul>
-            
-            <div class="highlight-tip">
-              <p><strong>⚡ Quick Tip:</strong> You can switch between body types and units at any time using the top bar controls - your preferences are saved automatically!</p>
-            </div>
-          </div>
-
-          <div class="guide-section">
-            <h5><span class="step-number">9</span>Best Practices</h5>
-            <p>Get the most out of MiSize:</p>
-            <ul>
-              <li>Update your measurements regularly for accurate sizing</li>
-              <li>Save interesting size searches to build your personal database</li>
-              <li>Check brand notes before shopping for sizing insights</li>
-              <li>Use converters when shopping internationally</li>
-              <li>Set realistic goals in your body tracker</li>
-            </ul>
-          </div>
-
-          <div class="guide-section">
-            <h5><span class="step-number">10</span>Troubleshooting</h5>
-            <p>Common questions and solutions:</p>
-            <ul>
-              <li><strong>Size seems wrong?</strong> Check your body type setting and brand notes</li>
-              <li><strong>Missing measurements?</strong> Use our measurement guides in the Help section</li>
-              <li><strong>Can't find a brand?</strong> Check if you're in the right regional hub</li>
-              <li><strong>Progress not showing?</strong> Ensure you're logging measurements regularly</li>
-            </ul>
-          </div>
         </div>
       </div>
 
@@ -1072,29 +983,21 @@
       <h3 style="text-align: center; margin: 32px 0 24px;">Measurement Guides</h3>
       
       <div class="help-grid">
-        <div class="help-card">
+        <div class="help-card" onclick="showMeasurementGuide('women')">
           <h4>Women's Measurements</h4>
           <p>Complete guide for taking accurate body measurements</p>
         </div>
-        <div class="help-card">
+        <div class="help-card" onclick="showMeasurementGuide('men')">
           <h4>Men's Measurements</h4>
           <p>Essential measurements for men's clothing</p>
         </div>
-        <div class="help-card">
+        <div class="help-card" onclick="showMeasurementGuide('children')">
           <h4>Children's Guide</h4>
           <p>How to measure children and teens</p>
         </div>
-        <div class="help-card">
+        <div class="help-card" onclick="showMeasurementGuide('foot')">
           <h4>Foot Measuring</h4>
           <p>Get accurate foot measurements for shoes</p>
-        </div>
-        <div class="help-card">
-          <h4>Inseam Guide</h4>
-          <p>Measure inseam length correctly</p>
-        </div>
-        <div class="help-card">
-          <h4>Special Occasion</h4>
-          <p>Detailed measurements for formal wear</p>
         </div>
       </div>
     </div>
@@ -1142,26 +1045,14 @@
           <label class="form-label">Brand</label>
           <select class="form-select" id="uk-brand-select">
             <option value="">Select a brand...</option>
-            <option value="asos">ASOS</option>
-            <option value="next">Next</option>
-            <option value="marks-spencer">Marks & Spencer</option>
-            <option value="zara">Zara</option>
-            <option value="h&m">H&M</option>
-            <option value="topshop">Topshop</option>
-            <option value="primark">Primark</option>
-            <option value="uniqlo">Uniqlo</option>
-            <option value="cos">COS</option>
-            <option value="other-stories">& Other Stories</option>
-            <option value="mango">Mango</option>
-            <option value="river-island">River Island</option>
-            <option value="new-look">New Look</option>
-            <option value="boohoo">Boohoo</option>
-            <option value="pretty-little-thing">PrettyLittleThing</option>
-            <option value="missguided">Missguided</option>
-            <option value="french-connection">French Connection</option>
-            <option value="reiss">Reiss</option>
-            <option value="whistles">Whistles</option>
-            <option value="ted-baker">Ted Baker</option>
+            <option value="ASOS">ASOS</option>
+            <option value="Next">Next</option>
+            <option value="Marks & Spencer">Marks & Spencer</option>
+            <option value="Zara">Zara</option>
+            <option value="H&M">H&M</option>
+            <option value="Topshop">Topshop</option>
+            <option value="Primark">Primark</option>
+            <option value="Uniqlo">Uniqlo</option>
           </select>
         </div>
         
@@ -1169,10 +1060,10 @@
           <label class="form-label">Category</label>
           <select class="form-select" id="uk-category-select">
             <option value="">Select category...</option>
-            <option value="womens-jeans">Women's Jeans</option>
-            <option value="womens-dresses">Women's Dresses</option>
-            <option value="womens-tops">Women's Tops</option>
-            <option value="womens-shoes">Women's Shoes (UK)</option>
+            <option value="Women's Jeans">Women's Jeans</option>
+            <option value="Women's Dresses">Women's Dresses</option>
+            <option value="Women's Tops">Women's Tops</option>
+            <option value="Women's Shoes">Women's Shoes</option>
           </select>
         </div>
         
@@ -1180,9 +1071,9 @@
           <label class="form-label">Fit Preference</label>
           <select class="form-select" id="uk-fit-select">
             <option value="">Select fit...</option>
-            <option value="standard">Standard</option>
-            <option value="snug">Snug</option>
-            <option value="relaxed">Relaxed</option>
+            <option value="Standard">Standard</option>
+            <option value="Snug">Snug</option>
+            <option value="Relaxed">Relaxed</option>
           </select>
         </div>
         
@@ -1209,10 +1100,10 @@
         <label class="form-label">Category</label>
         <select class="form-select" id="mysizes-category">
           <option value="">All categories</option>
-          <option value="womens-jeans">Women's Jeans</option>
-          <option value="womens-dresses">Women's Dresses</option>
-          <option value="womens-tops">Women's Tops</option>
-          <option value="womens-shoes">Women's Shoes (UK)</option>
+          <option value="Women's Jeans">Women's Jeans</option>
+          <option value="Women's Dresses">Women's Dresses</option>
+          <option value="Women's Tops">Women's Tops</option>
+          <option value="Women's Shoes">Women's Shoes</option>
         </select>
       </div>
       
@@ -1389,42 +1280,6 @@
 
         <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="saveMeasurements()">Save Measurements</button>
       </div>
-
-      <!-- Region Settings -->
-      <div class="settings-section">
-        <h3>🌍 Change Region</h3>
-        <p style="margin-bottom: 16px; color: var(--muted);">Select your primary shopping region</p>
-        
-        <div class="pill-settings-group">
-          <button class="settings-pill active" data-region="uk">🇬🇧 UK</button>
-          <button class="settings-pill" data-region="eu">🇪🇺 EU</button>
-          <button class="settings-pill" data-region="us">🇺🇸 US</button>
-          <button class="settings-pill" data-region="ca">🇨🇦 CA</button>
-        </div>
-      </div>
-
-      <!-- Length Unit Settings -->
-      <div class="settings-section">
-        <h3>📐 Length Units</h3>
-        <p style="margin-bottom: 16px; color: var(--muted);">Choose your preferred measurement unit</p>
-        
-        <div class="pill-settings-group">
-          <button class="settings-pill active" data-length="cm">Centimeters (cm)</button>
-          <button class="settings-pill" data-length="inches">Inches (in)</button>
-        </div>
-      </div>
-
-      <!-- Weight Unit Settings -->
-      <div class="settings-section">
-        <h3>⚖️ Weight Units</h3>
-        <p style="margin-bottom: 16px; color: var(--muted);">Choose your preferred weight unit</p>
-        
-        <div class="pill-settings-group">
-          <button class="settings-pill" data-weight="lbs">Pounds (lbs)</button>
-          <button class="settings-pill" data-weight="stone">Stone (st)</button>
-          <button class="settings-pill active" data-weight="kg">Kilograms (kg)</button>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -1514,7 +1369,7 @@
     </div>
   </div>
 
-  <!-- Other region screens (simplified for brevity) -->
+  <!-- Other region screens (simplified) -->
   <div id="eu-hub" class="screen">
     <div class="hub-container">
       <div class="hub-header">
@@ -1524,11 +1379,11 @@
       </div>
       
       <div class="hub-tiles-5">
-        <div class="hub-tile">Size Finder</div>
-        <div class="hub-tile">My Sizes</div>
-        <div class="hub-tile">Brand Notes</div>
-        <div class="hub-tile">History</div>
-        <div class="hub-tile">Converters</div>
+        <div class="hub-tile" onclick="alert('EU Size Finder coming soon!')">Size Finder</div>
+        <div class="hub-tile" onclick="alert('EU My Sizes coming soon!')">My Sizes</div>
+        <div class="hub-tile" onclick="alert('EU Brand Notes coming soon!')">Brand Notes</div>
+        <div class="hub-tile" onclick="alert('EU History coming soon!')">History</div>
+        <div class="hub-tile" onclick="alert('EU Converters coming soon!')">Converters</div>
       </div>
     </div>
   </div>
@@ -1542,11 +1397,11 @@
       </div>
       
       <div class="hub-tiles-5">
-        <div class="hub-tile">Size Finder</div>
-        <div class="hub-tile">My Sizes</div>
-        <div class="hub-tile">Brand Notes</div>
-        <div class="hub-tile">History</div>
-        <div class="hub-tile">Converters</div>
+        <div class="hub-tile" onclick="alert('US Size Finder coming soon!')">Size Finder</div>
+        <div class="hub-tile" onclick="alert('US My Sizes coming soon!')">My Sizes</div>
+        <div class="hub-tile" onclick="alert('US Brand Notes coming soon!')">Brand Notes</div>
+        <div class="hub-tile" onclick="alert('US History coming soon!')">History</div>
+        <div class="hub-tile" onclick="alert('US Converters coming soon!')">Converters</div>
       </div>
     </div>
   </div>
@@ -1560,11 +1415,11 @@
       </div>
       
       <div class="hub-tiles-5">
-        <div class="hub-tile">Size Finder</div>
-        <div class="hub-tile">My Sizes</div>
-        <div class="hub-tile">Brand Notes</div>
-        <div class="hub-tile">History</div>
-        <div class="hub-tile">Converters</div>
+        <div class="hub-tile" onclick="alert('CA Size Finder coming soon!')">Size Finder</div>
+        <div class="hub-tile" onclick="alert('CA My Sizes coming soon!')">My Sizes</div>
+        <div class="hub-tile" onclick="alert('CA Brand Notes coming soon!')">Brand Notes</div>
+        <div class="hub-tile" onclick="alert('CA History coming soon!')">History</div>
+        <div class="hub-tile" onclick="alert('CA Converters coming soon!')">Converters</div>
       </div>
     </div>
   </div>
@@ -1579,13 +1434,14 @@
   </div>
 
   <script>
+    // Global variables
     let currentScreen = 'home';
     let navigationHistory = [];
     let selectedBodyType = 'standard';
     let selectedUnit = 'cm';
     let currentProfile = 'Emma Thompson';
     
-    // Profile data structure with complete measurements and history
+    // Profile data structure
     let profileData = {
       'Emma Thompson': {
         id: 'emma-thompson',
@@ -1681,7 +1537,18 @@
         measurementHistory: []
       }
     };
-    
+
+    // Initialize app
+    function initApp() {
+      updateScreenData('home');
+      updateNavigation();
+      
+      // Set up event listeners
+      setupPillEventListeners();
+      setupClickOutsideListener();
+    }
+
+    // Navigation functions
     function enterHub(region) {
       const hubScreen = region.toLowerCase() + '-hub';
       goToScreen(hubScreen);
@@ -1696,12 +1563,13 @@
         screen.classList.remove('active');
       });
       
-      document.getElementById(screenId).classList.add('active');
-      currentScreen = screenId;
-      
-      // Update screen-specific data when switching
-      updateScreenData(screenId);
-      updateNavigation();
+      const targetScreen = document.getElementById(screenId);
+      if (targetScreen) {
+        targetScreen.classList.add('active');
+        currentScreen = screenId;
+        updateScreenData(screenId);
+        updateNavigation();
+      }
     }
     
     function updateScreenData(screenId) {
@@ -1746,44 +1614,50 @@
       
       // Update measurement history
       const historyContainer = document.getElementById('measurement-history');
-      historyContainer.innerHTML = profile.measurementHistory.map(item => `
-        <div class="history-item">
-          <div>
-            <strong>${item.type}: ${item.value}</strong><br>
-            <span class="history-date">${item.date}</span>
+      if (historyContainer) {
+        historyContainer.innerHTML = profile.measurementHistory.map(item => `
+          <div class="history-item">
+            <div>
+              <strong>${item.type}: ${item.value}</strong><br>
+              <span class="history-date">${item.date}</span>
+            </div>
           </div>
-        </div>
-      `).join('');
+        `).join('') || '<p style="text-align: center; color: var(--muted); padding: 40px;">No measurement history yet</p>';
+      }
     }
     
     function updateMySizesData(profile) {
       const grid = document.getElementById('my-sizes-grid');
-      if (Object.keys(profile.brandSizes).length === 0) {
-        grid.innerHTML = '<p style="grid-column: span 2; text-align: center; color: var(--muted);">No saved sizes yet. Use Size Finder to discover your sizes!</p>';
-      } else {
-        grid.innerHTML = Object.entries(profile.brandSizes).map(([brand, data]) => `
-          <div class="brand-card">
-            <div class="brand-name">${brand}</div>
-            <div class="brand-size">${data.size}</div>
-            <p style="font-size: 14px; color: var(--muted); margin-top: 8px;">${data.category} - ${data.fit} Fit</p>
-          </div>
-        `).join('');
+      if (grid) {
+        if (Object.keys(profile.brandSizes).length === 0) {
+          grid.innerHTML = '<p style="grid-column: span 2; text-align: center; color: var(--muted);">No saved sizes yet. Use Size Finder to discover your sizes!</p>';
+        } else {
+          grid.innerHTML = Object.entries(profile.brandSizes).map(([brand, data]) => `
+            <div class="brand-card">
+              <div class="brand-name">${brand}</div>
+              <div class="brand-size">${data.size}</div>
+              <p style="font-size: 14px; color: var(--muted); margin-top: 8px;">${data.category} - ${data.fit} Fit</p>
+            </div>
+          `).join('');
+        }
       }
     }
     
     function updateHistoryData(profile) {
       const historyList = document.getElementById('uk-history-list');
-      if (profile.searchHistory.length === 0) {
-        historyList.innerHTML = '<p style="text-align: center; color: var(--muted); padding: 40px;">No search history yet</p>';
-      } else {
-        historyList.innerHTML = profile.searchHistory.map(item => `
-          <div class="history-item">
-            <div>
-              <strong>${item.brand} - ${item.category}</strong><br>
-              <span class="history-date">${item.size}, ${item.fit} fit - ${item.date}</span>
+      if (historyList) {
+        if (profile.searchHistory.length === 0) {
+          historyList.innerHTML = '<p style="text-align: center; color: var(--muted); padding: 40px;">No search history yet</p>';
+        } else {
+          historyList.innerHTML = profile.searchHistory.map(item => `
+            <div class="history-item">
+              <div>
+                <strong>${item.brand} - ${item.category}</strong><br>
+                <span class="history-date">${item.size}, ${item.fit} fit - ${item.date}</span>
+              </div>
             </div>
-          </div>
-        `).join('');
+          `).join('');
+        }
       }
     }
     
@@ -1796,6 +1670,7 @@
       });
     }
     
+    // Navigation functions
     function goHome() {
       navigationHistory = [];
       goToScreen('home');
@@ -1806,17 +1681,22 @@
     }
     
     function goToSettings() {
-      if (currentScreen.includes('uk')) {
-        goToScreen('uk-settings');
-      } else if (currentScreen.includes('eu')) {
-        goToScreen('eu-settings');
-      } else if (currentScreen.includes('us')) {
-        goToScreen('us-settings');
-      } else if (currentScreen.includes('ca')) {
-        goToScreen('ca-settings');
-      } else {
-        goToScreen('uk-settings');
+      const settingsScreens = {
+        'uk': 'uk-settings',
+        'eu': 'eu-settings',
+        'us': 'us-settings',
+        'ca': 'ca-settings'
+      };
+      
+      let targetSettings = 'uk-settings';
+      for (let region in settingsScreens) {
+        if (currentScreen.includes(region)) {
+          targetSettings = settingsScreens[region];
+          break;
+        }
       }
+      
+      goToScreen(targetSettings);
     }
 
     function goToHelp() {
@@ -1831,11 +1711,13 @@
           screen.classList.remove('active');
         });
         
-        document.getElementById(previousScreen).classList.add('active');
-        currentScreen = previousScreen;
-        
-        updateScreenData(previousScreen);
-        updateNavigation();
+        const targetScreen = document.getElementById(previousScreen);
+        if (targetScreen) {
+          targetScreen.classList.add('active');
+          currentScreen = previousScreen;
+          updateScreenData(previousScreen);
+          updateNavigation();
+        }
       }
     }
     
@@ -1845,14 +1727,15 @@
       });
       
       if (currentScreen === 'home') {
-        document.querySelector('.nav-item[onclick="goHome()"]').classList.add('active');
+        document.querySelector('.nav-item[onclick="goHome()"]')?.classList.add('active');
       } else if (currentScreen === 'mistats') {
-        document.querySelector('.nav-item[onclick="goToMiStats()"]').classList.add('active');
+        document.querySelector('.nav-item[onclick="goToMiStats()"]')?.classList.add('active');
       } else if (currentScreen === 'help') {
-        document.querySelector('.nav-item[onclick="goToHelp()"]').classList.add('active');
+        document.querySelector('.nav-item[onclick="goToHelp()"]')?.classList.add('active');
       }
     }
 
+    // MiStats functions
     function showStatsTab(tabName) {
       document.querySelectorAll('.stats-tab').forEach(tab => {
         tab.classList.remove('active');
@@ -1862,23 +1745,32 @@
         content.style.display = 'none';
       });
       
-      document.querySelector(`[onclick="showStatsTab('${tabName}')"]`).classList.add('active');
-      document.getElementById(`stats-${tabName}`).style.display = 'block';
+      const activeTab = document.querySelector(`[onclick="showStatsTab('${tabName}')"]`);
+      const activeContent = document.getElementById(`stats-${tabName}`);
+      
+      if (activeTab) activeTab.classList.add('active');
+      if (activeContent) activeContent.style.display = 'block';
     }
 
+    // Size Finder functions
     function getMySize() {
       const brand = document.getElementById('uk-brand-select')?.value;
       const category = document.getElementById('uk-category-select')?.value;
       const fit = document.getElementById('uk-fit-select')?.value;
       
       if (brand && category && fit) {
-        // Simulate size calculation based on measurements
         const profile = profileData[currentProfile];
         let size = 'Size 10'; // Default
         
-        // Simple size calculation (this would be more complex in reality)
-        if (profile.measurements.waist < 65) size = 'Size 8';
-        else if (profile.measurements.waist > 75) size = 'Size 12';
+        // Simple size calculation based on measurements
+        if (category === "Women's Jeans") {
+          if (profile.measurements.waist < 65) size = 'Size 8';
+          else if (profile.measurements.waist > 75) size = 'Size 12';
+        } else if (category === "Women's Dresses") {
+          if (profile.measurements.chest < 85) size = 'Size S';
+          else if (profile.measurements.chest > 95) size = 'Size L';
+          else size = 'Size M';
+        }
         
         alert(`Your recommended size for ${brand} ${category} in ${fit} fit is: ${size}`);
         
@@ -1886,8 +1778,9 @@
         profile.brandSizes[brand] = { category, size, fit };
         profile.searchHistory.unshift({ brand, category, size, fit, date: 'Just now' });
         
-        // Update displays
+        // Update displays if currently viewing
         if (currentScreen === 'uk-mysizes') updateMySizesData(profile);
+        if (currentScreen === 'uk-history') updateHistoryData(profile);
       } else {
         alert('Please select all options to find your size.');
       }
@@ -1908,48 +1801,38 @@
           date: 'Just now' 
         });
         alert('Search saved to history!');
+        if (currentScreen === 'uk-history') updateHistoryData(profile);
       } else {
         alert('Please complete your search first.');
       }
     }
 
-    function openConverter(type) {
-      alert(`Opening ${type} size converter...`);
-    }
-
-    function toggleGuide(guideId) {
-      const guide = document.getElementById(guideId);
-      guide.classList.toggle('show');
-    }
-
-    function reportIssue() {
-      alert('Report Issue feature coming soon! You can contact us at support@misize.com');
-    }
-
+    // Profile management functions
     function toggleProfileDropdown() {
       const dropdown = document.getElementById('profile-dropdown');
-      dropdown.classList.toggle('show');
-      
-      // Populate dropdown with all profiles
-      if (dropdown.classList.contains('show')) {
-        dropdown.innerHTML = Object.keys(profileData).map(profileName => {
-          const profile = profileData[profileName];
-          return `
-            <div class="profile-option" onclick="switchProfile('${profileName}')">
-              <div style="font-weight: 700;">${profileName}</div>
-              <div style="font-size: 12px; color: var(--muted);">${profile.details}</div>
-              ${profileName !== currentProfile ? '' : 
-                `<div class="profile-data-view">
-                  <div class="data-row"><span class="data-label">Weight:</span><span class="data-value">${profile.measurements.weight}kg</span></div>
-                  <div class="data-row"><span class="data-label">Waist:</span><span class="data-value">${profile.measurements.waist}cm</span></div>
-                  <div class="data-row"><span class="data-label">Hips:</span><span class="data-value">${profile.measurements.hips}cm</span></div>
-                  <div class="data-row"><span class="data-label">Brands:</span><span class="data-value">${Object.keys(profile.brandSizes).length}</span></div>
-                </div>`
-              }
-            </div>
-          `;
-        }).join('') + 
-        '<div class="profile-option" onclick="createNewProfile()">+ Create New Profile</div>';
+      if (dropdown) {
+        dropdown.classList.toggle('show');
+        
+        if (dropdown.classList.contains('show')) {
+          dropdown.innerHTML = Object.keys(profileData).map(profileName => {
+            const profile = profileData[profileName];
+            return `
+              <div class="profile-option" onclick="switchProfile('${profileName}')">
+                <div style="font-weight: 700;">${profileName}</div>
+                <div style="font-size: 12px; color: var(--muted);">${profile.details}</div>
+                ${profileName !== currentProfile ? '' : 
+                  `<div class="profile-data-view">
+                    <div class="data-row"><span class="data-label">Weight:</span><span class="data-value">${profile.measurements.weight}kg</span></div>
+                    <div class="data-row"><span class="data-label">Waist:</span><span class="data-value">${profile.measurements.waist}cm</span></div>
+                    <div class="data-row"><span class="data-label">Hips:</span><span class="data-value">${profile.measurements.hips}cm</span></div>
+                    <div class="data-row"><span class="data-label">Brands:</span><span class="data-value">${Object.keys(profile.brandSizes).length}</span></div>
+                  </div>`
+                }
+              </div>
+            `;
+          }).join('') + 
+          '<div class="profile-option" onclick="createNewProfile()">+ Create New Profile</div>';
+        }
       }
     }
 
@@ -1958,12 +1841,13 @@
         currentProfile = profileName;
         const profile = profileData[profileName];
         
-        document.getElementById('active-profile-name').textContent = profileName;
-        document.getElementById('active-profile-details').textContent = profile.details;
-        document.getElementById('profile-dropdown').classList.remove('show');
+        const profileNameElement = document.getElementById('active-profile-name');
+        const profileDetailsElement = document.getElementById('active-profile-details');
+        const dropdown = document.getElementById('profile-dropdown');
         
-        // Update user name in MiStats and load measurements
-        document.getElementById('user-name').textContent = profile.name.split(' ')[0];
+        if (profileNameElement) profileNameElement.textContent = profileName;
+        if (profileDetailsElement) profileDetailsElement.textContent = profile.details;
+        if (dropdown) dropdown.classList.remove('show');
         
         // Update current screen data
         updateScreenData(currentScreen);
@@ -1971,14 +1855,21 @@
     }
 
     function createNewProfile() {
-      document.getElementById('profile-dropdown').classList.remove('show');
-      document.getElementById('new-profile-name').focus();
+      const dropdown = document.getElementById('profile-dropdown');
+      const nameInput = document.getElementById('new-profile-name');
+      
+      if (dropdown) dropdown.classList.remove('show');
+      if (nameInput) nameInput.focus();
     }
 
     function saveProfile() {
-      const name = document.getElementById('new-profile-name').value;
-      const bodyType = document.getElementById('new-profile-body-type').value;
-      const height = document.getElementById('new-profile-height').value;
+      const nameInput = document.getElementById('new-profile-name');
+      const bodyTypeSelect = document.getElementById('new-profile-body-type');
+      const heightInput = document.getElementById('new-profile-height');
+      
+      const name = nameInput?.value;
+      const bodyType = bodyTypeSelect?.value;
+      const height = heightInput?.value;
       
       if (name && bodyType && height) {
         const newProfile = {
@@ -2001,8 +1892,8 @@
         profileData[name] = newProfile;
         
         // Clear form
-        document.getElementById('new-profile-name').value = '';
-        document.getElementById('new-profile-height').value = '';
+        if (nameInput) nameInput.value = '';
+        if (heightInput) heightInput.value = '';
         
         alert('Profile created successfully! Switch to it using the profile dropdown.');
       } else {
@@ -2012,7 +1903,6 @@
 
     function saveMeasurements() {
       const profile = profileData[currentProfile];
-      const measurements = {};
       let hasChanges = false;
       
       // Get all measurement inputs
@@ -2044,19 +1934,65 @@
       }
     }
     
-    // Body type selection
-    document.querySelectorAll('[data-type]').forEach(pill => {
-      pill.addEventListener('click', (e) => {
-        document.querySelectorAll('[data-type]').forEach(p => p.classList.remove('active'));
-        e.target.classList.add('active');
-        selectedBodyType = e.target.dataset.type;
+    // Utility functions
+    function toggleGuide(guideId) {
+      const guide = document.getElementById(guideId);
+      if (guide) {
+        guide.classList.toggle('show');
+      }
+    }
+
+    function reportIssue() {
+      alert('Report Issue feature coming soon! You can contact us at support@misize.com');
+    }
+
+    function openConverter(type) {
+      alert(`Opening ${type} size converter...`);
+    }
+
+    function showMeasurementGuide(type) {
+      alert(`Opening ${type} measurement guide...`);
+    }
+
+    // Setup event listeners
+    function setupPillEventListeners() {
+      // Body type selection
+      document.querySelectorAll('[data-type]').forEach(pill => {
+        pill.addEventListener('click', (e) => {
+          document.querySelectorAll('[data-type]').forEach(p => p.classList.remove('active'));
+          e.target.classList.add('active');
+          selectedBodyType = e.target.dataset.type;
+          
+          const bodyTypeDisplay = document.getElementById('body-type-display');
+          if (bodyTypeDisplay) {
+            bodyTypeDisplay.textContent = selectedBodyType.charAt(0).toUpperCase() + selectedBodyType.slice(1);
+          }
+        });
+      });
+      
+      // Unit selection
+      document.querySelectorAll('[data-unit]').forEach(pill => {
+        pill.addEventListener('click', (e) => {
+          document.querySelectorAll('[data-unit]').forEach(p => p.classList.remove('active'));
+          e.target.classList.add('active');
+          selectedUnit = e.target.dataset.unit;
+        });
+      });
+    }
+
+    function setupClickOutsideListener() {
+      document.addEventListener('click', (e) => {
+        const dropdown = document.getElementById('profile-dropdown');
+        const profileCard = document.querySelector('.profile-card');
         
-        const bodyTypeDisplay = document.getElementById('body-type-display');
-        if (bodyTypeDisplay) {
-          bodyTypeDisplay.textContent = selectedBodyType.charAt(0).toUpperCase() + selectedBodyType.slice(1);
+        if (dropdown && !profileCard?.contains(e.target)) {
+          dropdown.classList.remove('show');
         }
       });
-    });
-    
-    // Unit selection
-    document.querySelectorAll('[data-unit]').forEach(pill => {
+    }
+
+    // Initialize app when DOM is loaded
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
