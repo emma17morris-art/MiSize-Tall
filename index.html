@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1736,12 +1738,12 @@
     <div id="stats-graph" class="stats-content" style="display: none; padding-top: 120px;">
       <div class="content-container">
         <div class="graph-controls">
-          <button class="graph-btn active" onclick="showGraphPeriod('week')">Week</button>
-          <button class="graph-btn" onclick="showGraphPeriod('month')">Month</button>
-          <button class="graph-btn" onclick="showGraphPeriod('year')">Year</button>
-          <button class="graph-btn" onclick="showGraphPeriod('table')">Table</button>
-        </div>
-        
+		</div>
+        <button class="graph-btn active" onclick="showGraphPeriod('week', event)">Week</button>
+<button class="graph-btn" onclick="showGraphPeriod('month', event)">Month</button>
+<button class="graph-btn" onclick="showGraphPeriod('year', event)">Year</button>
+<button class="graph-btn" onclick="showGraphPeriod('table', event)">Table</button>
+
         <div id="graph-display" style="background: var(--card); border-radius: 12px; padding: 20px; border: 2px solid var(--border);">
           <div id="weight-chart" style="margin-bottom: 20px;">
             <h4 style="text-align: center; margin-bottom: 16px; color: var(--brand);">Weight Progress</h4>
@@ -2253,282 +2255,212 @@ if (typeof hydrateMySizesBrandSearch === 'function') { try { hydrateMySizesBrand
         }
       }
     };
+	class SizeMatchingEngine {
+  constructor() {
+    // Prefer live JSON-loaded brands, fallback to demo DB
+    this.brandDatabase =
+      (BRAND_DB && typeof BRAND_DB === 'object' && Object.keys(BRAND_DB).length)
+        ? BRAND_DB
+        : BRAND_SIZE_DATABASE;
 
-    // AI Size Matching Engine
-    class SizeMatchingEngine {
-      constructor() {
-        this.brandDatabase = BRAND_SIZE_DATABASE;
-        this.userMeasurements = {};
-        this.fitPreferences = {
-          'snug': -1,
-          'standard': 0,
-          'relaxed': 1
-        };
+    this.userMeasurements = {};
+    this.fitPreferences = { snug: -1, standard: 0, relaxed: 1 };
+  }
+
+  setUserMeasurements(measurements) {
+    this.userMeasurements = {
+      bust: parseFloat(measurements.bust) || 0,
+      waist: parseFloat(measurements.waist) || 0,
+      hips: parseFloat(measurements.hips) || 0,
+      unit: measurements.unit || 'inch'
+    };
+  }
+
+  findBestSizeForBrand(brandName, category, fitPreference = 'standard') {
+    const brandData = this.brandDatabase[brandName];
+    if (!brandData || !brandData.categories) return null;
+
+    const categoryData = brandData.categories[category];
+    if (!categoryData) return null;
+
+    const fitAdjustment = this.fitPreferences[fitPreference.toLowerCase()] ?? 0;
+    const sizeAnalysis = this.analyzeSizes(categoryData, fitAdjustment);
+
+    return {
+      brand: brandName,
+      recommendedSize: sizeAnalysis.bestSize,
+      confidence: sizeAnalysis.confidence,
+      fitAnalysis: sizeAnalysis.fitDetails,
+      alternatives: sizeAnalysis.alternatives,
+      category,
+      fitPreference
+    };
+  }
+
+  analyzeSizes(categoryData, fitAdjustment) {
+    const sizeScores = new Map();
+    const sizeDetails = new Map();
+
+    Object.entries(categoryData).forEach(([size, m]) => {
+      const score = this.calculateFitScore(this.userMeasurements, m, fitAdjustment);
+      const details = this.generateFitDetails(this.userMeasurements, m, size);
+      sizeScores.set(size, score);
+      sizeDetails.set(size, details);
+    });
+
+    const sorted = Array.from(sizeScores.entries()).sort((a, b) => b[1] - a[1]);
+    const [bestSize, bestScore] = sorted[0] || [null, 0];
+    const alternatives = sorted.slice(1, 3);
+
+    return {
+      bestSize,
+      confidence: this.calculateConfidence(bestScore),
+      fitDetails: sizeDetails.get(bestSize),
+      alternatives: alternatives.map(([size, score]) => ({
+        size,
+        confidence: this.calculateConfidence(score),
+        details: sizeDetails.get(size)
+      }))
+    };
+  }
+
+  calculateFitScore(user, sizeM, fitAdjustment) {
+    let total = 0, count = 0;
+    ['bust', 'waist', 'hips'].forEach(k => {
+      if (user[k] && sizeM[k]) {
+        const diff = Math.abs(user[k] - (sizeM[k] + fitAdjustment));
+        const score = Math.max(0, 100 - diff * 15);
+        total += score; count++;
       }
+    });
+    return count ? total / count : 0;
+  }
 
-      setUserMeasurements(measurements) {
-        this.userMeasurements = {
-          bust: parseFloat(measurements.bust) || 0,
-          waist: parseFloat(measurements.waist) || 0,
-          hips: parseFloat(measurements.hips) || 0,
-          unit: measurements.unit || 'inch'
-        };
+  generateFitDetails(user, sizeM, size) {
+    const d = { size, measurements: sizeM, fit: {}, recommendations: [] };
+    ['bust', 'waist', 'hips'].forEach(k => {
+      if (user[k] && sizeM[k]) {
+        const diff = user[k] - sizeM[k];
+        let desc;
+        if (Math.abs(diff) <= 1) desc = 'Perfect fit';
+        else if (diff > 1) desc = `${Math.abs(diff)}" too small`;
+        else desc = `${Math.abs(diff)}" too large`;
+        d.fit[k] = { userMeasurement: user[k], sizeMeasurement: sizeM[k], difference: diff, description: desc };
+        if (Math.abs(diff) > 2) d.recommendations.push(`Consider different size for ${k} measurement`);
       }
+    });
+    return d;
+  }
 
-      findBestSizeForBrand(brandName, category, fitPreference = 'standard') {
-        const brandData = this.brandDatabase[brandName];
-        if (!brandData || !brandData.categories) return null;
+  calculateConfidence(score) {
+    return Math.max(0, Math.min(100, Math.round(score)));
+  }
 
-        const categoryData = brandData.categories[category];
-        if (!categoryData) return null;
+  getAllBrandSizes(category, fitPreference = 'standard') {
+    const out = [];
+    Object.keys(this.brandDatabase).forEach(brandName => {
+      const r = this.findBestSizeForBrand(brandName, category, fitPreference);
+      if (r && r.confidence >= 70) out.push(r);
+    });
+    return out.sort((a, b) => b.confidence - a.confidence);
+  }
+}
+	
+class MiSizeAISystem {
+  constructor() {
+    this.sizeEngine = new SizeMatchingEngine();
+    this.isInitialized = false;
+    this.confidenceThreshold = 85;
+  }
 
-        const fitAdjustment = this.fitPreferences[fitPreference.toLowerCase()] || 0;
-        const sizeAnalysis = this.analyzeSizes(categoryData, fitAdjustment);
+  async initialize() {
+    try {
+      this.updateSystemStatus('loading', 'Initializing AI sizing system...');
+      await this.sleep(2000);
+      this.updateUserMeasurements();
+      this.isInitialized = true;
+      this.updateSystemStatus('online', 'AI sizing system active');
 
-        return {
-          brand: brandName,
-          recommendedSize: sizeAnalysis.bestSize,
-          confidence: sizeAnalysis.confidence,
-          fitAnalysis: sizeAnalysis.fitDetails,
-          alternatives: sizeAnalysis.alternatives,
-          category: category,
-          fitPreference: fitPreference
-        };
-      }
-
-      analyzeSizes(categoryData, fitAdjustment) {
-        const userMeasurements = this.userMeasurements;
-        const sizeScores = new Map();
-        const sizeDetails = new Map();
-
-        Object.entries(categoryData).forEach(([size, measurements]) => {
-          const score = this.calculateFitScore(userMeasurements, measurements, fitAdjustment);
-          const details = this.generateFitDetails(userMeasurements, measurements, size);
-          
-          sizeScores.set(size, score);
-          sizeDetails.set(size, details);
-        });
-
-        const sortedSizes = Array.from(sizeScores.entries())
-          .sort((a, b) => b[1] - a[1]);
-
-        const bestSize = sortedSizes[0];
-        const alternatives = sortedSizes.slice(1, 3);
-
-        return {
-          bestSize: bestSize[0],
-          confidence: this.calculateConfidence(bestSize[1]),
-          fitDetails: sizeDetails.get(bestSize[0]),
-          alternatives: alternatives.map(([size, score]) => ({
-            size: size,
-            confidence: this.calculateConfidence(score),
-            details: sizeDetails.get(size)
-          }))
-        };
-      }
-
-      calculateFitScore(userMeasurements, sizeMeasurements, fitAdjustment) {
-        let totalScore = 0;
-        let measurementCount = 0;
-        const measurements = ['bust', 'waist', 'hips'];
-
-        measurements.forEach(measurement => {
-          if (userMeasurements[measurement] && sizeMeasurements[measurement]) {
-            const userValue = userMeasurements[measurement];
-            const sizeValue = sizeMeasurements[measurement] + fitAdjustment;
-            const difference = Math.abs(userValue - sizeValue);
-            const score = Math.max(0, 100 - (difference * 15));
-            
-            totalScore += score;
-            measurementCount++;
-          }
-        });
-
-        return measurementCount > 0 ? totalScore / measurementCount : 0;
-      }
-
-      generateFitDetails(userMeasurements, sizeMeasurements, size) {
-        const details = {
-          size: size,
-          measurements: sizeMeasurements,
-          fit: {},
-          recommendations: []
-        };
-
-        const measurements = ['bust', 'waist', 'hips'];
-
-        measurements.forEach(measurement => {
-          if (userMeasurements[measurement] && sizeMeasurements[measurement]) {
-            const userValue = userMeasurements[measurement];
-            const sizeValue = sizeMeasurements[measurement];
-            const difference = userValue - sizeValue;
-
-            let fitDescription;
-            if (Math.abs(difference) <= 1) {
-              fitDescription = 'Perfect fit';
-            } else if (difference > 1) {
-              fitDescription = `${Math.abs(difference)}" too small`;
-            } else {
-              fitDescription = `${Math.abs(difference)}" too large`;
-            }
-
-            details.fit[measurement] = {
-              userMeasurement: userValue,
-              sizeMeasurement: sizeValue,
-              difference: difference,
-              description: fitDescription
-            };
-
-            if (Math.abs(difference) > 2) {
-              details.recommendations.push(`Consider different size for ${measurement} measurement`);
-            }
-          }
-        });
-
-        return details;
-      }
-
-      calculateConfidence(score) {
-        return Math.max(0, Math.min(100, Math.round(score)));
-      }
-
-      getAllBrandSizes(category, fitPreference = 'standard') {
-        const results = [];
-        
-        Object.keys(this.brandDatabase).forEach(brandName => {
-          const result = this.findBestSizeForBrand(brandName, category, fitPreference);
-          if (result && result.confidence >= 70) {
-            results.push(result);
-          }
-        });
-
-        return results.sort((a, b) => b.confidence - a.confidence);
-      }
+      const lastUpdateElement = document.getElementById('last-update-time');
+      if (lastUpdateElement) lastUpdateElement.textContent = new Date().toLocaleString();
+      return true;
+    } catch (e) {
+      console.error('Failed to initialize AI system:', e);
+      this.updateSystemStatus('offline', 'System offline - using fallback data');
+      return false;
     }
+  }
 
-    // MiSize AI System
-    class MiSizeAISystem {
-      constructor() {
-        this.sizeEngine = new SizeMatchingEngine();
-        this.isInitialized = false;
-        this.confidenceThreshold = 85;
-      }
+  updateSystemStatus(status, message, scope = document) {
+    // generic dots/texts
+    const dots  = scope.querySelectorAll('.status-dot');
+    const texts = scope.querySelectorAll('[id$="status-text"]');
+    dots.forEach(dot => {
+      dot.classList.remove('status-online','status-loading','status-offline');
+      dot.classList.add(`status-${status}`);
+    });
+    texts.forEach(t => t.textContent = message);
 
-      async initialize() {
-        try {
-          this.updateSystemStatus('loading', 'Initializing AI sizing system...');
-          
-          // Simulate data loading
-          await this.sleep(2000);
-          
-          // Set user measurements from current profile
-          this.updateUserMeasurements();
-          
-          this.isInitialized = true;
-          this.updateSystemStatus('online', 'AI sizing system active');
-          
-          // Update last update time
-          const lastUpdateElement = document.getElementById('last-update-time');
-          if (lastUpdateElement) {
-            lastUpdateElement.textContent = new Date().toLocaleString();
-          }
-          
-          return true;
-        } catch (error) {
-          console.error('Failed to initialize AI system:', error);
-          this.updateSystemStatus('offline', 'System offline - using fallback data');
-          return false;
-        }
-      }
+    // keep the Home banner synced
+    const homeDot  = document.getElementById('system-status-dot');
+    const homeText = document.getElementById('system-status-text');
+    if (homeDot)  homeDot.className = `status-dot status-${status}`;
+    if (homeText) homeText.textContent = message;
+  }
 
-      updateUserMeasurements() {
-        const profile = profileData[currentProfile];
-        if (profile && profile.measurements) {
-          this.sizeEngine.setUserMeasurements({
-            bust: profile.measurements.chest,
-            waist: profile.measurements.waist,
-            hips: profile.measurements.hips,
-            unit: 'inch'
-          });
-        }
-      }
-
-      async getAccurateSize(brand, category, fitPreference = 'standard') {
-        if (!this.isInitialized) {
-          throw new Error('AI system not initialized');
-        }
-
-        this.updateUserMeasurements();
-        const result = this.sizeEngine.findBestSizeForBrand(brand, category, fitPreference);
-
-        if (!result) {
-          return {
-            success: false,
-            message: `No size data available for ${brand} in ${category}`,
-            fallback: this.getFallbackSize(brand, category)
-          };
-        }
-
-        return {
-          success: true,
-          brand: brand,
-          category: category,
-          recommendedSize: result.recommendedSize,
-          confidence: result.confidence,
-          fitAnalysis: result.fitAnalysis,
-          alternatives: result.alternatives,
-          fitPreference: fitPreference
-        };
-      }
-
-      async getAllMySizes() {
-        if (!this.isInitialized) return {};
-
-        const categories = ["Women's Jeans", "Women's Dresses", "Women's Tops"];
-        const results = {};
-
-        for (const category of categories) {
-          results[category] = this.sizeEngine.getAllBrandSizes(category, 'standard')
-            .filter(result => result.confidence >= this.confidenceThreshold);
-        }
-
-        return results;
-      }
-
-      getFallbackSize(brand, category) {
-        const fallbackSizes = {
-          'ASOS': { "Women's Tops": '16-18', "Women's Dresses": '18', "Women's Jeans": '16-18' },
-          'Zara': { "Women's Tops": 'XL', "Women's Dresses": 'XL', "Women's Jeans": 'XL' },
-          'H&M': { "Women's Tops": '42-44', "Women's Dresses": '42-44', "Women's Jeans": '42-44' }
-        };
-        
-        return fallbackSizes[brand]?.[category] || 'Size 18 (estimated)';
-      }
-
-      updateSystemStatus(status, message) {
-        const statusDots = document.querySelectorAll('.status-dot');
-        const statusTexts = document.querySelectorAll('[id$="status-text"]');
-        
-        statusDots.forEach(dot => {
-          dot.className = `status-dot status-${status}`;
-        });
-        
-        statusTexts.forEach(text => {
-          text.textContent = message;
-        });
-
-        // Update specific status elements
-        const systemStatusDot = document.getElementById('system-status-dot');
-        const systemStatusText = document.getElementById('system-status-text');
-        
-        if (systemStatusDot) systemStatusDot.className = `status-dot status-${status}`;
-        if (systemStatusText) systemStatusText.textContent = message;
-      }
-
-      sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-      }
+  updateUserMeasurements() {
+    const profile = profileData[currentProfile];
+    if (profile?.measurements) {
+      this.sizeEngine.setUserMeasurements({
+        bust: profile.measurements.chest,
+        waist: profile.measurements.waist,
+        hips: profile.measurements.hips,
+        unit: 'inch'
+      });
     }
+  }
+
+  async getAccurateSize(brand, category, fitPreference = 'standard') {
+    if (!this.isInitialized) throw new Error('AI system not initialized');
+    this.updateUserMeasurements();
+    const result = this.sizeEngine.findBestSizeForBrand(brand, category, fitPreference);
+    if (!result) {
+      return {
+        success: false,
+        message: `No size data available for ${brand} in ${category}`,
+        fallback: this.getFallbackSize(brand, category)
+      };
+    }
+    return { success: true, ...result };
+  }
+
+  async getAllMySizes() {
+    if (!this.isInitialized) return {};
+    const categories = (ALL_CATEGORIES && ALL_CATEGORIES.size)
+      ? [...ALL_CATEGORIES]
+      : ["Women's Jeans", "Women's Dresses", "Women's Tops"];
+    const results = {};
+    for (const category of categories) {
+      results[category] = this.sizeEngine
+        .getAllBrandSizes(category, 'standard')
+        .filter(r => r.confidence >= this.confidenceThreshold);
+    }
+    return results;
+  }
+
+  getFallbackSize(brand, category) {
+    const fallback = {
+      'ASOS': { "Women's Tops": '16-18', "Women's Dresses": '18', "Women's Jeans": '16-18' },
+      'Zara': { "Women's Tops": 'XL', "Women's Dresses": 'XL', "Women's Jeans": 'XL' },
+      'H&M':  { "Women's Tops": '42-44', "Women's Dresses": '42-44', "Women's Jeans": '42-44' }
+    };
+    return fallback[brand]?.[category] || 'Size 18 (estimated)';
+  }
+
+  sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+}
+   
+
     // Navigation functions
     function enterHub(region) {
       const hubScreen = region.toLowerCase() + '-hub';
@@ -2786,29 +2718,37 @@ async function populateMySizesGrid() {
 
 
     // Brand Notes Population
-    function populateBrandNotes() {
-      const container = document.getElementById('brand-notes-grid');
-      if (!container) return;
+	function populateBrandNotes() {
+  const container = document.getElementById('brand-notes-grid');
+  if (!container) return;
 
-      const brandNotesHTML = Object.values(BRAND_SIZE_DATABASE).map(brand => `
-        <div class="brand-card">
-          <div class="brand-name">${brand.name}</div>
-          <div style="background: var(--green); color: white; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; display: inline-block; margin-bottom: 12px;">
-            Real size data available
-          </div>
-          <p><strong>Sizing:</strong> ${brand.notes.sizing}</p>
-          <p><strong>Body Types:</strong> ${brand.notes.bodyTypes}</p>
-          <p><strong>Categories:</strong> ${brand.notes.categories}</p>
-          <p><strong>Fit Notes:</strong> ${brand.notes.fitNotes}</p>
-          <p><strong>Special:</strong> ${brand.notes.special}</p>
-          <p style="font-size: 12px; color: var(--muted); margin-top: 8px;">
-            Last updated: ${new Date(brand.lastUpdated).toLocaleDateString()}
-          </p>
+  const sourceDB = (BRAND_DB && Object.keys(BRAND_DB).length) ? BRAND_DB : BRAND_SIZE_DATABASE;
+
+  const cards = Object.entries(sourceDB).map(([key, brand]) => {
+    const name = brand.name || key;
+    const notes = brand.notes || {};
+    const updated = brand.lastUpdated ? new Date(brand.lastUpdated).toLocaleDateString() : '—';
+    return `
+      <div class="brand-card">
+        <div class="brand-name">${name}</div>
+        <div style="background: var(--green); color: white; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; display: inline-block; margin-bottom: 12px;">
+          Real size data available
         </div>
-      `).join('');
+        ${notes.sizing ? `<p><strong>Sizing:</strong> ${notes.sizing}</p>` : ''}
+        ${notes.bodyTypes ? `<p><strong>Body Types:</strong> ${notes.bodyTypes}</p>` : ''}
+        ${notes.categories ? `<p><strong>Categories:</strong> ${notes.categories}</p>` : ''}
+        ${notes.fitNotes ? `<p><strong>Fit Notes:</strong> ${notes.fitNotes}</p>` : ''}
+        ${notes.special ? `<p><strong>Special:</strong> ${notes.special}</p>` : ''}
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;">Last updated: ${updated}</p>
+      </div>
+    `;
+  }).join('');
 
-      container.innerHTML = brandNotesHTML;
-    }
+  container.innerHTML = cards || `
+    <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--muted);">
+      No brand data found.
+    </div>`;
+}
 
     // Utility functions
     function kgFrom(value, unit) {
@@ -3056,16 +2996,20 @@ async function populateMySizesGrid() {
       }
     }
 
-    function showGraphPeriod(period) {
-      document.querySelectorAll('.graph-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-      
-      if (period === 'table') {
-        showWeightTable();
-      } else {
-        renderWeightGraph();
-      }
-    }
+    function showGraphPeriod(period, ev) {
+  // toggle active styling safely
+  document.querySelectorAll('.graph-btn').forEach(btn => btn.classList.remove('active'));
+  if (ev && ev.currentTarget) {
+    ev.currentTarget.classList.add('active');
+  }
+
+  // update the view
+  if (period === 'table') {
+    showWeightTable();
+  } else {
+    renderWeightGraph();
+  }
+}
 
     function showWeightTable() {
       const p = profileData[currentProfile];
@@ -3645,15 +3589,28 @@ async function populateMySizesGrid() {
       }
     }
 
-    // Initialize when DOM is loaded
-    // START: APP INIT + BRAND LOADER
-	document.addEventListener('DOMContentLoaded', () => {
+	
+  // Initialize when DOM is loaded
+// START: APP INIT + BRAND LOADER
+document.addEventListener('DOMContentLoaded', () => {
   loadUkBrands();   // fetch + populate brands & categories from uk_brands.json
   initApp();        // wire pills, nav, AI system, listeners, etc.
   initMySizesSection(); // NEW: wire the My Sizes filters + datalist
+// Ensure the AI engine uses the freshly loaded JSON DB
+if (window.miSizeSystem && miSizeSystem.sizeEngine && Object.keys(BRAND_DB).length) {
+  miSizeSystem.sizeEngine.brandDatabase = BRAND_DB;
+}
+
+// If My Sizes screen is open, refresh it
+if (document.getElementById('uk-mysizes')?.classList.contains('active')) {
+  try { populateMySizesGrid(); } catch {}
+}
+  // ✅ Make sure the live AI engine uses the JSON brands after load
+  if (window.miSizeSystem && miSizeSystem.sizeEngine) {
+    miSizeSystem.sizeEngine.brandDatabase = BRAND_DB;
+  }
 });
 // END: APP INIT + BRAND LOADER
-  
 
 // --- My Sizes: hydrate brand search datalist (safe if BRAND_DB not loaded yet)
 function hydrateMySizesBrandSearch() {
