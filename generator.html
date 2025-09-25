@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>MiSize – UK Brand Generator</title>
+<style>
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#0f0f24;color:#eef;margin:0;padding:24px}
+  h1{font-size:20px;margin:0 0 16px}
+  .card{background:#1d1d3a;border:1px solid #2c2c55;border-radius:12px;padding:16px;margin:12px 0}
+  label{display:block;font-size:14px;margin:8px 0 4px}
+  input,textarea,button{width:100%;font-size:16px;padding:10px;border-radius:10px;border:1px solid #3a3a6a;background:#12122a;color:#fff}
+  button{background:#5b63ff;border:0;margin-top:10px}
+  .row{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;background:#0c0c1a}
+  small{opacity:.75}
+</style>
+</head>
+<body>
+  <h1>MiSize – UK Brand Generator</h1>
+  <div class="card">
+    <p>This tool runs entirely in your browser (iPad-friendly). It loads your existing <code>uk_brands.json</code>, lets you add brands with a standard template, and downloads the merged file.</p>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div>
+        <label>Brand name</label>
+        <input id="brand" placeholder="e.g. Karen Millen" />
+      </div>
+      <div>
+        <label>Notes <small>(optional)</small></label>
+        <input id="notes" placeholder="Placeholder / fit notes" />
+      </div>
+    </div>
+    <label>Preview</label>
+    <textarea id="preview" rows="10" class="mono" readonly></textarea>
+    <button id="add">Add to working set</button>
+  </div>
+
+  <div class="card">
+    <p><b>Working set status:</b> <span id="status">Loading existing uk_brands.json…</span></p>
+    <button id="download">Download merged uk_brands.json</button>
+  </div>
+
+<script>
+const REPO_JSON = 'uk_brands.json'; // same folder as this page
+
+let working = {};
+let loaded = false;
+
+function templateFor(name, notes){
+  return {
+    [name]: {
+      notes: notes || 'Placeholder',
+      categories: {
+        "Women's Tops": {
+          "8":  {"bust":32,"waist":25,"hips":34},
+          "10": {"bust":34,"waist":27,"hips":36}
+        },
+        "Women's Jeans": {
+          "10R": {"waist":28,"hips":38,"inside_leg":30},
+          "12R": {"waist":30,"hips":40,"inside_leg":30}
+        },
+        "Men's Shirts": {
+          "S": {"chest":36,"waist":30},
+          "M": {"chest":38,"waist":32}
+        },
+        "Men's Trousers": {
+          "32R": {"waist":32,"hips":40,"inside_leg":30},
+          "34R": {"waist":34,"hips":42,"inside_leg":30}
+        }
+      }
+    }
+  };
+}
+
+function updatePreview(){
+  const name = document.getElementById('brand').value.trim();
+  const notes = document.getElementById('notes').value.trim();
+  const obj = name ? templateFor(name, notes) : {};
+  document.getElementById('preview').value =
+    JSON.stringify(obj, null, 2);
+}
+
+async function loadExisting(){
+  try{
+    const res = await fetch(REPO_JSON, {cache:'no-store'});
+    if(!res.ok) throw new Error(res.status+' '+res.statusText);
+    const data = await res.json();
+    if(typeof data !== 'object' || Array.isArray(data)){
+      throw new Error('uk_brands.json must be a JSON object at the root (not an array).');
+    }
+    working = structuredClone(data);
+    loaded = true;
+    document.getElementById('status').textContent =
+      'Loaded '+Object.keys(working).length+' brands.';
+  }catch(e){
+    loaded = true;
+    working = {};
+    document.getElementById('status').textContent =
+      'Could not load existing file; starting fresh. ('+e.message+')';
+  }
+}
+
+document.getElementById('brand').addEventListener('input', updatePreview);
+document.getElementById('notes').addEventListener('input', updatePreview);
+
+document.getElementById('add').addEventListener('click', ()=>{
+  const name = document.getElementById('brand').value.trim();
+  if(!name){ alert('Enter a brand name'); return; }
+  const notes = document.getElementById('notes').value.trim();
+  const obj = templateFor(name, notes);
+  // Merge
+  working[name] = obj[name];
+  document.getElementById('status').textContent =
+    'Working set: '+Object.keys(working).length+' brands (added "'+name+'").';
+  // reset inputs
+  document.getElementById('brand').value = '';
+  document.getElementById('notes').value = '';
+  updatePreview();
+});
+
+document.getElementById('download').addEventListener('click', ()=>{
+  const blob = new Blob([JSON.stringify(working, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'uk_brands.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+});
+
+updatePreview();
+loadExisting();
+</script>
+</body>
+</html>
