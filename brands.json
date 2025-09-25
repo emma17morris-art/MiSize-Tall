@@ -819,3 +819,293 @@
     "needsVerification": true
   }
 ]
+
+
+[
+  {
+    "brand": "ASOS",
+    "categories": ["Womenswear","Menswear","Footwear"],
+    "measures": {
+      "women": ["bust","waist","hips","inside_leg"],
+      "men": ["chest","waist","hips","inside_leg","neck"]
+    },
+    "size_guide_url": "asos_women_size_guide",
+    "notes": "Clear how-to-measure + per-category charts"
+  },
+  {
+    "brand": "Next",
+    "categories": ["Womenswear","Menswear","Kids","Footwear","Home"],
+    "measures": {
+      "women": ["bust","waist","hips","inside_leg"],
+      "men": ["chest","waist","inside_leg","collar","jacket_size"]
+    },
+    "size_guide_url": "next_women_size_guide",
+    "notes": "Central help centre with women/men/brand sub-guides"
+  },
+  {
+    "brand": "Marks & Spencer",
+    "categories": ["Womenswear","Menswear","Lingerie","Kids","Footwear"],
+    "measures": {
+      "women": ["bust","waist","hips","inside_leg","bra_band","bra_cup"],
+      "men": ["chest","waist","inside_leg","collar","jacket_size"]
+    },
+    "size_guide_url": "marks_and_spencer_size_guides",
+    "notes": "Switchable cm/in with standard fit assumptions"
+  },
+  {
+    "brand": "Zara",
+    "categories": ["Womenswear","Menswear","Kids","Footwear"],
+    "measures": {
+      "women": ["bust","waist","hips"],
+      "men": ["chest","waist","hips"]
+    },
+    "size_guide_url": "zara_whats_my_size",
+    "notes": "Shows body measurements per size on the product page + ‘Find your size’ tool"
+  },
+  {
+    "brand": "H&M",
+    "categories": ["Womenswear","Menswear","Kids","Lingerie","Footwear"],
+    "measures": {
+      "women": ["bust","waist","hips","inside_leg","bra_band","bra_cup"],
+      "men": ["chest","waist","inside_leg"]
+    },
+    "size_guide_url": "hm_ladies_size_guide",
+    "notes": "Extensive lingerie/bra guidance"
+  },
+  {
+    "brand": "New Look",
+    "categories": ["Womenswear","Footwear"],
+    "measures": {
+      "women": ["bust","waist","hips","inside_leg","foot_length"]
+    },
+    "size_guide_url": "new_look_size_guides",
+    "notes": "Core/Curves/Petite sections"
+  },
+  {
+    "brand": "River Island",
+    "categories": ["Womenswear","Menswear","Footwear"],
+    "measures": {
+      "women": ["bust","waist","hips","inside_leg","foot_length"],
+      "men": ["chest","waist","inside_leg","foot_length"]
+    },
+    "size_guide_url": "river_island_size_guides_women",
+    "notes": "Separate men/women charts"
+  },
+  {
+    "brand": "Primark",
+    "categories": ["Womenswear","Menswear","Kids","Footwear","Lingerie"],
+    "measures": {
+      "women": ["bust","waist","hips","inside_leg","bra_band","bra_cup","foot_length"],
+      "men": ["chest","waist","inside_leg","foot_length"]
+    },
+    "size_guide_url": "primark_women_size_charts",
+    "notes": "Central hub with per-category charts"
+  },
+  {
+    "brand": "Boden",
+    "categories": ["Womenswear","Menswear","Kids"],
+    "measures": {
+      "women": ["bust","waist","hips","inside_leg"],
+      "men": ["chest","waist","inside_leg"]
+    },
+    "size_guide_url": "https://www.boden.com/en-gb/size-guides",
+    "notes": "UK brand with clear conversion tables"
+  },
+  {
+    "brand": "FatFace",
+    "categories": ["Womenswear","Menswear","Kids"],
+    "measures": {
+      "women": ["bust","waist","hips","inside_leg"],
+      "men": ["chest","waist","inside_leg"]
+    },
+    "size_guide_url": "https://www.fatface.com/size-guide.html",
+    "notes": "Casual fits; clear jeans inside leg"
+  },
+  {
+    "brand": "White Stuff",
+    "categories": ["Womenswear","Menswear"],
+    "measures": {
+      "women": ["bust","waist","hips","inside_leg"],
+      "men": ["chest","waist","inside_leg"]
+    },
+    "size_guide_url": "https://www.whitestuff.com/size-guide/",
+    "notes": "Relaxed fit notes"
+  },
+  {
+    "brand": "Joules",
+    "categories": ["Womenswear","Menswear","Kids"],
+    "measures": {
+      "women": ["bust","waist","hips","inside_leg"],
+      "men": ["chest","waist","inside_leg"]
+    },
+    "size_guide_url": "https://www.joules.com/size-guide",
+    "notes": "Country/outdoor skew"
+  },
+  {
+    "brand": "Barbour",
+    "categories": ["Womenswear","Menswear","Outerwear"],
+    "measures": {
+      "women": ["bust","waist","hips"],
+      "men": ["chest","waist"]
+    },
+    "size_guide_url": "barbour_womens_pdf_via_next",
+    "notes": "Outerwear; chest/bust primary, check style fit"
+  },
+  {
+    "brand": "Oasis",
+    "categories": ["Womenswear"],
+    "measures": {
+      "women": ["bust","waist","hips"]
+    },
+    "size_guide_url": "oasis_womens_pdf_via_next",
+    "notes": "Classic UK 6–18 mapping"
+  },
+  {
+    "brand": "Warehouse",
+    "categories": ["Womenswear"],
+    "measures": {
+      "women": ["bust","waist","hips"]
+    },
+    "size_guide_url": "https://www.warehousefashion.com/size-guide",
+    "notes": "Occasionwear/dresses focus"
+  },
+  {
+    "brand": "Monsoon",
+    "categories": ["Womenswear","Kids","Occasion"],
+    "measures": {
+      "women": ["bust","waist","hips"],
+      "kids": ["height","chest","waist","hips"]
+    },
+    "size_guide_url": "https://www.monsoon.co.uk/size-guides.html",
+    "notes": "Bridal & occasion fits"
+  },
+  {
+    "brand": "Phase Eight",
+    "categories": ["Womenswear","Occasion","Plus"],
+    "measures": {
+      "women": ["bust","waist","hips"]
+    },
+    "size_guide_url": "https://www.phase-eight.com/size-guide/",
+    "notes": "Curve range covered"
+  },
+  {
+    "brand": "Hobbs",
+    "categories": ["Womenswear"],
+    "measures": {
+      "women": ["bust","waist","hips"]
+    },
+    "size_guide_url": "https://www.hobbs.com/size-guide",
+    "notes": "Tailored fits"
+  },
+  {
+    "brand": "Whistles",
+    "categories": ["Womenswear"],
+    "measures": {
+      "women": ["bust","waist","hips"]
+    },
+    "size_guide_url": "https://www.whistles.com/customer-service/size-guide.html",
+    "notes": "Contemporary fits"
+  },
+  {
+    "brand": "Reiss",
+    "categories": ["Womenswear","Menswear"],
+    "measures": {
+      "women": ["bust","waist","hips"],
+      "men": ["chest","waist","inside_leg","collar","jacket_size"]
+    },
+    "size_guide_url": "https://www.reiss.com/customer-care/size-guide/",
+    "notes": "Tailoring; collar/jacket sizes matter"
+  },
+  {
+    "brand": "Ted Baker",
+    "categories": ["Womenswear","Menswear","Footwear"],
+    "measures": {
+      "women": ["bust","waist","hips","inside_leg"],
+      "men": ["chest","waist","inside_leg","collar"]
+    },
+    "size_guide_url": "https://www.tedbaker.com/uk/size-guides",
+    "notes": "Numbered TB sizes (0–5) map to UK"
+  },
+  {
+    "brand": "AllSaints",
+    "categories": ["Womenswear","Menswear"],
+    "measures": {
+      "women": ["bust","waist","hips"],
+      "men": ["chest","waist"]
+    },
+    "size_guide_url": "https://www.allsaints.com/size-guide/",
+    "notes": "Slim silhouettes; check garment ease"
+  },
+  {
+    "brand": "Superdry",
+    "categories": ["Womenswear","Menswear","Outerwear"],
+    "measures": {
+      "women": ["bust","waist","hips"],
+      "men": ["chest","waist"]
+    },
+    "size_guide_url": "superdry_womens_pdf_via_next",
+    "notes": "Brand uses body measures; outerwear varies"
+  },
+  {
+    "brand": "Boohoo",
+    "categories": ["Womenswear","Menswear"],
+    "measures": {
+      "women": ["bust","waist","hips"],
+      "men": ["chest","waist","inside_leg"]
+    },
+    "size_guide_url": "https://www.boohoo.com/page/size-guide.html",
+    "notes": "Fast fashion; check per category"
+  },
+  {
+    "brand": "PrettyLittleThing",
+    "categories": ["Womenswear"],
+    "measures": { "women": ["bust","waist","hips"] },
+    "size_guide_url": "https://www.prettylittlething.com/size-guide",
+    "notes": "PLT shape/tall/petite variants"
+  },
+  {
+    "brand": "Missguided",
+    "categories": ["Womenswear"],
+    "measures": { "women": ["bust","waist","hips"] },
+    "size_guide_url": "https://www.missguided.co.uk/size-guide",
+    "notes": "Party & jeans fits"
+  },
+  {
+    "brand": "Topshop",
+    "categories": ["Womenswear","Denim"],
+    "measures": { "women": ["waist","hips","inside_leg"] },
+    "size_guide_url": "https://www.asos.com/discover/size-charts/topshop/",
+    "notes": "Now on ASOS; denim waist/leg focus"
+  },
+  {
+    "brand": "Topman",
+    "categories": ["Menswear","Denim","Tailoring"],
+    "measures": { "men": ["chest","waist","inside_leg","collar"] },
+    "size_guide_url": "https://www.asos.com/discover/size-charts/topman/",
+    "notes": "Now on ASOS; tailoring measurements"
+  },
+  {
+    "brand": "Dorothy Perkins",
+    "categories": ["Womenswear"],
+    "measures": { "women": ["bust","waist","hips"] },
+    "size_guide_url": "https://www.dorothyperkins.com/size-guide",
+    "notes": "DP tall/petite also listed"
+  },
+  {
+    "brand": "Burton",
+    "categories": ["Menswear","Tailoring"],
+    "measures": { "men": ["chest","waist","inside_leg","collar"] },
+    "size_guide_url": "https://www.burton.co.uk/size-guide",
+    "notes": "Suits & formal shirts"
+  },
+  {
+    "brand": "John Lewis (Own Brand)",
+    "categories": ["Womenswear","Menswear","Kids","Lingerie","Footwear"],
+    "measures": {
+      "women": ["bust","waist","hips","inside_leg","bra_band","bra_cup"],
+      "men": ["chest","waist","inside_leg","collar"]
+    },
+    "size_guide_url": "https://www.johnlewis.com/customer-services/services/size-guides",
+    "notes": "Own-brand + guidance per department"
+  }
+]
