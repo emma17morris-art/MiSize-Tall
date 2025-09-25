@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -899,20 +900,66 @@
     </div>
   </div>
 
-  <!-- Home Screen -->
-  <div id="home" class="screen active">
-    <div class="main-container">
-      <div class="header">
-        <h1 class="title">Welcome to MiSize</h1>
-        <p class="subtitle">Your personal size finder and body tracker with AI-powered sizing!</p>
+  <!-- Flash Screen -->
+<div id="flash" class="screen active">
+  <div class="main-container">
+    <div class="header">
+      <h1 class="title">Welcome to MiSize</h1>
+      <p class="subtitle">Your personal size finder and body tracker with AI-powered sizing!</p>
+    </div>
+    
+    <div class="loading-spinner" style="margin: 40px auto;"></div>
+    <p style="color: var(--muted); margin-top: 20px;">Loading your intelligent sizing system...</p>
+  </div>
+</div>
+
+<!-- Home Screen -->
+<div id="home" class="screen">
+  <div style="padding: 120px 20px 80px; max-width: 800px; margin: 0 auto;">
+    
+    <div class="system-status">
+      <div class="status-indicator">
+        <div class="status-dot status-online" id="system-status-dot"></div>
+        <span id="system-status-text">AI sizing system ready</span>
       </div>
-      
-      <div class="system-status">
-        <div class="status-indicator">
-          <div class="status-dot status-loading" id="system-status-dot"></div>
-          <span id="system-status-text">Initializing intelligent sizing system...</span>
+    </div>
+
+    <div style="background: linear-gradient(135deg, var(--brand), var(--blue)); border-radius: 16px; padding: 24px; margin: 20px 0; border: 2px solid rgba(255,255,255,0.1);">
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <div style="font-size: 48px;">👤</div>
+        <div style="text-align: left;">
+          <h3 style="margin: 0 0 8px; color: white; font-size: 18px; font-weight: 800;">Get Started</h3>
+          <p style="margin: 0 0 12px; color: rgba(255,255,255,0.9); font-size: 14px;">Set up your profile in Settings to unlock personalized AI sizing recommendations</p>
+          <button onclick="goToScreen('uk-settings')" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 8px 16px; font-weight: 700; cursor: pointer; transition: all 0.2s;">
+            Go to Settings →
+          </button>
         </div>
       </div>
+    </div>
+    
+    <div class="region-grid" style="max-width: none; padding: 0;">
+      <div class="region-tile" onclick="enterHub('UK')">
+        <span class="region-flag">🇬🇧</span>
+        <h3 class="region-name">UK</h3>
+      </div>
+      
+      <div class="region-tile" onclick="enterHub('EU')">
+        <span class="region-flag">🇪🇺</span>
+        <h3 class="region-name">EU</h3>
+      </div>
+      
+      <div class="region-tile" onclick="enterHub('US')">
+        <span class="region-flag">🇺🇸</span>
+        <h3 class="region-name">US</h3>
+      </div>
+      
+      <div class="region-tile" onclick="enterHub('CA')">
+        <span class="region-flag">🇨🇦</span>
+        <h3 class="region-name">CA</h3>
+      </div>
+    </div>
+  </div>
+</div>
       
 	    <!-- START: Get Started Card -->
     <div style="background: linear-gradient(135deg, var(--brand), var(--blue)); border-radius: 16px; padding: 24px; margin: 20px auto; max-width: 600px; border: 2px solid rgba(255,255,255,0.1);">
@@ -3670,6 +3717,14 @@ function initMySizesSection() {
 
   hydrateMySizesBrandSearch();
 }
+
+// Auto-transition from flash to home screen
+setTimeout(() => {
+  document.getElementById('flash').classList.remove('active');
+  document.getElementById('home').classList.add('active');
+  currentScreen = 'home';
+}, 3000); // 3 second delay
+
 </script>
 </body>
 </html>
