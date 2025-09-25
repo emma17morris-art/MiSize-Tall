@@ -1080,41 +1080,33 @@
       </div>
       
       <div class="form-container">
-        <div class="form-group">
-          <label class="form-label">Brand</label>
-          <select class="form-select" id="uk-brand-select">
-            <option value="">Select a brand...</option>
-            <option value="ASOS">ASOS</option>
-            <option value="Next">Next</option>
-            <option value="Marks & Spencer">Marks & Spencer</option>
-            <option value="Zara">Zara</option>
-            <option value="H&M">H&M</option>
-            <option value="Topshop">Topshop</option>
-            <option value="Primark">Primark</option>
-            <option value="Uniqlo">Uniqlo</option>
-            <option value="River Island">River Island</option>
-            <option value="New Look">New Look</option>
-            <option value="Boden">Boden</option>
-            <option value="Superdry">Superdry</option>
-            <option value="John Lewis">John Lewis</option>
-            <option value="Monsoon">Monsoon</option>
-            <option value="White Stuff">White Stuff</option>
-            <option value="Fat Face">Fat Face</option>
-            <option value="Joules">Joules</option>
-            <option value="TK Maxx">TK Maxx</option>
-            <option value="Very">Very</option>
-            <option value="Boohoo">Boohoo</option>
-            <option value="PrettyLittleThing">PrettyLittleThing</option>
-            <option value="Missguided">Missguided</option>
-            <option value="COS">COS</option>
-            <option value="& Other Stories">&amp; Other Stories</option>
-            <option value="Mango">Mango</option>
-            <option value="Whistles">Whistles</option>
-            <option value="Arket">Arket</option>
-            <option value="Weekday">Weekday</option>
-          </select>
-        </div>
-        
+		   <!-- START: UK SIZEFINDER BRAND FIELD (SEARCH + SELECT) -->
+<div class="form-group">
+  <label class="form-label">Brand</label>
+
+  <!-- New: Searchable brand input wired to uk_brands.json -->
+  <div style="display:flex; gap:8px; align-items:center;">
+    <input
+      type="text"
+      class="form-input"
+      id="uk-brand-search"
+      list="uk-brand-datalist"
+      placeholder="Type to search any UK brand…"
+      style="flex:2"
+    />
+    <datalist id="uk-brand-datalist"></datalist>
+
+    <!-- Keep your original select: we will populate it dynamically as well -->
+    <select class="form-select" id="uk-brand-select" style="flex:1">
+      <option value="">Select a brand…</option>
+    </select>
+  </div>
+
+  <p class="small" style="margin-top:6px;color:var(--muted);">
+    Tip: you can type a brand in the search box or use the dropdown — both are linked and load from <code>uk_brands.json</code>.
+  </p>
+</div>
+<!-- END: UK SIZEFINDER BRAND FIELD (SEARCH + SELECT) -->       
         <div class="form-group">
           <label class="form-label">Category</label>
           <select class="form-select" id="uk-category-select">
@@ -1203,6 +1195,21 @@
         </div>
       </div>
       
+	  <!-- START: BRAND INTELLIGENCE FILTERS -->
+<div class="form-group">
+  <label class="form-label">Search & Filter</label>
+  <div style="display:flex; gap:8px;">
+    <input id="brand-intel-search" class="form-input" placeholder="Search brand name…">
+    <select id="brand-intel-category" class="form-select">
+      <option value="">All categories</option>
+    </select>
+  </div>
+  <p class="small" style="margin-top:6px;color:var(--muted);">
+    This list is loaded from <code>uk_brands.json</code> — no more 5-brand limit!
+  </p>
+</div>
+<!-- END: BRAND INTELLIGENCE FILTERS -->
+
       <div class="brand-grid" id="brand-notes-grid">
         <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
           <div class="loading-spinner"></div>
@@ -1420,7 +1427,32 @@
           </div>
         </div>
       </div>
+<!-- START: PREFERRED BRANDS (PER PROFILE) -->
+<div class="settings-section">
+  <h3>⭐ Preferred Brands (Per Profile)</h3>
+  <p style="margin-bottom:10px;color:var(--muted);">
+    Choose which brands to include across the whole app (AI Size Finder, My Sizes, Brand Intelligence).
+    Leave empty to include <em>all</em> brands.
+  </p>
 
+  <div class="form-group">
+    <label class="form-label">Profile</label>
+    <select class="form-select" id="pref-profile"></select>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Filter Brands</label>
+    <input class="form-input" id="pref-search" placeholder="Type to filter brands…"/>
+  </div>
+
+  <div id="pref-brands" class="pill-settings-group" aria-live="polite"></div>
+
+  <p class="small" style="margin-top:8px;color:var(--muted);">
+    Changes are saved automatically and linked to the selected profile.
+  </p>
+</div>
+
+<!-- END: PREFERRED BRANDS (PER PROFILE) -->
       <!-- Region Settings -->
       <div class="settings-section">
         <h3>🌍 Change Region</h3>
@@ -1814,6 +1846,137 @@
     let editingProfile = null;
     let miSizeSystem = null;
     
+	    // START: EXTERNAL UK BRAND GLOBALS
+    // Master DB once fetched. Shape: name -> { categories, notes, lastUpdated, ... }
+    let BRAND_DB = {};
+
+    // All brand names (sorted) for pickers/search
+    let ALL_BRANDS = [];
+
+    // Discovered categories across all brands (e.g., "Women's Tops", "Men's Jeans")
+    let ALL_CATEGORIES = new Set();
+
+    /**
+     * Normalise uk_brands.json so we support BOTH schemas:
+     *  A) Array form:
+     *     [ { "name":"ASOS", "categories":{...} }, { "name":"Next", ... } ]
+     *  B) Object form:
+     *     { "ASOS": { "categories":{...} }, "Next": { ... } }
+     */
+    function normaliseBrandJson(raw) {
+      if (Array.isArray(raw)) {
+        const obj = {};
+        raw.forEach(b => { if (b && b.name) obj[b.name] = b; });
+        return obj;
+      }
+      // If it's already an object, just use it as-is
+      return raw || {};
+    }
+    // END: EXTERNAL UK BRAND GLOBALS
+	
+	// START: LOAD UK BRANDS FROM JSON
+async function loadUkBrands() {
+  try {
+    // 1) Fetch and normalise
+    const res = await fetch('uk_brands.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('Failed to fetch uk_brands.json');
+    const raw = await res.json();
+    BRAND_DB = normaliseBrandJson(raw);
+
+    // 2) Build brand + category indexes
+    ALL_BRANDS = Object.keys(BRAND_DB).sort((a, b) => a.localeCompare(b));
+    ALL_CATEGORIES = new Set();
+    ALL_BRANDS.forEach(name => {
+      const cats = BRAND_DB[name]?.categories ? Object.keys(BRAND_DB[name].categories) : [];
+      cats.forEach(c => ALL_CATEGORIES.add(c));
+    });
+
+    // 3) Populate the Size Finder brand search + select
+    const datalist = document.getElementById('uk-brand-datalist');
+    const search   = document.getElementById('uk-brand-search');
+    const select   = document.getElementById('uk-brand-select');
+
+    if (datalist) datalist.innerHTML = '';
+    if (select)   select.innerHTML   = '<option value="">Select a brand…</option>';
+
+    ALL_BRANDS.forEach(name => {
+      if (datalist) {
+        const o = document.createElement('option');
+        o.value = name;
+        datalist.appendChild(o);
+      }
+      if (select) {
+        const o = document.createElement('option');
+        o.value = name;
+        o.textContent = name;
+        select.appendChild(o);
+      }
+    });
+
+    // Link search <-> select (keep in sync)
+    if (search && select) {
+      if (!search._bound) {
+        search._bound = true;
+        search.addEventListener('input', () => {
+          const v = search.value.trim();
+          if (ALL_BRANDS.includes(v)) select.value = v;
+        });
+      }
+      if (!select._bound) {
+        select._bound = true;
+        select.addEventListener('change', () => {
+          if (select.value) search.value = select.value;
+        });
+      }
+    }
+
+    // 4) Populate categories everywhere
+    const catSizeFinder = document.getElementById('uk-category-select');
+    const catMySizes    = document.getElementById('mysizes-category');
+    const catIntel      = document.getElementById('brand-intel-category');
+    const catsSorted    = [...ALL_CATEGORIES].sort((a,b)=>a.localeCompare(b));
+
+    function fillCatSelect(sel) {
+      if (!sel) return;
+      const keepTop = sel.querySelector('option[value=""]')?.outerHTML || '<option value="">Select category...</option>';
+      sel.innerHTML = keepTop; // reset but keep the placeholder
+      catsSorted.forEach(c => {
+        const o = document.createElement('option');
+        o.value = c; o.textContent = c;
+        sel.appendChild(o);
+      });
+    }
+    fillCatSelect(catSizeFinder);
+    fillCatSelect(catMySizes);
+    fillCatSelect(catIntel);
+
+    // 5) Update any status lamps if present
+    const dot = document.getElementById('sizefinder-status-dot') || document.getElementById('uk-dot') || document.getElementById('sys-dot');
+    const txt = document.getElementById('sizefinder-status-text') || document.getElementById('uk-text') || document.getElementById('sys-text');
+    if (dot) {
+      dot.classList.remove('status-loading');
+      dot.classList.add('status-online');
+    }
+    if (txt) {
+      txt.textContent = `Loaded ${ALL_BRANDS.length} UK brands`;
+    }
+
+    // 6) Optional: if later steps exist, call them safely
+    if (typeof hydratePreferredBrands === 'function') { try { hydratePreferredBrands(); } catch {} }
+    if (typeof refreshBrandIntelligenceFromJson === 'function') { try { refreshBrandIntelligenceFromJson(); } catch {} }
+    if (typeof refreshMySizesFromJson === 'function') { try { refreshMySizesFromJson(); } catch {} }
+
+  } catch (err) {
+    console.error(err);
+    alert('Could not load uk_brands.json. Ensure it sits next to index.html and contains valid JSON.');
+    // Fail status
+    const txt = document.getElementById('sizefinder-status-text') || document.getElementById('uk-text') || document.getElementById('sys-text');
+    if (txt) txt.textContent = 'Error loading uk_brands.json';
+  }
+}
+// END: LOAD UK BRANDS FROM JSON
+
+	
     // Profile Data with your updated measurements
     let profileData = {
       'Emma Morris': {
@@ -3443,7 +3606,12 @@
     }
 
     // Initialize when DOM is loaded
-    document.addEventListener('DOMContentLoaded', initApp);
+    // START: APP INIT + BRAND LOADER
+document.addEventListener('DOMContentLoaded', () => {
+  loadUkBrands();   // fetch + populate brands & categories from uk_brands.json
+  initApp();        // wire pills, nav, AI system, listeners, etc.
+});
+// END: APP INIT + BRAND LOADER
   </script>
 </body>
 </html>
