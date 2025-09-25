@@ -1143,43 +1143,51 @@
   </div>
 
   <!-- UK My Sizes -->
-  <div id="uk-mysizes" class="screen">
-    <div class="content-container">
-      <div class="hub-header">
-        <h2 class="hub-title">My Accurate Sizes</h2>
-        <p class="hub-subtitle">Based on your measurements: 36" bust, 34" waist, 38" hips</p>
-        <p style="font-size: 14px; color: var(--muted); margin-top: 8px;">
-          All sizes calculated using real brand measurement charts
-        </p>
+<div id="uk-mysizes" class="screen">
+  <div class="content-container">
+    <div class="hub-header">
+      <h2 class="hub-title">My Accurate Sizes</h2>
+      <p class="hub-subtitle">Based on your measurements: 36" bust, 34" waist, 38" hips</p>
+      <p style="font-size:14px;color:var(--muted);margin-top:8px;">
+        All sizes calculated using real brand measurement charts
+      </p>
+    </div>
+
+    <div class="system-status">
+      <div class="status-indicator">
+        <div class="status-dot status-online"></div>
+        <span id="mysizes-status-text">Showing sizes with 85%+ confidence rating</span>
       </div>
-      
-      <div class="system-status">
-        <div class="status-indicator">
-          <div class="status-dot status-online"></div>
-          <span>Showing sizes with 85%+ confidence rating</span>
-        </div>
-      </div>
-      
-      <div class="form-group">
-        <label class="form-label">Category Filter</label>
-        <select class="form-select" id="mysizes-category">
-          <option value="">All categories</option>
-          <option value="Women's Jeans">Women's Jeans</option>
-          <option value="Women's Dresses">Women's Dresses</option>
-          <option value="Women's Tops">Women's Tops</option>
-          <option value="Women's Shoes">Women's Shoes</option>
-        </select>
-      </div>
-      
-      <div class="brand-grid" id="my-sizes-grid">
-        <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
-          <div class="loading-spinner"></div>
-          <p>Loading your accurate sizes from brand databases...</p>
-        </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Category Filter</label>
+      <select class="form-select" id="mysizes-category">
+        <option value="">All categories</option>
+        <option value="Women's Jeans">Women's Jeans</option>
+        <option value="Women's Dresses">Women's Dresses</option>
+        <option value="Women's Tops">Women's Tops</option>
+        <option value="Women's Shoes">Women's Shoes</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Brand (optional)</label>
+      <input class="form-input" id="mysizes-brand-search" list="mysizes-brand-datalist" placeholder="Type a brand to filter…"/>
+      <datalist id="mysizes-brand-datalist"></datalist>
+      <p class="small" style="margin-top:6px;color:var(--muted);">
+        Leave blank to see all brands that meet your confidence threshold.
+      </p>
+    </div>
+
+    <div class="brand-grid" id="my-sizes-grid">
+      <div style="text-align:center;padding:40px;grid-column:1/-1;">
+        <div class="loading-spinner"></div>
+        <p>Loading your accurate sizes from brand databases...</p>
       </div>
     </div>
   </div>
-
+</div>
   <!-- UK Brand Notes -->
   <div id="uk-brandnotes" class="screen">
     <div class="content-container">
@@ -1836,7 +1844,11 @@
     <button class="nav-item" onclick="goToHelp()">Help</button>
     <button class="nav-item" onclick="goBack()">Back</button>
   </div>
+  
   <script>
+	  
+
+
     // Global variables
     let currentScreen = 'home';
     let navigationHistory = [];
@@ -1960,11 +1972,13 @@ async function loadUkBrands() {
     if (txt) {
       txt.textContent = `Loaded ${ALL_BRANDS.length} UK brands`;
     }
+	// 6) Optional: if later steps exist, call them safely
+if (typeof hydratePreferredBrands === 'function') { try { hydratePreferredBrands(); } catch {} }
+if (typeof refreshBrandIntelligenceFromJson === 'function') { try { refreshBrandIntelligenceFromJson(); } catch {} }
+if (typeof refreshMySizesFromJson === 'function') { try { refreshMySizesFromJson(); } catch {} }
 
-    // 6) Optional: if later steps exist, call them safely
-    if (typeof hydratePreferredBrands === 'function') { try { hydratePreferredBrands(); } catch {} }
-    if (typeof refreshBrandIntelligenceFromJson === 'function') { try { refreshBrandIntelligenceFromJson(); } catch {} }
-    if (typeof refreshMySizesFromJson === 'function') { try { refreshMySizesFromJson(); } catch {} }
+// ✅ NEW: hook up the brand search in My Sizes
+if (typeof hydrateMySizesBrandSearch === 'function') { try { hydrateMySizesBrandSearch(); } catch {} }
 
   } catch (err) {
     console.error(err);
@@ -2683,67 +2697,93 @@ async function loadUkBrands() {
       }
     }
 
-    // Enhanced My Sizes Grid
-    async function populateMySizesGrid() {
-      const grid = document.getElementById('my-sizes-grid');
-      if (!grid) return;
-      
-      grid.innerHTML = '<div style="text-align: center; padding: 40px; grid-column: 1/-1;"><div class="loading-spinner"></div><p>Loading your accurate sizes...</p></div>';
-      
-      try {
-        const allSizes = await miSizeSystem.getAllMySizes();
-        const filter = document.getElementById('mysizes-category')?.value || '';
-        
-        let itemsHTML = '';
-        let totalItems = 0;
-        
-        Object.entries(allSizes).forEach(([category, recommendations]) => {
-          if (!filter || category === filter) {
-            recommendations.forEach(rec => {
-              totalItems++;
-              const confidenceColor = rec.confidence >= 90 ? 'var(--green)' : rec.confidence >= 80 ? 'var(--blue)' : 'var(--orange)';
-              
-              itemsHTML += `
-                <div class="brand-card">
-                  <div class="brand-name">${rec.brand}</div>
-                  <div class="brand-size">Size ${rec.recommendedSize}</div>
-                  <div style="background: ${confidenceColor}; color: white; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; display: inline-block; margin: 8px 0;">
-                    ${rec.confidence}% match
-                  </div>
-                  <p style="font-size:14px;color:var(--muted);margin:8px 0 4px;">${category} - ${rec.fitPreference} fit</p>
-                  <p style="font-size:12px;color:var(--green);margin:4px 0 0;font-weight:600;">
-                    📏 Based on: 36" bust, 34" waist, 38" hips
-                  </p>
-                  ${rec.alternatives.length > 0 ? `
-                    <p style="font-size:11px;color:var(--muted);margin:4px 0 0;">
-                      Alt: ${rec.alternatives[0].size} (${rec.alternatives[0].confidence}%)
-                    </p>
-                  ` : ''}
-                </div>
-              `;
-            });
-          }
-        });
-        
-        if (totalItems > 0) {
-          grid.innerHTML = itemsHTML;
-        } else {
-          grid.innerHTML = `
-            <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
-              <p style="color: var(--muted);">No high-confidence matches found for this category.</p>
-              <p style="color: var(--muted); font-size: 14px;">Try adjusting your confidence threshold in Settings.</p>
-            </div>
-          `;
-        }
-        
-      } catch (error) {
-        grid.innerHTML = `
-          <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
-            <p style="color: var(--orange);">Error loading sizes: ${error.message}</p>
-          </div>
-        `;
-      }
+    // --- My Sizes: render grid (uses your MiSizeAISystem -> getAllMySizes)
+async function populateMySizesGrid() {
+  const grid = document.getElementById('my-sizes-grid');
+  const statusText = document.getElementById('mysizes-status-text');
+  if (!grid) return;
+
+  grid.innerHTML = `
+    <div style="text-align:center;padding:40px;grid-column:1/-1;">
+      <div class="loading-spinner"></div>
+      <p>Loading your accurate sizes...</p>
+    </div>`;
+
+  if (!miSizeSystem || !miSizeSystem.isInitialized) {
+    grid.innerHTML = `
+      <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--muted);">
+        AI sizing system not ready yet. Try again in a moment.
+      </div>`;
+    return;
+  }
+
+  try {
+    const categoryFilter = (document.getElementById('mysizes-category')?.value || '').trim();
+    const brandFilter = (document.getElementById('mysizes-brand-search')?.value || '').trim();
+
+    const allSizes = await miSizeSystem.getAllMySizes(); // { category: [recs...] }
+    const cards = [];
+
+    if (statusText && miSizeSystem.confidenceThreshold) {
+      statusText.textContent = `Showing sizes with ${miSizeSystem.confidenceThreshold}%+ confidence rating`;
     }
+
+    Object.entries(allSizes).forEach(([category, recs]) => {
+      if (categoryFilter && category !== categoryFilter) return;
+
+      recs.forEach(rec => {
+        if (brandFilter && rec.brand.toLowerCase() !== brandFilter.toLowerCase()) return;
+
+        const confidenceColor =
+          rec.confidence >= 90 ? 'var(--green)' :
+          rec.confidence >= 80 ? 'var(--blue)'  : 'var(--orange)';
+
+        cards.push(`
+          <div class="brand-card">
+            <div class="brand-name">${rec.brand}</div>
+            <div class="brand-size">Size ${rec.recommendedSize}</div>
+
+            <div style="background:${confidenceColor};color:#fff;padding:4px 8px;border-radius:6px;font-size:12px;font-weight:600;display:inline-block;margin:8px 0;">
+              ${rec.confidence}% match
+            </div>
+
+            <p style="font-size:14px;color:var(--muted);margin:8px 0 6px;">
+              ${category} — ${rec.fitPreference} fit
+            </p>
+
+            <details style="margin-top:6px;">
+              <summary style="cursor:pointer;font-weight:700;">Fit analysis</summary>
+              <div style="font-size:13px;margin-top:6px;">
+                ${Object.entries(rec.fitAnalysis.fit).map(([m, d]) =>
+                  `<div><strong>${m.toUpperCase()}:</strong> ${d.description}</div>`).join('')}
+              </div>
+            </details>
+
+            ${rec.alternatives?.length ? `
+              <p style="font-size:12px;color:var(--muted);margin:8px 0 0;">
+                Alt: ${rec.alternatives[0].size} (${rec.alternatives[0].confidence}%)
+              </p>` : ''}
+          </div>
+        `);
+      });
+    });
+
+    grid.innerHTML = cards.length
+      ? cards.join('')
+      : `
+        <div style="text-align:center;padding:40px;grid-column:1/-1;">
+          <p style="color:var(--muted);">No matches at this confidence level${brandFilter ? ` for <strong>${brandFilter}</strong>` : ''}.</p>
+          <p style="color:var(--muted);font-size:14px;">Try clearing the brand, changing category, or lowering the threshold in Settings.</p>
+        </div>`;
+  } catch (err) {
+    grid.innerHTML = `
+      <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--orange);">
+        Error loading sizes: ${err.message}
+      </div>`;
+  }
+}
+        
+
 
     // Brand Notes Population
     function populateBrandNotes() {
@@ -3607,11 +3647,51 @@ async function loadUkBrands() {
 
     // Initialize when DOM is loaded
     // START: APP INIT + BRAND LOADER
-document.addEventListener('DOMContentLoaded', () => {
+	document.addEventListener('DOMContentLoaded', () => {
   loadUkBrands();   // fetch + populate brands & categories from uk_brands.json
   initApp();        // wire pills, nav, AI system, listeners, etc.
+  initMySizesSection(); // NEW: wire the My Sizes filters + datalist
 });
 // END: APP INIT + BRAND LOADER
-  </script>
+  
+
+// --- My Sizes: hydrate brand search datalist (safe if BRAND_DB not loaded yet)
+function hydrateMySizesBrandSearch() {
+  const dl = document.getElementById('mysizes-brand-datalist');
+  if (!dl) return;
+  const names = (typeof ALL_BRANDS !== 'undefined' && Array.isArray(ALL_BRANDS) && ALL_BRANDS.length)
+    ? ALL_BRANDS
+    : (typeof BRAND_DB === 'object' ? Object.keys(BRAND_DB) : []);
+  dl.innerHTML = '';
+  names.sort((a,b)=>a.localeCompare(b)).forEach(n => {
+    const o = document.createElement('option');
+    o.value = n;
+    dl.appendChild(o);
+  });
+}
+
+// --- My Sizes: listeners (call once after DOM is ready)
+function initMySizesSection() {
+  const cat = document.getElementById('mysizes-category');
+  const brand = document.getElementById('mysizes-brand-search');
+
+  if (cat && !cat._bound) {
+    cat._bound = true;
+    cat.addEventListener('change', populateMySizesGrid);
+  }
+
+  if (brand && !brand._bound) {
+    brand._bound = true;
+    brand.addEventListener('input', () => {
+      const v = brand.value.trim();
+      const isKnown = (typeof ALL_BRANDS !== 'undefined' && ALL_BRANDS.includes(v)) ||
+                      (typeof BRAND_DB === 'object' && BRAND_DB && BRAND_DB[v]);
+      if (v === '' || isKnown) populateMySizesGrid();
+    });
+  }
+
+  hydrateMySizesBrandSearch();
+}
+</script>
 </body>
 </html>
