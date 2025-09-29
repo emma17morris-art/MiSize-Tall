@@ -1,9 +1,24 @@
 {
-  "Demo Brand": {
-    "lastUpdated": "2025-09-29T16:19:42.286Z",
+  "Primark": {
+    "lastUpdated": "2025-09-29T16:59:03.622Z",
     "categories": {
-      "Demo Category": {
+      "Men — Casual Tops (chest cm)": {
         "unit": "cm",
+        "chart": [
+          {
+            "label": "XSSMLXL2XL3XLTo",
+            "bust": 9394,
+            "waist": null,
+            "hips": null
+          }
+        ]
+      },
+      "Men — Jeans & Trousers (waist cm)": {
+        "unit": "cm",
+        "chart": []
+      },
+      "Women — Dress size conversion (UK)": {
+        "unit": "size",
         "chart": []
       }
     }
