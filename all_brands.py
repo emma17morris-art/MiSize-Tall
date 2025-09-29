@@ -67,3 +67,31 @@ def extract_new_look():
         "source_url": "https://www.newlook.com/uk/size-guide",
         "source_accessed_date": "2025-09-29"
     }]
+
+# --- NEW BRANDS (stubs) ---
+
+def extract_hm(): return [{"brand": "H&M", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_zara(): return [{"brand": "Zara", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_river_island(): return [{"brand": "River Island", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_primark(): return [{"brand": "Primark", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_boohoo(): return [{"brand": "Boohoo", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_plt(): return [{"brand": "PrettyLittleThing", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_topshop(): return [{"brand": "Topshop", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_dorothy_perkins(): return [{"brand": "Dorothy Perkins", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_warehouse(): return [{"brand": "Warehouse", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_oasis(): return [{"brand": "Oasis", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_missguided(): return [{"brand": "Missguided", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_jack_wills(): return [{"brand": "Jack Wills", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_superdry(): return [{"brand": "Superdry", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_joules(): return [{"brand": "Joules", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_boden(): return [{"brand": "Boden", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_whistles(): return [{"brand": "Whistles", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_reiss(): return [{"brand": "Reiss", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_monsoon(): return [{"brand": "Monsoon", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_phase_eight(): return [{"brand": "Phase Eight", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_coast(): return [{"brand": "Coast", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_fatface(): return [{"brand": "FatFace", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_hobbs(): return [{"brand": "Hobbs", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_allsaints(): return [{"brand": "AllSaints", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_uniqlo(): return [{"brand": "Uniqlo", "category": "Women", "range": "Standard", "uk_size": "10"}]
+def extract_sports_direct(): return [{"brand": "Sports Direct", "category": "Women", "range": "Standard", "uk_size": "10"}]
