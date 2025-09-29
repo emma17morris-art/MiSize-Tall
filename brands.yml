@@ -1,0 +1,28 @@
+brands:
+  - key: asos_women_standard
+    brand: ASOS
+    category: Women
+    range: Standard
+    url: https://www.asos.com/discover/size-charts/women/
+    extractor: all_brands.extract_asos
+
+  - key: marks_and_spencer_women_standard
+    brand: Marks & Spencer
+    category: Women
+    range: Standard
+    url: https://www.marksandspencer.com/l/size-guides
+    extractor: all_brands.extract_m_and_s
+
+  - key: next_women_standard
+    brand: Next
+    category: Women
+    range: Standard
+    url: https://www.next.co.uk/sizeguide
+    extractor: all_brands.extract_next
+
+  - key: new_look_women_standard
+    brand: New Look
+    category: Women
+    range: Standard
+    url: https://www.newlook.com/uk/size-guide
+    extractor: all_brands.extract_new_look
