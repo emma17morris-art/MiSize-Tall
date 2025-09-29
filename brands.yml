@@ -26,3 +26,178 @@ brands:
     range: Standard
     url: https://www.newlook.com/uk/size-guide
     extractor: all_brands.extract_new_look
+
+  - key: hm_women_standard
+    brand: H&M
+    category: Women
+    range: Standard
+    url: https://www2.hm.com/en_gb/customer-service/sizeguide/ladies.html
+    extractor: all_brands.extract_hm
+
+  - key: zara_women_standard
+    brand: Zara
+    category: Women
+    range: Standard
+    url: https://www.zara.com/uk/en/help/size-guide
+    extractor: all_brands.extract_zara
+
+  - key: river_island_women_standard
+    brand: River Island
+    category: Women
+    range: Standard
+    url: https://www.riverisland.com/page/size-guide
+    extractor: all_brands.extract_river_island
+
+  - key: primark_women_standard
+    brand: Primark
+    category: Women
+    range: Standard
+    url: https://www.primark.com/en-gb/size-guide
+    extractor: all_brands.extract_primark
+
+  - key: boohoo_women_standard
+    brand: Boohoo
+    category: Women
+    range: Standard
+    url: https://www.boohoo.com/page/size-guide.html
+    extractor: all_brands.extract_boohoo
+
+  - key: pretty_little_thing_women_standard
+    brand: PrettyLittleThing
+    category: Women
+    range: Standard
+    url: https://www.prettylittlething.com/size-guide
+    extractor: all_brands.extract_plt
+
+  - key: topshop_women_standard
+    brand: Topshop
+    category: Women
+    range: Standard
+    url: https://www.topshop.com/size-guide
+    extractor: all_brands.extract_topshop
+
+  - key: dorothy_perkins_women_standard
+    brand: Dorothy Perkins
+    category: Women
+    range: Standard
+    url: https://www.dorothyperkins.com/size-guide
+    extractor: all_brands.extract_dorothy_perkins
+
+  - key: warehouse_women_standard
+    brand: Warehouse
+    category: Women
+    range: Standard
+    url: https://www.warehousefashion.com/size-guide
+    extractor: all_brands.extract_warehouse
+
+  - key: oasis_women_standard
+    brand: Oasis
+    category: Women
+    range: Standard
+    url: https://www.oasisfashion.com/size-guide
+    extractor: all_brands.extract_oasis
+
+  - key: missguided_women_standard
+    brand: Missguided
+    category: Women
+    range: Standard
+    url: https://www.missguided.co.uk/size-guide
+    extractor: all_brands.extract_missguided
+
+  - key: jack_wills_women_standard
+    brand: Jack Wills
+    category: Women
+    range: Standard
+    url: https://www.jackwills.com/size-guide
+    extractor: all_brands.extract_jack_wills
+
+  - key: superdry_women_standard
+    brand: Superdry
+    category: Women
+    range: Standard
+    url: https://www.superdry.com/size-guide
+    extractor: all_brands.extract_superdry
+
+  - key: joules_women_standard
+    brand: Joules
+    category: Women
+    range: Standard
+    url: https://www.joules.com/size-guide
+    extractor: all_brands.extract_joules
+
+  - key: boden_women_standard
+    brand: Boden
+    category: Women
+    range: Standard
+    url: https://www.boden.co.uk/en-gb/size-guide
+    extractor: all_brands.extract_boden
+
+  - key: whistles_women_standard
+    brand: Whistles
+    category: Women
+    range: Standard
+    url: https://www.whistles.com/size-guide
+    extractor: all_brands.extract_whistles
+
+  - key: reiss_women_standard
+    brand: Reiss
+    category: Women
+    range: Standard
+    url: https://www.reiss.com/size-guide
+    extractor: all_brands.extract_reiss
+
+  - key: monsoon_women_standard
+    brand: Monsoon
+    category: Women
+    range: Standard
+    url: https://www.monsoonlondon.com/size-guide
+    extractor: all_brands.extract_monsoon
+
+  - key: phase_eight_women_standard
+    brand: Phase Eight
+    category: Women
+    range: Standard
+    url: https://www.phase-eight.com/size-guide
+    extractor: all_brands.extract_phase_eight
+
+  - key: coast_women_standard
+    brand: Coast
+    category: Women
+    range: Standard
+    url: https://www.coastfashion.com/size-guide
+    extractor: all_brands.extract_coast
+
+  - key: fat_face_women_standard
+    brand: FatFace
+    category: Women
+    range: Standard
+    url: https://www.fatface.com/size-guide
+    extractor: all_brands.extract_fatface
+
+  - key: hobbs_women_standard
+    brand: Hobbs
+    category: Women
+    range: Standard
+    url: https://www.hobbs.com/size-guide
+    extractor: all_brands.extract_hobbs
+
+  - key: allsaints_women_standard
+    brand: AllSaints
+    category: Women
+    range: Standard
+    url: https://www.allsaints.com/size-guide
+    extractor: all_brands.extract_allsaints
+
+  - key: uniqlo_women_standard
+    brand: Uniqlo
+    category: Women
+    range: Standard
+    url: https://www.uniqlo.com/uk/en/size-guide
+    extractor: all_brands.extract_uniqlo
+
+  - key: sports_direct_women_standard
+    brand: Sports Direct
+    category: Women
+    range: Standard
+    url: https://www.sportsdirect.com/size-guide
+    extractor: all_brands.extract_sports_direct
