@@ -105,6 +105,262 @@ function primarkWomensDressConv($) {
   return { unit: "size", chart };
 }
 // ===== end Primark helpers =====
+
+
+
+// ------- Primark: WOMEN — JEANS/TROUSERS (waist cm) -------
+function primarkWomensJeans($) {
+  const squeeze = s => String(s || "").replace(/\s+/g, " ").trim();
+  const txt = squeeze($.root().text());
+
+  function tokensAfter(label) {
+    const i = txt.toLowerCase().indexOf(label.toLowerCase());
+    if (i === -1) return [];
+    const tail = txt.slice(i + label.length);
+    const cut = tail.split(/(?:Men's|Shoes|Bras|Tights|Socks|FAQs|Tips|#)/i)[0];
+    return squeeze(cut).split(/\s+/).filter(Boolean);
+  }
+  function avgToken(tok) {
+    if (!tok) return null;
+    tok = tok.replace(/upto\s*/i, "");
+    const m = tok.match(/(\d+(?:\.\d+)?)[-–](\d+(?:\.\d+)?)/);
+    if (m) return (parseFloat(m[1]) + parseFloat(m[2])) / 2;
+    const n = tok.match(/\d+(?:\.\d+)?/);
+    return n ? parseFloat(n[0]) : null;
+  }
+
+  // Use the same UK sizes as the main women block, then pair with waist cm
+  let sizes = [];
+  const block = tokensAfter("Dress size & conversion chart");
+  const ukIdx = block.findIndex(t => /^UK\/IRL$/i.test(t));
+  if (ukIdx !== -1) {
+    for (let i = ukIdx + 1; i < block.length; i++) {
+      const t = block[i];
+      if (/^[A-Z/]+$/.test(t)) break;
+      if (/^\d{1,2}(?:\/\d{1,2})?$/.test(t)) sizes.push(`UK ${t}`);
+    }
+  }
+  if (sizes.length === 0) {
+    const guess = tokensAfter("UK");
+    sizes = guess.filter(x => /^\d{1,2}$/.test(x)).map(x => `UK ${x}`);
+  }
+
+  const waist = tokensAfter("To fit waist, cm").map(avgToken).filter(v => v != null);
+  const n = Math.min(sizes.length, waist.length);
+  const chart = [];
+  for (let i = 0; i < n; i++) chart.push({ label: sizes[i], bust: null, waist: waist[i], hips: null });
+  return { unit: "cm", chart };
+}
+
+// ------- Primark: WOMEN — BRAS (band + cup → overbust cm) -------
+function primarkWomensBras($) {
+  const squeeze = s => String(s || "").replace(/\s+/g, " ").trim();
+  const txt = squeeze($.root().text());
+
+  // isolate the Bras section
+  const start = txt.toLowerCase().indexOf("bras");
+  const tail = start === -1 ? txt : txt.slice(start);
+  const sec = tail.split(/(?:Shoes|Footwear|Men's|FAQs|Tips|#)/i)[0];
+
+  function tokensAfterIn(section, label) {
+    const i = section.toLowerCase().indexOf(label.toLowerCase());
+    if (i === -1) return [];
+    const t = section.slice(i + label.length);
+    const cut = t.split(/(?:Shoes|Footwear|Men's|FAQs|Tips|#)/i)[0];
+    return squeeze(cut).split(/\s+/).filter(Boolean);
+  }
+  function avgToken(tok) {
+    if (!tok) return null;
+    tok = tok.replace(/upto\s*/i, "");
+    const m = tok.match(/(\d+(?:\.\d+)?)[-–](\d+(?:\.\d+)?)/);
+    if (m) return (parseFloat(m[1]) + parseFloat(m[2])) / 2;
+    const n = tok.match(/\d+(?:\.\d+)?/);
+    return n ? parseFloat(n[0]) : null;
+  }
+
+  // Band labels (UK/IRL row typically 30 32 34 36 ... )
+  const bandLabels = tokensAfterIn(sec, "UK/IRL").filter(x => /^\d{2}$/.test(x));
+  // Underband measurements (cm)
+  const underband = tokensAfterIn(sec, "Underband").map(avgToken).filter(v => v != null);
+
+  // Overbust per cup
+  const cups = ["A","B","C","D","DD","E","F","G"];
+  const overbustByCup = {};
+  for (const cup of cups) {
+    const arr = tokensAfterIn(sec, `Cup ${cup}`).map(avgToken).filter(v => v != null);
+    if (arr.length) overbustByCup[cup] = arr;
+  }
+
+  const chart = [];
+  for (const cup of cups) {
+    const over = overbustByCup[cup] || [];
+    const n = Math.min(bandLabels.length, over.length);
+    for (let i = 0; i < n; i++) {
+      const band = bandLabels[i];
+      // label like "34B"; we store overbust as 'bust' (so your UI has a number)
+      chart.push({ label: `${band}${cup}`, bust: over[i], waist: null, hips: null });
+    }
+  }
+  // If we at least got something, say unit cm (overbust)
+  return { unit: "cm", chart };
+}
+
+// ------- Primark: SHOES (Women) — label-only UK↔EU/US -------
+function primarkWomensShoes($) {
+  const squeeze = s => String(s || "").replace(/\s+/g, " ").trim();
+  const txt = squeeze($.root().text());
+  const start = txt.toLowerCase().indexOf("shoes");
+  const sec = start === -1 ? txt : txt.slice(start).split(/(?:Bras|Tights|Socks|FAQs|Tips|#)/i)[0];
+
+  function tokensAfterIn(section, label) {
+    const i = section.toLowerCase().indexOf(label.toLowerCase());
+    if (i === -1) return [];
+    const t = section.slice(i + label.length);
+    const cut = t.split(/(?:UK|EU|USA|US|Men's|Women's|FAQs|Tips|#)/i)[0];
+    return squeeze(cut).split(/\s+/).filter(Boolean);
+  }
+
+  // Try to align by position: UK/IRL, EU, USA
+  const uk = tokensAfterIn(sec, "UK/IRL").filter(x => /^[0-9](?:\.[05])?$/.test(x)); // 2 .. 9, 9.5, etc
+  const eu = tokensAfterIn(sec, "EU").filter(x => /^\d{2}$/.test(x));                // 35 .. 43
+  const us = tokensAfterIn(sec, "USA").filter(x => /^[0-9](?:\.[05])?$/.test(x));
+
+  const n = Math.max(uk.length, eu.length, us.length);
+  const chart = [];
+  for (let i = 0; i < n; i++) {
+    const label = uk[i] ? `UK ${uk[i]}` : (eu[i] ? `EU ${eu[i]}` : (us[i] ? `US ${us[i]}` : `Size ${i+1}`));
+    chart.push({ label, bust: null, waist: null, hips: null });
+  }
+  return { unit: "shoe", chart };
+}
+
+// ------- Primark: WOMEN — JEANS/TROUSERS (waist cm) -------
+function primarkWomensJeans($) {
+  const squeeze = s => String(s || "").replace(/\s+/g, " ").trim();
+  const txt = squeeze($.root().text());
+
+  function tokensAfter(label) {
+    const i = txt.toLowerCase().indexOf(label.toLowerCase());
+    if (i === -1) return [];
+    const tail = txt.slice(i + label.length);
+    const cut = tail.split(/(?:Men's|Shoes|Bras|Tights|Socks|FAQs|Tips|#)/i)[0];
+    return squeeze(cut).split(/\s+/).filter(Boolean);
+  }
+  function avgToken(tok) {
+    if (!tok) return null;
+    tok = tok.replace(/upto\s*/i, "");
+    const m = tok.match(/(\d+(?:\.\d+)?)[-–](\d+(?:\.\d+)?)/);
+    if (m) return (parseFloat(m[1]) + parseFloat(m[2])) / 2;
+    const n = tok.match(/\d+(?:\.\d+)?/);
+    return n ? parseFloat(n[0]) : null;
+  }
+
+  // Use the same UK sizes as the main women block, then pair with waist cm
+  let sizes = [];
+  const block = tokensAfter("Dress size & conversion chart");
+  const ukIdx = block.findIndex(t => /^UK\/IRL$/i.test(t));
+  if (ukIdx !== -1) {
+    for (let i = ukIdx + 1; i < block.length; i++) {
+      const t = block[i];
+      if (/^[A-Z/]+$/.test(t)) break;
+      if (/^\d{1,2}(?:\/\d{1,2})?$/.test(t)) sizes.push(`UK ${t}`);
+    }
+  }
+  if (sizes.length === 0) {
+    const guess = tokensAfter("UK");
+    sizes = guess.filter(x => /^\d{1,2}$/.test(x)).map(x => `UK ${x}`);
+  }
+
+  const waist = tokensAfter("To fit waist, cm").map(avgToken).filter(v => v != null);
+  const n = Math.min(sizes.length, waist.length);
+  const chart = [];
+  for (let i = 0; i < n; i++) chart.push({ label: sizes[i], bust: null, waist: waist[i], hips: null });
+  return { unit: "cm", chart };
+}
+
+// ------- Primark: WOMEN — BRAS (band + cup → overbust cm) -------
+function primarkWomensBras($) {
+  const squeeze = s => String(s || "").replace(/\s+/g, " ").trim();
+  const txt = squeeze($.root().text());
+
+  // isolate the Bras section
+  const start = txt.toLowerCase().indexOf("bras");
+  const tail = start === -1 ? txt : txt.slice(start);
+  const sec = tail.split(/(?:Shoes|Footwear|Men's|FAQs|Tips|#)/i)[0];
+
+  function tokensAfterIn(section, label) {
+    const i = section.toLowerCase().indexOf(label.toLowerCase());
+    if (i === -1) return [];
+    const t = section.slice(i + label.length);
+    const cut = t.split(/(?:Shoes|Footwear|Men's|FAQs|Tips|#)/i)[0];
+    return squeeze(cut).split(/\s+/).filter(Boolean);
+  }
+  function avgToken(tok) {
+    if (!tok) return null;
+    tok = tok.replace(/upto\s*/i, "");
+    const m = tok.match(/(\d+(?:\.\d+)?)[-–](\d+(?:\.\d+)?)/);
+    if (m) return (parseFloat(m[1]) + parseFloat(m[2])) / 2;
+    const n = tok.match(/\d+(?:\.\d+)?/);
+    return n ? parseFloat(n[0]) : null;
+  }
+
+  // Band labels (UK/IRL row typically 30 32 34 36 ... )
+  const bandLabels = tokensAfterIn(sec, "UK/IRL").filter(x => /^\d{2}$/.test(x));
+  // Underband measurements (cm)
+  const underband = tokensAfterIn(sec, "Underband").map(avgToken).filter(v => v != null);
+
+  // Overbust per cup
+  const cups = ["A","B","C","D","DD","E","F","G"];
+  const overbustByCup = {};
+  for (const cup of cups) {
+    const arr = tokensAfterIn(sec, `Cup ${cup}`).map(avgToken).filter(v => v != null);
+    if (arr.length) overbustByCup[cup] = arr;
+  }
+
+  const chart = [];
+  for (const cup of cups) {
+    const over = overbustByCup[cup] || [];
+    const n = Math.min(bandLabels.length, over.length);
+    for (let i = 0; i < n; i++) {
+      const band = bandLabels[i];
+      // label like "34B"; we store overbust as 'bust' (so your UI has a number)
+      chart.push({ label: `${band}${cup}`, bust: over[i], waist: null, hips: null });
+    }
+  }
+  // If we at least got something, say unit cm (overbust)
+  return { unit: "cm", chart };
+}
+
+// ------- Primark: SHOES (Women) — label-only UK↔EU/US -------
+function primarkWomensShoes($) {
+  const squeeze = s => String(s || "").replace(/\s+/g, " ").trim();
+  const txt = squeeze($.root().text());
+  const start = txt.toLowerCase().indexOf("shoes");
+  const sec = start === -1 ? txt : txt.slice(start).split(/(?:Bras|Tights|Socks|FAQs|Tips|#)/i)[0];
+
+  function tokensAfterIn(section, label) {
+    const i = section.toLowerCase().indexOf(label.toLowerCase());
+    if (i === -1) return [];
+    const t = section.slice(i + label.length);
+    const cut = t.split(/(?:UK|EU|USA|US|Men's|Women's|FAQs|Tips|#)/i)[0];
+    return squeeze(cut).split(/\s+/).filter(Boolean);
+  }
+
+  // Try to align by position: UK/IRL, EU, USA
+  const uk = tokensAfterIn(sec, "UK/IRL").filter(x => /^[0-9](?:\.[05])?$/.test(x)); // 2 .. 9, 9.5, etc
+  const eu = tokensAfterIn(sec, "EU").filter(x => /^\d{2}$/.test(x));                // 35 .. 43
+  const us = tokensAfterIn(sec, "USA").filter(x => /^[0-9](?:\.[05])?$/.test(x));
+
+  const n = Math.max(uk.length, eu.length, us.length);
+  const chart = [];
+  for (let i = 0; i < n; i++) {
+    const label = uk[i] ? `UK ${uk[i]}` : (eu[i] ? `EU ${eu[i]}` : (us[i] ? `US ${us[i]}` : `Size ${i+1}`));
+    chart.push({ label, bust: null, waist: null, hips: null });
+  }
+  return { unit: "shoe", chart };
+}
+
+
 // WOMEN — dresses/tops with Bust/Waist/Hips (cm)
 function primarkWomensBWH($) {
   const squeeze = s => String(s || "").replace(/\s+/g, " ").trim();
