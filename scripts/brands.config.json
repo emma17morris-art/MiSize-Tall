@@ -1,0 +1,23 @@
+{
+  "region": "UK",
+  "brands": [
+    {
+      "name": "Demo Brand",
+      "categories": [
+        {
+          "name": "Demo Category",
+          "url": "https://example.com/",
+          "parser": "table",
+          "unit": "cm",
+          "selectors": {
+            "row": "table tr",
+            "size": "td:nth-child(1)",
+            "bust": null,
+            "waist": "td:nth-child(2)",
+            "hips": "td:nth-child(3)"
+          }
+        }
+      ]
+    }
+  ]
+}
