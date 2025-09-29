@@ -1,0 +1,38 @@
+name: Update UK Size Charts
+
+on:
+  schedule:
+    - cron: "17 3 * * 1,4"   # Mon & Thu at 03:17 UTC
+  workflow_dispatch: {}       # manual run
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - run: python scraper.py
+      - run: python tools/validate_schema.py schema/brand_size.schema.json data/uk_brand_size_charts_master.json
+      - run: |
+          git config user.name "EmmaBot"
+          git config user.email "emma@example.com"
+          git add -A
+          git diff --quiet || git commit -m "Auto-update size charts"
+          git push
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: data
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/deploy-pages@v4
