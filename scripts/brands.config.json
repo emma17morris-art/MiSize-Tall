@@ -1,23 +1,29 @@
 {
   "region": "UK",
   "brands": [
+   {
+  "name": "Primark",
+  "categories": [
     {
-      "name": "Demo Brand",
-      "categories": [
-        {
-          "name": "Demo Category",
-          "url": "https://example.com/",
-          "parser": "table",
-          "unit": "cm",
-          "selectors": {
-            "row": "table tr",
-            "size": "td:nth-child(1)",
-            "bust": null,
-            "waist": "td:nth-child(2)",
-            "hips": "td:nth-child(3)"
-          }
-        }
-      ]
+      "name": "Men — Casual Tops (chest cm)",
+      "url": "https://www.primark.com/en-gb/size-charts/men",
+      "parser": "primark_mens_tops",
+      "unit": "cm",
+      "selectors": {}
+    },
+    {
+      "name": "Men — Jeans & Trousers (waist cm)",
+      "url": "https://www.primark.com/en-gb/size-charts/men",
+      "parser": "primark_mens_jeans",
+      "unit": "cm",
+      "selectors": {}
+    },
+    {
+      "name": "Women — Dress size conversion (UK)",
+      "url": "https://www.primark.com/en-gb/size-charts/women",
+      "parser": "primark_womens_dress_conv",
+      "unit": "size",
+      "selectors": {}
     }
   ]
 }
