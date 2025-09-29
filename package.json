@@ -1,0 +1,12 @@
+{
+  "name": "uk-size-scraper",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "scrape": "node scripts/scrape-uk-brands.mjs"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "undici": "^6.19.0"
+  }
+}
