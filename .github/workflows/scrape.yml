@@ -1,9 +1,11 @@
 name: Scrape and Update Brands
 
 on:
-  workflow_dispatch:   # lets you run manually from GitHub
+  schedule:
+    - cron: '0 6 * * *'   # runs every day at 06:00 UTC
+  workflow_dispatch:       # lets you trigger it manually
   push:
-    branches: [ "main" ]
+    branches: [ "main" ]   # also runs when you push changes to main
 
 jobs:
   build:
