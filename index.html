@@ -3687,7 +3687,39 @@ setTimeout(() => {
   document.getElementById('home').classList.add('active');
   currentScreen = 'home';
 }, 3000); // 3 second delay
+let BRAND_DB = {};  // global variable to hold your brand data
 
+async function loadBrandData() {
+  try {
+    const response = await fetch('uk_brands.json'); // or 'data/uk_brands.json' depending on path
+    if (!response.ok) throw new Error('Failed to load brand data');
+    BRAND_DB = await response.json();
+    console.log('Brand data loaded', BRAND_DB);
+
+    // Populate brand selector, category filters, or initialize your app UI here
+    populateBrandSelector();
+  } catch (error) {
+    console.error('Error loading brand data:', error);
+  }
+}
+
+// Call this function once on app start
+loadBrandData();
+
+// Example function to populate a brand dropdown/select element
+function populateBrandSelector() {
+  const brandSelect = document.getElementById('uk-brand-select');  // your brand select id
+  if (!brandSelect) return;
+
+  brandSelect.innerHTML = '<option value="">Select a brand…</option>';  // reset
+
+  Object.keys(BRAND_DB).sort().forEach(brandName => {
+    const option = document.createElement('option');
+    option.value = brandName;
+    option.textContent = brandName;
+    brandSelect.appendChild(option);
+  });
+}
 </script>
 </body>
 </html>
