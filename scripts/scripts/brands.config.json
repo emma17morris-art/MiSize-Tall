@@ -1,0 +1,41 @@
+{
+  "region": "UK",
+  "brands": [
+    {
+      "name": "ASOS",
+      "categories": [
+        {
+          "name": "Women's Jeans",
+          "url": "https://example.com/asos/womens-jeans-size-guide",
+          "parser": "table",
+          "unit": "cm",
+          "selectors": {
+            "row": "table tr",
+            "size": "td:nth-child(1)",
+            "waist": "td:nth-child(2)",
+            "hips": "td:nth-child(3)",
+            "bust": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "Zara",
+      "categories": [
+        {
+          "name": "Women's Dresses",
+          "url": "https://example.com/zara/womens-dresses-size-guide",
+          "parser": "table",
+          "unit": "cm",
+          "selectors": {
+            "row": "table tr",
+            "size": "td:nth-child(1)",
+            "bust": "td:nth-child(2)",
+            "waist": "td:nth-child(3)",
+            "hips": "td:nth-child(4)"
+          }
+        }
+      ]
+    }
+  ]
+}
