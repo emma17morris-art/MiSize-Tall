@@ -1,0 +1,5 @@
+brand,category,range,uk_size,bust_cm,waist_cm,hip_cm,shoulder_cm,arms_cm,inseam_cm,notes,source_url,source_accessed_date
+ASOS,Women,Standard,10,88.0,70.0,93.5,40.0,60.0,75.0,Sample row,https://www.asos.com/discover/size-charts/women/,2025-09-29
+Marks & Spencer,Women,Standard,12,92.0,74.0,98.0,41.0,61.0,76.0,Sample row,https://www.marksandspencer.com/l/size-guides,2025-09-29
+Next,Women,Standard,14,96.0,78.0,102.0,42.0,62.0,77.0,Sample row,https://www.next.co.uk/sizeguide,2025-09-29
+New Look,Women,Standard,10,86.0,68.0,92.0,39.0,59.0,74.0,Sample row,https://www.newlook.com/uk/size-guide,2025-09-29

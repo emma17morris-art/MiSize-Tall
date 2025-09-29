@@ -1,0 +1,62 @@
+[
+  {
+    "brand": "ASOS",
+    "category": "Women",
+    "range": "Standard",
+    "uk_size": "10",
+    "bust_cm": 88.0,
+    "waist_cm": 70.0,
+    "hip_cm": 93.5,
+    "shoulder_cm": 40.0,
+    "arms_cm": 60.0,
+    "inseam_cm": 75.0,
+    "notes": "Sample row",
+    "source_url": "https://www.asos.com/discover/size-charts/women/",
+    "source_accessed_date": "2025-09-29"
+  },
+  {
+    "brand": "Marks & Spencer",
+    "category": "Women",
+    "range": "Standard",
+    "uk_size": "12",
+    "bust_cm": 92.0,
+    "waist_cm": 74.0,
+    "hip_cm": 98.0,
+    "shoulder_cm": 41.0,
+    "arms_cm": 61.0,
+    "inseam_cm": 76.0,
+    "notes": "Sample row",
+    "source_url": "https://www.marksandspencer.com/l/size-guides",
+    "source_accessed_date": "2025-09-29"
+  },
+  {
+    "brand": "Next",
+    "category": "Women",
+    "range": "Standard",
+    "uk_size": "14",
+    "bust_cm": 96.0,
+    "waist_cm": 78.0,
+    "hip_cm": 102.0,
+    "shoulder_cm": 42.0,
+    "arms_cm": 62.0,
+    "inseam_cm": 77.0,
+    "notes": "Sample row",
+    "source_url": "https://www.next.co.uk/sizeguide",
+    "source_accessed_date": "2025-09-29"
+  },
+  {
+    "brand": "New Look",
+    "category": "Women",
+    "range": "Standard",
+    "uk_size": "10",
+    "bust_cm": 86.0,
+    "waist_cm": 68.0,
+    "hip_cm": 92.0,
+    "shoulder_cm": 39.0,
+    "arms_cm": 59.0,
+    "inseam_cm": 74.0,
+    "notes": "Sample row",
+    "source_url": "https://www.newlook.com/uk/size-guide",
+    "source_accessed_date": "2025-09-29"
+  }
+]
