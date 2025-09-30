@@ -1,0 +1,16 @@
+name: Update UK brand data
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1"   # optional weekly run
+jobs:
+  run-scraper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python scraper.py extract --check-demo-data
+      - run: git status --short
+      # add auto-commit/PR step here if desired
