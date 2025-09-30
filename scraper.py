@@ -1,80 +1,93 @@
-import yaml
+#!/usr/bin/env python3
 import importlib
+import yaml
 import json
-import csv
-import os
-from datetime import date, datetime
-from collections import defaultdict
+import pandas as pd
+from datetime import datetime
+from pathlib import Path
 
-# Load brand manifest
-with open("brands.yml") as f:
-    config = yaml.safe_load(f)
+# Paths
+BASE_DIR = Path(__file__).resolve().parent
+BRANDS_YML = BASE_DIR / "brands.yml"
+OUTPUT_JSON = BASE_DIR / "uk_brands.json"
+OUTPUT_CSV = BASE_DIR / "uk_brands.csv"
 
-all_rows = []
+def load_brands():
+    """Load all brands from brands.yml"""
+    with open(BRANDS_YML, "r", encoding="utf-8") as f:
+        data = yaml.safe_load(f)
+    return data.get("brands", [])
 
-# Run extractor for each brand and gather rows
-for brand in config["brands"]:
-    module_name, func_name = brand["extractor"].rsplit(".", 1)
-    module = importlib.import_module(f"extractors.{module_name}")
-    extractor = getattr(module, func_name)
-    rows = extractor()
-    for r in rows:
-        r["source_accessed_date"] = str(date.today())
-        all_rows.append(r)
+def run_extractor(extractor_path: str, url: str):
+    """
+    Dynamically import extractor from all_brands.py and run it
+    Example: "all_brands.extract_asos"
+    """
+    module_name, func_name = extractor_path.split(".")
+    module = importlib.import_module(module_name)
+    extractor_func = getattr(module, func_name)
+    return extractor_func(url)
 
-# Ensure data folder exists
-os.makedirs("data", exist_ok=True)
+def normalise_result(brand_conf, raw_result):
+    """
+    Ensure every extractor returns a unified schema
+    """
+    return {
+        "brand": brand_conf["brand"],
+        "category": brand_conf["category"],
+        "range": brand_conf["range"],
+        "url": brand_conf["url"],
+        "sizes": raw_result.get("sizes", []),
+        "lastUpdated": datetime.utcnow().isoformat() + "Z"
+    }
 
-# Write flat JSON
-with open("data/uk_brand_size_charts_master.json", "w", encoding="utf-8") as f:
-    json.dump(all_rows, f, indent=2)
+def main():
+    brands = load_brands()
+    brand_db = {}
+    csv_rows = []
 
-# Write flat CSV
-if all_rows:
-    with open("data/uk_brand_size_charts_master.csv", "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=all_rows[0].keys())
-        writer.writeheader()
-        writer.writerows(all_rows)
+    for brand_conf in brands:
+        print(f"Scraping {brand_conf['brand']} ({brand_conf['category']}) ...")
+        try:
+            raw = run_extractor(brand_conf["extractor"], brand_conf["url"])
+            normalised = normalise_result(brand_conf, raw)
 
-print(f"Wrote {len(all_rows)} rows")
+            # Store in DB
+            if brand_conf["brand"] not in brand_db:
+                brand_db[brand_conf["brand"]] = {
+                    "categories": {},
+                    "lastUpdated": normalised["lastUpdated"]
+                }
 
-# Transform flat data to nested brands/categories/sizes format
-def transform_rows_to_brand_json(rows):
-    brands = {}
-
-    for r in rows:
-        brand = r.get("brand")
-        category = r.get("category")
-        size = r.get("uk_size")
-
-        if not (brand and category and size):
-            continue  # skip incomplete rows
-
-        if brand not in brands:
-            brands[brand] = {
-                "name": brand,
-                "categories": {},
-                "notes": {},
-                "lastUpdated": datetime.utcnow().isoformat() + "Z"
+            brand_db[brand_conf["brand"]]["categories"][brand_conf["category"]] = {
+                "range": brand_conf["range"],
+                "sizes": normalised["sizes"],
+                "url": brand_conf["url"]
             }
 
-        if category not in brands[brand]["categories"]:
-            brands[brand]["categories"][category] = {}
+            # Flatten for CSV
+            for size in normalised["sizes"]:
+                row = {
+                    "brand": brand_conf["brand"],
+                    "category": brand_conf["category"],
+                    "range": brand_conf["range"],
+                    **size
+                }
+                csv_rows.append(row)
 
-        measurements = {}
-        for key in r:
-            if key not in ("brand", "category", "uk_size"):
-                measurements[key] = r[key]
+        except Exception as e:
+            print(f"❌ Failed to scrape {brand_conf['brand']}: {e}")
 
-        brands[brand]["categories"][category][size] = measurements
+    # Save JSON
+    with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
+        json.dump(brand_db, f, indent=2, ensure_ascii=False)
+    print(f"✅ Saved {OUTPUT_JSON}")
 
-    return brands
+    # Save CSV
+    if csv_rows:
+        df = pd.DataFrame(csv_rows)
+        df.to_csv(OUTPUT_CSV, index=False)
+        print(f"✅ Saved {OUTPUT_CSV}")
 
-# Apply transformation
-brand_json = transform_rows_to_brand_json(all_rows)
-
-# Save transformed JSON for frontend
-with open("data/uk_brands.json", "w", encoding="utf-8") as f:
-    json.dump(brand_json, f, indent=2)
-
-print(f"Created uk_brands.json with {len(brand_json)} brands")
+if __name__ == "__main__":
+    main()
