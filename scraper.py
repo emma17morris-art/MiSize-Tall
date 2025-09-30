@@ -5,10 +5,10 @@ import importlib
 import pandas as pd
 
 # Paths
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-BRANDS_FILE = os.path.join(BASE_DIR, "brands.yml")
-JSON_FILE = os.path.join(BASE_DIR, "uk_brands.json")
-CSV_FILE = os.path.join(BASE_DIR, "uk_brands.csv")
+DESKTOP = os.path.join(os.path.expanduser("~"), "Desktop")
+BRANDS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "brands.yml")
+JSON_FILE = os.path.join(DESKTOP, "uk_brands.json")
+CSV_FILE = os.path.join(DESKTOP, "uk_brands.csv")
 
 # Load brands.yml
 with open(BRANDS_FILE, "r") as f:
@@ -24,7 +24,7 @@ for brand in brands:
     print(f"Scraping {name} ...")
 
     try:
-        # dynamically import extractor
+        # dynamically import extractor from all_brands.py
         module = importlib.import_module("all_brands")
         extract_func = getattr(module, extractor)
         result = extract_func(url)
@@ -58,3 +58,4 @@ if rows:
     print(f"✅ Saved {CSV_FILE}")
 else:
     print("⚠️ No size data found — CSV not created")
+
