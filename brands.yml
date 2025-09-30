@@ -5,13 +5,6 @@ brands:
     range: Standard
     url: https://www.asos.com/discover/size-charts/women/
     extractor: all_brands.extract_asos
-brands:
-  - key: asos_women_standard
-    brand: ASOS
-    category: Women's Standard
-    range: Standard
-    url: https://www.asos.com/discover/size-charts/women/
-    extractor: all_brands.extract_asos
 
   - key: next_women_standard
     brand: Next
