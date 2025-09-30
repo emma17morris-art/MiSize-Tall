@@ -1,15 +1,10 @@
-"""Utilities for scraping brand sizing data from the MiSize demo site.
+"""Utilities for managing the MiSize brand dataset.
 
-The script currently focuses on extracting the inline ``BRAND_SIZE_DATABASE``
-JavaScript object from ``index.html`` and exporting it as JSON so it can be
-consumed by other tooling (for instance the runtime loader that expects a
-``uk_brands.json`` file).
-
-Usage
------
-Run ``python scraper.py`` to extract the data from ``index.html`` in the
-repository root and write it to ``uk_brands.json``. You can specify alternative
-input or output paths via the ``--input`` and ``--output`` flags.
+The ``extract`` command re-exports the inline ``BRAND_SIZE_DATABASE`` from
+``index.html`` so you can bootstrap the JSON dataset. Use the ``manual`` command
+to enter authoritative measurements sourced from official brand guides. Each
+mode supports the ``--output`` flag to control where the resulting JSON file is
+saved.
 """
 
 from __future__ import annotations
@@ -18,8 +13,12 @@ import argparse
 import ast
 import datetime as _dt
 import json
+import sys
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, List
+
+
+ISO_TIMESTAMP_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
 
 def _read_file(path: Path) -> str:
@@ -102,28 +101,234 @@ def write_brand_database(data: Dict[str, Any], destination: Path) -> None:
     destination.write_text(json.dumps(data, indent=2, sort_keys=True), encoding="utf-8")
 
 
-def parse_args() -> argparse.Namespace:
+DEMO_NOTE_MARKERS = {
+    "Excellent size inclusivity, detailed size guides, online exclusive",
+    "Fast fashion, trend-focused, size up recommended",
+    "Sustainable lines run differently, budget-friendly",
+    "Reliable consistent sizing across seasons",
+}
+
+
+def _find_demo_markers(data: Dict[str, Any]) -> Dict[str, Any]:
+    """Return brands whose note fields still contain demo copy."""
+
+    hits: Dict[str, Any] = {}
+    for brand, payload in data.items():
+        notes = payload.get("notes", {})
+        for key, value in notes.items():
+            if isinstance(value, str) and value in DEMO_NOTE_MARKERS:
+                hits.setdefault(brand, {})[key] = value
+    return hits
+
+
+def _prompt(message: str) -> str:
+    """Return ``input`` stripped of surrounding whitespace."""
+
+    return input(message).strip()
+
+
+def _prompt_number(message: str) -> float:
+    """Prompt until the user supplies a numeric measurement."""
+
+    while True:
+        raw = _prompt(message)
+        try:
+            value = float(raw)
+        except ValueError:
+            print("  Please enter a numeric value (e.g. 32 or 27.5).")
+            continue
+        return int(value) if value.is_integer() else value
+
+
+def _load_existing_dataset(path: Path) -> Dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:  # pragma: no cover - defensive guard
+        raise SystemExit(
+            f"Unable to load existing dataset from '{path}': {exc}"
+        ) from exc
+
+
+def _manual_entry(destination: Path) -> None:
+    """Collect brand data interactively and save it to *destination*."""
+
+    print("Entering manual data entry mode. Press Ctrl+C at any time to abort.\n")
+    data = _load_existing_dataset(destination)
+    if data:
+        print(
+            f"Loaded {len(data)} existing brand(s) from {destination}. "
+            "You can add new entries or overwrite an existing one.\n"
+        )
+
+    try:
+        while True:
+            brand_name = _prompt("Brand name (leave blank to finish): ")
+            if not brand_name:
+                break
+            if brand_name in data:
+                confirm = _prompt(
+                    f"'{brand_name}' already exists. Overwrite? [y/N]: "
+                ).lower()
+                if confirm not in {"y", "yes"}:
+                    print("  Skipping existing brand.\n")
+                    continue
+
+            brand_payload: Dict[str, Any] = {"name": brand_name}
+            categories: Dict[str, Any] = {}
+            print("Enter categories for this brand. Examples: Women's Jeans, Men's Shirts.")
+            while True:
+                category_name = _prompt("  Category (leave blank to finish categories): ")
+                if not category_name:
+                    break
+                sizes: Dict[str, Any] = {}
+                while True:
+                    size_label = _prompt("    Size label (leave blank to finish sizes): ")
+                    if not size_label:
+                        break
+                    measurements: Dict[str, float] = {}
+                    print(
+                        "    Enter measurements for this size. Examples: bust, waist, hips."
+                    )
+                    while True:
+                        measurement_name = _prompt(
+                            "      Measurement name (leave blank to finish measurements): "
+                        )
+                        if not measurement_name:
+                            break
+                        measurement_value = _prompt_number("      Measurement value: ")
+                        measurements[measurement_name] = measurement_value
+                    if not measurements:
+                        print("      No measurements recorded; skipping this size.")
+                        continue
+                    sizes[size_label] = measurements
+                if not sizes:
+                    print("    No sizes recorded; skipping this category.")
+                    continue
+                categories[category_name] = sizes
+            if not categories:
+                print("  No categories recorded for this brand; discarding entry.\n")
+                continue
+            brand_payload["categories"] = categories
+
+            default_timestamp = _dt.datetime.utcnow().strftime(ISO_TIMESTAMP_FORMAT)
+            timestamp = _prompt(
+                f"  Last updated timestamp [{default_timestamp}]: "
+            )
+            brand_payload["lastUpdated"] = timestamp or default_timestamp
+
+            source_url = _prompt("  Source URL (optional): ")
+            if source_url:
+                brand_payload["sourceUrl"] = source_url
+
+            source_date = _prompt("  Source publication date (optional): ")
+            if source_date:
+                brand_payload["sourceDate"] = source_date
+
+            notes: Dict[str, str] = {}
+            print("  Add any notes (fit guidance, inclusivity info, etc.).")
+            while True:
+                note_key = _prompt("    Note label (leave blank to finish notes): ")
+                if not note_key:
+                    break
+                note_value = _prompt("    Note text: ")
+                if note_value:
+                    notes[note_key] = note_value
+            if notes:
+                brand_payload["notes"] = notes
+
+            data[brand_name] = brand_payload
+            print(f"Recorded data for '{brand_name}'.\n")
+    except KeyboardInterrupt:
+        print("\nAborted by user; keeping collected data.")
+
+    if not data:
+        print("No brand data captured. Nothing written.")
+        return
+
+    write_brand_database(data, destination)
+    print(f"Saved {len(data)} brand(s) to {destination}.")
+
+
+def parse_args(raw_args: List[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
+    subparsers = parser.add_subparsers(dest="command")
+
+    extract_parser = subparsers.add_parser(
+        "extract", help="Re-export the inline BRAND_SIZE_DATABASE from index.html"
+    )
+    extract_parser.add_argument(
         "--input",
         type=Path,
         default=Path("index.html"),
         help="HTML file that contains the BRAND_SIZE_DATABASE definition",
     )
-    parser.add_argument(
+    extract_parser.add_argument(
         "--output",
         type=Path,
         default=Path("uk_brands.json"),
         help="Destination JSON file",
     )
-    return parser.parse_args()
+    extract_parser.add_argument(
+        "--check-demo-data",
+        action="store_true",
+        help="Warn if the export still matches known demo placeholder copy",
+    )
+
+    manual_parser = subparsers.add_parser(
+        "manual", help="Enter brand data interactively and write it to JSON"
+    )
+    manual_parser.add_argument(
+        "--output",
+        type=Path,
+        default=Path("uk_brands.json"),
+        help="Destination JSON file",
+    )
+
+    if raw_args is None:
+        raw_args = sys.argv[1:]
+
+    help_flags = {"-h", "--help"}
+    if raw_args and raw_args[0] in help_flags:
+        return parser.parse_args(raw_args)
+
+    if not raw_args or raw_args[0].startswith("-"):
+        # Maintain backwards compatibility with ``python scraper.py`` plus
+        # optional flags (``--input``/``--output``/``--check-demo-data``) by
+        # routing to the ``extract`` sub-command when no explicit action is
+        # provided.
+        raw_args = ["extract", *raw_args]
+
+    return parser.parse_args(raw_args)
+
+
+def _run_extract(args: argparse.Namespace) -> None:
+    data = extract_brand_database(args.input)
+    write_brand_database(data, args.output)
+    print(f"Extracted {len(data)} brands to {args.output}")
+    if args.check_demo_data:
+        demo_hits = _find_demo_markers(data)
+        if demo_hits:
+            print("Detected demo placeholder copy in the following brands:")
+            for brand, markers in sorted(demo_hits.items()):
+                marker_list = ", ".join(f"{key}: {value}" for key, value in markers.items())
+                print(f"  - {brand}: {marker_list}")
+            print(
+                "Replace these values with measurements sourced from official size guides "
+                "before distributing the dataset."
+            )
+        else:
+            print("No demo placeholder copy detected; dataset appears to be updated.")
 
 
 def main() -> None:
     args = parse_args()
-    data = extract_brand_database(args.input)
-    write_brand_database(data, args.output)
-    print(f"Extracted {len(data)} brands to {args.output}")
+
+    if args.command == "manual":
+        _manual_entry(args.output)
+    else:
+        _run_extract(args)
 
 
 if __name__ == "__main__":
