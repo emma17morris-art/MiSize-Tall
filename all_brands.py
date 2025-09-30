@@ -1,41 +1,60 @@
+#!/usr/bin/env python3
 import requests
 from bs4 import BeautifulSoup
-from datetime import date
 
-def extract_asos():
-    url = "https://www.asos.com/discover/size-charts/women/"
-    resp = requests.get(url)
-    resp.raise_for_status()  # stop if request fails
+HEADERS = {"User-Agent": "Mozilla/5.0 (MiSize Scraper)"}
+
+def clean_text(txt):
+    if not txt:
+        return None
+    return txt.strip().replace("\xa0", " ")
+
+def to_number(txt):
+    try:
+        return float(txt)
+    except Exception:
+        return None
+
+def extract_asos(url: str):
+    """
+    Extract ASOS Women's size charts from the official page.
+    Returns a dict with sizes and measurements.
+    """
+    resp = requests.get(url, headers=HEADERS, timeout=20)
+    resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
 
-    rows = []
+    sizes = []
 
-    # Find the first table on the page (ASOS has multiple sections, we’ll start simple)
-    table = soup.find("table")
-    if not table:
-        print("⚠️ No table found on ASOS page")
-        return []
+    # Find tables with size data
+    tables = soup.find_all("table")
+    for table in tables:
+        headers = [clean_text(th.get_text()) for th in table.find_all("th")]
+        rows = table.find_all("tr")[1:]  # skip header
 
-    headers = [th.get_text(strip=True).lower() for th in table.find_all("th")]
+        for row in rows:
+            cols = [clean_text(td.get_text()) for td in row.find_all("td")]
+            if not cols or len(cols) < 2:
+                continue
 
-    for tr in table.find_all("tr")[1:]:  # skip header row
-        cells = [td.get_text(strip=True) for td in tr.find_all("td")]
-        if not cells:
-            continue
+            size_info = {}
+            for h, c in zip(headers, cols):
+                if not h or not c:
+                    continue
+                h_low = h.lower()
 
-        row = {
-            "brand": "ASOS",
-            "category": "Women",
-            "range": "Standard",
-            "uk_size": cells[0] if len(cells) > 0 else None,
-            "bust_cm": cells[1] if len(cells) > 1 else None,
-            "waist_cm": cells[2] if len(cells) > 2 else None,
-            "hip_cm": cells[3] if len(cells) > 3 else None,
-            "inseam_cm": cells[4] if len(cells) > 4 else None,
-            "notes": "",
-            "source_url": url,
-            "source_accessed_date": str(date.today())
-        }
-        rows.append(row)
+                if "uk" in h_low:
+                    size_info["uk"] = c
+                elif "bust" in h_low:
+                    size_info["bust_cm"] = to_number(c.replace("cm", "").strip())
+                elif "waist" in h_low:
+                    size_info["waist_cm"] = to_number(c.replace("cm", "").strip())
+                elif "hips" in h_low:
+                    size_info["hips_cm"] = to_number(c.replace("cm", "").strip())
+                elif "inside leg" in h_low or "inseam" in h_low:
+                    size_info["inseam_cm"] = to_number(c.replace("cm", "").strip())
 
-    return rows
+            if size_info:
+                sizes.append(size_info)
+
+    return {"sizes": sizes}
