@@ -20,7 +20,7 @@ def extract_asos(url: str):
     Extract ASOS Women's size charts from the official page.
     Returns a dict with sizes and measurements.
     """
-    resp = requests.get(url, headers=HEADERS, timeout=20)
+    resp = requests.get(url, headers=HEADERS, timeout=60)
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
 
