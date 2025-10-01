@@ -20,6 +20,7 @@ with open('Tall_Sizes_Master.csv', 'r', encoding='utf-8') as f:
         if not brand:
             continue
         
+        # Initialize brand if new OR add missing metadata fields if existing
         if brand not in result:
             result[brand] = {
                 "name": brand,
@@ -30,6 +31,13 @@ with open('Tall_Sizes_Master.csv', 'r', encoding='utf-8') as f:
                 "lastUpdated": datetime.now().isoformat()
             }
         else:
+            # Add missing metadata fields to existing brands
+            if "authenticity" not in result[brand]:
+                result[brand]["authenticity"] = "manual"
+            if "sourceNote" not in result[brand]:
+                result[brand]["sourceNote"] = f"Imported from Tall_Sizes_Master.csv on {datetime.now().strftime('%Y-%m-%d')}"
+            if "notes" not in result[brand]:
+                result[brand]["notes"] = {}
             result[brand]["lastUpdated"] = datetime.now().isoformat()
         
         gender = row.get('Gender', '').strip()
@@ -42,6 +50,9 @@ with open('Tall_Sizes_Master.csv', 'r', encoding='utf-8') as f:
         else:
             continue
         
+        if "categories" not in result[brand]:
+            result[brand]["categories"] = {}
+            
         if category not in result[brand]["categories"]:
             result[brand]["categories"][category] = {}
         
