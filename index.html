@@ -1,14 +1,9 @@
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MiSize - Size Finder & Body Tracker!</title>
+  <title>MiSize Tall - Size Finder & Body Tracker!</title>
   <style>
     :root {
       --brand: #8A2BE2;
@@ -884,7 +879,7 @@
   <!-- Top Bar -->
   <div class="topbar">
     <div class="topbar-inner">
-      <div class="logo">MiSize</div>
+      <div class="logo">MiSize Tall</div>
       
       <div class="pill-group">
         <button class="pill active" data-type="standard">Std</button>
@@ -906,7 +901,7 @@
 <div id="flash" class="screen active">
   <div class="main-container">
     <div class="header">
-      <h1 class="title">Welcome to MiSize</h1>
+      <h1 class="title">Welcome to MiSize Tall</h1>
       <p class="subtitle">Your personal size finder and body tracker with AI-powered sizing!</p>
     </div>
     
@@ -973,21 +968,21 @@
       </div>
 
       <p style="text-align: center; margin-bottom: 32px; color: var(--muted);">
-        👋 <strong>New to MiSize?</strong> Go to Settings first to create your profile, then follow the guidance below.
+        👋 <strong>New to MiSize Tall?</strong> Go to Settings first to create your profile, then follow the guidance below.
       </p>
       
       <!-- How to Use MiSize Tile -->
       <div class="guide-tile" onclick="toggleGuide('app-guide')">
-        <h4>📱 How to Use MiSize - Complete Guide</h4>
+        <h4>📱 How to Use MiSize Tall - Complete Guide</h4>
         <p style="margin: 0; color: var(--muted);">Step-by-step instructions for using all AI-powered features</p>
         
         <div id="app-guide" class="guide-content">
           <div class="guide-section">
             <h5><span class="step-number">1</span>Getting Started</h5>
-            <p>Welcome to MiSize! Start by selecting your region (UK, EU, US, CA) from the home screen to access region-specific sizing and brands.</p>
+            <p>Welcome to MiSize Tall! Start by selecting your region (UK, EU, US, CA) from the home screen to access region-specific sizing and brands.</p>
             
             <div class="highlight-tip">
-              <p><strong>💡 Tip:</strong> Our AI system automatically collects real size charts from brands for the most accurate recommendations.</p>
+              <p><strong>💡 Tip:</strong> Our AI system automatically collects real size charts from tall brands for the most accurate recommendations.</p>
             </div>
             
             <h5><span class="step-number">2</span>Setting Your Body Type & Units</h5>
@@ -1002,7 +997,7 @@
             <h5><span class="step-number">3</span>AI-Powered Size Finder</h5>
             <p>Find your perfect size using real brand measurements:</p>
             <ul>
-              <li>Select from 30+ UK brands with automatically updated size charts</li>
+              <li>Select from tall-specific UK brands with automatically updated size charts</li>
               <li>Choose your category (Jeans, Dresses, Tops, Shoes)</li>
               <li>Pick your fit preference (Snug, Standard, or Relaxed)</li>
               <li>Get accurate sizes with confidence ratings based on your actual measurements</li>
@@ -1010,7 +1005,7 @@
             </ul>
             
             <div class="highlight-tip">
-              <p><strong>🔍 Pro Tip:</strong> The system compares your exact measurements (36" bust, 34" waist, 38" hips) to real brand size charts for precision recommendations.</p>
+              <p><strong>🔍 Pro Tip:</strong> The system compares your exact measurements to real tall brand size charts for precision recommendations.</p>
             </div>
           </div>
 
@@ -1062,23 +1057,17 @@
     <div class="hub-container">
       <div class="hub-header">
         <div class="hub-flag">🇬🇧</div>
-        <h2 class="hub-title">UK Hub</h2>
-        <p class="hub-subtitle">United Kingdom sizing & tracking with AI precision</p>
+        <h2 class="hub-title">UK Tall Hub</h2>
+        <p class="hub-subtitle">United Kingdom tall sizing & tracking with AI precision</p>
       </div>
       
       <div class="system-status">
         <div class="status-indicator">
           <div class="status-dot status-loading" id="uk-system-status-dot"></div>
-          <span id="uk-system-status-text">Loading UK brand data...</span>
+          <span id="uk-system-status-text">Loading UK tall brand data...</span>
         </div>
       </div>
       
-	     
-
-  
-
-   
-		
       <div class="hub-tiles-5">
         <div class="hub-tile" onclick="goToScreen('uk-sizefinder')">
           AI Size Finder
@@ -1103,46 +1092,42 @@
   <div id="uk-sizefinder" class="screen">
     <div class="content-container">
       <div class="hub-header">
-        <h2 class="hub-title">🇬🇧 AI Size Finder</h2>
-        <p class="hub-subtitle">Find your perfect size using real brand measurements</p>
+        <h2 class="hub-title">🇬🇧 AI Tall Size Finder</h2>
+        <p class="hub-subtitle">Find your perfect tall size using real brand measurements</p>
       </div>
       
       <div class="system-status">
         <div class="status-indicator">
           <div class="status-dot status-online" id="sizefinder-status-dot"></div>
-          <span id="sizefinder-status-text">Real-time brand data active</span>
+          <span id="sizefinder-status-text">Real-time tall brand data active</span>
         </div>
       </div>
       
       <div class="form-container">
-		   <!-- START: UK SIZEFINDER BRAND FIELD (SEARCH + SELECT) -->
-<div class="form-group">
-  <label class="form-label">Brand</label>
-
-  <!-- New: Searchable brand input wired to uk_brands.json -->
-  <div style="display:flex; gap:8px; align-items:center;">
-    <input
-      type="text"
-      class="form-input"
-      id="uk-brand-search"
-      list="uk-brand-datalist"
-      placeholder="Type to search any UK brand…"
-      style="flex:2"
-    />
-    <datalist id="uk-brand-datalist"></datalist>
-
-    <!-- Keep your original select: we will populate it dynamically as well -->
-    <select class="form-select" id="uk-brand-select" style="flex:1">
-      <option value="">Select a brand…</option>
-    </select>
-  </div>
-
-  <p class="small" style="margin-top:6px;color:var(--muted);">
-    Tip: you can type a brand in the search box or use the dropdown — both are linked and load from <code>uk_brands.json</code>.
-  </p>
-</div>
-<!-- END: UK SIZEFINDER BRAND FIELD (SEARCH + SELECT) -->       
         <div class="form-group">
+          <label class="form-label">Brand</label>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <input
+              type="text"
+              class="form-input"
+              id="uk-brand-search"
+              list="uk-brand-datalist"
+              placeholder="Type to search any UK tall brand…"
+              style="flex:2"
+            />
+            <datalist id="uk-brand-datalist"></datalist>
+            <select class="form-select" id="uk-brand-select" style="flex:1">
+              <option value="">Select a brand…</option>
+            </select>
+          </div>
+          <p class="small" style="margin-top:6px;color:var(--muted);">
+            Tip: you can type a brand in the search box or use the dropdown — both load from tall_sizes_complete.json.
+          </p>
+        </div>
+
+
+
+		  <div class="form-group">
           <label class="form-label">Category</label>
           <select class="form-select" id="uk-category-select">
             <option value="">Select category...</option>
@@ -1181,10 +1166,10 @@
 <div id="uk-mysizes" class="screen">
   <div class="content-container">
     <div class="hub-header">
-      <h2 class="hub-title">My Accurate Sizes</h2>
+      <h2 class="hub-title">My Accurate Tall Sizes</h2>
       <p class="hub-subtitle">Based on your measurements: 36" bust, 34" waist, 38" hips</p>
       <p style="font-size:14px;color:var(--muted);margin-top:8px;">
-        All sizes calculated using real brand measurement charts
+        All sizes calculated using real tall brand measurement charts
       </p>
     </div>
 
@@ -1211,52 +1196,51 @@
       <input class="form-input" id="mysizes-brand-search" list="mysizes-brand-datalist" placeholder="Type a brand to filter…"/>
       <datalist id="mysizes-brand-datalist"></datalist>
       <p class="small" style="margin-top:6px;color:var(--muted);">
-        Leave blank to see all brands that meet your confidence threshold.
+        Leave blank to see all tall brands that meet your confidence threshold.
       </p>
     </div>
 
     <div class="brand-grid" id="my-sizes-grid">
       <div style="text-align:center;padding:40px;grid-column:1/-1;">
         <div class="loading-spinner"></div>
-        <p>Loading your accurate sizes from brand databases...</p>
+        <p>Loading your accurate sizes from tall brand databases...</p>
       </div>
     </div>
   </div>
 </div>
+
   <!-- UK Brand Notes -->
   <div id="uk-brandnotes" class="screen">
     <div class="content-container">
       <div class="hub-header">
-        <h2 class="hub-title">🇬🇧 Brand Intelligence</h2>
-        <p class="hub-subtitle">Comprehensive information about UK brands and their sizing</p>
+        <h2 class="hub-title">🇬🇧 Tall Brand Intelligence</h2>
+        <p class="hub-subtitle">Comprehensive information about UK tall brands and their sizing</p>
       </div>
       
       <div class="system-status">
         <div class="status-indicator">
           <div class="status-dot status-online"></div>
-          <span>Brand data updated automatically from official sources</span>
+          <span>Tall brand data updated automatically from official sources</span>
         </div>
       </div>
       
-	  <!-- START: BRAND INTELLIGENCE FILTERS -->
-<div class="form-group">
-  <label class="form-label">Search & Filter</label>
-  <div style="display:flex; gap:8px;">
-    <input id="brand-intel-search" class="form-input" placeholder="Search brand name…">
-    <select id="brand-intel-category" class="form-select">
-      <option value="">All categories</option>
-    </select>
-  </div>
-  <p class="small" style="margin-top:6px;color:var(--muted);">
-    This list is loaded from <code>uk_brands.json</code> — no more 5-brand limit!
-  </p>
-</div>
-<!-- END: BRAND INTELLIGENCE FILTERS -->
+      <div class="form-group">
+        <label class="form-label">Search & Filter</label>
+        <div style="display:flex; gap:8px;">
+          <input id="brand-intel-search" class="form-input" placeholder="Search brand name…">
+          <select id="brand-intel-category" class="form-select">
+            <option value="">All categories</option>
+          </select>
+        </div>
+        <p class="small" style="margin-top:6px;color:var(--muted);">
+          This list is loaded from tall_sizes_complete.json with all tall brands!
+        </p>
+      </div>
 
       <div class="brand-grid" id="brand-notes-grid">
         <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
           <div class="loading-spinner"></div>
-          <p>Loading comprehensive brand intelligence...</p>
+          <p>Loading comprehensive tall brand intelligence...</p>
         </div>
       </div>
     </div>
@@ -1273,19 +1257,19 @@
       <div class="history-list" id="uk-history-list">
         <div class="history-item">
           <div>
-            <strong>ASOS - Women's Jeans</strong> <span class="confidence-indicator">94% match</span><br>
+            <strong>Long Tall Sally - Women's Jeans</strong> <span class="confidence-indicator">94% match</span><br>
             <span class="history-date">Size 18, Standard fit - 2 days ago</span>
           </div>
         </div>
         <div class="history-item">
           <div>
-            <strong>Zara - Women's Dresses</strong> <span class="confidence-indicator">89% match</span><br>
+            <strong>ASOS Tall - Women's Dresses</strong> <span class="confidence-indicator">89% match</span><br>
             <span class="history-date">Size XL, Standard fit - 1 week ago</span>
           </div>
         </div>
         <div class="history-item">
           <div>
-            <strong>H&M - Women's Tops</strong> <span class="confidence-indicator">91% match</span><br>
+            <strong>Next Tall - Women's Tops</strong> <span class="confidence-indicator">91% match</span><br>
             <span class="history-date">Size 46-48 EU, Relaxed fit - 2 weeks ago</span>
           </div>
         </div>
@@ -1335,11 +1319,11 @@
         <div class="system-status">
           <div class="status-indicator">
             <div class="status-dot status-online" id="ai-system-status"></div>
-            <span id="ai-status-text">AI sizing system active - Last updated: <span id="last-update-time">Never</span></span>
+            <span id="ai-status-text">AI tall sizing system active - Last updated: <span id="last-update-time">Never</span></span>
           </div>
         </div>
         <p style="margin-top: 12px; color: var(--muted); font-size: 14px;">
-          The system automatically collects and updates brand size charts weekly for maximum accuracy.
+          The system automatically collects and updates tall brand size charts weekly for maximum accuracy.
         </p>
       </div>
 
@@ -1470,32 +1454,31 @@
           </div>
         </div>
       </div>
-<!-- START: PREFERRED BRANDS (PER PROFILE) -->
-<div class="settings-section">
-  <h3>⭐ Preferred Brands (Per Profile)</h3>
-  <p style="margin-bottom:10px;color:var(--muted);">
-    Choose which brands to include across the whole app (AI Size Finder, My Sizes, Brand Intelligence).
-    Leave empty to include <em>all</em> brands.
-  </p>
 
-  <div class="form-group">
-    <label class="form-label">Profile</label>
-    <select class="form-select" id="pref-profile"></select>
-  </div>
+      <div class="settings-section">
+        <h3>⭐ Preferred Brands (Per Profile)</h3>
+        <p style="margin-bottom:10px;color:var(--muted);">
+          Choose which tall brands to include across the whole app (AI Size Finder, My Sizes, Brand Intelligence).
+          Leave empty to include <em>all</em> brands.
+        </p>
 
-  <div class="form-group">
-    <label class="form-label">Filter Brands</label>
-    <input class="form-input" id="pref-search" placeholder="Type to filter brands…"/>
-  </div>
+        <div class="form-group">
+          <label class="form-label">Profile</label>
+          <select class="form-select" id="pref-profile"></select>
+        </div>
 
-  <div id="pref-brands" class="pill-settings-group" aria-live="polite"></div>
+        <div class="form-group">
+          <label class="form-label">Filter Brands</label>
+          <input class="form-input" id="pref-search" placeholder="Type to filter tall brands…"/>
+        </div>
 
-  <p class="small" style="margin-top:8px;color:var(--muted);">
-    Changes are saved automatically and linked to the selected profile.
-  </p>
-</div>
+        <div id="pref-brands" class="pill-settings-group" aria-live="polite"></div>
 
-<!-- END: PREFERRED BRANDS (PER PROFILE) -->
+        <p class="small" style="margin-top:8px;color:var(--muted);">
+          Changes are saved automatically and linked to the selected profile.
+        </p>
+      </div>
+
       <!-- Region Settings -->
       <div class="settings-section">
         <h3>🌍 Change Region</h3>
@@ -1771,11 +1754,11 @@
     <div id="stats-graph" class="stats-content" style="display: none; padding-top: 120px;">
       <div class="content-container">
         <div class="graph-controls">
-		</div>
-        <button class="graph-btn active" onclick="showGraphPeriod('week', event)">Week</button>
-<button class="graph-btn" onclick="showGraphPeriod('month', event)">Month</button>
-<button class="graph-btn" onclick="showGraphPeriod('year', event)">Year</button>
-<button class="graph-btn" onclick="showGraphPeriod('table', event)">Table</button>
+          <button class="graph-btn active" onclick="showGraphPeriod('week', event)">Week</button>
+          <button class="graph-btn" onclick="showGraphPeriod('month', event)">Month</button>
+          <button class="graph-btn" onclick="showGraphPeriod('year', event)">Year</button>
+          <button class="graph-btn" onclick="showGraphPeriod('table', event)">Table</button>
+        </div>
 
         <div id="graph-display" style="background: var(--card); border-radius: 12px; padding: 20px; border: 2px solid var(--border);">
           <div id="weight-chart" style="margin-bottom: 20px;">
@@ -1881,10 +1864,9 @@
   </div>
   
   <script>
-	  
 
 
-    // Global variables
+	  // Global variables
     let currentScreen = 'home';
     let navigationHistory = [];
     let selectedBodyType = 'standard';
@@ -1893,7 +1875,7 @@
     let editingProfile = null;
     let miSizeSystem = null;
     
-	    // START: EXTERNAL UK BRAND GLOBALS
+    // START: EXTERNAL UK BRAND GLOBALS
     // Master DB once fetched. Shape: name -> { categories, notes, lastUpdated, ... }
     let BRAND_DB = {};
 
@@ -1904,11 +1886,11 @@
     let ALL_CATEGORIES = new Set();
 
     /**
-     * Normalise uk_brands.json so we support BOTH schemas:
+     * Normalise tall_sizes_complete.json so we support BOTH schemas:
      *  A) Array form:
-     *     [ { "name":"ASOS", "categories":{...} }, { "name":"Next", ... } ]
+     *     [ { "name":"ASOS Tall", "categories":{...} }, { "name":"Next Tall", ... } ]
      *  B) Object form:
-     *     { "ASOS": { "categories":{...} }, "Next": { ... } }
+     *     { "ASOS Tall": { "categories":{...} }, "Next Tall": { ... } }
      */
     function normaliseBrandJson(raw) {
       if (Array.isArray(raw)) {
@@ -1921,111 +1903,109 @@
     }
     // END: EXTERNAL UK BRAND GLOBALS
 	
-	// START: LOAD UK BRANDS FROM JSON
-async function loadUkBrands() {
-  try {
-    // 1) Fetch and normalise
-    const res = await fetch('uk_brands.json', { cache: 'no-store' });
-    if (!res.ok) throw new Error('Failed to fetch uk_brands.json');
-    const raw = await res.json();
-    BRAND_DB = normaliseBrandJson(raw);
+    // START: LOAD UK BRANDS FROM JSON
+    async function loadUkBrands() {
+      try {
+        // 1) Fetch and normalise - NOW USING tall_sizes_complete.json
+        const res = await fetch('tall_sizes_complete.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('Failed to fetch tall_sizes_complete.json');
+        const raw = await res.json();
+        BRAND_DB = normaliseBrandJson(raw);
 
-    // 2) Build brand + category indexes
-    ALL_BRANDS = Object.keys(BRAND_DB).sort((a, b) => a.localeCompare(b));
-    ALL_CATEGORIES = new Set();
-    ALL_BRANDS.forEach(name => {
-      const cats = BRAND_DB[name]?.categories ? Object.keys(BRAND_DB[name].categories) : [];
-      cats.forEach(c => ALL_CATEGORIES.add(c));
-    });
-
-    // 3) Populate the Size Finder brand search + select
-    const datalist = document.getElementById('uk-brand-datalist');
-    const search   = document.getElementById('uk-brand-search');
-    const select   = document.getElementById('uk-brand-select');
-
-    if (datalist) datalist.innerHTML = '';
-    if (select)   select.innerHTML   = '<option value="">Select a brand…</option>';
-
-    ALL_BRANDS.forEach(name => {
-      if (datalist) {
-        const o = document.createElement('option');
-        o.value = name;
-        datalist.appendChild(o);
-      }
-      if (select) {
-        const o = document.createElement('option');
-        o.value = name;
-        o.textContent = name;
-        select.appendChild(o);
-      }
-    });
-
-    // Link search <-> select (keep in sync)
-    if (search && select) {
-      if (!search._bound) {
-        search._bound = true;
-        search.addEventListener('input', () => {
-          const v = search.value.trim();
-          if (ALL_BRANDS.includes(v)) select.value = v;
+        // 2) Build brand + category indexes
+        ALL_BRANDS = Object.keys(BRAND_DB).sort((a, b) => a.localeCompare(b));
+        ALL_CATEGORIES = new Set();
+        ALL_BRANDS.forEach(name => {
+          const cats = BRAND_DB[name]?.categories ? Object.keys(BRAND_DB[name].categories) : [];
+          cats.forEach(c => ALL_CATEGORIES.add(c));
         });
-      }
-      if (!select._bound) {
-        select._bound = true;
-        select.addEventListener('change', () => {
-          if (select.value) search.value = select.value;
+
+        // 3) Populate the Size Finder brand search + select
+        const datalist = document.getElementById('uk-brand-datalist');
+        const search   = document.getElementById('uk-brand-search');
+        const select   = document.getElementById('uk-brand-select');
+
+        if (datalist) datalist.innerHTML = '';
+        if (select)   select.innerHTML   = '<option value="">Select a brand…</option>';
+
+        ALL_BRANDS.forEach(name => {
+          if (datalist) {
+            const o = document.createElement('option');
+            o.value = name;
+            datalist.appendChild(o);
+          }
+          if (select) {
+            const o = document.createElement('option');
+            o.value = name;
+            o.textContent = name;
+            select.appendChild(o);
+          }
         });
+
+        // Link search <-> select (keep in sync)
+        if (search && select) {
+          if (!search._bound) {
+            search._bound = true;
+            search.addEventListener('input', () => {
+              const v = search.value.trim();
+              if (ALL_BRANDS.includes(v)) select.value = v;
+            });
+          }
+          if (!select._bound) {
+            select._bound = true;
+            select.addEventListener('change', () => {
+              if (select.value) search.value = select.value;
+            });
+          }
+        }
+
+        // 4) Populate categories everywhere
+        const catSizeFinder = document.getElementById('uk-category-select');
+        const catMySizes    = document.getElementById('mysizes-category');
+        const catIntel      = document.getElementById('brand-intel-category');
+        const catsSorted    = [...ALL_CATEGORIES].sort((a,b)=>a.localeCompare(b));
+
+        function fillCatSelect(sel) {
+          if (!sel) return;
+          const keepTop = sel.querySelector('option[value=""]')?.outerHTML || '<option value="">Select category...</option>';
+          sel.innerHTML = keepTop; // reset but keep the placeholder
+          catsSorted.forEach(c => {
+            const o = document.createElement('option');
+            o.value = c; o.textContent = c;
+            sel.appendChild(o);
+          });
+        }
+        fillCatSelect(catSizeFinder);
+        fillCatSelect(catMySizes);
+        fillCatSelect(catIntel);
+
+        // 5) Update any status lamps if present
+        const dot = document.getElementById('sizefinder-status-dot') || document.getElementById('uk-system-status-dot') || document.getElementById('system-status-dot');
+        const txt = document.getElementById('sizefinder-status-text') || document.getElementById('uk-system-status-text') || document.getElementById('system-status-text');
+        if (dot) {
+          dot.classList.remove('status-loading');
+          dot.classList.add('status-online');
+        }
+        if (txt) {
+          txt.textContent = `Loaded ${ALL_BRANDS.length} tall brands from tall_sizes_complete.json`;
+        }
+        
+        // 6) Optional: if later steps exist, call them safely
+        if (typeof hydratePreferredBrands === 'function') { try { hydratePreferredBrands(); } catch {} }
+        if (typeof refreshBrandIntelligenceFromJson === 'function') { try { refreshBrandIntelligenceFromJson(); } catch {} }
+        if (typeof refreshMySizesFromJson === 'function') { try { refreshMySizesFromJson(); } catch {} }
+        if (typeof hydrateMySizesBrandSearch === 'function') { try { hydrateMySizesBrandSearch(); } catch {} }
+
+      } catch (err) {
+        console.error(err);
+        alert('Could not load tall_sizes_complete.json. Ensure it sits next to index.html and contains valid JSON.');
+        // Fail status
+        const txt = document.getElementById('sizefinder-status-text') || document.getElementById('uk-system-status-text') || document.getElementById('system-status-text');
+        if (txt) txt.textContent = 'Error loading tall_sizes_complete.json';
       }
     }
+    // END: LOAD UK BRANDS FROM JSON
 
-    // 4) Populate categories everywhere
-    const catSizeFinder = document.getElementById('uk-category-select');
-    const catMySizes    = document.getElementById('mysizes-category');
-    const catIntel      = document.getElementById('brand-intel-category');
-    const catsSorted    = [...ALL_CATEGORIES].sort((a,b)=>a.localeCompare(b));
-
-    function fillCatSelect(sel) {
-      if (!sel) return;
-      const keepTop = sel.querySelector('option[value=""]')?.outerHTML || '<option value="">Select category...</option>';
-      sel.innerHTML = keepTop; // reset but keep the placeholder
-      catsSorted.forEach(c => {
-        const o = document.createElement('option');
-        o.value = c; o.textContent = c;
-        sel.appendChild(o);
-      });
-    }
-    fillCatSelect(catSizeFinder);
-    fillCatSelect(catMySizes);
-    fillCatSelect(catIntel);
-
-    // 5) Update any status lamps if present
-    const dot = document.getElementById('sizefinder-status-dot') || document.getElementById('uk-dot') || document.getElementById('sys-dot');
-    const txt = document.getElementById('sizefinder-status-text') || document.getElementById('uk-text') || document.getElementById('sys-text');
-    if (dot) {
-      dot.classList.remove('status-loading');
-      dot.classList.add('status-online');
-    }
-    if (txt) {
-      txt.textContent = `Loaded ${ALL_BRANDS.length} UK brands`;
-    }
-	// 6) Optional: if later steps exist, call them safely
-if (typeof hydratePreferredBrands === 'function') { try { hydratePreferredBrands(); } catch {} }
-if (typeof refreshBrandIntelligenceFromJson === 'function') { try { refreshBrandIntelligenceFromJson(); } catch {} }
-if (typeof refreshMySizesFromJson === 'function') { try { refreshMySizesFromJson(); } catch {} }
-
-// ✅ NEW: hook up the brand search in My Sizes
-if (typeof hydrateMySizesBrandSearch === 'function') { try { hydrateMySizesBrandSearch(); } catch {} }
-
-  } catch (err) {
-    console.error(err);
-    alert('Could not load uk_brands.json. Ensure it sits next to index.html and contains valid JSON.');
-    // Fail status
-    const txt = document.getElementById('sizefinder-status-text') || document.getElementById('uk-text') || document.getElementById('sys-text');
-    if (txt) txt.textContent = 'Error loading uk_brands.json';
-  }
-}
-// END: LOAD UK BRANDS FROM JSON
-
-	
     // Profile Data with your updated measurements
     let profileData = {
       'Emma Morris': {
@@ -2102,8 +2082,8 @@ if (typeof hydrateMySizesBrandSearch === 'function') { try { hydrateMySizesBrand
 
     // Comprehensive Brand Database with Real Size Data
     const BRAND_SIZE_DATABASE = {
-      'ASOS': {
-        name: 'ASOS',
+      'ASOS Tall': {
+        name: 'ASOS Tall',
         lastUpdated: new Date().toISOString(),
         categories: {
           "Women's Tops": {
@@ -2132,15 +2112,15 @@ if (typeof hydrateMySizesBrandSearch === 'function') { try { hydrateMySizesBrand
           }
         },
         notes: {
-          sizing: 'UK sizes, runs slightly large',
+          sizing: 'UK tall sizes, runs slightly large',
           bodyTypes: 'Standard, Petite, Tall, Plus',
           categories: 'Full range - jeans, dresses, tops, shoes, activewear',
-          fitNotes: 'Size down for oversized items, true to size for fitted',
-          special: 'Excellent size inclusivity, detailed size guides, online exclusive'
+          fitNotes: 'Extra length in sleeves and inseams, size down for oversized items',
+          special: 'Excellent tall size inclusivity, detailed size guides, online exclusive'
         }
       },
-      'Zara': {
-        name: 'Zara',
+      'Long Tall Sally': {
+        name: 'Long Tall Sally',
         lastUpdated: new Date().toISOString(),
         categories: {
           "Women's Tops": {
@@ -2166,55 +2146,15 @@ if (typeof hydrateMySizesBrandSearch === 'function') { try { hydrateMySizesBrand
           }
         },
         notes: {
-          sizing: 'European sizes, runs small',
-          bodyTypes: 'Standard, Limited plus sizes',
-          categories: 'Trend fashion - dresses, tops, jeans, shoes',
-          fitNotes: 'Size up 1-2 sizes, fitted cuts',
-          special: 'Fast fashion, trend-focused, size up recommended'
+          sizing: 'Specialist tall sizing, runs true to size',
+          bodyTypes: 'Tall specialist - all tall proportions',
+          categories: 'Complete tall range - clothing and shoes',
+          fitNotes: 'Designed specifically for tall women 5\'8" and above',
+          special: 'Industry leader in tall fashion, proportioned for tall bodies'
         }
       },
-      'H&M': {
-        name: 'H&M',
-        lastUpdated: new Date().toISOString(),
-        categories: {
-          "Women's Tops": {
-            '34': { bust: 34, waist: 28, hips: 36 },
-            '36': { bust: 36, waist: 30, hips: 38 },
-            '38': { bust: 38, waist: 32, hips: 40 },
-            '40': { bust: 40, waist: 34, hips: 42 },
-            '42': { bust: 42, waist: 36, hips: 44 },
-            '44': { bust: 44, waist: 38, hips: 46 },
-            '46': { bust: 46, waist: 40, hips: 48 }
-          },
-          "Women's Dresses": {
-            '34': { bust: 34, waist: 28, hips: 36 },
-            '36': { bust: 36, waist: 30, hips: 38 },
-            '38': { bust: 38, waist: 32, hips: 40 },
-            '40': { bust: 40, waist: 34, hips: 42 },
-            '42': { bust: 42, waist: 36, hips: 44 },
-            '44': { bust: 44, waist: 38, hips: 46 },
-            '46': { bust: 46, waist: 40, hips: 48 }
-          },
-          "Women's Jeans": {
-            '34': { waist: 28, hips: 36 },
-            '36': { waist: 30, hips: 38 },
-            '38': { waist: 32, hips: 40 },
-            '40': { waist: 34, hips: 42 },
-            '42': { waist: 36, hips: 44 },
-            '44': { waist: 38, hips: 46 },
-            '46': { waist: 40, hips: 48 }
-          }
-        },
-        notes: {
-          sizing: 'European sizes, inconsistent',
-          bodyTypes: 'Standard, Some plus sizes',
-          categories: 'Casual wear, basics, trend pieces',
-          fitNotes: 'Varies by item - check individual size charts',
-          special: 'Sustainable lines run differently, budget-friendly'
-        }
-      },
-      'Next': {
-        name: 'Next',
+      'Next Tall': {
+        name: 'Next Tall',
         lastUpdated: new Date().toISOString(),
         categories: {
           "Women's Tops": {
@@ -2243,15 +2183,15 @@ if (typeof hydrateMySizesBrandSearch === 'function') { try { hydrateMySizesBrand
           }
         },
         notes: {
-          sizing: 'UK sizes, generally true to size',
+          sizing: 'UK tall sizes, generally true to size',
           bodyTypes: 'Standard, Petite, Tall, Plus',
           categories: 'Smart casual, workwear, shoes, accessories',
-          fitNotes: 'Reliable consistent sizing across seasons',
-          special: 'Great for professional wear, quality fabrics'
+          fitNotes: 'Reliable consistent tall sizing, extra length in body and sleeves',
+          special: 'Great for professional tall wear, quality fabrics'
         }
       },
-      'Marks & Spencer': {
-        name: 'Marks & Spencer',
+      'M&S Tall': {
+        name: 'M&S Tall',
         lastUpdated: new Date().toISOString(),
         categories: {
           "Women's Tops": {
@@ -2280,220 +2220,257 @@ if (typeof hydrateMySizesBrandSearch === 'function') { try { hydrateMySizesBrand
           }
         },
         notes: {
-          sizing: 'UK sizes, true to size',
+          sizing: 'UK tall sizes, true to size',
           bodyTypes: 'Standard, Petite, Tall, Plus',
           categories: 'Full range, excellent basics and lingerie',
-          fitNotes: 'Most reliable UK sizing, classic fits',
-          special: 'Excellent bras and underwear sizing, quality basics'
+          fitNotes: 'Most reliable UK tall sizing, classic fits with extra length',
+          special: 'Excellent tall basics and underwear sizing, quality materials'
+        }
+      },
+      'Topshop Tall': {
+        name: 'Topshop Tall',
+        lastUpdated: new Date().toISOString(),
+        categories: {
+          "Women's Tops": {
+            '6': { bust: 32, waist: 26, hips: 34 },
+            '8': { bust: 34, waist: 28, hips: 36 },
+            '10': { bust: 36, waist: 30, hips: 38 },
+            '12': { bust: 38, waist: 32, hips: 40 },
+            '14': { bust: 40, waist: 34, hips: 42 },
+            '16': { bust: 42, waist: 36, hips: 44 }
+          },
+          "Women's Dresses": {
+            '6': { bust: 32, waist: 26, hips: 34 },
+            '8': { bust: 34, waist: 28, hips: 36 },
+            '10': { bust: 36, waist: 30, hips: 38 },
+            '12': { bust: 38, waist: 32, hips: 40 },
+            '14': { bust: 40, waist: 34, hips: 42 },
+            '16': { bust: 42, waist: 36, hips: 44 }
+          },
+          "Women's Jeans": {
+            '6': { waist: 26, hips: 34 },
+            '8': { waist: 28, hips: 36 },
+            '10': { waist: 30, hips: 38 },
+            '12': { waist: 32, hips: 40 },
+            '14': { waist: 34, hips: 42 },
+            '16': { waist: 36, hips: 44 }
+          }
+        },
+        notes: {
+          sizing: 'UK tall sizes, runs small',
+          bodyTypes: 'Tall specialist range',
+          categories: 'Trend fashion - dresses, tops, jeans',
+          fitNotes: 'Size up 1 size, fitted cuts with extra length',
+          special: 'Fashion-forward tall pieces, younger demographic'
         }
       }
     };
-	class SizeMatchingEngine {
-  constructor() {
-    // Prefer live JSON-loaded brands, fallback to demo DB
-    this.brandDatabase =
-      (BRAND_DB && typeof BRAND_DB === 'object' && Object.keys(BRAND_DB).length)
-        ? BRAND_DB
-        : BRAND_SIZE_DATABASE;
 
-    this.userMeasurements = {};
-    this.fitPreferences = { snug: -1, standard: 0, relaxed: 1 };
-  }
+    class SizeMatchingEngine {
+      constructor() {
+        // Prefer live JSON-loaded brands, fallback to demo DB
+        this.brandDatabase =
+          (BRAND_DB && typeof BRAND_DB === 'object' && Object.keys(BRAND_DB).length)
+            ? BRAND_DB
+            : BRAND_SIZE_DATABASE;
 
-  setUserMeasurements(measurements) {
-    this.userMeasurements = {
-      bust: parseFloat(measurements.bust) || 0,
-      waist: parseFloat(measurements.waist) || 0,
-      hips: parseFloat(measurements.hips) || 0,
-      unit: measurements.unit || 'inch'
-    };
-  }
-
-  findBestSizeForBrand(brandName, category, fitPreference = 'standard') {
-    const brandData = this.brandDatabase[brandName];
-    if (!brandData || !brandData.categories) return null;
-
-    const categoryData = brandData.categories[category];
-    if (!categoryData) return null;
-
-    const fitAdjustment = this.fitPreferences[fitPreference.toLowerCase()] ?? 0;
-    const sizeAnalysis = this.analyzeSizes(categoryData, fitAdjustment);
-
-    return {
-      brand: brandName,
-      recommendedSize: sizeAnalysis.bestSize,
-      confidence: sizeAnalysis.confidence,
-      fitAnalysis: sizeAnalysis.fitDetails,
-      alternatives: sizeAnalysis.alternatives,
-      category,
-      fitPreference
-    };
-  }
-
-  analyzeSizes(categoryData, fitAdjustment) {
-    const sizeScores = new Map();
-    const sizeDetails = new Map();
-
-    Object.entries(categoryData).forEach(([size, m]) => {
-      const score = this.calculateFitScore(this.userMeasurements, m, fitAdjustment);
-      const details = this.generateFitDetails(this.userMeasurements, m, size);
-      sizeScores.set(size, score);
-      sizeDetails.set(size, details);
-    });
-
-    const sorted = Array.from(sizeScores.entries()).sort((a, b) => b[1] - a[1]);
-    const [bestSize, bestScore] = sorted[0] || [null, 0];
-    const alternatives = sorted.slice(1, 3);
-
-    return {
-      bestSize,
-      confidence: this.calculateConfidence(bestScore),
-      fitDetails: sizeDetails.get(bestSize),
-      alternatives: alternatives.map(([size, score]) => ({
-        size,
-        confidence: this.calculateConfidence(score),
-        details: sizeDetails.get(size)
-      }))
-    };
-  }
-
-  calculateFitScore(user, sizeM, fitAdjustment) {
-    let total = 0, count = 0;
-    ['bust', 'waist', 'hips'].forEach(k => {
-      if (user[k] && sizeM[k]) {
-        const diff = Math.abs(user[k] - (sizeM[k] + fitAdjustment));
-        const score = Math.max(0, 100 - diff * 15);
-        total += score; count++;
+        this.userMeasurements = {};
+        this.fitPreferences = { snug: -1, standard: 0, relaxed: 1 };
       }
-    });
-    return count ? total / count : 0;
-  }
 
-  generateFitDetails(user, sizeM, size) {
-    const d = { size, measurements: sizeM, fit: {}, recommendations: [] };
-    ['bust', 'waist', 'hips'].forEach(k => {
-      if (user[k] && sizeM[k]) {
-        const diff = user[k] - sizeM[k];
-        let desc;
-        if (Math.abs(diff) <= 1) desc = 'Perfect fit';
-        else if (diff > 1) desc = `${Math.abs(diff)}" too small`;
-        else desc = `${Math.abs(diff)}" too large`;
-        d.fit[k] = { userMeasurement: user[k], sizeMeasurement: sizeM[k], difference: diff, description: desc };
-        if (Math.abs(diff) > 2) d.recommendations.push(`Consider different size for ${k} measurement`);
+      setUserMeasurements(measurements) {
+        this.userMeasurements = {
+          bust: parseFloat(measurements.bust) || 0,
+          waist: parseFloat(measurements.waist) || 0,
+          hips: parseFloat(measurements.hips) || 0,
+          unit: measurements.unit || 'inch'
+        };
       }
-    });
-    return d;
-  }
 
-  calculateConfidence(score) {
-    return Math.max(0, Math.min(100, Math.round(score)));
-  }
+      findBestSizeForBrand(brandName, category, fitPreference = 'standard') {
+        const brandData = this.brandDatabase[brandName];
+        if (!brandData || !brandData.categories) return null;
 
-  getAllBrandSizes(category, fitPreference = 'standard') {
-    const out = [];
-    Object.keys(this.brandDatabase).forEach(brandName => {
-      const r = this.findBestSizeForBrand(brandName, category, fitPreference);
-      if (r && r.confidence >= 70) out.push(r);
-    });
-    return out.sort((a, b) => b.confidence - a.confidence);
-  }
-}
+        const categoryData = brandData.categories[category];
+        if (!categoryData) return null;
+
+        const fitAdjustment = this.fitPreferences[fitPreference.toLowerCase()] ?? 0;
+        const sizeAnalysis = this.analyzeSizes(categoryData, fitAdjustment);
+
+        return {
+          brand: brandName,
+          recommendedSize: sizeAnalysis.bestSize,
+          confidence: sizeAnalysis.confidence,
+          fitAnalysis: sizeAnalysis.fitDetails,
+          alternatives: sizeAnalysis.alternatives,
+          category,
+          fitPreference
+        };
+      }
+
+      analyzeSizes(categoryData, fitAdjustment) {
+        const sizeScores = new Map();
+        const sizeDetails = new Map();
+
+        Object.entries(categoryData).forEach(([size, m]) => {
+          const score = this.calculateFitScore(this.userMeasurements, m, fitAdjustment);
+          const details = this.generateFitDetails(this.userMeasurements, m, size);
+          sizeScores.set(size, score);
+          sizeDetails.set(size, details);
+        });
+
+        const sorted = Array.from(sizeScores.entries()).sort((a, b) => b[1] - a[1]);
+        const [bestSize, bestScore] = sorted[0] || [null, 0];
+        const alternatives = sorted.slice(1, 3);
+
+        return {
+          bestSize,
+          confidence: this.calculateConfidence(bestScore),
+          fitDetails: sizeDetails.get(bestSize),
+          alternatives: alternatives.map(([size, score]) => ({
+            size,
+            confidence: this.calculateConfidence(score),
+            details: sizeDetails.get(size)
+          }))
+        };
+      }
+
+      calculateFitScore(user, sizeM, fitAdjustment) {
+        let total = 0, count = 0;
+        ['bust', 'waist', 'hips'].forEach(k => {
+          if (user[k] && sizeM[k]) {
+            const diff = Math.abs(user[k] - (sizeM[k] + fitAdjustment));
+            const score = Math.max(0, 100 - diff * 15);
+            total += score; count++;
+          }
+        });
+        return count ? total / count : 0;
+      }
+
+      generateFitDetails(user, sizeM, size) {
+        const d = { size, measurements: sizeM, fit: {}, recommendations: [] };
+        ['bust', 'waist', 'hips'].forEach(k => {
+          if (user[k] && sizeM[k]) {
+            const diff = user[k] - sizeM[k];
+            let desc;
+            if (Math.abs(diff) <= 1) desc = 'Perfect fit';
+            else if (diff > 1) desc = `${Math.abs(diff)}" too small`;
+            else desc = `${Math.abs(diff)}" too large`;
+            d.fit[k] = { userMeasurement: user[k], sizeMeasurement: sizeM[k], difference: diff, description: desc };
+            if (Math.abs(diff) > 2) d.recommendations.push(`Consider different size for ${k} measurement`);
+          }
+        });
+        return d;
+      }
+
+      calculateConfidence(score) {
+        return Math.max(0, Math.min(100, Math.round(score)));
+      }
+
+      getAllBrandSizes(category, fitPreference = 'standard') {
+        const out = [];
+        Object.keys(this.brandDatabase).forEach(brandName => {
+          const r = this.findBestSizeForBrand(brandName, category, fitPreference);
+          if (r && r.confidence >= 70) out.push(r);
+        });
+        return out.sort((a, b) => b.confidence - a.confidence);
+      }
+    }
 	
-class MiSizeAISystem {
-  constructor() {
-    this.sizeEngine = new SizeMatchingEngine();
-    this.isInitialized = false;
-    this.confidenceThreshold = 85;
-  }
+    class MiSizeAISystem {
+      constructor() {
+        this.sizeEngine = new SizeMatchingEngine();
+        this.isInitialized = false;
+        this.confidenceThreshold = 85;
+      }
 
-  async initialize() {
-    try {
-      this.updateSystemStatus('loading', 'Initializing AI sizing system...');
-      await this.sleep(2000);
-      this.updateUserMeasurements();
-      this.isInitialized = true;
-      this.updateSystemStatus('online', 'AI sizing system active');
+      async initialize() {
+        try {
+          this.updateSystemStatus('loading', 'Initializing AI tall sizing system...');
+          await this.sleep(2000);
+          this.updateUserMeasurements();
+          this.isInitialized = true;
+          this.updateSystemStatus('online', 'AI tall sizing system active');
 
-      const lastUpdateElement = document.getElementById('last-update-time');
-      if (lastUpdateElement) lastUpdateElement.textContent = new Date().toLocaleString();
-      return true;
-    } catch (e) {
-      console.error('Failed to initialize AI system:', e);
-      this.updateSystemStatus('offline', 'System offline - using fallback data');
-      return false;
+          const lastUpdateElement = document.getElementById('last-update-time');
+          if (lastUpdateElement) lastUpdateElement.textContent = new Date().toLocaleString();
+          return true;
+        } catch (e) {
+          console.error('Failed to initialize AI system:', e);
+          this.updateSystemStatus('offline', 'System offline - using fallback data');
+          return false;
+        }
+      }
+
+      updateSystemStatus(status, message, scope = document) {
+        // generic dots/texts
+        const dots  = scope.querySelectorAll('.status-dot');
+        const texts = scope.querySelectorAll('[id$="status-text"]');
+        dots.forEach(dot => {
+          dot.classList.remove('status-online','status-loading','status-offline');
+          dot.classList.add(`status-${status}`);
+        });
+        texts.forEach(t => t.textContent = message);
+
+        // keep the Home banner synced
+        const homeDot  = document.getElementById('system-status-dot');
+        const homeText = document.getElementById('system-status-text');
+        if (homeDot)  homeDot.className = `status-dot status-${status}`;
+        if (homeText) homeText.textContent = message;
+      }
+
+      updateUserMeasurements() {
+        const profile = profileData[currentProfile];
+        if (profile?.measurements) {
+          this.sizeEngine.setUserMeasurements({
+            bust: profile.measurements.chest,
+            waist: profile.measurements.waist,
+            hips: profile.measurements.hips,
+            unit: 'inch'
+          });
+        }
+      }
+
+      async getAccurateSize(brand, category, fitPreference = 'standard') {
+        if (!this.isInitialized) throw new Error('AI system not initialized');
+        this.updateUserMeasurements();
+        const result = this.sizeEngine.findBestSizeForBrand(brand, category, fitPreference);
+        if (!result) {
+          return {
+            success: false,
+            message: `No size data available for ${brand} in ${category}`,
+            fallback: this.getFallbackSize(brand, category)
+          };
+        }
+        return { success: true, ...result };
+      }
+
+      async getAllMySizes() {
+        if (!this.isInitialized) return {};
+        const categories = (ALL_CATEGORIES && ALL_CATEGORIES.size)
+          ? [...ALL_CATEGORIES]
+          : ["Women's Jeans", "Women's Dresses", "Women's Tops"];
+        const results = {};
+        for (const category of categories) {
+          results[category] = this.sizeEngine
+            .getAllBrandSizes(category, 'standard')
+            .filter(r => r.confidence >= this.confidenceThreshold);
+        }
+        return results;
+      }
+
+      getFallbackSize(brand, category) {
+        const fallback = {
+          'ASOS Tall': { "Women's Tops": '16-18', "Women's Dresses": '18', "Women's Jeans": '16-18' },
+          'Long Tall Sally': { "Women's Tops": 'XL', "Women's Dresses": 'XL', "Women's Jeans": 'XL' },
+          'Next Tall':  { "Women's Tops": '16-18', "Women's Dresses": '18', "Women's Jeans": '16-18' }
+        };
+        return fallback[brand]?.[category] || 'Size 18 (estimated)';
+      }
+
+      sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     }
-  }
-
-  updateSystemStatus(status, message, scope = document) {
-    // generic dots/texts
-    const dots  = scope.querySelectorAll('.status-dot');
-    const texts = scope.querySelectorAll('[id$="status-text"]');
-    dots.forEach(dot => {
-      dot.classList.remove('status-online','status-loading','status-offline');
-      dot.classList.add(`status-${status}`);
-    });
-    texts.forEach(t => t.textContent = message);
-
-    // keep the Home banner synced
-    const homeDot  = document.getElementById('system-status-dot');
-    const homeText = document.getElementById('system-status-text');
-    if (homeDot)  homeDot.className = `status-dot status-${status}`;
-    if (homeText) homeText.textContent = message;
-  }
-
-  updateUserMeasurements() {
-    const profile = profileData[currentProfile];
-    if (profile?.measurements) {
-      this.sizeEngine.setUserMeasurements({
-        bust: profile.measurements.chest,
-        waist: profile.measurements.waist,
-        hips: profile.measurements.hips,
-        unit: 'inch'
-      });
-    }
-  }
-
-  async getAccurateSize(brand, category, fitPreference = 'standard') {
-    if (!this.isInitialized) throw new Error('AI system not initialized');
-    this.updateUserMeasurements();
-    const result = this.sizeEngine.findBestSizeForBrand(brand, category, fitPreference);
-    if (!result) {
-      return {
-        success: false,
-        message: `No size data available for ${brand} in ${category}`,
-        fallback: this.getFallbackSize(brand, category)
-      };
-    }
-    return { success: true, ...result };
-  }
-
-  async getAllMySizes() {
-    if (!this.isInitialized) return {};
-    const categories = (ALL_CATEGORIES && ALL_CATEGORIES.size)
-      ? [...ALL_CATEGORIES]
-      : ["Women's Jeans", "Women's Dresses", "Women's Tops"];
-    const results = {};
-    for (const category of categories) {
-      results[category] = this.sizeEngine
-        .getAllBrandSizes(category, 'standard')
-        .filter(r => r.confidence >= this.confidenceThreshold);
-    }
-    return results;
-  }
-
-  getFallbackSize(brand, category) {
-    const fallback = {
-      'ASOS': { "Women's Tops": '16-18', "Women's Dresses": '18', "Women's Jeans": '16-18' },
-      'Zara': { "Women's Tops": 'XL', "Women's Dresses": 'XL', "Women's Jeans": 'XL' },
-      'H&M':  { "Women's Tops": '42-44', "Women's Dresses": '42-44', "Women's Jeans": '42-44' }
-    };
-    return fallback[brand]?.[category] || 'Size 18 (estimated)';
-  }
-
-  sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-}
    
-
     // Navigation functions
     function enterHub(region) {
       const hubScreen = region.toLowerCase() + '-hub';
@@ -2586,7 +2563,7 @@ class MiSizeAISystem {
 
     // Enhanced Size Finder with AI
     async function getMySize() {
-      const brand = document.getElementById('uk-brand-select')?.value;
+      const brand = document.getElementById('uk-brand-select')?.value || document.getElementById('uk-brand-search')?.value;
       const category = document.getElementById('uk-category-select')?.value;
       const fit = document.getElementById('uk-fit-select')?.value;
       
@@ -2608,7 +2585,7 @@ class MiSizeAISystem {
         
         if (result.success) {
           resultDiv.innerHTML = `
-            <h4 style="color: var(--green); margin: 0 0 16px;">✅ Perfect Size Found!</h4>
+            <h4 style="color: var(--green); margin: 0 0 16px;">✅ Perfect Tall Size Found!</h4>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
               <div>
                 <strong>Brand:</strong> ${result.brand}<br>
@@ -2663,125 +2640,123 @@ class MiSizeAISystem {
     }
 
     // --- My Sizes: render grid (uses your MiSizeAISystem -> getAllMySizes)
-async function populateMySizesGrid() {
-  const grid = document.getElementById('my-sizes-grid');
-  const statusText = document.getElementById('mysizes-status-text');
-  if (!grid) return;
+    async function populateMySizesGrid() {
+      const grid = document.getElementById('my-sizes-grid');
+      const statusText = document.getElementById('mysizes-status-text');
+      if (!grid) return;
 
-  grid.innerHTML = `
-    <div style="text-align:center;padding:40px;grid-column:1/-1;">
-      <div class="loading-spinner"></div>
-      <p>Loading your accurate sizes...</p>
-    </div>`;
+      grid.innerHTML = `
+        <div style="text-align:center;padding:40px;grid-column:1/-1;">
+          <div class="loading-spinner"></div>
+          <p>Loading your accurate tall sizes...</p>
+        </div>`;
 
-  if (!miSizeSystem || !miSizeSystem.isInitialized) {
-    grid.innerHTML = `
-      <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--muted);">
-        AI sizing system not ready yet. Try again in a moment.
-      </div>`;
-    return;
-  }
+      if (!miSizeSystem || !miSizeSystem.isInitialized) {
+        grid.innerHTML = `
+          <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--muted);">
+            AI sizing system not ready yet. Try again in a moment.
+          </div>`;
+        return;
+      }
 
-  try {
-    const categoryFilter = (document.getElementById('mysizes-category')?.value || '').trim();
-    const brandFilter = (document.getElementById('mysizes-brand-search')?.value || '').trim();
+      try {
+        const categoryFilter = (document.getElementById('mysizes-category')?.value || '').trim();
+        const brandFilter = (document.getElementById('mysizes-brand-search')?.value || '').trim();
 
-    const allSizes = await miSizeSystem.getAllMySizes(); // { category: [recs...] }
-    const cards = [];
+        const allSizes = await miSizeSystem.getAllMySizes(); // { category: [recs...] }
+        const cards = [];
 
-    if (statusText && miSizeSystem.confidenceThreshold) {
-      statusText.textContent = `Showing sizes with ${miSizeSystem.confidenceThreshold}%+ confidence rating`;
+        if (statusText && miSizeSystem.confidenceThreshold) {
+          statusText.textContent = `Showing tall sizes with ${miSizeSystem.confidenceThreshold}%+ confidence rating`;
+        }
+
+        Object.entries(allSizes).forEach(([category, recs]) => {
+          if (categoryFilter && category !== categoryFilter) return;
+
+          recs.forEach(rec => {
+            if (brandFilter && rec.brand.toLowerCase() !== brandFilter.toLowerCase()) return;
+
+            const confidenceColor =
+              rec.confidence >= 90 ? 'var(--green)' :
+              rec.confidence >= 80 ? 'var(--blue)'  : 'var(--orange)';
+
+            cards.push(`
+              <div class="brand-card">
+                <div class="brand-name">${rec.brand}</div>
+                <div class="brand-size">Size ${rec.recommendedSize}</div>
+
+                <div style="background:${confidenceColor};color:#fff;padding:4px 8px;border-radius:6px;font-size:12px;font-weight:600;display:inline-block;margin:8px 0;">
+                  ${rec.confidence}% match
+                </div>
+
+                <p style="font-size:14px;color:var(--muted);margin:8px 0 6px;">
+                  ${category} — ${rec.fitPreference} fit
+                </p>
+
+                <details style="margin-top:6px;">
+                  <summary style="cursor:pointer;font-weight:700;">Fit analysis</summary>
+                  <div style="font-size:13px;margin-top:6px;">
+                    ${Object.entries(rec.fitAnalysis.fit).map(([m, d]) =>
+                      `<div><strong>${m.toUpperCase()}:</strong> ${d.description}</div>`).join('')}
+                  </div>
+                </details>
+
+                ${rec.alternatives?.length ? `
+                  <p style="font-size:12px;color:var(--muted);margin:8px 0 0;">
+                    Alt: ${rec.alternatives[0].size} (${rec.alternatives[0].confidence}%)
+                  </p>` : ''}
+              </div>
+            `);
+          });
+        });
+
+        grid.innerHTML = cards.length
+          ? cards.join('')
+          : `
+            <div style="text-align:center;padding:40px;grid-column:1/-1;">
+              <p style="color:var(--muted);">No tall brand matches at this confidence level${brandFilter ? ` for <strong>${brandFilter}</strong>` : ''}.</p>
+              <p style="color:var(--muted);font-size:14px;">Try clearing the brand, changing category, or lowering the threshold in Settings.</p>
+            </div>`;
+      } catch (err) {
+        grid.innerHTML = `
+          <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--orange);">
+            Error loading sizes: ${err.message}
+          </div>`;
+      }
     }
 
-    Object.entries(allSizes).forEach(([category, recs]) => {
-      if (categoryFilter && category !== categoryFilter) return;
-
-      recs.forEach(rec => {
-        if (brandFilter && rec.brand.toLowerCase() !== brandFilter.toLowerCase()) return;
-
-        const confidenceColor =
-          rec.confidence >= 90 ? 'var(--green)' :
-          rec.confidence >= 80 ? 'var(--blue)'  : 'var(--orange)';
-
-        cards.push(`
-          <div class="brand-card">
-            <div class="brand-name">${rec.brand}</div>
-            <div class="brand-size">Size ${rec.recommendedSize}</div>
-
-            <div style="background:${confidenceColor};color:#fff;padding:4px 8px;border-radius:6px;font-size:12px;font-weight:600;display:inline-block;margin:8px 0;">
-              ${rec.confidence}% match
-            </div>
-
-            <p style="font-size:14px;color:var(--muted);margin:8px 0 6px;">
-              ${category} — ${rec.fitPreference} fit
-            </p>
-
-            <details style="margin-top:6px;">
-              <summary style="cursor:pointer;font-weight:700;">Fit analysis</summary>
-              <div style="font-size:13px;margin-top:6px;">
-                ${Object.entries(rec.fitAnalysis.fit).map(([m, d]) =>
-                  `<div><strong>${m.toUpperCase()}:</strong> ${d.description}</div>`).join('')}
-              </div>
-            </details>
-
-            ${rec.alternatives?.length ? `
-              <p style="font-size:12px;color:var(--muted);margin:8px 0 0;">
-                Alt: ${rec.alternatives[0].size} (${rec.alternatives[0].confidence}%)
-              </p>` : ''}
-          </div>
-        `);
-      });
-    });
-
-    grid.innerHTML = cards.length
-      ? cards.join('')
-      : `
-        <div style="text-align:center;padding:40px;grid-column:1/-1;">
-          <p style="color:var(--muted);">No matches at this confidence level${brandFilter ? ` for <strong>${brandFilter}</strong>` : ''}.</p>
-          <p style="color:var(--muted);font-size:14px;">Try clearing the brand, changing category, or lowering the threshold in Settings.</p>
-        </div>`;
-  } catch (err) {
-    grid.innerHTML = `
-      <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--orange);">
-        Error loading sizes: ${err.message}
-      </div>`;
-  }
-}
-        
-
-
     // Brand Notes Population
-	function populateBrandNotes() {
-  const container = document.getElementById('brand-notes-grid');
-  if (!container) return;
+    function populateBrandNotes() {
+      const container = document.getElementById('brand-notes-grid');
+      if (!container) return;
 
-  const sourceDB = (BRAND_DB && Object.keys(BRAND_DB).length) ? BRAND_DB : BRAND_SIZE_DATABASE;
+      const sourceDB = (BRAND_DB && Object.keys(BRAND_DB).length) ? BRAND_DB : BRAND_SIZE_DATABASE;
 
-  const cards = Object.entries(sourceDB).map(([key, brand]) => {
-    const name = brand.name || key;
-    const notes = brand.notes || {};
-    const updated = brand.lastUpdated ? new Date(brand.lastUpdated).toLocaleDateString() : '—';
-    return `
-      <div class="brand-card">
-        <div class="brand-name">${name}</div>
-        <div style="background: var(--green); color: white; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; display: inline-block; margin-bottom: 12px;">
-          Real size data available
-        </div>
-        ${notes.sizing ? `<p><strong>Sizing:</strong> ${notes.sizing}</p>` : ''}
-        ${notes.bodyTypes ? `<p><strong>Body Types:</strong> ${notes.bodyTypes}</p>` : ''}
-        ${notes.categories ? `<p><strong>Categories:</strong> ${notes.categories}</p>` : ''}
-        ${notes.fitNotes ? `<p><strong>Fit Notes:</strong> ${notes.fitNotes}</p>` : ''}
-        ${notes.special ? `<p><strong>Special:</strong> ${notes.special}</p>` : ''}
-        <p style="font-size:12px;color:var(--muted);margin-top:8px;">Last updated: ${updated}</p>
-      </div>
-    `;
-  }).join('');
+      const cards = Object.entries(sourceDB).map(([key, brand]) => {
+        const name = brand.name || key;
+        const notes = brand.notes || {};
+        const updated = brand.lastUpdated ? new Date(brand.lastUpdated).toLocaleDateString() : '—';
+        return `
+          <div class="brand-card">
+            <div class="brand-name">${name}</div>
+            <div style="background: var(--green); color: white; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; display: inline-block; margin-bottom: 12px;">
+              Real tall size data available
+            </div>
+            ${notes.sizing ? `<p><strong>Sizing:</strong> ${notes.sizing}</p>` : ''}
+            ${notes.bodyTypes ? `<p><strong>Body Types:</strong> ${notes.bodyTypes}</p>` : ''}
+            ${notes.categories ? `<p><strong>Categories:</strong> ${notes.categories}</p>` : ''}
+            ${notes.fitNotes ? `<p><strong>Fit Notes:</strong> ${notes.fitNotes}</p>` : ''}
+            ${notes.special ? `<p><strong>Special:</strong> ${notes.special}</p>` : ''}
+            <p style="font-size:12px;color:var(--muted);margin-top:8px;">Last updated: ${updated}</p>
+          </div>
+        `;
+      }).join('');
 
-  container.innerHTML = cards || `
-    <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--muted);">
-      No brand data found.
-    </div>`;
-}
+      container.innerHTML = cards || `
+        <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--muted);">
+          No tall brand data found.
+        </div>`;
+    }
 
     // Utility functions
     function kgFrom(value, unit) {
@@ -2914,7 +2889,8 @@ async function populateMySizesGrid() {
     }
 
     function renderWeightGraph() {
-      const p = profileData[currentProfile];
+
+	  const p = profileData[currentProfile];
       if (!p) return;
 
       const allWeightData = [
@@ -3030,19 +3006,19 @@ async function populateMySizesGrid() {
     }
 
     function showGraphPeriod(period, ev) {
-  // toggle active styling safely
-  document.querySelectorAll('.graph-btn').forEach(btn => btn.classList.remove('active'));
-  if (ev && ev.currentTarget) {
-    ev.currentTarget.classList.add('active');
-  }
+      // toggle active styling safely
+      document.querySelectorAll('.graph-btn').forEach(btn => btn.classList.remove('active'));
+      if (ev && ev.currentTarget) {
+        ev.currentTarget.classList.add('active');
+      }
 
-  // update the view
-  if (period === 'table') {
-    showWeightTable();
-  } else {
-    renderWeightGraph();
-  }
-}
+      // update the view
+      if (period === 'table') {
+        showWeightTable();
+      } else {
+        renderWeightGraph();
+      }
+    }
 
     function showWeightTable() {
       const p = profileData[currentProfile];
@@ -3231,7 +3207,7 @@ async function populateMySizesGrid() {
       });
 
       if (hasChanges) {
-        alert(`✅ Measurements saved to ${selectedProfileName}!\n\n🤖 AI sizing system will use your updated measurements for more accurate recommendations.`);
+        alert(`✅ Measurements saved to ${selectedProfileName}!\n\n🤖 AI tall sizing system will use your updated measurements for more accurate recommendations.`);
         if (currentProfile === selectedProfileName) {
           renderMiStats();
           // Update AI system
@@ -3304,7 +3280,7 @@ async function populateMySizesGrid() {
     }
 
     function reportIssue() {
-      alert('Report Issue feature coming soon! You can contact us at support@misize.com');
+      alert('Report Issue feature coming soon! You can contact us at support@misizetall.com');
     }
 
     function showMeasurementGuide(type) {
@@ -3602,12 +3578,12 @@ async function populateMySizesGrid() {
       try {
         const success = await miSizeSystem.initialize();
         if (success) {
-          console.log('🎉 MiSize AI System ready!');
+          console.log('🎉 MiSize Tall AI System ready!');
         } else {
           console.warn('⚠️ AI System failed to initialize, using fallback data');
         }
       } catch (error) {
-        console.error('Failed to initialize MiSize AI System:', error);
+        console.error('Failed to initialize MiSize Tall AI System:', error);
       }
 
       // Set up category filter for My Sizes
@@ -3622,74 +3598,68 @@ async function populateMySizesGrid() {
       }
     }
 
-	
-  // Initialize when DOM is loaded
-// START: APP INIT + BRAND LOADER
-document.addEventListener('DOMContentLoaded', () => {
-  loadUkBrands();   // fetch + populate brands & categories from uk_brands.json
-  initApp();        // wire pills, nav, AI system, listeners, etc.
-  initMySizesSection(); // NEW: wire the My Sizes filters + datalist
-// Ensure the AI engine uses the freshly loaded JSON DB
-if (window.miSizeSystem && miSizeSystem.sizeEngine && Object.keys(BRAND_DB).length) {
-  miSizeSystem.sizeEngine.brandDatabase = BRAND_DB;
-}
+    // --- My Sizes: hydrate brand search datalist (safe if BRAND_DB not loaded yet)
+    function hydrateMySizesBrandSearch() {
+      const dl = document.getElementById('mysizes-brand-datalist');
+      if (!dl) return;
+      const names = (typeof ALL_BRANDS !== 'undefined' && Array.isArray(ALL_BRANDS) && ALL_BRANDS.length)
+        ? ALL_BRANDS
+        : (typeof BRAND_DB === 'object' ? Object.keys(BRAND_DB) : []);
+      dl.innerHTML = '';
+      names.sort((a,b)=>a.localeCompare(b)).forEach(n => {
+        const o = document.createElement('option');
+        o.value = n;
+        dl.appendChild(o);
+      });
+    }
 
-// If My Sizes screen is open, refresh it
-if (document.getElementById('uk-mysizes')?.classList.contains('active')) {
-  try { populateMySizesGrid(); } catch {}
-}
-  // ✅ Make sure the live AI engine uses the JSON brands after load
-  if (window.miSizeSystem && miSizeSystem.sizeEngine) {
-    miSizeSystem.sizeEngine.brandDatabase = BRAND_DB;
-  }
-});
-// END: APP INIT + BRAND LOADER
+    // --- My Sizes: listeners (call once after DOM is ready)
+    function initMySizesSection() {
+      const cat = document.getElementById('mysizes-category');
+      const brand = document.getElementById('mysizes-brand-search');
 
-// --- My Sizes: hydrate brand search datalist (safe if BRAND_DB not loaded yet)
-function hydrateMySizesBrandSearch() {
-  const dl = document.getElementById('mysizes-brand-datalist');
-  if (!dl) return;
-  const names = (typeof ALL_BRANDS !== 'undefined' && Array.isArray(ALL_BRANDS) && ALL_BRANDS.length)
-    ? ALL_BRANDS
-    : (typeof BRAND_DB === 'object' ? Object.keys(BRAND_DB) : []);
-  dl.innerHTML = '';
-  names.sort((a,b)=>a.localeCompare(b)).forEach(n => {
-    const o = document.createElement('option');
-    o.value = n;
-    dl.appendChild(o);
-  });
-}
+      if (cat && !cat._bound) {
+        cat._bound = true;
+        cat.addEventListener('change', populateMySizesGrid);
+      }
 
-// --- My Sizes: listeners (call once after DOM is ready)
-function initMySizesSection() {
-  const cat = document.getElementById('mysizes-category');
-  const brand = document.getElementById('mysizes-brand-search');
+      if (brand && !brand._bound) {
+        brand._bound = true;
+        brand.addEventListener('input', () => {
+          const v = brand.value.trim();
+          const isKnown = (typeof ALL_BRANDS !== 'undefined' && ALL_BRANDS.includes(v)) ||
+                          (typeof BRAND_DB === 'object' && BRAND_DB && BRAND_DB[v]);
+          if (v === '' || isKnown) populateMySizesGrid();
+        });
+      }
 
-  if (cat && !cat._bound) {
-    cat._bound = true;
-    cat.addEventListener('change', populateMySizesGrid);
-  }
+      hydrateMySizesBrandSearch();
+    }
 
-  if (brand && !brand._bound) {
-    brand._bound = true;
-    brand.addEventListener('input', () => {
-      const v = brand.value.trim();
-      const isKnown = (typeof ALL_BRANDS !== 'undefined' && ALL_BRANDS.includes(v)) ||
-                      (typeof BRAND_DB === 'object' && BRAND_DB && BRAND_DB[v]);
-      if (v === '' || isKnown) populateMySizesGrid();
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      loadUkBrands();   // fetch + populate brands & categories from tall_sizes_complete.json
+      initApp();        // wire pills, nav, AI system, listeners, etc.
+      initMySizesSection(); // wire the My Sizes filters + datalist
+      
+      // Ensure the AI engine uses the freshly loaded JSON DB
+      if (window.miSizeSystem && miSizeSystem.sizeEngine && Object.keys(BRAND_DB).length) {
+        miSizeSystem.sizeEngine.brandDatabase = BRAND_DB;
+      }
+
+      // If My Sizes screen is open, refresh it
+      if (document.getElementById('uk-mysizes')?.classList.contains('active')) {
+        try { populateMySizesGrid(); } catch {}
+      }
     });
-  }
 
-  hydrateMySizesBrandSearch();
-}
+    // Auto-transition from flash to home screen
+    setTimeout(() => {
+      document.getElementById('flash').classList.remove('active');
+      document.getElementById('home').classList.add('active');
+      currentScreen = 'home';
+    }, 3000); // 3 second delay
 
-// Auto-transition from flash to home screen
-setTimeout(() => {
-  document.getElementById('flash').classList.remove('active');
-  document.getElementById('home').classList.add('active');
-  currentScreen = 'home';
-}, 3000); // 3 second delay
-
-</script>
+  </script>
 </body>
 </html>
