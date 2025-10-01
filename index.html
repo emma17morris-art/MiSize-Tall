@@ -251,14 +251,10 @@
       gap: 20px;
     }
 
-    .hub-tiles-5 {
+    .hub-tiles-4 {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
-    }
-
-    .hub-tiles-5 .hub-tile:last-child {
-      grid-column: span 2;
     }
 
     .hub-tile {
@@ -874,7 +870,7 @@
     .status-loading { background: var(--orange); }
     .status-offline { background: var(--muted); }
 
-    .authenticity-badge {
+    .source-badge {
       display: inline-block;
       padding: 4px 8px;
       border-radius: 6px;
@@ -883,17 +879,12 @@
       margin: 4px 4px 4px 0;
     }
 
-    .auth-verified {
+    .source-official {
       background: var(--green);
       color: white;
     }
 
-    .auth-scraped {
-      background: var(--blue);
-      color: white;
-    }
-
-    .auth-manual {
+    .source-standard {
       background: var(--orange);
       color: white;
     }
@@ -905,6 +896,14 @@
       margin-top: 8px;
       padding-top: 8px;
       border-top: 1px solid var(--border);
+    }
+
+    .inseam-info {
+      background: rgba(138, 43, 226, 0.1);
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-top: 8px;
+      font-size: 13px;
     }
   </style>
 </head>
@@ -1083,7 +1082,7 @@
     </div>
   </div
 
-	<!-- UK Hub -->
+<!-- UK Hub -->
   <div id="uk-hub" class="screen">
     <div class="hub-container">
       <div class="hub-header">
@@ -1099,7 +1098,7 @@
         </div>
       </div>
       
-      <div class="hub-tiles-5">
+      <div class="hub-tiles-4">
         <div class="hub-tile" onclick="goToScreen('uk-sizefinder')">
           AI Size Finder
         </div>
@@ -1111,9 +1110,6 @@
         </div>
         <div class="hub-tile" onclick="goToScreen('uk-history')">
           Search History
-        </div>
-        <div class="hub-tile" onclick="goToScreen('uk-converters')">
-          Size Converters
         </div>
       </div>
     </div>
@@ -1298,34 +1294,6 @@
     </div>
   </div>
 
-  <!-- UK Converters -->
-  <div id="uk-converters" class="screen">
-    <div class="content-container">
-      <div class="hub-header">
-        <h2 class="hub-title">🇬🇧 Size Converters</h2>
-        <p class="hub-subtitle">Convert between UK, US, CA, EU sizes</p>
-      </div>
-      
-      <div class="hub-tiles">
-        <div class="hub-tile" onclick="openConverter('dresses')">
-          Dress Sizes
-        </div>
-        <div class="hub-tile" onclick="openConverter('jeans')">
-          Jean Sizes
-        </div>
-        <div class="hub-tile" onclick="openConverter('tops')">
-          Top Sizes
-        </div>
-        <div class="hub-tile" onclick="openConverter('shoes')">
-          Shoe Sizes
-        </div>
-        <div class="hub-tile" onclick="openConverter('bra')">
-          Bra Helper
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- UK Settings -->
   <div id="uk-settings" class="screen">
     <div class="content-container">
@@ -1379,18 +1347,6 @@
         </div>
 
         <div class="measurement-grid">
-          <div class="measurement-bubble">
-            <h4>Weight</h4>
-            <div style="display: flex; gap: 8px; align-items: center;">
-              <input type="number" class="measurement-input" id="weight" placeholder="80" style="flex: 1;" />
-              <div class="pill-settings-group" style="margin: 0;">
-                <button class="settings-pill active" data-weight-unit="kg">kg</button>
-                <button class="settings-pill" data-weight-unit="lbs">lbs</button>
-                <button class="settings-pill" data-weight-unit="stone">st</button>
-              </div>
-            </div>
-          </div>
-          
           <div class="measurement-bubble">
             <h4>Chest/Bust</h4>
             <div style="display: flex; gap: 8px; align-items: center;">
@@ -1781,12 +1737,11 @@
         <p class="hub-subtitle">European sizing & tracking</p>
       </div>
       
-      <div class="hub-tiles-5">
+      <div class="hub-tiles-4">
         <div class="hub-tile" onclick="alert('EU AI Size Finder coming soon!')">AI Size Finder</div>
         <div class="hub-tile" onclick="alert('EU My Sizes coming soon!')">My Accurate Sizes</div>
         <div class="hub-tile" onclick="alert('EU Brand Intelligence coming soon!')">Brand Intelligence</div>
         <div class="hub-tile" onclick="alert('EU History coming soon!')">History</div>
-        <div class="hub-tile" onclick="alert('EU Converters coming soon!')">Converters</div>
       </div>
     </div>
   </div>
@@ -1799,12 +1754,11 @@
         <p class="hub-subtitle">United States sizing & tracking</p>
       </div>
       
-      <div class="hub-tiles-5">
+      <div class="hub-tiles-4">
         <div class="hub-tile" onclick="alert('US AI Size Finder coming soon!')">AI Size Finder</div>
         <div class="hub-tile" onclick="alert('US My Sizes coming soon!')">My Accurate Sizes</div>
         <div class="hub-tile" onclick="alert('US Brand Intelligence coming soon!')">Brand Intelligence</div>
         <div class="hub-tile" onclick="alert('US History coming soon!')">History</div>
-        <div class="hub-tile" onclick="alert('US Converters coming soon!')">Converters</div>
       </div>
     </div>
   </div>
@@ -1817,12 +1771,11 @@
         <p class="hub-subtitle">Canadian sizing & tracking</p>
       </div>
       
-      <div class="hub-tiles-5">
+      <div class="hub-tiles-4">
         <div class="hub-tile" onclick="alert('CA AI Size Finder coming soon!')">AI Size Finder</div>
         <div class="hub-tile" onclick="alert('CA My Sizes coming soon!')">My Accurate Sizes</div>
         <div class="hub-tile" onclick="alert('CA Brand Intelligence coming soon!')">Brand Intelligence</div>
         <div class="hub-tile" onclick="alert('CA History coming soon!')">History</div>
-        <div class="hub-tile" onclick="alert('CA Converters coming soon!')">Converters</div>
       </div>
     </div>
   </div>
@@ -1845,6 +1798,7 @@
     let currentProfile = 'Emma Morris';
     let editingProfile = null;
     let miSizeSystem = null;
+    let currentGraphPeriod = 'week';
     
     // Brand Database Globals
     let BRAND_DB = {};
@@ -1909,13 +1863,13 @@
       }
     };
 
-    // Fallback Brand Database
+// Fallback Brand Database
     const BRAND_SIZE_DATABASE = {
       'ASOS Tall': {
         name: 'ASOS Tall',
         lastUpdated: new Date().toISOString(),
-        authenticity: 'verified',
-        sourceNote: 'Official ASOS size chart - scraped 2024',
+        sourceType: 'official',
+        sourceNote: 'Official ASOS size chart via brand URL',
         categories: {
           "Women's Tops": {
             '12': { bust: 36, waist: 30, hips: 38 },
@@ -1934,12 +1888,12 @@
             '22': { bust: 46, waist: 40, hips: 48 }
           },
           "Women's Jeans": {
-            '12': { waist: 30, hips: 38 },
-            '14': { waist: 32, hips: 40 },
-            '16': { waist: 34, hips: 42 },
-            '18': { waist: 36, hips: 44 },
-            '20': { waist: 38, hips: 46 },
-            '22': { waist: 40, hips: 48 }
+            '12': { waist: 30, hips: 38, inseam: 36 },
+            '14': { waist: 32, hips: 40, inseam: 36 },
+            '16': { waist: 34, hips: 42, inseam: 36 },
+            '18': { waist: 36, hips: 44, inseam: 36 },
+            '20': { waist: 38, hips: 46, inseam: 36 },
+            '22': { waist: 40, hips: 48, inseam: 36 }
           }
         },
         notes: {
@@ -1953,8 +1907,8 @@
       'Long Tall Sally': {
         name: 'Long Tall Sally',
         lastUpdated: new Date().toISOString(),
-        authenticity: 'verified',
-        sourceNote: 'Official LTS size chart - manual entry 2024',
+        sourceType: 'official',
+        sourceNote: 'Official LTS size chart via brand URL',
         categories: {
           "Women's Tops": {
             'S': { bust: 34, waist: 28, hips: 36 },
@@ -1971,11 +1925,11 @@
             'XXL': { bust: 42, waist: 36, hips: 44 }
           },
           "Women's Jeans": {
-            'S': { waist: 28, hips: 36 },
-            'M': { waist: 30, hips: 38 },
-            'L': { waist: 32, hips: 40 },
-            'XL': { waist: 34, hips: 42 },
-            'XXL': { waist: 36, hips: 44 }
+            'S': { waist: 28, hips: 36, inseam: 37 },
+            'M': { waist: 30, hips: 38, inseam: 37 },
+            'L': { waist: 32, hips: 40, inseam: 37 },
+            'XL': { waist: 34, hips: 42, inseam: 37 },
+            'XXL': { waist: 36, hips: 44, inseam: 37 }
           }
         },
         notes: {
@@ -1988,7 +1942,7 @@
       }
     };
 
-	  // Normalize brand JSON function
+    // Normalize brand JSON function
     function normaliseBrandJson(raw) {
       if (Array.isArray(raw)) {
         const obj = {};
@@ -2148,7 +2102,8 @@
           fitAnalysis: sizeAnalysis.fitDetails,
           alternatives: sizeAnalysis.alternatives,
           category,
-          fitPreference
+          fitPreference,
+          inseam: sizeAnalysis.inseam
         };
       }
 
@@ -2170,6 +2125,9 @@
 
         console.log('Best size:', bestSize, 'score:', bestScore);
 
+        const bestSizeData = categoryData[bestSize];
+        const inseam = bestSizeData?.inseam || null;
+
         return {
           bestSize,
           confidence: this.calculateConfidence(bestScore),
@@ -2178,7 +2136,8 @@
             size,
             confidence: this.calculateConfidence(score),
             details: sizeDetails.get(size)
-          }))
+          })),
+          inseam
         };
       }
 
@@ -2465,6 +2424,11 @@
                 </div>
               </div>
             </div>
+            ${result.inseam ? `
+              <div class="inseam-info">
+                <strong>Max Inseam:</strong> ${result.inseam}"
+              </div>
+            ` : ''}
             <div style="background: var(--bg); border-radius: 8px; padding: 12px;">
               <strong>Fit Analysis:</strong><br>
               ${Object.entries(result.fitAnalysis.fit).map(([measurement, details]) =>
@@ -2577,6 +2541,12 @@
                   ${category} — ${rec.fitPreference} fit
                 </p>
 
+                ${rec.inseam ? `
+                  <div class="inseam-info">
+                    <strong>Max Inseam:</strong> ${rec.inseam}"
+                  </div>
+                ` : ''}
+
                 <details style="margin-top:6px;">
                   <summary style="cursor:pointer;font-weight:700;">Fit analysis</summary>
                   <div style="font-size:13px;margin-top:6px;">
@@ -2625,26 +2595,21 @@
         const name = brand.name || key;
         const notes = brand.notes || {};
         const updated = brand.lastUpdated ? new Date(brand.lastUpdated).toLocaleDateString() : '—';
-        const authenticity = brand.authenticity || 'unknown';
+        const sourceType = brand.sourceType || 'standard';
         const sourceNote = brand.sourceNote || 'No source information available';
 
-        let authBadge = '';
-        if (authenticity === 'verified') {
-          authBadge = '<span class="authenticity-badge auth-verified">✓ Verified</span>';
-        } else if (authenticity === 'scraped') {
-          authBadge = '<span class="authenticity-badge auth-scraped">🤖 Scraped</span>';
-        } else if (authenticity === 'manual') {
-          authBadge = '<span class="authenticity-badge auth-manual">✍️ Manual</span>';
+        let sourceBadge = '';
+        if (sourceType === 'official') {
+          sourceBadge = '<span class="source-badge source-official">● Official chart via brand URL</span>';
+        } else {
+          sourceBadge = '<span class="source-badge source-standard">● Standard UK chart applied</span>';
         }
 
         return `
           <div class="brand-card">
             <div class="brand-name">${name}</div>
             <div style="margin-bottom: 12px;">
-              <div style="background: var(--green); color: white; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; display: inline-block; margin-right: 8px;">
-                Real tall size data available
-              </div>
-              ${authBadge}
+              ${sourceBadge}
             </div>
             ${notes.sizing ? `<p><strong>Sizing:</strong> ${notes.sizing}</p>` : ''}
             ${notes.bodyTypes ? `<p><strong>Body Types:</strong> ${notes.bodyTypes}</p>` : ''}
@@ -2798,12 +2763,13 @@
       }
 
       renderMeasurementHistory();
-      renderWeightGraph();
-    }
-
-function renderWeightGraph() {
+      renderWeightGraph(currentGraphPeriod);
+	}
+	  function renderWeightGraph(period = 'week') {
       const p = profileData[currentProfile];
       if (!p) return;
+
+      currentGraphPeriod = period;
 
       const allWeightData = [
         { date: p.startingDate, value: p.startingWeight.value, unit: p.startingWeight.unit, isStarting: true },
@@ -2815,26 +2781,46 @@ function renderWeightGraph() {
         return;
       }
 
-      const startWeight = kgFrom(allWeightData[0].value, allWeightData[0].unit);
-      const currentWeight = kgFrom(allWeightData[allWeightData.length - 1].value, allWeightData[allWeightData.length - 1].unit);
+      // Filter data based on period
+      let filteredData = allWeightData;
+      const now = new Date();
+      
+      if (period === 'week') {
+        const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        filteredData = allWeightData.filter(entry => new Date(entry.date) >= weekAgo);
+      } else if (period === 'month') {
+        const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+        filteredData = allWeightData.filter(entry => new Date(entry.date) >= monthAgo);
+      } else if (period === 'year') {
+        const yearAgo = new Date(now.getTime() - 365 * 24 * 60 * 60 * 1000);
+        filteredData = allWeightData.filter(entry => new Date(entry.date) >= yearAgo);
+      }
+
+      if (filteredData.length === 0) {
+        document.getElementById('chart-content').innerHTML = `<p style="text-align: center; color: var(--muted);">No data available for ${period} view</p>`;
+        return;
+      }
+
+      const startWeight = kgFrom(filteredData[0].value, filteredData[0].unit);
+      const currentWeight = kgFrom(filteredData[filteredData.length - 1].value, filteredData[filteredData.length - 1].unit);
       const totalLoss = startWeight - currentWeight;
 
       let chartHTML = '<div style="font-family: system-ui; font-size: 13px;">';
       chartHTML += `<div style="text-align: center; margin-bottom: 20px;">`;
       chartHTML += `<div style="color: var(--brand); font-weight: bold; font-size: 18px;">🎉 Amazing Progress! 🎉</div>`;
       chartHTML += `<div style="color: var(--green); font-weight: bold; font-size: 16px; margin-top: 4px;">Total Weight Loss: ${Math.round(totalLoss * 10) / 10}kg</div>`;
-      chartHTML += `<div style="color: var(--muted); font-size: 14px;">Journey: ${new Date(allWeightData[0].date).toLocaleDateString()} - ${new Date(allWeightData[allWeightData.length - 1].date).toLocaleDateString()}</div>`;
+      chartHTML += `<div style="color: var(--muted); font-size: 14px;">Period: ${new Date(filteredData[0].date).toLocaleDateString()} - ${new Date(filteredData[filteredData.length - 1].date).toLocaleDateString()}</div>`;
       chartHTML += `</div>`;
 
-      const milestones = allWeightData.filter((entry, index) => {
-        return entry.isStarting ||
-          index === allWeightData.length - 1 ||
-          index % 4 === 0;
+      const milestones = filteredData.filter((entry, index) => {
+        return entry.isStarting || 
+               index === filteredData.length - 1 || 
+               index % Math.max(1, Math.floor(filteredData.length / 8)) === 0;
       });
 
       chartHTML += '<div style="display: grid; gap: 6px; max-height: 300px; overflow-y: auto;">';
 
-      const weights = allWeightData.map(entry => kgFrom(entry.value, entry.unit));
+      const weights = filteredData.map(entry => kgFrom(entry.value, entry.unit));
       const minWeight = Math.min(...weights) - 5;
       const maxWeight = Math.max(...weights) + 5;
       const range = maxWeight - minWeight;
@@ -2843,7 +2829,7 @@ function renderWeightGraph() {
         const date = new Date(entry.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' });
         const weightKg = kgFrom(entry.value, entry.unit);
         const weight = `${entry.value}${entry.unit}`;
-        const isLatest = entry.date === allWeightData[allWeightData.length - 1].date;
+        const isLatest = entry.date === filteredData[filteredData.length - 1].date;
         const isStarting = entry.isStarting;
 
         const barWidth = Math.max(80, ((maxWeight - weightKg) / range) * 400 + 80);
@@ -2900,9 +2886,9 @@ function renderWeightGraph() {
 
       document.getElementById('chart-content').innerHTML = chartHTML;
 
-      if (allWeightData.length > 1) {
-        const firstEntry = allWeightData[0];
-        const lastEntry = allWeightData[allWeightData.length - 1];
+      if (filteredData.length > 1) {
+        const firstEntry = filteredData[0];
+        const lastEntry = filteredData[filteredData.length - 1];
         const totalLossKg = kgFrom(firstEntry.value, firstEntry.unit) - kgFrom(lastEntry.value, lastEntry.unit);
 
         const daysDiff = Math.max(1, Math.ceil((new Date(lastEntry.date) - new Date(firstEntry.date)) / (24 * 60 * 60 * 1000)));
@@ -2926,7 +2912,7 @@ function renderWeightGraph() {
       if (period === 'table') {
         showWeightTable();
       } else {
-        renderWeightGraph();
+        renderWeightGraph(period);
       }
     }
 
@@ -3068,7 +3054,7 @@ function renderWeightGraph() {
       const selectedProfile = document.getElementById('measurement-profile-select')?.value;
 
       if (!selectedProfile || !profileData[selectedProfile]) {
-        ['weight', 'chest', 'waist', 'hips', 'shoulders', 'arms'].forEach(key => {
+        ['chest', 'waist', 'hips', 'shoulders', 'arms'].forEach(key => {
           const input = document.getElementById(key);
           if (input) input.value = '';
         });
@@ -3078,9 +3064,11 @@ function renderWeightGraph() {
       const profile = profileData[selectedProfile];
 
       Object.entries(profile.measurements).forEach(([key, value]) => {
-        const input = document.getElementById(key);
-        if (input) {
-          input.value = value || '';
+        if (key !== 'weight') {
+          const input = document.getElementById(key);
+          if (input) {
+            input.value = value || '';
+          }
         }
       });
     }
@@ -3096,7 +3084,7 @@ function renderWeightGraph() {
       let hasChanges = false;
       const todayISO = new Date().toISOString().slice(0, 10);
 
-      ['weight', 'chest', 'waist', 'hips', 'shoulders', 'arms'].forEach(key => {
+      ['chest', 'waist', 'hips', 'shoulders', 'arms'].forEach(key => {
         const input = document.getElementById(key);
         if (input && input.value !== '') {
           const newValue = parseFloat(input.value);
@@ -3105,7 +3093,7 @@ function renderWeightGraph() {
           }
           profile.measurements[key] = newValue;
 
-          const unit = (key === 'weight') ? (profile.startingWeight?.unit || 'kg') : 'inch';
+          const unit = 'inch';
 
           profile.history.push({
             date: todayISO,
@@ -3175,10 +3163,6 @@ function renderWeightGraph() {
     // Other utility functions
     function saveToHistory() {
       alert('✅ Search saved to history!');
-    }
-
-    function openConverter(type) {
-      alert(`Opening ${type} size converter...`);
     }
 
     function toggleGuide(guideId) {
@@ -3433,4 +3417,4 @@ function renderWeightGraph() {
 
   </script>
 </body>
-</html>	  
+</html>
