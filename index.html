@@ -873,6 +873,39 @@
     .status-online { background: var(--green); }
     .status-loading { background: var(--orange); }
     .status-offline { background: var(--muted); }
+
+    .authenticity-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      margin: 4px 4px 4px 0;
+    }
+
+    .auth-verified {
+      background: var(--green);
+      color: white;
+    }
+
+    .auth-scraped {
+      background: var(--blue);
+      color: white;
+    }
+
+    .auth-manual {
+      background: var(--orange);
+      color: white;
+    }
+
+    .source-note {
+      font-size: 12px;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
   </style>
 </head>
 <body>
@@ -881,11 +914,9 @@
     <div class="topbar-inner">
       <div class="logo">MiSize Tall</div>
       
-      <div class="pill-group">
-        <button class="pill active" data-type="standard">Std</button>
-        <button class="pill" data-type="petite">Petite</button>
-        <button class="pill" data-type="tall">Tall</button>
-        <button class="pill" data-type="plus">Plus</button>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 12px; color: var(--muted);">Profile:</span>
+        <span id="topbar-profile-name" style="font-size: 13px; font-weight: 700; color: var(--text);">Emma Morris</span>
       </div>
       
       <div class="spacer"></div>
@@ -957,9 +988,9 @@
     </div>
   </div>
 </div>
-      
-	    
-  <!-- Help Screen -->
+
+
+	<!-- Help Screen -->
   <div id="help" class="screen">
     <div class="content-container">
       <div class="hub-header">
@@ -985,11 +1016,12 @@
               <p><strong>💡 Tip:</strong> Our AI system automatically collects real size charts from tall brands for the most accurate recommendations.</p>
             </div>
             
-            <h5><span class="step-number">2</span>Setting Your Body Type & Units</h5>
-            <p>At the top of your screen, you'll see two pill groups:</p>
+            <h5><span class="step-number">2</span>Setting Your Profile</h5>
+            <p>Your profile name appears in the top bar. You can switch between profiles anytime:</p>
             <ul>
-              <li><strong>Body Type:</strong> Select Standard, Petite, Tall, or Plus to filter results for your body type</li>
-              <li><strong>Units:</strong> Choose between cm or inches for measurements</li>
+              <li><strong>Go to Settings:</strong> Create and manage multiple user profiles</li>
+              <li><strong>Add Measurements:</strong> Enter your bust, waist, and hip measurements</li>
+              <li><strong>Units:</strong> Choose between cm or inches in the top bar</li>
             </ul>
           </div>
 
@@ -1124,17 +1156,11 @@
             Tip: you can type a brand in the search box or use the dropdown — both load from tall_sizes_complete.json.
           </p>
         </div>
-
-
-
-		  <div class="form-group">
+        
+        <div class="form-group">
           <label class="form-label">Category</label>
           <select class="form-select" id="uk-category-select">
             <option value="">Select category...</option>
-            <option value="Women's Jeans">Women's Jeans</option>
-            <option value="Women's Dresses">Women's Dresses</option>
-            <option value="Women's Tops">Women's Tops</option>
-            <option value="Women's Shoes">Women's Shoes</option>
           </select>
         </div>
         
@@ -1167,7 +1193,7 @@
   <div class="content-container">
     <div class="hub-header">
       <h2 class="hub-title">My Accurate Tall Sizes</h2>
-      <p class="hub-subtitle">Based on your measurements: 36" bust, 34" waist, 38" hips</p>
+      <p class="hub-subtitle">Based on your measurements from profile: <span id="mysizes-profile-display"></span></p>
       <p style="font-size:14px;color:var(--muted);margin-top:8px;">
         All sizes calculated using real tall brand measurement charts
       </p>
@@ -1184,10 +1210,6 @@
       <label class="form-label">Category Filter</label>
       <select class="form-select" id="mysizes-category">
         <option value="">All categories</option>
-        <option value="Women's Jeans">Women's Jeans</option>
-        <option value="Women's Dresses">Women's Dresses</option>
-        <option value="Women's Tops">Women's Tops</option>
-        <option value="Women's Shoes">Women's Shoes</option>
       </select>
     </div>
 
@@ -1865,8 +1887,7 @@
   
   <script>
 
-
-	  // Global variables
+// Global variables
     let currentScreen = 'home';
     let navigationHistory = [];
     let selectedBodyType = 'standard';
@@ -1876,7 +1897,7 @@
     let miSizeSystem = null;
     
     // START: EXTERNAL UK BRAND GLOBALS
-    // Master DB once fetched. Shape: name -> { categories, notes, lastUpdated, ... }
+    // Master DB once fetched. Shape: name -> { categories, notes, lastUpdated, authenticity, sourceNote, ... }
     let BRAND_DB = {};
 
     // All brand names (sorted) for pickers/search
@@ -1888,9 +1909,9 @@
     /**
      * Normalise tall_sizes_complete.json so we support BOTH schemas:
      *  A) Array form:
-     *     [ { "name":"ASOS Tall", "categories":{...} }, { "name":"Next Tall", ... } ]
+     *     [ { "name":"ASOS Tall", "categories":{...}, "authenticity":"verified", "sourceNote":"..." }, ... ]
      *  B) Object form:
-     *     { "ASOS Tall": { "categories":{...} }, "Next Tall": { ... } }
+     *     { "ASOS Tall": { "categories":{...}, "authenticity":"verified", "sourceNote":"..." }, ... }
      */
     function normaliseBrandJson(raw) {
       if (Array.isArray(raw)) {
@@ -1906,11 +1927,13 @@
     // START: LOAD UK BRANDS FROM JSON
     async function loadUkBrands() {
       try {
-        // 1) Fetch and normalise - NOW USING tall_sizes_complete.json
+        // 1) Fetch and normalise - USING tall_sizes_complete.json
         const res = await fetch('tall_sizes_complete.json', { cache: 'no-store' });
         if (!res.ok) throw new Error('Failed to fetch tall_sizes_complete.json');
         const raw = await res.json();
         BRAND_DB = normaliseBrandJson(raw);
+
+        console.log('Loaded brand database:', BRAND_DB);
 
         // 2) Build brand + category indexes
         ALL_BRANDS = Object.keys(BRAND_DB).sort((a, b) => a.localeCompare(b));
@@ -1919,6 +1942,9 @@
           const cats = BRAND_DB[name]?.categories ? Object.keys(BRAND_DB[name].categories) : [];
           cats.forEach(c => ALL_CATEGORIES.add(c));
         });
+
+        console.log('All brands:', ALL_BRANDS);
+        console.log('All categories:', [...ALL_CATEGORIES]);
 
         // 3) Populate the Size Finder brand search + select
         const datalist = document.getElementById('uk-brand-datalist');
@@ -1968,7 +1994,7 @@
         function fillCatSelect(sel) {
           if (!sel) return;
           const keepTop = sel.querySelector('option[value=""]')?.outerHTML || '<option value="">Select category...</option>';
-          sel.innerHTML = keepTop; // reset but keep the placeholder
+          sel.innerHTML = keepTop;
           catsSorted.forEach(c => {
             const o = document.createElement('option');
             o.value = c; o.textContent = c;
@@ -2080,11 +2106,13 @@
       }
     };
 
-    // Comprehensive Brand Database with Real Size Data
+    // Comprehensive Brand Database with Real Size Data (FALLBACK)
     const BRAND_SIZE_DATABASE = {
       'ASOS Tall': {
         name: 'ASOS Tall',
         lastUpdated: new Date().toISOString(),
+        authenticity: 'verified',
+        sourceNote: 'Official ASOS size chart - scraped 2024',
         categories: {
           "Women's Tops": {
             '12': { bust: 36, waist: 30, hips: 38 },
@@ -2122,6 +2150,8 @@
       'Long Tall Sally': {
         name: 'Long Tall Sally',
         lastUpdated: new Date().toISOString(),
+        authenticity: 'verified',
+        sourceNote: 'Official LTS size chart - manual entry 2024',
         categories: {
           "Women's Tops": {
             'S': { bust: 34, waist: 28, hips: 36 },
@@ -2156,6 +2186,8 @@
       'Next Tall': {
         name: 'Next Tall',
         lastUpdated: new Date().toISOString(),
+        authenticity: 'scraped',
+        sourceNote: 'Scraped from Next website - automated 2024',
         categories: {
           "Women's Tops": {
             '12': { bust: 36, waist: 30, hips: 38 },
@@ -2193,6 +2225,8 @@
       'M&S Tall': {
         name: 'M&S Tall',
         lastUpdated: new Date().toISOString(),
+        authenticity: 'manual',
+        sourceNote: 'Manual entry from in-store size chart',
         categories: {
           "Women's Tops": {
             '12': { bust: 36, waist: 30, hips: 38 },
@@ -2230,6 +2264,8 @@
       'Topshop Tall': {
         name: 'Topshop Tall',
         lastUpdated: new Date().toISOString(),
+        authenticity: 'scraped',
+        sourceNote: 'Automated scrape from ASOS (Topshop) - 2024',
         categories: {
           "Women's Tops": {
             '6': { bust: 32, waist: 26, hips: 34 },
@@ -2285,14 +2321,26 @@
           hips: parseFloat(measurements.hips) || 0,
           unit: measurements.unit || 'inch'
         };
+        console.log('User measurements set:', this.userMeasurements);
       }
 
       findBestSizeForBrand(brandName, category, fitPreference = 'standard') {
+        console.log('Finding size for brand:', brandName, 'category:', category, 'fit:', fitPreference);
+        
         const brandData = this.brandDatabase[brandName];
-        if (!brandData || !brandData.categories) return null;
+        if (!brandData || !brandData.categories) {
+          console.log('Brand not found:', brandName);
+          return null;
+        }
 
         const categoryData = brandData.categories[category];
-        if (!categoryData) return null;
+        if (!categoryData) {
+          console.log('Category not found:', category, 'Available:', Object.keys(brandData.categories));
+          return null;
+        }
+
+        console.log('Category data:', categoryData);
+        console.log('User measurements:', this.userMeasurements);
 
         const fitAdjustment = this.fitPreferences[fitPreference.toLowerCase()] ?? 0;
         const sizeAnalysis = this.analyzeSizes(categoryData, fitAdjustment);
@@ -2317,11 +2365,14 @@
           const details = this.generateFitDetails(this.userMeasurements, m, size);
           sizeScores.set(size, score);
           sizeDetails.set(size, details);
+          console.log(`Size ${size}: score=${score}`);
         });
 
         const sorted = Array.from(sizeScores.entries()).sort((a, b) => b[1] - a[1]);
         const [bestSize, bestScore] = sorted[0] || [null, 0];
         const alternatives = sorted.slice(1, 3);
+
+        console.log('Best size:', bestSize, 'score:', bestScore);
 
         return {
           bestSize,
@@ -2373,6 +2424,7 @@
           const r = this.findBestSizeForBrand(brandName, category, fitPreference);
           if (r && r.confidence >= 70) out.push(r);
         });
+        console.log(`Found ${out.length} brands for category ${category}`);
         return out.sort((a, b) => b.confidence - a.confidence);
       }
     }
@@ -2428,6 +2480,7 @@
             hips: profile.measurements.hips,
             unit: 'inch'
           });
+          console.log('Updated measurements for profile:', currentProfile, profile.measurements);
         }
       }
 
@@ -2447,9 +2500,14 @@
 
       async getAllMySizes() {
         if (!this.isInitialized) return {};
+        this.updateUserMeasurements();
+        
         const categories = (ALL_CATEGORIES && ALL_CATEGORIES.size)
           ? [...ALL_CATEGORIES]
           : ["Women's Jeans", "Women's Dresses", "Women's Tops"];
+        
+        console.log('Getting sizes for categories:', categories);
+        
         const results = {};
         for (const category of categories) {
           results[category] = this.sizeEngine
@@ -2563,7 +2621,9 @@
 
     // Enhanced Size Finder with AI
     async function getMySize() {
-      const brand = document.getElementById('uk-brand-select')?.value || document.getElementById('uk-brand-search')?.value;
+      const brandSelect = document.getElementById('uk-brand-select');
+      const brandSearch = document.getElementById('uk-brand-search');
+      const brand = (brandSelect?.value || brandSearch?.value || '').trim();
       const category = document.getElementById('uk-category-select')?.value;
       const fit = document.getElementById('uk-fit-select')?.value;
       
@@ -2572,6 +2632,16 @@
         return;
       }
 
+      // Check if brand exists in database
+      if (!BRAND_DB[brand] && !BRAND_SIZE_DATABASE[brand]) {
+        alert(`Brand "${brand}" not found in database. Please select a valid brand.`);
+        return;
+      }
+
+      console.log('Finding size for:', { brand, category, fit });
+      console.log('Current profile:', currentProfile);
+      console.log('User measurements:', profileData[currentProfile]?.measurements);
+
       // Update button to show loading
       const button = document.getElementById('size-finder-btn-text');
       const originalText = button.textContent;
@@ -2579,6 +2649,8 @@
 
       try {
         const result = await miSizeSystem.getAccurateSize(brand, category, fit);
+        
+        console.log('Size result:', result);
         
         // Show result
         const resultDiv = document.getElementById('size-result');
@@ -2615,6 +2687,7 @@
             ` : ''}
           `;
           resultDiv.style.display = 'block';
+          resultDiv.style.borderColor = 'var(--green)';
         } else {
           resultDiv.innerHTML = `
             <h4 style="color: var(--orange); margin: 0 0 16px;">⚠️ Limited Data Available</h4>
@@ -2626,10 +2699,12 @@
         }
         
       } catch (error) {
+        console.error('Error in getMySize:', error);
         const resultDiv = document.getElementById('size-result');
         resultDiv.innerHTML = `
           <h4 style="color: var(--orange); margin: 0 0 16px;">❌ Error</h4>
           <p>Error finding size: ${error.message}</p>
+          <p style="font-size: 12px; color: var(--muted);">Check browser console for details.</p>
         `;
         resultDiv.style.display = 'block';
         resultDiv.style.borderColor = 'var(--orange)';
@@ -2643,7 +2718,16 @@
     async function populateMySizesGrid() {
       const grid = document.getElementById('my-sizes-grid');
       const statusText = document.getElementById('mysizes-status-text');
+      const profileDisplay = document.getElementById('mysizes-profile-display');
+      
       if (!grid) return;
+
+      if (profileDisplay) {
+        const profile = profileData[currentProfile];
+        if (profile) {
+          profileDisplay.textContent = `${currentProfile} (Bust: ${profile.measurements.chest}", Waist: ${profile.measurements.waist}", Hips: ${profile.measurements.hips}")`;
+        }
+      }
 
       grid.innerHTML = `
         <div style="text-align:center;padding:40px;grid-column:1/-1;">
@@ -2659,11 +2743,18 @@
         return;
       }
 
+      console.log('Loading My Sizes for profile:', currentProfile);
+      console.log('User measurements:', profileData[currentProfile]?.measurements);
+      console.log('Brands in database:', Object.keys(BRAND_DB).length || Object.keys(BRAND_SIZE_DATABASE).length);
+
       try {
         const categoryFilter = (document.getElementById('mysizes-category')?.value || '').trim();
         const brandFilter = (document.getElementById('mysizes-brand-search')?.value || '').trim();
 
         const allSizes = await miSizeSystem.getAllMySizes(); // { category: [recs...] }
+        
+        console.log('All sizes returned:', allSizes);
+        
         const cards = [];
 
         if (statusText && miSizeSystem.confidenceThreshold) {
@@ -2672,6 +2763,8 @@
 
         Object.entries(allSizes).forEach(([category, recs]) => {
           if (categoryFilter && category !== categoryFilter) return;
+
+          console.log(`Processing ${category}: ${recs.length} recommendations`);
 
           recs.forEach(rec => {
             if (brandFilter && rec.brand.toLowerCase() !== brandFilter.toLowerCase()) return;
@@ -2710,22 +2803,27 @@
           });
         });
 
+        console.log(`Total cards generated: ${cards.length}`);
+
         grid.innerHTML = cards.length
           ? cards.join('')
           : `
             <div style="text-align:center;padding:40px;grid-column:1/-1;">
               <p style="color:var(--muted);">No tall brand matches at this confidence level${brandFilter ? ` for <strong>${brandFilter}</strong>` : ''}.</p>
-              <p style="color:var(--muted);font-size:14px;">Try clearing the brand, changing category, or lowering the threshold in Settings.</p>
+              <p style="color:var(--muted);font-size:14px;">Your measurements: Bust ${profileData[currentProfile]?.measurements.chest}", Waist ${profileData[currentProfile]?.measurements.waist}", Hips ${profileData[currentProfile]?.measurements.hips}"</p>
+              <p style="color:var(--muted);font-size:14px;">Try clearing filters or check that your profile measurements are set in Settings.</p>
             </div>`;
       } catch (err) {
+        console.error('Error in populateMySizesGrid:', err);
         grid.innerHTML = `
           <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--orange);">
             Error loading sizes: ${err.message}
+            <p style="font-size:12px;">Check browser console for details.</p>
           </div>`;
       }
     }
 
-    // Brand Notes Population
+    // Brand Notes Population with Authenticity and Source Note
     function populateBrandNotes() {
       const container = document.getElementById('brand-notes-grid');
       if (!container) return;
@@ -2736,17 +2834,36 @@
         const name = brand.name || key;
         const notes = brand.notes || {};
         const updated = brand.lastUpdated ? new Date(brand.lastUpdated).toLocaleDateString() : '—';
+        const authenticity = brand.authenticity || 'unknown';
+        const sourceNote = brand.sourceNote || 'No source information available';
+        
+        // Determine authenticity badge
+        let authBadge = '';
+        if (authenticity === 'verified') {
+          authBadge = '<span class="authenticity-badge auth-verified">✓ Verified</span>';
+        } else if (authenticity === 'scraped') {
+          authBadge = '<span class="authenticity-badge auth-scraped">🤖 Scraped</span>';
+        } else if (authenticity === 'manual') {
+          authBadge = '<span class="authenticity-badge auth-manual">✍️ Manual</span>';
+        }
+        
         return `
           <div class="brand-card">
             <div class="brand-name">${name}</div>
-            <div style="background: var(--green); color: white; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; display: inline-block; margin-bottom: 12px;">
-              Real tall size data available
+            <div style="margin-bottom: 12px;">
+              <div style="background: var(--green); color: white; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; display: inline-block; margin-right: 8px;">
+                Real tall size data available
+              </div>
+              ${authBadge}
             </div>
             ${notes.sizing ? `<p><strong>Sizing:</strong> ${notes.sizing}</p>` : ''}
             ${notes.bodyTypes ? `<p><strong>Body Types:</strong> ${notes.bodyTypes}</p>` : ''}
             ${notes.categories ? `<p><strong>Categories:</strong> ${notes.categories}</p>` : ''}
             ${notes.fitNotes ? `<p><strong>Fit Notes:</strong> ${notes.fitNotes}</p>` : ''}
             ${notes.special ? `<p><strong>Special:</strong> ${notes.special}</p>` : ''}
+            <div class="source-note">
+              <strong>📋 Source:</strong> ${sourceNote}
+            </div>
             <p style="font-size:12px;color:var(--muted);margin-top:8px;">Last updated: ${updated}</p>
           </div>
         `;
@@ -2806,14 +2923,23 @@
     function setCurrentProfile(name) {
       if (!profileData[name]) return;
       currentProfile = name;
+      
+      // Update dropdown
       const sel = document.getElementById('mistats-profile-select');
       if (sel) sel.value = name;
+      
+      // Update topbar
+      const topbarName = document.getElementById('topbar-profile-name');
+      if (topbarName) topbarName.textContent = name;
+      
       renderMiStats();
       
       // Update AI system with new measurements
       if (miSizeSystem && miSizeSystem.isInitialized) {
         miSizeSystem.updateUserMeasurements();
       }
+      
+      console.log('Switched to profile:', name);
     }
 
     function populateMiStatsProfileSelect() {
@@ -2889,8 +3015,8 @@
     }
 
     function renderWeightGraph() {
-
-	  const p = profileData[currentProfile];
+	  
+const p = profileData[currentProfile];
       if (!p) return;
 
       const allWeightData = [
@@ -3323,11 +3449,6 @@
               <li>Ensure the tape is snug but not tight</li>
             </ul>
 
-            <h5><span class="step-number">4</span>Additional Measurements</h5>
-            <p><strong>Shoulders:</strong> Measure across the back from the edge of one shoulder to the other</p>
-            <p><strong>Arms:</strong> Measure around the fullest part of your upper arm when relaxed</p>
-            <p><strong>Inseam:</strong> Measure from crotch to desired hem length along the inside of your leg</p>
-
             <div class="highlight-tip">
               <p><strong>Important:</strong> Take measurements over thin, form-fitting clothing or undergarments only. Bulky clothing will affect accuracy.</p>
             </div>
@@ -3347,32 +3468,6 @@
               <li>Keep the tape snug but not tight</li>
               <li>Breathe normally and measure at the end of a normal exhale</li>
             </ul>
-
-            <h5><span class="step-number">2</span>Waist Measurement</h5>
-            <ul>
-              <li>Find where you naturally bend when you lean to the side</li>
-              <li>Usually just above your hip bones</li>
-              <li>Wrap the tape around your waist at this point</li>
-              <li>Don't suck in your stomach - stand naturally</li>
-              <li>The tape should be comfortably snug</li>
-            </ul>
-
-            <h5><span class="step-number">3</span>Neck Measurement</h5>
-            <ul>
-              <li>Wrap the tape around the base of your neck</li>
-              <li>Keep the tape just below your Adam's apple</li>
-              <li>Insert one finger between the tape and your neck</li>
-              <li>The tape should be snug but comfortable for shirt collar sizing</li>
-            </ul>
-
-            <h5><span class="step-number">4</span>Additional Key Measurements</h5>
-            <p><strong>Shoulders:</strong> Measure from the edge of one shoulder to the other across the back</p>
-            <p><strong>Sleeve Length:</strong> Measure from shoulder point down to desired cuff position</p>
-            <p><strong>Inseam:</strong> Measure from crotch to desired trouser hem length</p>
-
-            <div class="highlight-tip">
-              <p><strong>Shirt Sizing Tip:</strong> For dress shirts, ensure you can fit two fingers between your neck and the measuring tape for proper collar fit.</p>
-            </div>
           </div>
         `;
       } else if (type === 'children') {
@@ -3380,49 +3475,6 @@
           <div class="guide-section">
             <h4>👶 Children's Measurements - Complete Guide</h4>
             <p>Measuring children requires patience and cooperation. Make it fun and explain what you're doing to keep them still.</p>
-
-            <h5><span class="step-number">1</span>Height</h5>
-            <ul>
-              <li>Have the child stand straight against a wall</li>
-              <li>Remove shoes and ensure heels touch the wall</li>
-              <li>Look straight ahead, not up or down</li>
-              <li>Mark the top of their head on the wall</li>
-              <li>Measure from the floor to the mark</li>
-            </ul>
-
-            <h5><span class="step-number">2</span>Chest Measurement</h5>
-            <ul>
-              <li>Wrap the tape around the fullest part of the chest</li>
-              <li>Keep the tape under the arms and across the back</li>
-              <li>Ensure the child is standing straight but relaxed</li>
-              <li>Take the measurement during normal breathing</li>
-            </ul>
-
-            <h5><span class="step-number">3</span>Waist Measurement</h5>
-            <ul>
-              <li>Find the natural waistline (narrowest part)</li>
-              <li>For very young children, measure just above the hip bones</li>
-              <li>Wrap the tape around the waist comfortably</li>
-              <li>Don't make it too tight - children need room to move</li>
-            </ul>
-
-            <div class="highlight-tip">
-              <p><strong>Age-Based Sizing:</strong> Many children's clothes are sized by age, but measurements ensure better fit as children grow at different rates.</p>
-            </div>
-
-            <div style="background: var(--bg); border-radius: 8px; padding: 16px; margin: 16px 0;">
-              <h5 style="margin: 0 0 12px; color: var(--brand);">Typical Measurements by Age</h5>
-              <div style="display: grid; gap: 8px; font-size: 14px;">
-                <div><strong>2-3 years:</strong> Height 35-38", Chest 20-21"</div>
-                <div><strong>4-5 years:</strong> Height 39-42", Chest 22-23"</div>
-                <div><strong>6-7 years:</strong> Height 43-46", Chest 24-25"</div>
-                <div><strong>8-10 years:</strong> Height 47-52", Chest 26-28"</div>
-              </div>
-            </div>
-
-            <div class="highlight-tip">
-              <p><strong>Growth Consideration:</strong> Children grow quickly. Add 1-2 inches to measurements for comfort and growth room.</p>
-            </div>
           </div>
         `;
       } else if (type === 'foot') {
@@ -3430,68 +3482,11 @@
           <div class="guide-section">
             <h4>👟 Foot Measuring - Complete Guide</h4>
             <p>Proper foot measurement ensures comfortable shoes. Feet can vary in size, so always measure both feet and use the larger measurement.</p>
-
-            <div class="highlight-tip">
-              <p><strong>Best Time to Measure:</strong> Measure feet in the afternoon or evening when they're at their largest due to natural swelling throughout the day.</p>
-            </div>
-
-            <h5><span class="step-number">1</span>Length Measurement</h5>
-            <ul>
-              <li>Place a piece of paper against a wall</li>
-              <li>Stand on the paper with your heel against the wall</li>
-              <li>Mark the longest toe on the paper</li>
-              <li>Measure from the wall to the mark</li>
-              <li>Repeat for both feet and use the larger measurement</li>
-            </ul>
-
-            <h5><span class="step-number">2</span>Width Measurement</h5>
-            <ul>
-              <li>Wrap a measuring tape around the widest part of your foot</li>
-              <li>This is usually around the ball of the foot</li>
-              <li>Keep the tape snug but not tight</li>
-              <li>Stand with full weight on the foot being measured</li>
-              <li>Record the circumference</li>
-            </ul>
-
-            <h5><span class="step-number">3</span>Key Considerations</h5>
-            <ul>
-              <li><strong>Socks:</strong> Wear the type of socks you'll use with the shoes</li>
-              <li><strong>Both Feet:</strong> Measure both feet as they often differ slightly</li>
-              <li><strong>Standing:</strong> Always measure while standing with full weight</li>
-              <li><strong>Time of Day:</strong> Afternoon measurements are most accurate</li>
-              <li><strong>Replace Regularly:</strong> Re-measure every 1-2 years as feet can change</li>
-            </ul>
-
-            <div style="background: var(--bg); border-radius: 8px; padding: 16px; margin: 16px 0;">
-              <h5 style="margin: 0 0 12px; color: var(--brand);">Size Conversion Reference</h5>
-              <div style="display: grid; gap: 6px; font-size: 13px;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; font-weight: 700; border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 6px;">
-                  <span>Length</span><span>US Women's</span><span>US Men's</span><span>UK</span>
-                </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px;">
-                  <span>9.25"</span><span>6</span><span>-</span><span>3.5</span>
-                </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px;">
-                  <span>10"</span><span>7.5</span><span>6</span><span>5</span>
-                </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px;">
-                  <span>10.5"</span><span>8.5</span><span>7</span><span>6</span>
-                </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px;">
-                  <span>11"</span><span>9.5</span><span>8</span><span>7</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="highlight-tip">
-              <p><strong>Shoe Fit Tip:</strong> There should be about a thumb's width (½ inch) between your longest toe and the end of the shoe.</p>
-            </div>
           </div>
         `;
       }
       
       if (content) {
-        // Create modal or show in help screen
         const existingModal = document.getElementById('measurement-modal');
         if (existingModal) {
           existingModal.remove();
@@ -3528,14 +3523,6 @@
 
     // Event listeners for pills
     function setupPillEventListeners() {
-      document.querySelectorAll('[data-type]').forEach(pill => {
-        pill.addEventListener('click', (e) => {
-          document.querySelectorAll('[data-type]').forEach(p => p.classList.remove('active'));
-          e.target.classList.add('active');
-          selectedBodyType = e.target.dataset.type;
-        });
-      });
-      
       document.querySelectorAll('[data-unit]').forEach(pill => {
         pill.addEventListener('click', (e) => {
           document.querySelectorAll('[data-unit]').forEach(p => p.classList.remove('active'));
@@ -3596,6 +3583,12 @@
       if (!currentProfile && Object.keys(profileData).length > 0) {
         currentProfile = Object.keys(profileData)[0];
       }
+      
+      // Update topbar with current profile
+      const topbarName = document.getElementById('topbar-profile-name');
+      if (topbarName && currentProfile) {
+        topbarName.textContent = currentProfile;
+      }
     }
 
     // --- My Sizes: hydrate brand search datalist (safe if BRAND_DB not loaded yet)
@@ -3643,9 +3636,12 @@
       initMySizesSection(); // wire the My Sizes filters + datalist
       
       // Ensure the AI engine uses the freshly loaded JSON DB
-      if (window.miSizeSystem && miSizeSystem.sizeEngine && Object.keys(BRAND_DB).length) {
-        miSizeSystem.sizeEngine.brandDatabase = BRAND_DB;
-      }
+      setTimeout(() => {
+        if (window.miSizeSystem && miSizeSystem.sizeEngine && Object.keys(BRAND_DB).length) {
+          miSizeSystem.sizeEngine.brandDatabase = BRAND_DB;
+          console.log('AI engine updated with loaded brand database');
+        }
+      }, 2500);
 
       // If My Sizes screen is open, refresh it
       if (document.getElementById('uk-mysizes')?.classList.contains('active')) {
