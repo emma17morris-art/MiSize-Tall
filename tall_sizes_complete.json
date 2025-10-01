@@ -1,0 +1,4476 @@
+{
+  "2tall (Men specialist)": {
+    "name": "2tall (Men specialist)",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "Abercrombie": {
+    "name": "Abercrombie",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Abercrombie UK \u2013 Men": {
+    "name": "Abercrombie UK \u2013 Men",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "Abercrombie UK \u2013 Women": {
+    "name": "Abercrombie UK \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Bershka \u2013 Women (Long)": {
+    "name": "Bershka \u2013 Women (Long)",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Boden": {
+    "name": "Boden",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Boden \u2013 Women (Long/Tall)": {
+    "name": "Boden \u2013 Women (Long/Tall)",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Boohoo Tall": {
+    "name": "Boohoo Tall",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Burton Menswear \u2013 Men": {
+    "name": "Burton Menswear \u2013 Men",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "Coast \u2013 Women": {
+    "name": "Coast \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Dorothy Perkins": {
+    "name": "Dorothy Perkins",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Dorothy Perkins Tall": {
+    "name": "Dorothy Perkins Tall",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Evans": {
+    "name": "Evans",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Evans \u2013 Women": {
+    "name": "Evans \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "F&F (Tesco) \u2013 Men": {
+    "name": "F&F (Tesco) \u2013 Men",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "F&F (Tesco) \u2013 Women": {
+    "name": "F&F (Tesco) \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "FatFace \u2013 Men\u2019s Tall": {
+    "name": "FatFace \u2013 Men\u2019s Tall",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "Gap": {
+    "name": "Gap",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 36.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 36.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 36.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 36.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 36.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 36.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 36.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 36.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 36.0
+        }
+      }
+    }
+  },
+  "Gap UK \u2013 Men": {
+    "name": "Gap UK \u2013 Men",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "Gap UK \u2013 Women": {
+    "name": "Gap UK \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "George at ASDA \u2013 Men": {
+    "name": "George at ASDA \u2013 Men",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "George at ASDA \u2013 Women": {
+    "name": "George at ASDA \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Hollister": {
+    "name": "Hollister",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Hollister UK \u2013 Men": {
+    "name": "Hollister UK \u2013 Men",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "Hollister UK \u2013 Women": {
+    "name": "Hollister UK \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "In The Style \u2013 Women (Tall)": {
+    "name": "In The Style \u2013 Women (Tall)",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Jacamo (Men)": {
+    "name": "Jacamo (Men)",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "Jumping Ships": {
+    "name": "Jumping Ships",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Jumping Ships \u2013 Women": {
+    "name": "Jumping Ships \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Karen Millen Tall": {
+    "name": "Karen Millen Tall",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Lee UK \u2013 Men": {
+    "name": "Lee UK \u2013 Men",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "Levi's": {
+    "name": "Levi's",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 34.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 34.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 34.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 34.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 34.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 34.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 34.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 34.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 34.0
+        }
+      }
+    }
+  },
+  "Levi\u2019s": {
+    "name": "Levi\u2019s",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Levi\u2019s UK \u2013 Men": {
+    "name": "Levi\u2019s UK \u2013 Men",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "Levi\u2019s UK \u2013 Women": {
+    "name": "Levi\u2019s UK \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Long Tall Sally": {
+    "name": "Long Tall Sally",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 38.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 38.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 38.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 38.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 38.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 38.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 38.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 38.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 38.0
+        }
+      }
+    }
+  },
+  "Long Tall Sally (LTS)": {
+    "name": "Long Tall Sally (LTS)",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Mango": {
+    "name": "Mango",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Mango \u2013 Women (Long)": {
+    "name": "Mango \u2013 Women (Long)",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Marks & Spencer \u2013 Men": {
+    "name": "Marks & Spencer \u2013 Men",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "Marks & Spencer \u2013 Women": {
+    "name": "Marks & Spencer \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Matalan \u2013 Women Tall": {
+    "name": "Matalan \u2013 Women Tall",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Miss Selfridge": {
+    "name": "Miss Selfridge",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Missguided Tall \u2013 Women": {
+    "name": "Missguided Tall \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Monsoon": {
+    "name": "Monsoon",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Monsoon \u2013 Women (Tall)": {
+    "name": "Monsoon \u2013 Women (Tall)",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "New Look": {
+    "name": "New Look",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 36.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 36.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 36.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 36.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 36.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 36.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 36.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 36.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 36.0
+        }
+      }
+    }
+  },
+  "New Look Tall": {
+    "name": "New Look Tall",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "New Look \u2013 Men": {
+    "name": "New Look \u2013 Men",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "Next": {
+    "name": "Next",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      },
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 35.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 35.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 35.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 35.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 35.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 35.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 35.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 35.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "Next \u2013 Men": {
+    "name": "Next \u2013 Men",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "Next \u2013 Women": {
+    "name": "Next \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Oasis": {
+    "name": "Oasis",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Oasis \u2013 Women": {
+    "name": "Oasis \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Oh Polly Tall (+ Longer Length)": {
+    "name": "Oh Polly Tall (+ Longer Length)",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Parisian Tall \u2013 Women": {
+    "name": "Parisian Tall \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "PrettyLittleThing Tall (PLT Tall)": {
+    "name": "PrettyLittleThing Tall (PLT Tall)",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Pull & Bear \u2013 Women (Long)": {
+    "name": "Pull & Bear \u2013 Women (Long)",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "River Island": {
+    "name": "River Island",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "River Island \u2013 Big & Tall (Men)": {
+    "name": "River Island \u2013 Big & Tall (Men)",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "River Island \u2013 Tall (Women)": {
+    "name": "River Island \u2013 Tall (Women)",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "SHEIN \u2013 Women (Tall)": {
+    "name": "SHEIN \u2013 Women (Tall)",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Seasalt Cornwall": {
+    "name": "Seasalt Cornwall",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Seasalt Cornwall \u2013 Women": {
+    "name": "Seasalt Cornwall \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Simply Be \u2013 Women": {
+    "name": "Simply Be \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Stradivarius": {
+    "name": "Stradivarius",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Stradivarius \u2013 Women (Long)": {
+    "name": "Stradivarius \u2013 Women (Long)",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "TALA \u2013 Women (Tall Leggings)": {
+    "name": "TALA \u2013 Women (Tall Leggings)",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Topman \u2013 Men": {
+    "name": "Topman \u2013 Men",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "Topshop Tall \u2013 Women": {
+    "name": "Topshop Tall \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Tu (Sainsbury\u2019s) \u2013 Men Big & Tall": {
+    "name": "Tu (Sainsbury\u2019s) \u2013 Men Big & Tall",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "Tu (Sainsbury\u2019s) \u2013 Women Tall": {
+    "name": "Tu (Sainsbury\u2019s) \u2013 Women Tall",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Uniqlo": {
+    "name": "Uniqlo",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Uniqlo UK \u2013 Men": {
+    "name": "Uniqlo UK \u2013 Men",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "Uniqlo UK \u2013 Women": {
+    "name": "Uniqlo UK \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Vero Moda Tall": {
+    "name": "Vero Moda Tall",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 32.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 32.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 32.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 32.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 32.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 32.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 32.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 32.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 32.0
+        }
+      }
+    }
+  },
+  "Vero Moda Tall \u2013 Women": {
+    "name": "Vero Moda Tall \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Very \u2013 Men": {
+    "name": "Very \u2013 Men",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "Very \u2013 Women": {
+    "name": "Very \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Wallis": {
+    "name": "Wallis",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Wallis \u2013 Women": {
+    "name": "Wallis \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Wallis \u2013 Women (Tall)": {
+    "name": "Wallis \u2013 Women (Tall)",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Warehouse": {
+    "name": "Warehouse",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Warehouse \u2013 Women": {
+    "name": "Warehouse \u2013 Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "White Stuff": {
+    "name": "White Stuff",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "White Stuff \u2013 Women (Long)": {
+    "name": "White Stuff \u2013 Women (Long)",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Wrangler UK \u2013 Men": {
+    "name": "Wrangler UK \u2013 Men",
+    "categories": {
+      "Men's Tall Jeans": {
+        "W28 Tall": {
+          "waist": 28.0,
+          "inseam": 35.0
+        },
+        "W30 Tall": {
+          "waist": 30.0,
+          "inseam": 35.0
+        },
+        "W32 Tall": {
+          "waist": 32.0,
+          "inseam": 35.0
+        },
+        "W34 Tall": {
+          "waist": 34.0,
+          "inseam": 35.0
+        },
+        "W36 Tall": {
+          "waist": 36.0,
+          "inseam": 35.0
+        },
+        "W38 Tall": {
+          "waist": 38.0,
+          "inseam": 35.0
+        },
+        "W40 Tall": {
+          "waist": 40.0,
+          "inseam": 35.0
+        }
+      }
+    }
+  },
+  "ASOS Tall": {
+    "name": "ASOS Tall",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "HighleyTall (retailer)": {
+    "name": "HighleyTall (retailer)",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Nutmeg (Morrisons)": {
+    "name": "Nutmeg (Morrisons)",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Primark (in-store) \u2013 Men & Women": {
+    "name": "Primark (in-store) \u2013 Men & Women",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  },
+  "Urban Outfitters \u2013 Unisex (BDG)": {
+    "name": "Urban Outfitters \u2013 Unisex (BDG)",
+    "categories": {
+      "Women's Tall Jeans": {
+        "6.0 Tall": {
+          "waist": 24.4,
+          "hips": 33.9,
+          "inseam": 33.0
+        },
+        "8.0 Tall": {
+          "waist": 26.0,
+          "hips": 35.4,
+          "inseam": 33.0
+        },
+        "10.0 Tall": {
+          "waist": 27.6,
+          "hips": 37.0,
+          "inseam": 33.0
+        },
+        "12.0 Tall": {
+          "waist": 29.1,
+          "hips": 39.0,
+          "inseam": 33.0
+        },
+        "14.0 Tall": {
+          "waist": 30.7,
+          "hips": 40.9,
+          "inseam": 33.0
+        },
+        "16.0 Tall": {
+          "waist": 32.3,
+          "hips": 42.9,
+          "inseam": 33.0
+        },
+        "18.0 Tall": {
+          "waist": 33.9,
+          "hips": 44.9,
+          "inseam": 33.0
+        },
+        "20.0 Tall": {
+          "waist": 36.2,
+          "hips": 47.2,
+          "inseam": 33.0
+        },
+        "22.0 Tall": {
+          "waist": 38.6,
+          "hips": 49.6,
+          "inseam": 33.0
+        }
+      }
+    }
+  }
+}
