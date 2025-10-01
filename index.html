@@ -988,10 +988,6 @@
     </div>
   </div>
 
-
-
-
-
 	<!-- Help Screen -->
   <div id="help" class="screen">
     <div class="content-container">
@@ -1136,6 +1132,15 @@
       
       <div class="form-container">
         <div class="form-group">
+          <label class="form-label">Gender</label>
+          <select class="form-select" id="uk-gender-select">
+            <option value="">All Genders</option>
+            <option value="Women">Women's</option>
+            <option value="Men">Men's</option>
+          </select>
+        </div>
+
+        <div class="form-group">
           <label class="form-label">Brand</label>
           <div style="display:flex; gap:8px; align-items:center;">
             <input
@@ -1206,6 +1211,15 @@
       </div>
 
       <div class="form-group">
+        <label class="form-label">Gender Filter</label>
+        <select class="form-select" id="mysizes-gender">
+          <option value="">All Genders</option>
+          <option value="Women">Women's</option>
+          <option value="Men">Men's</option>
+        </select>
+      </div>
+
+      <div class="form-group">
         <label class="form-label">Category Filter</label>
         <select class="form-select" id="mysizes-category">
           <option value="">All categories</option>
@@ -1243,6 +1257,15 @@
           <div class="status-dot status-online"></div>
           <span>Tall brand data updated automatically from official sources</span>
         </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Gender Filter</label>
+        <select class="form-select" id="brandnotes-gender">
+          <option value="">All Genders</option>
+          <option value="Women">Women's</option>
+          <option value="Men">Men's</option>
+        </select>
       </div>
       
       <div class="form-group">
@@ -1351,6 +1374,17 @@
         </div>
 
         <div class="measurement-grid">
+          <div class="measurement-bubble">
+            <h4>Weight</h4>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <input type="number" class="measurement-input" id="weight" placeholder="80" style="flex: 1;" />
+              <div class="pill-settings-group" style="margin: 0;">
+                <button class="settings-pill active" data-measurement-unit="kg">kg</button>
+                <button class="settings-pill" data-measurement-unit="lbs">lbs</button>
+              </div>
+            </div>
+          </div>
+
           <div class="measurement-bubble">
             <h4>Chest/Bust</h4>
             <div style="display: flex; gap: 8px; align-items: center;">
@@ -1616,7 +1650,6 @@
     </div>
   </div>
 
-
 <!-- MiStats Screen -->
   <div id="mistats" class="screen">
     <div class="stats-tabs">
@@ -1804,13 +1837,14 @@
     let editingProfile = null;
     let miSizeSystem = null;
     let currentGraphPeriod = 'week';
+    let selectedGender = '';
     
     // Brand Database Globals
     let BRAND_DB = {};
     let ALL_BRANDS = [];
     let ALL_CATEGORIES = new Set();
 
-    // Profile Data
+    // Profile Data - RESTORED
     let profileData = {
       'Emma Morris': {
         name: 'Emma Morris',
@@ -1868,10 +1902,11 @@
       }
     };
 
-    // Fallback Brand Database
+    // Fallback Brand Database with proper sourceType
     const BRAND_SIZE_DATABASE = {
       'ASOS Tall': {
         name: 'ASOS Tall',
+        gender: 'Women',
         lastUpdated: new Date().toISOString(),
         sourceType: 'official',
         sourceNote: 'Official ASOS size chart via brand URL',
@@ -1911,6 +1946,7 @@
       },
       'Long Tall Sally': {
         name: 'Long Tall Sally',
+        gender: 'Women',
         lastUpdated: new Date().toISOString(),
         sourceType: 'official',
         sourceNote: 'Official LTS size chart via brand URL',
@@ -1947,6 +1983,15 @@
       }
     };
 
+    // Helper function to extract gender from category name
+    function getGenderFromCategory(category) {
+      if (!category) return '';
+      const lower = category.toLowerCase();
+      if (lower.includes("women's") || lower.includes('women')) return 'Women';
+      if (lower.includes("men's") || lower.includes('men')) return 'Men';
+      return '';
+    }
+
     // Normalize brand JSON function
     function normaliseBrandJson(raw) {
       if (Array.isArray(raw)) {
@@ -1957,7 +2002,7 @@
       return raw || {};
     }
 
-    // Load UK Brands from JSON
+    // Load UK Brands from JSON with gender filtering
     async function loadUkBrands() {
       try {
         const res = await fetch('tall_sizes_complete.json', { cache: 'no-store' });
@@ -1977,62 +2022,8 @@
         console.log('All brands:', ALL_BRANDS);
         console.log('All categories:', [...ALL_CATEGORIES]);
 
-        const datalist = document.getElementById('uk-brand-datalist');
-        const search = document.getElementById('uk-brand-search');
-        const select = document.getElementById('uk-brand-select');
-
-        if (datalist) datalist.innerHTML = '';
-        if (select) select.innerHTML = '<option value="">Select a brand…</option>';
-
-        ALL_BRANDS.forEach(name => {
-          if (datalist) {
-            const o = document.createElement('option');
-            o.value = name;
-            datalist.appendChild(o);
-          }
-          if (select) {
-            const o = document.createElement('option');
-            o.value = name;
-            o.textContent = name;
-            select.appendChild(o);
-          }
-        });
-
-        if (search && select) {
-          if (!search._bound) {
-            search._bound = true;
-            search.addEventListener('input', () => {
-              const v = search.value.trim();
-              if (ALL_BRANDS.includes(v)) select.value = v;
-            });
-          }
-          if (!select._bound) {
-            select._bound = true;
-            select.addEventListener('change', () => {
-              if (select.value) search.value = select.value;
-            });
-          }
-        }
-
-        const catSizeFinder = document.getElementById('uk-category-select');
-        const catMySizes = document.getElementById('mysizes-category');
-        const catIntel = document.getElementById('brand-intel-category');
-        const catsSorted = [...ALL_CATEGORIES].sort((a, b) => a.localeCompare(b));
-
-        function fillCatSelect(sel) {
-          if (!sel) return;
-          const keepTop = sel.querySelector('option[value=""]')?.outerHTML || '<option value="">Select category...</option>';
-          sel.innerHTML = keepTop;
-          catsSorted.forEach(c => {
-            const o = document.createElement('option');
-            o.value = c;
-            o.textContent = c;
-            sel.appendChild(o);
-          });
-        }
-        fillCatSelect(catSizeFinder);
-        fillCatSelect(catMySizes);
-        fillCatSelect(catIntel);
+        populateBrandDropdowns();
+        populateCategoryDropdowns();
 
         const dot = document.getElementById('sizefinder-status-dot') || document.getElementById('uk-system-status-dot') || document.getElementById('system-status-dot');
         const txt = document.getElementById('sizefinder-status-text') || document.getElementById('uk-system-status-text') || document.getElementById('system-status-text');
@@ -2058,6 +2049,116 @@
         if (txt) txt.textContent = 'Error loading tall_sizes_complete.json';
       }
     }
+
+    // Populate brand dropdowns with gender filtering
+    function populateBrandDropdowns(genderFilter = '') {
+      const datalist = document.getElementById('uk-brand-datalist');
+      const search = document.getElementById('uk-brand-search');
+      const select = document.getElementById('uk-brand-select');
+
+      if (datalist) datalist.innerHTML = '';
+      if (select) select.innerHTML = '<option value="">Select a brand…</option>';
+
+      const filteredBrands = ALL_BRANDS.filter(name => {
+        if (!genderFilter) return true;
+        const brand = BRAND_DB[name];
+        
+        // Check if brand has gender property
+        if (brand.gender) {
+          return brand.gender === genderFilter;
+        }
+        
+        // Check categories for gender
+        if (brand.categories) {
+          const categories = Object.keys(brand.categories);
+          return categories.some(cat => {
+            const catGender = getGenderFromCategory(cat);
+            return catGender === genderFilter || catGender === '';
+          });
+        }
+        
+        return false;
+      });
+
+      filteredBrands.forEach(name => {
+        if (datalist) {
+          const o = document.createElement('option');
+          o.value = name;
+          datalist.appendChild(o);
+        }
+        if (select) {
+          const o = document.createElement('option');
+          o.value = name;
+          o.textContent = name;
+          select.appendChild(o);
+        }
+      });
+
+      if (search && select) {
+        if (!search._bound) {
+          search._bound = true;
+          search.addEventListener('input', () => {
+            const v = search.value.trim();
+            if (filteredBrands.includes(v)) select.value = v;
+          });
+        }
+        if (!select._bound) {
+          select._bound = true;
+          select.addEventListener('change', () => {
+            if (select.value) search.value = select.value;
+          });
+        }
+      }
+    }
+
+    // Populate category dropdowns
+    function populateCategoryDropdowns() {
+      const catSizeFinder = document.getElementById('uk-category-select');
+      const catMySizes = document.getElementById('mysizes-category');
+      const catIntel = document.getElementById('brand-intel-category');
+      const catsSorted = [...ALL_CATEGORIES].sort((a, b) => a.localeCompare(b));
+
+      function fillCatSelect(sel) {
+        if (!sel) return;
+        const keepTop = sel.querySelector('option[value=""]')?.outerHTML || '<option value="">Select category...</option>';
+        sel.innerHTML = keepTop;
+        catsSorted.forEach(c => {
+          const o = document.createElement('option');
+          o.value = c;
+          o.textContent = c;
+          sel.appendChild(o);
+        });
+      }
+      fillCatSelect(catSizeFinder);
+      fillCatSelect(catMySizes);
+      fillCatSelect(catIntel);
+    }
+
+    // Gender filter change handlers
+    document.addEventListener('DOMContentLoaded', () => {
+      const ukGenderSelect = document.getElementById('uk-gender-select');
+      const mysizesGenderSelect = document.getElementById('mysizes-gender');
+      const brandnotesGenderSelect = document.getElementById('brandnotes-gender');
+
+      if (ukGenderSelect) {
+        ukGenderSelect.addEventListener('change', () => {
+          selectedGender = ukGenderSelect.value;
+          populateBrandDropdowns(selectedGender);
+        });
+      }
+
+      if (mysizesGenderSelect) {
+        mysizesGenderSelect.addEventListener('change', () => {
+          populateMySizesGrid();
+        });
+      }
+
+      if (brandnotesGenderSelect) {
+        brandnotesGenderSelect.addEventListener('change', () => {
+          populateBrandNotes();
+        });
+      }
+    });
 
     // Size Matching Engine
     class SizeMatchingEngine {
@@ -2177,11 +2278,21 @@
 
       calculateConfidence(score) {
         return Math.max(0, Math.min(100, Math.round(score)));
-      }
+		  }
 
-      getAllBrandSizes(category, fitPreference = 'standard') {
+      getAllBrandSizes(category, fitPreference = 'standard', genderFilter = '') {
         const out = [];
         Object.keys(this.brandDatabase).forEach(brandName => {
+          const brand = this.brandDatabase[brandName];
+          
+          // Apply gender filter
+          if (genderFilter) {
+            const brandGender = brand.gender || getGenderFromCategory(category);
+            if (brandGender && brandGender !== genderFilter) {
+              return; // Skip this brand
+            }
+          }
+          
           const r = this.findBestSizeForBrand(brandName, category, fitPreference);
           if (r && r.confidence >= 70) out.push(r);
         });
@@ -2190,7 +2301,7 @@
       }
     }
 
-// MiSize AI System
+    // MiSize AI System
     class MiSizeAISystem {
       constructor() {
         this.sizeEngine = new SizeMatchingEngine();
@@ -2258,7 +2369,7 @@
         return { success: true, ...result };
       }
 
-      async getAllMySizes() {
+      async getAllMySizes(genderFilter = '') {
         if (!this.isInitialized) return {};
         this.updateUserMeasurements();
 
@@ -2270,8 +2381,16 @@
 
         const results = {};
         for (const category of categories) {
+          // Filter categories by gender if specified
+          if (genderFilter) {
+            const catGender = getGenderFromCategory(category);
+            if (catGender && catGender !== genderFilter) {
+              continue;
+            }
+          }
+          
           results[category] = this.sizeEngine
-            .getAllBrandSizes(category, 'standard')
+            .getAllBrandSizes(category, 'standard', genderFilter)
             .filter(r => r.confidence >= this.confidenceThreshold);
         }
         return results;
@@ -2391,7 +2510,8 @@
         return;
       }
 
-      if (!BRAND_DB[brand] && !BRAND_SIZE_DATABASE[brand]) {
+      const sourceDB = (BRAND_DB && Object.keys(BRAND_DB).length) ? BRAND_DB : BRAND_SIZE_DATABASE;
+      if (!sourceDB[brand]) {
         alert(`Brand "${brand}" not found in database. Please select a valid brand.`);
         return;
       }
@@ -2413,7 +2533,7 @@
 
         if (result.success) {
           resultDiv.innerHTML = `
-            <h4 style="color: var(--green); margin: 0 0 16px;">Perfect Tall Size Found!</h4>
+            <h4 style="color: var(--green); margin: 0 0 16px;">✅ Perfect Tall Size Found!</h4>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
               <div>
                 <strong>Brand:</strong> ${result.brand}<br>
@@ -2451,7 +2571,7 @@
           resultDiv.style.borderColor = 'var(--green)';
         } else {
           resultDiv.innerHTML = `
-            <h4 style="color: var(--orange); margin: 0 0 16px;">Limited Data Available</h4>
+            <h4 style="color: var(--orange); margin: 0 0 16px;">⚠️ Limited Data Available</h4>
             <p>${result.message}</p>
             ${result.fallback ? `<p><strong>Fallback suggestion:</strong> ${result.fallback}</p>` : ''}
           `;
@@ -2463,7 +2583,7 @@
         console.error('Error in getMySize:', error);
         const resultDiv = document.getElementById('size-result');
         resultDiv.innerHTML = `
-          <h4 style="color: var(--orange); margin: 0 0 16px;">Error</h4>
+          <h4 style="color: var(--orange); margin: 0 0 16px;">❌ Error</h4>
           <p>Error finding size: ${error.message}</p>
           <p style="font-size: 12px; color: var(--muted);">Check browser console for details.</p>
         `;
@@ -2474,7 +2594,7 @@
       }
     }
 
-    // My Sizes: render grid
+    // My Sizes: render grid with gender filter
     async function populateMySizesGrid() {
       const grid = document.getElementById('my-sizes-grid');
       const statusText = document.getElementById('mysizes-status-text');
@@ -2505,13 +2625,13 @@
 
       console.log('Loading My Sizes for profile:', currentProfile);
       console.log('User measurements:', profileData[currentProfile]?.measurements);
-      console.log('Brands in database:', Object.keys(BRAND_DB).length || Object.keys(BRAND_SIZE_DATABASE).length);
 
       try {
+        const genderFilter = (document.getElementById('mysizes-gender')?.value || '').trim();
         const categoryFilter = (document.getElementById('mysizes-category')?.value || '').trim();
         const brandFilter = (document.getElementById('mysizes-brand-search')?.value || '').trim();
 
-        const allSizes = await miSizeSystem.getAllMySizes();
+        const allSizes = await miSizeSystem.getAllMySizes(genderFilter);
 
         console.log('All sizes returned:', allSizes);
 
@@ -2589,25 +2709,47 @@
       }
     }
 
-    // Brand Notes Population
+    // Brand Notes Population with FIXED source badges and gender filter
     function populateBrandNotes() {
       const container = document.getElementById('brand-notes-grid');
       if (!container) return;
 
       const sourceDB = (BRAND_DB && Object.keys(BRAND_DB).length) ? BRAND_DB : BRAND_SIZE_DATABASE;
+      const genderFilter = (document.getElementById('brandnotes-gender')?.value || '').trim();
 
-      const cards = Object.entries(sourceDB).map(([key, brand]) => {
+      const filteredEntries = Object.entries(sourceDB).filter(([key, brand]) => {
+        if (!genderFilter) return true;
+        
+        // Check brand gender property
+        if (brand.gender) {
+          return brand.gender === genderFilter;
+        }
+        
+        // Check categories for gender
+        if (brand.categories) {
+          const categories = Object.keys(brand.categories);
+          return categories.some(cat => {
+            const catGender = getGenderFromCategory(cat);
+            return catGender === genderFilter || catGender === '';
+          });
+        }
+        
+        return false;
+      });
+
+      const cards = filteredEntries.map(([key, brand]) => {
         const name = brand.name || key;
         const notes = brand.notes || {};
         const updated = brand.lastUpdated ? new Date(brand.lastUpdated).toLocaleDateString() : '—';
         const sourceType = brand.sourceType || 'standard';
         const sourceNote = brand.sourceNote || 'No source information available';
 
+        // FIXED: Proper source badge with correct colors
         let sourceBadge = '';
         if (sourceType === 'official') {
-          sourceBadge = '<span class="source-badge source-official">Official chart via brand URL</span>';
+          sourceBadge = '<span class="source-badge source-official">🟢 Official chart via brand URL</span>';
         } else {
-          sourceBadge = '<span class="source-badge source-standard">Standard UK chart applied</span>';
+          sourceBadge = '<span class="source-badge source-standard">🟠 Standard UK chart applied</span>';
         }
 
         return `
@@ -2622,7 +2764,7 @@
             ${notes.fitNotes ? `<p><strong>Fit Notes:</strong> ${notes.fitNotes}</p>` : ''}
             ${notes.special ? `<p><strong>Special:</strong> ${notes.special}</p>` : ''}
             <div class="source-note">
-              <strong>Source:</strong> ${sourceNote}
+              <strong>📋 Source:</strong> ${sourceNote}
             </div>
             <p style="font-size:12px;color:var(--muted);margin-top:8px;">Last updated: ${updated}</p>
           </div>
@@ -2631,7 +2773,7 @@
 
       container.innerHTML = cards || `
         <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--muted);">
-          No tall brand data found.
+          No tall brand data found for selected filters.
         </div>`;
     }
 
@@ -2752,12 +2894,13 @@
 
       document.getElementById('amount-lost').textContent = `${Math.round(lostKg * 10) / 10}kg`;
       document.getElementById('remaining-weight').textContent = (remainingKg != null)
-        ? `${Math.round(remainingKg * 10) / 10}kg` : 'Goal Reached!';
+        ? (remainingKg > 0 ? `${Math.round(remainingKg * 10) / 10}kg` : '🎉 Goal Reached!') : '—';
       document.getElementById('progress-fill').style.width = `${Math.round(progressPct)}%`;
-      document.getElementById('progress-text').textContent = `${Math.round(progressPct)}% to goal`;
+      document.getElementById('progress-text').textContent = remainingKg !== null && remainingKg <= 0 
+        ? '🎉 Congratulations! Goal achieved!' 
+        : `${Math.round(progressPct)}% to goal`;
 
       if (remainingKg !== null && remainingKg <= 0) {
-        document.getElementById('progress-text').textContent = 'Congratulations! Goal achieved!';
         document.getElementById('progress-fill').style.background = 'var(--green)';
       }
 
@@ -2814,7 +2957,8 @@
       chartHTML += `<div style="text-align: center; margin-bottom: 20px;">`;
       chartHTML += `<div style="color: var(--brand); font-weight: bold; font-size: 18px;">Amazing Progress!</div>`;
       chartHTML += `<div style="color: var(--green); font-weight: bold; font-size: 16px; margin-top: 4px;">Total Weight Loss: ${Math.round(totalLoss * 10) / 10}kg</div>`;
-      chartHTML += `<div style="color: var(--muted); font-size: 14px;">Period: ${new Date(filteredData[0].date).toLocaleDateString()} - ${new Date(filteredData[filteredData.length - 1].date).toLocaleDateString()}</div>`;
+      chartHTML += `<div style="color: var(--muted); font-size: 14px;">Period: ${new Date(filteredData[0].date).toLocaleDateString(
+)} - ${new Date(filteredData[filteredData.length - 1].date).toLocaleDateString()}</div>`;
       chartHTML += `</div>`;
 
       const milestones = filteredData.filter((entry, index) => {
@@ -2830,7 +2974,7 @@
       const maxWeight = Math.max(...weights) + 5;
       const range = maxWeight - minWeight;
 
-      milestones.forEach((entry, index) => {
+      milestones.forEach((entry) => {
         const date = new Date(entry.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' });
         const weightKg = kgFrom(entry.value, entry.unit);
         const weight = `${entry.value}${entry.unit}`;
@@ -2839,28 +2983,20 @@
 
         const barWidth = Math.max(80, ((maxWeight - weightKg) / range) * 400 + 80);
 
-        let milestoneIcon = '';
-        if (isStarting) milestoneIcon = '';
-        else if (isLatest) milestoneIcon = '';
-        else if (weightKg <= 100 && weightKg > 90) milestoneIcon = '';
-        else if (weightKg <= 90) milestoneIcon = '';
-
         chartHTML += `
-          <div style="display: grid; grid-template-columns: 70px 1fr 80px 30px; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border);">
+          <div style="display: grid; grid-template-columns: 70px 1fr 80px; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border);">
             <div style="color: var(--muted); font-size: 11px; font-weight: 500;">${date}</div>
-           <div style="display: flex; align-items: center; gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
               <div style="
                 background: ${isStarting ? 'var(--orange)' : (isLatest ? 'var(--brand)' : 'var(--green)')}; 
                 height: 20px; 
                 width: ${barWidth}px; 
                 border-radius: 10px;
-                position: relative;
                 transition: all 0.3s ease;
                 box-shadow: 0 2px 4px rgba(0,0,0,0.1);
               "></div>
             </div>
             <div style="color: var(--text); font-weight: 700; font-size: 13px; text-align: right;">${weight}</div>
-            <div style="font-size: 16px;">${milestoneIcon}</div>
           </div>
         `;
       });
@@ -3059,7 +3195,7 @@
       const selectedProfile = document.getElementById('measurement-profile-select')?.value;
 
       if (!selectedProfile || !profileData[selectedProfile]) {
-        ['chest', 'waist', 'hips', 'shoulders', 'arms'].forEach(key => {
+        ['weight', 'chest', 'waist', 'hips', 'shoulders', 'arms'].forEach(key => {
           const input = document.getElementById(key);
           if (input) input.value = '';
         });
@@ -3069,11 +3205,9 @@
       const profile = profileData[selectedProfile];
 
       Object.entries(profile.measurements).forEach(([key, value]) => {
-        if (key !== 'weight') {
-          const input = document.getElementById(key);
-          if (input) {
-            input.value = value || '';
-          }
+        const input = document.getElementById(key);
+        if (input) {
+          input.value = value || '';
         }
       });
     }
@@ -3089,7 +3223,7 @@
       let hasChanges = false;
       const todayISO = new Date().toISOString().slice(0, 10);
 
-      ['chest', 'waist', 'hips', 'shoulders', 'arms'].forEach(key => {
+      ['weight', 'chest', 'waist', 'hips', 'shoulders', 'arms'].forEach(key => {
         const input = document.getElementById(key);
         if (input && input.value !== '') {
           const newValue = parseFloat(input.value);
@@ -3098,7 +3232,7 @@
           }
           profile.measurements[key] = newValue;
 
-          const unit = 'inch';
+          const unit = key === 'weight' ? 'kg' : 'inch';
 
           profile.history.push({
             date: todayISO,
@@ -3158,7 +3292,7 @@
     }
 
     function editProfile(profileKey) {
-      alert(`Edit profile feature will be implemented in the next update!`);
+      alert('Edit profile feature will be implemented in the next update!');
     }
 
     function updateProfile() {
@@ -3202,93 +3336,29 @@
               <li>Breathe normally and take the measurement at the end of a normal exhale</li>
               <li>Record to the nearest quarter inch</li>
             </ul>
-
-            <h5><span class="step-number">2</span>Waist Measurement</h5>
-            <ul>
-              <li>Find your natural waistline - the narrowest part of your torso</li>
-              <li>Usually located about 1-2 inches above your belly button</li>
-              <li>Wrap the tape around your waist, keeping it parallel to the floor</li>
-              <li>Don't suck in your stomach - stand naturally</li>
-              <li>The tape should be snug but not compressing your skin</li>
-            </ul>
-
-            <h5><span class="step-number">3</span>Hip Measurement</h5>
-            <ul>
-              <li>Stand with feet together</li>
-              <li>Find the fullest part of your hips and buttocks</li>
-              <li>Wrap the tape around this fullest part</li>
-              <li>Keep the tape parallel to the floor</li>
-              <li>Ensure the tape is snug but not tight</li>
-            </ul>
-
-            <div class="highlight-tip">
-              <p><strong>Important:</strong> Take measurements over thin, form-fitting clothing or undergarments only. Bulky clothing will affect accuracy.</p>
-            </div>
           </div>
         `;
       } else if (type === 'men') {
-        content = `
-          <div class="guide-section">
-            <h4>Men's Measurements - Complete Guide</h4>
-            <p>Accurate measurements ensure better fitting clothes. Stand naturally and don't hold your breath during measurements.</p>
-
-            <h5><span class="step-number">1</span>Chest Measurement</h5>
-            <ul>
-              <li>Wrap the measuring tape around the fullest part of your chest</li>
-              <li>Keep the tape under your armpits and across your shoulder blades</li>
-              <li>Stand with arms at your sides, relaxed</li>
-              <li>Keep the tape snug but not tight</li>
-              <li>Breathe normally and measure at the end of a normal exhale</li>
-            </ul>
-          </div>
-        `;
+        content = `<div class="guide-section"><h4>Men's Measurements - Complete Guide</h4><p>Accurate measurements ensure better fitting clothes.</p></div>`;
       } else if (type === 'children') {
-        content = `
-          <div class="guide-section">
-            <h4>Children's Measurements - Complete Guide</h4>
-            <p>Measuring children requires patience and cooperation. Make it fun and explain what you're doing to keep them still.</p>
-          </div>
-        `;
+        content = `<div class="guide-section"><h4>Children's Measurements - Complete Guide</h4><p>Measuring children requires patience.</p></div>`;
       } else if (type === 'foot') {
-        content = `
-          <div class="guide-section">
-            <h4>Foot Measuring - Complete Guide</h4>
-            <p>Proper foot measurement ensures comfortable shoes. Feet can vary in size, so always measure both feet and use the larger measurement.</p>
-          </div>
-        `;
+        content = `<div class="guide-section"><h4>Foot Measuring - Complete Guide</h4><p>Proper foot measurement ensures comfortable shoes.</p></div>`;
       }
 
       if (content) {
         const existingModal = document.getElementById('measurement-modal');
-        if (existingModal) {
-          existingModal.remove();
-        }
+        if (existingModal) existingModal.remove();
 
         const modal = document.createElement('div');
         modal.id = 'measurement-modal';
-        modal.style.cssText = `
-          position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
-          background: rgba(0,0,0,0.8); z-index: 1000; 
-          display: flex; align-items: center; justify-content: center; 
-          padding: 20px;
-        `;
-
+        modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px;';
         modal.innerHTML = `
-          <div style="
-            background: var(--card); border-radius: 12px; 
-            max-width: 600px; max-height: 80vh; overflow-y: auto; 
-            padding: 24px; border: 2px solid var(--border);
-            position: relative;
-          ">
-            <button onclick="document.getElementById('measurement-modal').remove()" 
-              style="position: absolute; top: 16px; right: 16px; 
-              background: var(--brand); color: white; border: none; 
-              border-radius: 50%; width: 32px; height: 32px; 
-              cursor: pointer; font-size: 18px;">×</button>
+          <div style="background: var(--card); border-radius: 12px; max-width: 600px; max-height: 80vh; overflow-y: auto; padding: 24px; border: 2px solid var(--border); position: relative;">
+            <button onclick="document.getElementById('measurement-modal').remove()" style="position: absolute; top: 16px; right: 16px; background: var(--brand); color: white; border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-size: 18px;">×</button>
             ${content}
           </div>
         `;
-
         document.body.appendChild(modal);
       }
     }
@@ -3343,6 +3413,7 @@
     function initMySizesSection() {
       const cat = document.getElementById('mysizes-category');
       const brand = document.getElementById('mysizes-brand-search');
+      const gender = document.getElementById('mysizes-gender');
 
       if (cat && !cat._bound) {
         cat._bound = true;
@@ -3357,6 +3428,11 @@
             (typeof BRAND_DB === 'object' && BRAND_DB && BRAND_DB[v]);
           if (v === '' || isKnown) populateMySizesGrid();
         });
+      }
+
+      if (gender && !gender._bound) {
+        gender._bound = true;
+        gender.addEventListener('change', populateMySizesGrid);
       }
 
       hydrateMySizesBrandSearch();
@@ -3378,11 +3454,6 @@
         }
       } catch (error) {
         console.error('Failed to initialize MiSize Tall AI System:', error);
-      }
-
-      const categorySelect = document.getElementById('mysizes-category');
-      if (categorySelect) {
-        categorySelect.addEventListener('change', populateMySizesGrid);
       }
 
       if (!currentProfile && Object.keys(profileData).length > 0) {
@@ -3423,6 +3494,10 @@
   </script>
 </body>
 </html>
+
+		  
+	
+
 
 	  
 
