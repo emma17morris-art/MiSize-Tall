@@ -1,0 +1,95 @@
+{
+  "ASOS Tall": {
+    "name": "ASOS Tall",
+    "categories": {
+      "Women's Tops": {
+        "12": { "bust": 36, "waist": 30, "hips": 38 },
+        "14": { "bust": 38, "waist": 32, "hips": 40 },
+        "16": { "bust": 40, "waist": 34, "hips": 42 },
+        "18": { "bust": 42, "waist": 36, "hips": 44 }
+      },
+      "Women's Dresses": {
+        "12": { "bust": 36, "waist": 30, "hips": 38 },
+        "14": { "bust": 38, "waist": 32, "hips": 40 },
+        "16": { "bust": 40, "waist": 34, "hips": 42 },
+        "18": { "bust": 42, "waist": 36, "hips": 44 }
+      },
+      "Women's Jeans": {
+        "12": { "waist": 30, "hips": 38 },
+        "14": { "waist": 32, "hips": 40 },
+        "16": { "waist": 34, "hips": 42 },
+        "18": { "waist": 36, "hips": 44 }
+      }
+    },
+    "notes": {
+      "sizing": "UK tall sizes, runs slightly large",
+      "bodyTypes": "Standard, Petite, Tall, Plus",
+      "categories": "Full range - jeans, dresses, tops, shoes, activewear",
+      "fitNotes": "Extra length in sleeves and inseams, size down for oversized items",
+      "special": "Excellent tall size inclusivity, detailed size guides, online exclusive"
+    },
+    "lastUpdated": "2024-01-15"
+  },
+  "Long Tall Sally": {
+    "name": "Long Tall Sally",
+    "categories": {
+      "Women's Tops": {
+        "S": { "bust": 34, "waist": 28, "hips": 36 },
+        "M": { "bust": 36, "waist": 30, "hips": 38 },
+        "L": { "bust": 38, "waist": 32, "hips": 40 },
+        "XL": { "bust": 40, "waist": 34, "hips": 42 }
+      },
+      "Women's Dresses": {
+        "S": { "bust": 34, "waist": 28, "hips": 36 },
+        "M": { "bust": 36, "waist": 30, "hips": 38 },
+        "L": { "bust": 38, "waist": 32, "hips": 40 },
+        "XL": { "bust": 40, "waist": 34, "hips": 42 }
+      },
+      "Women's Jeans": {
+        "S": { "waist": 28, "hips": 36 },
+        "M": { "waist": 30, "hips": 38 },
+        "L": { "waist": 32, "hips": 40 },
+        "XL": { "waist": 34, "hips": 42 }
+      }
+    },
+    "notes": {
+      "sizing": "Specialist tall sizing, runs true to size",
+      "bodyTypes": "Tall specialist - all tall proportions",
+      "categories": "Complete tall range - clothing and shoes",
+      "fitNotes": "Designed specifically for tall women 5'8\" and above",
+      "special": "Industry leader in tall fashion, proportioned for tall bodies"
+    },
+    "lastUpdated": "2024-01-15"
+  },
+  "Next Tall": {
+    "name": "Next Tall",
+    "categories": {
+      "Women's Tops": {
+        "12": { "bust": 36, "waist": 30, "hips": 38 },
+        "14": { "bust": 38, "waist": 32, "hips": 40 },
+        "16": { "bust": 40, "waist": 34, "hips": 42 },
+        "18": { "bust": 42, "waist": 36, "hips": 44 }
+      },
+      "Women's Dresses": {
+        "12": { "bust": 36, "waist": 30, "hips": 38 },
+        "14": { "bust": 38, "waist": 32, "hips": 40 },
+        "16": { "bust": 40, "waist": 34, "hips": 42 },
+        "18": { "bust": 42, "waist": 36, "hips": 44 }
+      },
+      "Women's Jeans": {
+        "12": { "waist": 30, "hips": 38 },
+        "14": { "waist": 32, "hips": 40 },
+        "16": { "waist": 34, "hips": 42 },
+        "18": { "waist": 36, "hips": 44 }
+      }
+    },
+    "notes": {
+      "sizing": "UK tall sizes, generally true to size",
+      "bodyTypes": "Standard, Petite, Tall, Plus",
+      "categories": "Smart casual, workwear, shoes, accessories",
+      "fitNotes": "Reliable consistent tall sizing, extra length in body and sleeves",
+      "special": "Great for professional tall wear, quality fabrics"
+    },
+    "lastUpdated": "2024-01-15"
+  }
+}
