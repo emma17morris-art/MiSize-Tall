@@ -2719,190 +2719,191 @@ calculateFitScore(sizeMeasurements, fitAdjustment) {
       }
     }
 
-    // My Sizes: render grid
-    async function populateMySizesGrid() {
-      const grid = document.getElementById('my-sizes-grid');
-      const statusText = document.getElementById('mysizes-status-text');
-      const profileDisplay = document.getElementById('mysizes-profile-display');
+// My Sizes: render grid
+async function populateMySizesGrid() {
+  const grid = document.getElementById('my-sizes-grid');
+  const statusText = document.getElementById('mysizes-status-text');
+  const profileDisplay = document.getElementById('mysizes-profile-display');
 
-      if (!grid) return;
+  if (!grid) return;
 
-      if (profileDisplay) {
-        const profile = profileData[currentProfile];
-        if (profile) {
-          profileDisplay.textContent = `${currentProfile} (Bust: ${profile.measurements.chest}", Waist: ${profile.measurements.waist}", Hips: ${profile.measurements.hips}")`;
-        }
-      }
-
-      grid.innerHTML = `
-        <div style="text-align:center;padding:40px;grid-column:1/-1;">
-          <div class="loading-spinner"></div>
-          <p>Loading your accurate tall sizes...</p>
-        </div>`;
-
-      if (!miSizeSystem || !miSizeSystem.isInitialized) {
-        grid.innerHTML = `
-          <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--muted);">
-            AI sizing system not ready yet. Try again in a moment.
-          </div>`;
-        return;
-      }
-
-      console.log('Loading My Sizes for profile:', currentProfile);
-      console.log('User measurements:', profileData[currentProfile]?.measurements);
-      console.log('Brands in database:', Object.keys(BRAND_DB).length || Object.keys(BRAND_SIZE_DATABASE).length);
-
-      try {
-        const categoryFilter = (document.getElementById('mysizes-category')?.value || '').trim();
-        const brandFilter = (document.getElementById('mysizes-brand-search')?.value || '').trim();
-
-        const allSizes = await miSizeSystem.getAllMySizes();
-
-        console.log('All sizes returned:', allSizes);
-
-        const cards = [];
-
-        if (statusText && miSizeSystem.confidenceThreshold) {
-          statusText.textContent = `Showing tall sizes with ${miSizeSystem.confidenceThreshold}%+ confidence rating`;
-        }
-
-        Object.entries(allSizes).forEach(([category, recs]) => {
-          if (categoryFilter && category !== categoryFilter) return;
-
-          console.log(`Processing ${category}: ${recs.length} recommendations`);
-
-recs.forEach(rec => {
-  if (brandFilter && rec.brand.toLowerCase() !== brandFilter.toLowerCase()) return;
-  
-  // Filter by gender
-  const brand = BRAND_DB[rec.brand] || BRAND_SIZE_DATABASE[rec.brand];
-  if (brand && mySizesGenderFilter !== 'all') {
-    const brandGender = detectBrandGender(rec.brand, brand);
-    if (brandGender !== mySizesGenderFilter) return;
-  }
-  
-  const confidenceColor =
-    rec.confidence >= 90 ? 'var(--green)' :
-      rec.confidence >= 80 ? 'var(--blue)' : 'var(--orange)';
-
-  // Generate detailed measurement notes
-  let measurementNotes = '';
-  if (rec.fitAnalysis && rec.fitAnalysis.fit) {
-    measurementNotes = '<div style="margin-top: 12px; padding: 12px; background: var(--bg); border-radius: 8px;">';
-    measurementNotes += '<h5 style="margin: 0 0 8px; color: var(--brand); font-size: 14px;">📏 Measurement Analysis</h5>';
-    measurementNotes += '<div style="font-size: 13px; display: grid; gap: 8px;">';
-    
-    Object.entries(rec.fitAnalysis.fit).forEach(([measurement, details]) => {
-      const diff = details.difference;
-      const absDiff = Math.abs(diff);
-      
-      let icon = '✅';
-      let color = 'var(--green)';
-      let note = '';
-      
-      if (absDiff <= 1) {
-        icon = '✅';
-        color = 'var(--green)';
-        note = 'Perfect fit';
-      } else if (diff > 1) {
-        icon = '⚠️';
-        color = 'var(--orange)';
-        note = `${absDiff.toFixed(1)}" too small`;
-      } else {
-        icon = 'ℹ️';
-        color = 'var(--blue)';
-        note = `${absDiff.toFixed(1)}" too large`;
-      }
-      
-      measurementNotes += `
-        <div style="border-left: 3px solid ${color}; padding-left: 8px; margin-bottom: 8px;">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="text-transform: capitalize; font-weight: 700;">${icon} ${measurement}</span>
-            <span style="color: ${color}; font-weight: 600; font-size: 12px;">${note}</span>
-          </div>
-          <div style="font-size: 11px; color: var(--muted); margin-top: 4px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-            <span>You: <strong>${details.userMeasurement}"</strong></span>
-            <span>Size: <strong>${details.sizeMeasurement}"</strong></span>
-            <span style="color: ${color};">Diff: <strong>${diff > 0 ? '+' : ''}${diff.toFixed(1)}"</strong></span>
-          </div>
-        </div>
-      `;
-    });
-    
-    measurementNotes += '</div></div>';
-  }
-
-  cards.push(`
-    <div class="brand-card">
-      <div class="brand-name">${rec.brand}</div>
-      <div class="brand-size">Size ${rec.recommendedSize}</div>
-
-      <div style="background:${confidenceColor};color:#fff;padding:4px 8px;border-radius:6px;font-size:12px;font-weight:600;display:inline-block;margin:8px 0;">
-        ${rec.confidence}% match
-      </div>
-
-      <p style="font-size:14px;color:var(--muted);margin:8px 0 6px;">
-        ${category} — ${rec.fitPreference} fit
-      </p>
-
-      ${rec.inseam ? `
-        <div class="inseam-info">
-          <strong>Max Inseam:</strong> ${rec.inseam}"
-        </div>
-      ` : ''}
-
-      ${measurementNotes}
-
-      ${rec.alternatives && rec.alternatives.length > 0 ? `
-        <details style="margin-top: 12px;">
-          <summary style="cursor: pointer; font-weight: 700; color: var(--brand); font-size: 13px;">View Alternative Sizes</summary>
-          <div style="margin-top: 8px; padding: 8px; background: var(--bg); border-radius: 6px;">
-            ${rec.alternatives.map(alt => {
-              let altNotes = '';
-              if (alt.details && alt.details.fit) {
-                const fitItems = Object.entries(alt.details.fit).map(([m, d]) => {
-                  const diff = d.difference;
-                  const icon = Math.abs(diff) <= 1 ? '✅' : (diff > 1 ? '⚠️' : 'ℹ️');
-                  return `${icon} ${m}: ${diff > 0 ? '+' : ''}${diff.toFixed(1)}"`;
-                }).join(' • ');
-                altNotes = `<div style="font-size: 11px; color: var(--muted); margin-top: 4px;">${fitItems}</div>`;
-              }
-              return `
-                <div style="padding: 6px; margin-top: 4px; background: var(--card); border-radius: 4px; border: 1px solid var(--border);">
-                  <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <strong>Size ${alt.size}</strong>
-                    <span style="font-size: 12px; color: var(--muted);">${alt.confidence}% match</span>
-                  </div>
-                  ${altNotes}
-                </div>
-              `;
-            }).join('')}
-          </div>
-        </details>
-      ` : ''}
-    </div>
-  `);
-});
-
-        console.log(`Total cards generated: ${cards.length}`);
-
-        grid.innerHTML = cards.length
-          ? cards.join('')
-          : `
-            <div style="text-align:center;padding:40px;grid-column:1/-1;">
-              <p style="color:var(--muted);">No tall brand matches at this confidence level${brandFilter ? ` for <strong>${brandFilter}</strong>` : ''}.</p>
-              <p style="color:var(--muted);font-size:14px;">Your measurements: Bust ${profileData[currentProfile]?.measurements.chest}", Waist ${profileData[currentProfile]?.measurements.waist}", Hips ${profileData[currentProfile]?.measurements.hips}"</p>
-              <p style="color:var(--muted);font-size:14px;">Try clearing filters or check that your profile measurements are set in Settings.</p>
-            </div>`;
-      } catch (err) {
-        console.error('Error in populateMySizesGrid:', err);
-        grid.innerHTML = `
-          <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--orange);">
-            Error loading sizes: ${err.message}
-            <p style="font-size:12px;">Check browser console for details.</p>
-          </div>`;
-      }
+  if (profileDisplay) {
+    const profile = profileData[currentProfile];
+    if (profile) {
+      profileDisplay.textContent = `${currentProfile} (Bust: ${profile.measurements.chest}", Waist: ${profile.measurements.waist}", Hips: ${profile.measurements.hips}")`;
     }
+  }
+
+  grid.innerHTML = `
+    <div style="text-align:center;padding:40px;grid-column:1/-1;">
+      <div class="loading-spinner"></div>
+      <p>Loading your accurate tall sizes...</p>
+    </div>`;
+
+  if (!miSizeSystem || !miSizeSystem.isInitialized) {
+    grid.innerHTML = `
+      <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--muted);">
+        AI sizing system not ready yet. Try again in a moment.
+      </div>`;
+    return;
+  }
+
+  console.log('Loading My Sizes for profile:', currentProfile);
+  console.log('User measurements:', profileData[currentProfile]?.measurements);
+  console.log('Brands in database:', Object.keys(BRAND_DB).length || Object.keys(BRAND_SIZE_DATABASE).length);
+
+  try {
+    const categoryFilter = (document.getElementById('mysizes-category')?.value || '').trim();
+    const brandFilter = (document.getElementById('mysizes-brand-search')?.value || '').trim();
+
+    const allSizes = await miSizeSystem.getAllMySizes();
+
+    console.log('All sizes returned:', allSizes);
+
+    const cards = [];
+
+    if (statusText && miSizeSystem.confidenceThreshold) {
+      statusText.textContent = `Showing tall sizes with ${miSizeSystem.confidenceThreshold}%+ confidence rating`;
+    }
+
+    Object.entries(allSizes).forEach(([category, recs]) => {
+      if (categoryFilter && category !== categoryFilter) return;
+
+      console.log(`Processing ${category}: ${recs.length} recommendations`);
+
+      recs.forEach(rec => {
+        if (brandFilter && rec.brand.toLowerCase() !== brandFilter.toLowerCase()) return;
+        
+        // Filter by gender
+        const brand = BRAND_DB[rec.brand] || BRAND_SIZE_DATABASE[rec.brand];
+        if (brand && mySizesGenderFilter !== 'all') {
+          const brandGender = detectBrandGender(rec.brand, brand);
+          if (brandGender !== mySizesGenderFilter) return;
+        }
+        
+        const confidenceColor =
+          rec.confidence >= 90 ? 'var(--green)' :
+            rec.confidence >= 80 ? 'var(--blue)' : 'var(--orange)';
+
+        // Generate detailed measurement notes
+        let measurementNotes = '';
+        if (rec.fitAnalysis && rec.fitAnalysis.fit) {
+          measurementNotes = '<div style="margin-top: 12px; padding: 12px; background: var(--bg); border-radius: 8px;">';
+          measurementNotes += '<h5 style="margin: 0 0 8px; color: var(--brand); font-size: 14px;">📏 Measurement Analysis</h5>';
+          measurementNotes += '<div style="font-size: 13px; display: grid; gap: 8px;">';
+          
+          Object.entries(rec.fitAnalysis.fit).forEach(([measurement, details]) => {
+            const diff = details.difference;
+            const absDiff = Math.abs(diff);
+            
+            let icon = '✅';
+            let color = 'var(--green)';
+            let note = '';
+            
+            if (absDiff <= 1) {
+              icon = '✅';
+              color = 'var(--green)';
+              note = 'Perfect fit';
+            } else if (diff > 1) {
+              icon = '⚠️';
+              color = 'var(--orange)';
+              note = `${absDiff.toFixed(1)}" too small`;
+            } else {
+              icon = 'ℹ️';
+              color = 'var(--blue)';
+              note = `${absDiff.toFixed(1)}" too large`;
+            }
+            
+            measurementNotes += `
+              <div style="border-left: 3px solid ${color}; padding-left: 8px; margin-bottom: 8px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="text-transform: capitalize; font-weight: 700;">${icon} ${measurement}</span>
+                  <span style="color: ${color}; font-weight: 600; font-size: 12px;">${note}</span>
+                </div>
+                <div style="font-size: 11px; color: var(--muted); margin-top: 4px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+                  <span>You: <strong>${details.userMeasurement}"</strong></span>
+                  <span>Size: <strong>${details.sizeMeasurement}"</strong></span>
+                  <span style="color: ${color};">Diff: <strong>${diff > 0 ? '+' : ''}${diff.toFixed(1)}"</strong></span>
+                </div>
+              </div>
+            `;
+          });
+          
+          measurementNotes += '</div></div>';
+        }
+
+        cards.push(`
+          <div class="brand-card">
+            <div class="brand-name">${rec.brand}</div>
+            <div class="brand-size">Size ${rec.recommendedSize}</div>
+
+            <div style="background:${confidenceColor};color:#fff;padding:4px 8px;border-radius:6px;font-size:12px;font-weight:600;display:inline-block;margin:8px 0;">
+              ${rec.confidence}% match
+            </div>
+
+            <p style="font-size:14px;color:var(--muted);margin:8px 0 6px;">
+              ${category} — ${rec.fitPreference} fit
+            </p>
+
+            ${rec.inseam ? `
+              <div class="inseam-info">
+                <strong>Max Inseam:</strong> ${rec.inseam}"
+              </div>
+            ` : ''}
+
+            ${measurementNotes}
+
+            ${rec.alternatives && rec.alternatives.length > 0 ? `
+              <details style="margin-top: 12px;">
+                <summary style="cursor: pointer; font-weight: 700; color: var(--brand); font-size: 13px;">View Alternative Sizes</summary>
+                <div style="margin-top: 8px; padding: 8px; background: var(--bg); border-radius: 6px;">
+                  ${rec.alternatives.map(alt => {
+                    let altNotes = '';
+                    if (alt.details && alt.details.fit) {
+                      const fitItems = Object.entries(alt.details.fit).map(([m, d]) => {
+                        const diff = d.difference;
+                        const icon = Math.abs(diff) <= 1 ? '✅' : (diff > 1 ? '⚠️' : 'ℹ️');
+                        return `${icon} ${m}: ${diff > 0 ? '+' : ''}${diff.toFixed(1)}"`;
+                      }).join(' • ');
+                      altNotes = `<div style="font-size: 11px; color: var(--muted); margin-top: 4px;">${fitItems}</div>`;
+                    }
+                    return `
+                      <div style="padding: 6px; margin-top: 4px; background: var(--card); border-radius: 4px; border: 1px solid var(--border);">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                          <strong>Size ${alt.size}</strong>
+                          <span style="font-size: 12px; color: var(--muted);">${alt.confidence}% match</span>
+                        </div>
+                        ${altNotes}
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </details>
+            ` : ''}
+          </div>
+        `);
+      });
+    });
+
+    console.log(`Total cards generated: ${cards.length}`);
+
+    grid.innerHTML = cards.length
+      ? cards.join('')
+      : `
+        <div style="text-align:center;padding:40px;grid-column:1/-1;">
+          <p style="color:var(--muted);">No tall brand matches at this confidence level${brandFilter ? ` for <strong>${brandFilter}</strong>` : ''}.</p>
+          <p style="color:var(--muted);font-size:14px;">Your measurements: Bust ${profileData[currentProfile]?.measurements.chest}", Waist ${profileData[currentProfile]?.measurements.waist}", Hips ${profileData[currentProfile]?.measurements.hips}"</p>
+          <p style="color:var(--muted);font-size:14px;">Try clearing filters or check that your profile measurements are set in Settings.</p>
+        </div>`;
+  } catch (err) {
+    console.error('Error in populateMySizesGrid:', err);
+    grid.innerHTML = `
+      <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--orange);">
+        Error loading sizes: ${err.message}
+        <p style="font-size:12px;">Check browser console for details.</p>
+      </div>`;
+  }
+}
 
 // Detect brand gender from name or data
 function detectBrandGender(brandName, brandData) {
