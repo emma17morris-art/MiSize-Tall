@@ -2287,53 +2287,72 @@ function loadUkBrandsForSizeFinder() {
         };
       }
 
-      analyzeSizes(categoryData, fitAdjustment) {
-        const sizeScores = new Map();
-        const sizeDetails = new Map();
+     analyzeSizes(categoryData, fitAdjustment) {
+  const sizeScores = [];
+  
+  for (const [size, measurements] of Object.entries(categoryData)) {
+    const score = this.calculateFitScore(measurements, fitAdjustment);
+    sizeScores.push({ size, score, measurements });
+  }
+  
+  // Sort by score (highest/best first)
+  sizeScores.sort((a, b) => b.score - a.score);
+  
+  const bestMatch = sizeScores[0];
+  
+  // Only return if score is reasonable (not too far off)
+  if (bestMatch && bestMatch.score > -15) {
+    return {
+      bestSize: bestMatch.size,
+      recommendedSize: bestMatch.size,
+      fitScore: bestMatch.score,
+      confidence: this.calculateConfidence(bestMatch.score),
+      fitDetails: this.generateFitDetails(this.userMeasurements, bestMatch.measurements, bestMatch.size),
+      alternatives: sizeScores.slice(1, 3).map(s => ({
+        size: s.size,
+        confidence: this.calculateConfidence(s.score),
+        details: this.generateFitDetails(this.userMeasurements, s.measurements, s.size)
+      }))
+    };
+  }
+  
+  return null;
+}
+calculateFitScore(sizeMeasurements, fitAdjustment) {
+  let score = 0;
+  let measurementCount = 0;
 
-        Object.entries(categoryData).forEach(([size, m]) => {
-          const score = this.calculateFitScore(this.userMeasurements, m, fitAdjustment);
-          const details = this.generateFitDetails(this.userMeasurements, m, size);
-          sizeScores.set(size, score);
-          sizeDetails.set(size, details);
-          console.log(`Size ${size}: score=${score}`);
-        });
+  // Waist is most important for jeans - weight it heavily
+  if (this.userMeasurements.waist && sizeMeasurements.waist) {
+    const waistDiff = Math.abs(this.userMeasurements.waist - sizeMeasurements.waist - fitAdjustment);
+    score -= waistDiff * 2; // Each inch off reduces score by 2
+    measurementCount++;
+  }
 
-        const sorted = Array.from(sizeScores.entries()).sort((a, b) => b[1] - a[1]);
-        const [bestSize, bestScore] = sorted[0] || [null, 0];
-        const alternatives = sorted.slice(1, 3);
+  // Hips are also important
+  if (this.userMeasurements.hips && sizeMeasurements.hips) {
+    const hipDiff = Math.abs(this.userMeasurements.hips - sizeMeasurements.hips - fitAdjustment);
+    score -= hipDiff * 1.5; // Each inch off reduces score by 1.5
+    measurementCount++;
+  }
 
-        console.log('Best size:', bestSize, 'score:', bestScore);
+  // Bust (for tops/dresses)
+  if (this.userMeasurements.bust && sizeMeasurements.bust) {
+    const bustDiff = Math.abs(this.userMeasurements.bust - sizeMeasurements.bust - fitAdjustment);
+    score -= bustDiff * 1.5;
+    measurementCount++;
+  }
 
-        const bestSizeData = categoryData[bestSize];
-        const inseam = bestSizeData?.inseam || null;
+  // Inseam check - must be adequate
+  if (this.userMeasurements.inseam && sizeMeasurements.inseam) {
+    const inseamDiff = sizeMeasurements.inseam - this.userMeasurements.inseam;
+    if (inseamDiff < -2) {
+      score -= Math.abs(inseamDiff) * 2; // Too short is bad
+    }
+  }
 
-        return {
-          bestSize,
-          confidence: this.calculateConfidence(bestScore),
-          fitDetails: sizeDetails.get(bestSize),
-          alternatives: alternatives.map(([size, score]) => ({
-            size,
-            confidence: this.calculateConfidence(score),
-            details: sizeDetails.get(size)
-          })),
-          inseam
-        };
-      }
-
-      calculateFitScore(user, sizeM, fitAdjustment) {
-        let total = 0, count = 0;
-        ['bust', 'waist', 'hips'].forEach(k => {
-          if (user[k] && sizeM[k]) {
-            const diff = Math.abs(user[k] - (sizeM[k] + fitAdjustment));
-            const score = Math.max(0, 100 - diff * 15);
-            total += score;
-            count++;
-          }
-        });
-        return count ? total / count : 0;
-      }
-
+  return measurementCount > 0 ? score : -100;
+}
       generateFitDetails(user, sizeM, size) {
         const d = { size, measurements: sizeM, fit: {}, recommendations: [] };
         ['bust', 'waist', 'hips'].forEach(k => {
