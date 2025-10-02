@@ -3352,25 +3352,30 @@ _____________________________________________________________________________
     });
 
     // Initialize App
-    async function initializeApp() {
-      console.log('Initializing MiSize Tall App...');
-      
-      await loadUkBrands();
-      
-      miSizeSystem = new MiSizeAISystem();
-      await miSizeSystem.initialize();
-      
-      populateProfileDropdown();
-      populateMiStatsProfileSelect();
-      
-      setTimeout(() => {
-        goHome();
-      }, 2000);
-      
-      console.log('App initialized successfully!');
-    }
+async function initializeApp() {
+  console.log('Initializing MiSize Tall App...');
+  
+  try {
+    await loadUkBrands();
+    
+    miSizeSystem = new MiSizeAISystem();
+    await miSizeSystem.initialize();
+    
+    populateProfileDropdown();
+    populateMiStatsProfileSelect();
+    
+    console.log('App initialized successfully!');
+  } catch (error) {
+    console.error('Initialization error:', error);
+  } finally {
+    // Always go home after 1.5 seconds, whether successful or not
+    setTimeout(() => {
+      goHome();
+    }, 1500);
+  }
+}
 
-    initializeApp();
+initializeApp();
   </script>
 </body>
 </html>
