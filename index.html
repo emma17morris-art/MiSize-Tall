@@ -2679,7 +2679,14 @@ let sizeFinderGenderFilter = 'all';
 
           recs.forEach(rec => {
             if (brandFilter && rec.brand.toLowerCase() !== brandFilter.toLowerCase()) return;
-
+			  
+// Filter by gender
+      const brand = BRAND_DB[rec.brand] || BRAND_SIZE_DATABASE[rec.brand];
+      if (brand && mySizesGenderFilter !== 'all') {
+        const brandGender = detectBrandGender(rec.brand, brand);
+        if (brandGender !== mySizesGenderFilter) return;
+      }
+			  
             const confidenceColor =
               rec.confidence >= 90 ? 'var(--green)' :
                 rec.confidence >= 80 ? 'var(--blue)' : 'var(--orange)';
