@@ -3311,17 +3311,17 @@ function setSizeFinderGenderFilter(gender) {
 }
 
     function showGraphPeriod(period, ev) {
-      document.querySelectorAll('.graph-btn').forEach(btn => btn.classList.remove('active'));
-      if (ev && ev.currentTarget) {
-        ev.currentTarget.classList.add('active');
-      }
+  document.querySelectorAll('.graph-btn').forEach(btn => btn.classList.remove('active'));
+  if (ev && ev.currentTarget) {
+    ev.currentTarget.classList.add('active');
+  }
 
-      if (period === 'table') {
-        showWeightTable();
-      } else {
-        renderWeightGraph(period);
-      }
-    }
+  if (period === 'table') {
+    showWeightTable();
+  } else {
+    renderWeightGraph(period);
+  }
+}
 
     function showWeightTable() {
       const p = profileData[currentProfile];
