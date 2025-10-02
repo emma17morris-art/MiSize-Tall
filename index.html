@@ -1743,11 +1743,29 @@
     <div id="stats-graph" class="stats-content" style="display: none; padding-top: 120px;">
       <div class="content-container">
         <div class="graph-controls">
-          <button class="graph-btn active" onclick="showGraphPeriod('week', event)">Week</button>
-          <button class="graph-btn" onclick="showGraphPeriod('month', event)">Month</button>
-          <button class="graph-btn" onclick="showGraphPeriod('year', event)">Year</button>
-          <button class="graph-btn" onclick="showGraphPeriod('table', event)">Table</button>
-        </div>
+  <button class="graph-btn active" id="toggle-graph">Graph</button>
+  <button class="graph-btn" id="toggle-table">Table</button>
+</div>
+
+<div id="graph-display">
+  <canvas id="weightChartCanvas"></canvas>
+</div>
+
+<div id="table-display" style="display:none;">
+  <table style="width:100%;border-collapse:collapse;background:var(--card);border:2px solid var(--border);border-radius:12px;overflow:hidden;">
+    <thead>
+      <tr style="background:var(--blue);color:#fff;">
+        <th style="padding:12px;">Date</th>
+        <th style="padding:12px;">Weight</th>
+        <th style="padding:12px;">BMI</th>
+      </tr>
+    </thead>
+    <tbody id="stats-table-body">
+      <!-- Populated by JS -->
+    </tbody>
+  </table>
+</div>
+
 
         <div id="graph-display" style="background: var(--card); border-radius: 12px; padding: 20px; border: 2px solid var(--border);">
           <div id="weight-chart" style="margin-bottom: 20px;">
