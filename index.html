@@ -2424,16 +2424,22 @@
         return { success: true, ...result };
       }
 
-      async getAllMySizes() {
-        if (!this.isInitialized) return {};
-        this.updateUserMeasurements();
+     async getAllMySizes() {
+  if (!this.isInitialized) return {};
+  this.updateUserMeasurements();
 
-        const categories = (ALL_CATEGORIES && ALL_CATEGORIES.size)
-          ? [...ALL_CATEGORIES]
-          : ["Women's Jeans", "Women's Dresses", "Women's Tops"];
+  const categories = (ALL_CATEGORIES && ALL_CATEGORIES.size)
+    ? [...ALL_CATEGORIES]
+    : [
+        "Women's Shirts/Tops",
+        "Women's Dresses", 
+        "Women's Jumpers",
+        "Men's T-Shirts/Shirts",
+        "Men's Jumpers"
+      ];
 
-        console.log('Getting sizes for categories:', categories);
-
+  console.log('Getting sizes for categories:', categories);
+		 
         const results = {};
         for (const category of categories) {
           results[category] = this.sizeEngine
