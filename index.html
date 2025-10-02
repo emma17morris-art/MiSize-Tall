@@ -3615,6 +3615,88 @@ document.getElementById("toggle-table").addEventListener("click", () => {
 // Initialize app AFTER everything is defined
 initializeApp();
 renderWeightChart();
+	<!-- Load Chart.js first -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Then your app code -->
+<script>
+// === Restore Graph with Chart.js ===
+function renderWeightChart() {
+  const history = profileData[currentProfile].history.filter(h => h.type === "weight");
+  const labels = history.map(h => h.date);
+  const data = history.map(h => h.value);
+
+  const ctx = document.getElementById("weightChartCanvas").getContext("2d");
+  if (window.weightChart) window.weightChart.destroy();
+
+  window.weightChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        label: "Weight (kg)",
+        data,
+        borderColor: "#8A2BE2",
+        backgroundColor: "rgba(138,43,226,0.3)",
+        borderWidth: 2,
+        pointRadius: 4,
+        tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { labels: { color: "#fff" } } },
+      scales: {
+        x: { ticks: { color: "#fff" }, grid: { color: "#444" } },
+        y: { ticks: { color: "#fff" }, grid: { color: "#444" } }
+      }
+    }
+  });
+}
+
+// === Render Table ===
+function renderHistoryTable() {
+  const history = profileData[currentProfile].history.filter(h => h.type === "weight");
+  const tbody = document.getElementById("stats-table-body");
+  tbody.innerHTML = "";
+
+  history.forEach(entry => {
+    const bmi = (entry.value / ((profileData[currentProfile].startingHeight.value/100) ** 2)).toFixed(1);
+    tbody.innerHTML += `
+      <tr>
+        <td style="padding:10px;">${entry.date}</td>
+        <td style="padding:10px;">${entry.value} ${entry.unit}</td>
+        <td style="padding:10px;">${bmi}</td>
+      </tr>`;
+  });
+}
+
+// === Toggle Graph/Table ===
+document.getElementById("toggle-graph").addEventListener("click", () => {
+  document.getElementById("graph-display").style.display = "block";
+  document.getElementById("table-display").style.display = "none";
+  document.getElementById("toggle-graph").classList.add("active");
+  document.getElementById("toggle-table").classList.remove("active");
+  renderWeightChart();
+});
+
+document.getElementById("toggle-table").addEventListener("click", () => {
+  document.getElementById("graph-display").style.display = "none";
+  document.getElementById("table-display").style.display = "block";
+  document.getElementById("toggle-table").classList.add("active");
+  document.getElementById("toggle-graph").classList.remove("active");
+  renderHistoryTable();
+});
+
+// Initialize app AFTER everything is defined
+initializeApp();
+renderWeightChart();
+// Kickstart the app once everything is loaded
+window.addEventListener("DOMContentLoaded", () => {
+  initializeApp();
+  renderWeightChart(); // so Graph tab shows immediately
+});
+
 </script>
 </body>
 </html>
