@@ -2773,7 +2773,41 @@ function filterBrandsByGender(brandNames, genderFilter) {
     return gender === genderFilter;
   });
 }
-	  
+// Set Gender Filter for My Sizes
+function setMySizesGenderFilter(gender) {
+  mySizesGenderFilter = gender;
+  
+  // Update active pill
+  document.querySelectorAll('[data-mysizes-gender]').forEach(btn => btn.classList.remove('active'));
+  document.querySelector(`[data-mysizes-gender="${gender}"]`)?.classList.add('active');
+  
+  // Refresh My Sizes
+  populateMySizesGrid();
+}
+
+// Set Gender Filter for Brand Notes
+function setBrandNotesGenderFilter(gender) {
+  brandNotesGenderFilter = gender;
+  
+  // Update active pill
+  document.querySelectorAll('[data-brandnotes-gender]').forEach(btn => btn.classList.remove('active'));
+  document.querySelector(`[data-brandnotes-gender="${gender}"]`)?.classList.add('active');
+  
+  // Refresh Brand Notes
+  populateBrandNotes();
+}
+
+// Set Gender Filter for Size Finder
+function setSizeFinderGenderFilter(gender) {
+  sizeFinderGenderFilter = gender;
+  
+  // Update active pill
+  document.querySelectorAll('[data-sizefinder-gender]').forEach(btn => btn.classList.remove('active'));
+  document.querySelector(`[data-sizefinder-gender="${gender}"]`)?.classList.add('active');
+  
+  // Refresh brand dropdown
+  loadUkBrandsForSizeFinder();
+}
 	  
     // Brand Notes Population with proper sourceType detection
    // Brand Notes Population with proper sourceType detection and gender filtering
