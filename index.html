@@ -1265,7 +1265,19 @@
         </div>
       </div>
 		</div>
-      
+
+	  // Set Gender Filter for Brand Notes
+function setBrandNotesGenderFilter(gender) {
+  brandNotesGenderFilter = gender;
+  
+  // Update active pill
+  document.querySelectorAll('[data-brandnotes-gender]').forEach(btn => btn.classList.remove('active'));
+  document.querySelector(`[data-brandnotes-gender="${gender}"]`)?.classList.add('active');
+  
+  // Refresh Brand Notes
+  populateBrandNotes();
+}
+	  
       <!-- GENDER FILTER SECTION -->
       <div class="form-group">
         <label class="form-label">Gender Filter</label>
