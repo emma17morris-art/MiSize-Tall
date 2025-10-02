@@ -3540,10 +3540,10 @@ async function initializeApp() {
   }
 }
 <!-- Load Chart.js first -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ src="https://cdn.jsdelivr.net/npm/chart.js">
 
 <!-- Then your app code -->
-<script>
+
 // === Restore Graph with Chart.js ===
 function renderWeightChart() {
   const history = profileData[currentProfile].history.filter(h => h.type === "weight");
