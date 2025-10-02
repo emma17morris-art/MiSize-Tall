@@ -2737,18 +2737,25 @@ function setBrandNotesGenderFilter(gender) {
     }
 
     // Brand Notes Population with proper sourceType detection
+   // Brand Notes Population with proper sourceType detection and gender filtering
     function populateBrandNotes() {
       const container = document.getElementById('brand-notes-grid');
       if (!container) return;
 
       const sourceDB = (BRAND_DB && Object.keys(BRAND_DB).length) ? BRAND_DB : BRAND_SIZE_DATABASE;
+      
+      // Filter brands by gender
+      const allBrandNames = Object.keys(sourceDB);
+      const filteredBrands = filterBrandsByGender(allBrandNames, brandNotesGenderFilter);
 
-      const cards = Object.entries(sourceDB).map(([key, brand]) => {
+      const cards = filteredBrands.map(key => {
+        const brand = sourceDB[key];
         const name = brand.name || key;
         const notes = brand.notes || {};
         const updated = brand.lastUpdated ? new Date(brand.lastUpdated).toLocaleDateString() : '—';
         const sourceType = brand.sourceType || 'standard';
         const sourceNote = brand.sourceNote || 'No source information available';
+        const gender = detectBrandGender(key, brand);
 
         let sourceBadge = '';
         if (sourceType === 'official') {
@@ -2757,10 +2764,13 @@ function setBrandNotesGenderFilter(gender) {
           sourceBadge = '<span class="source-badge source-standard">● Standard UK chart applied</span>';
         }
 
+        const genderBadge = `<span class="source-badge" style="background: var(--blue);">${gender === 'women' ? '👗 Women' : '👔 Men'}</span>`;
+
         return `
           <div class="brand-card">
             <div class="brand-name">${name}</div>
             <div style="margin-bottom: 12px;">
+              ${genderBadge}
               ${sourceBadge}
             </div>
             ${notes.sizing ? `<p><strong>Sizing:</strong> ${notes.sizing}</p>` : ''}
@@ -2776,9 +2786,11 @@ function setBrandNotesGenderFilter(gender) {
         `;
       }).join('');
 
+      const genderText = brandNotesGenderFilter === 'all' ? 'all' : brandNotesGenderFilter + "'s";
+
       container.innerHTML = cards || `
         <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--muted);">
-          No tall brand data found.
+          No ${genderText} tall brand data found.
         </div>`;
     }
 
