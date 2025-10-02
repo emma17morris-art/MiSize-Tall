@@ -2595,52 +2595,114 @@ calculateFitScore(sizeMeasurements, fitAdjustment) {
         const resultDiv = document.getElementById('size-result');
 
         if (result.success) {
-          resultDiv.innerHTML = `
-            <h4 style="color: var(--green); margin: 0 0 16px;">✅ Perfect Tall Size Found!</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
-              <div>
-                <strong>Brand:</strong> ${result.brand}<br>
-                <strong>Category:</strong> ${result.category}<br>
-                <strong>Fit:</strong> ${result.fitPreference}
+  // Generate detailed measurement comparison
+  let measurementComparison = '';
+  if (result.fitAnalysis && result.fitAnalysis.fit) {
+    measurementComparison = '<div style="background: var(--bg); border-radius: 8px; padding: 16px; margin-top: 16px;">';
+    measurementComparison += '<h5 style="margin: 0 0 12px; color: var(--brand);">📏 Detailed Measurement Comparison</h5>';
+    measurementComparison += '<div style="display: grid; gap: 12px;">';
+    
+    Object.entries(result.fitAnalysis.fit).forEach(([measurement, details]) => {
+      const diff = details.difference;
+      const absDiff = Math.abs(diff);
+      const userMeas = details.userMeasurement;
+      const sizeMeas = details.sizeMeasurement;
+      
+      let diffText = '';
+      let diffColor = 'var(--green)';
+      let icon = '✅';
+      
+      if (absDiff <= 1) {
+        diffText = 'Perfect fit';
+        diffColor = 'var(--green)';
+        icon = '✅';
+      } else if (diff > 1) {
+        diffText = `Size is ${absDiff.toFixed(1)}" too small`;
+        diffColor = 'var(--orange)';
+        icon = '⚠️';
+      } else {
+        diffText = `Size is ${absDiff.toFixed(1)}" too large`;
+        diffColor = 'var(--blue)';
+        icon = 'ℹ️';
+      }
+      
+      measurementComparison += `
+        <div style="border-left: 3px solid ${diffColor}; padding-left: 12px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <strong style="text-transform: capitalize;">${icon} ${measurement}</strong>
+            <span style="color: ${diffColor}; font-weight: 700;">${diffText}</span>
+          </div>
+          <div style="font-size: 13px; color: var(--muted); display: flex; gap: 16px; flex-wrap: wrap;">
+            <span>Your measurement: <strong>${userMeas}"</strong></span>
+            <span>Size ${result.recommendedSize}: <strong>${sizeMeas}"</strong></span>
+            <span style="color: ${diffColor};">Difference: <strong>${diff > 0 ? '+' : ''}${diff.toFixed(1)}"</strong></span>
+          </div>
+        </div>
+      `;
+    });
+    
+    measurementComparison += '</div></div>';
+  }
+
+  resultDiv.innerHTML = `
+    <h4 style="color: var(--green); margin: 0 0 16px;">✅ Perfect Tall Size Found!</h4>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+      <div>
+        <strong>Brand:</strong> ${result.brand}<br>
+        <strong>Category:</strong> ${result.category}<br>
+        <strong>Fit:</strong> ${result.fitPreference}
+      </div>
+      <div>
+        <div style="background: var(--brand); color: white; padding: 8px 12px; border-radius: 8px; text-align: center;">
+          <strong>Size ${result.recommendedSize}</strong>
+        </div>
+        <div style="text-align: center; margin-top: 4px; color: var(--green);">
+          ${result.confidence}% confidence
+        </div>
+      </div>
+    </div>
+    ${result.inseam ? `
+      <div class="inseam-info">
+        <strong>Max Inseam:</strong> ${result.inseam}"
+      </div>
+    ` : ''}
+    ${measurementComparison}
+    ${result.alternatives && result.alternatives.length > 0 ? `
+      <div style="margin-top: 16px; padding: 12px; background: var(--card); border-radius: 8px; border: 1px solid var(--border);">
+        <strong style="color: var(--brand);">Alternative Sizes:</strong><br>
+        <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px;">
+          ${result.alternatives.map(alt => {
+            let altComparison = '';
+            if (alt.details && alt.details.fit) {
+              const fitSummary = Object.entries(alt.details.fit).map(([m, d]) => {
+                const diff = d.difference;
+                const icon = Math.abs(diff) <= 1 ? '✅' : (diff > 1 ? '⚠️' : 'ℹ️');
+                return `${icon} ${m}: ${diff > 0 ? '+' : ''}${diff.toFixed(1)}"`;
+              }).join(', ');
+              altComparison = `<div style="font-size: 12px; color: var(--muted); margin-top: 4px;">${fitSummary}</div>`;
+            }
+            return `
+              <div style="padding: 8px; background: var(--bg); border-radius: 6px;">
+                <strong>Size ${alt.size}</strong> - ${alt.confidence}% confidence
+                ${altComparison}
               </div>
-              <div>
-                <div style="background: var(--brand); color: white; padding: 8px 12px; border-radius: 8px; text-align: center;">
-                  <strong>Size ${result.recommendedSize}</strong>
-                </div>
-                <div style="text-align: center; margin-top: 4px; color: var(--green);">
-                  ${result.confidence}% confidence
-                </div>
-              </div>
-            </div>
-            ${result.inseam ? `
-              <div class="inseam-info">
-                <strong>Max Inseam:</strong> ${result.inseam}"
-              </div>
-            ` : ''}
-            <div style="background: var(--bg); border-radius: 8px; padding: 12px;">
-              <strong>Fit Analysis:</strong><br>
-              ${Object.entries(result.fitAnalysis.fit).map(([measurement, details]) =>
-            `${measurement.toUpperCase()}: ${details.description}`
-          ).join('<br>')}
-            </div>
-            ${result.alternatives.length > 0 ? `
-              <div style="margin-top: 12px;">
-                <strong>Alternatives:</strong> 
-                ${result.alternatives.map(alt => `Size ${alt.size} (${alt.confidence}%)`).join(', ')}
-              </div>
-            ` : ''}
-          `;
-          resultDiv.style.display = 'block';
-          resultDiv.style.borderColor = 'var(--green)';
-        } else {
-          resultDiv.innerHTML = `
-            <h4 style="color: var(--orange); margin: 0 0 16px;">⚠️ Limited Data Available</h4>
-            <p>${result.message}</p>
-            ${result.fallback ? `<p><strong>Fallback suggestion:</strong> ${result.fallback}</p>` : ''}
-          `;
-          resultDiv.style.display = 'block';
-          resultDiv.style.borderColor = 'var(--orange)';
-        }
+            `;
+          }).join('')}
+        </div>
+      </div>
+    ` : ''}
+  `;
+  resultDiv.style.display = 'block';
+  resultDiv.style.borderColor = 'var(--green)';
+} else {
+  resultDiv.innerHTML = `
+    <h4 style="color: var(--orange); margin: 0 0 16px;">⚠️ Limited Data Available</h4>
+    <p>${result.message}</p>
+    ${result.fallback ? `<p><strong>Fallback suggestion:</strong> ${result.fallback}</p>` : ''}
+  `;
+  resultDiv.style.display = 'block';
+  resultDiv.style.borderColor = 'var(--orange)';
+}
 
       } catch (error) {
         console.error('Error in getMySize:', error);
