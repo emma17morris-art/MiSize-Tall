@@ -2155,6 +2155,31 @@ let sizeFinderGenderFilter = 'all';
             });
           }
         }
+		  // Load UK Brands for Size Finder with gender filter
+function loadUkBrandsForSizeFinder() {
+  const filteredBrands = filterBrandsByGender(ALL_BRANDS, sizeFinderGenderFilter);
+  
+  const datalist = document.getElementById('uk-brand-datalist');
+  const select = document.getElementById('uk-brand-select');
+  
+  if (datalist) datalist.innerHTML = '';
+  if (select) select.innerHTML = '<option value="">Select a brand…</option>';
+  
+  filteredBrands.forEach(name => {
+    if (datalist) {
+      const o = document.createElement('option');
+      o.value = name;
+      datalist.appendChild(o);
+    }
+    if (select) {
+      const o = document.createElement('option');
+      o.value = name;
+      o.textContent = name;
+      select.appendChild(o);
+    }
+  });
+}
+		  
 
         const catSizeFinder = document.getElementById('uk-category-select');
         const catMySizes = document.getElementById('mysizes-category');
