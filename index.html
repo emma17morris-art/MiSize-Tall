@@ -2358,7 +2358,7 @@ function loadUkBrandsForSizeFinder() {
         const out = [];
         Object.keys(this.brandDatabase).forEach(brandName => {
           const r = this.findBestSizeForBrand(brandName, category, fitPreference);
-          if (r && r.confidence >= 70) out.push(r);
+        if (r) out.push(r);
         });
         console.log(`Found ${out.length} brands for category ${category}`);
         return out.sort((a, b) => b.confidence - a.confidence);
@@ -2370,7 +2370,7 @@ function loadUkBrandsForSizeFinder() {
       constructor() {
         this.sizeEngine = new SizeMatchingEngine();
         this.isInitialized = false;
-        this.confidenceThreshold = 85;
+        this.confidenceThreshold = 0;
       }
 
       async initialize() {
