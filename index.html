@@ -3689,12 +3689,29 @@ document.getElementById("toggle-table").addEventListener("click", () => {
 });
 
 // Initialize app AFTER everything is defined
-initializeApp();
-renderWeightChart();
+
 // Kickstart the app once everything is loaded
 window.addEventListener("DOMContentLoaded", () => {
+  
+});
+// --- App Initialization ---
+function initializeApp() {
+  // Hide splash after 2 seconds
+  setTimeout(() => {
+    document.getElementById("flash").classList.remove("active");
+    document.getElementById("flash").style.display = "none";
+
+    // Show Home screen
+    goToScreen("home");
+
+    console.log("✅ App Initialized");
+  }, 2000);
+}
+
+// Run when page loads
+window.addEventListener("DOMContentLoaded", () => {
   initializeApp();
-  renderWeightChart(); // so Graph tab shows immediately
+  renderWeightChart(); // so the Graph is ready if user switches tabs
 });
 
 </script>
