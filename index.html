@@ -2771,55 +2771,118 @@ calculateFitScore(sizeMeasurements, fitAdjustment) {
 
           console.log(`Processing ${category}: ${recs.length} recommendations`);
 
-          recs.forEach(rec => {
-            if (brandFilter && rec.brand.toLowerCase() !== brandFilter.toLowerCase()) return;
-			  
-// Filter by gender
-      const brand = BRAND_DB[rec.brand] || BRAND_SIZE_DATABASE[rec.brand];
-      if (brand && mySizesGenderFilter !== 'all') {
-        const brandGender = detectBrandGender(rec.brand, brand);
-        if (brandGender !== mySizesGenderFilter) return;
+recs.forEach(rec => {
+  if (brandFilter && rec.brand.toLowerCase() !== brandFilter.toLowerCase()) return;
+  
+  // Filter by gender
+  const brand = BRAND_DB[rec.brand] || BRAND_SIZE_DATABASE[rec.brand];
+  if (brand && mySizesGenderFilter !== 'all') {
+    const brandGender = detectBrandGender(rec.brand, brand);
+    if (brandGender !== mySizesGenderFilter) return;
+  }
+  
+  const confidenceColor =
+    rec.confidence >= 90 ? 'var(--green)' :
+      rec.confidence >= 80 ? 'var(--blue)' : 'var(--orange)';
+
+  // Generate detailed measurement notes
+  let measurementNotes = '';
+  if (rec.fitAnalysis && rec.fitAnalysis.fit) {
+    measurementNotes = '<div style="margin-top: 12px; padding: 12px; background: var(--bg); border-radius: 8px;">';
+    measurementNotes += '<h5 style="margin: 0 0 8px; color: var(--brand); font-size: 14px;">📏 Measurement Analysis</h5>';
+    measurementNotes += '<div style="font-size: 13px; display: grid; gap: 8px;">';
+    
+    Object.entries(rec.fitAnalysis.fit).forEach(([measurement, details]) => {
+      const diff = details.difference;
+      const absDiff = Math.abs(diff);
+      
+      let icon = '✅';
+      let color = 'var(--green)';
+      let note = '';
+      
+      if (absDiff <= 1) {
+        icon = '✅';
+        color = 'var(--green)';
+        note = 'Perfect fit';
+      } else if (diff > 1) {
+        icon = '⚠️';
+        color = 'var(--orange)';
+        note = `${absDiff.toFixed(1)}" too small`;
+      } else {
+        icon = 'ℹ️';
+        color = 'var(--blue)';
+        note = `${absDiff.toFixed(1)}" too large`;
       }
-			  
-            const confidenceColor =
-              rec.confidence >= 90 ? 'var(--green)' :
-                rec.confidence >= 80 ? 'var(--blue)' : 'var(--orange)';
+      
+      measurementNotes += `
+        <div style="border-left: 3px solid ${color}; padding-left: 8px; margin-bottom: 8px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="text-transform: capitalize; font-weight: 700;">${icon} ${measurement}</span>
+            <span style="color: ${color}; font-weight: 600; font-size: 12px;">${note}</span>
+          </div>
+          <div style="font-size: 11px; color: var(--muted); margin-top: 4px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+            <span>You: <strong>${details.userMeasurement}"</strong></span>
+            <span>Size: <strong>${details.sizeMeasurement}"</strong></span>
+            <span style="color: ${color};">Diff: <strong>${diff > 0 ? '+' : ''}${diff.toFixed(1)}"</strong></span>
+          </div>
+        </div>
+      `;
+    });
+    
+    measurementNotes += '</div></div>';
+  }
 
-            cards.push(`
-              <div class="brand-card">
-                <div class="brand-name">${rec.brand}</div>
-                <div class="brand-size">Size ${rec.recommendedSize}</div>
+  cards.push(`
+    <div class="brand-card">
+      <div class="brand-name">${rec.brand}</div>
+      <div class="brand-size">Size ${rec.recommendedSize}</div>
 
-                <div style="background:${confidenceColor};color:#fff;padding:4px 8px;border-radius:6px;font-size:12px;font-weight:600;display:inline-block;margin:8px 0;">
-                  ${rec.confidence}% match
+      <div style="background:${confidenceColor};color:#fff;padding:4px 8px;border-radius:6px;font-size:12px;font-weight:600;display:inline-block;margin:8px 0;">
+        ${rec.confidence}% match
+      </div>
+
+      <p style="font-size:14px;color:var(--muted);margin:8px 0 6px;">
+        ${category} — ${rec.fitPreference} fit
+      </p>
+
+      ${rec.inseam ? `
+        <div class="inseam-info">
+          <strong>Max Inseam:</strong> ${rec.inseam}"
+        </div>
+      ` : ''}
+
+      ${measurementNotes}
+
+      ${rec.alternatives && rec.alternatives.length > 0 ? `
+        <details style="margin-top: 12px;">
+          <summary style="cursor: pointer; font-weight: 700; color: var(--brand); font-size: 13px;">View Alternative Sizes</summary>
+          <div style="margin-top: 8px; padding: 8px; background: var(--bg); border-radius: 6px;">
+            ${rec.alternatives.map(alt => {
+              let altNotes = '';
+              if (alt.details && alt.details.fit) {
+                const fitItems = Object.entries(alt.details.fit).map(([m, d]) => {
+                  const diff = d.difference;
+                  const icon = Math.abs(diff) <= 1 ? '✅' : (diff > 1 ? '⚠️' : 'ℹ️');
+                  return `${icon} ${m}: ${diff > 0 ? '+' : ''}${diff.toFixed(1)}"`;
+                }).join(' • ');
+                altNotes = `<div style="font-size: 11px; color: var(--muted); margin-top: 4px;">${fitItems}</div>`;
+              }
+              return `
+                <div style="padding: 6px; margin-top: 4px; background: var(--card); border-radius: 4px; border: 1px solid var(--border);">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <strong>Size ${alt.size}</strong>
+                    <span style="font-size: 12px; color: var(--muted);">${alt.confidence}% match</span>
+                  </div>
+                  ${altNotes}
                 </div>
-
-                <p style="font-size:14px;color:var(--muted);margin:8px 0 6px;">
-                  ${category} — ${rec.fitPreference} fit
-                </p>
-
-                ${rec.inseam ? `
-                  <div class="inseam-info">
-                    <strong>Max Inseam:</strong> ${rec.inseam}"
-                  </div>
-                ` : ''}
-
-                <details style="margin-top:6px;">
-                  <summary style="cursor:pointer;font-weight:700;">Fit analysis</summary>
-                  <div style="font-size:13px;margin-top:6px;">
-                    ${Object.entries(rec.fitAnalysis.fit).map(([m, d]) =>
-              `<div><strong>${m.toUpperCase()}:</strong> ${d.description}</div>`).join('')}
-                  </div>
-                </details>
-
-                ${rec.alternatives?.length ? `
-                  <p style="font-size:12px;color:var(--muted);margin:8px 0 0;">
-                    Alt: ${rec.alternatives[0].size} (${rec.alternatives[0].confidence}%)
-                  </p>` : ''}
-              </div>
-            `);
-          });
-        });
+              `;
+            }).join('')}
+          </div>
+        </details>
+      ` : ''}
+    </div>
+  `);
+});
 
         console.log(`Total cards generated: ${cards.length}`);
 
