@@ -2740,6 +2740,41 @@ let sizeFinderGenderFilter = 'all';
       }
     }
 
+// Detect brand gender from name or data
+function detectBrandGender(brandName, brandData) {
+  const nameLower = brandName.toLowerCase();
+  
+  // Check explicit gender field
+  if (brandData.gender) {
+    return brandData.gender.toLowerCase();
+  }
+  
+  // Check category names
+  const categories = brandData.categories ? Object.keys(brandData.categories) : [];
+  const hasWomens = categories.some(cat => cat.toLowerCase().includes("women"));
+  const hasMens = categories.some(cat => cat.toLowerCase().includes("men"));
+  
+  if (hasWomens && !hasMens) return 'women';
+  if (hasMens && !hasWomens) return 'men';
+  
+  // Default to women for ambiguous cases
+  return 'women';
+}
+
+// Filter brands by gender
+function filterBrandsByGender(brandNames, genderFilter) {
+  if (genderFilter === 'all') return brandNames;
+  
+  return brandNames.filter(name => {
+    const brand = BRAND_DB[name] || BRAND_SIZE_DATABASE[name];
+    if (!brand) return false;
+    
+    const gender = detectBrandGender(name, brand);
+    return gender === genderFilter;
+  });
+}
+	  
+	  
     // Brand Notes Population with proper sourceType detection
    // Brand Notes Population with proper sourceType detection and gender filtering
     function populateBrandNotes() {
