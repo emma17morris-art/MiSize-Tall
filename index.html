@@ -1201,26 +1201,24 @@
   </div>
 
   <!-- UK My Sizes -->
-  <div id="uk-mysizes" class="screen">
-    <div class="content-container">
-      <div class="hub-header">
-        <h2 class="hub-title">My Accurate Tall Sizes</h2>
-        <p class="hub-subtitle">Based on your measurements from profile: <span id="mysizes-profile-display"></span></p>
-        <p style="font-size:14px;color:var(--muted);margin-top:8px;">
-          All sizes calculated using real tall brand measurement charts
-        </p>
+<div id="uk-mysizes" class="screen">
+  <div class="content-container">
+    <div class="hub-header">
+      <h2 class="hub-title">My Accurate Tall Sizes</h2>
+      <p class="hub-subtitle">Based on your measurements from profile: <span id="mysizes-profile-display"></span></p>
+      <p style="font-size:14px;color:var(--muted);margin-top:8px;">
+        All sizes calculated using real tall brand measurement charts
+      </p>
+    </div>
+
+    <div class="system-status">
+      <div class="status-indicator">
+        <div class="status-dot status-online"></div>
+        <span id="mysizes-status-text">Showing sizes with 85%+ confidence rating</span>
       </div>
+    </div>
 
-      <div class="system-status">
-        <div class="status-indicator">
-          <div class="status-dot status-online"></div>
-          <span id="mysizes-status-text">Showing sizes with 85%+ confidence rating</span>
-        </div>
-      </div>
-
-		</div>
-
-    
+    <!-- GENDER FILTER -->
     <div class="form-group">
       <label class="form-label">Gender Filter</label>
       <div class="pill-settings-group">
@@ -1229,87 +1227,78 @@
         <button class="settings-pill" data-mysizes-gender="men" onclick="setMySizesGenderFilter('men')">Men</button>
       </div>
     </div>
-    
 
     <div class="form-group">
       <label class="form-label">Category Filter</label>
-		
-      <div class="form-group">
-        <label class="form-label">Category Filter</label>
-        <select class="form-select" id="mysizes-category">
+      <select class="form-select" id="mysizes-category">
+        <option value="">All categories</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Brand (optional)</label>
+      <input class="form-input" id="mysizes-brand-search" list="mysizes-brand-datalist" placeholder="Type a brand to filter…"/>
+      <datalist id="mysizes-brand-datalist"></datalist>
+      <p style="margin-top:6px;color:var(--muted);font-size:12px;">
+        Leave blank to see all tall brands that meet your confidence threshold.
+      </p>
+    </div>
+
+    <div class="brand-grid" id="my-sizes-grid">
+      <div style="text-align:center;padding:40px;grid-column:1/-1;">
+        <div class="loading-spinner"></div>
+        <p>Loading your accurate sizes from tall brand databases...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UK Brand Notes -->
+<div id="uk-brandnotes" class="screen">
+  <div class="content-container">
+    <div class="hub-header">
+      <h2 class="hub-title">🇬🇧 Tall Brand Intelligence</h2>
+      <p class="hub-subtitle">Comprehensive information about UK tall brands and their sizing</p>
+    </div>
+    
+    <div class="system-status">
+      <div class="status-indicator">
+        <div class="status-dot status-online"></div>
+        <span>Tall brand data updated automatically from official sources</span>
+      </div>
+    </div>
+
+    <!-- GENDER FILTER -->
+    <div class="form-group">
+      <label class="form-label">Gender Filter</label>
+      <div class="pill-settings-group">
+        <button class="settings-pill active" data-brandnotes-gender="all" onclick="setBrandNotesGenderFilter('all')">All</button>
+        <button class="settings-pill" data-brandnotes-gender="women" onclick="setBrandNotesGenderFilter('women')">Women</button>
+        <button class="settings-pill" data-brandnotes-gender="men" onclick="setBrandNotesGenderFilter('men')">Men</button>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">Search & Filter</label>
+      <div style="display:flex; gap:8px;">
+        <input id="brand-intel-search" class="form-input" placeholder="Search brand name…">
+        <select id="brand-intel-category" class="form-select">
           <option value="">All categories</option>
         </select>
       </div>
+      <p style="margin-top:6px;color:var(--muted);font-size:12px;">
+        This list is loaded from tall_sizes_complete.json with all tall brands!
+      </p>
+    </div>
 
-      <div class="form-group">
-        <label class="form-label">Brand (optional)</label>
-        <input class="form-input" id="mysizes-brand-search" list="mysizes-brand-datalist" placeholder="Type a brand to filter…"/>
-        <datalist id="mysizes-brand-datalist"></datalist>
-        <p style="margin-top:6px;color:var(--muted);font-size:12px;">
-          Leave blank to see all tall brands that meet your confidence threshold.
-        </p>
-      </div>
-
-      <div class="brand-grid" id="my-sizes-grid">
-        <div style="text-align:center;padding:40px;grid-column:1/-1;">
-          <div class="loading-spinner"></div>
-          <p>Loading your accurate sizes from tall brand databases...</p>
-        </div>
+    <div class="brand-grid" id="brand-notes-grid">
+      <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
+        <div class="loading-spinner"></div>
+        <p>Loading comprehensive tall brand intelligence...</p>
       </div>
     </div>
   </div>
-
-  <!-- UK Brand Notes -->
-  <div id="uk-brandnotes" class="screen">
-    <div class="content-container">
-      <div class="hub-header">
-        <h2 class="hub-title">🇬🇧 Tall Brand Intelligence</h2>
-        <p class="hub-subtitle">Comprehensive information about UK tall brands and their sizing</p>
-      </div>
-      
-      <div class="system-status">
-        <div class="status-indicator">
-          <div class="status-dot status-online"></div>
-          <span>Tall brand data updated automatically from official sources</span>
-        </div>
-      </div>
-		</div>
-
-	  
-      <!-- GENDER FILTER SECTION -->
-      <div class="form-group">
-        <label class="form-label">Gender Filter</label>
-        <div class="pill-settings-group">
-          <button class="settings-pill active" data-brandnotes-gender="all" onclick="setBrandNotesGenderFilter('all')">All</button>
-          <button class="settings-pill" data-brandnotes-gender="women" onclick="setBrandNotesGenderFilter('women')">Women</button>
-          <button class="settings-pill" data-brandnotes-gender="men" onclick="setBrandNotesGenderFilter('men')">Men</button>
-        </div>
-      </div>
-      <!-- END GENDER FILTER -->
-      
-      <div class="form-group">
-      
-      <div class="form-group">
-        <label class="form-label">Search & Filter</label>
-        <div style="display:flex; gap:8px;">
-          <input id="brand-intel-search" class="form-input" placeholder="Search brand name…">
-          <select id="brand-intel-category" class="form-select">
-            <option value="">All categories</option>
-          </select>
-        </div>
-        <p style="margin-top:6px;color:var(--muted);font-size:12px;">
-          This list is loaded from tall_sizes_complete.json with all tall brands!
-        </p>
-      </div>
-
-      <div class="brand-grid" id="brand-notes-grid">
-        <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
-          <div class="loading-spinner"></div>
-          <p>Loading comprehensive tall brand intelligence...</p>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>
 
   <!-- UK History -->
   <div id="uk-history" class="screen">
@@ -1892,7 +1881,7 @@ let sizeFinderGenderFilter = 'all';
         startingHeight: { value: 183, unit: 'cm' },
         targetWeight: { value: 80, unit: 'kg' },
         targetDate: '2023-06-30',
-        measurements: { weight: 80, chest: 34, waist: 30, hips: 34, inseam: 35, shoulders: 38, arms: 28 },
+        measurements: { weight: 80, chest: 40, waist: 34, hips: 42, inseam: 35, shoulders: 38, arms: 28 },
         history: [
           { date: '2022-03-19', type: 'weight', value: 150, unit: 'kg' },
           { date: '2022-04-19', type: 'weight', value: 147, unit: 'kg' },
