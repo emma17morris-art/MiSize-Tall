@@ -3167,146 +3167,16 @@ function setSizeFinderGenderFilter(gender) {
       renderMeasurementHistory();
       renderWeightGraph(currentGraphPeriod);
     }
-
-
-
-
-
-
-		function renderWeightGraph(period = 'week') {
-  const p = profileData[currentProfile];
-  if (!p) return;
-
-  currentGraphPeriod = period;
-
-  const allWeightData = [
-    { date: p.startingDate, value: p.startingWeight.value, unit: p.startingWeight.unit, isStarting: true },
-    ...(p.history || []).filter(e => e.type === 'weight').map(e => ({ ...e, isStarting: false }))
-  ].sort((a, b) => new Date(a.date) - new Date(b.date));
-
-  if (allWeightData.length === 0) {
-    document.getElementById('chart-content').innerHTML = '<p style="text-align: center; color: var(--muted);">No weight data recorded yet</p>';
-    return;
+function showGraphPeriod(period, ev) {
+  document.querySelectorAll('.graph-btn').forEach(btn => btn.classList.remove('active'));
+  if (ev && ev.currentTarget) {
+    ev.currentTarget.classList.add('active');
   }
 
-  let filteredData = allWeightData;
-  const now = new Date();
-
-  if (period === 'week') {
-    const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-    filteredData = allWeightData.filter(entry => new Date(entry.date) >= weekAgo);
-  } else if (period === 'month') {
-    const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-    filteredData = allWeightData.filter(entry => new Date(entry.date) >= monthAgo);
-  } else if (period === 'year') {
-    const yearAgo = new Date(now.getTime() - 365 * 24 * 60 * 60 * 1000);
-    filteredData = allWeightData.filter(entry => new Date(entry.date) >= yearAgo);
-  }
-
-  if (filteredData.length === 0) {
-    document.getElementById('chart-content').innerHTML = `<p style="text-align: center; color: var(--muted);">No data available for ${period} view</p>`;
-    return;
-  }
-
-  const startWeight = kgFrom(filteredData[0].value, filteredData[0].unit);
-  const currentWeight = kgFrom(filteredData[filteredData.length - 1].value, filteredData[filteredData.length - 1].unit);
-  const totalLoss = startWeight - currentWeight;
-
-  let chartHTML = '<div style="font-family: system-ui; font-size: 13px;">';
-  chartHTML += `<div style="text-align: center; margin-bottom: 20px;">`;
-  chartHTML += `<div style="color: var(--brand); font-weight: bold; font-size: 18px;">🎉 Amazing Progress! 🎉</div>`;
-  chartHTML += `<div style="color: var(--green); font-weight: bold; font-size: 16px; margin-top: 4px;">Total Weight Loss: ${Math.round(totalLoss * 10) / 10}kg</div>`;
-  chartHTML += `<div style="color: var(--muted); font-size: 14px;">Period: ${new Date(filteredData[0].date).toLocaleDateString()} - ${new Date(filteredData[filteredData.length - 1].date).toLocaleDateString()}</div>`;
-  chartHTML += `</div>`;
-
-  const milestones = filteredData.filter((entry, index) => {
-    return entry.isStarting || 
-           index === filteredData.length - 1 || 
-           index % Math.max(1, Math.floor(filteredData.length / 8)) === 0;
-  });
-
-  chartHTML += '<div style="display: grid; gap: 6px; max-height: 300px; overflow-y: auto;">';
-
-  const weights = filteredData.map(entry => kgFrom(entry.value, entry.unit));
-  const minWeight = Math.min(...weights) - 5;
-  const maxWeight = Math.max(...weights) + 5;
-  const range = maxWeight - minWeight;
-
-  milestones.forEach((entry, index) => {
-    const date = new Date(entry.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' });
-    const weightKg = kgFrom(entry.value, entry.unit);
-    const weight = `${entry.value}${entry.unit}`;
-    const isLatest = entry.date === filteredData[filteredData.length - 1].date;
-    const isStarting = entry.isStarting;
-
-    const barWidth = Math.max(80, ((maxWeight - weightKg) / range) * 400 + 80);
-
-    let milestoneIcon = '';
-    if (isStarting) milestoneIcon = '🚀';
-    else if (isLatest) milestoneIcon = '🎯';
-    else if (weightKg <= 100 && weightKg > 90) milestoneIcon = '💪';
-    else if (weightKg <= 90) milestoneIcon = '⭐';
-
-    chartHTML += `
-      <div style="display: grid; grid-template-columns: 70px 1fr 80px 30px; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border);">
-        <div style="color: var(--muted); font-size: 11px; font-weight: 500;">${date}</div>
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <div style="
-            background: ${isStarting ? 'var(--orange)' : (isLatest ? 'var(--brand)' : 'var(--green)')}; 
-            height: 20px; 
-            width: ${barWidth}px; 
-            border-radius: 10px;
-            position: relative;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-          "></div>
-        </div>
-        <div style="color: var(--text); font-weight: 700; font-size: 13px; text-align: right;">${weight}</div>
-        <div style="font-size: 16px;">${milestoneIcon}</div>
-      </div>
-    `;
-  });
-
-  chartHTML += '</div>';
-
-  chartHTML += `
-    <div style="margin-top: 20px; padding: 16px; background: var(--bg); border-radius: 8px;">
-      <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 12px; font-size: 11px;">
-        <div style="display: flex; align-items: center; gap: 4px;">
-          <div style="width: 12px; height: 12px; background: var(--orange); border-radius: 2px;"></div>
-          <span style="color: var(--muted);">Starting Weight 🚀</span>
-        </div>
-        <div style="display: flex; align-items: center; gap: 4px;">
-          <div style="width: 12px; height: 12px; background: var(--green); border-radius: 2px;"></div>
-          <span style="color: var(--muted);">Progress 💪</span>
-        </div>
-        <div style="display: flex; align-items: center; gap: 4px;">
-          <div style="width: 12px; height: 12px; background: var(--brand); border-radius: 2px;"></div>
-          <span style="color: var(--muted);">Current Weight 🎯</span>
-        </div>
-      </div>
-      <div style="text-align: center; color: var(--green); font-weight: bold;">
-        ${p.name.split(' ')[0]}, you've achieved an incredible transformation! 💚
-      </div>
-    </div>
-  `;
-
-  document.getElementById('chart-content').innerHTML = chartHTML;
-
-  if (filteredData.length > 1) {
-    const firstEntry = filteredData[0];
-    const lastEntry = filteredData[filteredData.length - 1];
-    const totalLossKg = kgFrom(firstEntry.value, firstEntry.unit) - kgFrom(lastEntry.value, lastEntry.unit);
-
-    const daysDiff = Math.max(1, Math.ceil((new Date(lastEntry.date) - new Date(firstEntry.date)) / (24 * 60 * 60 * 1000)));
-    const weeksDiff = Math.max(1, daysDiff / 7);
-    const weeklyAvg = totalLossKg / weeksDiff;
-
-    document.getElementById('graph-total-loss').textContent = `${Math.round(totalLossKg * 10) / 10}kg`;
-    document.getElementById('graph-weekly-avg').textContent = `${Math.round(weeklyAvg * 10) / 10}kg/week`;
-
-    const remainingKg = p.targetWeight ? Math.max(0, kgFrom(lastEntry.value, lastEntry.unit) - kgFrom(p.targetWeight.value, p.targetWeight.unit)) : 0;
-    document.getElementById('graph-time-left').textContent = remainingKg > 0 ? `${Math.ceil(remainingKg / Math.max(weeklyAvg, 0.1))} weeks` : '🎉 Goal Achieved!';
+  if (period === 'table') {
+    showWeightTable();
+  } else {
+    renderWeightGraph(period);
   }
 }
 
