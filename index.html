@@ -2325,26 +2325,41 @@
 
         return measurementCount > 0 ? score : -100;
       }
-
-      generateFitDetails(user, sizeM, size) {
-        const d = { size, measurements: sizeM, fit: {}, recommendations: [] };
-        ['bust', 'waist', 'hips'].forEach(k => {
-          if (user[k] && sizeM[k]) {
-            const diff = user[k] - sizeM[k];
-            let desc;
-            if (Math.abs(diff) <= 1) desc = 'Perfect fit';
-            else if (diff > 1) desc = `${Math.abs(diff)}" too small`;
-            else desc = `${Math.abs(diff)}" too large`;
-            d.fit[k] = { userMeasurement: user[k], sizeMeasurement: sizeM[k], difference: diff, description: desc };
-            if (Math.abs(diff) > 2) d.recommendations.push(`Consider different size for ${k} measurement`);
-          }
-        });
-        return d;
+generateFitDetails(user, sizeM, size) {
+  const d = { size, measurements: sizeM, fit: {}, recommendations: [] };
+  
+  ['bust', 'waist', 'hips'].forEach(k => {
+    if (user[k] && sizeM[k]) {
+      const diff = user[k] - sizeM[k];
+      let desc;
+      const absDiff = Math.abs(diff);
+      
+      if (absDiff <= 1) desc = 'Perfect fit';
+      else if (absDiff <= 2) desc = diff > 0 ? 'Slightly snug' : 'Slightly loose';
+      else if (absDiff <= 3) desc = diff > 0 ? 'Snug fit' : 'Loose fit';
+      else desc = diff > 0 ? `${absDiff.toFixed(1)}" too small` : `${absDiff.toFixed(1)}" too large`;
+      
+      d.fit[k] = { 
+        userMeasurement: user[k], 
+        sizeMeasurement: sizeM[k], 
+        difference: diff, 
+        description: desc 
+      };
+      
+      if (absDiff > 2) {
+        d.recommendations.push(`${k}: Consider ${diff > 0 ? 'sizing up' : 'sizing down'} for better fit`);
       }
-
-      calculateConfidence(score) {
-        return Math.max(0, Math.min(100, Math.round(score)));
-      }
+    }
+  });
+  
+  // PRESERVE INSEAM IN THE DETAILS
+  if (sizeM.inseam) {
+    d.measurements.inseam = sizeM.inseam;
+  }
+  
+  return d;
+}
+     
 
       getAllBrandSizes(category, fitPreference = 'standard') {
         const out = [];
