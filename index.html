@@ -2293,6 +2293,48 @@
   
   return null;
 }
+		calculateFitScore(sizeMeasurements, fitAdjustment) {
+        let score = 0;
+        let measurementCount = 0;
+
+        if (this.userMeasurements.waist && sizeMeasurements.waist) {
+          const waistDiff = Math.abs(this.userMeasurements.waist - sizeMeasurements.waist - fitAdjustment);
+          score -= waistDiff * 2;
+          measurementCount++;
+        }
+
+        if (this.userMeasurements.hips && sizeMeasurements.hips) {
+          const hipDiff = Math.abs(this.userMeasurements.hips - sizeMeasurements.hips - fitAdjustment);
+          score -= hipDiff * 1.5;
+          measurementCount++;
+        }
+
+        if (this.userMeasurements.bust && sizeMeasurements.bust) {
+          const bustDiff = Math.abs(this.userMeasurements.bust - sizeMeasurements.bust - fitAdjustment);
+          score -= bustDiff * 1.5;
+          measurementCount++;
+        }
+
+        if (this.userMeasurements.inseam && sizeMeasurements.inseam) {
+          const inseamDiff = sizeMeasurements.inseam - this.userMeasurements.inseam;
+          if (inseamDiff < -2) {
+            score -= Math.abs(inseamDiff) * 2;
+          }
+        }
+
+        return measurementCount > 0 ? score : -100;
+    }
+
+    calculateConfidence(score) {
+      const maxScore = 0;
+      const minScore = -20;
+      
+      if (score >= maxScore) return 100;
+      if (score <= minScore) return 0;
+      
+      const confidence = ((score - minScore) / (maxScore - minScore)) * 100;
+      return Math.max(0, Math.min(100, Math.round(confidence)));
+    }
  
         let score = 0;
         let measurementCount = 0;
