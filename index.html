@@ -2336,8 +2336,7 @@
       return Math.max(0, Math.min(100, Math.round(confidence)));
     }
  
-        let score = 0;
-        let measurementCount = 0;
+        
 
         if (this.userMeasurements.waist && sizeMeasurements.waist) {
           const waistDiff = Math.abs(this.userMeasurements.waist - sizeMeasurements.waist - fitAdjustment);
