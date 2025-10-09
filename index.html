@@ -2832,10 +2832,10 @@
                 </p>
 
                 ${rec.inseam ? `
-                  <div class="inseam-info">
-                    <strong>Max Inseam:</strong> ${rec.inseam}"
-                  </div>
-                ` : ''}
+  <div class="inseam-info" style="background: rgba(138, 43, 226, 0.15); border-left: 4px solid var(--brand); padding: 8px 12px; border-radius: 0 8px 8px 0; margin: 8px 0;">
+    <strong>📏 Max Inseam:</strong> ${rec.inseam}" (${(rec.inseam * 2.54).toFixed(1)} cm)
+  </div>
+` : ''}
 
                 ${measurementNotes}
 
