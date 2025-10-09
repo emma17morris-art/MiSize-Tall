@@ -2293,10 +2293,7 @@
   
   return null;
 }
-  // Linear interpolation between min and max
-  const confidence = ((score - minScore) / (maxScore - minScore)) * 100;
-  return Math.max(0, Math.min(100, Math.round(confidence)));
-}
+ 
         let score = 0;
         let measurementCount = 0;
 
