@@ -2295,6 +2295,20 @@
 }
 
       calculateFitScore(sizeMeasurements, fitAdjustment) {
+		  calculateConfidence(score) {
+  // Convert fit score to confidence percentage
+  // Perfect fit (score 0) = 100%
+  // Each point of difference reduces confidence
+  const maxScore = 0;  // Perfect score
+  const minScore = -20; // Worst acceptable score
+  
+  if (score >= maxScore) return 100;
+  if (score <= minScore) return 0;
+  
+  // Linear interpolation between min and max
+  const confidence = ((score - minScore) / (maxScore - minScore)) * 100;
+  return Math.max(0, Math.min(100, Math.round(confidence)));
+}
         let score = 0;
         let measurementCount = 0;
 
