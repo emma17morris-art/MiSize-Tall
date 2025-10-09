@@ -2655,30 +2655,37 @@
     </div>
   ` : ''}
   ${measurementComparison}
-            ${result.alternatives && result.alternatives.length > 0 ? `
-              <div style="margin-top: 16px; padding: 12px; background: var(--card); border-radius: 8px; border: 1px solid var(--border);">
-                <strong style="color: var(--brand);">Alternative Sizes:</strong><br>
-                <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px;">
-                  ${result.alternatives.map(alt => {
-                    let altComparison = '';
-                    if (alt.details && alt.details.fit) {
-                      const fitSummary = Object.entries(alt.details.fit).map(([m, d]) => {
-                        const diff = d.difference;
-                        const icon = Math.abs(diff) <= 1 ? '✅' : (diff > 1 ? '⚠️' : 'ℹ️');
-                        return `${icon} ${m}: ${diff > 0 ? '+' : ''}${diff.toFixed(1)}"`;
-                      }).join(', ');
-                      altComparison = `<div style="font-size: 12px; color: var(--muted); margin-top: 4px;">${fitSummary}</div>`;
-                    }
-                    return `
-                      <div style="padding: 8px; background: var(--bg); border-radius: 6px;">
-                        <strong>Size ${alt.size}</strong> - ${alt.confidence}% confidence
-                        ${altComparison}
-                      </div>
-                    `;
-                  }).join('')}
-                </div>
-              </div>
-            ` : ''}
+       ${result.alternatives && result.alternatives.length > 0 ? `
+  <div style="margin-top: 16px; padding: 12px; background: var(--card); border-radius: 8px; border: 1px solid var(--border);">
+    <strong style="color: var(--brand);">Alternative Sizes:</strong><br>
+    <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px;">
+      ${result.alternatives.map(alt => {
+        let altComparison = '';
+        if (alt.details && alt.details.fit) {
+          const fitSummary = Object.entries(alt.details.fit).map(([m, d]) => {
+            const diff = d.difference;
+            const icon = Math.abs(diff) <= 1 ? '✅' : (diff > 1 ? '⚠️' : 'ℹ️');
+            return `${icon} ${m}: ${diff > 0 ? '+' : ''}${diff.toFixed(1)}"`;
+          }).join(', ');
+          altComparison = `<div style="font-size: 12px; color: var(--muted); margin-top: 4px;">${fitSummary}</div>`;
+        }
+        
+        // ADD INSEAM INFO FOR ALTERNATIVES
+        const altInseam = alt.details && alt.details.measurements && alt.details.measurements.inseam 
+          ? `<div style="font-size: 11px; color: var(--brand); margin-top: 4px;">📏 Inseam: ${alt.details.measurements.inseam}" (${(alt.details.measurements.inseam * 2.54).toFixed(1)} cm)</div>`
+          : '';
+        
+        return `
+          <div style="padding: 8px; background: var(--bg); border-radius: 6px;">
+            <strong>Size ${alt.size}</strong> - ${alt.confidence}% confidence
+            ${altComparison}
+            ${altInseam}
+          </div>
+        `;
+      }).join('')}
+    </div>
+  </div>
+` : ''}
           `;
           resultDiv.style.display = 'block';
           resultDiv.style.borderColor = 'var(--green)';
