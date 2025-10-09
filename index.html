@@ -2632,28 +2632,28 @@
           }
 
           resultDiv.innerHTML = `
-            <h4 style="color: var(--green); margin: 0 0 16px;">✅ Perfect Tall Size Found!</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
-              <div>
-                <strong>Brand:</strong> ${result.brand}<br>
-                <strong>Category:</strong> ${result.category}<br>
-                <strong>Fit:</strong> ${result.fitPreference}
-              </div>
-              <div>
-                <div style="background: var(--brand); color: white; padding: 8px 12px; border-radius: 8px; text-align: center;">
-                  <strong>Size ${result.recommendedSize}</strong>
-                </div>
-                <div style="text-align: center; margin-top: 4px; color: var(--green);">
-                  ${result.confidence}% confidence
-                </div>
-              </div>
-            </div>
-            ${result.inseam ? `
-              <div class="inseam-info">
-                <strong>Max Inseam:</strong> ${result.inseam}"
-              </div>
-            ` : ''}
-            ${measurementComparison}
+  <h4 style="color: var(--green); margin: 0 0 16px;">✅ Perfect Tall Size Found!</h4>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+    <div>
+      <strong>Brand:</strong> ${result.brand}<br>
+      <strong>Category:</strong> ${result.category}<br>
+      <strong>Fit:</strong> ${result.fitPreference}
+    </div>
+    <div>
+      <div style="background: var(--brand); color: white; padding: 8px 12px; border-radius: 8px; text-align: center;">
+        <strong>Size ${result.recommendedSize}</strong>
+      </div>
+      <div style="text-align: center; margin-top: 4px; color: var(--green);">
+        ${result.confidence}% confidence
+      </div>
+    </div>
+  </div>
+  ${result.inseam ? `
+    <div class="inseam-info" style="background: rgba(138, 43, 226, 0.15); border-left: 4px solid var(--brand); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 16px;">
+      <strong>📏 Inseam Length:</strong> ${result.inseam}" (${(result.inseam * 2.54).toFixed(1)} cm)
+    </div>
+  ` : ''}
+  ${measurementComparison}
             ${result.alternatives && result.alternatives.length > 0 ? `
               <div style="margin-top: 16px; padding: 12px; background: var(--card); border-radius: 8px; border: 1px solid var(--border);">
                 <strong style="color: var(--brand);">Alternative Sizes:</strong><br>
