@@ -2264,34 +2264,35 @@
       }
 
       analyzeSizes(categoryData, fitAdjustment) {
-        const sizeScores = [];
-        
-        for (const [size, measurements] of Object.entries(categoryData)) {
-          const score = this.calculateFitScore(measurements, fitAdjustment);
-          sizeScores.push({ size, score, measurements });
-        }
-        
-        sizeScores.sort((a, b) => b.score - a.score);
-        
-        const bestMatch = sizeScores[0];
-        
-        if (bestMatch && bestMatch.score > -15) {
-          return {
-            bestSize: bestMatch.size,
-            recommendedSize: bestMatch.size,
-            fitScore: bestMatch.score,
-            confidence: this.calculateConfidence(bestMatch.score),
-            fitDetails: this.generateFitDetails(this.userMeasurements, bestMatch.measurements, bestMatch.size),
-            alternatives: sizeScores.slice(1, 3).map(s => ({
-              size: s.size,
-              confidence: this.calculateConfidence(s.score),
-              details: this.generateFitDetails(this.userMeasurements, s.measurements, s.size)
-            }))
-          };
-        }
-        
-        return null;
-      }
+  const sizeScores = [];
+  
+  for (const [size, measurements] of Object.entries(categoryData)) {
+    const score = this.calculateFitScore(measurements, fitAdjustment);
+    sizeScores.push({ size, score, measurements });
+  }
+  
+  sizeScores.sort((a, b) => b.score - a.score);
+  
+  const bestMatch = sizeScores[0];
+  
+  if (bestMatch && bestMatch.score > -15) {
+    return {
+      bestSize: bestMatch.size,
+      recommendedSize: bestMatch.size,
+      fitScore: bestMatch.score,
+      confidence: this.calculateConfidence(bestMatch.score),
+      fitDetails: this.generateFitDetails(this.userMeasurements, bestMatch.measurements, bestMatch.size),
+      alternatives: sizeScores.slice(1, 3).map(s => ({
+        size: s.size,
+        confidence: this.calculateConfidence(s.score),
+        details: this.generateFitDetails(this.userMeasurements, s.measurements, s.size)
+      })),
+      inseam: bestMatch.measurements.inseam || null  // ADD THIS LINE
+    };
+  }
+  
+  return null;
+}
 
       calculateFitScore(sizeMeasurements, fitAdjustment) {
         let score = 0;
