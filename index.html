@@ -3978,11 +3978,11 @@
       await loadUkBrands();
       await miSizeSystem.initialize();
 
-      setTimeout(() => {
-        document.getElementById('flash').classList.remove('active');
-        document.getElementById('home').classList.add('active');
-        currentScreen = 'home';
-      }, 3000);
+      // Hide flash screen immediately after loading
+      console.log('✅ All systems loaded, showing home screen...');
+      document.getElementById('flash').classList.remove('active');
+      document.getElementById('home').classList.add('active');
+      currentScreen = 'home';
 
       populateMiStatsProfileSelect();
       renderMiStats();
