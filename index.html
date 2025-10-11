@@ -1157,7 +1157,30 @@
             <button class="settings-pill" data-sizefinder-gender="men" onclick="setSizeFinderGenderFilter('men')">Men</button>
           </div>
         </div>
-        
+
+		  <!-- ⭐ NEW CLOTHING TYPE FILTER -->
+  <div class="form-group">
+    <label class="form-label">Clothing Type</label>
+    <select class="form-select" id="uk-clothing-type-select" onchange="updateCategoryFromClothingType()">
+      <option value="">Select clothing type...</option>
+      <optgroup label="Women's">
+        <option value="Women's Dresses">Dresses</option>
+        <option value="Women's Tops">Tops</option>
+        <option value="Women's Shirts">Shirts</option>
+        <option value="Women's Jumpers">Jumpers</option>
+        <option value="Women's Skirts">Skirts</option>
+        <option value="Women's Tall Jeans">Jeans</option>
+      </optgroup>
+      <optgroup label="Men's">
+        <option value="Men's Shirts">Shirts</option>
+        <option value="Men's T-Shirts">T-Shirts</option>
+        <option value="Men's Tops">Tops</option>
+        <option value="Men's Jumpers">Jumpers</option>
+        <option value="Men's Tall Jeans">Jeans</option>
+      </optgroup>
+    </select>
+  </div>
+		  
         <div class="form-group">
           <label class="form-label">Brand</label>
           <div style="display:flex; gap:8px; align-items:center;">
