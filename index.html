@@ -2799,23 +2799,44 @@
       }
     }
 
-    // ===== GENDER FILTER FUNCTIONS =====
-    function detectBrandGender(brandName, brandData) {
-      const nameLower = brandName.toLowerCase();
-      
-      if (brandData.gender) {
-        return brandData.gender.toLowerCase();
-      }
-      
-      const categories = brandData.categories ? Object.keys(brandData.categories) : [];
-      const hasWomens = categories.some(cat => cat.toLowerCase().includes("women"));
-      const hasMens = categories.some(cat => cat.toLowerCase().includes("men"));
-      
-      if (hasWomens && !hasMens) return 'women';
-      if (hasMens && !hasWomens) return 'men';
-      
-      return 'women';
-    }
+   // ===== IMPROVED GENDER DETECTION =====
+function detectBrandGender(brandName, brandData) {
+  // 1. Check explicit gender field
+  if (brandData.gender) {
+    return brandData.gender.toLowerCase();
+  }
+  
+  // 2. Check brand name for gender indicators
+  const nameLower = brandName.toLowerCase();
+  const menKeywords = ['men', 'menswear', 'male', 'guys'];
+  const womenKeywords = ['women', 'ladies', 'female', 'girls'];
+  
+  const hasMenInName = menKeywords.some(keyword => nameLower.includes(keyword));
+  const hasWomenInName = womenKeywords.some(keyword => nameLower.includes(keyword));
+  
+  if (hasMenInName && !hasWomenInName) return 'men';
+  if (hasWomenInName && !hasMenInName) return 'women';
+  
+  // 3. Check categories
+  const categories = brandData.categories ? Object.keys(brandData.categories) : [];
+  const categoryStr = categories.join(' ').toLowerCase();
+  
+  const hasWomensCategories = womenKeywords.some(keyword => categoryStr.includes(keyword));
+  const hasMensCategories = menKeywords.some(keyword => categoryStr.includes(keyword));
+  
+  if (hasWomensCategories && !hasMensCategories) return 'women';
+  if (hasMensCategories && !hasWomensCategories) return 'men';
+  
+  // 4. If still unclear, check if more women's or men's categories
+  const womenCount = categories.filter(c => womenKeywords.some(k => c.toLowerCase().includes(k))).length;
+  const menCount = categories.filter(c => menKeywords.some(k => c.toLowerCase().includes(k))).length;
+  
+  if (menCount > womenCount) return 'men';
+  if (womenCount > menCount) return 'women';
+  
+  // 5. Default to women (most tall brands are women's)
+  return 'women';
+}
 
     function filterBrandsByGender(brandNames, genderFilter) {
       if (genderFilter === 'all') return brandNames;
