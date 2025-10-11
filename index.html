@@ -3547,6 +3547,55 @@ if (brandIntelCategory) {
 
       console.log('MiSize Tall system initialized successfully!');
     });
-  </script>
+  // --- Brand Search & Display Fix ---
+  let allBrands = {};
+
+  async function loadBrandData() {
+    try {
+      const res = await fetch("tall_sizes_complete.json");
+      if (!res.ok) throw new Error("Failed to load brand data");
+      allBrands = await res.json();
+      console.log("✅ Brand data loaded:", Object.keys(allBrands).length, "brands");
+      renderBrands(Object.keys(allBrands));
+    } catch (err) {
+      console.error("Error loading brand data:", err);
+      document.querySelector("#brand-results").innerHTML = `<p style="color:red;">Error loading brand data.</p>`;
+    }
+  }
+
+  function renderBrands(brandNames) {
+    const container = document.querySelector("#brand-results");
+    if (!container) return;
+    container.innerHTML = "";
+
+    brandNames.forEach(name => {
+      const brand = allBrands[name];
+      const el = document.createElement("div");
+      el.className = "brand-card";
+      el.innerHTML = `
+        <div class="brand-name">${brand.name}</div>
+        <div class="brand-size">${Object.keys(brand.categories)[0]}</div>
+        <div class="source-note">${brand.sourceNote}</div>
+      `;
+      container.appendChild(el);
+    });
+  }
+
+  function searchBrands(term) {
+    const results = Object.keys(allBrands).filter(b =>
+      b.toLowerCase().includes(term.toLowerCase())
+    );
+    renderBrands(results);
+  }
+
+  // Attach listener if search bar exists
+  document.addEventListener("DOMContentLoaded", () => {
+    loadBrandData();
+    const search = document.querySelector("#brand-search");
+    if (search) {
+      search.addEventListener("input", e => searchBrands(e.target.value));
+    }
+  });
+</script>
 </body>
 </html>
