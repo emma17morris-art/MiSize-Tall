@@ -1272,8 +1272,8 @@
       
       <div class="system-status">
         <div class="status-indicator">
-          <div class="status-dot status-online"></div>
-          <span>Tall brand data updated automatically from official sources</span>
+          <div class="status-dot status-online" id="brandnotes-status-dot"></div>
+          <span id="brandnotes-status-text">Tall brand data updated automatically from official sources</span>
         </div>
       </div>
 
@@ -1287,28 +1287,26 @@
         </div>
       </div>
 
-		<!-- 🔍 Brand Search + Results Section -->
-<div class="form-group">
-  <label class="form-label">Search Brands</label>
-  <input id="brand-search" type="text" placeholder="Search tall brands..."
-         style="padding:12px;width:100%;border-radius:8px;margin-top:8px;">
-</div>
-
-<div id="brand-results" class="brand-grid"></div>
-
+      <!-- SEARCH & FILTER -->
       <div class="form-group">
         <label class="form-label">Search & Filter</label>
-        <div style="display:flex; gap:8px;">
-          <input id="brand-intel-search" class="form-input" placeholder="Search brand name…">
-          <select id="brand-intel-category" class="form-select">
+        <div style="display:flex; gap:8px; margin-bottom: 12px;">
+          <input 
+            id="brand-intel-search" 
+            class="form-input" 
+            placeholder="Search brand name…"
+            style="flex: 2;"
+          >
+          <select id="brand-intel-category" class="form-select" style="flex: 1;">
             <option value="">All categories</option>
           </select>
         </div>
-        <p style="margin-top:6px;color:var(--muted);font-size:12px;">
-          This list is loaded from tall_sizes_complete.json with all tall brands!
+        <p style="margin:0;color:var(--muted);font-size:12px;" id="brand-count-display">
+          Loading brands...
         </p>
       </div>
 
+      <!-- RESULTS GRID -->
       <div class="brand-grid" id="brand-notes-grid">
         <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
           <div class="loading-spinner"></div>
@@ -1649,7 +1647,7 @@
           <label class="form-label">Body Frame</label>
           <div class="pill-settings-group">
             <button class="settings-pill" data-frame="small" id="edit-frame-small">Small</button>
-			<button class="settings-pill" data-frame="medium" id="edit-frame-medium">Medium</button>
+            <button class="settings-pill" data-frame="medium" id="edit-frame-medium">Medium</button>
             <button class="settings-pill" data-frame="large" id="edit-frame-large">Large</button>
           </div>
         </div>
@@ -1936,7 +1934,6 @@
 
     // ===== NO FALLBACK DATABASE - REAL DATA ONLY =====
     const BRAND_SIZE_DATABASE = {};
-      
 
     // ===== NORMALIZE BRAND JSON FUNCTION =====
     function normaliseBrandJson(raw) {
@@ -2078,62 +2075,59 @@
         
         alert('⚠️ ERROR: Could not load your brand data!\n\nMake sure "tall_sizes_complete.json" is in the SAME FOLDER as this HTML file.\n\nError details: ' + err.message);
         
-        // Don't use any fallback - leave BRAND_DB empty
         BRAND_DB = {};
         ALL_BRANDS = [];
         ALL_CATEGORIES = new Set();
       }
     }
 
-// ===== FIXED SIZE FINDER BRAND SYNC =====
-function loadUkBrandsForSizeFinder() {
-  const filteredBrands = filterBrandsByGender(ALL_BRANDS, sizeFinderGenderFilter);
-  
-  const datalist = document.getElementById('uk-brand-datalist');
-  const select = document.getElementById('uk-brand-select');
-  
-  if (datalist) datalist.innerHTML = '';
-  if (select) select.innerHTML = '<option value="">Select a brand…</option>';
-  
-  filteredBrands.forEach(name => {
-    if (datalist) {
-      const o = document.createElement('option');
-      o.value = name;
-      datalist.appendChild(o);
-    }
-    if (select) {
-      const o = document.createElement('option');
-      o.value = name;
-      o.textContent = name;
-      select.appendChild(o);
-    }
-  });
-  
-  const search = document.getElementById('uk-brand-search');
-  if (search && select) {
-    // Clear previous event listeners
-    const newSearch = search.cloneNode(true);
-    const newSelect = select.cloneNode(true);
-    search.parentNode.replaceChild(newSearch, search);
-    select.parentNode.replaceChild(newSelect, select);
-    
-    // Add new event listeners
-    newSearch.addEventListener('input', () => {
-      const v = newSearch.value.trim();
-      if (filteredBrands.includes(v)) {
-        newSelect.value = v;
+    // ===== FIXED SIZE FINDER BRAND SYNC =====
+    function loadUkBrandsForSizeFinder() {
+      const filteredBrands = filterBrandsByGender(ALL_BRANDS, sizeFinderGenderFilter);
+      
+      const datalist = document.getElementById('uk-brand-datalist');
+      const select = document.getElementById('uk-brand-select');
+      
+      if (datalist) datalist.innerHTML = '';
+      if (select) select.innerHTML = '<option value="">Select a brand…</option>';
+      
+      filteredBrands.forEach(name => {
+        if (datalist) {
+          const o = document.createElement('option');
+          o.value = name;
+          datalist.appendChild(o);
+        }
+        if (select) {
+          const o = document.createElement('option');
+          o.value = name;
+          o.textContent = name;
+          select.appendChild(o);
+        }
+      });
+      
+      const search = document.getElementById('uk-brand-search');
+      if (search && select) {
+        const newSearch = search.cloneNode(true);
+        const newSelect = select.cloneNode(true);
+        search.parentNode.replaceChild(newSearch, search);
+        select.parentNode.replaceChild(newSelect, select);
+        
+        newSearch.addEventListener('input', () => {
+          const v = newSearch.value.trim();
+          if (filteredBrands.includes(v)) {
+            newSelect.value = v;
+          }
+        });
+        
+        newSelect.addEventListener('change', () => {
+          if (newSelect.value) {
+            newSearch.value = newSelect.value;
+          }
+        });
       }
-    });
-    
-    newSelect.addEventListener('change', () => {
-      if (newSelect.value) {
-        newSearch.value = newSelect.value;
-      }
-    });
-  }
-  
-  console.log(`Loaded ${filteredBrands.length} brands for size finder (${sizeFinderGenderFilter} filter)`);
-}
+      
+      console.log(`Loaded ${filteredBrands.length} brands for size finder (${sizeFinderGenderFilter} filter)`);
+    }
 
     // ===== SIZE MATCHING ENGINE CLASS =====
     class SizeMatchingEngine {
@@ -2413,8 +2407,7 @@ function loadUkBrandsForSizeFinder() {
 
       sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     }
-
-    // ===== NAVIGATION FUNCTIONS =====
+	  // ===== NAVIGATION FUNCTIONS =====
     function enterHub(region) {
       const hubScreen = region.toLowerCase() + '-hub';
       goToScreen(hubScreen);
@@ -2505,128 +2498,126 @@ function loadUkBrandsForSizeFinder() {
     }
 
     // ===== ENHANCED SIZE FINDER WITH AI AND INSEAM RANGE =====
-   async function getMySize() {
-  const brandSelect = document.getElementById('uk-brand-select');
-  const brandSearch = document.getElementById('uk-brand-search');
-  const brand = (brandSelect?.value || brandSearch?.value || '').trim();
-  const category = document.getElementById('uk-category-select')?.value;
-  const fit = document.getElementById('uk-fit-select')?.value;
+    async function getMySize() {
+      const brandSelect = document.getElementById('uk-brand-select');
+      const brandSearch = document.getElementById('uk-brand-search');
+      const brand = (brandSelect?.value || brandSearch?.value || '').trim();
+      const category = document.getElementById('uk-category-select')?.value;
+      const fit = document.getElementById('uk-fit-select')?.value;
 
-  if (!brand || !category || !fit) {
-    alert('Please select all options to find your size.');
-    return;
-  }
+      if (!brand || !category || !fit) {
+        alert('Please select all options to find your size.');
+        return;
+      }
 
-  if (!BRAND_DB[brand] && !BRAND_SIZE_DATABASE[brand]) {
-    alert(`Brand "${brand}" not found in database. Please select a valid brand.`);
-    return;
-  }
+      if (!BRAND_DB[brand] && !BRAND_SIZE_DATABASE[brand]) {
+        alert(`Brand "${brand}" not found in database. Please select a valid brand.`);
+        return;
+      }
 
-  const button = document.getElementById('size-finder-btn-text');
-  const originalText = button.textContent;
-  button.innerHTML = '<span class="loading-spinner"></span>Analyzing...';
+      const button = document.getElementById('size-finder-btn-text');
+      const originalText = button.textContent;
+      button.innerHTML = '<span class="loading-spinner"></span>Analyzing...';
 
-  try {
-    // Get size recommendations for all three fit preferences
-    const snugResult = await miSizeSystem.getAccurateSize(brand, category, 'snug');
-    const standardResult = await miSizeSystem.getAccurateSize(brand, category, 'standard');
-    const relaxedResult = await miSizeSystem.getAccurateSize(brand, category, 'relaxed');
+      try {
+        const snugResult = await miSizeSystem.getAccurateSize(brand, category, 'snug');
+        const standardResult = await miSizeSystem.getAccurateSize(brand, category, 'standard');
+        const relaxedResult = await miSizeSystem.getAccurateSize(brand, category, 'relaxed');
 
-    const resultDiv = document.getElementById('size-result');
+        const resultDiv = document.getElementById('size-result');
 
-    if (standardResult.success) {
-      const results = [
-        { label: 'Size Down (Snug Fit)', result: snugResult, icon: '⬇️' },
-        { label: 'True to Size (Standard Fit)', result: standardResult, icon: '✅' },
-        { label: 'Size Up (Relaxed Fit)', result: relaxedResult, icon: '⬆️' }
-      ].filter(r => r.result.success);
+        if (standardResult.success) {
+          const results = [
+            { label: 'Size Down (Snug Fit)', result: snugResult, icon: '⬇️' },
+            { label: 'True to Size (Standard Fit)', result: standardResult, icon: '✅' },
+            { label: 'Size Up (Relaxed Fit)', result: relaxedResult, icon: '⬆️' }
+          ].filter(r => r.result.success);
 
-      let sizesHTML = '<div style="display: grid; gap: 16px; margin-bottom: 20px;">';
-      
-      results.forEach(({ label, result, icon }) => {
-        let measurementComparison = '';
-        if (result.fitAnalysis && result.fitAnalysis.fit) {
-          measurementComparison = '<div style="font-size: 12px; margin-top: 8px; display: grid; gap: 4px;">';
-          Object.entries(result.fitAnalysis.fit).forEach(([measurement, details]) => {
-            const diff = details.difference;
-            const absDiff = Math.abs(diff);
-            let diffColor = absDiff <= 1 ? 'var(--green)' : (diff > 1 ? 'var(--orange)' : 'var(--blue)');
-            let diffIcon = absDiff <= 1 ? '✅' : (diff > 1 ? '⚠️' : 'ℹ️');
-            
-            measurementComparison += `
-              <div style="display: flex; justify-content: space-between; padding: 4px 8px; background: var(--bg); border-radius: 4px;">
-                <span style="text-transform: capitalize;">${diffIcon} ${measurement}</span>
-                <span style="color: ${diffColor}; font-weight: 600;">You: ${details.userMeasurement}" / Size: ${details.sizeMeasurement}"</span>
+          let sizesHTML = '<div style="display: grid; gap: 16px; margin-bottom: 20px;">';
+          
+          results.forEach(({ label, result, icon }) => {
+            let measurementComparison = '';
+            if (result.fitAnalysis && result.fitAnalysis.fit) {
+              measurementComparison = '<div style="font-size: 12px; margin-top: 8px; display: grid; gap: 4px;">';
+              Object.entries(result.fitAnalysis.fit).forEach(([measurement, details]) => {
+                const diff = details.difference;
+                const absDiff = Math.abs(diff);
+                let diffColor = absDiff <= 1 ? 'var(--green)' : (diff > 1 ? 'var(--orange)' : 'var(--blue)');
+                let diffIcon = absDiff <= 1 ? '✅' : (diff > 1 ? '⚠️' : 'ℹ️');
+                
+                measurementComparison += `
+                  <div style="display: flex; justify-content: space-between; padding: 4px 8px; background: var(--bg); border-radius: 4px;">
+                    <span style="text-transform: capitalize;">${diffIcon} ${measurement}</span>
+                    <span style="color: ${diffColor}; font-weight: 600;">You: ${details.userMeasurement}" / Size: ${details.sizeMeasurement}"</span>
+                  </div>
+                `;
+              });
+              measurementComparison += '</div>';
+            }
+
+            let inseamDisplay = '';
+            if (result.inseamRange) {
+              inseamDisplay = `
+                <div style="background: rgba(138, 43, 226, 0.15); padding: 8px 12px; border-radius: 6px; margin-top: 8px; font-size: 13px;">
+                  📏 <strong>Inseam:</strong> ${result.inseamRange.display} (${(result.inseamRange.min * 2.54).toFixed(1)} - ${(result.inseamRange.max * 2.54).toFixed(1)} cm)
+                </div>
+              `;
+            }
+
+            sizesHTML += `
+              <div style="background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                  <h4 style="margin: 0; color: var(--brand);">${icon} ${label}</h4>
+                  <div style="display: flex; gap: 12px; align-items: center;">
+                    <div style="background: var(--brand); color: white; padding: 8px 16px; border-radius: 8px; font-weight: 700;">
+                      Size ${result.recommendedSize}
+                    </div>
+                    <div style="color: var(--green); font-weight: 600; font-size: 14px;">
+                      ${result.confidence}% match
+                    </div>
+                  </div>
+                </div>
+                ${inseamDisplay}
+                ${measurementComparison}
               </div>
             `;
           });
-          measurementComparison += '</div>';
-        }
 
-        let inseamDisplay = '';
-        if (result.inseamRange) {
-          inseamDisplay = `
-            <div style="background: rgba(138, 43, 226, 0.15); padding: 8px 12px; border-radius: 6px; margin-top: 8px; font-size: 13px;">
-              📏 <strong>Inseam:</strong> ${result.inseamRange.display} (${(result.inseamRange.min * 2.54).toFixed(1)} - ${(result.inseamRange.max * 2.54).toFixed(1)} cm)
+          sizesHTML += '</div>';
+
+          resultDiv.innerHTML = `
+            <h4 style="color: var(--green); margin: 0 0 16px;">✅ Your Size Options for ${brand}</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; padding: 12px; background: var(--bg); border-radius: 8px;">
+              <div><strong>Brand:</strong> ${standardResult.brand}</div>
+              <div><strong>Category:</strong> ${standardResult.category}</div>
             </div>
+            ${sizesHTML}
           `;
+          resultDiv.style.display = 'block';
+          resultDiv.style.borderColor = 'var(--green)';
+        } else {
+          resultDiv.innerHTML = `
+            <h4 style="color: var(--orange); margin: 0 0 16px;">⚠️ Limited Data Available</h4>
+            <p>${standardResult.message}</p>
+          `;
+          resultDiv.style.display = 'block';
+          resultDiv.style.borderColor = 'var(--orange)';
         }
 
-        sizesHTML += `
-          <div style="background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: 16px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-              <h4 style="margin: 0; color: var(--brand);">${icon} ${label}</h4>
-              <div style="display: flex; gap: 12px; align-items: center;">
-                <div style="background: var(--brand); color: white; padding: 8px 16px; border-radius: 8px; font-weight: 700;">
-                  Size ${result.recommendedSize}
-                </div>
-                <div style="color: var(--green); font-weight: 600; font-size: 14px;">
-                  ${result.confidence}% match
-                </div>
-              </div>
-            </div>
-            ${inseamDisplay}
-            ${measurementComparison}
-          </div>
+      } catch (error) {
+        console.error('Error in getMySize:', error);
+        const resultDiv = document.getElementById('size-result');
+        resultDiv.innerHTML = `
+          <h4 style="color: var(--orange); margin: 0 0 16px;">❌ Error</h4>
+          <p>Error finding size: ${error.message}</p>
         `;
-      });
-
-      sizesHTML += '</div>';
-
-      resultDiv.innerHTML = `
-        <h4 style="color: var(--green); margin: 0 0 16px;">✅ Your Size Options for ${brand}</h4>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; padding: 12px; background: var(--bg); border-radius: 8px;">
-          <div><strong>Brand:</strong> ${standardResult.brand}</div>
-          <div><strong>Category:</strong> ${standardResult.category}</div>
-        </div>
-        ${sizesHTML}
-      `;
-      resultDiv.style.display = 'block';
-      resultDiv.style.borderColor = 'var(--green)';
-    } else {
-      resultDiv.innerHTML = `
-        <h4 style="color: var(--orange); margin: 0 0 16px;">⚠️ Limited Data Available</h4>
-        <p>${standardResult.message}</p>
-      `;
-      resultDiv.style.display = 'block';
-      resultDiv.style.borderColor = 'var(--orange)';
+        resultDiv.style.display = 'block';
+        resultDiv.style.borderColor = 'var(--orange)';
+      } finally {
+        button.textContent = originalText;
+      }
     }
 
-  } catch (error) {
-    console.error('Error in getMySize:', error);
-    const resultDiv = document.getElementById('size-result');
-    resultDiv.innerHTML = `
-      <h4 style="color: var(--orange); margin: 0 0 16px;">❌ Error</h4>
-      <p>Error finding size: ${error.message}</p>
-    `;
-    resultDiv.style.display = 'block';
-    resultDiv.style.borderColor = 'var(--orange)';
-  } finally {
-    button.textContent = originalText;
-  }
-}
-              
-        
     // ===== MY SIZES: RENDER GRID WITH INSEAM RANGE =====
     async function populateMySizesGrid() {
       const grid = document.getElementById('my-sizes-grid');
@@ -2815,44 +2806,39 @@ function loadUkBrandsForSizeFinder() {
       }
     }
 
-   // ===== IMPROVED GENDER DETECTION =====
-function detectBrandGender(brandName, brandData) {
-  // 1. Check explicit gender field
-  if (brandData.gender) {
-    return brandData.gender.toLowerCase();
-  }
-  
-  // 2. Check brand name for gender indicators
-  const nameLower = brandName.toLowerCase();
-  const menKeywords = ['men', 'menswear', 'male', 'guys'];
-  const womenKeywords = ['women', 'ladies', 'female', 'girls'];
-  
-  const hasMenInName = menKeywords.some(keyword => nameLower.includes(keyword));
-  const hasWomenInName = womenKeywords.some(keyword => nameLower.includes(keyword));
-  
-  if (hasMenInName && !hasWomenInName) return 'men';
-  if (hasWomenInName && !hasMenInName) return 'women';
-  
-  // 3. Check categories
-  const categories = brandData.categories ? Object.keys(brandData.categories) : [];
-  const categoryStr = categories.join(' ').toLowerCase();
-  
-  const hasWomensCategories = womenKeywords.some(keyword => categoryStr.includes(keyword));
-  const hasMensCategories = menKeywords.some(keyword => categoryStr.includes(keyword));
-  
-  if (hasWomensCategories && !hasMensCategories) return 'women';
-  if (hasMensCategories && !hasWomensCategories) return 'men';
-  
-  // 4. If still unclear, check if more women's or men's categories
-  const womenCount = categories.filter(c => womenKeywords.some(k => c.toLowerCase().includes(k))).length;
-  const menCount = categories.filter(c => menKeywords.some(k => c.toLowerCase().includes(k))).length;
-  
-  if (menCount > womenCount) return 'men';
-  if (womenCount > menCount) return 'women';
-  
-  // 5. Default to women (most tall brands are women's)
-  return 'women';
-}
+    // ===== IMPROVED GENDER DETECTION =====
+    function detectBrandGender(brandName, brandData) {
+      if (brandData.gender) {
+        return brandData.gender.toLowerCase();
+      }
+      
+      const nameLower = brandName.toLowerCase();
+      const menKeywords = ['men', 'menswear', 'male', 'guys'];
+      const womenKeywords = ['women', 'ladies', 'female', 'girls'];
+      
+      const hasMenInName = menKeywords.some(keyword => nameLower.includes(keyword));
+      const hasWomenInName = womenKeywords.some(keyword => nameLower.includes(keyword));
+      
+      if (hasMenInName && !hasWomenInName) return 'men';
+      if (hasWomenInName && !hasMenInName) return 'women';
+      
+      const categories = brandData.categories ? Object.keys(brandData.categories) : [];
+      const categoryStr = categories.join(' ').toLowerCase();
+      
+      const hasWomensCategories = womenKeywords.some(keyword => categoryStr.includes(keyword));
+      const hasMensCategories = menKeywords.some(keyword => categoryStr.includes(keyword));
+      
+      if (hasWomensCategories && !hasMensCategories) return 'women';
+      if (hasMensCategories && !hasWomensCategories) return 'men';
+      
+      const womenCount = categories.filter(c => womenKeywords.some(k => c.toLowerCase().includes(k))).length;
+      const menCount = categories.filter(c => menKeywords.some(k => c.toLowerCase().includes(k))).length;
+      
+      if (menCount > womenCount) return 'men';
+      if (womenCount > menCount) return 'women';
+      
+      return 'women';
+    }
 
     function filterBrandsByGender(brandNames, genderFilter) {
       if (genderFilter === 'all') return brandNames;
@@ -2866,137 +2852,173 @@ function detectBrandGender(brandName, brandData) {
       });
     }
 
-   // ===== UPDATE GENDER FILTER FUNCTIONS TO REFRESH SEARCHES =====
-function setMySizesGenderFilter(gender) {
-  mySizesGenderFilter = gender;
-  
-  document.querySelectorAll('[data-mysizes-gender]').forEach(btn => btn.classList.remove('active'));
-  document.querySelector(`[data-mysizes-gender="${gender}"]`)?.classList.add('active');
-  
-  // Refresh the brand search datalist with filtered brands
-  hydrateMySizesBrandSearch();
-  
-  // Clear the brand search input
-  const brandSearch = document.getElementById('mysizes-brand-search');
-  if (brandSearch) brandSearch.value = '';
-  
-  populateMySizesGrid();
-}
-
-function setBrandNotesGenderFilter(gender) {
-  brandNotesGenderFilter = gender;
-  
-  document.querySelectorAll('[data-brandnotes-gender]').forEach(btn => btn.classList.remove('active'));
-  document.querySelector(`[data-brandnotes-gender="${gender}"]`)?.classList.add('active');
-  
-  // Clear search/category filters when changing gender
-  const searchInput = document.getElementById('brand-intel-search');
-  const categorySelect = document.getElementById('brand-intel-category');
-  if (searchInput) searchInput.value = '';
-  if (categorySelect) categorySelect.value = '';
-  
-  populateBrandNotes();
-}
-
-function setSizeFinderGenderFilter(gender) {
-  sizeFinderGenderFilter = gender;
-  
-  document.querySelectorAll('[data-sizefinder-gender]').forEach(btn => btn.classList.remove('active'));
-  document.querySelector(`[data-sizefinder-gender="${gender}"]`)?.classList.add('active');
-  
-  // Clear brand selection when changing gender
-  const brandSearch = document.getElementById('uk-brand-search');
-  const brandSelect = document.getElementById('uk-brand-select');
-  if (brandSearch) brandSearch.value = '';
-  if (brandSelect) brandSelect.value = '';
-  
-  loadUkBrandsForSizeFinder();
-}
-
-   // ===== FIXED BRAND NOTES POPULATION =====
-function populateBrandNotes() {
-  const container = document.getElementById('brand-notes-grid');
-  if (!container) return;
-
-  const sourceDB = (BRAND_DB && Object.keys(BRAND_DB).length) ? BRAND_DB : BRAND_SIZE_DATABASE;
-  
-  // Get filter values
-  const searchTerm = (document.getElementById('brand-intel-search')?.value || '').toLowerCase().trim();
-  const categoryFilter = (document.getElementById('brand-intel-category')?.value || '').trim();
-  
-  let allBrandNames = Object.keys(sourceDB);
-  
-  // Apply gender filter first
-  allBrandNames = filterBrandsByGender(allBrandNames, brandNotesGenderFilter);
-  
-  // Apply search filter
-  if (searchTerm) {
-    allBrandNames = allBrandNames.filter(name => 
-      name.toLowerCase().includes(searchTerm)
-    );
-  }
-  
-  // Apply category filter
-  if (categoryFilter) {
-    allBrandNames = allBrandNames.filter(name => {
-      const brand = sourceDB[name];
-      const categories = brand.categories ? Object.keys(brand.categories) : [];
-      return categories.includes(categoryFilter);
-    });
-  }
-
-  const cards = allBrandNames.map(key => {
-    const brand = sourceDB[key];
-    const name = brand.name || key;
-    const notes = brand.notes || {};
-    const updated = brand.lastUpdated ? new Date(brand.lastUpdated).toLocaleDateString() : '—';
-    const sourceType = brand.sourceType || 'standard';
-    const sourceNote = brand.sourceNote || 'No source information available';
-    const gender = detectBrandGender(key, brand);
-    
-    // Get available categories
-    const categories = brand.categories ? Object.keys(brand.categories).join(', ') : 'Not specified';
-
-    let sourceBadge = '';
-    if (sourceType === 'official') {
-      sourceBadge = '<span class="source-badge source-official">● Official chart via brand URL</span>';
-    } else {
-      sourceBadge = '<span class="source-badge source-standard">● Standard UK chart applied</span>';
+    // ===== UPDATE GENDER FILTER FUNCTIONS TO REFRESH SEARCHES =====
+    function setMySizesGenderFilter(gender) {
+      mySizesGenderFilter = gender;
+      
+      document.querySelectorAll('[data-mysizes-gender]').forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`[data-mysizes-gender="${gender}"]`)?.classList.add('active');
+      
+      hydrateMySizesBrandSearch();
+      
+      const brandSearch = document.getElementById('mysizes-brand-search');
+      if (brandSearch) brandSearch.value = '';
+      
+      populateMySizesGrid();
     }
 
-    const genderBadge = `<span class="source-badge" style="background: var(--blue);">${gender === 'women' ? '👗 Women' : '👔 Men'}</span>`;
+    function setBrandNotesGenderFilter(gender) {
+      brandNotesGenderFilter = gender;
+      
+      document.querySelectorAll('[data-brandnotes-gender]').forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`[data-brandnotes-gender="${gender}"]`)?.classList.add('active');
+      
+      const searchInput = document.getElementById('brand-intel-search');
+      const categorySelect = document.getElementById('brand-intel-category');
+      if (searchInput) searchInput.value = '';
+      if (categorySelect) categorySelect.value = '';
+      
+      populateBrandNotes();
+    }
 
-    return `
-      <div class="brand-card">
-        <div class="brand-name">${name}</div>
-        <div style="margin-bottom: 12px;">
-          ${genderBadge}
-          ${sourceBadge}
-        </div>
-        <p><strong>Available Categories:</strong> ${categories}</p>
-        ${notes.sizing ? `<p><strong>Sizing:</strong> ${notes.sizing}</p>` : ''}
-        ${notes.bodyTypes ? `<p><strong>Body Types:</strong> ${notes.bodyTypes}</p>` : ''}
-        ${notes.fitNotes ? `<p><strong>Fit Notes:</strong> ${notes.fitNotes}</p>` : ''}
-        ${notes.special ? `<p><strong>Special:</strong> ${notes.special}</p>` : ''}
-        <div class="source-note">
-          <strong>📋 Source:</strong> ${sourceNote}
-        </div>
-        <p style="font-size:12px;color:var(--muted);margin-top:8px;">Last updated: ${updated}</p>
-      </div>
-    `;
-  }).join('');
+    function setSizeFinderGenderFilter(gender) {
+      sizeFinderGenderFilter = gender;
+      
+      document.querySelectorAll('[data-sizefinder-gender]').forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`[data-sizefinder-gender="${gender}"]`)?.classList.add('active');
+      
+      const brandSearch = document.getElementById('uk-brand-search');
+      const brandSelect = document.getElementById('uk-brand-select');
+      if (brandSearch) brandSearch.value = '';
+      if (brandSelect) brandSelect.value = '';
+      
+      loadUkBrandsForSizeFinder();
+    }
 
-  const genderText = brandNotesGenderFilter === 'all' ? 'all' : brandNotesGenderFilter + "'s";
-  const filterInfo = [];
-  if (searchTerm) filterInfo.push(`matching "${searchTerm}"`);
-  if (categoryFilter) filterInfo.push(`in ${categoryFilter}`);
-  const filterText = filterInfo.length ? ` ${filterInfo.join(' ')}` : '';
+    // ===== FIXED BRAND NOTES POPULATION =====
+    function populateBrandNotes() {
+      console.log('🔍 populateBrandNotes called');
+      
+      const container = document.getElementById('brand-notes-grid');
+      const statusText = document.getElementById('brandnotes-status-text');
+      const countDisplay = document.getElementById('brand-count-display');
+      
+      if (!container) {
+        console.error('❌ brand-notes-grid container not found');
+        return;
+      }
 
-  container.innerHTML = cards || `
-    <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--muted);">
-      No ${genderText} tall brands found${filterText}.
-    </div>`;
-}
+      const sourceDB = (BRAND_DB && Object.keys(BRAND_DB).length > 0) ? BRAND_DB : BRAND_SIZE_DATABASE;
+      
+      console.log('📊 Using database with', Object.keys(sourceDB).length, 'brands');
+      
+      if (Object.keys(sourceDB).length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--orange);">
+            <h3>⚠️ No Brand Data Loaded</h3>
+            <p>Make sure tall_sizes_complete.json is in the same folder as this HTML file.</p>
+            <button class="btn btn-primary" onclick="location.reload()">Reload Page</button>
+          </div>`;
+        if (statusText) statusText.textContent = 'No brand data available';
+        if (countDisplay) countDisplay.textContent = 'No brands loaded';
+        return;
+      }
+      
+      const searchTerm = (document.getElementById('brand-intel-search')?.value || '').toLowerCase().trim();
+      const categoryFilter = (document.getElementById('brand-intel-category')?.value || '').trim();
+      
+      console.log('🔍 Filters:', { searchTerm, categoryFilter, genderFilter: brandNotesGenderFilter });
+      
+      let filteredBrands = Object.keys(sourceDB);
+      
+      filteredBrands = filterBrandsByGender(filteredBrands, brandNotesGenderFilter);
+      console.log('👥 After gender filter:', filteredBrands.length, 'brands');
+      
+      if (searchTerm) {
+        filteredBrands = filteredBrands.filter(name => 
+          name.toLowerCase().includes(searchTerm)
+        );
+        console.log('🔎 After search filter:', filteredBrands.length, 'brands');
+      }
+      
+      if (categoryFilter) {
+        filteredBrands = filteredBrands.filter(name => {
+          const brand = sourceDB[name];
+          const categories = brand.categories ? Object.keys(brand.categories) : [];
+          return categories.includes(categoryFilter);
+        });
+        console.log('📂 After category filter:', filteredBrands.length, 'brands');
+      }
+
+      filteredBrands.sort((a, b) => a.localeCompare(b));
+
+      if (statusText) {
+        statusText.textContent = `${filteredBrands.length} brands available`;
+      }
+      
+      if (countDisplay) {
+        const genderText = brandNotesGenderFilter === 'all' ? 'all' : brandNotesGenderFilter + "'s";
+        const filterInfo = [];
+        if (searchTerm) filterInfo.push(`matching "${searchTerm}"`);
+        if (categoryFilter) filterInfo.push(`in ${categoryFilter}`);
+        const filterText = filterInfo.length ? ` ${filterInfo.join(' ')}` : '';
+        
+        countDisplay.textContent = `Showing ${filteredBrands.length} ${genderText} tall brands${filterText}`;
+      }
+
+      if (filteredBrands.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--muted);">
+            <h3>No brands found</h3>
+            <p>Try adjusting your filters or search term.</p>
+          </div>`;
+        return;
+      }
+
+      const cards = filteredBrands.map(brandName => {
+        const brand = sourceDB[brandName];
+        const notes = brand.notes || {};
+        const updated = brand.lastUpdated ? new Date(brand.lastUpdated).toLocaleDateString() : 'Not specified';
+        const sourceType = brand.sourceType || 'standard';
+        const sourceNote = brand.sourceNote || 'No source information available';
+        const gender = detectBrandGender(brandName, brand);
+        
+        const categories = brand.categories ? Object.keys(brand.categories) : [];
+        const categoryList = categories.length > 0 ? categories.join(', ') : 'Not specified';
+
+        let sourceBadge = '';
+        if (sourceType === 'official') {
+          sourceBadge = '<span class="source-badge source-official">✓ Official Chart</span>';
+        } else {
+          sourceBadge = '<span class="source-badge source-standard">⊙ Standard Chart</span>';
+        }
+
+        const genderBadge = `<span class="source-badge" style="background: var(--blue);">${gender === 'women' ? '👗 Women' : '👔 Men'}</span>`;
+
+        return `
+          <div class="brand-card">
+            <div class="brand-name">${brand.name || brandName}</div>
+            <div style="margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 8px;">
+              ${genderBadge}
+              ${sourceBadge}
+            </div>
+            <p style="font-size: 14px; margin-bottom: 8px;"><strong>Categories:</strong> ${categoryList}</p>
+            ${notes.sizing ? `<p style="font-size: 13px;"><strong>Sizing:</strong> ${notes.sizing}</p>` : ''}
+            ${notes.bodyTypes ? `<p style="font-size: 13px;"><strong>Body Types:</strong> ${notes.bodyTypes}</p>` : ''}
+            ${notes.fitNotes ? `<p style="font-size: 13px;"><strong>Fit Notes:</strong> ${notes.fitNotes}</p>` : ''}
+            ${notes.special ? `<p style="font-size: 13px;"><strong>Special:</strong> ${notes.special}</p>` : ''}
+            <div class="source-note">
+              <strong>📋 Data Source:</strong> ${sourceNote}
+            </div>
+            <p style="font-size:11px;color:var(--muted);margin-top:8px;">Last updated: ${updated}</p>
+          </div>
+        `;
+      }).join('');
+
+      container.innerHTML = cards;
+      console.log('✅ Rendered', filteredBrands.length, 'brand cards');
+    }
+
     // ===== UTILITY FUNCTIONS =====
     function kgFrom(value, unit) {
       if (unit === 'kg') return value;
@@ -3414,24 +3436,23 @@ function populateBrandNotes() {
       alert(guideContent);
     }
 
- // ===== FIXED MY SIZES BRAND SEARCH =====
-function hydrateMySizesBrandSearch() {
-  const datalist = document.getElementById('mysizes-brand-datalist');
-  if (!datalist) return;
-  
-  datalist.innerHTML = '';
-  
-  // Filter brands by current gender filter before adding to datalist
-  const filteredBrands = filterBrandsByGender(ALL_BRANDS, mySizesGenderFilter);
-  
-  filteredBrands.forEach(name => {
-    const option = document.createElement('option');
-    option.value = name;
-    datalist.appendChild(option);
-  });
-  
-  console.log(`Populated My Sizes brand search with ${filteredBrands.length} brands`);
-}
+    // ===== FIXED MY SIZES BRAND SEARCH =====
+    function hydrateMySizesBrandSearch() {
+      const datalist = document.getElementById('mysizes-brand-datalist');
+      if (!datalist) return;
+      
+      datalist.innerHTML = '';
+      
+      const filteredBrands = filterBrandsByGender(ALL_BRANDS, mySizesGenderFilter);
+      
+      filteredBrands.forEach(name => {
+        const option = document.createElement('option');
+        option.value = name;
+        datalist.appendChild(option);
+      });
+      
+      console.log(`Populated My Sizes brand search with ${filteredBrands.length} brands`);
+    }
 
     // ===== EVENT LISTENERS =====
     document.addEventListener('DOMContentLoaded', async () => {
@@ -3523,28 +3544,27 @@ function hydrateMySizesBrandSearch() {
         mySizesBrandSearch.addEventListener('input', populateMySizesGrid);
       }
 
-     const brandIntelSearch = document.getElementById('brand-intel-search');
-const brandIntelCategory = document.getElementById('brand-intel-category');
+      const brandIntelSearch = document.getElementById('brand-intel-search');
+      const brandIntelCategory = document.getElementById('brand-intel-category');
 
-if (brandIntelSearch) {
-  brandIntelSearch.addEventListener('input', () => {
-    console.log('Brand search changed:', brandIntelSearch.value);
-    populateBrandNotes();
-  });
-}
+      if (brandIntelSearch) {
+        brandIntelSearch.addEventListener('input', () => {
+          console.log('Brand search changed:', brandIntelSearch.value);
+          populateBrandNotes();
+        });
+      }
 
-if (brandIntelCategory) {
-  brandIntelCategory.addEventListener('change', () => {
-    console.log('Category filter changed:', brandIntelCategory.value);
-    populateBrandNotes();
-  });
-}
+      if (brandIntelCategory) {
+        brandIntelCategory.addEventListener('change', () => {
+          console.log('Category filter changed:', brandIntelCategory.value);
+          populateBrandNotes();
+        });
+      }
 
       miSizeSystem = new MiSizeAISystem();
       await loadUkBrands();
       await miSizeSystem.initialize();
 
-      // Hide flash screen immediately after loading
       console.log('✅ All systems loaded, showing home screen...');
       document.getElementById('flash').classList.remove('active');
       document.getElementById('home').classList.add('active');
@@ -3556,55 +3576,6 @@ if (brandIntelCategory) {
 
       console.log('MiSize Tall system initialized successfully!');
     });
-  // --- Brand Search & Display Fix ---
-  let allBrands = {};
-
-  async function loadBrandData() {
-    try {
-      const res = await fetch("tall_sizes_complete.json");
-      if (!res.ok) throw new Error("Failed to load brand data");
-      allBrands = await res.json();
-      console.log("✅ Brand data loaded:", Object.keys(allBrands).length, "brands");
-      renderBrands(Object.keys(allBrands));
-    } catch (err) {
-      console.error("Error loading brand data:", err);
-      document.querySelector("#brand-results").innerHTML = `<p style="color:red;">Error loading brand data.</p>`;
-    }
-  }
-
-  function renderBrands(brandNames) {
-    const container = document.querySelector("#brand-results");
-    if (!container) return;
-    container.innerHTML = "";
-
-    brandNames.forEach(name => {
-      const brand = allBrands[name];
-      const el = document.createElement("div");
-      el.className = "brand-card";
-      el.innerHTML = `
-        <div class="brand-name">${brand.name}</div>
-        <div class="brand-size">${Object.keys(brand.categories)[0]}</div>
-        <div class="source-note">${brand.sourceNote}</div>
-      `;
-      container.appendChild(el);
-    });
-  }
-
-  function searchBrands(term) {
-    const results = Object.keys(allBrands).filter(b =>
-      b.toLowerCase().includes(term.toLowerCase())
-    );
-    renderBrands(results);
-  }
-
-  // Attach listener if search bar exists
-  document.addEventListener("DOMContentLoaded", () => {
-    loadBrandData();
-    const search = document.querySelector("#brand-search");
-    if (search) {
-      search.addEventListener("input", e => searchBrands(e.target.value));
-    }
-  });
-</script>
+  </script>
 </body>
 </html>
