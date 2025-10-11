@@ -2076,48 +2076,55 @@
       }
     }
 
-    // ===== LOAD UK BRANDS FOR SIZE FINDER WITH GENDER FILTER =====
-    function loadUkBrandsForSizeFinder() {
-      const filteredBrands = filterBrandsByGender(ALL_BRANDS, sizeFinderGenderFilter);
-      
-      const datalist = document.getElementById('uk-brand-datalist');
-      const select = document.getElementById('uk-brand-select');
-      
-      if (datalist) datalist.innerHTML = '';
-      if (select) select.innerHTML = '<option value="">Select a brand…</option>';
-      
-      filteredBrands.forEach(name => {
-        if (datalist) {
-          const o = document.createElement('option');
-          o.value = name;
-          datalist.appendChild(o);
-        }
-        if (select) {
-          const o =
-			 document.createElement('option');
-          o.value = name;
-          o.textContent = name;
-          select.appendChild(o);
-        }
-      });
-      
-      const search = document.getElementById('uk-brand-search');
-      if (search && select) {
-        if (!search._bound) {
-          search._bound = true;
-          search.addEventListener('input', () => {
-            const v = search.value.trim();
-            if (filteredBrands.includes(v)) select.value = v;
-          });
-        }
-        if (!select._bound) {
-          select._bound = true;
-          select.addEventListener('change', () => {
-            if (select.value) search.value = select.value;
-          });
-        }
-      }
+// ===== FIXED SIZE FINDER BRAND SYNC =====
+function loadUkBrandsForSizeFinder() {
+  const filteredBrands = filterBrandsByGender(ALL_BRANDS, sizeFinderGenderFilter);
+  
+  const datalist = document.getElementById('uk-brand-datalist');
+  const select = document.getElementById('uk-brand-select');
+  
+  if (datalist) datalist.innerHTML = '';
+  if (select) select.innerHTML = '<option value="">Select a brand…</option>';
+  
+  filteredBrands.forEach(name => {
+    if (datalist) {
+      const o = document.createElement('option');
+      o.value = name;
+      datalist.appendChild(o);
     }
+    if (select) {
+      const o = document.createElement('option');
+      o.value = name;
+      o.textContent = name;
+      select.appendChild(o);
+    }
+  });
+  
+  const search = document.getElementById('uk-brand-search');
+  if (search && select) {
+    // Clear previous event listeners
+    const newSearch = search.cloneNode(true);
+    const newSelect = select.cloneNode(true);
+    search.parentNode.replaceChild(newSearch, search);
+    select.parentNode.replaceChild(newSelect, select);
+    
+    // Add new event listeners
+    newSearch.addEventListener('input', () => {
+      const v = newSearch.value.trim();
+      if (filteredBrands.includes(v)) {
+        newSelect.value = v;
+      }
+    });
+    
+    newSelect.addEventListener('change', () => {
+      if (newSelect.value) {
+        newSearch.value = newSelect.value;
+      }
+    });
+  }
+  
+  console.log(`Loaded ${filteredBrands.length} brands for size finder (${sizeFinderGenderFilter} filter)`);
+}
 
     // ===== SIZE MATCHING ENGINE CLASS =====
     class SizeMatchingEngine {
