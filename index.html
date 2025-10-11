@@ -3378,17 +3378,24 @@ function populateBrandNotes() {
       alert(guideContent);
     }
 
-    function hydrateMySizesBrandSearch() {
-      const datalist = document.getElementById('mysizes-brand-datalist');
-      if (!datalist) return;
-      
-      datalist.innerHTML = '';
-      ALL_BRANDS.forEach(name => {
-        const option = document.createElement('option');
-        option.value = name;
-        datalist.appendChild(option);
-      });
-    }
+ // ===== FIXED MY SIZES BRAND SEARCH =====
+function hydrateMySizesBrandSearch() {
+  const datalist = document.getElementById('mysizes-brand-datalist');
+  if (!datalist) return;
+  
+  datalist.innerHTML = '';
+  
+  // Filter brands by current gender filter before adding to datalist
+  const filteredBrands = filterBrandsByGender(ALL_BRANDS, mySizesGenderFilter);
+  
+  filteredBrands.forEach(name => {
+    const option = document.createElement('option');
+    option.value = name;
+    datalist.appendChild(option);
+  });
+  
+  console.log(`Populated My Sizes brand search with ${filteredBrands.length} brands`);
+}
 
     // ===== EVENT LISTENERS =====
     document.addEventListener('DOMContentLoaded', async () => {
