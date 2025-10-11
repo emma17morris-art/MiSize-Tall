@@ -2562,6 +2562,21 @@
         document.querySelector('.nav-item[onclick="goToHelp()"]')?.classList.add('active');
       }
     }
+	  // ⭐ NEW: Update category when clothing type selected
+function updateCategoryFromClothingType() {
+  const clothingType = document.getElementById('uk-clothing-type-select')?.value;
+  const categorySelect = document.getElementById('uk-category-select');
+  
+  if (clothingType && categorySelect) {
+    categorySelect.value = clothingType;
+    console.log('✅ Selected clothing type:', clothingType);
+    
+    // Trigger category change event to update brands
+    const event = new Event('change');
+    categorySelect.dispatchEvent(event);
+  }
+}
+
 	  // ===== ENHANCED SIZE FINDER WITH AI AND INSEAM RANGE =====
     async function getMySize() {
       const brandSelect = document.getElementById('uk-brand-select');
