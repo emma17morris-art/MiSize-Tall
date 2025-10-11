@@ -2216,37 +2216,39 @@
         return null;
       }
 
-      calculateFitScore(sizeMeasurements, fitAdjustment) {
-        let score = 0;
-        let measurementCount = 0;
+    calculateFitScore(sizeData) {
+  let score = 100;
+  const { bust, waist, hips, inseam } = this.userMeasurements;
 
-        if (this.userMeasurements.waist && sizeMeasurements.waist) {
-          const waistDiff = Math.abs(this.userMeasurements.waist - sizeMeasurements.waist - fitAdjustment);
-          score -= waistDiff * 2;
-          measurementCount++;
-        }
+  // Check waist fit (most important for jeans/pants)
+  if (sizeData.waist) {
+    const waistDiff = Math.abs(sizeData.waist - waist);
+    if (waistDiff > 3) score -= (waistDiff * 10);
+    if (sizeData.waist < waist - 1) score -= 30; // Too tight
+  }
 
-        if (this.userMeasurements.hips && sizeMeasurements.hips) {
-          const hipDiff = Math.abs(this.userMeasurements.hips - sizeMeasurements.hips - fitAdjustment);
-          score -= hipDiff * 1.5;
-          measurementCount++;
-        }
+  // Check hips fit
+  if (sizeData.hips) {
+    const hipsDiff = Math.abs(sizeData.hips - hips);
+    if (hipsDiff > 3) score -= (hipsDiff * 8);
+    if (sizeData.hips < hips - 1) score -= 25; // Too tight
+  }
 
-        if (this.userMeasurements.bust && sizeMeasurements.bust) {
-          const bustDiff = Math.abs(this.userMeasurements.bust - sizeMeasurements.bust - fitAdjustment);
-          score -= bustDiff * 1.5;
-          measurementCount++;
-        }
+  // Check bust fit (for tops)
+  if (sizeData.bust || sizeData.chest) {
+    const bustMeasure = sizeData.bust || sizeData.chest;
+    const bustDiff = Math.abs(bustMeasure - bust);
+    if (bustDiff > 3) score -= (bustDiff * 8);
+  }
 
-        if (this.userMeasurements.inseam && sizeMeasurements.inseam) {
-          const inseamDiff = sizeMeasurements.inseam - this.userMeasurements.inseam;
-          if (inseamDiff < -2) {
-            score -= Math.abs(inseamDiff) * 2;
-          }
-        }
+  // Check inseam
+  if (sizeData.inseam) {
+    const inseamDiff = Math.abs(sizeData.inseam - inseam);
+    if (inseamDiff > 2) score -= (inseamDiff * 5);
+  }
 
-        return measurementCount > 0 ? score : -100;
-      }
+  return Math.max(0, score);
+}
 
       calculateConfidence(score) {
         const maxScore = 0;
