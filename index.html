@@ -920,7 +920,7 @@
   </style>
 </head>
 <body>
-  <!-- Top Bar -->
+	<!-- Top Bar -->
   <div class="topbar">
     <div class="topbar-inner">
       <div class="logo">MiSize Tall</div>
@@ -999,6 +999,7 @@
       </div>
     </div>
   </div>
+
   <!-- Help Screen -->
   <div id="help" class="screen">
     <div class="content-container">
@@ -1052,7 +1053,7 @@
             </div>
             
             <div class="highlight-tip">
-              <p><strong>📏 Pro Tip:</strong> The system compares your exact measurements to real tall brand size charts for precision recommendations.</p>
+              <p><strong>🔍 Pro Tip:</strong> The system compares your exact measurements to real tall brand size charts for precision recommendations.</p>
             </div>
           </div>
 
@@ -1498,7 +1499,6 @@
       </div>
     </div>
   </div>
-
   <!-- Create Profile Screen -->
   <div id="create-profile" class="screen">
     <div class="content-container">
@@ -1687,6 +1687,7 @@
       </div>
     </div>
   </div>
+
   <!-- MiStats Screen -->
   <div id="mistats" class="screen">
     <div class="stats-tabs">
@@ -1971,12 +1972,18 @@
       return raw || {};
     }
 
-    // ===== GET INSEAM RANGE FUNCTION =====
+    // ===== FIXED GET INSEAM RANGE FUNCTION =====
     function getInseamRange(categoryData) {
       const inseams = [];
       Object.values(categoryData).forEach(sizeMeasurements => {
-        if (sizeMeasurements.inseam) {
-          inseams.push(sizeMeasurements.inseam);
+        // ⭐ Check multiple possible field names
+        const inseam = sizeMeasurements.inseam || 
+                      sizeMeasurements.inseam_inches || 
+                      sizeMeasurements['inseam (inches)'] || 
+                      sizeMeasurements.Inseam;
+        
+        if (inseam && !isNaN(parseFloat(inseam))) {
+          inseams.push(parseFloat(inseam));
         }
       });
       
@@ -2081,15 +2088,35 @@
       }
     }
 
-    // ===== FIXED SIZE FINDER BRAND SYNC =====
+    // ===== FIXED SIZE FINDER BRAND SYNC WITH CATEGORY AUTO-POPULATE =====
     function loadUkBrandsForSizeFinder() {
       const filteredBrands = filterBrandsByGender(ALL_BRANDS, sizeFinderGenderFilter);
       
       const datalist = document.getElementById('uk-brand-datalist');
       const select = document.getElementById('uk-brand-select');
+      const categorySelect = document.getElementById('uk-category-select');
       
       if (datalist) datalist.innerHTML = '';
       if (select) select.innerHTML = '<option value="">Select a brand…</option>';
+      
+      // ⭐ UPDATE CATEGORIES WHEN BRAND SELECTED
+      if (select && categorySelect) {
+        const newSelect = select.cloneNode(false);
+        select.parentNode.replaceChild(newSelect, select);
+        newSelect.innerHTML = '<option value="">Select a brand…</option>';
+        
+        newSelect.addEventListener('change', function() {
+          if (this.value) {
+            const brand = BRAND_DB[this.value] || BRAND_SIZE_DATABASE[this.value];
+            if (brand && brand.categories) {
+              const cats = Object.keys(brand.categories);
+              categorySelect.innerHTML = '<option value="">Select category...</option>' + 
+                cats.map(c => `<option value="${c}">${c}</option>`).join('');
+            }
+          } else {categorySelect.innerHTML = '<option value="">Select category...</option>';
+          }
+        });
+      }
       
       filteredBrands.forEach(name => {
         if (datalist) {
@@ -2097,31 +2124,31 @@
           o.value = name;
           datalist.appendChild(o);
         }
-        if (select) {
+        if (document.getElementById('uk-brand-select')) {
           const o = document.createElement('option');
           o.value = name;
           o.textContent = name;
-          select.appendChild(o);
+          document.getElementById('uk-brand-select').appendChild(o);
         }
       });
       
       const search = document.getElementById('uk-brand-search');
-      if (search && select) {
+      const finalSelect = document.getElementById('uk-brand-select');
+      if (search && finalSelect) {
         const newSearch = search.cloneNode(true);
-        const newSelect = select.cloneNode(true);
         search.parentNode.replaceChild(newSearch, search);
-        select.parentNode.replaceChild(newSelect, select);
         
         newSearch.addEventListener('input', () => {
           const v = newSearch.value.trim();
           if (filteredBrands.includes(v)) {
-            newSelect.value = v;
-          }
-        });
-        
-        newSelect.addEventListener('change', () => {
-          if (newSelect.value) {
-            newSearch.value = newSelect.value;
+            finalSelect.value = v;
+            // ⭐ Trigger category update
+            const brand = BRAND_DB[v] || BRAND_SIZE_DATABASE[v];
+            if (brand && brand.categories && categorySelect) {
+              const cats = Object.keys(brand.categories);
+              categorySelect.innerHTML = '<option value="">Select category...</option>' + 
+                cats.map(c => `<option value="${c}">${c}</option>`).join('');
+            }
           }
         });
       }
@@ -2141,7 +2168,7 @@
 
       setUserMeasurements(measurements) {
         this.userMeasurements = {
-        bust: parseFloat(measurements.chest || measurements.bust) || 0,
+          bust: parseFloat(measurements.chest || measurements.bust) || 0,
           waist: parseFloat(measurements.waist) || 0,
           hips: parseFloat(measurements.hips) || 0,
           inseam: parseFloat(measurements.inseam) || 0,
@@ -2216,39 +2243,52 @@
         return null;
       }
 
-    calculateFitScore(sizeData) {
-  let score = 100;
-  const { bust, waist, hips, inseam } = this.userMeasurements;
+      // ⭐ FIXED CALCULATE FIT SCORE
+      calculateFitScore(sizeData) {
+        let score = 100;
+        let measurementsChecked = 0;
+        const { bust, waist, hips, inseam } = this.userMeasurements;
 
-  // Check waist fit (most important for jeans/pants)
-  if (sizeData.waist) {
-    const waistDiff = Math.abs(sizeData.waist - waist);
-    if (waistDiff > 3) score -= (waistDiff * 10);
-    if (sizeData.waist < waist - 1) score -= 30; // Too tight
-  }
+        // ⭐ Check waist (most important)
+        if (sizeData.waist && waist) {
+          measurementsChecked++;
+          const waistDiff = Math.abs(sizeData.waist - waist);
+          if (waistDiff > 3) score -= (waistDiff * 10);
+          if (sizeData.waist < waist - 1) score -= 30; // Too tight penalty
+        }
 
-  // Check hips fit
-  if (sizeData.hips) {
-    const hipsDiff = Math.abs(sizeData.hips - hips);
-    if (hipsDiff > 3) score -= (hipsDiff * 8);
-    if (sizeData.hips < hips - 1) score -= 25; // Too tight
-  }
+        // ⭐ Check hips
+        if (sizeData.hips && hips) {
+          measurementsChecked++;
+          const hipsDiff = Math.abs(sizeData.hips - hips);
+          if (hipsDiff > 3) score -= (hipsDiff * 8);
+          if (sizeData.hips < hips - 1) score -= 25; // Too tight penalty
+        }
 
-  // Check bust fit (for tops)
-  if (sizeData.bust || sizeData.chest) {
-    const bustMeasure = sizeData.bust || sizeData.chest;
-    const bustDiff = Math.abs(bustMeasure - bust);
-    if (bustDiff > 3) score -= (bustDiff * 8);
-  }
+        // ⭐ Check bust/chest
+        if ((sizeData.bust || sizeData.chest) && bust) {
+          measurementsChecked++;
+          const bustMeasure = sizeData.bust || sizeData.chest;
+          const bustDiff = Math.abs(bustMeasure - bust);
+          if (bustDiff > 3) score -= (bustDiff * 8);
+          if (bustMeasure < bust - 1) score -= 25; // Too tight penalty
+        }
 
-  // Check inseam
-  if (sizeData.inseam) {
-    const inseamDiff = Math.abs(sizeData.inseam - inseam);
-    if (inseamDiff > 2) score -= (inseamDiff * 5);
-  }
+        // ⭐ Check inseam
+        if (sizeData.inseam && inseam) {
+          measurementsChecked++;
+          const inseamDiff = Math.abs(sizeData.inseam - inseam);
+          if (inseamDiff > 2) score -= (inseamDiff * 5);
+        }
 
-  return Math.max(0, score);
-}
+        // ⭐ If no measurements matched, return very low score
+        if (measurementsChecked === 0) {
+          console.warn('⚠️ No measurements could be compared for size', sizeData);
+          return -100;
+        }
+
+        return Math.max(-100, score);
+      }
 
       calculateConfidence(score) {
         const maxScore = 0;
@@ -2409,7 +2449,8 @@
 
       sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     }
-	  // ===== NAVIGATION FUNCTIONS =====
+
+    // ===== NAVIGATION FUNCTIONS =====
     function enterHub(region) {
       const hubScreen = region.toLowerCase() + '-hub';
       goToScreen(hubScreen);
@@ -2498,8 +2539,7 @@
         document.querySelector('.nav-item[onclick="goToHelp()"]')?.classList.add('active');
       }
     }
-
-    // ===== ENHANCED SIZE FINDER WITH AI AND INSEAM RANGE =====
+	  // ===== ENHANCED SIZE FINDER WITH AI AND INSEAM RANGE =====
     async function getMySize() {
       const brandSelect = document.getElementById('uk-brand-select');
       const brandSearch = document.getElementById('uk-brand-search');
@@ -2620,7 +2660,7 @@
       }
     }
 
-    // ===== MY SIZES: RENDER GRID WITH INSEAM RANGE =====
+    // ===== FIXED MY SIZES: RENDER GRID WITH INSEAM RANGE =====
     async function populateMySizesGrid() {
       const grid = document.getElementById('my-sizes-grid');
       const statusText = document.getElementById('mysizes-status-text');
@@ -2810,13 +2850,17 @@
 
     // ===== IMPROVED GENDER DETECTION =====
     function detectBrandGender(brandName, brandData) {
+      // 1. Check explicit gender field
       if (brandData.gender) {
-        return brandData.gender.toLowerCase();
+        const g = brandData.gender.toLowerCase();
+        if (g.includes('women') || g === 'female' || g === 'f') return 'women';
+        if (g.includes('men') || g === 'male' || g === 'm') return 'men';
       }
       
+      // 2. Check brand name
       const nameLower = brandName.toLowerCase();
-      const menKeywords = ['men', 'menswear', 'male', 'guys'];
-      const womenKeywords = ['women', 'ladies', 'female', 'girls'];
+      const menKeywords = ['men\'s', 'mens', 'menswear', 'male', 'guys', 'gents', 'man'];
+      const womenKeywords = ['women\'s', 'womens', 'ladies', 'female', 'girls', 'woman'];
       
       const hasMenInName = menKeywords.some(keyword => nameLower.includes(keyword));
       const hasWomenInName = womenKeywords.some(keyword => nameLower.includes(keyword));
@@ -2824,21 +2868,21 @@
       if (hasMenInName && !hasWomenInName) return 'men';
       if (hasWomenInName && !hasMenInName) return 'women';
       
+      // 3. Check categories
       const categories = brandData.categories ? Object.keys(brandData.categories) : [];
-      const categoryStr = categories.join(' ').toLowerCase();
+      let womenCount = 0;
+      let menCount = 0;
       
-      const hasWomensCategories = womenKeywords.some(keyword => categoryStr.includes(keyword));
-      const hasMensCategories = menKeywords.some(keyword => categoryStr.includes(keyword));
-      
-      if (hasWomensCategories && !hasMensCategories) return 'women';
-      if (hasMensCategories && !hasWomensCategories) return 'men';
-      
-      const womenCount = categories.filter(c => womenKeywords.some(k => c.toLowerCase().includes(k))).length;
-      const menCount = categories.filter(c => menKeywords.some(k => c.toLowerCase().includes(k))).length;
+      categories.forEach(c => {
+        const cLower = c.toLowerCase();
+        if (womenKeywords.some(k => cLower.includes(k))) womenCount++;
+        if (menKeywords.some(k => cLower.includes(k))) menCount++;
+      });
       
       if (menCount > womenCount) return 'men';
       if (womenCount > menCount) return 'women';
       
+      // 4. Default to 'women' (most tall brands are women's)
       return 'women';
     }
 
@@ -2929,7 +2973,7 @@
       const searchTerm = (document.getElementById('brand-intel-search')?.value || '').toLowerCase().trim();
       const categoryFilter = (document.getElementById('brand-intel-category')?.value || '').trim();
       
-      console.log('🔍 Filters:', { searchTerm, categoryFilter, genderFilter: brandNotesGenderFilter });
+      console.log('🔎 Filters:', { searchTerm, categoryFilter, genderFilter: brandNotesGenderFilter });
       
       let filteredBrands = Object.keys(sourceDB);
       
@@ -3256,6 +3300,34 @@
     }
 
     // ===== PROFILE MANAGEMENT FUNCTIONS =====
+    
+    // ⭐ FIXED: Load profile measurements when profile selected
+    function loadProfileMeasurements(profileName) {
+      const profile = profileData[profileName];
+      
+      if (!profile || !profile.measurements) {
+        // Clear all fields if no measurements
+        document.getElementById('weight').value = '';
+        document.getElementById('chest').value = '';
+        document.getElementById('waist').value = '';
+        document.getElementById('hips').value = '';
+        document.getElementById('inseam').value = '';
+        document.getElementById('shoulders').value = '';
+        document.getElementById('arms').value = '';
+        return;
+      }
+
+      // Load measurements into form
+      document.getElementById('weight').value = profile.measurements.weight || '';
+      document.getElementById('chest').value = profile.measurements.chest || '';
+      document.getElementById('waist').value = profile.measurements.waist || '';
+      document.getElementById('hips').value = profile.measurements.hips || '';
+      document.getElementById('inseam').value = profile.measurements.inseam || '';
+      document.getElementById('shoulders').value = profile.measurements.shoulders || '';
+      document.getElementById('arms').value = profile.measurements.arms || '';
+    }
+
+    // ⭐ FIXED: Populate profile dropdown with event listener
     function populateProfileDropdown() {
       const select = document.getElementById('measurement-profile-select');
       if (!select) return;
@@ -3267,7 +3339,15 @@
       
       if (currentProfile) {
         select.value = currentProfile;
+        loadProfileMeasurements(currentProfile); // ⭐ ADD THIS
       }
+
+      // ⭐ ADD EVENT LISTENER
+      select.addEventListener('change', () => {
+        if (select.value) {
+          loadProfileMeasurements(select.value);
+        }
+      });
     }
 
     function loadSavedProfiles() {
@@ -3371,16 +3451,18 @@
       goToScreen('uk-settings');
     }
 
+    // ⭐ FIXED: Save measurements with validation
     function saveMeasurementsToProfile() {
       const profileSelect = document.getElementById('measurement-profile-select');
       const profileName = profileSelect?.value || currentProfile;
       
       if (!profileName || !profileData[profileName]) {
-        alert('Please select a profile first');
+        alert('⚠️ Please select a profile first');
         return;
       }
 
-      profileData[profileName].measurements = {
+      // ⭐ Collect measurements
+      const measurements = {
         weight: parseFloat(document.getElementById('weight').value) || 0,
         chest: parseFloat(document.getElementById('chest').value) || 0,
         waist: parseFloat(document.getElementById('waist').value) || 0,
@@ -3390,16 +3472,29 @@
         arms: parseFloat(document.getElementById('arms').value) || 0
       };
 
-      if (miSizeSystem && miSizeSystem.isInitialized) {
-        miSizeSystem.updateUserMeasurements();
+      // ⭐ Validate critical measurements
+      if (measurements.chest === 0 || measurements.waist === 0 || measurements.hips === 0) {
+        if (!confirm('⚠️ Chest, waist, and hips measurements are required for accurate sizing.\n\nContinue anyway?')) {
+          return;
+        }
       }
 
+      // ⭐ Save to profile
+      profileData[profileName].measurements = measurements;
+
+      // ⭐ Update AI system
+      if (miSizeSystem && miSizeSystem.isInitialized) {
+        miSizeSystem.updateUserMeasurements();
+        console.log('✅ AI system updated with new measurements');
+      }
+
+      // ⭐ Update timestamp
       const lastUpdate = document.getElementById('last-update-time');
       if (lastUpdate) {
         lastUpdate.textContent = new Date().toLocaleString();
       }
 
-      alert('Measurements saved successfully and AI system updated!');
+      alert('✅ Measurements saved successfully!\n\nYour AI sizing recommendations will now be updated.');
     }
 
     function saveToHistory() {
