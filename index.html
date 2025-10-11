@@ -2103,9 +2103,7 @@
     txt.innerHTML = `❌ Could not load tall_sizes_complete.json - ${err.message}<br><small>Make sure the file is in the same folder as this HTML file</small>`;
   }
   
-  // ⭐ REMOVE THE ALERT - IT BLOCKS THE PAGE
-  // alert('⚠️ ERROR: Could not load your brand data!\n\nMake sure "tall_sizes_complete.json" is in the SAME FOLDER as this HTML file.\n\nError details: ' + err.message);
-  
+ 
   BRAND_DB = {};
   ALL_BRANDS = [];
   ALL_CATEGORIES = new Set();
@@ -2113,7 +2111,7 @@
   // ⭐ ADD THIS: Continue anyway even if JSON fails to load
   return; // Exit gracefully without blocking
 }
-    }
+    
 
     // ===== FIXED SIZE FINDER BRAND SYNC WITH CATEGORY AUTO-POPULATE =====
     function loadUkBrandsForSizeFinder() {
