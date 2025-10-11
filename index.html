@@ -2489,68 +2489,126 @@
     }
 
     // ===== ENHANCED SIZE FINDER WITH AI AND INSEAM RANGE =====
-    async function getMySize() {
-      const brandSelect = document.getElementById('uk-brand-select');
-      const brandSearch = document.getElementById('uk-brand-search');
-      const brand = (brandSelect?.value || brandSearch?.value || '').trim();
-      const category = document.getElementById('uk-category-select')?.value;
-      const fit = document.getElementById('uk-fit-select')?.value;
+   async function getMySize() {
+  const brandSelect = document.getElementById('uk-brand-select');
+  const brandSearch = document.getElementById('uk-brand-search');
+  const brand = (brandSelect?.value || brandSearch?.value || '').trim();
+  const category = document.getElementById('uk-category-select')?.value;
+  const fit = document.getElementById('uk-fit-select')?.value;
 
-      if (!brand || !category || !fit) {
-        alert('Please select all options to find your size.');
-        return;
-      }
+  if (!brand || !category || !fit) {
+    alert('Please select all options to find your size.');
+    return;
+  }
 
-      if (!BRAND_DB[brand] && !BRAND_SIZE_DATABASE[brand]) {
-        alert(`Brand "${brand}" not found in database. Please select a valid brand.`);
-        return;
-      }
+  if (!BRAND_DB[brand] && !BRAND_SIZE_DATABASE[brand]) {
+    alert(`Brand "${brand}" not found in database. Please select a valid brand.`);
+    return;
+  }
 
-      console.log('Finding size for:', { brand, category, fit });
-      console.log('Current profile:', currentProfile);
-      console.log('User measurements:', profileData[currentProfile]?.measurements);
+  const button = document.getElementById('size-finder-btn-text');
+  const originalText = button.textContent;
+  button.innerHTML = '<span class="loading-spinner"></span>Analyzing...';
 
-      const button = document.getElementById('size-finder-btn-text');
-      const originalText = button.textContent;
-      button.innerHTML = '<span class="loading-spinner"></span>Analyzing...';
+  try {
+    // Get size recommendations for all three fit preferences
+    const snugResult = await miSizeSystem.getAccurateSize(brand, category, 'snug');
+    const standardResult = await miSizeSystem.getAccurateSize(brand, category, 'standard');
+    const relaxedResult = await miSizeSystem.getAccurateSize(brand, category, 'relaxed');
 
-      try {
-        const result = await miSizeSystem.getAccurateSize(brand, category, fit);
+    const resultDiv = document.getElementById('size-result');
 
-        console.log('Size result:', result);
+    if (standardResult.success) {
+      const results = [
+        { label: 'Size Down (Snug Fit)', result: snugResult, icon: '⬇️' },
+        { label: 'True to Size (Standard Fit)', result: standardResult, icon: '✅' },
+        { label: 'Size Up (Relaxed Fit)', result: relaxedResult, icon: '⬆️' }
+      ].filter(r => r.result.success);
 
-        const resultDiv = document.getElementById('size-result');
-
-        if (result.success) {
-          let measurementComparison = '';
-          if (result.fitAnalysis && result.fitAnalysis.fit) {
-            measurementComparison = '<div style="background: var(--bg); border-radius: 8px; padding: 16px; margin-top: 16px;">';
-            measurementComparison += '<h5 style="margin: 0 0 12px; color: var(--brand);">📏 Detailed Measurement Comparison</h5>';
-            measurementComparison += '<div style="display: grid; gap: 12px;">';
+      let sizesHTML = '<div style="display: grid; gap: 16px; margin-bottom: 20px;">';
+      
+      results.forEach(({ label, result, icon }) => {
+        let measurementComparison = '';
+        if (result.fitAnalysis && result.fitAnalysis.fit) {
+          measurementComparison = '<div style="font-size: 12px; margin-top: 8px; display: grid; gap: 4px;">';
+          Object.entries(result.fitAnalysis.fit).forEach(([measurement, details]) => {
+            const diff = details.difference;
+            const absDiff = Math.abs(diff);
+            let diffColor = absDiff <= 1 ? 'var(--green)' : (diff > 1 ? 'var(--orange)' : 'var(--blue)');
+            let diffIcon = absDiff <= 1 ? '✅' : (diff > 1 ? '⚠️' : 'ℹ️');
             
-            Object.entries(result.fitAnalysis.fit).forEach(([measurement, details]) => {
-              const diff = details.difference;
-              const absDiff = Math.abs(diff);
-              const userMeas = details.userMeasurement;
-              const sizeMeas = details.sizeMeasurement;
-              
-              let diffText = '';
-              let diffColor = 'var(--green)';
-              let icon = '✅';
-              
-              if (absDiff <= 1) {
-                diffText = 'Perfect fit';
-                diffColor = 'var(--green)';
-                icon = '✅';
-              } else if (diff > 1) {
-                diffText = `Size is ${absDiff.toFixed(1)}" too small`;
-                diffColor = 'var(--orange)';
-                icon = '⚠️';
-              } else {
-                diffText = `Size is ${absDiff.toFixed(1)}" too large`;
-                diffColor = 'var(--blue)';
-                icon = 'ℹ️';
-              }
+            measurementComparison += `
+              <div style="display: flex; justify-content: space-between; padding: 4px 8px; background: var(--bg); border-radius: 4px;">
+                <span style="text-transform: capitalize;">${diffIcon} ${measurement}</span>
+                <span style="color: ${diffColor}; font-weight: 600;">You: ${details.userMeasurement}" / Size: ${details.sizeMeasurement}"</span>
+              </div>
+            `;
+          });
+          measurementComparison += '</div>';
+        }
+
+        let inseamDisplay = '';
+        if (result.inseamRange) {
+          inseamDisplay = `
+            <div style="background: rgba(138, 43, 226, 0.15); padding: 8px 12px; border-radius: 6px; margin-top: 8px; font-size: 13px;">
+              📏 <strong>Inseam:</strong> ${result.inseamRange.display} (${(result.inseamRange.min * 2.54).toFixed(1)} - ${(result.inseamRange.max * 2.54).toFixed(1)} cm)
+            </div>
+          `;
+        }
+
+        sizesHTML += `
+          <div style="background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <h4 style="margin: 0; color: var(--brand);">${icon} ${label}</h4>
+              <div style="display: flex; gap: 12px; align-items: center;">
+                <div style="background: var(--brand); color: white; padding: 8px 16px; border-radius: 8px; font-weight: 700;">
+                  Size ${result.recommendedSize}
+                </div>
+                <div style="color: var(--green); font-weight: 600; font-size: 14px;">
+                  ${result.confidence}% match
+                </div>
+              </div>
+            </div>
+            ${inseamDisplay}
+            ${measurementComparison}
+          </div>
+        `;
+      });
+
+      sizesHTML += '</div>';
+
+      resultDiv.innerHTML = `
+        <h4 style="color: var(--green); margin: 0 0 16px;">✅ Your Size Options for ${brand}</h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; padding: 12px; background: var(--bg); border-radius: 8px;">
+          <div><strong>Brand:</strong> ${standardResult.brand}</div>
+          <div><strong>Category:</strong> ${standardResult.category}</div>
+        </div>
+        ${sizesHTML}
+      `;
+      resultDiv.style.display = 'block';
+      resultDiv.style.borderColor = 'var(--green)';
+    } else {
+      resultDiv.innerHTML = `
+        <h4 style="color: var(--orange); margin: 0 0 16px;">⚠️ Limited Data Available</h4>
+        <p>${standardResult.message}</p>
+      `;
+      resultDiv.style.display = 'block';
+      resultDiv.style.borderColor = 'var(--orange)';
+    }
+
+  } catch (error) {
+    console.error('Error in getMySize:', error);
+    const resultDiv = document.getElementById('size-result');
+    resultDiv.innerHTML = `
+      <h4 style="color: var(--orange); margin: 0 0 16px;">❌ Error</h4>
+      <p>Error finding size: ${error.message}</p>
+    `;
+    resultDiv.style.display = 'block';
+    resultDiv.style.borderColor = 'var(--orange)';
+  } finally {
+    button.textContent = originalText;
+  }
+}
               
               measurementComparison += `
                 <div style="border-left: 3px solid ${diffColor}; padding-left: 12px;">
