@@ -33,8 +33,8 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.957044",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:44.998519",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -45,57 +45,75 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.957108",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:44.998586",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Abercrombie UK \u2013 Men": {
-    "name": "Abercrombie UK \u2013 Men",
+  "Abercrombie UK – Men": {
+    "name": "Abercrombie UK – Men",
     "categories": {
       "Men's Tall Jeans": {
         "W28 Tall": {
@@ -128,120 +146,156 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.957160",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:44.998635",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Abercrombie UK \u2013 Women": {
-    "name": "Abercrombie UK \u2013 Women",
+  "Abercrombie UK – Women": {
+    "name": "Abercrombie UK – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.957232",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:44.998706",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Bershka \u2013 Women (Long)": {
-    "name": "Bershka \u2013 Women (Long)",
+  "Bershka – Women (Long)": {
+    "name": "Bershka – Women (Long)",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.957292",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:44.998766",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -252,108 +306,144 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.957351",
-    "authenticity": "\u2705 Authentic (Brand chart)",
+    "lastUpdated": "2025-10-11T20:22:44.998826",
+    "authenticity": "✅ Authentic (Brand chart)",
     "sourceNote": "Official chart via brand URL",
     "notes": {}
   },
-  "Boden \u2013 Women (Long/Tall)": {
-    "name": "Boden \u2013 Women (Long/Tall)",
+  "Boden – Women (Long/Tall)": {
+    "name": "Boden – Women (Long/Tall)",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.957616",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:44.999065",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -364,57 +454,75 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.957678",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:44.999140",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Burton Menswear \u2013 Men": {
-    "name": "Burton Menswear \u2013 Men",
+  "Burton Menswear – Men": {
+    "name": "Burton Menswear – Men",
     "categories": {
       "Men's Tall Jeans": {
         "W28 Tall": {
@@ -447,64 +555,82 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.957725",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:44.999188",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Coast \u2013 Women": {
-    "name": "Coast \u2013 Women",
+  "Coast – Women": {
+    "name": "Coast – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.957785",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:44.999248",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -515,52 +641,70 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.957867",
-    "authenticity": "\u2705 Authentic (Brand chart)",
+    "lastUpdated": "2025-10-11T20:22:44.999326",
+    "authenticity": "✅ Authentic (Brand chart)",
     "sourceNote": "Official chart via brand URL",
     "notes": {}
   },
@@ -571,52 +715,70 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.957926",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:44.999390",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -627,113 +789,149 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.957984",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:44.999448",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Evans \u2013 Women": {
-    "name": "Evans \u2013 Women",
+  "Evans – Women": {
+    "name": "Evans – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.958052",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:44.999518",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "F&F (Tesco) \u2013 Men": {
-    "name": "F&F (Tesco) \u2013 Men",
+  "F&F (Tesco) – Men": {
+    "name": "F&F (Tesco) – Men",
     "categories": {
       "Men's Tall Jeans": {
         "W28 Tall": {
@@ -766,69 +964,87 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.958099",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:44.999566",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "F&F (Tesco) \u2013 Women": {
-    "name": "F&F (Tesco) \u2013 Women",
+  "F&F (Tesco) – Women": {
+    "name": "F&F (Tesco) – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.958159",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:44.999627",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "FatFace \u2013 Men\u2019s Tall": {
-    "name": "FatFace \u2013 Men\u2019s Tall",
+  "FatFace – Men’s Tall": {
+    "name": "FatFace – Men’s Tall",
     "categories": {
       "Men's Tall Jeans": {
         "W28 Tall": {
@@ -861,8 +1077,8 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.958206",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:44.999673",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -873,57 +1089,75 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 36.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 36.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 36.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 36.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 36.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 36.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 36.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 36.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 36.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.958285",
-    "authenticity": "\u2705 Authentic (Brand chart)",
+    "lastUpdated": "2025-10-11T20:22:44.999754",
+    "authenticity": "✅ Authentic (Brand chart)",
     "sourceNote": "Official chart via brand URL",
     "notes": {}
   },
-  "Gap UK \u2013 Men": {
-    "name": "Gap UK \u2013 Men",
+  "Gap UK – Men": {
+    "name": "Gap UK – Men",
     "categories": {
       "Men's Tall Jeans": {
         "W28 Tall": {
@@ -956,69 +1190,87 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.958330",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:44.999799",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Gap UK \u2013 Women": {
-    "name": "Gap UK \u2013 Women",
+  "Gap UK – Women": {
+    "name": "Gap UK – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.958387",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:44.999859",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "George at ASDA \u2013 Men": {
-    "name": "George at ASDA \u2013 Men",
+  "George at ASDA – Men": {
+    "name": "George at ASDA – Men",
     "categories": {
       "Men's Tall Jeans": {
         "W28 Tall": {
@@ -1051,64 +1303,82 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.958431",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:44.999904",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "George at ASDA \u2013 Women": {
-    "name": "George at ASDA \u2013 Women",
+  "George at ASDA – Women": {
+    "name": "George at ASDA – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.958497",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:44.999972",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -1119,57 +1389,75 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.958553",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.000031",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Hollister UK \u2013 Men": {
-    "name": "Hollister UK \u2013 Men",
+  "Hollister UK – Men": {
+    "name": "Hollister UK – Men",
     "categories": {
       "Men's Tall Jeans": {
         "W28 Tall": {
@@ -1202,120 +1490,156 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.958597",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.000076",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Hollister UK \u2013 Women": {
-    "name": "Hollister UK \u2013 Women",
+  "Hollister UK – Women": {
+    "name": "Hollister UK – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.958655",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.000136",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "In The Style \u2013 Women (Tall)": {
-    "name": "In The Style \u2013 Women (Tall)",
+  "In The Style – Women (Tall)": {
+    "name": "In The Style – Women (Tall)",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.958723",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.000213",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -1353,8 +1677,8 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.958767",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.000258",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -1365,108 +1689,144 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.958823",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.000318",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Jumping Ships \u2013 Women": {
-    "name": "Jumping Ships \u2013 Women",
+  "Jumping Ships – Women": {
+    "name": "Jumping Ships – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.958888",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.000384",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -1477,57 +1837,75 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.958945",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.000444",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Lee UK \u2013 Men": {
-    "name": "Lee UK \u2013 Men",
+  "Lee UK – Men": {
+    "name": "Lee UK – Men",
     "categories": {
       "Men's Tall Jeans": {
         "W28 Tall": {
@@ -1560,8 +1938,8 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.958989",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.000489",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -1572,113 +1950,149 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 34.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 34.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 34.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 34.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 34.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 34.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 34.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 34.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 34.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.959047",
-    "authenticity": "\u2705 Authentic (Brand chart)",
+    "lastUpdated": "2025-10-11T20:22:45.000551",
+    "authenticity": "✅ Authentic (Brand chart)",
     "sourceNote": "Official chart via brand URL",
     "notes": {}
   },
-  "Levi\u2019s": {
-    "name": "Levi\u2019s",
+  "Levi’s": {
+    "name": "Levi’s",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.959109",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.000617",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Levi\u2019s UK \u2013 Men": {
-    "name": "Levi\u2019s UK \u2013 Men",
+  "Levi’s UK – Men": {
+    "name": "Levi’s UK – Men",
     "categories": {
       "Men's Tall Jeans": {
         "W28 Tall": {
@@ -1711,64 +2125,82 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.959153",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.000662",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Levi\u2019s UK \u2013 Women": {
-    "name": "Levi\u2019s UK \u2013 Women",
+  "Levi’s UK – Women": {
+    "name": "Levi’s UK – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.959211",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.000723",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -1779,52 +2211,70 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 38.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 38.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 38.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 38.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 38.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 38.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 38.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 38.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 38.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.959273",
-    "authenticity": "\u2705 Authentic (Brand chart)",
+    "lastUpdated": "2025-10-11T20:22:45.000791",
+    "authenticity": "✅ Authentic (Brand chart)",
     "sourceNote": "Official chart via brand URL",
     "notes": {}
   },
@@ -1835,52 +2285,70 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.959330",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.000852",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -1891,113 +2359,149 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.959384",
-    "authenticity": "\u2705 Authentic (Brand chart)",
+    "lastUpdated": "2025-10-11T20:22:45.000912",
+    "authenticity": "✅ Authentic (Brand chart)",
     "sourceNote": "Official chart via brand URL",
     "notes": {}
   },
-  "Mango \u2013 Women (Long)": {
-    "name": "Mango \u2013 Women (Long)",
+  "Mango – Women (Long)": {
+    "name": "Mango – Women (Long)",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.959442",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.000973",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Marks & Spencer \u2013 Men": {
-    "name": "Marks & Spencer \u2013 Men",
+  "Marks & Spencer – Men": {
+    "name": "Marks & Spencer – Men",
     "categories": {
       "Men's Tall Jeans": {
         "W28 Tall": {
@@ -2030,120 +2534,156 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.959493",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.001026",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Marks & Spencer \u2013 Women": {
-    "name": "Marks & Spencer \u2013 Women",
+  "Marks & Spencer – Women": {
+    "name": "Marks & Spencer – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.959550",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.001089",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Matalan \u2013 Women Tall": {
-    "name": "Matalan \u2013 Women Tall",
+  "Matalan – Women Tall": {
+    "name": "Matalan – Women Tall",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.959605",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.001150",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -2154,108 +2694,144 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.959667",
-    "authenticity": "\u2705 Authentic (Brand chart)",
+    "lastUpdated": "2025-10-11T20:22:45.001218",
+    "authenticity": "✅ Authentic (Brand chart)",
     "sourceNote": "Official chart via brand URL",
     "notes": {}
   },
-  "Missguided Tall \u2013 Women": {
-    "name": "Missguided Tall \u2013 Women",
+  "Missguided Tall – Women": {
+    "name": "Missguided Tall – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.959723",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.001279",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -2266,108 +2842,144 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.959778",
-    "authenticity": "\u2705 Authentic (Brand chart)",
+    "lastUpdated": "2025-10-11T20:22:45.001339",
+    "authenticity": "✅ Authentic (Brand chart)",
     "sourceNote": "Official chart via brand URL",
     "notes": {}
   },
-  "Monsoon \u2013 Women (Tall)": {
-    "name": "Monsoon \u2013 Women (Tall)",
+  "Monsoon – Women (Tall)": {
+    "name": "Monsoon – Women (Tall)",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.959838",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.001406",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -2378,52 +2990,70 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 36.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 36.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 36.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 36.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 36.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 36.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 36.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 36.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 36.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.959898",
-    "authenticity": "\u2705 Authentic (Brand chart)",
+    "lastUpdated": "2025-10-11T20:22:45.001470",
+    "authenticity": "✅ Authentic (Brand chart)",
     "sourceNote": "Official chart via brand URL",
     "notes": {}
   },
@@ -2434,57 +3064,75 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.959953",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.001531",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "New Look \u2013 Men": {
-    "name": "New Look \u2013 Men",
+  "New Look – Men": {
+    "name": "New Look – Men",
     "categories": {
       "Men's Tall Jeans": {
         "W28 Tall": {
@@ -2517,8 +3165,8 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.959998",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.001576",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -2559,57 +3207,75 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 35.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 35.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 35.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 35.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 35.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 35.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 35.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 35.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 35.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.960101",
-    "authenticity": "\u2705 Authentic (Brand chart)",
+    "lastUpdated": "2025-10-11T20:22:45.001688",
+    "authenticity": "✅ Authentic (Brand chart)",
     "sourceNote": "Official chart via brand URL",
     "notes": {}
   },
-  "Next \u2013 Men": {
-    "name": "Next \u2013 Men",
+  "Next – Men": {
+    "name": "Next – Men",
     "categories": {
       "Men's Tall Jeans": {
         "W28 Tall": {
@@ -2642,64 +3308,82 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.960144",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.001734",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Next \u2013 Women": {
-    "name": "Next \u2013 Women",
+  "Next – Women": {
+    "name": "Next – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.960200",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.001794",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -2710,108 +3394,144 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.960275",
-    "authenticity": "\u2705 Authentic (Brand chart)",
+    "lastUpdated": "2025-10-11T20:22:45.001873",
+    "authenticity": "✅ Authentic (Brand chart)",
     "sourceNote": "Official chart via brand URL",
     "notes": {}
   },
-  "Oasis \u2013 Women": {
-    "name": "Oasis \u2013 Women",
+  "Oasis – Women": {
+    "name": "Oasis – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.960330",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.001931",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -2822,108 +3542,144 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.960388",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.001991",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Parisian Tall \u2013 Women": {
-    "name": "Parisian Tall \u2013 Women",
+  "Parisian Tall – Women": {
+    "name": "Parisian Tall – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.960453",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.002057",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -2934,108 +3690,144 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.960510",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.002116",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Pull & Bear \u2013 Women (Long)": {
-    "name": "Pull & Bear \u2013 Women (Long)",
+  "Pull & Bear – Women (Long)": {
+    "name": "Pull & Bear – Women (Long)",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.960566",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.002176",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -3046,57 +3838,75 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.960626",
-    "authenticity": "\u2705 Authentic (Brand chart)",
+    "lastUpdated": "2025-10-11T20:22:45.002239",
+    "authenticity": "✅ Authentic (Brand chart)",
     "sourceNote": "Official chart via brand URL",
     "notes": {}
   },
-  "River Island \u2013 Big & Tall (Men)": {
-    "name": "River Island \u2013 Big & Tall (Men)",
+  "River Island – Big & Tall (Men)": {
+    "name": "River Island – Big & Tall (Men)",
     "categories": {
       "Men's Tall Jeans": {
         "W28 Tall": {
@@ -3129,120 +3939,156 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.960672",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.002284",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "River Island \u2013 Tall (Women)": {
-    "name": "River Island \u2013 Tall (Women)",
+  "River Island – Tall (Women)": {
+    "name": "River Island – Tall (Women)",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.960729",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.002344",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "SHEIN \u2013 Women (Tall)": {
-    "name": "SHEIN \u2013 Women (Tall)",
+  "SHEIN – Women (Tall)": {
+    "name": "SHEIN – Women (Tall)",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.960785",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.002403",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -3253,164 +4099,218 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.960846",
-    "authenticity": "\u2705 Authentic (Brand chart)",
+    "lastUpdated": "2025-10-11T20:22:45.002466",
+    "authenticity": "✅ Authentic (Brand chart)",
     "sourceNote": "Official chart via brand URL",
     "notes": {}
   },
-  "Seasalt Cornwall \u2013 Women": {
-    "name": "Seasalt Cornwall \u2013 Women",
+  "Seasalt Cornwall – Women": {
+    "name": "Seasalt Cornwall – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.960902",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.002525",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Simply Be \u2013 Women": {
-    "name": "Simply Be \u2013 Women",
+  "Simply Be – Women": {
+    "name": "Simply Be – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.960957",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.002584",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -3421,169 +4321,223 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.961017",
-    "authenticity": "\u2705 Authentic (Brand chart)",
+    "lastUpdated": "2025-10-11T20:22:45.002647",
+    "authenticity": "✅ Authentic (Brand chart)",
     "sourceNote": "Official chart via brand URL",
     "notes": {}
   },
-  "Stradivarius \u2013 Women (Long)": {
-    "name": "Stradivarius \u2013 Women (Long)",
+  "Stradivarius – Women (Long)": {
+    "name": "Stradivarius – Women (Long)",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.961074",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.002707",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "TALA \u2013 Women (Tall Leggings)": {
-    "name": "TALA \u2013 Women (Tall Leggings)",
+  "TALA – Women (Tall Leggings)": {
+    "name": "TALA – Women (Tall Leggings)",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.961131",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.002766",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Topman \u2013 Men": {
-    "name": "Topman \u2013 Men",
+  "Topman – Men": {
+    "name": "Topman – Men",
     "categories": {
       "Men's Tall Jeans": {
         "W28 Tall": {
@@ -3616,69 +4570,87 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.961181",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.002817",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Topshop Tall \u2013 Women": {
-    "name": "Topshop Tall \u2013 Women",
+  "Topshop Tall – Women": {
+    "name": "Topshop Tall – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.961237",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.002877",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Tu (Sainsbury\u2019s) \u2013 Men Big & Tall": {
-    "name": "Tu (Sainsbury\u2019s) \u2013 Men Big & Tall",
+  "Tu (Sainsbury’s) – Men Big & Tall": {
+    "name": "Tu (Sainsbury’s) – Men Big & Tall",
     "categories": {
       "Men's Tall Jeans": {
         "W28 Tall": {
@@ -3711,64 +4683,82 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.961283",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.002921",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Tu (Sainsbury\u2019s) \u2013 Women Tall": {
-    "name": "Tu (Sainsbury\u2019s) \u2013 Women Tall",
+  "Tu (Sainsbury’s) – Women Tall": {
+    "name": "Tu (Sainsbury’s) – Women Tall",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.961340",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.002981",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -3779,57 +4769,75 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.961400",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.003043",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Uniqlo UK \u2013 Men": {
-    "name": "Uniqlo UK \u2013 Men",
+  "Uniqlo UK – Men": {
+    "name": "Uniqlo UK – Men",
     "categories": {
       "Men's Tall Jeans": {
         "W28 Tall": {
@@ -3862,64 +4870,82 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.961444",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.003086",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Uniqlo UK \u2013 Women": {
-    "name": "Uniqlo UK \u2013 Women",
+  "Uniqlo UK – Women": {
+    "name": "Uniqlo UK – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.961501",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.003149",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -3930,113 +4956,149 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 32.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 32.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 32.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 32.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 32.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 32.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 32.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 32.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 32.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.961562",
-    "authenticity": "\u2705 Authentic (Brand chart)",
+    "lastUpdated": "2025-10-11T20:22:45.003213",
+    "authenticity": "✅ Authentic (Brand chart)",
     "sourceNote": "Official chart via brand URL",
     "notes": {}
   },
-  "Vero Moda Tall \u2013 Women": {
-    "name": "Vero Moda Tall \u2013 Women",
+  "Vero Moda Tall – Women": {
+    "name": "Vero Moda Tall – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.961619",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.003272",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Very \u2013 Men": {
-    "name": "Very \u2013 Men",
+  "Very – Men": {
+    "name": "Very – Men",
     "categories": {
       "Men's Tall Jeans": {
         "W28 Tall": {
@@ -4069,64 +5131,82 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.961663",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.003315",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Very \u2013 Women": {
-    "name": "Very \u2013 Women",
+  "Very – Women": {
+    "name": "Very – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.961718",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.003373",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -4137,164 +5217,218 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.961778",
-    "authenticity": "\u2705 Authentic (Brand chart)",
+    "lastUpdated": "2025-10-11T20:22:45.003435",
+    "authenticity": "✅ Authentic (Brand chart)",
     "sourceNote": "Official chart via brand URL",
     "notes": {}
   },
-  "Wallis \u2013 Women": {
-    "name": "Wallis \u2013 Women",
+  "Wallis – Women": {
+    "name": "Wallis – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.961834",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.003494",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Wallis \u2013 Women (Tall)": {
-    "name": "Wallis \u2013 Women (Tall)",
+  "Wallis – Women (Tall)": {
+    "name": "Wallis – Women (Tall)",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.961891",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.003552",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -4305,108 +5439,144 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.961952",
-    "authenticity": "\u2705 Authentic (Brand chart)",
+    "lastUpdated": "2025-10-11T20:22:45.003617",
+    "authenticity": "✅ Authentic (Brand chart)",
     "sourceNote": "Official chart via brand URL",
     "notes": {}
   },
-  "Warehouse \u2013 Women": {
-    "name": "Warehouse \u2013 Women",
+  "Warehouse – Women": {
+    "name": "Warehouse – Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.962010",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.003676",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -4417,113 +5587,149 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.962065",
-    "authenticity": "\u2705 Authentic (Brand chart)",
+    "lastUpdated": "2025-10-11T20:22:45.003733",
+    "authenticity": "✅ Authentic (Brand chart)",
     "sourceNote": "Official chart via brand URL",
     "notes": {}
   },
-  "White Stuff \u2013 Women (Long)": {
-    "name": "White Stuff \u2013 Women (Long)",
+  "White Stuff – Women (Long)": {
+    "name": "White Stuff – Women (Long)",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.962122",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.003794",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Wrangler UK \u2013 Men": {
-    "name": "Wrangler UK \u2013 Men",
+  "Wrangler UK – Men": {
+    "name": "Wrangler UK – Men",
     "categories": {
       "Men's Tall Jeans": {
         "W28 Tall": {
@@ -4556,8 +5762,8 @@
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.962172",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.003842",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -4568,52 +5774,70 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.962227",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.003900",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -4624,52 +5848,70 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.962283",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.003960",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
@@ -4680,164 +5922,218 @@
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.962349",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.004025",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Primark (in-store) \u2013 Men & Women": {
-    "name": "Primark (in-store) \u2013 Men & Women",
+  "Primark (in-store) – Men & Women": {
+    "name": "Primark (in-store) – Men & Women",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.962406",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.004086",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   },
-  "Urban Outfitters \u2013 Unisex (BDG)": {
-    "name": "Urban Outfitters \u2013 Unisex (BDG)",
+  "Urban Outfitters – Unisex (BDG)": {
+    "name": "Urban Outfitters – Unisex (BDG)",
     "categories": {
       "Women's Tall Jeans": {
         "6.0 Tall": {
           "waist": 24.4,
           "hips": 33.9,
+          "bust": 31.5,
+          "chest": 31.5,
           "inseam": 33.0
         },
         "8.0 Tall": {
           "waist": 26.0,
           "hips": 35.4,
+          "bust": 33.1,
+          "chest": 33.1,
           "inseam": 33.0
         },
         "10.0 Tall": {
           "waist": 27.6,
           "hips": 37.0,
+          "bust": 34.6,
+          "chest": 34.6,
           "inseam": 33.0
         },
         "12.0 Tall": {
           "waist": 29.1,
           "hips": 39.0,
+          "bust": 36.2,
+          "chest": 36.2,
           "inseam": 33.0
         },
         "14.0 Tall": {
           "waist": 30.7,
           "hips": 40.9,
+          "bust": 37.8,
+          "chest": 37.8,
           "inseam": 33.0
         },
         "16.0 Tall": {
           "waist": 32.3,
           "hips": 42.9,
+          "bust": 39.4,
+          "chest": 39.4,
           "inseam": 33.0
         },
         "18.0 Tall": {
           "waist": 33.9,
           "hips": 44.9,
+          "bust": 40.9,
+          "chest": 40.9,
           "inseam": 33.0
         },
         "20.0 Tall": {
           "waist": 36.2,
           "hips": 47.2,
+          "bust": 43.3,
+          "chest": 43.3,
           "inseam": 33.0
         },
         "22.0 Tall": {
           "waist": 38.6,
           "hips": 49.6,
+          "bust": 45.7,
+          "chest": 45.7,
           "inseam": 33.0
         }
       }
     },
-    "lastUpdated": "2025-10-01T17:46:24.962463",
-    "authenticity": "\u26a0\ufe0f Generic (UK standard used)",
+    "lastUpdated": "2025-10-11T20:22:45.004146",
+    "authenticity": "⚠️ Generic (UK standard used)",
     "sourceNote": "Standard UK chart applied",
     "notes": {}
   }
