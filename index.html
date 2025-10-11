@@ -2088,27 +2088,31 @@
           try { populateBrandNotes(); } catch (e) { console.error('populateBrandNotes error:', e); }
         }
 
-      } catch (err) {
-        console.error('ERROR loading tall_sizes_complete.json:', err);
-        
-        const txt = document.getElementById('sizefinder-status-text') || document.getElementById('uk-system-status-text') || document.getElementById('system-status-text');
-        const dot = document.getElementById('sizefinder-status-dot') || document.getElementById('uk-system-status-dot') || document.getElementById('system-status-dot');
-        
-        if (dot) {
-          dot.classList.remove('status-loading', 'status-online');
-          dot.classList.add('status-offline');
-        }
-        
-        if (txt) {
-          txt.innerHTML = `❌ Could not load tall_sizes_complete.json - ${err.message}<br><small>Make sure the file is in the same folder as this HTML file</small>`;
-        }
-        
-        alert('⚠️ ERROR: Could not load your brand data!\n\nMake sure "tall_sizes_complete.json" is in the SAME FOLDER as this HTML file.\n\nError details: ' + err.message);
-        
-        BRAND_DB = {};
-        ALL_BRANDS = [];
-        ALL_CATEGORIES = new Set();
-      }
+     } catch (err) {
+  console.error('ERROR loading tall_sizes_complete.json:', err);
+  
+  const txt = document.getElementById('sizefinder-status-text') || document.getElementById('uk-system-status-text') || document.getElementById('system-status-text');
+  const dot = document.getElementById('sizefinder-status-dot') || document.getElementById('uk-system-status-dot') || document.getElementById('system-status-dot');
+  
+  if (dot) {
+    dot.classList.remove('status-loading', 'status-online');
+    dot.classList.add('status-offline');
+  }
+  
+  if (txt) {
+    txt.innerHTML = `❌ Could not load tall_sizes_complete.json - ${err.message}<br><small>Make sure the file is in the same folder as this HTML file</small>`;
+  }
+  
+  // ⭐ REMOVE THE ALERT - IT BLOCKS THE PAGE
+  // alert('⚠️ ERROR: Could not load your brand data!\n\nMake sure "tall_sizes_complete.json" is in the SAME FOLDER as this HTML file.\n\nError details: ' + err.message);
+  
+  BRAND_DB = {};
+  ALL_BRANDS = [];
+  ALL_CATEGORIES = new Set();
+  
+  // ⭐ ADD THIS: Continue anyway even if JSON fails to load
+  return; // Exit gracefully without blocking
+}
     }
 
     // ===== FIXED SIZE FINDER BRAND SYNC WITH CATEGORY AUTO-POPULATE =====
