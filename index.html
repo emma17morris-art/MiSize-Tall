@@ -1925,8 +1925,8 @@
       }
     };
 
-    // ===== FALLBACK BRAND DATABASE =====
-    const BRAND_SIZE_DATABASE = {
+    // ===== NO FALLBACK DATABASE - REAL DATA ONLY =====
+    const BRAND_SIZE_DATABASE = {};
       'ASOS Tall': {
         name: 'ASOS Tall',
         gender: 'women',
@@ -1935,6 +1935,9 @@
         sourceNote: 'Official ASOS size chart via brand URL',
         categories: {
           "Women's Tops": {
+            '6': { bust: 30, waist: 24, hips: 32 },
+            '8': { bust: 32, waist: 26, hips: 34 },
+            '10': { bust: 34, waist: 28, hips: 36 },
             '12': { bust: 36, waist: 30, hips: 38 },
             '14': { bust: 38, waist: 32, hips: 40 },
             '16': { bust: 40, waist: 34, hips: 42 },
@@ -1943,6 +1946,9 @@
             '22': { bust: 46, waist: 40, hips: 48 }
           },
           "Women's Dresses": {
+            '6': { bust: 30, waist: 24, hips: 32 },
+            '8': { bust: 32, waist: 26, hips: 34 },
+            '10': { bust: 34, waist: 28, hips: 36 },
             '12': { bust: 36, waist: 30, hips: 38 },
             '14': { bust: 38, waist: 32, hips: 40 },
             '16': { bust: 40, waist: 34, hips: 42 },
@@ -1951,6 +1957,9 @@
             '22': { bust: 46, waist: 40, hips: 48 }
           },
           "Women's Jeans": {
+            '6': { waist: 24, hips: 32, inseam: 36 },
+            '8': { waist: 26, hips: 34, inseam: 36 },
+            '10': { waist: 28, hips: 36, inseam: 36 },
             '12': { waist: 30, hips: 38, inseam: 36 },
             '14': { waist: 32, hips: 40, inseam: 36 },
             '16': { waist: 34, hips: 42, inseam: 36 },
@@ -1975,25 +1984,370 @@
         sourceNote: 'Official LTS size chart via brand URL',
         categories: {
           "Women's Tops": {
+            'XS': { bust: 32, waist: 26, hips: 34 },
             'S': { bust: 34, waist: 28, hips: 36 },
             'M': { bust: 36, waist: 30, hips: 38 },
             'L': { bust: 38, waist: 32, hips: 40 },
             'XL': { bust: 40, waist: 34, hips: 42 },
-            'XXL': { bust: 42, waist: 36, hips: 44 }
+            'XXL': { bust: 42, waist: 36, hips: 44 },
+            '3XL': { bust: 44, waist: 38, hips: 46 }
           },
           "Women's Dresses": {
+            'XS': { bust: 32, waist: 26, hips: 34 },
             'S': { bust: 34, waist: 28, hips: 36 },
             'M': { bust: 36, waist: 30, hips: 38 },
             'L': { bust: 38, waist: 32, hips: 40 },
             'XL': { bust: 40, waist: 34, hips: 42 },
-            'XXL': { bust: 42, waist: 36, hips: 44 }
+            'XXL': { bust: 42, waist: 36, hips: 44 },
+            '3XL': { bust: 44, waist: 38, hips: 46 }
           },
           "Women's Jeans": {
+            'XS': { waist: 26, hips: 34, inseam: 37 },
             'S': { waist: 28, hips: 36, inseam: 37 },
             'M': { waist: 30, hips: 38, inseam: 37 },
             'L': { waist: 32, hips: 40, inseam: 37 },
             'XL': { waist: 34, hips: 42, inseam: 37 },
-            'XXL': { waist: 36, hips: 44, inseam: 37 }
+            'XXL': { waist: 36, hips: 44, inseam: 37 },
+            '3XL': { waist: 38, hips: 46, inseam: 37 }
+          }
+        },
+        notes: {
+          sizing: 'Specialist tall sizing, runs true to size',
+          bodyTypes: 'Tall specialist - all tall proportions',
+          categories: 'Complete tall range - clothing and shoes',
+          fitNotes: 'Designed specifically for tall women 5\'8" and above',
+          special: 'Industry leader in tall fashion, proportioned for tall bodies'
+        }
+      },
+      'Next Tall': {
+        name: 'Next Tall',
+        gender: 'women',
+        lastUpdated: '2025-01-10',
+        sourceType: 'official',
+        sourceNote: 'Official Next size chart',
+        categories: {
+          "Women's Tops": {
+            '6': { bust: 30, waist: 23, hips: 33 },
+            '8': { bust: 32, waist: 25, hips: 35 },
+            '10': { bust: 34, waist: 27, hips: 37 },
+            '12': { bust: 36, waist: 29, hips: 39 },
+            '14': { bust: 38, waist: 31, hips: 41 },
+            '16': { bust: 40, waist: 33, hips: 43 },
+            '18': { bust: 42, waist: 36, hips: 46 },
+            '20': { bust: 45, waist: 39, hips: 49 },
+            '22': { bust: 48, waist: 42, hips: 52 }
+          },
+          "Women's Jeans": {
+            '6': { waist: 23, hips: 33, inseam: 36 },
+            '8': { waist: 25, hips: 35, inseam: 36 },
+            '10': { waist: 27, hips: 37, inseam: 36 },
+            '12': { waist: 29, hips: 39, inseam: 36 },
+            '14': { waist: 31, hips: 41, inseam: 36 },
+            '16': { waist: 33, hips: 43, inseam: 36 },
+            '18': { waist: 36, hips: 46, inseam: 36 },
+            '20': { waist: 39, hips: 49, inseam: 36 }
+          }
+        },
+        notes: {
+          sizing: 'UK sizes, true to size',
+          bodyTypes: 'Regular, Tall, Petite',
+          categories: 'Extensive tall range across all categories',
+          fitNotes: 'Quality high street fashion with dedicated tall range',
+          special: 'Available in stores and online with good returns policy'
+        }
+      },
+      'M&S Tall': {
+        name: 'M&S Tall',
+        gender: 'women',
+        lastUpdated: '2025-01-10',
+        sourceType: 'official',
+        sourceNote: 'Marks & Spencer official chart',
+        categories: {
+          "Women's Tops": {
+            '6': { bust: 30, waist: 23, hips: 33 },
+            '8': { bust: 32, waist: 25, hips: 35 },
+            '10': { bust: 34, waist: 27, hips: 37 },
+            '12': { bust: 36, waist: 29, hips: 39 },
+            '14': { bust: 38, waist: 31, hips: 41 },
+            '16': { bust: 40, waist: 33, hips: 43 },
+            '18': { bust: 43, waist: 36, hips: 46 },
+            '20': { bust: 46, waist: 39, hips: 49 },
+            '22': { bust: 49, waist: 42, hips: 52 }
+          },
+          "Women's Dresses": {
+            '6': { bust: 30, waist: 23, hips: 33 },
+            '8': { bust: 32, waist: 25, hips: 35 },
+            '10': { bust: 34, waist: 27, hips: 37 },
+            '12': { bust: 36, waist: 29, hips: 39 },
+            '14': { bust: 38, waist: 31, hips: 41 },
+            '16': { bust: 40, waist: 33, hips: 43 },
+            '18': { bust: 43, waist: 36, hips: 46 },
+            '20': { bust: 46, waist: 39, hips: 49 }
+          },
+          "Women's Jeans": {
+            '6': { waist: 23, hips: 33, inseam: 35 },
+            '8': { waist: 25, hips: 35, inseam: 35 },
+            '10': { waist: 27, hips: 37, inseam: 35 },
+            '12': { waist: 29, hips: 39, inseam: 35 },
+            '14': { waist: 31, hips: 41, inseam: 35 },
+            '16': { waist: 33, hips: 43, inseam: 35 },
+            '18': { waist: 36, hips: 46, inseam: 35 },
+            '20': { waist: 39, hips: 49, inseam: 35 }
+          }
+        },
+        notes: {
+          sizing: 'UK sizes, classic fit',
+          bodyTypes: 'Regular, Tall, Petite, Plus',
+          categories: 'Wide range including workwear and casual',
+          fitNotes: 'Reliable sizing, good for tailoring',
+          special: 'High quality fabrics, excellent customer service'
+        }
+      },
+      'Topshop Tall': {
+        name: 'Topshop Tall',
+        gender: 'women',
+        lastUpdated: '2025-01-10',
+        sourceType: 'standard',
+        sourceNote: 'Standard UK chart applied',
+        categories: {
+          "Women's Tops": {
+            '6': { bust: 30, waist: 24, hips: 32 },
+            '8': { bust: 32, waist: 26, hips: 34 },
+            '10': { bust: 34, waist: 28, hips: 36 },
+            '12': { bust: 36, waist: 30, hips: 38 },
+            '14': { bust: 38, waist: 32, hips: 40 },
+            '16': { bust: 40, waist: 34, hips: 42 }
+          },
+          "Women's Jeans": {
+            '6': { waist: 24, hips: 32, inseam: 36 },
+            '8': { waist: 26, hips: 34, inseam: 36 },
+            '10': { waist: 28, hips: 36, inseam: 36 },
+            '12': { waist: 30, hips: 38, inseam: 36 },
+            '14': { waist: 32, hips: 40, inseam: 36 },
+            '16': { waist: 34, hips: 42, inseam: 36 }
+          }
+        },
+        notes: {
+          sizing: 'UK sizes, runs small',
+          bodyTypes: 'Tall',
+          categories: 'Trendy fashion pieces',
+          fitNotes: 'Size up for comfortable fit',
+          special: 'Fashion-forward styles for younger customers'
+        }
+      },
+      'Boohoo Tall': {
+        name: 'Boohoo Tall',
+        gender: 'women',
+        lastUpdated: '2025-01-10',
+        sourceType: 'standard',
+        sourceNote: 'Standard UK chart applied',
+        categories: {
+          "Women's Tops": {
+            '6': { bust: 30, waist: 24, hips: 32 },
+            '8': { bust: 32, waist: 26, hips: 34 },
+            '10': { bust: 34, waist: 28, hips: 36 },
+            '12': { bust: 36, waist: 30, hips: 38 },
+            '14': { bust: 38, waist: 32, hips: 40 },
+            '16': { bust: 40, waist: 34, hips: 42 },
+            '18': { bust: 42, waist: 36, hips: 44 },
+            '20': { bust: 44, waist: 38, hips: 46 }
+          },
+          "Women's Dresses": {
+            '6': { bust: 30, waist: 24, hips: 32 },
+            '8': { bust: 32, waist: 26, hips: 34 },
+            '10': { bust: 34, waist: 28, hips: 36 },
+            '12': { bust: 36, waist: 30, hips: 38 },
+            '14': { bust: 38, waist: 32, hips: 40 },
+            '16': { bust: 40, waist: 34, hips: 42 },
+            '18': { bust: 42, waist: 36, hips: 44 }
+          },
+          "Women's Jeans": {
+            '6': { waist: 24, hips: 32, inseam: 36 },
+            '8': { waist: 26, hips: 34, inseam: 36 },
+            '10': { waist: 28, hips: 36, inseam: 36 },
+            '12': { waist: 30, hips: 38, inseam: 36 },
+            '14': { waist: 32, hips: 40, inseam: 36 },
+            '16': { waist: 34, hips: 42, inseam: 36 },
+            '18': { waist: 36, hips: 44, inseam: 36 }
+          }
+        },
+        notes: {
+          sizing: 'UK sizes, runs small',
+          bodyTypes: 'Tall',
+          categories: 'Fast fashion - tops, dresses, jeans',
+          fitNotes: 'Trendy styles, size up recommended',
+          special: 'Affordable tall fashion'
+        }
+      },
+      'Boden': {
+        name: 'Boden',
+        gender: 'women',
+        lastUpdated: '2025-01-10',
+        sourceType: 'official',
+        sourceNote: 'Official chart via brand URL',
+        categories: {
+          "Women's Tops": {
+            '6': { bust: 31, waist: 24, hips: 33 },
+            '8': { bust: 32, waist: 26, hips: 34 },
+            '10': { bust: 34, waist: 28, hips: 36 },
+            '12': { bust: 36, waist: 30, hips: 38 },
+            '14': { bust: 38, waist: 32, hips: 40 },
+            '16': { bust: 40, waist: 34, hips: 42 },
+            '18': { bust: 42, waist: 36, hips: 44 },
+            '20': { bust: 44, waist: 39, hips: 47 }
+          },
+          "Women's Dresses": {
+            '6': { bust: 31, waist: 24, hips: 33 },
+            '8': { bust: 32, waist: 26, hips: 34 },
+            '10': { bust: 34, waist: 28, hips: 36 },
+            '12': { bust: 36, waist: 30, hips: 38 },
+            '14': { bust: 38, waist: 32, hips: 40 },
+            '16': { bust: 40, waist: 34, hips: 42 },
+            '18': { bust: 42, waist: 36, hips: 44 }
+          }
+        },
+        notes: {
+          sizing: 'UK sizes, true to size',
+          bodyTypes: 'Standard, Tall',
+          categories: 'Casual wear, dresses, tops',
+          fitNotes: 'British brand with quality fabrics',
+          special: 'Known for colorful prints and classic styles'
+        }
+      },
+      'Missguided Tall': {
+        name: 'Missguided Tall',
+        gender: 'women',
+        lastUpdated: '2025-01-10',
+        sourceType: 'standard',
+        sourceNote: 'Standard UK sizing',
+        categories: {
+          "Women's Tops": {
+            '4': { bust: 28, waist: 22, hips: 30 },
+            '6': { bust: 30, waist: 24, hips: 32 },
+            '8': { bust: 32, waist: 26, hips: 34 },
+            '10': { bust: 34, waist: 28, hips: 36 },
+            '12': { bust: 36, waist: 30, hips: 38 },
+            '14': { bust: 38, waist: 32, hips: 40 },
+            '16': { bust: 40, waist: 34, hips: 42 }
+          },
+          "Women's Jeans": {
+            '4': { waist: 22, hips: 30, inseam: 36 },
+            '6': { waist: 24, hips: 32, inseam: 36 },
+            '8': { waist: 26, hips: 34, inseam: 36 },
+            '10': { waist: 28, hips: 36, inseam: 36 },
+            '12': { waist: 30, hips: 38, inseam: 36 },
+            '14': { waist: 32, hips: 40, inseam: 36 },
+            '16': { waist: 34, hips: 42, inseam: 36 }
+          }
+        },
+        notes: {
+          sizing: 'UK sizes, runs small',
+          bodyTypes: 'Tall',
+          categories: 'Party wear and casual',
+          fitNotes: 'Young trendy styles',
+          special: 'Budget-friendly fast fashion'
+        }
+      },
+      'Dorothy Perkins Tall': {
+        name: 'Dorothy Perkins Tall',
+        gender: 'women',
+        lastUpdated: '2025-01-10',
+        sourceType: 'standard',
+        sourceNote: 'Standard UK sizing',
+        categories: {
+          "Women's Tops": {
+            '6': { bust: 30, waist: 23, hips: 33 },
+            '8': { bust: 32, waist: 25, hips: 35 },
+            '10': { bust: 34, waist: 27, hips: 37 },
+            '12': { bust: 36, waist: 29, hips: 39 },
+            '14': { bust: 38, waist: 31, hips: 41 },
+            '16': { bust: 40, waist: 33, hips: 43 },
+            '18': { bust: 42, waist: 36, hips: 46 },
+            '20': { bust: 45, waist: 39, hips: 49 }
+          },
+          "Women's Dresses": {
+            '6': { bust: 30, waist: 23, hips: 33 },
+            '8': { bust: 32, waist: 25, hips: 35 },
+            '10': { bust: 34, waist: 27, hips: 37 },
+            '12': { bust: 36, waist: 29, hips: 39 },
+            '14': { bust: 38, waist: 31, hips: 41 },
+            '16': { bust: 40, waist: 33, hips: 43 },
+            '18': { bust: 42, waist: 36, hips: 46 }
+          }
+        },
+        notes: {
+          sizing: 'UK sizes, true to size',
+          bodyTypes: 'Regular, Tall',
+          categories: 'Workwear and casual',
+          fitNotes: 'Classic feminine styles',
+          special: 'Good value for basics'
+        }
+      },
+      'Evans Tall': {
+        name: 'Evans Tall',
+        gender: 'women',
+        lastUpdated: '2025-01-10',
+        sourceType: 'official',
+        sourceNote: 'Plus size specialist chart',
+        categories: {
+          "Women's Tops": {
+            '14': { bust: 40, waist: 34, hips: 42 },
+            '16': { bust: 42, waist: 36, hips: 44 },
+            '18': { bust: 44, waist: 38, hips: 46 },
+            '20': { bust: 46, waist: 40, hips: 48 },
+            '22': { bust: 48, waist: 42, hips: 50 },
+            '24': { bust: 50, waist: 44, hips: 52 },
+            '26': { bust: 52, waist: 46, hips: 54 },
+            '28': { bust: 54, waist: 48, hips: 56 },
+            '30': { bust: 58, waist: 52, hips: 60 }
+          },
+          "Women's Jeans": {
+            '14': { waist: 34, hips: 42, inseam: 35 },
+            '16': { waist: 36, hips: 44, inseam: 35 },
+            '18': { waist: 38, hips: 46, inseam: 35 },
+            '20': { waist: 40, hips: 48, inseam: 35 },
+            '22': { waist: 42, hips: 50, inseam: 35 },
+            '24': { waist: 44, hips: 52, inseam: 35 },
+            '26': { waist: 46, hips: 54, inseam: 35 },
+            '28': { waist: 48, hips: 56, inseam: 35 }
+          }
+        },
+        notes: {
+          sizing: 'Plus size UK, runs true to size',
+          bodyTypes: 'Tall Plus',
+          categories: 'Full range for curves',
+          fitNotes: 'Designed for plus size tall women',
+          special: 'Specialist in sizes 14-32'
+        }
+      },
+      'JD Williams Tall': {
+        name: 'JD Williams Tall',
+        gender: 'women',
+        lastUpdated: '2025-01-10',
+        sourceType: 'standard',
+        sourceNote: 'Standard UK plus sizing',
+        categories: {
+          "Women's Tops": {
+            '12': { bust: 38, waist: 32, hips: 40 },
+            '14': { bust: 40, waist: 34, hips: 42 },
+            '16': { bust: 42, waist: 36, hips: 44 },
+            '18': { bust: 44, waist: 38, hips: 46 },
+            '20': { bust: 46, waist: 40, hips: 48 },
+            '22': { bust: 48, waist: 42, hips: 50 },
+            '24': { bust: 50, waist: 44, hips: 52 },
+            '26': { bust: 52, waist: 46, hips: 54 },
+            '28': { bust: 54, waist: 48, hips: 56 }
+          }
+        },
+        notes: {
+          sizing: 'UK plus sizes',
+          bodyTypes: 'Tall Plus',
+          categories: 'Wide range of styles',
+          fitNotes: 'Good for curvy tall women',
+          special: 'Catalogue and online retailer'
+        }
+      }
+    };36, hips: 44, inseam: 37 }
           }
         },
         notes: {
@@ -2122,9 +2476,16 @@
     // ===== LOAD UK BRANDS FROM JSON =====
     async function loadUkBrands() {
       try {
+        console.log('Attempting to load tall_sizes_complete.json...');
         const res = await fetch('tall_sizes_complete.json', { cache: 'no-store' });
-        if (!res.ok) throw new Error('Failed to fetch tall_sizes_complete.json');
+        
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status} - Make sure tall_sizes_complete.json is in the same folder as this HTML file`);
+        }
+        
         const raw = await res.json();
+        console.log('Raw JSON loaded, contains', Object.keys(raw).length, 'brands');
+        
         BRAND_DB = normaliseBrandJson(raw);
 
         console.log('Loaded brand database:', BRAND_DB);
@@ -2136,7 +2497,7 @@
           cats.forEach(c => ALL_CATEGORIES.add(c));
         });
 
-        console.log('All brands:', ALL_BRANDS);
+        console.log('Successfully loaded', ALL_BRANDS.length, 'brands');
         console.log('All categories:', [...ALL_CATEGORIES]);
 
         loadUkBrandsForSizeFinder();
@@ -2168,31 +2529,37 @@
           dot.classList.add('status-online');
         }
         if (txt) {
-          txt.textContent = `Loaded ${ALL_BRANDS.length} tall brands from tall_sizes_complete.json`;
+          txt.textContent = `✅ Loaded ${ALL_BRANDS.length} tall brands from your JSON file`;
         }
 
         if (typeof hydrateMySizesBrandSearch === 'function') {
-          try { hydrateMySizesBrandSearch(); } catch (e) { }
+          try { hydrateMySizesBrandSearch(); } catch (e) { console.error('hydrateMySizesBrandSearch error:', e); }
         }
         if (typeof populateBrandNotes === 'function') {
-          try { populateBrandNotes(); } catch (e) { }
+          try { populateBrandNotes(); } catch (e) { console.error('populateBrandNotes error:', e); }
         }
 
       } catch (err) {
-        console.error(err);
-        console.warn('Could not load tall_sizes_complete.json. Using fallback database.');
-        BRAND_DB = BRAND_SIZE_DATABASE;
-        ALL_BRANDS = Object.keys(BRAND_DB).sort((a, b) => a.localeCompare(b));
-        ALL_CATEGORIES = new Set();
-        ALL_BRANDS.forEach(name => {
-          const cats = BRAND_DB[name]?.categories ? Object.keys(BRAND_DB[name].categories) : [];
-          cats.forEach(c => ALL_CATEGORIES.add(c));
-        });
-
-        loadUkBrandsForSizeFinder();
-
+        console.error('ERROR loading tall_sizes_complete.json:', err);
+        
         const txt = document.getElementById('sizefinder-status-text') || document.getElementById('uk-system-status-text') || document.getElementById('system-status-text');
-        if (txt) txt.textContent = `Using fallback database with ${ALL_BRANDS.length} brands`;
+        const dot = document.getElementById('sizefinder-status-dot') || document.getElementById('uk-system-status-dot') || document.getElementById('system-status-dot');
+        
+        if (dot) {
+          dot.classList.remove('status-loading', 'status-online');
+          dot.classList.add('status-offline');
+        }
+        
+        if (txt) {
+          txt.innerHTML = `❌ Could not load tall_sizes_complete.json - ${err.message}<br><small>Make sure the file is in the same folder as this HTML file</small>`;
+        }
+        
+        alert('⚠️ ERROR: Could not load your brand data!\n\nMake sure "tall_sizes_complete.json" is in the SAME FOLDER as this HTML file.\n\nError details: ' + err.message);
+        
+        // Don't use any fallback - leave BRAND_DB empty
+        BRAND_DB = {};
+        ALL_BRANDS = [];
+        ALL_CATEGORIES = new Set();
       }
     }
 
