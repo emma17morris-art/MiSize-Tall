@@ -2857,32 +2857,52 @@ function detectBrandGender(brandName, brandData) {
       });
     }
 
-    function setMySizesGenderFilter(gender) {
-      mySizesGenderFilter = gender;
-      
-      document.querySelectorAll('[data-mysizes-gender]').forEach(btn => btn.classList.remove('active'));
-      document.querySelector(`[data-mysizes-gender="${gender}"]`)?.classList.add('active');
-      
-      populateMySizesGrid();
-    }
+   // ===== UPDATE GENDER FILTER FUNCTIONS TO REFRESH SEARCHES =====
+function setMySizesGenderFilter(gender) {
+  mySizesGenderFilter = gender;
+  
+  document.querySelectorAll('[data-mysizes-gender]').forEach(btn => btn.classList.remove('active'));
+  document.querySelector(`[data-mysizes-gender="${gender}"]`)?.classList.add('active');
+  
+  // Refresh the brand search datalist with filtered brands
+  hydrateMySizesBrandSearch();
+  
+  // Clear the brand search input
+  const brandSearch = document.getElementById('mysizes-brand-search');
+  if (brandSearch) brandSearch.value = '';
+  
+  populateMySizesGrid();
+}
 
-    function setBrandNotesGenderFilter(gender) {
-      brandNotesGenderFilter = gender;
-      
-      document.querySelectorAll('[data-brandnotes-gender]').forEach(btn => btn.classList.remove('active'));
-      document.querySelector(`[data-brandnotes-gender="${gender}"]`)?.classList.add('active');
-      
-      populateBrandNotes();
-    }
+function setBrandNotesGenderFilter(gender) {
+  brandNotesGenderFilter = gender;
+  
+  document.querySelectorAll('[data-brandnotes-gender]').forEach(btn => btn.classList.remove('active'));
+  document.querySelector(`[data-brandnotes-gender="${gender}"]`)?.classList.add('active');
+  
+  // Clear search/category filters when changing gender
+  const searchInput = document.getElementById('brand-intel-search');
+  const categorySelect = document.getElementById('brand-intel-category');
+  if (searchInput) searchInput.value = '';
+  if (categorySelect) categorySelect.value = '';
+  
+  populateBrandNotes();
+}
 
-    function setSizeFinderGenderFilter(gender) {
-      sizeFinderGenderFilter = gender;
-      
-      document.querySelectorAll('[data-sizefinder-gender]').forEach(btn => btn.classList.remove('active'));
-      document.querySelector(`[data-sizefinder-gender="${gender}"]`)?.classList.add('active');
-      
-      loadUkBrandsForSizeFinder();
-    }
+function setSizeFinderGenderFilter(gender) {
+  sizeFinderGenderFilter = gender;
+  
+  document.querySelectorAll('[data-sizefinder-gender]').forEach(btn => btn.classList.remove('active'));
+  document.querySelector(`[data-sizefinder-gender="${gender}"]`)?.classList.add('active');
+  
+  // Clear brand selection when changing gender
+  const brandSearch = document.getElementById('uk-brand-search');
+  const brandSelect = document.getElementById('uk-brand-select');
+  if (brandSearch) brandSearch.value = '';
+  if (brandSelect) brandSelect.value = '';
+  
+  loadUkBrandsForSizeFinder();
+}
 
    // ===== FIXED BRAND NOTES POPULATION =====
 function populateBrandNotes() {
