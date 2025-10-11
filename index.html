@@ -2856,62 +2856,90 @@
       loadUkBrandsForSizeFinder();
     }
 
-    // ===== BRAND NOTES POPULATION =====
-    function populateBrandNotes() {
-      const container = document.getElementById('brand-notes-grid');
-      if (!container) return;
+   // ===== FIXED BRAND NOTES POPULATION =====
+function populateBrandNotes() {
+  const container = document.getElementById('brand-notes-grid');
+  if (!container) return;
 
-      const sourceDB = (BRAND_DB && Object.keys(BRAND_DB).length) ? BRAND_DB : BRAND_SIZE_DATABASE;
-      
-      const allBrandNames = Object.keys(sourceDB);
-      const filteredBrands = filterBrandsByGender(allBrandNames, brandNotesGenderFilter);
+  const sourceDB = (BRAND_DB && Object.keys(BRAND_DB).length) ? BRAND_DB : BRAND_SIZE_DATABASE;
+  
+  // Get filter values
+  const searchTerm = (document.getElementById('brand-intel-search')?.value || '').toLowerCase().trim();
+  const categoryFilter = (document.getElementById('brand-intel-category')?.value || '').trim();
+  
+  let allBrandNames = Object.keys(sourceDB);
+  
+  // Apply gender filter first
+  allBrandNames = filterBrandsByGender(allBrandNames, brandNotesGenderFilter);
+  
+  // Apply search filter
+  if (searchTerm) {
+    allBrandNames = allBrandNames.filter(name => 
+      name.toLowerCase().includes(searchTerm)
+    );
+  }
+  
+  // Apply category filter
+  if (categoryFilter) {
+    allBrandNames = allBrandNames.filter(name => {
+      const brand = sourceDB[name];
+      const categories = brand.categories ? Object.keys(brand.categories) : [];
+      return categories.includes(categoryFilter);
+    });
+  }
 
-      const cards = filteredBrands.map(key => {
-        const brand = sourceDB[key];
-        const name = brand.name || key;
-        const notes = brand.notes || {};
-        const updated = brand.lastUpdated ? new Date(brand.lastUpdated).toLocaleDateString() : '—';
-        const sourceType = brand.sourceType || 'standard';
-        const sourceNote = brand.sourceNote || 'No source information available';
-        const gender = detectBrandGender(key, brand);
+  const cards = allBrandNames.map(key => {
+    const brand = sourceDB[key];
+    const name = brand.name || key;
+    const notes = brand.notes || {};
+    const updated = brand.lastUpdated ? new Date(brand.lastUpdated).toLocaleDateString() : '—';
+    const sourceType = brand.sourceType || 'standard';
+    const sourceNote = brand.sourceNote || 'No source information available';
+    const gender = detectBrandGender(key, brand);
+    
+    // Get available categories
+    const categories = brand.categories ? Object.keys(brand.categories).join(', ') : 'Not specified';
 
-        let sourceBadge = '';
-        if (sourceType === 'official') {
-          sourceBadge = '<span class="source-badge source-official">● Official chart via brand URL</span>';
-        } else {
-          sourceBadge = '<span class="source-badge source-standard">● Standard UK chart applied</span>';
-        }
-
-        const genderBadge = `<span class="source-badge" style="background: var(--blue);">${gender === 'women' ? '👗 Women' : '👔 Men'}</span>`;
-
-        return `
-          <div class="brand-card">
-            <div class="brand-name">${name}</div>
-            <div style="margin-bottom: 12px;">
-              ${genderBadge}
-              ${sourceBadge}
-            </div>
-            ${notes.sizing ? `<p><strong>Sizing:</strong> ${notes.sizing}</p>` : ''}
-            ${notes.bodyTypes ? `<p><strong>Body Types:</strong> ${notes.bodyTypes}</p>` : ''}
-            ${notes.categories ? `<p><strong>Categories:</strong> ${notes.categories}</p>` : ''}
-            ${notes.fitNotes ? `<p><strong>Fit Notes:</strong> ${notes.fitNotes}</p>` : ''}
-            ${notes.special ? `<p><strong>Special:</strong> ${notes.special}</p>` : ''}
-            <div class="source-note">
-              <strong>📋 Source:</strong> ${sourceNote}
-            </div>
-            <p style="font-size:12px;color:var(--muted);margin-top:8px;">Last updated: ${updated}</p>
-          </div>
-        `;
-      }).join('');
-
-      const genderText = brandNotesGenderFilter === 'all' ? 'all' : brandNotesGenderFilter + "'s";
-
-      container.innerHTML = cards || `
-        <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--muted);">
-          No ${genderText} tall brand data found.
-        </div>`;
+    let sourceBadge = '';
+    if (sourceType === 'official') {
+      sourceBadge = '<span class="source-badge source-official">● Official chart via brand URL</span>';
+    } else {
+      sourceBadge = '<span class="source-badge source-standard">● Standard UK chart applied</span>';
     }
 
+    const genderBadge = `<span class="source-badge" style="background: var(--blue);">${gender === 'women' ? '👗 Women' : '👔 Men'}</span>`;
+
+    return `
+      <div class="brand-card">
+        <div class="brand-name">${name}</div>
+        <div style="margin-bottom: 12px;">
+          ${genderBadge}
+          ${sourceBadge}
+        </div>
+        <p><strong>Available Categories:</strong> ${categories}</p>
+        ${notes.sizing ? `<p><strong>Sizing:</strong> ${notes.sizing}</p>` : ''}
+        ${notes.bodyTypes ? `<p><strong>Body Types:</strong> ${notes.bodyTypes}</p>` : ''}
+        ${notes.fitNotes ? `<p><strong>Fit Notes:</strong> ${notes.fitNotes}</p>` : ''}
+        ${notes.special ? `<p><strong>Special:</strong> ${notes.special}</p>` : ''}
+        <div class="source-note">
+          <strong>📋 Source:</strong> ${sourceNote}
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;">Last updated: ${updated}</p>
+      </div>
+    `;
+  }).join('');
+
+  const genderText = brandNotesGenderFilter === 'all' ? 'all' : brandNotesGenderFilter + "'s";
+  const filterInfo = [];
+  if (searchTerm) filterInfo.push(`matching "${searchTerm}"`);
+  if (categoryFilter) filterInfo.push(`in ${categoryFilter}`);
+  const filterText = filterInfo.length ? ` ${filterInfo.join(' ')}` : '';
+
+  container.innerHTML = cards || `
+    <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--muted);">
+      No ${genderText} tall brands found${filterText}.
+    </div>`;
+}
     // ===== UTILITY FUNCTIONS =====
     function kgFrom(value, unit) {
       if (unit === 'kg') return value;
