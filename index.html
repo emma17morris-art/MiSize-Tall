@@ -1286,7 +1286,16 @@
           <button class="settings-pill" data-brandnotes-gender="men" onclick="setBrandNotesGenderFilter('men')">Men</button>
         </div>
       </div>
-      
+
+		<!-- 🔍 Brand Search + Results Section -->
+<div class="form-group">
+  <label class="form-label">Search Brands</label>
+  <input id="brand-search" type="text" placeholder="Search tall brands..."
+         style="padding:12px;width:100%;border-radius:8px;margin-top:8px;">
+</div>
+
+<div id="brand-results" class="brand-grid"></div>
+
       <div class="form-group">
         <label class="form-label">Search & Filter</label>
         <div style="display:flex; gap:8px;">
