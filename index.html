@@ -1,4 +1,6 @@
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -473,6 +475,14 @@
     .stats-tab.active {
       color: var(--brand);
       border-bottom: 2px solid var(--brand);
+    }
+
+    .stats-content {
+      display: none;
+    }
+
+    .stats-content.active {
+      display: block;
     }
 
     .graph-controls {
@@ -992,7 +1002,6 @@
       </div>
     </div>
   </div>
-
   <!-- Help Screen -->
   <div id="help" class="screen">
     <div class="content-container">
@@ -1674,7 +1683,6 @@
       </div>
     </div>
   </div>
-
   <!-- MiStats Screen -->
   <div id="mistats" class="screen">
     <div class="stats-tabs">
@@ -1844,7 +1852,7 @@
   </div>
   
   <script>
-    // Global variables
+    // ===== GLOBAL VARIABLES =====
     let currentScreen = 'home';
     let navigationHistory = [];
     let selectedBodyType = 'standard';
@@ -1862,7 +1870,7 @@
     let ALL_BRANDS = [];
     let ALL_CATEGORIES = new Set();
 
-    // Profile Data
+    // ===== PROFILE DATA =====
     let profileData = {
       'Emma Morris': {
         name: 'Emma Morris',
@@ -1920,7 +1928,7 @@
       }
     };
 
-    // Fallback Brand Database with proper sourceType
+    // ===== FALLBACK BRAND DATABASE =====
     const BRAND_SIZE_DATABASE = {
       'ASOS Tall': {
         name: 'ASOS Tall',
@@ -2053,7 +2061,7 @@
       }
     };
 
-    // Normalize brand JSON function
+    // ===== NORMALIZE BRAND JSON FUNCTION =====
     function normaliseBrandJson(raw) {
       if (Array.isArray(raw)) {
         const obj = {};
@@ -2077,7 +2085,7 @@
       return raw || {};
     }
 
-    // Load UK Brands from JSON
+    // ===== LOAD UK BRANDS FROM JSON =====
     async function loadUkBrands() {
       try {
         const res = await fetch('tall_sizes_complete.json', { cache: 'no-store' });
@@ -2187,7 +2195,7 @@
       }
     }
 
-    // Load UK Brands for Size Finder with gender filter
+    // ===== LOAD UK BRANDS FOR SIZE FINDER WITH GENDER FILTER =====
     function loadUkBrandsForSizeFinder() {
       const filteredBrands = filterBrandsByGender(ALL_BRANDS, sizeFinderGenderFilter);
       
@@ -2211,8 +2219,7 @@
         }
       });
     }
-    
-    // Size Matching Engine
+// ===== SIZE MATCHING ENGINE CLASS =====
     class SizeMatchingEngine {
       constructor() {
         this.brandDatabase = (BRAND_DB && typeof BRAND_DB === 'object' && Object.keys(BRAND_DB).length)
@@ -2288,7 +2295,8 @@
               size: s.size,
               confidence: this.calculateConfidence(s.score),
               details: this.generateFitDetails(this.userMeasurements, s.measurements, s.size)
-            }))
+            })),
+            inseam: bestMatch.measurements.inseam || null
           };
         }
         
@@ -2327,24 +2335,48 @@
         return measurementCount > 0 ? score : -100;
       }
 
+      calculateConfidence(score) {
+        const maxScore = 0;
+        const minScore = -20;
+        
+        if (score >= maxScore) return 100;
+        if (score <= minScore) return 0;
+        
+        return Math.round(((score - minScore) / (maxScore - minScore)) * 100);
+      }
+
       generateFitDetails(user, sizeM, size) {
         const d = { size, measurements: sizeM, fit: {}, recommendations: [] };
+        
         ['bust', 'waist', 'hips'].forEach(k => {
           if (user[k] && sizeM[k]) {
             const diff = user[k] - sizeM[k];
             let desc;
-            if (Math.abs(diff) <= 1) desc = 'Perfect fit';
-            else if (diff > 1) desc = `${Math.abs(diff)}" too small`;
-            else desc = `${Math.abs(diff)}" too large`;
-            d.fit[k] = { userMeasurement: user[k], sizeMeasurement: sizeM[k], difference: diff, description: desc };
-            if (Math.abs(diff) > 2) d.recommendations.push(`Consider different size for ${k} measurement`);
+            const absDiff = Math.abs(diff);
+            
+            if (absDiff <= 1) desc = 'Perfect fit';
+            else if (absDiff <= 2) desc = diff > 0 ? 'Slightly snug' : 'Slightly loose';
+            else if (absDiff <= 3) desc = diff > 0 ? 'Snug fit' : 'Loose fit';
+            else desc = diff > 0 ? `${absDiff.toFixed(1)}" too small` : `${absDiff.toFixed(1)}" too large`;
+            
+            d.fit[k] = { 
+              userMeasurement: user[k], 
+              sizeMeasurement: sizeM[k], 
+              difference: diff, 
+              description: desc 
+            };
+            
+            if (absDiff > 2) {
+              d.recommendations.push(`${k}: Consider ${diff > 0 ? 'sizing up' : 'sizing down'} for better fit`);
+            }
           }
         });
+        
+        if (sizeM.inseam) {
+          d.measurements.inseam = sizeM.inseam;
+        }
+        
         return d;
-      }
-
-      calculateConfidence(score) {
-        return Math.max(0, Math.min(100, Math.round(score)));
       }
 
       getAllBrandSizes(category, fitPreference = 'standard') {
@@ -2358,7 +2390,7 @@
       }
     }
 
-    // MiSize AI System
+    // ===== MISIZE AI SYSTEM CLASS =====
     class MiSizeAISystem {
       constructor() {
         this.sizeEngine = new SizeMatchingEngine();
@@ -2432,10 +2464,16 @@
 
         const categories = (ALL_CATEGORIES && ALL_CATEGORIES.size)
           ? [...ALL_CATEGORIES]
-          : ["Women's Jeans", "Women's Dresses", "Women's Tops"];
+          : [
+              "Women's Shirts/Tops",
+              "Women's Dresses", 
+              "Women's Jumpers",
+              "Men's T-Shirts/Shirts",
+              "Men's Jumpers"
+            ];
 
         console.log('Getting sizes for categories:', categories);
-
+        
         const results = {};
         for (const category of categories) {
           results[category] = this.sizeEngine
@@ -2456,11 +2494,7 @@
       sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     }
 
-
-
-
-
-    // Navigation functions
+    // ===== NAVIGATION FUNCTIONS =====
     function enterHub(region) {
       const hubScreen = region.toLowerCase() + '-hub';
       goToScreen(hubScreen);
@@ -2550,7 +2584,7 @@
       }
     }
 
-    // Enhanced Size Finder with AI
+    // ===== ENHANCED SIZE FINDER WITH AI =====
     async function getMySize() {
       const brandSelect = document.getElementById('uk-brand-select');
       const brandSearch = document.getElementById('uk-brand-search');
@@ -2650,8 +2684,8 @@
               </div>
             </div>
             ${result.inseam ? `
-              <div class="inseam-info">
-                <strong>Max Inseam:</strong> ${result.inseam}"
+              <div class="inseam-info" style="background: rgba(138, 43, 226, 0.15); border-left: 4px solid var(--brand); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 16px;">
+                <strong>📏 Inseam Length:</strong> ${result.inseam}" (${(result.inseam * 2.54).toFixed(1)} cm)
               </div>
             ` : ''}
             ${measurementComparison}
@@ -2669,10 +2703,16 @@
                       }).join(', ');
                       altComparison = `<div style="font-size: 12px; color: var(--muted); margin-top: 4px;">${fitSummary}</div>`;
                     }
+                    
+                    const altInseam = alt.details && alt.details.measurements && alt.details.measurements.inseam 
+                      ? `<div style="font-size: 11px; color: var(--brand); margin-top: 4px;">📏 Inseam: ${alt.details.measurements.inseam}" (${(alt.details.measurements.inseam * 2.54).toFixed(1)} cm)</div>`
+                      : '';
+                    
                     return `
                       <div style="padding: 8px; background: var(--bg); border-radius: 6px;">
                         <strong>Size ${alt.size}</strong> - ${alt.confidence}% confidence
                         ${altComparison}
+                        ${altInseam}
                       </div>
                     `;
                   }).join('')}
@@ -2707,7 +2747,7 @@
       }
     }
 
-    // My Sizes: render grid
+    // ===== MY SIZES: RENDER GRID =====
     async function populateMySizesGrid() {
       const grid = document.getElementById('my-sizes-grid');
       const statusText = document.getElementById('mysizes-status-text');
@@ -2832,8 +2872,8 @@
                 </p>
 
                 ${rec.inseam ? `
-                  <div class="inseam-info">
-                    <strong>Max Inseam:</strong> ${rec.inseam}"
+                  <div class="inseam-info" style="background: rgba(138, 43, 226, 0.15); border-left: 4px solid var(--brand); padding: 8px 12px; border-radius: 0 8px 8px 0; margin: 8px 0;">
+                    <strong>📏 Max Inseam:</strong> ${rec.inseam}" (${(rec.inseam * 2.54).toFixed(1)} cm)
                   </div>
                 ` : ''}
 
@@ -2891,7 +2931,7 @@
       }
     }
 
-    // Detect brand gender from name or data
+    // ===== GENDER FILTER FUNCTIONS =====
     function detectBrandGender(brandName, brandData) {
       const nameLower = brandName.toLowerCase();
       
@@ -2909,7 +2949,6 @@
       return 'women';
     }
 
-    // Filter brands by gender
     function filterBrandsByGender(brandNames, genderFilter) {
       if (genderFilter === 'all') return brandNames;
       
@@ -2922,7 +2961,6 @@
       });
     }
 
-    // Set Gender Filter for My Sizes
     function setMySizesGenderFilter(gender) {
       mySizesGenderFilter = gender;
       
@@ -2932,7 +2970,6 @@
       populateMySizesGrid();
     }
 
-    // Set Gender Filter for Brand Notes
     function setBrandNotesGenderFilter(gender) {
       brandNotesGenderFilter = gender;
       
@@ -2942,7 +2979,6 @@
       populateBrandNotes();
     }
 
-    // Set Gender Filter for Size Finder
     function setSizeFinderGenderFilter(gender) {
       sizeFinderGenderFilter = gender;
       
@@ -2951,8 +2987,8 @@
       
       loadUkBrandsForSizeFinder();
     }
-    
-    // Brand Notes Population
+
+    // ===== BRAND NOTES POPULATION =====
     function populateBrandNotes() {
       const container = document.getElementById('brand-notes-grid');
       if (!container) return;
@@ -3008,7 +3044,7 @@
         </div>`;
     }
 
-    // Utility functions
+    // ===== UTILITY FUNCTIONS =====
     function kgFrom(value, unit) {
       if (unit === 'kg') return value;
       if (unit === 'lbs') return value * 0.45359237;
@@ -3036,7 +3072,7 @@
       return 'Obese';
     }
 
-    // MiStats functions
+    // ===== MISTATS FUNCTIONS =====
     function showStatsTab(tabName) {
       document.querySelectorAll('.stats-tab').forEach(tab => {
         tab.classList.remove('active');
@@ -3165,7 +3201,6 @@
       `).join('');
     }
 
-    // Chart.js Weight Graph
     function renderWeightChart() {
       const p = profileData[currentProfile];
       if (!p) return;
@@ -3243,7 +3278,7 @@
       });
     }
 
-    // Profile Management Functions
+    // ===== PROFILE MANAGEMENT FUNCTIONS =====
     function populateProfileDropdown() {
       const select = document.getElementById('measurement-profile-select');
       if (!select) return;
@@ -3300,10 +3335,10 @@
       document.getElementById('edit-start-height').value = profile.startingHeight.value;
 
       document.querySelectorAll('[data-gender]').forEach(btn => btn.classList.remove('active'));
-      document.getElementById(`edit-gender-${profile.gender}`).classList.add('active');
+      document.getElementById(`edit-gender-${profile.gender}`)?.classList.add('active');
 
       document.querySelectorAll('[data-frame]').forEach(btn => btn.classList.remove('active'));
-      document.getElementById(`edit-frame-${profile.bodyFrame}`).classList.add('active');
+      document.getElementById(`edit-frame-${profile.bodyFrame}`)?.classList.add('active');
 
       goToScreen('edit-profile-form');
     }
@@ -3399,16 +3434,227 @@
     }
 
     function toggleGuide(guideId) {
-      const guide = document.getElementById(guideId);
+      const guide = document.getElementById(
+		  guideId);
       if (guide) {
         guide.classList.toggle('show');
       }
     }
 
     function showMeasurementGuide(type) {
-      alert(`${type.charAt(0).toUpperCase() + type.slice(1)}'s measurement guide coming soon!`);
+      let guideContent = '';
+      
+      switch(type) {
+        case 'women':
+          guideContent = `
+            <h3>Women's Measurement Guide</h3>
+            <div class="guide-section">
+              <h5><span class="step-number">1</span>Bust Measurement</h5>
+              <p>Measure around the fullest part of your bust, keeping the tape parallel to the floor.</p>
+            </div>
+            <div class="guide-section">
+              <h5><span class="step-number">2</span>Waist Measurement</h5>
+              <p>Measure around your natural waistline (typically the narrowest part of your torso).</p>
+            </div>
+            <div class="guide-section">
+              <h5><span class="step-number">3</span>Hip Measurement</h5>
+              <p>Measure around the fullest part of your hips and buttocks.</p>
+            </div>
+            <div class="guide-section">
+              <h5><span class="step-number">4</span>Inseam Measurement</h5>
+              <p>Measure from the top of your inner thigh to your ankle bone. For tall sizes, this is crucial!</p>
+            </div>
+          `;
+          break;
+        case 'men':
+          guideContent = `
+            <h3>Men's Measurement Guide</h3>
+            <div class="guide-section">
+              <h5><span class="step-number">1</span>Chest Measurement</h5>
+              <p>Measure around the fullest part of your chest, under your armpits.</p>
+            </div>
+            <div class="guide-section">
+              <h5><span class="step-number">2</span>Waist Measurement</h5>
+              <p>Measure around your natural waistline, where you typically wear your trousers.</p>
+            </div>
+            <div class="guide-section">
+              <h5><span class="step-number">3</span>Inseam Measurement</h5>
+              <p>Measure from the crotch seam to the bottom of your ankle.</p>
+            </div>
+            <div class="guide-section">
+              <h5><span class="step-number">4</span>Sleeve Length</h5>
+              <p>Measure from the center back of your neck, across your shoulder, down to your wrist.</p>
+            </div>
+          `;
+          break;
+        case 'children':
+          guideContent = `
+            <h3>Children's Measurement Guide</h3>
+            <div class="guide-section">
+              <h5><span class="step-number">1</span>Height</h5>
+              <p>Have the child stand straight against a wall. Measure from floor to top of head.</p>
+            </div>
+            <div class="guide-section">
+              <h5><span class="step-number">2</span>Chest</h5>
+              <p>Measure around the fullest part of the chest.</p>
+            </div>
+            <div class="guide-section">
+              <h5><span class="step-number">3</span>Waist</h5>
+              <p>Measure around the natural waistline.</p>
+            </div>
+          `;
+          break;
+        case 'foot':
+          guideContent = `
+            <h3>Foot Measurement Guide</h3>
+            <div class="guide-section">
+              <h5><span class="step-number">1</span>Length</h5>
+              <p>Stand on a piece of paper and mark your heel and longest toe. Measure the distance.</p>
+            </div>
+            <div class="guide-section">
+              <h5><span class="step-number">2</span>Width</h5>
+              <p>Measure across the widest part of your foot.</p>
+            </div>
+          `;
+          break;
+      }
+      
+      alert(guideContent.replace(/<[^>]*>/g, '\n'));
     }
 
+    // ===== EVENT LISTENERS =====
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Unit selector
+      document.querySelectorAll('.pill[data-unit]').forEach(pill => {
+        pill.addEventListener('click', function() {
+          document.querySelectorAll('.pill[data-unit]').forEach(p => p.classList.remove('active'));
+          this.classList.add('active');
+          selectedUnit = this.dataset.unit;
+        });
+      });
+
+      // Gender selectors
+      document.querySelectorAll('[data-gender]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const group = this.closest('.pill-settings-group');
+          group.querySelectorAll('[data-gender]').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+
+      // Frame selectors
+      document.querySelectorAll('[data-frame]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const group = this.closest('.pill-settings-group');
+          group.querySelectorAll('[data-frame]').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+
+      // Weight unit selectors
+      document.querySelectorAll('[data-weight-unit]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const group = this.closest('.pill-settings-group');
+          group.querySelectorAll('[data-weight-unit]').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+
+      // Height unit selectors
+      document.querySelectorAll('[data-height-unit]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const group = this.closest('.pill-settings-group');
+          group.querySelectorAll('[data-height-unit]').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+
+      // Measurement unit selectors
+      document.querySelectorAll('[data-measurement-unit]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const group = this.closest('.pill-settings-group');
+          group.querySelectorAll('[data-measurement-unit]').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+
+      // Region selectors
+      document.querySelectorAll('[data-region]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('[data-region]').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+
+      // Graph controls
+      const toggleGraphBtn = document.getElementById('toggle-graph');
+      const toggleTableBtn = document.getElementById('toggle-table');
+      const graphDisplay = document.getElementById('graph-display');
+      const tableDisplay = document.getElementById('table-display');
+
+      if (toggleGraphBtn && toggleTableBtn) {
+        toggleGraphBtn.addEventListener('click', () => {
+          toggleGraphBtn.classList.add('active');
+          toggleTableBtn.classList.remove('active');
+          if (graphDisplay) graphDisplay.style.display = 'block';
+          if (tableDisplay) tableDisplay.style.display = 'none';
+          renderWeightChart();
+        });
+
+        toggleTableBtn.addEventListener('click', () => {
+          toggleTableBtn.classList.add('active');
+          toggleGraphBtn.classList.remove('active');
+          if (tableDisplay) tableDisplay.style.display = 'block';
+          if (graphDisplay) graphDisplay.style.display = 'none';
+          renderHistoryTable();
+        });
+      }
+
+      // My Sizes category filter
+      const mySizesCategorySelect = document.getElementById('mysizes-category');
+      if (mySizesCategorySelect) {
+        mySizesCategorySelect.addEventListener('change', populateMySizesGrid);
+      }
+
+      // My Sizes brand search
+      const mySizesBrandSearch = document.getElementById('mysizes-brand-search');
+      if (mySizesBrandSearch) {
+        mySizesBrandSearch.addEventListener('input', populateMySizesGrid);
+      }
+
+      // Brand Intelligence filters
+      const brandIntelSearch = document.getElementById('brand-intel-search');
+      const brandIntelCategory = document.getElementById('brand-intel-category');
+      
+      if (brandIntelSearch) {
+        brandIntelSearch.addEventListener('input', populateBrandNotes);
+      }
+      
+      if (brandIntelCategory) {
+        brandIntelCategory.addEventListener('change', populateBrandNotes);
+      }
+
+      // Initialize AI system
+      miSizeSystem = new MiSizeAISystem();
+      await loadUkBrands();
+      await miSizeSystem.initialize();
+
+      // Show home screen after flash
+      setTimeout(() => {
+        document.getElementById('flash').classList.remove('active');
+        document.getElementById('home').classList.add('active');
+        currentScreen = 'home';
+      }, 3000);
+
+      // Initialize MiStats
+      populateMiStatsProfileSelect();
+      renderMiStats();
+      renderWeightChart();
+
+      console.log('MiSize Tall system initialized successfully!');
+    });
+
+    // ===== HYDRATE MY SIZES BRAND SEARCH =====
     function hydrateMySizesBrandSearch() {
       const datalist = document.getElementById('mysizes-brand-datalist');
       if (!datalist) return;
@@ -3420,112 +3666,9 @@
         datalist.appendChild(option);
       });
     }
-
-    // Event Listeners for Pills
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.pill[data-unit]').forEach(pill => {
-        pill.addEventListener('click', () => {
-          document.querySelectorAll('.pill[data-unit]').forEach(p => p.classList.remove('active'));
-          pill.classList.add('active');
-          selectedUnit = pill.dataset.unit;
-        });
-      });
-
-      document.querySelectorAll('.settings-pill[data-gender]').forEach(pill => {
-        pill.addEventListener('click', () => {
-          document.querySelectorAll('.settings-pill[data-gender]').forEach(p => p.classList.remove('active'));
-          pill.classList.add('active');
-        });
-      });
-
-      document.querySelectorAll('.settings-pill[data-frame]').forEach(pill => {
-        pill.addEventListener('click', () => {
-          document.querySelectorAll('.settings-pill[data-frame]').forEach(p => p.classList.remove('active'));
-          pill.classList.add('active');
-        });
-      });
-
-      document.querySelectorAll('.settings-pill[data-region]').forEach(pill => {
-        pill.addEventListener('click', () => {
-          document.querySelectorAll('.settings-pill[data-region]').forEach(p => p.classList.remove('active'));
-          pill.classList.add('active');
-        });
-      });
-
-      document.querySelectorAll('.settings-pill[data-weight-unit]').forEach(pill => {
-        pill.addEventListener('click', () => {
-          const group = pill.closest('.pill-settings-group');
-          group.querySelectorAll('.settings-pill[data-weight-unit]').forEach(p => p.classList.remove('active'));
-          pill.classList.add('active');
-        });
-      });
-
-      document.querySelectorAll('.settings-pill[data-height-unit]').forEach(pill => {
-        pill.addEventListener('click', () => {
-          const group = pill.closest('.pill-settings-group');
-          group.querySelectorAll('.settings-pill[data-height-unit]').forEach(p => p.classList.remove('active'));
-          pill.classList.add('active');
-        });
-      });
-
-      document.querySelectorAll('.settings-pill[data-measurement-unit]').forEach(pill => {
-        pill.addEventListener('click', () => {
-          const group = pill.closest('.pill-settings-group');
-          group.querySelectorAll('.settings-pill[data-measurement-unit]').forEach(p => p.classList.remove('active'));
-          pill.classList.add('active');
-        });
-      });
-
-      // Toggle Graph/Table event listeners
-      const toggleGraph = document.getElementById("toggle-graph");
-      const toggleTable = document.getElementById("toggle-table");
-
-      if (toggleGraph) {
-        toggleGraph.addEventListener("click", () => {
-          document.getElementById("graph-display").style.display = "block";
-          document.getElementById("table-display").style.display = "none";
-          toggleGraph.classList.add("active");
-          toggleTable.classList.remove("active");
-          renderWeightChart();
-        });
-      }
-
-      if (toggleTable) {
-        toggleTable.addEventListener("click", () => {
-          document.getElementById("graph-display").style.display = "none";
-          document.getElementById("table-display").style.display = "block";
-          toggleTable.classList.add("active");
-          toggleGraph.classList.remove("active");
-          renderHistoryTable();
-        });
-      }
-    });
-
-    // Initialize App - SINGLE INITIALIZATION
-    window.addEventListener("DOMContentLoaded", async () => {
-      console.log('🚀 Initializing MiSize Tall App...');
-      
-      try {
-        await loadUkBrands();
-        miSizeSystem = new MiSizeAISystem();
-        await miSizeSystem.initialize();
-        populateProfileDropdown();
-        populateMiStatsProfileSelect();
-        console.log('✅ App initialized successfully!');
-      } catch (error) {
-        console.error('❌ Initialization error:', error);
-      }
-      
-      // Hide splash and show home after 1.5 seconds
-      setTimeout(() => {
-        document.getElementById("flash").classList.remove("active");
-        const home = document.getElementById("home");
-        if (home) {
-          home.classList.add("active");
-        }
-        console.log("✅ Home screen displayed");
-      }, 1500);
-    });
   </script>
 </body>
 </html>
+
+
+
