@@ -2141,7 +2141,7 @@
 
       setUserMeasurements(measurements) {
         this.userMeasurements = {
-          bust: parseFloat(measurements.bust) || 0,
+        bust: parseFloat(measurements.chest || measurements.bust) || 0,
           waist: parseFloat(measurements.waist) || 0,
           hips: parseFloat(measurements.hips) || 0,
           inseam: parseFloat(measurements.inseam) || 0,
