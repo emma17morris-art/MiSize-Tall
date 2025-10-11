@@ -2,24 +2,6 @@ import csv
 import json
 from datetime import datetime
 
-# Category mapping from CSV to proper categories
-CATEGORY_MAPPING = {
-    # Women's categories
-    'Women Jeans': "Women's Tall Jeans",
-    'Women Dresses': "Women's Dresses",
-    'Women Tops': "Women's Tops",
-    'Women Shirts': "Women's Shirts",
-    'Women Jumpers': "Women's Jumpers",
-    'Women Skirts': "Women's Skirts",
-    
-    # Men's categories
-    'Men Jeans': "Men's Tall Jeans",
-    'Men Shirts': "Men's Shirts",
-    'Men T-Shirts': "Men's T-Shirts",
-    'Men Tops': "Men's Tops",
-    'Men Jumpers': "Men's Jumpers",
-}
-
 # Load existing data
 try:
     with open('tall_sizes_complete.json', 'r', encoding='utf-8') as f:
@@ -58,51 +40,36 @@ with open('Tall_Sizes_Master.csv', 'r', encoding='utf-8') as f:
             result[brand]["sourceNote"] = source_note
             result[brand]["lastUpdated"] = datetime.now().isoformat()
         
-        # Determine gender and category
+        # Determine gender
         gender = row.get('Gender', '').strip()
-        label_type = row.get('Label/Type', '').strip()
+        section = row.get('Section', '').strip()
         
-        # Map to proper category
-        category = None
-        if gender == 'Women':
-            if 'Jean' in label_type or 'Trouser' in label_type:
-                category = "Women's Tall Jeans"
-            elif 'Dress' in label_type:
-                category = "Women's Dresses"
-            elif 'Top' in label_type or 'Blouse' in label_type:
-                category = "Women's Tops"
-            elif 'Shirt' in label_type:
-                category = "Women's Shirts"
-            elif 'Jumper' in label_type or 'Sweater' in label_type:
-                category = "Women's Jumpers"
-            elif 'Skirt' in label_type:
-                category = "Women's Skirts"
-            else:
-                category = "Women's Tall Jeans"  # Default
-                
-        elif gender == 'Men':
-            if 'Jean' in label_type or 'Trouser' in label_type:
-                category = "Men's Tall Jeans"
-            elif 'Shirt' in label_type and 'T-Shirt' not in label_type:
-                category = "Men's Shirts"
-            elif 'T-Shirt' in label_type or 'Tee' in label_type:
-                category = "Men's T-Shirts"
-            elif 'Top' in label_type:
-                category = "Men's Tops"
-            elif 'Jumper' in label_type or 'Sweater' in label_type:
-                category = "Men's Jumpers"
-            else:
-                category = "Men's Tall Jeans"  # Default
-        
-        if not category:
+        # For now, create all the clothing categories for each brand
+        # Later you can add specific data for each type
+        if gender == 'Women' or section == 'WOMEN':
+            categories_to_create = [
+                "Women's Tall Jeans",
+                "Women's Dresses",
+                "Women's Tops",
+                "Women's Shirts",
+                "Women's Jumpers",
+                "Women's Skirts"
+            ]
+        elif gender == 'Men' or section == 'MEN':
+            categories_to_create = [
+                "Men's Tall Jeans",
+                "Men's Shirts",
+                "Men's T-Shirts",
+                "Men's Tops",
+                "Men's Jumpers"
+            ]
+        else:
             continue
         
         if "categories" not in result[brand]:
             result[brand]["categories"] = {}
-            
-        if category not in result[brand]["categories"]:
-            result[brand]["categories"][category] = {}
         
+        # Get size data
         uk_size = row.get('UK Size', '').strip()
         if not uk_size:
             continue
@@ -129,7 +96,7 @@ with open('Tall_Sizes_Master.csv', 'r', encoding='utf-8') as f:
             bust = float(row.get('Bust (in)', 0))
             if bust:
                 size_data["bust"] = round(bust, 1)
-                size_data["chest"] = round(bust, 1)  # Add both names
+                size_data["chest"] = round(bust, 1)
         except:
             pass
         
@@ -141,7 +108,11 @@ with open('Tall_Sizes_Master.csv', 'r', encoding='utf-8') as f:
                 size_data["inseam"] = round(max(numbers), 1)
         
         if size_data:
-            result[brand]["categories"][category][size_label] = size_data
+            # Add the same size data to all categories for this brand
+            for category in categories_to_create:
+                if category not in result[brand]["categories"]:
+                    result[brand]["categories"][category] = {}
+                result[brand]["categories"][category][size_label] = size_data.copy()
 
 # Save
 with open('tall_sizes_complete.json', 'w', encoding='utf-8') as f:
@@ -149,13 +120,13 @@ with open('tall_sizes_complete.json', 'w', encoding='utf-8') as f:
 
 print(f"✅ Updated {len(result)} brands in tall_sizes_complete.json")
 
-# Print summary of categories found
-all_categories = set()
+# Print summary
+all_categories = {}
 for brand_data in result.values():
     if 'categories' in brand_data:
-        all_categories.update(brand_data['categories'].keys())
+        for cat in brand_data['categories'].keys():
+            all_categories[cat] = all_categories.get(cat, 0) + 1
 
 print(f"\n📊 Categories in database:")
-for cat in sorted(all_categories):
-    count = sum(1 for b in result.values() if cat in b.get('categories', {}))
-    print(f"  - {cat}: {count} brands")
+for cat in sorted(all_categories.keys()):
+    print(f"  - {cat}: {all_categories[cat]} brands")
