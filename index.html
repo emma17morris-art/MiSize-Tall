@@ -3514,16 +3514,22 @@ function hydrateMySizesBrandSearch() {
         mySizesBrandSearch.addEventListener('input', populateMySizesGrid);
       }
 
-      const brandIntelSearch = document.getElementById('brand-intel-search');
-      const brandIntelCategory = document.getElementById('brand-intel-category');
-      
-      if (brandIntelSearch) {
-        brandIntelSearch.addEventListener('input', populateBrandNotes);
-      }
-      
-      if (brandIntelCategory) {
-        brandIntelCategory.addEventListener('change', populateBrandNotes);
-      }
+     const brandIntelSearch = document.getElementById('brand-intel-search');
+const brandIntelCategory = document.getElementById('brand-intel-category');
+
+if (brandIntelSearch) {
+  brandIntelSearch.addEventListener('input', () => {
+    console.log('Brand search changed:', brandIntelSearch.value);
+    populateBrandNotes();
+  });
+}
+
+if (brandIntelCategory) {
+  brandIntelCategory.addEventListener('change', () => {
+    console.log('Category filter changed:', brandIntelCategory.value);
+    populateBrandNotes();
+  });
+}
 
       miSizeSystem = new MiSizeAISystem();
       await loadUkBrands();
