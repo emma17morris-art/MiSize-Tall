@@ -2214,19 +2214,26 @@
       }
 
       findBestSizeForBrand(brandName, category, fitPreference = 'standard') {
-        console.log('Finding size for brand:', brandName, 'category:', category, 'fit:', fitPreference);
+  console.log('Finding size for brand:', brandName, 'category:', category, 'fit:', fitPreference);
 
-        const brandData = this.brandDatabase[brandName];
-        if (!brandData || !brandData.categories) {
-          console.log('Brand not found:', brandName);
-          return null;
-        }
+  const brandData = this.brandDatabase[brandName];
+  if (!brandData) {
+    console.log('Brand not found:', brandName);
+    return null;
+  }
 
-        const categoryData = brandData.categories[category];
-        if (!categoryData) {
-          console.log('Category not found:', category, 'Available:', Object.keys(brandData.categories));
-          return null;
-        }
+  // Handle both structures: with and without "categories" wrapper
+  const categoryData = brandData.categories 
+    ? brandData.categories[category]  // Has categories wrapper
+    : brandData[category];             // Direct category access
+
+  if (!categoryData) {
+    const availableCategories = brandData.categories 
+      ? Object.keys(brandData.categories)
+      : Object.keys(brandData).filter(k => typeof brandData[k] === 'object');
+    console.log('Category not found:', category, 'Available:', availableCategories);
+    return null;
+  }
 
         console.log('Category data:', categoryData);
         console.log('User measurements:', this.userMeasurements);
