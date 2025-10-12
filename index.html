@@ -3596,17 +3596,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // ⭐ SHOW HOME SCREEN IMMEDIATELY
-console.log('✅ Showing home screen...');
-const flashScreen = document.getElementById('flash');
-const homeScreen = document.getElementById('home');
-if (flashScreen) flashScreen.style.display = 'none';
-if (homeScreen) homeScreen.style.display = 'block';
+document.addEventListener('DOMContentLoaded', async () => {
+  console.log('🟣 Initializing MiSize Tall app...');
+
+  console.log("✅ Showing home screen...");
+  const flashScreen = document.getElementById('flash');
+  const homeScreen = document.getElementById('home');
+  if (flashScreen) flashScreen.style.display = 'none';
+  if (homeScreen) homeScreen.style.display = 'block';
   currentScreen = 'home';
 
   // Load data in background
-  console.log('📦 Loading brand data in background...');
+  console.log('🟣 Loading brand data in background...');
   miSizeSystem = new MiSizeAISystem();
-  
+
   try {
     await loadUkBrands();
     await miSizeSystem.initialize();
@@ -3622,6 +3625,7 @@ if (homeScreen) homeScreen.style.display = 'block';
 
   console.log('✅ MiSize Tall system initialized');
 });
+
 
 		
 </script>
