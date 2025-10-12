@@ -2782,24 +2782,7 @@ function updateCategoryFromClothingType() {
     ? cards.join('')
     : '<div style="text-align:center;padding:40px;color:var(--muted);">No matching brands found. Try adjusting filters.</div>';
 }
-        console.log(`Total cards generated: ${cards.length}`);
-
-        grid.innerHTML = cards.length
-          ? cards.join('')
-          : `
-            <div style="text-align:center;padding:40px;grid-column:1/-1;">
-              <p style="color:var(--muted);">No tall brand matches at this confidence level${brandFilter ? ` for <strong>${brandFilter}</strong>` : ''}.</p>
-              <p style="color:var(--muted);font-size:14px;">Your measurements: Bust ${profileData[currentProfile]?.measurements.chest}", Waist ${profileData[currentProfile]?.measurements.waist}", Hips ${profileData[currentProfile]?.measurements.hips}"</p>
-              <p style="color:var(--muted);font-size:14px;">Try clearing filters or check that your profile measurements are set in Settings.</p>
-            </div>`;
-      } catch (err) {
-        console.error('Error in populateMySizesGrid:', err);
-        grid.innerHTML = `
-          <div style="text-align:center;padding:40px;grid-column:1/-1;color:var(--orange);">
-            Error loading sizes: ${err.message}
-            <p style="font-size:12px;">Check browser console for details.</p>
-          </div>`;
-      }
+       
     }
 
     // ===== IMPROVED GENDER DETECTION =====
