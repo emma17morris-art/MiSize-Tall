@@ -3596,9 +3596,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // ⭐ SHOW HOME SCREEN IMMEDIATELY
-  console.log('✅ Showing home screen...');
-  document.getElementById('flash').classList.remove('active');
-  document.getElementById('home').classList.add('active');
+console.log('✅ Showing home screen...');
+const flashScreen = document.getElementById('flash');
+const homeScreen = document.getElementById('home');
+if (flashScreen) flashScreen.style.display = 'none';
+if (homeScreen) homeScreen.style.display = 'block';
   currentScreen = 'home';
 
   // Load data in background
