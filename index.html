@@ -2194,206 +2194,205 @@
       }
     }
     // ===== SIZE MATCHING ENGINE CLASS =====
-    class SizeMatchingEngine {
-      constructor() {
-        this.brandDatabase = (BRAND_DB && typeof BRAND_DB === 'object' && Object.keys(BRAND_DB).length)
-          ? BRAND_DB
-          : BRAND_SIZE_DATABASE;
-        this.userMeasurements = {};
-        this.fitPreferences = { snug: -1, standard: 0, relaxed: 1 };
-      }
-
-      setUserMeasurements(measurements) {
-        this.userMeasurements = {
-          bust: parseFloat(measurements.chest || measurements.bust) || 0,
-          waist: parseFloat(measurements.waist) || 0,
-          hips: parseFloat(measurements.hips) || 0,
-          inseam: parseFloat(measurements.inseam) || 0,
-          unit: measurements.unit || 'inch'
-        };
-        console.log('User measurements set:', this.userMeasurements);
-      }
-
-      findBestSizeForBrand(brandName, category, fitPreference = 'standard') {
-  console.log('Finding size for brand:', brandName, 'category:', category, 'fit:', fitPreference);
-
-  const brandData = this.brandDatabase[brandName];
-  if (!brandData) {
-    console.log('Brand not found:', brandName);
-    return null;
+class SizeMatchingEngine {
+  constructor() {
+    this.brandDatabase = (BRAND_DB && typeof BRAND_DB === 'object' && Object.keys(BRAND_DB).length)
+      ? BRAND_DB
+      : BRAND_SIZE_DATABASE;
+    this.userMeasurements = {};
+    this.fitPreferences = { snug: -1, standard: 0, relaxed: 1 };
   }
 
-  // Handle both structures: with and without "categories" wrapper
-  const categoryData = brandData.categories 
-    ? brandData.categories[category]  // Has categories wrapper
-    : brandData[category];             // Direct category access
-
-  if (!categoryData) {
-    const availableCategories = brandData.categories 
-      ? Object.keys(brandData.categories)
-      : Object.keys(brandData).filter(k => typeof brandData[k] === 'object');
-    console.log('Category not found:', category, 'Available:', availableCategories);
-    return null;
+  setUserMeasurements(measurements) {
+    this.userMeasurements = {
+      bust: parseFloat(measurements.chest || measurements.bust) || 0,
+      waist: parseFloat(measurements.waist) || 0,
+      hips: parseFloat(measurements.hips) || 0,
+      inseam: parseFloat(measurements.inseam) || 0,
+      unit: measurements.unit || 'inch'
+    };
+    console.log('User measurements set:', this.userMeasurements);
   }
 
-        console.log('Category data:', categoryData);
-        console.log('User measurements:', this.userMeasurements);
+  findBestSizeForBrand(brandName, category, fitPreference = 'standard') {
+    console.log('Finding size for brand:', brandName, 'category:', category, 'fit:', fitPreference);
 
-        const fitAdjustment = this.fitPreferences[fitPreference.toLowerCase()] ?? 0;
-        const sizeAnalysis = this.analyzeSizes(categoryData, fitAdjustment);
-        const inseamRange = getInseamRange(categoryData);
+    const brandData = this.brandDatabase[brandName];
+    if (!brandData) {
+      console.log('Brand not found:', brandName);
+      return null;
+    }
 
-        return {
-          brand: brandName,
-          recommendedSize: sizeAnalysis.bestSize,
-          confidence: sizeAnalysis.confidence,
-          fitAnalysis: sizeAnalysis.fitDetails,
-          alternatives: sizeAnalysis.alternatives,
-          category,
-          fitPreference,
-          inseam: sizeAnalysis.inseam,
-          inseamRange: inseamRange
-        };
-      }
+    // Handle both structures: with and without "categories" wrapper
+    const categoryData = brandData.categories 
+      ? brandData.categories[category]
+      : brandData[category];
 
-      analyzeSizes(categoryData, fitAdjustment) {
-        const sizeScores = [];
-        
-        for (const [size, measurements] of Object.entries(categoryData)) {
-          const score = this.calculateFitScore(measurements, fitAdjustment);
-          sizeScores.push({ size, score, measurements });
-        }
-        
-        sizeScores.sort((a, b) => b.score - a.score);
-        
-        const bestMatch = sizeScores[0];
-        
-        if (bestMatch && bestMatch.score > -15) {
-          return {
-            bestSize: bestMatch.size,
-            recommendedSize: bestMatch.size,
-            fitScore: bestMatch.score,
-            confidence: this.calculateConfidence(bestMatch.score),
-            fitDetails: this.generateFitDetails(this.userMeasurements, bestMatch.measurements, bestMatch.size),
-            alternatives: sizeScores.slice(1, 3).map(s => ({
-              size: s.size,
-              confidence: this.calculateConfidence(s.score),
-              details: this.generateFitDetails(this.userMeasurements, s.measurements, s.size)
-            })),
-            inseam: bestMatch.measurements.inseam || null
-          };
-        }
-        
-        return null;
-      }
+    if (!categoryData) {
+      const availableCategories = brandData.categories 
+        ? Object.keys(brandData.categories)
+        : Object.keys(brandData).filter(k => typeof brandData[k] === 'object');
+      console.log('Category not found:', category, 'Available:', availableCategories);
+      return null;
+    }
+
+    console.log('Category data:', categoryData);
+    console.log('User measurements:', this.userMeasurements);
+
+    const fitAdjustment = this.fitPreferences[fitPreference.toLowerCase()] ?? 0;
+    const sizeAnalysis = this.analyzeSizes(categoryData, fitAdjustment);
+    const inseamRange = getInseamRange(categoryData);
+
+    return {
+      brand: brandName,
+      recommendedSize: sizeAnalysis.bestSize,
+      confidence: sizeAnalysis.confidence,
+      fitAnalysis: sizeAnalysis.fitDetails,
+      alternatives: sizeAnalysis.alternatives,
+      category,
+      fitPreference,
+      inseam: sizeAnalysis.inseam,
+      inseamRange: inseamRange
+    };
+  }
+
+  analyzeSizes(categoryData, fitAdjustment) {
+    const sizeScores = [];
+    
+    for (const [size, measurements] of Object.entries(categoryData)) {
+      const score = this.calculateFitScore(measurements, fitAdjustment);
+      sizeScores.push({ size, score, measurements });
     }
     
-      // ===== CALCULATE FIT SCORE =====
-    calculateFitScore(sizeData) {
-  let score = 100;
-  let measurementsChecked = 0;
-  const { bust, waist, hips, inseam } = this.userMeasurements;
-
-  // Check waist (most important)
-  const sizeWaist = sizeData.waist || sizeData.waist_inches || sizeData['waist (inches)'];
-  if (sizeWaist && waist) {
-    measurementsChecked++;
-    const waistDiff = Math.abs(sizeWaist - waist);
-    if (waistDiff > 3) score -= (waistDiff * 10);
-    if (sizeWaist < waist - 1) score -= 30;
-  }
-
-  // Check hips
-  const sizeHips = sizeData.hips || sizeData.hips_inches || sizeData['hips (inches)'];
-  if (sizeHips && hips) {
-    measurementsChecked++;
-    const hipsDiff = Math.abs(sizeHips - hips);
-    if (hipsDiff > 3) score -= (hipsDiff * 8);
-    if (sizeHips < hips - 1) score -= 25;
-  }
-
-  // Check bust/chest
-  const sizeBust = sizeData.bust || sizeData.bust_inches || sizeData.chest || sizeData.chest_inches || sizeData['bust (inches)'];
-  if (sizeBust && bust) {
-    measurementsChecked++;
-    const bustDiff = Math.abs(sizeBust - bust);
-    if (bustDiff > 3) score -= (bustDiff * 8);
-    if (sizeBust < bust - 1) score -= 25;
-  }
-
-  // Check inseam
-  const sizeInseam = sizeData.inseam || sizeData.inseam_inches || sizeData['inseam (inches)'];
-  if (sizeInseam && inseam) {
-    measurementsChecked++;
-    const inseamDiff = Math.abs(sizeInseam - inseam);
-    if (inseamDiff > 2) score -= (inseamDiff * 5);
-  }
-
-  if (measurementsChecked === 0) {
-    console.warn('⚠️ No measurements could be compared for size', sizeData);
-    return -100;
-  }
-
-  return Math.max(-100, score);
-}
-
-        return Math.max(-100, score);
-      }
-
-      calculateConfidence(score) {
-        const maxScore = 0;
-        const minScore = -20;
-        
-        if (score >= maxScore) return 100;
-        if (score <= minScore) return 0;
-        
-        return Math.round(((score - minScore) / (maxScore - minScore)) * 100);
-      }
-
-      generateFitDetails(user, sizeM, size) {
-        const d = { size, measurements: sizeM, fit: {}, recommendations: [] };
-        
-        ['bust', 'waist', 'hips'].forEach(k => {
-          if (user[k] && sizeM[k]) {
-            const diff = user[k] - sizeM[k];
-            let desc;
-            const absDiff = Math.abs(diff);
-            
-            if (absDiff <= 1) desc = 'Perfect fit';
-            else if (absDiff <= 2) desc = diff > 0 ? 'Slightly snug' : 'Slightly loose';
-            else if (absDiff <= 3) desc = diff > 0 ? 'Snug fit' : 'Loose fit';
-            else desc = diff > 0 ? `${absDiff.toFixed(1)}" too small` : `${absDiff.toFixed(1)}" too large`;
-            
-            d.fit[k] = { 
-              userMeasurement: user[k], 
-              sizeMeasurement: sizeM[k], 
-              difference: diff, 
-              description: desc 
-            };
-            
-            if (absDiff > 2) {
-              d.recommendations.push(`${k}: Consider ${diff > 0 ? 'sizing up' : 'sizing down'} for better fit`);
-            }
-          }
-        });
-        
-        if (sizeM.inseam) {
-          d.measurements.inseam = sizeM.inseam;
-        }
-        
-        return d;
-      }
-
-      getAllBrandSizes(category, fitPreference = 'standard') {
-        const out = [];
-        Object.keys(this.brandDatabase).forEach(brandName => {
-          const r = this.findBestSizeForBrand(brandName, category, fitPreference);
-          if (r) out.push(r);
-        });
-        console.log(`Found ${out.length} brands for category ${category}`);
-        return out.sort((a, b) => b.confidence - a.confidence);
-      }
+    sizeScores.sort((a, b) => b.score - a.score);
+    
+    const bestMatch = sizeScores[0];
+    
+    if (bestMatch && bestMatch.score > -15) {
+      return {
+        bestSize: bestMatch.size,
+        recommendedSize: bestMatch.size,
+        fitScore: bestMatch.score,
+        confidence: this.calculateConfidence(bestMatch.score),
+        fitDetails: this.generateFitDetails(this.userMeasurements, bestMatch.measurements, bestMatch.size),
+        alternatives: sizeScores.slice(1, 3).map(s => ({
+          size: s.size,
+          confidence: this.calculateConfidence(s.score),
+          details: this.generateFitDetails(this.userMeasurements, s.measurements, s.size)
+        })),
+        inseam: bestMatch.measurements.inseam || bestMatch.measurements.inseam_inches || null
+      };
     }
+    
+    return null;
+  }
+
+  calculateFitScore(sizeData) {
+    let score = 100;
+    let measurementsChecked = 0;
+    const { bust, waist, hips, inseam } = this.userMeasurements;
+
+    // Check waist (most important)
+    const sizeWaist = sizeData.waist || sizeData.waist_inches || sizeData['waist (inches)'];
+    if (sizeWaist && waist) {
+      measurementsChecked++;
+      const waistDiff = Math.abs(sizeWaist - waist);
+      if (waistDiff > 3) score -= (waistDiff * 10);
+      if (sizeWaist < waist - 1) score -= 30;
+    }
+
+    // Check hips
+    const sizeHips = sizeData.hips || sizeData.hips_inches || sizeData['hips (inches)'];
+    if (sizeHips && hips) {
+      measurementsChecked++;
+      const hipsDiff = Math.abs(sizeHips - hips);
+      if (hipsDiff > 3) score -= (hipsDiff * 8);
+      if (sizeHips < hips - 1) score -= 25;
+    }
+
+    // Check bust/chest
+    const sizeBust = sizeData.bust || sizeData.bust_inches || sizeData.chest || sizeData.chest_inches || sizeData['bust (inches)'];
+    if (sizeBust && bust) {
+      measurementsChecked++;
+      const bustDiff = Math.abs(sizeBust - bust);
+      if (bustDiff > 3) score -= (bustDiff * 8);
+      if (sizeBust < bust - 1) score -= 25;
+    }
+
+    // Check inseam
+    const sizeInseam = sizeData.inseam || sizeData.inseam_inches || sizeData['inseam (inches)'];
+    if (sizeInseam && inseam) {
+      measurementsChecked++;
+      const inseamDiff = Math.abs(sizeInseam - inseam);
+      if (inseamDiff > 2) score -= (inseamDiff * 5);
+    }
+
+    if (measurementsChecked === 0) {
+      console.warn('⚠️ No measurements could be compared for size', sizeData);
+      return -100;
+    }
+
+    return Math.max(-100, score);
+  }
+
+  calculateConfidence(score) {
+    const maxScore = 0;
+    const minScore = -20;
+    
+    if (score >= maxScore) return 100;
+    if (score <= minScore) return 0;
+    
+    return Math.round(((score - minScore) / (maxScore - minScore)) * 100);
+  }
+
+  generateFitDetails(user, sizeM, size) {
+    const d = { size, measurements: sizeM, fit: {}, recommendations: [] };
+    
+    ['bust', 'waist', 'hips'].forEach(k => {
+      const userVal = user[k];
+      const sizeVal = sizeM[k] || sizeM[`${k}_inches`] || sizeM[`${k} (inches)`];
+      
+      if (userVal && sizeVal) {
+        const diff = userVal - sizeVal;
+        let desc;
+        const absDiff = Math.abs(diff);
+        
+        if (absDiff <= 1) desc = 'Perfect fit';
+        else if (absDiff <= 2) desc = diff > 0 ? 'Slightly snug' : 'Slightly loose';
+        else if (absDiff <= 3) desc = diff > 0 ? 'Snug fit' : 'Loose fit';
+        else desc = diff > 0 ? `${absDiff.toFixed(1)}" too small` : `${absDiff.toFixed(1)}" too large`;
+        
+        d.fit[k] = { 
+          userMeasurement: userVal, 
+          sizeMeasurement: sizeVal, 
+          difference: diff, 
+          description: desc 
+        };
+        
+        if (absDiff > 2) {
+          d.recommendations.push(`${k}: Consider ${diff > 0 ? 'sizing up' : 'sizing down'} for better fit`);
+        }
+      }
+    });
+    
+    const inseamVal = sizeM.inseam || sizeM.inseam_inches || sizeM['inseam (inches)'];
+    if (inseamVal) {
+      d.measurements.inseam = inseamVal;
+    }
+    
+    return d;
+  }
+
+  getAllBrandSizes(category, fitPreference = 'standard') {
+    const out = [];
+    Object.keys(this.brandDatabase).forEach(brandName => {
+      const r = this.findBestSizeForBrand(brandName, category, fitPreference);
+      if (r) out.push(r);
+    });
+    console.log(`Found ${out.length} brands for category ${category}`);
+    return out.sort((a, b) => b.confidence - a.confidence);
+  }
+}
 
     // ===== MISIZE AI SYSTEM CLASS =====
     class MiSizeAISystem {
