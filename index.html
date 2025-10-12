@@ -1960,7 +1960,7 @@
     const BRAND_SIZE_DATABASE = {};
 
     // ===== NORMALIZE BRAND JSON FUNCTION =====
-    function normaliseBrandJson(raw) {
+function normaliseBrandJson(raw) {
       if (Array.isArray(raw)) {
         const obj = {};
         raw.forEach(b => { 
@@ -1996,7 +1996,7 @@
     }
 
     // ===== FIXED GET INSEAM RANGE FUNCTION =====
-    function getInseamRange(categoryData) {
+function getInseamRange(categoryData) {
       const inseams = [];
       Object.values(categoryData).forEach(sizeMeasurements => {
         // ⭐ Check multiple possible field names
@@ -2056,7 +2056,7 @@
         const catIntel = document.getElementById('brand-intel-category');
         const catsSorted = [...ALL_CATEGORIES].sort((a, b) => a.localeCompare(b));
 
-        function fillCatSelect(sel) {
+function fillCatSelect(sel) {
           if (!sel) return;
           const keepTop = sel.querySelector('option[value=""]')?.outerHTML || '<option value="">Select category...</option>';
           sel.innerHTML = keepTop;
@@ -2114,7 +2114,7 @@
 	}   
 
     // ===== FIXED SIZE FINDER BRAND SYNC WITH CATEGORY AUTO-POPULATE =====
-    function loadUkBrandsForSizeFinder() {
+function loadUkBrandsForSizeFinder() {
       const filteredBrands = filterBrandsByGender(ALL_BRANDS, sizeFinderGenderFilter);
       
       const datalist = document.getElementById('uk-brand-datalist');
@@ -2476,12 +2476,12 @@
     }
 
     // ===== NAVIGATION FUNCTIONS =====
-    function enterHub(region) {
+function enterHub(region) {
       const hubScreen = region.toLowerCase() + '-hub';
       goToScreen(hubScreen);
     }
 
-    function goToScreen(screenId) {
+function goToScreen(screenId) {
       if (currentScreen !== screenId) {
         navigationHistory.push(currentScreen);
       }
@@ -2499,7 +2499,7 @@
       }
     }
 
-    function updateScreenData(screenId) {
+function updateScreenData(screenId) {
       if (screenId === 'saved-profiles') {
         loadSavedProfiles();
       } else if (screenId === 'edit-profiles') {
@@ -2516,24 +2516,24 @@
       }
     }
 
-    function goHome() {
+function goHome() {
       navigationHistory = [];
       goToScreen('home');
     }
 
-    function goToMiStats() {
+function goToMiStats() {
       goToScreen('mistats');
     }
 
-    function goToSettings() {
+function goToSettings() {
       goToScreen('uk-settings');
     }
 
-    function goToHelp() {
+function goToHelp() {
       goToScreen('help');
     }
 
-    function goBack() {
+function goBack() {
       if (navigationHistory.length > 0) {
         const previousScreen = navigationHistory.pop();
 
@@ -2551,7 +2551,7 @@
       }
     }
 
-    function updateNavigation() {
+function updateNavigation() {
       document.querySelectorAll('.nav-item').forEach(item => {
         item.classList.remove('active');
       });
@@ -2784,7 +2784,7 @@ function updateCategoryFromClothingType() {
 }
 
     // ===== IMPROVED GENDER DETECTION =====
-    function detectBrandGender(brandName, brandData) {
+function detectBrandGender(brandName, brandData) {
       // 1. Check explicit gender field
       if (brandData.gender) {
         const g = brandData.gender.toLowerCase();
@@ -2821,7 +2821,7 @@ function updateCategoryFromClothingType() {
       return 'women';
     }
 
-    function filterBrandsByGender(brandNames, genderFilter) {
+function filterBrandsByGender(brandNames, genderFilter) {
       if (genderFilter === 'all') return brandNames;
       
       return brandNames.filter(name => {
@@ -2834,7 +2834,7 @@ function updateCategoryFromClothingType() {
     }
 
     // ===== UPDATE GENDER FILTER FUNCTIONS TO REFRESH SEARCHES =====
-    function setMySizesGenderFilter(gender) {
+function setMySizesGenderFilter(gender) {
       mySizesGenderFilter = gender;
       
       document.querySelectorAll('[data-mysizes-gender]').forEach(btn => btn.classList.remove('active'));
@@ -2848,7 +2848,7 @@ function updateCategoryFromClothingType() {
       populateMySizesGrid();
     }
 
-    function setBrandNotesGenderFilter(gender) {
+function setBrandNotesGenderFilter(gender) {
       brandNotesGenderFilter = gender;
       
       document.querySelectorAll('[data-brandnotes-gender]').forEach(btn => btn.classList.remove('active'));
@@ -2862,7 +2862,7 @@ function updateCategoryFromClothingType() {
       populateBrandNotes();
     }
 
-    function setSizeFinderGenderFilter(gender) {
+function setSizeFinderGenderFilter(gender) {
       sizeFinderGenderFilter = gender;
       
       document.querySelectorAll('[data-sizefinder-gender]').forEach(btn => btn.classList.remove('active'));
@@ -2877,7 +2877,7 @@ function updateCategoryFromClothingType() {
     }
 
     // ===== FIXED BRAND NOTES POPULATION =====
-    function populateBrandNotes() {
+function populateBrandNotes() {
       console.log('🔍 populateBrandNotes called');
       
       const container = document.getElementById('brand-notes-grid');
@@ -3001,26 +3001,26 @@ function updateCategoryFromClothingType() {
     }
 
     // ===== UTILITY FUNCTIONS =====
-    function kgFrom(value, unit) {
+function kgFrom(value, unit) {
       if (unit === 'kg') return value;
       if (unit === 'lbs') return value * 0.45359237;
       if (unit === 'stone') return value * 6.35029318;
       return value;
     }
 
-    function cmFrom(value, unit) {
+function cmFrom(value, unit) {
       if (unit === 'cm') return value;
       if (unit === 'inch') return value * 2.54;
       return value;
     }
 
-    function computeBMIKgCm(weightKg, heightCm) {
+function computeBMIKgCm(weightKg, heightCm) {
       const h = heightCm / 100;
       if (!h) return null;
       return weightKg / (h * h);
     }
 
-    function bmiCategory(bmi) {
+function bmiCategory(bmi) {
       if (bmi == null) return '';
       if (bmi < 18.5) return 'Underweight';
       if (bmi < 25) return 'Normal Weight';
@@ -3029,7 +3029,7 @@ function updateCategoryFromClothingType() {
     }
 
     // ===== MISTATS FUNCTIONS =====
-    function showStatsTab(tabName) {
+function showStatsTab(tabName) {
       document.querySelectorAll('.stats-tab').forEach(tab => {
         tab.classList.remove('active');
       });
@@ -3045,7 +3045,7 @@ function updateCategoryFromClothingType() {
       if (activeContent) activeContent.style.display = 'block';
     }
 
-    function setCurrentProfile(name) {
+function setCurrentProfile(name) {
       if (!profileData[name]) return;
       currentProfile = name;
 
@@ -3064,7 +3064,7 @@ function updateCategoryFromClothingType() {
       console.log('Switched to profile:', name);
     }
 
-    function populateMiStatsProfileSelect() {
+function populateMiStatsProfileSelect() {
       const sel = document.getElementById('mistats-profile-select');
       if (!sel) return;
       sel.innerHTML = Object.keys(profileData).map(n => `<option value="${n}">${n}</option>`).join('');
@@ -3077,7 +3077,7 @@ function updateCategoryFromClothingType() {
       sel.onchange = () => setCurrentProfile(sel.value);
     }
 
-    function renderMiStats() {
+function renderMiStats() {
       const p = profileData[currentProfile];
       if (!p) return;
 
@@ -3135,7 +3135,7 @@ function updateCategoryFromClothingType() {
       renderMeasurementHistory();
     }
 
-    function renderMeasurementHistory() {
+function renderMeasurementHistory() {
       const container = document.getElementById('measurement-history');
       if (!container) return;
 
@@ -3157,7 +3157,7 @@ function updateCategoryFromClothingType() {
       `).join('');
     }
 
-    function renderWeightChart() {
+function renderWeightChart() {
       const p = profileData[currentProfile];
       if (!p) return;
 
@@ -3209,7 +3209,7 @@ function updateCategoryFromClothingType() {
       });
     }
 
-    function renderHistoryTable() {
+function renderHistoryTable() {
       const p = profileData[currentProfile];
       if (!p) return;
 
@@ -3237,7 +3237,7 @@ function updateCategoryFromClothingType() {
     // ===== PROFILE MANAGEMENT FUNCTIONS =====
     
     // ⭐ FIXED: Load profile measurements when profile selected
-    function loadProfileMeasurements(profileName) {
+function loadProfileMeasurements(profileName) {
       const profile = profileData[profileName];
       
       if (!profile || !profile.measurements) {
@@ -3263,7 +3263,7 @@ function updateCategoryFromClothingType() {
     }
 
     // ⭐ FIXED: Populate profile dropdown with event listener
-    function populateProfileDropdown() {
+function populateProfileDropdown() {
       const select = document.getElementById('measurement-profile-select');
       if (!select) return;
       
@@ -3285,7 +3285,7 @@ function updateCategoryFromClothingType() {
       });
     }
 
-    function loadSavedProfiles() {
+function loadSavedProfiles() {
       const container = document.getElementById('profiles-list');
       if (!container) return;
 
@@ -3302,7 +3302,7 @@ function updateCategoryFromClothingType() {
       `).join('');
     }
 
-    function loadEditableProfiles() {
+function loadEditableProfiles() {
       const container = document.getElementById('edit-profiles-list');
       if (!container) return;
 
@@ -3316,7 +3316,7 @@ function updateCategoryFromClothingType() {
       `).join('');
     }
 
-    function editProfile(profileName) {
+function editProfile(profileName) {
       editingProfile = profileName;
       const profile = profileData[profileName];
       
@@ -3335,7 +3335,7 @@ function updateCategoryFromClothingType() {
       goToScreen('edit-profile-form');
     }
 
-    function updateProfile() {
+function updateProfile() {
       if (!editingProfile) return;
 
       const profile = profileData[editingProfile];
@@ -3349,7 +3349,7 @@ function updateCategoryFromClothingType() {
       goBack();
     }
 
-    function saveNewProfile() {
+function saveNewProfile() {
       const name = document.getElementById('create-profile-name').value;
       if (!name) {
         alert('Please enter a profile name');
@@ -3387,7 +3387,7 @@ function updateCategoryFromClothingType() {
     }
 
     // ⭐ FIXED: Save measurements with validation
-    function saveMeasurementsToProfile() {
+function saveMeasurementsToProfile() {
       const profileSelect = document.getElementById('measurement-profile-select');
       const profileName = profileSelect?.value || currentProfile;
       
@@ -3432,22 +3432,22 @@ function updateCategoryFromClothingType() {
       alert('✅ Measurements saved successfully!\n\nYour AI sizing recommendations will now be updated.');
     }
 
-    function saveToHistory() {
+function saveToHistory() {
       alert('Size search saved to history!');
     }
 
-    function reportIssue() {
+function reportIssue() {
       alert('Report Issues:\n\n- Wrong sizes or measurements\n- App bugs or crashes\n- Suggestions for improvement\n\nPlease contact support@misizestall.com');
     }
 
-    function toggleGuide(guideId) {
+function toggleGuide(guideId) {
       const guide = document.getElementById(guideId);
       if (guide) {
         guide.classList.toggle('show');
       }
     }
 
-    function showMeasurementGuide(type) {
+function showMeasurementGuide(type) {
       let guideContent = '';
       
       switch(type) {
@@ -3469,7 +3469,7 @@ function updateCategoryFromClothingType() {
     }
 
   // ===== FIXED MY SIZES BRAND SEARCH =====
-    function hydrateMySizesBrandSearch() {
+function hydrateMySizesBrandSearch() {
       const datalist = document.getElementById('mysizes-brand-datalist');
       if (!datalist) return;
       
