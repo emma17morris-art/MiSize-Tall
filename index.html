@@ -3487,127 +3487,139 @@ function updateCategoryFromClothingType() {
     }
 
     // ===== EVENT LISTENERS =====
-    document.addEventListener('DOMContentLoaded', async () => {
-      document.querySelectorAll('.pill[data-unit]').forEach(pill => {
-        pill.addEventListener('click', function() {
-          document.querySelectorAll('.pill[data-unit]').forEach(p => p.classList.remove('active'));
-          this.classList.add('active');
-          selectedUnit = this.dataset.unit;
-        });
-      });
-
-      document.querySelectorAll('[data-gender]').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const group = this.closest('.pill-settings-group');
-          group.querySelectorAll('[data-gender]').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-        });
-      });
-
-      document.querySelectorAll('[data-frame]').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const group = this.closest('.pill-settings-group');
-          group.querySelectorAll('[data-frame]').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-        });
-      });
-
-      document.querySelectorAll('[data-weight-unit]').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const group = this.closest('.pill-settings-group');
-          group.querySelectorAll('[data-weight-unit]').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-        });
-      });
-
-      document.querySelectorAll('[data-height-unit]').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const group = this.closest('.pill-settings-group');
-          group.querySelectorAll('[data-height-unit]').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-        });
-      });
-
-      document.querySelectorAll('[data-measurement-unit]').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const group = this.closest('.pill-settings-group');
-          group.querySelectorAll('[data-measurement-unit]').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-        });
-      });
-
-      document.querySelectorAll('[data-region]').forEach(btn => {
-        btn.addEventListener('click', function() {
-          document.querySelectorAll('[data-region]').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-        });
-      });
-
-      const toggleGraphBtn = document.getElementById('toggle-graph');
-      const toggleTableBtn = document.getElementById('toggle-table');
-      const graphDisplay = document.getElementById('graph-display');
-      const tableDisplay = document.getElementById('table-display');
-
-      if (toggleGraphBtn && toggleTableBtn) {
-        toggleGraphBtn.addEventListener('click', () => {
-          toggleGraphBtn.classList.add('active');
-          toggleTableBtn.classList.remove('active');
-          if (graphDisplay) graphDisplay.style.display = 'block';
-          if (tableDisplay) tableDisplay.style.display = 'none';
-          renderWeightChart();
-        });
-
-        toggleTableBtn.addEventListener('click', () => {
-          toggleTableBtn.classList.add('active');
-          toggleGraphBtn.classList.remove('active');
-          if (tableDisplay) tableDisplay.style.display = 'block';
-          if (graphDisplay) graphDisplay.style.display = 'none';
-          renderHistoryTable();
-        });
-      }
-
-      const mySizesCategorySelect = document.getElementById('mysizes-category');
-      if (mySizesCategorySelect) {
-        mySizesCategorySelect.addEventListener('change', populateMySizesGrid);
-      }
-
-      const mySizesBrandSearch = document.getElementById('mysizes-brand-search');
-      if (mySizesBrandSearch) {
-        mySizesBrandSearch.addEventListener('input', populateMySizesGrid);
-      }
-
-      const brandIntelSearch = document.getElementById('brand-intel-search');
-      const brandIntelCategory = document.getElementById('brand-intel-category');
-
-      if (brandIntelSearch) {
-        brandIntelSearch.addEventListener('input', () => {
-          console.log('Brand search changed:', brandIntelSearch.value);
-          populateBrandNotes();
-        });
-      }
-
-      if (brandIntelCategory) {
-        brandIntelCategory.addEventListener('change', () => {
-          console.log('Category filter changed:', brandIntelCategory.value);
-          populateBrandNotes();
-        });
-      }
-
-      miSizeSystem = new MiSizeAISystem();
-      await loadUkBrands();
-      await miSizeSystem.initialize();
-
-      console.log('✅ All systems loaded, showing home screen...');
-      document.getElementById('flash').classList.remove('active');
-      document.getElementById('home').classList.add('active');
-      currentScreen = 'home';
-
-      populateMiStatsProfileSelect();
-      renderMiStats();
-      renderWeightChart();
-
-      console.log('MiSize Tall system initialized successfully!');
+document.addEventListener('DOMContentLoaded', async () => {
+  console.log('🚀 Starting initialization...');
+  
+  document.querySelectorAll('.pill[data-unit]').forEach(pill => {
+    pill.addEventListener('click', function() {
+      document.querySelectorAll('.pill[data-unit]').forEach(p => p.classList.remove('active'));
+      this.classList.add('active');
+      selectedUnit = this.dataset.unit;
     });
+  });
+
+  document.querySelectorAll('[data-gender]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const group = this.closest('.pill-settings-group');
+      group.querySelectorAll('[data-gender]').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('[data-frame]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const group = this.closest('.pill-settings-group');
+      group.querySelectorAll('[data-frame]').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('[data-weight-unit]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const group = this.closest('.pill-settings-group');
+      group.querySelectorAll('[data-weight-unit]').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('[data-height-unit]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const group = this.closest('.pill-settings-group');
+      group.querySelectorAll('[data-height-unit]').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('[data-measurement-unit]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const group = this.closest('.pill-settings-group');
+      group.querySelectorAll('[data-measurement-unit]').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('[data-region]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('[data-region]').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  const toggleGraphBtn = document.getElementById('toggle-graph');
+  const toggleTableBtn = document.getElementById('toggle-table');
+  const graphDisplay = document.getElementById('graph-display');
+  const tableDisplay = document.getElementById('table-display');
+
+  if (toggleGraphBtn && toggleTableBtn) {
+    toggleGraphBtn.addEventListener('click', () => {
+      toggleGraphBtn.classList.add('active');
+      toggleTableBtn.classList.remove('active');
+      if (graphDisplay) graphDisplay.style.display = 'block';
+      if (tableDisplay) tableDisplay.style.display = 'none';
+      renderWeightChart();
+    });
+
+    toggleTableBtn.addEventListener('click', () => {
+      toggleTableBtn.classList.add('active');
+      toggleGraphBtn.classList.remove('active');
+      if (tableDisplay) tableDisplay.style.display = 'block';
+      if (graphDisplay) graphDisplay.style.display = 'none';
+      renderHistoryTable();
+    });
+  }
+
+  const mySizesCategorySelect = document.getElementById('mysizes-category');
+  if (mySizesCategorySelect) {
+    mySizesCategorySelect.addEventListener('change', populateMySizesGrid);
+  }
+
+  const mySizesBrandSearch = document.getElementById('mysizes-brand-search');
+  if (mySizesBrandSearch) {
+    mySizesBrandSearch.addEventListener('input', populateMySizesGrid);
+  }
+
+  const brandIntelSearch = document.getElementById('brand-intel-search');
+  const brandIntelCategory = document.getElementById('brand-intel-category');
+
+  if (brandIntelSearch) {
+    brandIntelSearch.addEventListener('input', () => {
+      console.log('Brand search changed:', brandIntelSearch.value);
+      populateBrandNotes();
+    });
+  }
+
+  if (brandIntelCategory) {
+    brandIntelCategory.addEventListener('change', () => {
+      console.log('Category filter changed:', brandIntelCategory.value);
+      populateBrandNotes();
+    });
+  }
+
+  // ⭐ SHOW HOME SCREEN IMMEDIATELY
+  console.log('✅ Showing home screen...');
+  document.getElementById('flash').classList.remove('active');
+  document.getElementById('home').classList.add('active');
+  currentScreen = 'home';
+
+  // Load data in background
+  console.log('📦 Loading brand data in background...');
+  miSizeSystem = new MiSizeAISystem();
+  
+  try {
+    await loadUkBrands();
+    await miSizeSystem.initialize();
+    console.log('✅ Brand data loaded successfully');
+  } catch (error) {
+    console.error('❌ Error loading brand data:', error);
+    alert('⚠️ Could not load brand data. Make sure tall_sizes_complete.json is in the same folder as this HTML file.');
+  }
+
+  populateMiStatsProfileSelect();
+  renderMiStats();
+  renderWeightChart();
+
+  console.log('✅ MiSize Tall system initialized');
+});
   </script>
 </body>
 </html>
