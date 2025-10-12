@@ -3480,141 +3480,33 @@
     }
 
     // ===== EVENT LISTENERS =====
-    document.addEventListener('DOMContentLoaded', async () => {
-      console.log('🚀 Starting initialization...');
-      
-      // Unit toggle pills
-      document.querySelectorAll('.pill[data-unit]').forEach(pill => {
-        pill.addEventListener('click', function() {
-          document.querySelectorAll('.pill[data-unit]').forEach(p => p.classList.remove('active'));
-          this.classList.add('active');
-          selectedUnit = this.dataset.unit;
-        });
-      });
-
-      // Gender selection pills
-      document.querySelectorAll('[data-gender]').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const group = this.closest('.pill-settings-group');
-          group.querySelectorAll('[data-gender]').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-        });
-      });
-
-      // Body frame selection pills
-      document.querySelectorAll('[data-frame]').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const group = this.closest('.pill-settings-group');
-          group.querySelectorAll('[data-frame]').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-        });
-      });
-
-      // Weight unit pills
-      document.querySelectorAll('[data-weight-unit]').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const group = this.closest('.pill-settings-group');
-          group.querySelectorAll('[data-weight-unit]').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-        });
-      });
-
-      // Height unit pills
-      document.querySelectorAll('[data-height-unit]').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const group = this.closest('.pill-settings-group');
-          group.querySelectorAll('[data-height-unit]').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-        });
-      });
-
-      // Measurement unit pills
-      document.querySelectorAll('[data-measurement-unit]').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const group = this.closest('.pill-settings-group');
-          group.querySelectorAll('[data-measurement-unit]').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-        });
-      });
-
-      // Region selection pills
-      document.querySelectorAll('[data-region]').forEach(btn => {
-        btn.addEventListener('click', function() {
-          document.querySelectorAll('[data-region]').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-        });
-      });
-
-      // Graph/Table toggle buttons
-      const toggleGraphBtn = document.getElementById('toggle-graph');
-      const toggleTableBtn = document.getElementById('toggle-table');
-      const graphDisplay = document.getElementById('graph-display');
-      const tableDisplay = document.getElementById('table-display');
-
-      if (toggleGraphBtn && toggleTableBtn) {
-        toggleGraphBtn.addEventListener('click', () => {
-          toggleGraphBtn.classList.add('active');
-          toggleTableBtn.classList.remove('active');
-          if (graphDisplay) graphDisplay.style.display = 'block';
-          if (tableDisplay) tableDisplay.style.display = 'none';
-          renderWeightChart();
-        });
-
-        toggleTableBtn.addEventListener('click', () => {
-          toggleTableBtn.classList.add('active');
-          toggleGraphBtn.classList.remove('active');
-          if (tableDisplay) tableDisplay.style.display = 'block';
-          if (graphDisplay) graphDisplay.style.display = 'none';
-          renderHistoryTable();
-        });
-      }
-
-      // My Sizes category filter
-      const mySizesCategorySelect = document.getElementById('mysizes-category');
-      if (mySizesCategorySelect) {
-        mySizesCategorySelect.addEventListener('change', populateMySizesGrid);
-      }
-
-      // My Sizes brand search
-      const mySizesBrandSearch = document.getElementById('mysizes-brand-search');
-      if (mySizesBrandSearch) {
-        mySizesBrandSearch.addEventListener('input', populateMySizesGrid);
-      }
-
-      // Brand intelligence search
-      const brandIntelSearch = document.getElementById('brand-intel-search');
-      const brandIntelCategory = document.getElementById('brand-intel-category');
-
-      if (brandIntelSearch) {
-        brandIntelSearch.addEventListener('input', () => {
-          console.log('Brand search changed:', brandIntelSearch.value);
-          populateBrandNotes();
-        });
-      }
-
-      if (brandIntelCategory) {
-        brandIntelCategory.addEventListener('change', () => {
-          console.log('Category filter changed:', brandIntelCategory.value);
-          populateBrandNotes();
-        });
-      }
-
-     // Show home screen immediately
-console.log('✅ Showing home screen...');
-const flashScreen = document.getElementById('flash');
-const homeScreen = document.getElementById('home');
-if (flashScreen) {
-  flashScreen.classList.remove('active');
-  flashScreen.style.display = 'none';
-  flashScreen.remove(); // Completely remove it from DOM
-}
-if (homeScreen) {
-  homeScreen.classList.add('active');
-  homeScreen.style.display = 'block';
-  homeScreen.style.pointerEvents = 'auto';
-}
-document.body.style.pointerEvents = 'auto';
-currentScreen = 'home';
+   document.addEventListener('DOMContentLoaded', async () => {
+  console.log('🚀 Starting initialization...');
+  
+  // ... keep other event listeners above ...
+  
+  // Show home screen immediately - SIMPLIFIED
+  console.log('✅ Showing home screen...');
+  
+  // Remove flash screen if it exists
+  const flashScreen = document.getElementById('flash');
+  if (flashScreen) {
+    flashScreen.remove();
+  }
+  
+  // Ensure home screen is visible and interactive
+  const homeScreen = document.getElementById('home');
+  if (homeScreen) {
+    homeScreen.classList.add('active');
+  }
+  
+  // Make sure everything is clickable
+  document.body.style.pointerEvents = 'auto';
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.style.pointerEvents = 'auto';
+  });
+  
+  currentScreen = 'home';
       
       // Load data in background
       console.log('📦 Loading brand data in background...');
