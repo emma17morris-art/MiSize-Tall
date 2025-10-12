@@ -2112,72 +2112,66 @@
 
     // ===== FIXED SIZE FINDER BRAND SYNC WITH CATEGORY AUTO-POPULATE =====
     function loadUkBrandsForSizeFinder() {
-      const filteredBrands = filterBrandsByGender(ALL_BRANDS, sizeFinderGenderFilter);
-      
-      const datalist = document.getElementById('uk-brand-datalist');
-      const select = document.getElementById('uk-brand-select');
-      const categorySelect = document.getElementById('uk-category-select');
-      
-      if (datalist) datalist.innerHTML = '';
-      if (select) select.innerHTML = '<option value="">Select a brand…</option>';
-      
-      // UPDATE CATEGORIES WHEN BRAND SELECTED
-      if (select && categorySelect) {
-        const newSelect = select.cloneNode(false);
-        select.parentNode.replaceChild(newSelect, select);
-        newSelect.innerHTML = '<option value="">Select a brand…</option>';
-        
-        newSelect.addEventListener('change', function() {
-          if (this.value) {
-            const brand = BRAND_DB[this.value] || BRAND_SIZE_DATABASE[this.value];
-            if (brand && brand.categories) {
-              const cats = Object.keys(brand.categories);
-              categorySelect.innerHTML = '<option value="">Select category...</option>' + 
-                cats.map(c => `<option value="${c}">${c}</option>`).join('');
-            }
-          } else {
-            categorySelect.innerHTML = '<option value="">Select category...</option>';
-          }
-        });
-      }
-      
-      filteredBrands.forEach(name => {
-        if (datalist) {
-          const o = document.createElement('option');
-          o.value = name;
-          datalist.appendChild(o);
+  const filteredBrands = filterBrandsByGender(ALL_BRANDS, sizeFinderGenderFilter);
+  
+  const datalist = document.getElementById('uk-brand-datalist');
+  const select = document.getElementById('uk-brand-select');
+  const categorySelect = document.getElementById('uk-category-select');
+  
+  if (datalist) datalist.innerHTML = '';
+  if (select) {
+    select.innerHTML = '<option value="">Select a brand…</option>';
+    
+    // Add all filtered brands to dropdown
+    filteredBrands.forEach(name => {
+      const option = document.createElement('option');
+      option.value = name;
+      option.textContent = name;
+      select.appendChild(option);
+    });
+  }
+  
+  // Update datalist for search
+  if (datalist) {
+    filteredBrands.forEach(name => {
+      const option = document.createElement('option');
+      option.value = name;
+      datalist.appendChild(option);
+    });
+  }
+  
+  // Setup brand select change handler
+  if (select && categorySelect) {
+    select.addEventListener('change', function() {
+      if (this.value) {
+        const brand = BRAND_DB[this.value] || BRAND_SIZE_DATABASE[this.value];
+        if (brand && brand.categories) {
+          const cats = Object.keys(brand.categories);
+          categorySelect.innerHTML = '<option value="">Select category...</option>' + 
+            cats.map(c => `<option value="${c}">${c}</option>`).join('');
         }
-        if (document.getElementById('uk-brand-select')) {
-          const o = document.createElement('option');
-          o.value = name;
-          o.textContent = name;
-          document.getElementById('uk-brand-select').appendChild(o);
-        }
-      });
-      
-      const search = document.getElementById('uk-brand-search');
-      const finalSelect = document.getElementById('uk-brand-select');
-      if (search && finalSelect) {
-        const newSearch = search.cloneNode(true);
-        search.parentNode.replaceChild(newSearch, search);
-        
-        newSearch.addEventListener('input', () => {
-          const v = newSearch.value.trim();
-          if (filteredBrands.includes(v)) {
-            finalSelect.value = v;
-            // Trigger category update
-            const brand = BRAND_DB[v] || BRAND_SIZE_DATABASE[v];
-            if (brand && brand.categories && categorySelect) {
-              const cats = Object.keys(brand.categories);
-              categorySelect.innerHTML = '<option value="">Select category...</option>' + 
-                cats.map(c => `<option value="${c}">${c}</option>`).join('');
-            }
-          }
-        });
+      } else {
+        categorySelect.innerHTML = '<option value="">Select category...</option>';
       }
-      
-      console.log(`Loaded ${filteredBrands.length} brands for size finder (${sizeFinderGenderFilter} filter)`);
-    }
+    });
+  }
+  
+  // Setup brand search handler
+  const search = document.getElementById('uk-brand-search');
+  if (search && select) {
+    search.addEventListener('input', () => {
+      const v = search.value.trim();
+      if (filteredBrands.includes(v)) {
+        select.value = v;
+        // Trigger change event
+        const event = new Event('change');
+        select.dispatchEvent(event);
+      }
+    });
+  }
+  
+  console.log(`Loaded ${filteredBrands.length} brands for size finder (${sizeFinderGenderFilter} filter)`);
+}
 
     // ===== UPDATE CATEGORY FROM CLOTHING TYPE =====
     function updateCategoryFromClothingType() {
