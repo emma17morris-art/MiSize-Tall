@@ -1996,15 +1996,16 @@
     }
 
     // ===== FIXED GET INSEAM RANGE FUNCTION =====
-    function getInseamRange(categoryData) {
-      const inseams = [];
-      Object.values(categoryData).forEach(sizeMeasurements => {
-        // Check multiple possible field names
-        const inseam = sizeMeasurements.inseam || 
-                      sizeMeasurements.inseam_inches || 
-                      sizeMeasurements['inseam (inches)'] || 
-                      sizeMeasurements.Inseam;
-        
+   function getInseamRange(categoryData) {
+  const inseams = [];
+  Object.values(categoryData).forEach(sizeMeasurements => {
+    // Check multiple possible field names (add more variations)
+    const inseam = sizeMeasurements.inseam || 
+                  sizeMeasurements.inseam_inches || 
+                  sizeMeasurements['inseam (inches)'] || 
+                  sizeMeasurements.Inseam ||
+                  sizeMeasurements['Inseam (inches)'];
+    
         if (inseam && !isNaN(parseFloat(inseam))) {
           inseams.push(parseFloat(inseam));
         }
@@ -2288,47 +2289,60 @@
 
       // ===== CALCULATE FIT SCORE =====
       calculateFitScore(sizeData) {
-        let score = 100;
-        let measurementsChecked = 0;
-        const { bust, waist, hips, inseam } = this.userMeasurements;
+  let score = 100;
+  let measurementsChecked = 0;
+  const { bust, waist, hips, inseam } = this.userMeasurements;
 
-        // Check waist (most important)
-        if (sizeData.waist && waist) {
-          measurementsChecked++;
-          const waistDiff = Math.abs(sizeData.waist - waist);
-          if (waistDiff > 3) score -= (waistDiff * 10);
-          if (sizeData.waist < waist - 1) score -= 30; // Too tight penalty
-        }
+  // Helper function to get measurement value regardless of field name
+  const getMeasurement = (data, fieldName) => {
+    return data[fieldName] || 
+           data[`${fieldName}_inches`] || 
+           data[`${fieldName} (inches)`] ||
+           data[fieldName.charAt(0).toUpperCase() + fieldName.slice(1)];
+  };
 
-        // Check hips
-        if (sizeData.hips && hips) {
-          measurementsChecked++;
-          const hipsDiff = Math.abs(sizeData.hips - hips);
-          if (hipsDiff > 3) score -= (hipsDiff * 8);
-          if (sizeData.hips < hips - 1) score -= 25; // Too tight penalty
-        }
+  // Check waist (most important)
+  const sizeWaist = getMeasurement(sizeData, 'waist');
+  if (sizeWaist && waist) {
+    measurementsChecked++;
+    const waistDiff = Math.abs(sizeWaist - waist);
+    if (waistDiff > 3) score -= (waistDiff * 10);
+    if (sizeWaist < waist - 1) score -= 30;
+  }
 
-        // Check bust/chest
-        if ((sizeData.bust || sizeData.chest) && bust) {
-          measurementsChecked++;
-          const bustMeasure = sizeData.bust || sizeData.chest;
-          const bustDiff = Math.abs(bustMeasure - bust);
-          if (bustDiff > 3) score -= (bustDiff * 8);
-          if (bustMeasure < bust - 1) score -= 25; // Too tight penalty
-        }
+  // Check hips
+  const sizeHips = getMeasurement(sizeData, 'hips');
+  if (sizeHips && hips) {
+    measurementsChecked++;
+    const hipsDiff = Math.abs(sizeHips - hips);
+    if (hipsDiff > 3) score -= (hipsDiff * 8);
+    if (sizeHips < hips - 1) score -= 25;
+  }
 
-        // Check inseam
-        if (sizeData.inseam && inseam) {
-          measurementsChecked++;
-          const inseamDiff = Math.abs(sizeData.inseam - inseam);
-          if (inseamDiff > 2) score -= (inseamDiff * 5);
-        }
+  // Check bust/chest
+  const sizeBust = getMeasurement(sizeData, 'bust') || getMeasurement(sizeData, 'chest');
+  if (sizeBust && bust) {
+    measurementsChecked++;
+    const bustDiff = Math.abs(sizeBust - bust);
+    if (bustDiff > 3) score -= (bustDiff * 8);
+    if (sizeBust < bust - 1) score -= 25;
+  }
 
-        // If no measurements matched, return very low score
-        if (measurementsChecked === 0) {
-          console.warn('⚠️ No measurements could be compared for size', sizeData);
-          return -100;
-        }
+  // Check inseam
+  const sizeInseam = getMeasurement(sizeData, 'inseam');
+  if (sizeInseam && inseam) {
+    measurementsChecked++;
+    const inseamDiff = Math.abs(sizeInseam - inseam);
+    if (inseamDiff > 2) score -= (inseamDiff * 5);
+  }
+
+  if (measurementsChecked === 0) {
+    console.warn('⚠️ No measurements could be compared for size', sizeData);
+    return -100;
+  }
+
+  return Math.max(-100, score);
+}
 
         return Math.max(-100, score);
       }
