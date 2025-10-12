@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -920,7 +921,10 @@
   </style>
 </head>
 <body>
-	<!-- Top Bar -->
+# Part 2/4: HTML Body Structure (Lines 1001-2000)
+
+```html
+<!-- Top Bar -->
   <div class="topbar">
     <div class="topbar-inner">
       <div class="logo">MiSize Tall</div>
@@ -1158,29 +1162,29 @@
           </div>
         </div>
 
-		  <!-- ⭐ NEW CLOTHING TYPE FILTER -->
-  <div class="form-group">
-    <label class="form-label">Clothing Type</label>
-    <select class="form-select" id="uk-clothing-type-select" onchange="updateCategoryFromClothingType()">
-      <option value="">Select clothing type...</option>
-      <optgroup label="Women's">
-        <option value="Women's Dresses">Dresses</option>
-        <option value="Women's Tops">Tops</option>
-        <option value="Women's Shirts">Shirts</option>
-        <option value="Women's Jumpers">Jumpers</option>
-        <option value="Women's Skirts">Skirts</option>
-        <option value="Women's Tall Jeans">Jeans</option>
-      </optgroup>
-      <optgroup label="Men's">
-        <option value="Men's Shirts">Shirts</option>
-        <option value="Men's T-Shirts">T-Shirts</option>
-        <option value="Men's Tops">Tops</option>
-        <option value="Men's Jumpers">Jumpers</option>
-        <option value="Men's Tall Jeans">Jeans</option>
-      </optgroup>
-    </select>
-  </div>
-		  
+        <!-- Clothing Type Filter -->
+        <div class="form-group">
+          <label class="form-label">Clothing Type</label>
+          <select class="form-select" id="uk-clothing-type-select" onchange="updateCategoryFromClothingType()">
+            <option value="">Select clothing type...</option>
+            <optgroup label="Women's">
+              <option value="Women's Dresses">Dresses</option>
+              <option value="Women's Tops">Tops</option>
+              <option value="Women's Shirts">Shirts</option>
+              <option value="Women's Jumpers">Jumpers</option>
+              <option value="Women's Skirts">Skirts</option>
+              <option value="Women's Tall Jeans">Jeans</option>
+            </optgroup>
+            <optgroup label="Men's">
+              <option value="Men's Shirts">Shirts</option>
+              <option value="Men's T-Shirts">T-Shirts</option>
+              <option value="Men's Tops">Tops</option>
+              <option value="Men's Jumpers">Jumpers</option>
+              <option value="Men's Tall Jeans">Jeans</option>
+            </optgroup>
+          </select>
+        </div>
+        
         <div class="form-group">
           <label class="form-label">Brand</label>
           <div style="display:flex; gap:8px; align-items:center;">
@@ -1522,671 +1526,12 @@
       </div>
     </div>
   </div>
-  <!-- Create Profile Screen -->
-  <div id="create-profile" class="screen">
-    <div class="content-container">
-      <div class="hub-header">
-        <h2 class="hub-title">Create New Profile</h2>
-        <p class="hub-subtitle">Set up a new user profile for AI-powered sizing</p>
-      </div>
-      
-      <div class="form-container">
-        <div class="form-group">
-          <label class="form-label">Profile Name</label>
-          <input type="text" class="form-input" id="create-profile-name" placeholder="Enter profile name" />
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">Date of Birth</label>
-          <input type="date" class="form-input" id="create-date-birth" />
-        </div>
-      
-        <div class="form-group">
-          <label class="form-label">Gender</label>
-          <div class="pill-settings-group">
-            <button class="settings-pill" data-gender="male">Male</button>
-            <button class="settings-pill" data-gender="female">Female</button>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Body Frame</label>
-          <div class="pill-settings-group">
-            <button class="settings-pill" data-frame="small">Small</button>
-            <button class="settings-pill active" data-frame="medium">Medium</button>
-            <button class="settings-pill" data-frame="large">Large</button>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Starting Date</label>
-          <input type="date" class="form-input" id="create-start-date" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Starting Weight</label>
-          <div style="display: flex; gap: 12px; align-items: center;">
-            <input type="number" class="form-input" id="create-start-weight" placeholder="Enter weight" style="flex: 1;" />
-            <div class="pill-settings-group" style="margin: 0;">
-              <button class="settings-pill active" data-weight-unit="kg">kg</button>
-              <button class="settings-pill" data-weight-unit="lbs">lbs</button>
-              <button class="settings-pill" data-weight-unit="stone">stone</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Starting Height</label>
-          <div style="display: flex; gap: 12px; align-items: center;">
-            <input type="text" class="form-input" id="create-start-height" placeholder="Enter height" style="flex: 1;" />
-            <div class="pill-settings-group" style="margin: 0;">
-              <button class="settings-pill active" data-height-unit="cm">cm</button>
-              <button class="settings-pill" data-height-unit="inch">inch</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Target Weight</label>
-          <div style="display: flex; gap: 12px; align-items: center;">
-            <input type="number" class="form-input" id="create-target-weight" placeholder="Enter target weight" style="flex: 1;" />
-            <div class="pill-settings-group" style="margin: 0;">
-              <button class="settings-pill active" data-target-weight-unit="kg">kg</button>
-              <button class="settings-pill" data-target-weight-unit="lbs">lbs</button>
-              <button class="settings-pill" data-target-weight-unit="stone">stone</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Target Date</label>
-          <input type="date" class="form-input" id="create-target-date" />
-        </div>
-
-        <div class="button-group">
-          <button class="btn btn-primary" onclick="saveNewProfile()">Create Profile</button>
-          <button class="btn btn-secondary" onclick="goBack()">Cancel</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Saved Profiles Screen -->
-  <div id="saved-profiles" class="screen">
-    <div class="content-container">
-      <div class="hub-header">
-        <h2 class="hub-title">Saved Profiles</h2>
-        <p class="hub-subtitle">View all your saved profiles</p>
-      </div>
-
-      <div id="profiles-list">
-        <!-- Profiles will be populated here -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Edit Profiles Screen -->
-  <div id="edit-profiles" class="screen">
-    <div class="content-container">
-      <div class="hub-header">
-        <h2 class="hub-title">Edit Profiles</h2>
-        <p class="hub-subtitle">Select a profile to edit</p>
-      </div>
-
-      <div id="edit-profiles-list">
-        <!-- Editable profiles will be populated here -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Edit Profile Form Screen -->
-  <div id="edit-profile-form" class="screen">
-    <div class="content-container">
-      <div class="hub-header">
-        <h2 class="hub-title">Edit Profile</h2>
-        <p class="hub-subtitle">Update profile information</p>
-      </div>
-
-      <div class="form-container">
-        <div class="form-group">
-          <label class="form-label">Profile Name</label>
-          <input type="text" class="form-input" id="edit-profile-name" />
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">Date of Birth</label>
-          <input type="date" class="form-input" id="edit-date-birth" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Gender</label>
-          <div class="pill-settings-group">
-            <button class="settings-pill" data-gender="male" id="edit-gender-male">Male</button>
-            <button class="settings-pill" data-gender="female" id="edit-gender-female">Female</button>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Body Frame</label>
-          <div class="pill-settings-group">
-            <button class="settings-pill" data-frame="small" id="edit-frame-small">Small</button>
-            <button class="settings-pill" data-frame="medium" id="edit-frame-medium">Medium</button>
-            <button class="settings-pill" data-frame="large" id="edit-frame-large">Large</button>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Starting Date</label>
-          <input type="date" class="form-input" id="edit-start-date" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Starting Weight</label>
-          <div style="display: flex; gap: 12px; align-items: center;">
-            <input type="number" class="form-input" id="edit-start-weight" style="flex: 1;" />
-            <div class="pill-settings-group" style="margin: 0;">
-              <button class="settings-pill" data-weight-unit="kg" id="edit-weight-kg">kg</button>
-              <button class="settings-pill" data-weight-unit="lbs" id="edit-weight-lbs">lbs</button>
-              <button class="settings-pill" data-weight-unit="stone" id="edit-weight-stone">stone</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Starting Height</label>
-          <div style="display: flex; gap: 8px; align-items: center;">
-            <input type="text" class="form-input" id="edit-start-height" style="flex: 1;" />
-            <div class="pill-settings-group" style="margin: 0;">
-              <button class="settings-pill" data-height-unit="cm" id="edit-height-cm">cm</button>
-              <button class="settings-pill" data-height-unit="inch" id="edit-height-inch">inch</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="button-group">
-          <button class="btn btn-primary" onclick="updateProfile()">Update Profile</button>
-          <button class="btn btn-secondary" onclick="goBack()">Cancel</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MiStats Screen -->
-  <div id="mistats" class="screen">
-    <div class="stats-tabs">
-      <button class="stats-tab active" onclick="showStatsTab('current')">Current</button>
-      <button class="stats-tab" onclick="showStatsTab('graph')">Graph</button>
-      <button class="stats-tab" onclick="showStatsTab('history')">History</button>
-    </div>
-    
-    <!-- Current Progress Tab -->
-    <div id="stats-current" class="stats-content active" style="padding-top: 120px;">
-      <div class="content-container">
-        <div class="hub-header">
-          <h2 class="hub-title">Welcome back, <span id="user-name">Emma</span>!</h2>
-        </div>
-        
-        <div class="form-group" style="max-width:320px;margin:0 auto 16px;">
-          <label class="form-label" style="text-align:center;display:block;">Profile</label>
-          <select class="form-select" id="mistats-profile-select"></select>
-        </div>
-
-        <div class="stats-grid">
-          <div class="stats-bubble">
-            <h3>Start</h3>
-            <p class="value" id="start-weight">150kg</p>
-            <p style="font-size: 14px; margin-top: 4px; opacity: 0.8;" id="start-bmi">BMI: 44.8</p>
-          </div>
-          <div class="stats-bubble current">
-            <h3>Current</h3>
-            <p class="value" id="current-weight">80kg</p>
-            <p style="font-size: 14px; margin-top: 4px; opacity: 0.8;" id="current-bmi">BMI: 23.9</p>
-          </div>
-          <div class="stats-bubble">
-            <h3>Target</h3>
-            <p class="value" id="target-weight">80kg</p>
-            <p style="font-size: 14px; margin-top: 4px; opacity: 0.8;" id="target-bmi">BMI: 23.9</p>
-          </div>
-        </div>
-        
-        <div class="progress-bar">
-          <div class="progress-fill" id="progress-fill" style="width: 100%; background: var(--green);"></div>
-        </div>
-        <p style="text-align: center; margin-bottom: 32px;" id="progress-text">🎉 Goal Achieved!</p>
-        
-        <h3 style="text-align: center; margin-bottom: 16px;">Current Statistics</h3>
-        <div class="mini-stats">
-          <div class="mini-bubble">
-            <h4>Body Fat %</h4>
-            <p class="value" id="body-fat">22%</p>
-          </div>
-          <div class="mini-bubble">
-            <h4>Amount Lost</h4>
-            <p class="value" id="amount-lost">70kg</p>
-          </div>
-          <div class="mini-bubble">
-            <h4>Remaining</h4>
-            <p class="value" id="remaining-weight">🎉 Done!</p>
-          </div>
-        </div>
-        
-        <div class="bmi-indicator">
-          <h4>BMI Tracker</h4>
-          <p class="value" style="color: var(--green);" id="bmi-value">23.9</p>
-          <p style="font-size: 14px; margin-top: 8px;" id="bmi-category">Normal Weight</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Graph Tab -->
-    <div id="stats-graph" class="stats-content" style="display: none; padding-top: 120px;">
-      <div class="content-container">
-        <div class="graph-controls">
-          <button class="graph-btn active" id="toggle-graph">Graph</button>
-          <button class="graph-btn" id="toggle-table">Table</button>
-        </div>
-
-        <div id="graph-display">
-          <canvas id="weightChartCanvas"></canvas>
-        </div>
-
-        <div id="table-display" style="display:none;">
-          <table style="width:100%;border-collapse:collapse;background:var(--card);border:2px solid var(--border);border-radius:12px;overflow:hidden;">
-            <thead>
-              <tr style="background:var(--blue);color:#fff;">
-                <th style="padding:12px;">Date</th>
-                <th style="padding:12px;">Weight</th>
-                <th style="padding:12px;">BMI</th>
-              </tr>
-            </thead>
-            <tbody id="stats-table-body">
-              <!-- Populated by JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- History Tab -->
-    <div id="stats-history" class="stats-content" style="display: none; padding-top: 120px;">
-      <div class="content-container">
-        <h3>Measurement History</h3>
-        <div class="history-list" id="measurement-history">
-          <!-- History will be populated here -->
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Other region hubs -->
-  <div id="eu-hub" class="screen">
-    <div class="hub-container">
-      <div class="hub-header">
-        <div class="hub-flag">🇪🇺</div>
-        <h2 class="hub-title">EU Hub</h2>
-        <p class="hub-subtitle">European sizing & tracking</p>
-      </div>
-      
-      <div class="hub-tiles-4">
-        <div class="hub-tile" onclick="alert('EU AI Size Finder coming soon!')">AI Size Finder</div>
-        <div class="hub-tile" onclick="alert('EU My Sizes coming soon!')">My Accurate Sizes</div>
-        <div class="hub-tile" onclick="alert('EU Brand Intelligence coming soon!')">Brand Intelligence</div>
-        <div class="hub-tile" onclick="alert('EU History coming soon!')">History</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="us-hub" class="screen">
-    <div class="hub-container">
-      <div class="hub-header">
-        <div class="hub-flag">🇺🇸</div>
-        <h2 class="hub-title">US Hub</h2>
-        <p class="hub-subtitle">United States sizing & tracking</p>
-      </div>
-      
-      <div class="hub-tiles-4">
-        <div class="hub-tile" onclick="alert('US AI Size Finder coming soon!')">AI Size Finder</div>
-        <div class="hub-tile" onclick="alert('US My Sizes coming soon!')">My Accurate Sizes</div>
-        <div class="hub-tile" onclick="alert('US Brand Intelligence coming soon!')">Brand Intelligence</div>
-        <div class="hub-tile" onclick="alert('US History coming soon!')">History</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="ca-hub" class="screen">
-    <div class="hub-container">
-      <div class="hub-header">
-        <div class="hub-flag">🇨🇦</div>
-        <h2 class="hub-title">Canada Hub</h2>
-        <p class="hub-subtitle">Canadian sizing & tracking</p>
-      </div>
-      
-      <div class="hub-tiles-4">
-        <div class="hub-tile" onclick="alert('CA AI Size Finder coming soon!')">AI Size Finder</div>
-        <div class="hub-tile" onclick="alert('CA My Sizes coming soon!')">My Accurate Sizes</div>
-        <div class="hub-tile" onclick="alert('CA Brand Intelligence coming soon!')">Brand Intelligence</div>
-        <div class="hub-tile" onclick="alert('CA History coming soon!')">History</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bottom Navigation -->
-  <div class="bottom-nav">
-    <button class="nav-item active" onclick="goHome()">Home</button>
-    <button class="nav-item" onclick="goToMiStats()">MiStats</button>
-    <button class="nav-item" onclick="goToSettings()">Settings</button>
-    <button class="nav-item" onclick="goToHelp()">Help</button>
-    <button class="nav-item" onclick="goBack()">Back</button>
-  </div>
-  
-  <script>
-    // ===== GLOBAL VARIABLES =====
-    let currentScreen = 'home';
-    let navigationHistory = [];
-    let selectedBodyType = 'standard';
-    let selectedUnit = 'cm';
-    let currentProfile = 'Emma Morris';
-    let editingProfile = null;
-    let miSizeSystem = null;
-    let currentGraphPeriod = 'week';
-    let mySizesGenderFilter = 'all';
-    let brandNotesGenderFilter = 'all';
-    let sizeFinderGenderFilter = 'all';
-    
-    // Brand Database Globals
-    let BRAND_DB = {};
-    let ALL_BRANDS = [];
-    let ALL_CATEGORIES = new Set();
-
-    // ===== PROFILE DATA =====
-    let profileData = {
-      'Emma Morris': {
-        name: 'Emma Morris',
-        dateOfBirth: '1983-10-12',
-        gender: 'female',
-        bodyFrame: 'medium',
-        startingDate: '2022-03-19',
-        startingWeight: { value: 150, unit: 'kg' },
-        startingHeight: { value: 183, unit: 'cm' },
-        targetWeight: { value: 80, unit: 'kg' },
-        targetDate: '2023-06-30',
-        measurements: { weight: 80, chest: 36, waist: 32, hips: 38, inseam: 35, shoulders: 38, arms: 28 },
-        history: [
-          { date: '2022-03-19', type: 'weight', value: 150, unit: 'kg' },
-          { date: '2022-04-19', type: 'weight', value: 147, unit: 'kg' },
-          { date: '2022-05-19', type: 'weight', value: 143, unit: 'kg' },
-          { date: '2022-06-19', type: 'weight', value: 138, unit: 'kg' },
-          { date: '2022-07-19', type: 'weight', value: 133, unit: 'kg' },
-          { date: '2022-08-19', type: 'weight', value: 128, unit: 'kg' },
-          { date: '2022-09-19', type: 'weight', value: 123, unit: 'kg' },
-          { date: '2022-10-19', type: 'weight', value: 118, unit: 'kg' },
-          { date: '2022-11-19', type: 'weight', value: 113, unit: 'kg' },
-          { date: '2022-12-19', type: 'weight', value: 108, unit: 'kg' },
-          { date: '2023-01-19', type: 'weight', value: 103, unit: 'kg' },
-          { date: '2023-02-19', type: 'weight', value: 98, unit: 'kg' },
-          { date: '2023-03-19', type: 'weight', value: 93, unit: 'kg' },
-          { date: '2023-04-19', type: 'weight', value: 90, unit: 'kg' },
-          { date: '2023-05-19', type: 'weight', value: 87, unit: 'kg' },
-          { date: '2023-06-19', type: 'weight', value: 84, unit: 'kg' },
-          { date: '2023-07-19', type: 'weight', value: 82, unit: 'kg' },
-          { date: '2023-08-19', type: 'weight', value: 80, unit: 'kg' },
-          { date: '2024-01-15', type: 'weight', value: 80, unit: 'kg' },
-          { date: '2024-03-15', type: 'weight', value: 80, unit: 'kg' }
-        ]
-      },
-      'John Doe': {
-        name: 'John Doe',
-        dateOfBirth: '1985-08-20',
-        gender: 'male',
-        bodyFrame: 'large',
-        startingDate: '2024-02-01',
-        startingWeight: { value: 85, unit: 'kg' },
-        startingHeight: { value: 180, unit: 'cm' },
-        targetWeight: { value: 75, unit: 'kg' },
-        targetDate: '2024-06-01',
-        measurements: { weight: 78, chest: 102, waist: 84, hips: 96, inseam: 34, shoulders: 46, arms: 32 },
-        history: [
-          { date: '2024-02-01', type: 'weight', value: 85, unit: 'kg' },
-          { date: '2024-02-15', type: 'weight', value: 83.5, unit: 'kg' },
-          { date: '2024-03-01', type: 'weight', value: 82, unit: 'kg' },
-          { date: '2024-03-15', type: 'weight', value: 80.5, unit: 'kg' },
-          { date: '2024-04-01', type: 'weight', value: 79, unit: 'kg' },
-          { date: '2024-04-15', type: 'weight', value: 78, unit: 'kg' }
-        ]
-      }
-    };
-
-    // ===== NO FALLBACK DATABASE - REAL DATA ONLY =====
-    const BRAND_SIZE_DATABASE = {};
-
-    // ===== NORMALIZE BRAND JSON FUNCTION =====
-function normaliseBrandJson(raw) {
-      if (Array.isArray(raw)) {
-        const obj = {};
-        raw.forEach(b => { 
-          if (b && b.name) {
-            if (!b.sourceType) b.sourceType = 'standard';
-            if (!b.gender) {
-              const cats = b.categories ? Object.keys(b.categories) : [];
-              const hasWomens = cats.some(c => c.toLowerCase().includes("women"));
-              const hasMens = cats.some(c => c.toLowerCase().includes("men"));
-              if (hasWomens && !hasMens) b.gender = 'women';
-              else if (hasMens && !hasWomens) b.gender = 'men';
-              else b.gender = 'women';
-            }
-            obj[b.name] = b;
-          }
-        });
-        return obj;
-      }
-      if (raw && typeof raw === 'object') {
-        Object.keys(raw).forEach(key => {
-          if (!raw[key].sourceType) raw[key].sourceType = 'standard';
-          if (!raw[key].gender) {
-            const cats = raw[key].categories ? Object.keys(raw[key].categories) : [];
-            const hasWomens = cats.some(c => c.toLowerCase().includes("women"));
-            const hasMens = cats.some(c => c.toLowerCase().includes("men"));
-            if (hasWomens && !hasMens) raw[key].gender = 'women';
-            else if (hasMens && !hasWomens) raw[key].gender = 'men';
-            else raw[key].gender = 'women';
-          }
-        });
-      }
-      return raw || {};
-    }
-
-    // ===== FIXED GET INSEAM RANGE FUNCTION =====
-function getInseamRange(categoryData) {
-      const inseams = [];
-      Object.values(categoryData).forEach(sizeMeasurements => {
-        // ⭐ Check multiple possible field names
-        const inseam = sizeMeasurements.inseam || 
-                      sizeMeasurements.inseam_inches || 
-                      sizeMeasurements['inseam (inches)'] || 
-                      sizeMeasurements.Inseam;
-        
-        if (inseam && !isNaN(parseFloat(inseam))) {
-          inseams.push(parseFloat(inseam));
-        }
-      });
-      
-      if (inseams.length === 0) return null;
-      
-      const min = Math.min(...inseams);
-      const max = Math.max(...inseams);
-      
-      if (min === max) {
-        return { min, max, display: `${min}"` };
-      } else {
-        return { min, max, display: `${min}" - ${max}"` };
-      }
-    }
-
-    // ===== LOAD UK BRANDS FROM JSON =====
-    async function loadUkBrands() {
-      try {
-        console.log('Attempting to load tall_sizes_complete.json...');
-        const res = await fetch('tall_sizes_complete.json', { cache: 'no-store' });
-        
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status} - Make sure tall_sizes_complete.json is in the same folder as this HTML file`);
-        }
-        
-        const raw = await res.json();
-        console.log('Raw JSON loaded, contains', Object.keys(raw).length, 'brands');
-        
-        BRAND_DB = normaliseBrandJson(raw);
-
-        console.log('Loaded brand database:', BRAND_DB);
-
-        ALL_BRANDS = Object.keys(BRAND_DB).sort((a, b) => a.localeCompare(b));
-        ALL_CATEGORIES = new Set();
-        ALL_BRANDS.forEach(name => {
-          const cats = BRAND_DB[name]?.categories ? Object.keys(BRAND_DB[name].categories) : [];
-          cats.forEach(c => ALL_CATEGORIES.add(c));
-        });
-
-        console.log('Successfully loaded', ALL_BRANDS.length, 'brands');
-        console.log('All categories:', [...ALL_CATEGORIES]);
-
-        loadUkBrandsForSizeFinder();
-
-        const catSizeFinder = document.getElementById('uk-category-select');
-        const catMySizes = document.getElementById('mysizes-category');
-        const catIntel = document.getElementById('brand-intel-category');
-        const catsSorted = [...ALL_CATEGORIES].sort((a, b) => a.localeCompare(b));
-
-function fillCatSelect(sel) {
-          if (!sel) return;
-          const keepTop = sel.querySelector('option[value=""]')?.outerHTML || '<option value="">Select category...</option>';
-          sel.innerHTML = keepTop;
-          catsSorted.forEach(c => {
-            const o = document.createElement('option');
-            o.value = c;
-            o.textContent = c;
-            sel.appendChild(o);
-          });
-        }
-        fillCatSelect(catSizeFinder);
-        fillCatSelect(catMySizes);
-        fillCatSelect(catIntel);
-
-        const dot = document.getElementById('sizefinder-status-dot') || document.getElementById('uk-system-status-dot') || document.getElementById('system-status-dot');
-        const txt = document.getElementById('sizefinder-status-text') || document.getElementById('uk-system-status-text') || document.getElementById('system-status-text');
-        if (dot) {
-          dot.classList.remove('status-loading');
-          dot.classList.add('status-online');
-        }
-        if (txt) {
-          txt.textContent = `✅ Loaded ${ALL_BRANDS.length} tall brands from your JSON file`;
-        }
-
-        if (typeof hydrateMySizesBrandSearch === 'function') {
-          try { hydrateMySizesBrandSearch(); } catch (e) { console.error('hydrateMySizesBrandSearch error:', e); }
-        }
-        if (typeof populateBrandNotes === 'function') {
-          try { populateBrandNotes(); } catch (e) { console.error('populateBrandNotes error:', e); }
-        }
-
-     } catch (err) {
-  console.error('ERROR loading tall_sizes_complete.json:', err);
-  
-  const txt = document.getElementById('sizefinder-status-text') || document.getElementById('uk-system-status-text') || document.getElementById('system-status-text');
-  const dot = document.getElementById('sizefinder-status-dot') || document.getElementById('uk-system-status-dot') || document.getElementById('system-status-dot');
-  
-  if (dot) {
-    dot.classList.remove('status-loading', 'status-online');
-    dot.classList.add('status-offline');
-  }
-  
-  if (txt) {
-    txt.innerHTML = `❌ Could not load tall_sizes_complete.json - ${err.message}<br><small>Make sure the file is in the same folder as this HTML file</small>`;
-  }
-  
- 
-  BRAND_DB = {};
-  ALL_BRANDS = [];
-  ALL_CATEGORIES = new Set();
-  
-  // ⭐ ADD THIS: Continue anyway even if JSON fails to load
-  return; // Exit gracefully without blocking
-}
-	}   
-
-    // ===== FIXED SIZE FINDER BRAND SYNC WITH CATEGORY AUTO-POPULATE =====
-function loadUkBrandsForSizeFinder() {
-      const filteredBrands = filterBrandsByGender(ALL_BRANDS, sizeFinderGenderFilter);
-      
-      const datalist = document.getElementById('uk-brand-datalist');
-      const select = document.getElementById('uk-brand-select');
-      const categorySelect = document.getElementById('uk-category-select');
-      
-      if (datalist) datalist.innerHTML = '';
-      if (select) select.innerHTML = '<option value="">Select a brand…</option>';
-      
-      // ⭐ UPDATE CATEGORIES WHEN BRAND SELECTED
-      if (select && categorySelect) {
-        const newSelect = select.cloneNode(false);
-        select.parentNode.replaceChild(newSelect, select);
-        newSelect.innerHTML = '<option value="">Select a brand…</option>';
-        
-        newSelect.addEventListener('change', function() {
-          if (this.value) {
-            const brand = BRAND_DB[this.value] || BRAND_SIZE_DATABASE[this.value];
-            if (brand && brand.categories) {
-              const cats = Object.keys(brand.categories);
-              categorySelect.innerHTML = '<option value="">Select category...</option>' + 
-                cats.map(c => `<option value="${c}">${c}</option>`).join('');
-            }
-          } else {categorySelect.innerHTML = '<option value="">Select category...</option>';
-          }
-        });
-      }
-      
-      filteredBrands.forEach(name => {
-        if (datalist) {
-          const o = document.createElement('option');
-          o.value = name;
-          datalist.appendChild(o);
-        }
-        if (document.getElementById('uk-brand-select')) {
-          const o = document.createElement('option');
-          o.value = name;
-          o.textContent = name;
-          document.getElementById('uk-brand-select').appendChild(o);
-        }
-      });
-      
-      const search = document.getElementById('uk-brand-search');
-      const finalSelect = document.getElementById('uk-brand-select');
-      if (search && finalSelect) {
-        const newSearch = search.cloneNode(true);
-        search.parentNode.replaceChild(newSearch, search);
-        
-        newSearch.addEventListener('input', () => {
-          const v = newSearch.value.trim();
-          if (filteredBrands.includes(v)) {
-            finalSelect.value = v;
-            // ⭐ Trigger category update
-            const brand = BRAND_DB[v] || BRAND_SIZE_DATABASE[v];
-            if (brand && brand.categories && categorySelect) {
-              const cats = Object.keys(brand.categories);
-              categorySelect.innerHTML = '<option value="">Select category...</option>' + 
-                cats.map(c => `<option value="${c}">${c}</option>`).join('');
-            }
-          }
-        });
-      }
-      
-      console.log(`Loaded ${filteredBrands.length} brands for size finder (${sizeFinderGenderFilter} filter)`);
-    }
-
-    // ===== SIZE MATCHING ENGINE CLASS =====
+// ===== SIZE MATCHING ENGINE CLASS =====
     class SizeMatchingEngine {
       constructor() {
         this.brandDatabase = (BRAND_DB && typeof BRAND_DB === 'object' && Object.keys(BRAND_DB).length)
           ? BRAND_DB
-          : BRAND_SIZE_DATABASE;
+          : {};
         this.userMeasurements = {};
         this.fitPreferences = { snug: -1, standard: 0, relaxed: 1 };
       }
@@ -2268,13 +1613,13 @@ function loadUkBrandsForSizeFinder() {
         return null;
       }
 
-      // ⭐ FIXED CALCULATE FIT SCORE
+      // ===== FIX: CALCULATE FIT SCORE =====
       calculateFitScore(sizeData) {
         let score = 100;
         let measurementsChecked = 0;
         const { bust, waist, hips, inseam } = this.userMeasurements;
 
-        // ⭐ Check waist (most important)
+        // Check waist (most important)
         if (sizeData.waist && waist) {
           measurementsChecked++;
           const waistDiff = Math.abs(sizeData.waist - waist);
@@ -2282,7 +1627,7 @@ function loadUkBrandsForSizeFinder() {
           if (sizeData.waist < waist - 1) score -= 30; // Too tight penalty
         }
 
-        // ⭐ Check hips
+        // Check hips
         if (sizeData.hips && hips) {
           measurementsChecked++;
           const hipsDiff = Math.abs(sizeData.hips - hips);
@@ -2290,7 +1635,7 @@ function loadUkBrandsForSizeFinder() {
           if (sizeData.hips < hips - 1) score -= 25; // Too tight penalty
         }
 
-        // ⭐ Check bust/chest
+        // Check bust/chest
         if ((sizeData.bust || sizeData.chest) && bust) {
           measurementsChecked++;
           const bustMeasure = sizeData.bust || sizeData.chest;
@@ -2299,14 +1644,14 @@ function loadUkBrandsForSizeFinder() {
           if (bustMeasure < bust - 1) score -= 25; // Too tight penalty
         }
 
-        // ⭐ Check inseam
+        // Check inseam
         if (sizeData.inseam && inseam) {
           measurementsChecked++;
           const inseamDiff = Math.abs(sizeData.inseam - inseam);
           if (inseamDiff > 2) score -= (inseamDiff * 5);
         }
 
-        // ⭐ If no measurements matched, return very low score
+        // If no measurements matched, return very low score
         if (measurementsChecked === 0) {
           console.warn('⚠️ No measurements could be compared for size', sizeData);
           return -100;
@@ -2476,12 +1821,12 @@ function loadUkBrandsForSizeFinder() {
     }
 
     // ===== NAVIGATION FUNCTIONS =====
-function enterHub(region) {
+    function enterHub(region) {
       const hubScreen = region.toLowerCase() + '-hub';
       goToScreen(hubScreen);
     }
 
-function goToScreen(screenId) {
+    function goToScreen(screenId) {
       if (currentScreen !== screenId) {
         navigationHistory.push(currentScreen);
       }
@@ -2499,7 +1844,7 @@ function goToScreen(screenId) {
       }
     }
 
-function updateScreenData(screenId) {
+    function updateScreenData(screenId) {
       if (screenId === 'saved-profiles') {
         loadSavedProfiles();
       } else if (screenId === 'edit-profiles') {
@@ -2516,24 +1861,24 @@ function updateScreenData(screenId) {
       }
     }
 
-function goHome() {
+    function goHome() {
       navigationHistory = [];
       goToScreen('home');
     }
 
-function goToMiStats() {
+    function goToMiStats() {
       goToScreen('mistats');
     }
 
-function goToSettings() {
+    function goToSettings() {
       goToScreen('uk-settings');
     }
 
-function goToHelp() {
+    function goToHelp() {
       goToScreen('help');
     }
 
-function goBack() {
+    function goBack() {
       if (navigationHistory.length > 0) {
         const previousScreen = navigationHistory.pop();
 
@@ -2551,7 +1896,7 @@ function goBack() {
       }
     }
 
-function updateNavigation() {
+    function updateNavigation() {
       document.querySelectorAll('.nav-item').forEach(item => {
         item.classList.remove('active');
       });
@@ -2564,22 +1909,8 @@ function updateNavigation() {
         document.querySelector('.nav-item[onclick="goToHelp()"]')?.classList.add('active');
       }
     }
-	  // ⭐ NEW: Update category when clothing type selected
-function updateCategoryFromClothingType() {
-  const clothingType = document.getElementById('uk-clothing-type-select')?.value;
-  const categorySelect = document.getElementById('uk-category-select');
-  
-  if (clothingType && categorySelect) {
-    categorySelect.value = clothingType;
-    console.log('✅ Selected clothing type:', clothingType);
-    
-    // Trigger category change event to update brands
-    const event = new Event('change');
-    categorySelect.dispatchEvent(event);
-  }
-}
 
-	  // ===== ENHANCED SIZE FINDER WITH AI AND INSEAM RANGE =====
+    // ===== ENHANCED SIZE FINDER WITH AI AND INSEAM RANGE =====
     async function getMySize() {
       const brandSelect = document.getElementById('uk-brand-select');
       const brandSearch = document.getElementById('uk-brand-search');
@@ -2592,7 +1923,7 @@ function updateCategoryFromClothingType() {
         return;
       }
 
-      if (!BRAND_DB[brand] && !BRAND_SIZE_DATABASE[brand]) {
+      if (!BRAND_DB[brand]) {
         alert(`Brand "${brand}" not found in database. Please select a valid brand.`);
         return;
       }
@@ -2700,91 +2031,91 @@ function updateCategoryFromClothingType() {
       }
     }
 
-    // ===== FIXED MY SIZES: RENDER GRID WITH INSEAM RANGE =====
+    // ===== FIX: MY SIZES - RENDER GRID WITH INSEAM RANGE =====
     async function populateMySizesGrid() {
-  const grid = document.getElementById('my-sizes-grid');
-  if (!grid) return;
+      const grid = document.getElementById('my-sizes-grid');
+      if (!grid) return;
 
-  grid.innerHTML = '<div style="text-align:center;padding:40px;">Loading your sizes...</div>';
+      grid.innerHTML = '<div style="text-align:center;padding:40px;">Loading your sizes...</div>';
 
-  const profile = profileData[currentProfile];
-  if (!profile || !profile.measurements) {
-    grid.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);">Please set your measurements in Settings first.</div>';
-    return;
-  }
+      const profile = profileData[currentProfile];
+      if (!profile || !profile.measurements) {
+        grid.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);">Please set your measurements in Settings first.</div>';
+        return;
+      }
 
-  const categoryFilter = document.getElementById('mysizes-category')?.value || '';
-  const brandFilter = document.getElementById('mysizes-brand-search')?.value?.trim() || '';
+      const categoryFilter = document.getElementById('mysizes-category')?.value || '';
+      const brandFilter = document.getElementById('mysizes-brand-search')?.value?.trim() || '';
 
-  let cards = [];
+      let cards = [];
 
-  // Loop through all brands
-  ALL_BRANDS.forEach(brandName => {
-    const brand = BRAND_DB[brandName];
-    if (!brand || !brand.categories) return;
+      // Loop through all brands
+      ALL_BRANDS.forEach(brandName => {
+        const brand = BRAND_DB[brandName];
+        if (!brand || !brand.categories) return;
 
-    // Apply gender filter
-    if (mySizesGenderFilter !== 'all') {
-      const brandGender = detectBrandGender(brandName, brand);
-      if (brandGender !== mySizesGenderFilter) return;
-    }
-
-    // Apply brand filter
-    if (brandFilter && brandName.toLowerCase() !== brandFilter.toLowerCase()) return;
-
-    // Loop through categories
-    Object.entries(brand.categories).forEach(([category, sizes]) => {
-      // Apply category filter
-      if (categoryFilter && category !== categoryFilter) return;
-
-      // Find closest size based on waist measurement
-      const userWaist = profile.measurements.waist;
-      const userHips = profile.measurements.hips;
-      
-      let closestSize = null;
-      let smallestDiff = Infinity;
-
-      Object.entries(sizes).forEach(([sizeName, measurements]) => {
-        if (measurements.waist) {
-          const diff = Math.abs(measurements.waist - userWaist);
-          if (diff < smallestDiff) {
-            smallestDiff = diff;
-            closestSize = { name: sizeName, measurements, diff };
-          }
+        // Apply gender filter
+        if (mySizesGenderFilter !== 'all') {
+          const brandGender = detectBrandGender(brandName, brand);
+          if (brandGender !== mySizesGenderFilter) return;
         }
+
+        // Apply brand filter
+        if (brandFilter && brandName.toLowerCase() !== brandFilter.toLowerCase()) return;
+
+        // Loop through categories
+        Object.entries(brand.categories).forEach(([category, sizes]) => {
+          // Apply category filter
+          if (categoryFilter && category !== categoryFilter) return;
+
+          // Find closest size based on waist measurement
+          const userWaist = profile.measurements.waist;
+          const userHips = profile.measurements.hips;
+          
+          let closestSize = null;
+          let smallestDiff = Infinity;
+
+          Object.entries(sizes).forEach(([sizeName, measurements]) => {
+            if (measurements.waist) {
+              const diff = Math.abs(measurements.waist - userWaist);
+              if (diff < smallestDiff) {
+                smallestDiff = diff;
+                closestSize = { name: sizeName, measurements, diff };
+              }
+            }
+          });
+
+          if (closestSize) {
+            const fitQuality = closestSize.diff <= 2 ? 'Perfect' : closestSize.diff <= 4 ? 'Good' : 'Acceptable';
+            const fitColor = closestSize.diff <= 2 ? 'var(--green)' : closestSize.diff <= 4 ? 'var(--blue)' : 'var(--orange)';
+
+            cards.push(`
+              <div class="brand-card">
+                <div class="brand-name">${brandName}</div>
+                <div class="brand-size">Size ${closestSize.name}</div>
+                <div style="background:${fitColor};color:#fff;padding:4px 8px;border-radius:6px;font-size:12px;font-weight:600;display:inline-block;margin:8px 0;">
+                  ${fitQuality} fit (±${closestSize.diff.toFixed(1)}")
+                </div>
+                <p style="font-size:14px;color:var(--muted);margin:8px 0 6px;">
+                  ${category}
+                </p>
+                <div style="font-size:12px;margin-top:8px;color:var(--muted);">
+                  Waist: ${closestSize.measurements.waist}" (You: ${userWaist}")
+                  ${closestSize.measurements.hips ? `<br>Hips: ${closestSize.measurements.hips}" (You: ${userHips}")` : ''}
+                </div>
+              </div>
+            `);
+          }
+        });
       });
 
-      if (closestSize) {
-        const fitQuality = closestSize.diff <= 2 ? 'Perfect' : closestSize.diff <= 4 ? 'Good' : 'Acceptable';
-        const fitColor = closestSize.diff <= 2 ? 'var(--green)' : closestSize.diff <= 4 ? 'var(--blue)' : 'var(--orange)';
-
-        cards.push(`
-          <div class="brand-card">
-            <div class="brand-name">${brandName}</div>
-            <div class="brand-size">Size ${closestSize.name}</div>
-            <div style="background:${fitColor};color:#fff;padding:4px 8px;border-radius:6px;font-size:12px;font-weight:600;display:inline-block;margin:8px 0;">
-              ${fitQuality} fit (±${closestSize.diff.toFixed(1)}")
-            </div>
-            <p style="font-size:14px;color:var(--muted);margin:8px 0 6px;">
-              ${category}
-            </p>
-            <div style="font-size:12px;margin-top:8px;color:var(--muted);">
-              Waist: ${closestSize.measurements.waist}" (You: ${userWaist}")
-              ${closestSize.measurements.hips ? `<br>Hips: ${closestSize.measurements.hips}" (You: ${userHips}")` : ''}
-            </div>
-          </div>
-        `);
-      }
-    });
-  });
-
-  grid.innerHTML = cards.length
-    ? cards.join('')
-    : '<div style="text-align:center;padding:40px;color:var(--muted);">No matching brands found. Try adjusting filters.</div>';
-}
+      grid.innerHTML = cards.length
+        ? cards.join('')
+        : '<div style="text-align:center;padding:40px;color:var(--muted);">No matching brands found. Try adjusting filters.</div>';
+    }
 
     // ===== IMPROVED GENDER DETECTION =====
-function detectBrandGender(brandName, brandData) {
+    function detectBrandGender(brandName, brandData) {
       // 1. Check explicit gender field
       if (brandData.gender) {
         const g = brandData.gender.toLowerCase();
@@ -2821,11 +2152,11 @@ function detectBrandGender(brandName, brandData) {
       return 'women';
     }
 
-function filterBrandsByGender(brandNames, genderFilter) {
+    function filterBrandsByGender(brandNames, genderFilter) {
       if (genderFilter === 'all') return brandNames;
       
       return brandNames.filter(name => {
-        const brand = BRAND_DB[name] || BRAND_SIZE_DATABASE[name];
+        const brand = BRAND_DB[name];
         if (!brand) return false;
         
         const gender = detectBrandGender(name, brand);
@@ -2834,7 +2165,7 @@ function filterBrandsByGender(brandNames, genderFilter) {
     }
 
     // ===== UPDATE GENDER FILTER FUNCTIONS TO REFRESH SEARCHES =====
-function setMySizesGenderFilter(gender) {
+    function setMySizesGenderFilter(gender) {
       mySizesGenderFilter = gender;
       
       document.querySelectorAll('[data-mysizes-gender]').forEach(btn => btn.classList.remove('active'));
@@ -2848,7 +2179,7 @@ function setMySizesGenderFilter(gender) {
       populateMySizesGrid();
     }
 
-function setBrandNotesGenderFilter(gender) {
+    function setBrandNotesGenderFilter(gender) {
       brandNotesGenderFilter = gender;
       
       document.querySelectorAll('[data-brandnotes-gender]').forEach(btn => btn.classList.remove('active'));
@@ -2862,7 +2193,7 @@ function setBrandNotesGenderFilter(gender) {
       populateBrandNotes();
     }
 
-function setSizeFinderGenderFilter(gender) {
+    function setSizeFinderGenderFilter(gender) {
       sizeFinderGenderFilter = gender;
       
       document.querySelectorAll('[data-sizefinder-gender]').forEach(btn => btn.classList.remove('active'));
@@ -2876,8 +2207,8 @@ function setSizeFinderGenderFilter(gender) {
       loadUkBrandsForSizeFinder();
     }
 
-    // ===== FIXED BRAND NOTES POPULATION =====
-function populateBrandNotes() {
+    // ===== FIX: BRAND NOTES POPULATION =====
+    function populateBrandNotes() {
       console.log('🔍 populateBrandNotes called');
       
       const container = document.getElementById('brand-notes-grid');
@@ -2889,7 +2220,7 @@ function populateBrandNotes() {
         return;
       }
 
-      const sourceDB = (BRAND_DB && Object.keys(BRAND_DB).length > 0) ? BRAND_DB : BRAND_SIZE_DATABASE;
+      const sourceDB = BRAND_DB;
       
       console.log('📊 Using database with', Object.keys(sourceDB).length, 'brands');
       
@@ -3001,26 +2332,26 @@ function populateBrandNotes() {
     }
 
     // ===== UTILITY FUNCTIONS =====
-function kgFrom(value, unit) {
+    function kgFrom(value, unit) {
       if (unit === 'kg') return value;
       if (unit === 'lbs') return value * 0.45359237;
       if (unit === 'stone') return value * 6.35029318;
       return value;
     }
 
-function cmFrom(value, unit) {
+    function cmFrom(value, unit) {
       if (unit === 'cm') return value;
       if (unit === 'inch') return value * 2.54;
       return value;
     }
 
-function computeBMIKgCm(weightKg, heightCm) {
+    function computeBMIKgCm(weightKg, heightCm) {
       const h = heightCm / 100;
       if (!h) return null;
       return weightKg / (h * h);
     }
 
-function bmiCategory(bmi) {
+    function bmiCategory(bmi) {
       if (bmi == null) return '';
       if (bmi < 18.5) return 'Underweight';
       if (bmi < 25) return 'Normal Weight';
@@ -3029,7 +2360,7 @@ function bmiCategory(bmi) {
     }
 
     // ===== MISTATS FUNCTIONS =====
-function showStatsTab(tabName) {
+    function showStatsTab(tabName) {
       document.querySelectorAll('.stats-tab').forEach(tab => {
         tab.classList.remove('active');
       });
@@ -3045,7 +2376,7 @@ function showStatsTab(tabName) {
       if (activeContent) activeContent.style.display = 'block';
     }
 
-function setCurrentProfile(name) {
+    function setCurrentProfile(name) {
       if (!profileData[name]) return;
       currentProfile = name;
 
@@ -3064,7 +2395,7 @@ function setCurrentProfile(name) {
       console.log('Switched to profile:', name);
     }
 
-function populateMiStatsProfileSelect() {
+    function populateMiStatsProfileSelect() {
       const sel = document.getElementById('mistats-profile-select');
       if (!sel) return;
       sel.innerHTML = Object.keys(profileData).map(n => `<option value="${n}">${n}</option>`).join('');
@@ -3077,7 +2408,7 @@ function populateMiStatsProfileSelect() {
       sel.onchange = () => setCurrentProfile(sel.value);
     }
 
-function renderMiStats() {
+    function renderMiStats() {
       const p = profileData[currentProfile];
       if (!p) return;
 
@@ -3135,7 +2466,7 @@ function renderMiStats() {
       renderMeasurementHistory();
     }
 
-function renderMeasurementHistory() {
+    function renderMeasurementHistory() {
       const container = document.getElementById('measurement-history');
       if (!container) return;
 
@@ -3157,7 +2488,7 @@ function renderMeasurementHistory() {
       `).join('');
     }
 
-function renderWeightChart() {
+    function renderWeightChart() {
       const p = profileData[currentProfile];
       if (!p) return;
 
@@ -3209,7 +2540,7 @@ function renderWeightChart() {
       });
     }
 
-function renderHistoryTable() {
+    function renderHistoryTable() {
       const p = profileData[currentProfile];
       if (!p) return;
 
@@ -3236,12 +2567,10 @@ function renderHistoryTable() {
 
     // ===== PROFILE MANAGEMENT FUNCTIONS =====
     
-    // ⭐ FIXED: Load profile measurements when profile selected
-function loadProfileMeasurements(profileName) {
+    function loadProfileMeasurements(profileName) {
       const profile = profileData[profileName];
       
       if (!profile || !profile.measurements) {
-        // Clear all fields if no measurements
         document.getElementById('weight').value = '';
         document.getElementById('chest').value = '';
         document.getElementById('waist').value = '';
@@ -3252,7 +2581,6 @@ function loadProfileMeasurements(profileName) {
         return;
       }
 
-      // Load measurements into form
       document.getElementById('weight').value = profile.measurements.weight || '';
       document.getElementById('chest').value = profile.measurements.chest || '';
       document.getElementById('waist').value = profile.measurements.waist || '';
@@ -3262,8 +2590,7 @@ function loadProfileMeasurements(profileName) {
       document.getElementById('arms').value = profile.measurements.arms || '';
     }
 
-    // ⭐ FIXED: Populate profile dropdown with event listener
-function populateProfileDropdown() {
+    function populateProfileDropdown() {
       const select = document.getElementById('measurement-profile-select');
       if (!select) return;
       
@@ -3274,10 +2601,9 @@ function populateProfileDropdown() {
       
       if (currentProfile) {
         select.value = currentProfile;
-        loadProfileMeasurements(currentProfile); // ⭐ ADD THIS
+        loadProfileMeasurements(currentProfile);
       }
 
-      // ⭐ ADD EVENT LISTENER
       select.addEventListener('change', () => {
         if (select.value) {
           loadProfileMeasurements(select.value);
@@ -3285,7 +2611,7 @@ function populateProfileDropdown() {
       });
     }
 
-function loadSavedProfiles() {
+    function loadSavedProfiles() {
       const container = document.getElementById('profiles-list');
       if (!container) return;
 
@@ -3302,7 +2628,7 @@ function loadSavedProfiles() {
       `).join('');
     }
 
-function loadEditableProfiles() {
+    function loadEditableProfiles() {
       const container = document.getElementById('edit-profiles-list');
       if (!container) return;
 
@@ -3316,7 +2642,7 @@ function loadEditableProfiles() {
       `).join('');
     }
 
-function editProfile(profileName) {
+    function editProfile(profileName) {
       editingProfile = profileName;
       const profile = profileData[profileName];
       
@@ -3335,7 +2661,7 @@ function editProfile(profileName) {
       goToScreen('edit-profile-form');
     }
 
-function updateProfile() {
+    function updateProfile() {
       if (!editingProfile) return;
 
       const profile = profileData[editingProfile];
@@ -3349,7 +2675,7 @@ function updateProfile() {
       goBack();
     }
 
-function saveNewProfile() {
+    function saveNewProfile() {
       const name = document.getElementById('create-profile-name').value;
       if (!name) {
         alert('Please enter a profile name');
@@ -3386,8 +2712,7 @@ function saveNewProfile() {
       goToScreen('uk-settings');
     }
 
-    // ⭐ FIXED: Save measurements with validation
-function saveMeasurementsToProfile() {
+    function saveMeasurementsToProfile() {
       const profileSelect = document.getElementById('measurement-profile-select');
       const profileName = profileSelect?.value || currentProfile;
       
@@ -3396,7 +2721,6 @@ function saveMeasurementsToProfile() {
         return;
       }
 
-      // ⭐ Collect measurements
       const measurements = {
         weight: parseFloat(document.getElementById('weight').value) || 0,
         chest: parseFloat(document.getElementById('chest').value) || 0,
@@ -3407,23 +2731,19 @@ function saveMeasurementsToProfile() {
         arms: parseFloat(document.getElementById('arms').value) || 0
       };
 
-      // ⭐ Validate critical measurements
       if (measurements.chest === 0 || measurements.waist === 0 || measurements.hips === 0) {
         if (!confirm('⚠️ Chest, waist, and hips measurements are required for accurate sizing.\n\nContinue anyway?')) {
           return;
         }
       }
 
-      // ⭐ Save to profile
       profileData[profileName].measurements = measurements;
 
-      // ⭐ Update AI system
       if (miSizeSystem && miSizeSystem.isInitialized) {
         miSizeSystem.updateUserMeasurements();
         console.log('✅ AI system updated with new measurements');
       }
 
-      // ⭐ Update timestamp
       const lastUpdate = document.getElementById('last-update-time');
       if (lastUpdate) {
         lastUpdate.textContent = new Date().toLocaleString();
@@ -3432,22 +2752,22 @@ function saveMeasurementsToProfile() {
       alert('✅ Measurements saved successfully!\n\nYour AI sizing recommendations will now be updated.');
     }
 
-function saveToHistory() {
+    function saveToHistory() {
       alert('Size search saved to history!');
     }
 
-function reportIssue() {
+    function reportIssue() {
       alert('Report Issues:\n\n- Wrong sizes or measurements\n- App bugs or crashes\n- Suggestions for improvement\n\nPlease contact support@misizestall.com');
     }
 
-function toggleGuide(guideId) {
+    function toggleGuide(guideId) {
       const guide = document.getElementById(guideId);
       if (guide) {
         guide.classList.toggle('show');
       }
     }
 
-function showMeasurementGuide(type) {
+    function showMeasurementGuide(type) {
       let guideContent = '';
       
       switch(type) {
@@ -3468,8 +2788,7 @@ function showMeasurementGuide(type) {
       alert(guideContent);
     }
 
-  // ===== FIXED MY SIZES BRAND SEARCH =====
-function hydrateMySizesBrandSearch() {
+    function hydrateMySizesBrandSearch() {
       const datalist = document.getElementById('mysizes-brand-datalist');
       if (!datalist) return;
       
@@ -3595,7 +2914,6 @@ function hydrateMySizesBrandSearch() {
         });
       }
 
-      // ⭐ SHOW HOME SCREEN IMMEDIATELY
       console.log('✅ Showing home screen...');
       const flashScreen = document.getElementById('flash');
       const homeScreen = document.getElementById('home');
@@ -3603,7 +2921,6 @@ function hydrateMySizesBrandSearch() {
       if (homeScreen) homeScreen.style.display = 'block';
       currentScreen = 'home';
 
-      // Load data in background
       console.log('📦 Loading brand data in background...');
       miSizeSystem = new MiSizeAISystem();
 
