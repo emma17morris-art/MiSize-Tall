@@ -3605,11 +3605,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (flashScreen) flashScreen.style.display = 'none';
   if (homeScreen) homeScreen.style.display = 'block';
   currentScreen = 'home';
-}
+
   // Load data in background
   console.log('🟣 Loading brand data in background...');
   miSizeSystem = new MiSizeAISystem();
-
+}
   try {
     await loadUkBrands();
     await miSizeSystem.initialize();
