@@ -2288,21 +2288,13 @@
       }
 
       // ===== CALCULATE FIT SCORE =====
-      calculateFitScore(sizeData) {
+    calculateFitScore(sizeData) {
   let score = 100;
   let measurementsChecked = 0;
   const { bust, waist, hips, inseam } = this.userMeasurements;
 
-  // Helper function to get measurement value regardless of field name
-  const getMeasurement = (data, fieldName) => {
-    return data[fieldName] || 
-           data[`${fieldName}_inches`] || 
-           data[`${fieldName} (inches)`] ||
-           data[fieldName.charAt(0).toUpperCase() + fieldName.slice(1)];
-  };
-
   // Check waist (most important)
-  const sizeWaist = getMeasurement(sizeData, 'waist');
+  const sizeWaist = sizeData.waist || sizeData.waist_inches || sizeData['waist (inches)'];
   if (sizeWaist && waist) {
     measurementsChecked++;
     const waistDiff = Math.abs(sizeWaist - waist);
@@ -2311,7 +2303,7 @@
   }
 
   // Check hips
-  const sizeHips = getMeasurement(sizeData, 'hips');
+  const sizeHips = sizeData.hips || sizeData.hips_inches || sizeData['hips (inches)'];
   if (sizeHips && hips) {
     measurementsChecked++;
     const hipsDiff = Math.abs(sizeHips - hips);
@@ -2320,7 +2312,7 @@
   }
 
   // Check bust/chest
-  const sizeBust = getMeasurement(sizeData, 'bust') || getMeasurement(sizeData, 'chest');
+  const sizeBust = sizeData.bust || sizeData.bust_inches || sizeData.chest || sizeData.chest_inches || sizeData['bust (inches)'];
   if (sizeBust && bust) {
     measurementsChecked++;
     const bustDiff = Math.abs(sizeBust - bust);
@@ -2329,7 +2321,7 @@
   }
 
   // Check inseam
-  const sizeInseam = getMeasurement(sizeData, 'inseam');
+  const sizeInseam = sizeData.inseam || sizeData.inseam_inches || sizeData['inseam (inches)'];
   if (sizeInseam && inseam) {
     measurementsChecked++;
     const inseamDiff = Math.abs(sizeInseam - inseam);
