@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1354,9 +1355,9 @@
       <!-- SEARCH -->
       <div class="form-group">
         <label class="form-label">Search Brands</label>
-        <input 
-          id="brand-intel-search" 
-          class="form-input" 
+        <input
+          id="brand-intel-search"
+          class="form-input"
           placeholder="Search brand name…"
           oninput="populateBrandNotes()"
         >
@@ -1998,7 +1999,7 @@
     function normaliseBrandJson(raw) {
       if (Array.isArray(raw)) {
         const obj = {};
-        raw.forEach(b => { 
+        raw.forEach(b => {
           if (b && b.name) {
             if (!b.sourceType) b.sourceType = 'standard';
             if (!b.gender) {
@@ -2034,9 +2035,9 @@
     function getInseamRange(categoryData) {
       const inseams = [];
       Object.values(categoryData).forEach(sizeMeasurements => {
-        const inseam = sizeMeasurements.inseam || 
-                      sizeMeasurements.inseam_inches || 
-                      sizeMeasurements['inseam (inches)'] || 
+        const inseam = sizeMeasurements.inseam ||
+                      sizeMeasurements.inseam_inches ||
+                      sizeMeasurements['inseam (inches)'] ||
                       sizeMeasurements.Inseam ||
                       sizeMeasurements['Inseam (inches)'];
         
@@ -2143,11 +2144,6 @@
         ALL_CATEGORIES = new Set();
       }
     }
-    document.addEventListener('DOMContentLoaded', async () => {
-      console.log('🚀 Starting initialization...');
-      
-      console.log('✅ Showing flash screen for 2 seconds...');
-      
       // Show flash screen for     // ===== FIXED SIZE FINDER BRAND SYNC WITH CATEGORY AUTO-POPULATE =====
     function loadUkBrandsForSizeFinder() {
       const filteredBrands = filterBrandsByGender(ALL_BRANDS, sizeFinderGenderFilter);
@@ -2171,7 +2167,7 @@
         if (currentValue && filteredBrands.includes(currentValue)) {
           select.value = currentValue;
         }
-      }
+      
       
       filteredBrands.forEach(name => {
         if (datalist) {
@@ -2180,12 +2176,12 @@
           datalist.appendChild(o);
         }
       });
-      
+      }
       console.log(`✅ Loaded ${filteredBrands.length} brands for size finder (${sizeFinderGenderFilter} filter)`);
     }
     
     function setupBrandSelectListener() {
-      const select = document.getElementById('uk-brand-select');
+      const select = document.getElementById('uk-brand-select');/var/folders/8f/l_s7n85542v461pklzv8wpzw0000gn/T/TemporaryItems/NSIRD_screencaptureui_uA37AC/Screenshot 2025-10-14 at 21.32.22.png
       const search = document.getElementById('uk-brand-search');
       const categorySelect = document.getElementById('uk-category-select');
       
@@ -2195,7 +2191,7 @@
             const brand = BRAND_DB[this.value] || BRAND_SIZE_DATABASE[this.value];
             if (brand && brand.categories) {
               const cats = Object.keys(brand.categories);
-              categorySelect.innerHTML = '<option value="">Select category...</option>' + 
+              categorySelect.innerHTML = '<option value="">Select category...</option>' +
                 cats.map(c => `<option value="${c}">${c}</option>`).join('');
             }
           }
@@ -2210,7 +2206,7 @@
             const brand = BRAND_DB[v] || BRAND_SIZE_DATABASE[v];
             if (brand && brand.categories) {
               const cats = Object.keys(brand.categories);
-              categorySelect.innerHTML = '<option value="">Select category...</option>' + 
+              categorySelect.innerHTML = '<option value="">Select category...</option>' +
                 cats.map(c => `<option value="${c}">${c}</option>`).join('');
             }
           }
@@ -2260,12 +2256,12 @@
           return null;
         }
 
-        const categoryData = brandData.categories 
+        const categoryData = brandData.categories
           ? brandData.categories[category]
           : brandData[category];
 
         if (!categoryData) {
-          const availableCategories = brandData.categories 
+          const availableCategories = brandData.categories
             ? Object.keys(brandData.categories)
             : Object.keys(brandData).filter(k => typeof brandData[k] === 'object');
           console.log('Category not found:', category, 'Available:', availableCategories);
@@ -2394,11 +2390,11 @@
             else if (absDiff <= 3) desc = diff > 0 ? 'Snug fit' : 'Loose fit';
             else desc = diff > 0 ? `${absDiff.toFixed(1)}" too small` : `${absDiff.toFixed(1)}" too large`;
             
-            d.fit[k] = { 
-              userMeasurement: userVal, 
-              sizeMeasurement: sizeVal, 
-              difference: diff, 
-              description: desc 
+            d.fit[k] = {
+              userMeasurement: userVal,
+              sizeMeasurement: sizeVal,
+              difference: diff,
+              description: desc
             };
             
             if (absDiff > 2) {
@@ -2502,7 +2498,7 @@
           ? [...ALL_CATEGORIES]
           : [
               "Women's Shirts/Tops",
-              "Women's Dresses", 
+              "Women's Dresses",
               "Women's Jumpers",
               "Men's T-Shirts/Shirts",
               "Men's Jumpers"
@@ -2951,7 +2947,7 @@
       console.log('👥 After gender filter:', filteredBrands.length, 'brands');
       
       if (searchTerm) {
-        filteredBrands = filteredBrands.filter(name => 
+        filteredBrands = filteredBrands.filter(name =>
           name.toLowerCase().includes(searchTerm)
         );
         console.log('🔎 After search filter:', filteredBrands.length, 'brands');
@@ -3269,21 +3265,21 @@
         options: {
           responsive: true,
           maintainAspectRatio: true,
-          plugins: { 
-            legend: { 
-              labels: { 
-                color: "#fff" 
-              } 
-            } 
+          plugins: {
+            legend: {
+              labels: {
+                color: "#fff"
+              }
+            }
           },
           scales: {
-            x: { 
-              ticks: { color: "#fff" }, 
-              grid: { color: "#444" } 
+            x: {
+              ticks: { color: "#fff" },
+              grid: { color: "#444" }
             },
-            y: { 
-              ticks: { color: "#fff" }, 
-              grid: { color: "#444" } 
+            y: {
+              ticks: { color: "#fff" },
+              grid: { color: "#444" }
             }
           }
         }
@@ -3343,7 +3339,7 @@
       if (!select) return;
       
       select.innerHTML = '<option value="">Choose a profile...</option>' +
-        Object.keys(profileData).map(name => 
+        Object.keys(profileData).map(name =>
           `<option value="${name}">${name}</option>`
         ).join('');
       
