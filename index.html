@@ -3573,23 +3573,42 @@
       console.log(`Populated My Sizes brand search with ${filteredBrands.length} brands`);
     }
 
-    document.addEventListener('DOMContentLoaded', async () => {
+    document.addEventListener('DOMContentLoaded', () => {
       console.log('🚀 Starting initialization...');
       console.log('✅ Flash screen will display for 2 seconds...');
       
-      // Ensure flash screen is visible and home is hidden
-      const flashScreen = document.getElementById('flash');
-      const homeScreen = document.getElementById('home');
+      // Set a simple 2 second timer to transition to home
+      setTimeout(() => {
+        console.log('⏰ 2 seconds elapsed, transitioning to home...');
+        
+        const flashScreen = document.getElementById('flash');
+        const homeScreen = document.getElementById('home');
+        
+        if (flashScreen) {
+          flashScreen.classList.remove('active');
+          console.log('✅ Flash screen hidden');
+        }
+        
+        if (homeScreen) {
+          homeScreen.classList.add('active');
+          console.log('✅ Home screen shown');
+        }
+        
+        currentScreen = 'home';
+        
+        document.body.style.pointerEvents = 'auto';
+        document.querySelectorAll('.screen').forEach(screen => {
+          screen.style.pointerEvents = 'auto';
+        });
+        
+        console.log('✅ Transitioned to home screen successfully');
+      }, 2000);
       
-      if (flashScreen) flashScreen.classList.add('active');
-      if (homeScreen) homeScreen.classList.remove('active');
-      
-      // Load brand data in background while flash screen shows
+      // Load brand data in background
       console.log('📦 Loading brand data in background...');
       miSizeSystem = new MiSizeAISystem();
 
-      // Start loading data
-      const dataLoadPromise = (async () => {
+      (async () => {
         try {
           await loadUkBrands();
           setupBrandSelectListener();
@@ -3599,24 +3618,6 @@
           console.error('❌ Error loading brand data:', error);
         }
       })();
-
-      // Wait for 2 seconds before transitioning
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Transition from flash to home screen
-      if (flashScreen) flashScreen.classList.remove('active');
-      if (homeScreen) homeScreen.classList.add('active');
-      currentScreen = 'home';
-      
-      document.body.style.pointerEvents = 'auto';
-      document.querySelectorAll('.screen').forEach(screen => {
-        screen.style.pointerEvents = 'auto';
-      });
-      
-      console.log('✅ Transitioned to home screen');
-
-      // Wait for data loading to complete if not already done
-      await dataLoadPromise;
 
       populateMiStatsProfileSelect();
       renderMiStats();
