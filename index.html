@@ -2109,9 +2109,7 @@
         ALL_CATEGORIES = new Set();
       }
     }
-
-    // ===== FIXED SIZE FINDER BRAND SYNC WITH CATEGORY AUTO-POPULATE =====
-    function loadUkBrandsForSizeFinder() {
+function loadUkBrandsForSizeFinder() {
   const filteredBrands = filterBrandsByGender(ALL_BRANDS, sizeFinderGenderFilter);
   
   const datalist = document.getElementById('uk-brand-datalist');
@@ -2156,6 +2154,22 @@
     });
   }
   
+  // Setup brand search handler
+  const search = document.getElementById('uk-brand-search');
+  if (search && select) {
+    search.addEventListener('input', () => {
+      const v = search.value.trim();
+      if (filteredBrands.includes(v)) {
+        select.value = v;
+        // Trigger change event
+        const event = new Event('change');
+        select.dispatchEvent(event);
+      }
+    });
+  }
+  
+  console.log(`Loaded ${filteredBrands.length} brands for size finder (${sizeFinderGenderFilter} filter)`);
+}
   // Setup brand search handler
   const search = document.getElementById('uk-brand-search');
   if (search && select) {
