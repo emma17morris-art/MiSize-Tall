@@ -1179,15 +1179,6 @@
       </div>
       
       <div class="form-container">
-        <div class="form-group">
-          <label class="form-label">Gender Filter</label>
-          <div class="pill-settings-group">
-            <button class="settings-pill active" data-sizefinder-gender="all" onclick="setSizeFinderGenderFilter('all')">All</button>
-            <button class="settings-pill" data-sizefinder-gender="women" onclick="setSizeFinderGenderFilter('women')">Women</button>
-            <button class="settings-pill" data-sizefinder-gender="men" onclick="setSizeFinderGenderFilter('men')">Men</button>
-          </div>
-        </div>
-
         <!-- Clothing Type Filter -->
         <div class="form-group">
           <label class="form-label">Clothing Type</label>
@@ -1294,9 +1285,26 @@
       </div>
 
       <div class="form-group">
-        <label class="form-label">Category Filter</label>
+        <label class="form-label">Clothing Type Filter</label>
         <select class="form-select" id="mysizes-category" onchange="populateMySizesGrid()">
-          <option value="">All categories</option>
+          <option value="">All clothing types</option>
+          <optgroup label="Women's">
+            <option value="Women's Dresses">Dresses</option>
+            <option value="Women's Tops">Tops</option>
+            <option value="Women's Shirts">Shirts</option>
+            <option value="Women's Jumpers">Jumpers</option>
+            <option value="Women's Skirts">Skirts</option>
+            <option value="Women's Tall Jeans">Jeans</option>
+            <option value="Women's Trousers">Trousers</option>
+          </optgroup>
+          <optgroup label="Men's">
+            <option value="Men's Shirts">Shirts</option>
+            <option value="Men's T-Shirts">T-Shirts</option>
+            <option value="Men's Tops">Tops</option>
+            <option value="Men's Jumpers">Jumpers</option>
+            <option value="Men's Tall Jeans">Jeans</option>
+            <option value="Men's Trousers">Trousers</option>
+          </optgroup>
         </select>
       </div>
 
@@ -1343,22 +1351,16 @@
         </div>
       </div>
 
-      <!-- SEARCH & FILTER -->
+      <!-- SEARCH -->
       <div class="form-group">
-        <label class="form-label">Search & Filter</label>
-        <div style="display:flex; gap:8px; margin-bottom: 12px;">
-          <input 
-            id="brand-intel-search" 
-            class="form-input" 
-            placeholder="Search brand name…"
-            style="flex: 2;"
-            oninput="populateBrandNotes()"
-          >
-          <select id="brand-intel-category" class="form-select" style="flex: 1;" onchange="populateBrandNotes()">
-            <option value="">All categories</option>
-          </select>
-        </div>
-        <p style="margin:0;color:var(--muted);font-size:12px;" id="brand-count-display">
+        <label class="form-label">Search Brands</label>
+        <input 
+          id="brand-intel-search" 
+          class="form-input" 
+          placeholder="Search brand name…"
+          oninput="populateBrandNotes()"
+        >
+        <p style="margin:8px 0 0 0;color:var(--muted);font-size:12px;" id="brand-count-display">
           Loading brands...
         </p>
       </div>
@@ -1914,7 +1916,7 @@
   
   <script>
     // ===== GLOBAL VARIABLES =====
-    let currentScreen = 'home';
+    let currentScreen = 'flash';
     let navigationHistory = [];
     let selectedBodyType = 'standard';
     let selectedUnit = 'cm';
@@ -2141,7 +2143,12 @@
         ALL_CATEGORIES = new Set();
       }
     }
-    // ===== FIXED SIZE FINDER BRAND SYNC WITH CATEGORY AUTO-POPULATE =====
+    document.addEventListener('DOMContentLoaded', async () => {
+      console.log('🚀 Starting initialization...');
+      
+      console.log('✅ Showing flash screen for 2 seconds...');
+      
+      // Show flash screen for     // ===== FIXED SIZE FINDER BRAND SYNC WITH CATEGORY AUTO-POPULATE =====
     function loadUkBrandsForSizeFinder() {
       const filteredBrands = filterBrandsByGender(ALL_BRANDS, sizeFinderGenderFilter);
       
@@ -2935,9 +2942,8 @@
       }
       
       const searchTerm = (document.getElementById('brand-intel-search')?.value || '').toLowerCase().trim();
-      const categoryFilter = (document.getElementById('brand-intel-category')?.value || '').trim();
       
-      console.log('🔎 Filters:', { searchTerm, categoryFilter, genderFilter: brandNotesGenderFilter });
+      console.log('🔎 Filters:', { searchTerm, genderFilter: brandNotesGenderFilter });
       
       let filteredBrands = Object.keys(sourceDB);
       
@@ -2950,15 +2956,6 @@
         );
         console.log('🔎 After search filter:', filteredBrands.length, 'brands');
       }
-      
-      if (categoryFilter) {
-        filteredBrands = filteredBrands.filter(name => {
-          const brand = sourceDB[name];
-          const categories = brand.categories ? Object.keys(brand.categories) : [];
-          return categories.includes(categoryFilter);
-        });
-        console.log('📂 After category filter:', filteredBrands.length, 'brands');
-      }
 
       filteredBrands.sort((a, b) => a.localeCompare(b));
 
@@ -2970,7 +2967,6 @@
         const genderText = brandNotesGenderFilter === 'all' ? 'all' : brandNotesGenderFilter + "'s";
         const filterInfo = [];
         if (searchTerm) filterInfo.push(`matching "${searchTerm}"`);
-        if (categoryFilter) filterInfo.push(`in ${categoryFilter}`);
         const filterText = filterInfo.length ? ` ${filterInfo.join(' ')}` : '';
         
         countDisplay.textContent = `Showing ${filteredBrands.length} ${genderText} tall brands${filterText}`;
@@ -3000,59 +2996,52 @@
         if (sourceType === 'official') {
           sourceBadge = '<span class="source-badge source-official">✓ Official Chart</span>';
         } else {
-          sourceBadge = '<span class="source-badge source-standard">⊙ Standard Chart</span>';
+          sourceBadge = '<span class="source-badge source-standard">⊙ UK Standard Chart</span>';
         }
 
         const genderBadge = `<span class="source-badge" style="background: var(--blue);">${gender === 'women' ? '👗 Women' : '👔 Men'}</span>`;
 
-        // COLLECT ALL INSEAM RANGES AND SIZES FROM ALL CATEGORIES
-        let allInseamRanges = [];
+        // COLLECT ALL INSEAM RANGES FROM ALL CATEGORIES - DISPLAY IN INCHES ONLY
+        let allInseamInches = [];
         let allSizes = new Set();
         
         if (brand.categories) {
           Object.entries(brand.categories).forEach(([catName, categoryData]) => {
-            // Get inseam range for this category
             const inseamRange = getInseamRange(categoryData);
             if (inseamRange) {
-              allInseamRanges.push({
-                category: catName,
+              allInseamInches.push({
                 min: inseamRange.min,
-                max: inseamRange.max,
-                display: inseamRange.display
+                max: inseamRange.max
               });
             }
             
-            // Collect all sizes
             Object.keys(categoryData).forEach(size => {
               allSizes.add(size);
             });
           });
         }
 
-        // Sort inseam ranges from shortest to longest
-        allInseamRanges.sort((a, b) => a.min - b.min);
-
-        // Display inseam ranges
+        // Sort inseam ranges from shortest to longest and display in INCHES only
         let inseamRangesHTML = '';
-        if (allInseamRanges.length > 0) {
-          inseamRangesHTML = '<div style="margin-top: 12px;"><strong style="font-size: 14px;">📏 Inseam Ranges (Shortest to Longest):</strong><div style="margin-top: 6px; display: grid; gap: 4px;">';
-          allInseamRanges.forEach(range => {
-            const cmMin = (range.min * 2.54).toFixed(1);
-            const cmMax = (range.max * 2.54).toFixed(1);
-            inseamRangesHTML += `
+        if (allInseamInches.length > 0) {
+          allInseamInches.sort((a, b) => a.min - b.min);
+          
+          const minInseam = allInseamInches[0].min;
+          const maxInseam = allInseamInches[allInseamInches.length - 1].max;
+          
+          inseamRangesHTML = `
+            <div style="margin-top: 12px;">
               <div class="inseam-range-display">
-                <strong>${range.category}:</strong> ${range.display} (${cmMin} - ${cmMax} cm)
+                <strong>📏 Inseam Range:</strong> ${minInseam}" - ${maxInseam}" (Shortest to Longest)
               </div>
-            `;
-          });
-          inseamRangesHTML += '</div></div>';
+            </div>
+          `;
         }
 
         // Display all available sizes
         let sizesHTML = '';
         if (allSizes.size > 0) {
           const sortedSizes = Array.from(allSizes).sort((a, b) => {
-            // Try to sort numerically if possible
             const numA = parseFloat(a);
             const numB = parseFloat(b);
             if (!isNaN(numA) && !isNaN(numB)) {
@@ -3091,7 +3080,7 @@
       }).join('');
 
       container.innerHTML = cards;
-      console.log('✅ Rendered', filteredBrands.length, 'brand cards with inseam ranges and sizes');
+      console.log('✅ Rendered', filteredBrands.length, 'brand cards with inseam ranges (inches) and sizes');
     }
 
     function kgFrom(value, unit) {
@@ -3587,24 +3576,29 @@
     document.addEventListener('DOMContentLoaded', async () => {
       console.log('🚀 Starting initialization...');
       
-      console.log('✅ Showing home screen...');
+      console.log('✅ Showing flash screen for 2 seconds...');
       
-      const flashScreen = document.getElementById('flash');
-      if (flashScreen) {
-        flashScreen.remove();
-      }
-      
-      const homeScreen = document.getElementById('home');
-      if (homeScreen) {
-        homeScreen.classList.add('active');
-      }
-      
-      document.body.style.pointerEvents = 'auto';
-      document.querySelectorAll('.screen').forEach(screen => {
-        screen.style.pointerEvents = 'auto';
-      });
-      
-      currentScreen = 'home';
+      // Show flash screen for 2 seconds then transition to home
+      setTimeout(() => {
+        const flashScreen = document.getElementById('flash');
+        const homeScreen = document.getElementById('home');
+        
+        if (flashScreen) {
+          flashScreen.classList.remove('active');
+        }
+        
+        if (homeScreen) {
+          homeScreen.classList.add('active');
+          currentScreen = 'home';
+        }
+        
+        document.body.style.pointerEvents = 'auto';
+        document.querySelectorAll('.screen').forEach(screen => {
+          screen.style.pointerEvents = 'auto';
+        });
+        
+        console.log('✅ Transitioned to home screen');
+      }, 2000);
       
       console.log('📦 Loading brand data in background...');
       miSizeSystem = new MiSizeAISystem();
