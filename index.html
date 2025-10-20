@@ -2156,7 +2156,6 @@ function initializeUnitToggles() {
         });
     });
 }
-
 /* COMPLETE JAVASCRIPT - PART 8: SIZE ENGINE, DATA LOADING, PROFILES, STATS */
 
 // ===== LOAD UK BRANDS FROM JSON =====
@@ -2838,6 +2837,7 @@ window.updateProfile = function() {
 }
 
 // Continued in next message due to length...
+</script>
 <script>
 /* COMPLETE JAVASCRIPT - PART 9 FINAL: STATS RENDERING + BRAND FUNCTIONS + INITIALIZATION */
 
@@ -3209,19 +3209,10 @@ window.populateBrandNotes = function() {
         
         if (brand.categories) {
             Object.entries(brand.categories).forEach(function([catName, categoryData]) {
-                // Collect ALL individual inseam values, not just ranges
-                Object.values(categoryData).forEach(function(sizeMeasurements) {
-                    var inseam = sizeMeasurements.inseam ||
-                                sizeMeasurements.inseam_inches ||
-                                sizeMeasurements['inseam (inches)'] ||
-                                sizeMeasurements.Inseam ||
-                                sizeMeasurements['Inseam (inches)'];
-                    
-                    if (inseam && !isNaN(parseFloat(inseam))) {
-                        allInseamInches.push(parseFloat(inseam));
-                    }
-                });
-                
+                var inseamRange = getInseamRange(categoryData);
+                if (inseamRange) {
+                    allInseamInches.push({ min: inseamRange.min, max: inseamRange.max });
+                }
                 Object.keys(categoryData).forEach(function(size) {
                     allSizes.add(size);
                 });
@@ -3230,14 +3221,10 @@ window.populateBrandNotes = function() {
 
         var inseamRangesHTML = '';
         if (allInseamInches.length > 0) {
-            var minInseam = Math.min.apply(Math, allInseamInches);
-            var maxInseam = Math.max.apply(Math, allInseamInches);
-            
-            if (minInseam === maxInseam) {
-                inseamRangesHTML = '<div style="margin-top: 12px;"><div class="inseam-range-display"><strong>📏 Inseam:</strong> ' + minInseam + '"</div></div>';
-            } else {
-                inseamRangesHTML = '<div style="margin-top: 12px;"><div class="inseam-range-display"><strong>📏 Inseam Range:</strong> ' + minInseam + '" - ' + maxInseam + '" (Shortest to Longest)</div></div>';
-            }
+            allInseamInches.sort(function(a, b) { return a.min - b.min; });
+            var minInseam = allInseamInches[0].min;
+            var maxInseam = allInseamInches[allInseamInches.length - 1].max;
+            inseamRangesHTML = '<div style="margin-top: 12px;"><div class="inseam-range-display"><strong>📏 Inseam Range:</strong> ' + minInseam + '" - ' + maxInseam + '" (Shortest to Longest)</div></div>';
         }
 
         var sizesHTML = '';
